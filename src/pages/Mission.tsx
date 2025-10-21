@@ -138,7 +138,7 @@ const Mission = () => {
                         <Heart className="relative w-6 h-6 md:w-8 md:h-8 text-pink-400 mx-auto mb-3 
                           drop-shadow-[0_0_20px_rgba(255,107,157,0.9)] 
                           filter brightness-110" />
-                        <p className="relative text-base md:text-lg text-white/98 font-normal leading-relaxed text-center">
+                        <p className="relative text-base md:text-lg text-burgundy-900 font-normal leading-relaxed text-center">
                           empathy is still the highest form of intelligence
                         </p>
                       </div>
@@ -360,7 +360,7 @@ const Mission = () => {
                         <Globe className="relative w-6 h-6 md:w-8 md:h-8 text-peach-400 mx-auto mb-3 
                           drop-shadow-[0_0_20px_rgba(255,183,123,0.9)] 
                           filter brightness-110" />
-                        <p className="relative text-base md:text-lg text-white/98 font-normal leading-relaxed text-center">
+                        <p className="relative text-base md:text-lg text-burgundy-900 font-normal leading-relaxed text-center">
                           profit fuels purpose. purpose drives connection.
                         </p>
                       </div>
