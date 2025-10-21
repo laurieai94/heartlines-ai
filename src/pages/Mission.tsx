@@ -121,7 +121,7 @@ const Mission = () => {
                       </div>
 
                       {/* Conflict Section */}
-                      <div className="space-y-4 text-center">
+                      <div className="space-y-4 text-left">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
                           but somewhere between the progress and the code,<br />
                           <span className="text-white font-semibold">we lost something.</span>
@@ -150,7 +150,7 @@ const Mission = () => {
                       </div>
 
                       {/* Call to Action */}
-                      <div className="space-y-3 text-center">
+                      <div className="space-y-3 text-left">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
                           so <span className="text-white font-semibold">this is our moment</span> —
                         </p>
