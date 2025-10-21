@@ -734,7 +734,7 @@ const LandingPage = ({
                 </h3>
                 
                 <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                  trained in phd-level psychology and real-world clinical care, kai isn't here to judge—kai's here to help you figure it out. grounded in evidence-based and trauma-informed practices, kai meets you where you are: messy, stressed, or somewhere in between.
+                  Kai's built for how we love now — the long-distance FaceTimes, the dating apps and late-night "wyd?"s, the almosts, the maybes, the marriages trying to stay soft through the chaos. Built on science, powered by empathy, designed for real life. Trained in PhD-level psychology and trauma-informed care, Kai helps you slow down, reflect, and reconnect when things get messy.
                 </p>
                 
                 {/* Credential badges */}
