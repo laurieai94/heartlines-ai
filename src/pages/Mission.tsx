@@ -25,7 +25,12 @@ const Mission = () => {
         <meta name="keywords" content="relationship coaching, ai coaching, healthy relationships, couples therapy, communication skills" />
       </Helmet>
       
-      <div className="landing-page-scroll min-h-screen bg-burgundy-900 flex flex-col">
+      <div className="landing-page-scroll min-h-screen bg-burgundy-900 flex flex-col relative overflow-hidden">
+      {/* Floating background elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute top-96 right-20 w-96 h-96 bg-coral-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute bottom-40 left-1/4 w-80 h-80 bg-peach-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
         <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
@@ -46,7 +51,7 @@ const Mission = () => {
 
 
           {/* 1.5. Our Moment */}
-          <section className="animate-slide-up animation-delay-100 -mt-4">
+          <section className="animate-slide-up animation-delay-100 -mt-4 scroll-fade-in">
             <div className="relative group">
               {/* Outer glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
@@ -140,8 +145,8 @@ const Mission = () => {
             </div>
           </section>
 
-          {/* 2. What heartlines Is */}
-          <section className="animate-slide-up animation-delay-200">
+          {/* 2. What heartlines Is - SPLIT LAYOUT */}
+          <section className="animate-slide-up animation-delay-200 scroll-fade-in">
             <div className="relative group">
               {/* Outer glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
@@ -164,84 +169,106 @@ const Mission = () => {
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Opening */}
-                <div className="text-center mb-10 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-3">
-                    stronger relationships start here.
-                  </p>
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    the ai relationship coach for messy, modern love.
-                  </p>
-                </div>
+                {/* Split Layout: 2-column grid on desktop */}
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+                
+                  {/* LEFT COLUMN - Visual/Icon Side */}
+                  <div className="flex flex-col items-center justify-start space-y-6 md:sticky md:top-8">
+                    {/* Large decorative heart icon */}
+                    <div className="relative">
+                      <div className="absolute -inset-4 bg-gradient-to-r from-pink-500/30 to-coral-500/30 rounded-full blur-2xl"></div>
+                      <Heart className="relative w-20 h-20 md:w-24 md:h-24 text-pink-400 drop-shadow-[0_0_30px_rgba(255,107,157,0.6)]" />
+                    </div>
+                    
+                    {/* Nested mini-card: Core Definition */}
+                    <div className="relative w-full max-w-xs">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/20 to-coral-500/20 rounded-xl blur"></div>
+                      <div className="relative backdrop-blur-sm rounded-xl p-4 bg-white/10 border border-pink-400/30 text-center">
+                        <MessageSquare className="w-5 h-5 text-coral-400 mx-auto mb-2" />
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          what happens when<br />technology learns to listen
+                        </p>
+                      </div>
+                    </div>
 
-                {/* Decorative gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
-
-                {/* Pull quote - Core Definition */}
-                <div className="relative max-w-xl mx-auto mb-10">
-                  <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
-                  <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
-                    bg-white/10 border border-pink-400/30">
-                    <MessageSquare className="w-6 h-6 text-coral-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,132,80,0.5)]" />
-                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
-                      what happens when technology learns to listen
-                    </p>
+                    {/* Nested mini-card: Philosophy */}
+                    <div className="relative w-full max-w-xs hidden md:block">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-coral-500/20 to-peach-400/20 rounded-xl blur"></div>
+                      <div className="relative backdrop-blur-sm rounded-xl p-4 bg-white/10 border border-coral-400/30 text-center">
+                        <p className="text-sm text-white/80 font-light">
+                          not about perfect<br />
+                          <span className="text-white font-medium">honest conversation</span>
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Context - The Chaos */}
-                <div className="max-w-2xl mx-auto mb-10">
-                  <div className="mr-8 border-r-2 border-coral-400/30 pr-6 space-y-4 text-right">
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      built for the chaos of real connection —
-                    </p>
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      the overthinking, the late-night silence, the "we need to talk" moments.
-                    </p>
-                  </div>
-                </div>
+                  {/* RIGHT COLUMN - Content Side */}
+                  <div className="space-y-8">
+                    {/* Opening */}
+                    <div className="space-y-3">
+                      <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                        stronger relationships start here.
+                      </p>
+                      <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                        the ai relationship coach for messy, modern love.
+                      </p>
+                    </div>
 
-                {/* Decorative gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+                    {/* Decorative gradient divider */}
+                    <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                {/* Philosophy */}
-                <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    it's not about perfect communication.
-                  </p>
-                  <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
-                    it's about honest conversation.
-                  </p>
-                </div>
+                    {/* Context - The Chaos */}
+                    <div className="space-y-3">
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        built for the chaos of real connection —
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        the overthinking, the late-night silence, the "we need to talk" moments.
+                      </p>
+                    </div>
 
-                {/* Audience */}
-                <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    for anyone who still believes love is worth understanding —
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    who wants to connect instead of drift,
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    to grow instead of give up.
-                  </p>
-                </div>
+                    {/* Philosophy */}
+                    <div className="space-y-2">
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        it's not about perfect communication.
+                      </p>
+                      <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
+                        it's about honest conversation.
+                      </p>
+                    </div>
 
-                {/* Decorative gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+                    {/* Decorative gradient divider */}
+                    <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                {/* Closing */}
-                <div className="max-w-2xl mx-auto">
-                  <div className="ml-8 border-l-2 border-peach-400/30 pl-6 space-y-3">
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      you bring the feelings.
-                    </p>
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      we help you make sense of them —
-                    </p>
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      so you can grow together, not apart.
-                    </p>
+                    {/* Audience */}
+                    <div className="space-y-3">
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        for anyone who still believes love is worth understanding —
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        who wants to connect instead of drift,
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        to grow instead of give up.
+                      </p>
+                    </div>
+
+                    {/* Decorative gradient divider */}
+                    <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                    {/* Closing */}
+                    <div className="border-l-2 border-peach-400/30 pl-6 space-y-3">
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        you bring the feelings.
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        we help you make sense of them —
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        so you can grow together, not apart.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -249,7 +276,7 @@ const Mission = () => {
           </section>
 
           {/* Powered by Laurie AI */}
-          <section className="animate-slide-up animation-delay-300">
+          <section className="animate-slide-up animation-delay-300 scroll-fade-in">
             <div className="relative group">
               {/* Glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
