@@ -59,8 +59,8 @@ const Mission = () => {
               
               {/* Glass card */}
               <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
-                bg-gradient-to-br from-white/20 via-white/15 to-white/10
-                border border-pink-400/20
+                bg-gradient-to-br from-white/25 via-white/20 to-white/15
+                border border-pink-400/30
                 hover:-translate-y-2 hover:scale-[1.02]
                 hover:shadow-2xl hover:shadow-pink-500/20
                 transition-all duration-500 ease-out">
@@ -213,8 +213,8 @@ const Mission = () => {
               
               {/* Glass card */}
               <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
-                bg-gradient-to-br from-white/20 via-white/15 to-white/10
-                border border-pink-400/20
+                bg-gradient-to-br from-white/25 via-white/20 to-white/15
+                border border-pink-400/30
                 hover:-translate-y-2 hover:scale-[1.02]
                 hover:shadow-2xl hover:shadow-pink-500/20
                 transition-all duration-500 ease-out">
@@ -352,8 +352,8 @@ const Mission = () => {
               
               {/* Glass container */}
               <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
-                bg-gradient-to-br from-white/20 via-white/15 to-white/10
-                border border-pink-400/20
+                bg-gradient-to-br from-white/25 via-white/20 to-white/15
+                border border-pink-400/30
                 hover:-translate-y-2 hover:scale-[1.01]
                 transition-all duration-500 ease-out">
                 
