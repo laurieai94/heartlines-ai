@@ -298,9 +298,12 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> is built by laurie ai — using ai to build stronger relationships, so we can build stronger communities.
-                  </p>
+            <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+              <span className="font-brand">heartlines</span> is built by laurie ai
+            </p>
+            <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+              ai for stronger relationships and stronger communities.
+            </p>
                 </div>
 
                 {/* Collapsible full content */}
