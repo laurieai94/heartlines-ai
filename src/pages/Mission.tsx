@@ -80,7 +80,7 @@ const Mission = () => {
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
                 {/* Preview content - always visible */}
-                <div className="text-center mb-6 max-w-2xl mx-auto">
+                <div className="text-left mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
                 <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   ai is here.
