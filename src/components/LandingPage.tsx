@@ -686,6 +686,106 @@ const LandingPage = ({
         </div>
       </section>
 
+      {/* Meet Kai Section */}
+      <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+        {/* Background Ambient Orbs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/20 via-coral-400/15 to-orange-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-r from-orange-500/20 via-pink-500/15 to-coral-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column: Kai's Avatar */}
+              <div className="flex justify-center md:justify-end order-2 md:order-1">
+                <div className="relative">
+                  {/* Outer glow */}
+                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                  
+                  {/* Inner glow */}
+                  <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
+                  
+                  {/* Avatar container */}
+                  <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
+                    <img 
+                      src={BRAND.coach.avatarSrc}
+                      alt="Kai, your AI relationship coach"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Badge overlay */}
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+                    <span className="text-xs md:text-sm font-medium text-white">your ai coach</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Content */}
+              <div className="order-1 md:order-2 text-center md:text-left">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                  meet kai
+                </h2>
+                
+                <h3 className="text-xl md:text-2xl text-white/90 font-light mb-6 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                  your ai relationship coach
+                </h3>
+                
+                <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                  trained in phd-level psychology and real-world clinical care, kai isn't here to judge—kai's here to help you figure it out. grounded in evidence-based and trauma-informed practices, kai meets you where you are: messy, stressed, or somewhere in between.
+                </p>
+                
+                {/* Credential badges */}
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                  <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
+                    <span className="text-sm text-white font-medium">🧠 phd-level psychology</span>
+                  </div>
+                  <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
+                    <span className="text-sm text-white font-medium">💝 trauma-informed</span>
+                  </div>
+                  <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
+                    <span className="text-sm text-white font-medium">🌈 lgbtq+ inclusive</span>
+                  </div>
+                </div>
+                
+                {/* CTA Button */}
+                <div className="flex justify-center md:justify-start animate-fade-in" style={{ animationDelay: '1s' }}>
+                  <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                    {/* Glow effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <Button 
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base md:text-lg"
+                      style={{
+                        boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                      }}
+                    >
+                      {/* Shimmer overlay */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div 
+                          className="absolute inset-0 animate-shimmer"
+                          style={{
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                            backgroundSize: '200% 100%'
+                          }}
+                        />
+                      </div>
+                      
+                      <span className="relative z-10 flex items-center gap-2">
+                        <MessageCircleHeart className="w-5 h-5" />
+                        start chatting with kai
+                      </span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why It's Different Section - Vertical Timeline */}
       <section className="py-4 md:py-6 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Enhanced Background Gradient Overlays */}
