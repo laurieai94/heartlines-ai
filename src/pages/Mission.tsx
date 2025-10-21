@@ -83,7 +83,7 @@ const Mission = () => {
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
                     <p className="text-base md:text-lg text-white/90 leading-loose">
-                      <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">AI is here.</span>
+                      <span className="text-white font-medium">AI is here.</span>
                     </p>
                     <p className="text-base md:text-lg text-white/90 leading-loose">
                       We can't stop it, and we can't ignore it.
