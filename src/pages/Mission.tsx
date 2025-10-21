@@ -74,29 +74,46 @@ const Mission = () => {
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Opening line */}
+                {/* Opening section - The Paradox */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
-              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-4">
-                ai isn't going anywhere.
-              </p>
-                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                  and neither is your need to feel something real.
-                </p>
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-4">
+                    we're living in a time where ai can finish our sentences,
+                  </p>
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                    but not understand what we mean.
+                  </p>
                 </div>
 
-                {/* Middle paragraph */}
+                {/* Middle section - The Reality */}
                 <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we built tech to keep us connected, but somehow everyone feels more alone.
+                    where everything is connected —
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> helps you make space for real connection again.
+                    and everyone feels more disconnected than ever.
+                  </p>
+                </div>
+
+                {/* Core insight section */}
+                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    this is the paradox of now:
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we help you talk it out, own your patterns, and do the real work.
+                    the smarter our technology gets,
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    come back to them — and yourself.
+                    the harder it becomes to feel seen, heard, and understood.
+                  </p>
+                </div>
+
+                {/* Closing section - The Solution */}
+                <div className="text-center space-y-4 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    <span className="font-brand">heartlines</span> was built for this moment —
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    to remind us that empathy is still the highest form of intelligence.
                   </p>
                 </div>
               </div>
