@@ -733,20 +733,39 @@ const LandingPage = ({
                   your ai relationship coach
                 </h3>
                 
-                <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                  Kai's built for how we love now — the long-distance FaceTimes, the dating apps and late-night "wyd?"s, the almosts, the maybes, the marriages trying to stay soft through the chaos. Built on science, powered by empathy, designed for real life. Trained in PhD-level psychology and trauma-informed care, Kai helps you slow down, reflect, and reconnect when things get messy.
-                </p>
+                <div className="space-y-4 mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                  <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
+                    Kai's built for how we love now —<br />
+                    the apps, the almosts, the long-distance FaceTimes,<br />
+                    the partnerships that endure the everyday.
+                  </p>
+                  
+                  <p className="text-base md:text-lg lg:text-xl text-white/90 font-medium leading-relaxed">
+                    Built on science, powered by empathy, designed for real life.
+                  </p>
+                  
+                  <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
+                    Kai helps you slow down, reflect, and reconnect —<br />
+                    whether you're falling in love, figuring it out, or finding your way back to yourself.
+                  </p>
+                </div>
                 
-                {/* Credential badges */}
+                {/* Feature pills */}
                 <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
-                    <span className="text-sm text-white font-medium">🧠 phd-level psychology</span>
+                    <span className="text-sm text-white font-medium">🧠 evidence-based psychology</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
-                    <span className="text-sm text-white font-medium">💝 trauma-informed</span>
+                  <div className="px-4 py-2 rounded-full bg-purple-400/20 border border-purple-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-purple-400/30">
+                    <span className="text-sm text-white font-medium">🔒 private</span>
                   </div>
                   <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
-                    <span className="text-sm text-white font-medium">🌈 lgbtq+ inclusive</span>
+                    <span className="text-sm text-white font-medium">💗 trauma-aware & compassionate</span>
+                  </div>
+                  <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
+                    <span className="text-sm text-white font-medium">🌈 inclusive for all relationships</span>
+                  </div>
+                  <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
+                    <span className="text-sm text-white font-medium">⏱ instant, 24/7 support</span>
                   </div>
                 </div>
                 
