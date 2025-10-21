@@ -33,16 +33,16 @@ const Mission = () => {
       
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
-        <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
           {/* 1. Hero Section */}
           <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
             <h1 
-              className="font-brand text-6xl md:text-7xl lg:text-8xl xl:text-9xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient drop-shadow-[0_0_30px_rgba(255,107,157,0.5)]"
+              className="font-brand text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient drop-shadow-[0_0_30px_rgba(255,107,157,0.5)]"
             >
               our why
             </h1>
             <div className="flex items-center gap-2 mt-1 ml-[70px] md:ml-[110px] lg:ml-[160px] xl:ml-[230px]">
-            <span className="font-glacial text-xl md:text-2xl lg:text-3xl text-white">
+            <span className="font-glacial text-lg md:text-xl lg:text-2xl text-white">
               powered by laurie ai
             </span>
               <DuckIcon className="w-5 h-5 lg:w-6 lg:h-6 text-coral-400" />
@@ -58,7 +58,7 @@ const Mission = () => {
                 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
               
               {/* Glass card */}
-              <div className="relative backdrop-blur-xl rounded-3xl p-8 md:p-12
+              <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
                 bg-gradient-to-br from-white/20 via-white/15 to-white/10
                 border border-pink-400/20
                 hover:-translate-y-2 hover:scale-[1.02]
@@ -66,7 +66,7 @@ const Mission = () => {
                 transition-all duration-500 ease-out">
                 
                 {/* Header with gradient */}
-                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
+                <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
                   flex items-center justify-center gap-3">
                   <Globe 
@@ -212,7 +212,7 @@ const Mission = () => {
                 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
               
               {/* Glass card */}
-              <div className="relative backdrop-blur-xl rounded-3xl p-8 md:p-12
+              <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
                 bg-gradient-to-br from-white/20 via-white/15 to-white/10
                 border border-pink-400/20
                 hover:-translate-y-2 hover:scale-[1.02]
@@ -220,7 +220,7 @@ const Mission = () => {
                 transition-all duration-500 ease-out">
                 
                 {/* Header with gradient */}
-                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
+                <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
                   💞 what <span className="font-brand">heartlines</span> is
                 </h2>
@@ -351,14 +351,14 @@ const Mission = () => {
                 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
               
               {/* Glass container */}
-              <div className="relative backdrop-blur-xl rounded-3xl p-8 md:p-12
+              <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
                 bg-gradient-to-br from-white/20 via-white/15 to-white/10
                 border border-pink-400/20
                 hover:-translate-y-2 hover:scale-[1.01]
                 transition-all duration-500 ease-out">
                 
                 {/* Heading with gradient and duck icon */}
-                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
+                <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
                   flex items-center justify-center gap-3">
                   <DuckIcon 
