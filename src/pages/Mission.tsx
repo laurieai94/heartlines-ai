@@ -1,7 +1,7 @@
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/branding";
-import { Heart, MessageSquare, Globe } from "lucide-react";
+import { Heart, MessageSquare, Globe, ChevronDown } from "lucide-react";
 import SimpleHeader from "@/components/SimpleHeader";
 import DuckIcon from "@/components/icons/DuckIcon";
 import SiteFooter from "@/components/SiteFooter";
@@ -79,68 +79,76 @@ const Mission = () => {
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Opening section - The Paradox */}
-                <div className="text-center mb-10 max-w-2xl mx-auto">
+                {/* Preview content - always visible */}
+                <div className="text-center mb-6 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-4">
-                    we're living in a time where ai can finish our sentences,
+                    we're living in a time where ai can finish our sentences, but not understand what we mean.
                   </p>
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    but not understand what we mean.
+                    where everything is connected — and everyone feels more disconnected than ever.
                   </p>
                 </div>
 
-                {/* Decorative gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+                {/* Collapsible full content */}
+                <Collapsible>
+                  <CollapsibleTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
+                        text-white/70 hover:text-white font-light text-sm
+                        transition-all duration-300
+                        hover:bg-white/5 rounded-lg
+                        group/button"
+                    >
+                      <span className="group-data-[state=open]/button:hidden">Read More</span>
+                      <span className="group-data-[state=closed]/button:hidden">Show Less</span>
+                      <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
+                    </Button>
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
+                    {/* Decorative gradient divider */}
+                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
 
-                {/* Middle section - The Reality */}
-                <div className="max-w-2xl mx-auto mb-10">
-                  <div className="ml-8 border-l-2 border-pink-400/30 pl-6 space-y-4">
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      where everything is connected —
-                    </p>
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      and everyone feels more disconnected than ever.
-                    </p>
-                  </div>
-                </div>
+                    {/* Core insight section */}
+                    <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        this is the paradox of now:
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        the smarter our technology gets,
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        the harder it becomes to feel seen, heard, and understood.
+                      </p>
+                    </div>
 
-                {/* Core insight section */}
-                <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    this is the paradox of now:
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    the smarter our technology gets,
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    the harder it becomes to feel seen, heard, and understood.
-                  </p>
-                </div>
+                    {/* Decorative gradient divider */}
+                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
 
-                {/* Decorative gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+                    {/* Pull quote - Key message */}
+                    <div className="relative max-w-xl mx-auto mb-10">
+                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
+                      <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
+                        bg-white/10 border border-pink-400/30">
+                        <Heart className="w-6 h-6 text-pink-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,107,157,0.5)]" />
+                        <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                          empathy is still the highest form of intelligence
+                        </p>
+                      </div>
+                    </div>
 
-                {/* Pull quote - Key message */}
-                <div className="relative max-w-xl mx-auto mb-10">
-                  <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
-                  <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
-                    bg-white/10 border border-pink-400/30">
-                    <Heart className="w-6 h-6 text-pink-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,107,157,0.5)]" />
-                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
-                      empathy is still the highest form of intelligence
-                    </p>
-                  </div>
-                </div>
-
-                {/* Closing section - The Solution */}
-                <div className="text-center space-y-4 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> was built for this moment —
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    to remind us of what truly matters.
-                  </p>
-                </div>
+                    {/* Closing section - The Solution */}
+                    <div className="text-center space-y-4 max-w-2xl mx-auto">
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        <span className="font-brand">heartlines</span> was built for this moment —
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        to remind us of what truly matters.
+                      </p>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
               </div>
             </div>
           </section>
@@ -169,108 +177,128 @@ const Mission = () => {
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Split Layout: 2-column grid on desktop */}
-                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-                
-                  {/* LEFT COLUMN - Visual/Icon Side */}
-                  <div className="flex flex-col items-center justify-start space-y-6 md:sticky md:top-8">
-                    {/* Large decorative heart icon */}
-                    <div className="relative">
-                      <div className="absolute -inset-4 bg-gradient-to-r from-pink-500/30 to-coral-500/30 rounded-full blur-2xl"></div>
-                      <Heart className="relative w-20 h-20 md:w-24 md:h-24 text-pink-400 drop-shadow-[0_0_30px_rgba(255,107,157,0.6)]" />
-                    </div>
-                    
-                    {/* Nested mini-card: Core Definition */}
-                    <div className="relative w-full max-w-xs">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/20 to-coral-500/20 rounded-xl blur"></div>
-                      <div className="relative backdrop-blur-sm rounded-xl p-4 bg-white/10 border border-pink-400/30 text-center">
-                        <MessageSquare className="w-5 h-5 text-coral-400 mx-auto mb-2" />
-                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          what happens when<br />technology learns to listen
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Nested mini-card: Philosophy */}
-                    <div className="relative w-full max-w-xs hidden md:block">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-coral-500/20 to-peach-400/20 rounded-xl blur"></div>
-                      <div className="relative backdrop-blur-sm rounded-xl p-4 bg-white/10 border border-coral-400/30 text-center">
-                        <p className="text-sm text-white/80 font-light">
-                          not about perfect<br />
-                          <span className="text-white font-medium">honest conversation</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* RIGHT COLUMN - Content Side */}
-                  <div className="space-y-8">
-                    {/* Opening */}
-                    <div className="space-y-3">
-                      <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                        stronger relationships start here.
-                      </p>
-                      <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                        the ai relationship coach for messy, modern love.
-                      </p>
-                    </div>
-
-                    {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
-
-                    {/* Context - The Chaos */}
-                    <div className="space-y-3">
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        built for the chaos of real connection —
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        the overthinking, the late-night silence, the "we need to talk" moments.
-                      </p>
-                    </div>
-
-                    {/* Philosophy */}
-                    <div className="space-y-2">
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        it's not about perfect communication.
-                      </p>
-                      <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
-                        it's about honest conversation.
-                      </p>
-                    </div>
-
-                    {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
-
-                    {/* Audience */}
-                    <div className="space-y-3">
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        for anyone who still believes love is worth understanding —
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        who wants to connect instead of drift,
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        to grow instead of give up.
-                      </p>
-                    </div>
-
-                    {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
-
-                    {/* Closing */}
-                    <div className="border-l-2 border-peach-400/30 pl-6 space-y-3">
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        you bring the feelings.
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        we help you make sense of them —
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        so you can grow together, not apart.
-                      </p>
-                    </div>
-                  </div>
+                {/* Preview content - always visible */}
+                <div className="text-center mb-6 max-w-2xl mx-auto space-y-3">
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                    stronger relationships start here.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                    the ai relationship coach for messy, modern love — built for the chaos of real connection.
+                  </p>
                 </div>
+
+                {/* Collapsible full content */}
+                <Collapsible>
+                  <CollapsibleTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
+                        text-white/70 hover:text-white font-light text-sm
+                        transition-all duration-300
+                        hover:bg-white/5 rounded-lg
+                        group/button"
+                    >
+                      <span className="group-data-[state=open]/button:hidden">Read More</span>
+                      <span className="group-data-[state=closed]/button:hidden">Show Less</span>
+                      <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
+                    </Button>
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
+                    {/* Split Layout: 2-column grid on desktop */}
+                    <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start mt-8">
+                    
+                      {/* LEFT COLUMN - Visual/Icon Side */}
+                      <div className="flex flex-col items-center justify-start space-y-6 md:sticky md:top-8">
+                        {/* Large decorative heart icon */}
+                        <div className="relative">
+                          <div className="absolute -inset-4 bg-gradient-to-r from-pink-500/30 to-coral-500/30 rounded-full blur-2xl"></div>
+                          <Heart className="relative w-20 h-20 md:w-24 md:h-24 text-pink-400 drop-shadow-[0_0_30px_rgba(255,107,157,0.6)]" />
+                        </div>
+                        
+                        {/* Nested mini-card: Core Definition */}
+                        <div className="relative w-full max-w-xs">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/20 to-coral-500/20 rounded-xl blur"></div>
+                          <div className="relative backdrop-blur-sm rounded-xl p-4 bg-white/10 border border-pink-400/30 text-center">
+                            <MessageSquare className="w-5 h-5 text-coral-400 mx-auto mb-2" />
+                            <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                              what happens when<br />technology learns to listen
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Nested mini-card: Philosophy */}
+                        <div className="relative w-full max-w-xs hidden md:block">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-coral-500/20 to-peach-400/20 rounded-xl blur"></div>
+                          <div className="relative backdrop-blur-sm rounded-xl p-4 bg-white/10 border border-coral-400/30 text-center">
+                            <p className="text-sm text-white/80 font-light">
+                              not about perfect<br />
+                              <span className="text-white font-medium">honest conversation</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* RIGHT COLUMN - Content Side */}
+                      <div className="space-y-8">
+                        {/* Decorative gradient divider */}
+                        <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                        {/* Context - The Chaos */}
+                        <div className="space-y-3">
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            built for the chaos of real connection —
+                          </p>
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            the overthinking, the late-night silence, the "we need to talk" moments.
+                          </p>
+                        </div>
+
+                        {/* Philosophy */}
+                        <div className="space-y-2">
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            it's not about perfect communication.
+                          </p>
+                          <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
+                            it's about honest conversation.
+                          </p>
+                        </div>
+
+                        {/* Decorative gradient divider */}
+                        <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                        {/* Audience */}
+                        <div className="space-y-3">
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            for anyone who still believes love is worth understanding —
+                          </p>
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            who wants to connect instead of drift,
+                          </p>
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            to grow instead of give up.
+                          </p>
+                        </div>
+
+                        {/* Decorative gradient divider */}
+                        <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                        {/* Closing */}
+                        <div className="border-l-2 border-peach-400/30 pl-6 space-y-3">
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            you bring the feelings.
+                          </p>
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            we help you make sense of them —
+                          </p>
+                          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                            so you can grow together, not apart.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
               </div>
             </div>
           </section>
@@ -303,60 +331,74 @@ const Mission = () => {
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Opening */}
-                <div className="text-center space-y-6 mb-10 max-w-2xl mx-auto">
+                {/* Preview content - always visible */}
+                <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> is built by laurie ai —
-                  </p>
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    using ai to build stronger relationships,
-                  </p>
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    so we can build stronger communities.
+                    <span className="font-brand">heartlines</span> is built by laurie ai — using ai to build stronger relationships, so we can build stronger communities.
                   </p>
                 </div>
 
-                {/* Decorative gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+                {/* Collapsible full content */}
+                <Collapsible>
+                  <CollapsibleTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
+                        text-white/70 hover:text-white font-light text-sm
+                        transition-all duration-300
+                        hover:bg-white/5 rounded-lg
+                        group/button"
+                    >
+                      <span className="group-data-[state=open]/button:hidden">Read More</span>
+                      <span className="group-data-[state=closed]/button:hidden">Show Less</span>
+                      <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
+                    </Button>
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
+                    {/* Decorative gradient divider */}
+                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto mt-6"></div>
 
-                {/* What We Do */}
-                <div className="max-w-2xl mx-auto mb-10">
-                  <div className="ml-8 border-l-2 border-pink-400/30 pl-6 space-y-4">
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      we create tools that help people grow, heal, and connect —
-                    </p>
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      then reinvest part of our profit to build purpose-built tools
-                    </p>
-                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                      for the people and communities too often left behind.
-                    </p>
-                  </div>
-                </div>
+                    {/* What We Do */}
+                    <div className="max-w-2xl mx-auto mb-10">
+                      <div className="ml-8 border-l-2 border-pink-400/30 pl-6 space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                          we create tools that help people grow, heal, and connect —
+                        </p>
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                          then reinvest part of our profit to build purpose-built tools
+                        </p>
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                          for the people and communities too often left behind.
+                        </p>
+                      </div>
+                    </div>
 
-                {/* Pull quote - The Cycle */}
-                <div className="relative max-w-xl mx-auto mb-10">
-                  <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
-                  <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
-                    bg-white/10 border border-pink-400/30">
-                    <Globe className="w-6 h-6 text-peach-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,183,123,0.5)]" />
-                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
-                      profit fuels purpose. purpose drives connection.
-                    </p>
-                  </div>
-                </div>
+                    {/* Pull quote - The Cycle */}
+                    <div className="relative max-w-xl mx-auto mb-10">
+                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
+                      <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
+                        bg-white/10 border border-pink-400/30">
+                        <Globe className="w-6 h-6 text-peach-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,183,123,0.5)]" />
+                        <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                          profit fuels purpose. purpose drives connection.
+                        </p>
+                      </div>
+                    </div>
 
-                {/* Closing */}
-                <div className="text-center space-y-4 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    when ai helps people connect,
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    communities get stronger.
-                  </p>
-                </div>
+                    {/* Closing */}
+                    <div className="text-center space-y-4 max-w-2xl mx-auto">
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        when ai helps people connect,
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                        communities get stronger.
+                      </p>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
 
-                {/* CTAs with glass effect */}
+                {/* CTAs with glass effect - Always visible */}
                 <div className="flex flex-wrap gap-4 justify-center items-center mt-10">
                   <Button
                     size="lg"
