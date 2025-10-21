@@ -37,7 +37,7 @@ const Mission = () => {
           {/* 1. Hero Section */}
           <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
             <h1 
-              className="font-brand text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient drop-shadow-[0_0_30px_rgba(255,107,157,0.5)]"
+              className="font-brand text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient-glow"
             >
               our why
             </h1>

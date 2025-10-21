@@ -377,6 +377,11 @@
     animation: gradient 8s ease infinite;
   }
 
+  .animate-gradient-glow {
+    background-size: 400% 400%;
+    animation: gradient 8s ease infinite, gradient-glow 4s ease-in-out infinite;
+  }
+
   @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -392,6 +397,15 @@
     }
     100% {
       background-position: 0% 50%;
+    }
+  }
+
+  @keyframes gradient-glow {
+    0%, 100% { 
+      filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.5));
+    }
+    50% { 
+      filter: drop-shadow(0 0 45px rgba(255, 107, 157, 0.8));
     }
   }
 
