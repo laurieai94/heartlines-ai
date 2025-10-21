@@ -28,7 +28,7 @@ const Mission = () => {
       <div className="landing-page-scroll min-h-screen bg-burgundy-900 flex flex-col">
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
-        <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
+        <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
           <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
             <h1 
@@ -75,7 +75,7 @@ const Mission = () => {
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
                 {/* Opening section - The Paradox */}
-                <div className="text-center mb-8 max-w-2xl mx-auto">
+                <div className="text-center mb-10 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-4">
                     we're living in a time where ai can finish our sentences,
                   </p>
@@ -84,18 +84,23 @@ const Mission = () => {
                   </p>
                 </div>
 
+                {/* Decorative gradient divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+
                 {/* Middle section - The Reality */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    where everything is connected —
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    and everyone feels more disconnected than ever.
-                  </p>
+                <div className="max-w-2xl mx-auto mb-10">
+                  <div className="ml-8 border-l-2 border-pink-400/30 pl-6 space-y-4">
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      where everything is connected —
+                    </p>
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      and everyone feels more disconnected than ever.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Core insight section */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                     this is the paradox of now:
                   </p>
@@ -107,13 +112,28 @@ const Mission = () => {
                   </p>
                 </div>
 
+                {/* Decorative gradient divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+
+                {/* Pull quote - Key message */}
+                <div className="relative max-w-xl mx-auto mb-10">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
+                  <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
+                    bg-white/10 border border-pink-400/30">
+                    <Heart className="w-6 h-6 text-pink-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,107,157,0.5)]" />
+                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                      empathy is still the highest form of intelligence
+                    </p>
+                  </div>
+                </div>
+
                 {/* Closing section - The Solution */}
                 <div className="text-center space-y-4 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                     <span className="font-brand">heartlines</span> was built for this moment —
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    to remind us that empathy is still the highest form of intelligence.
+                    to remind us of what truly matters.
                   </p>
                 </div>
               </div>
@@ -145,8 +165,8 @@ const Mission = () => {
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
                 {/* Opening */}
-                <div className="text-center mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                <div className="text-center mb-10 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-3">
                     stronger relationships start here.
                   </p>
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
@@ -154,35 +174,48 @@ const Mission = () => {
                   </p>
                 </div>
 
-                {/* Definition */}
-                <div className="text-center mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> is what happens when technology learns to listen.
-                  </p>
+                {/* Decorative gradient divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+
+                {/* Pull quote - Core Definition */}
+                <div className="relative max-w-xl mx-auto mb-10">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
+                  <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
+                    bg-white/10 border border-pink-400/30">
+                    <MessageSquare className="w-6 h-6 text-coral-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,132,80,0.5)]" />
+                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                      what happens when technology learns to listen
+                    </p>
+                  </div>
                 </div>
 
                 {/* Context - The Chaos */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    built for the chaos of real connection —
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    the overthinking, the late-night silence, the "we need to talk" moments.
-                  </p>
+                <div className="max-w-2xl mx-auto mb-10">
+                  <div className="mr-8 border-r-2 border-coral-400/30 pr-6 space-y-4 text-right">
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      built for the chaos of real connection —
+                    </p>
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      the overthinking, the late-night silence, the "we need to talk" moments.
+                    </p>
+                  </div>
                 </div>
 
+                {/* Decorative gradient divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+
                 {/* Philosophy */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                     it's not about perfect communication.
                   </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                  <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
                     it's about honest conversation.
                   </p>
                 </div>
 
                 {/* Audience */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                     for anyone who still believes love is worth understanding —
                   </p>
@@ -194,17 +227,22 @@ const Mission = () => {
                   </p>
                 </div>
 
+                {/* Decorative gradient divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+
                 {/* Closing */}
-                <div className="text-center max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    you bring the feelings.
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we help you make sense of them —
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    so you can grow together, not apart.
-                  </p>
+                <div className="max-w-2xl mx-auto">
+                  <div className="ml-8 border-l-2 border-peach-400/30 pl-6 space-y-3">
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      you bring the feelings.
+                    </p>
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      we help you make sense of them —
+                    </p>
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      so you can grow together, not apart.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -239,7 +277,7 @@ const Mission = () => {
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
                 {/* Opening */}
-                <div className="text-center space-y-6 mb-8 max-w-2xl mx-auto">
+                <div className="text-center space-y-6 mb-10 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                     <span className="font-brand">heartlines</span> is built by laurie ai —
                   </p>
@@ -251,24 +289,34 @@ const Mission = () => {
                   </p>
                 </div>
 
+                {/* Decorative gradient divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+
                 {/* What We Do */}
-                <div className="text-center space-y-6 mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we create tools that help people grow, heal, and connect —
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    then reinvest part of our profit to build purpose-built tools
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    for the people and communities too often left behind.
-                  </p>
+                <div className="max-w-2xl mx-auto mb-10">
+                  <div className="ml-8 border-l-2 border-pink-400/30 pl-6 space-y-4">
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      we create tools that help people grow, heal, and connect —
+                    </p>
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      then reinvest part of our profit to build purpose-built tools
+                    </p>
+                    <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                      for the people and communities too often left behind.
+                    </p>
+                  </div>
                 </div>
 
-                {/* The Cycle */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
-                    profit fuels purpose. purpose drives connection.
-                  </p>
+                {/* Pull quote - The Cycle */}
+                <div className="relative max-w-xl mx-auto mb-10">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
+                  <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
+                    bg-white/10 border border-pink-400/30">
+                    <Globe className="w-6 h-6 text-peach-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,183,123,0.5)]" />
+                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                      profit fuels purpose. purpose drives connection.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Closing */}
