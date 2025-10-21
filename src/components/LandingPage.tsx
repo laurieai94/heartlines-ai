@@ -736,8 +736,7 @@ const LandingPage = ({
                 <div className="space-y-4 mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
                     Kai's built for how we love now —<br />
-                    the apps, the almosts, the long-distance FaceTimes,<br />
-                    the partnerships that endure the everyday.
+                    the swipes, the almosts, the everyday work of staying close.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/90 font-medium leading-relaxed">
@@ -745,8 +744,7 @@ const LandingPage = ({
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    Kai helps you slow down, reflect, and reconnect —<br />
-                    whether you're falling in love, figuring it out, or finding your way back to yourself.
+                    She helps you understand yourself and what it takes to keep love healthy, intimate, and real.
                   </p>
                 </div>
                 
