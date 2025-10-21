@@ -81,12 +81,17 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-4">
-                    we're living in a time where ai can finish our sentences, but not understand what we mean.
-                  </p>
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    where everything is connected — and everyone feels more disconnected than ever.
-                  </p>
+                  <div className="space-y-4">
+                    <p className="text-base md:text-lg text-white/90 leading-loose">
+                      <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">AI is here.</span>
+                    </p>
+                    <p className="text-base md:text-lg text-white/90 leading-loose">
+                      We can't stop it, and we can't ignore it.
+                    </p>
+                    <p className="text-base md:text-lg text-white/90 leading-loose">
+                      It's writing our emails, driving our cars, curating our feeds, even finishing our thoughts — shaping how we live, love, and connect.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Collapsible full content */}
@@ -107,51 +112,119 @@ const Mission = () => {
                   </CollapsibleTrigger>
                   
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
-                    {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-6 max-w-xs mx-auto"></div>
+                    <div className="space-y-6 mt-6 max-w-2xl mx-auto">
+                      {/* Divider */}
+                      <div className="relative mb-6">
+                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                          <div className="w-full border-t border-white/10"></div>
+                        </div>
+                      </div>
 
-                    {/* Core insight section */}
-                    <div className="text-center space-y-4 mb-6 max-w-2xl mx-auto">
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        this is the paradox of now:
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        the smarter our technology gets,
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        the harder it becomes to feel seen, heard, and understood.
-                      </p>
-                    </div>
+                      {/* Conflict Section */}
+                      <div className="space-y-4 text-center">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          But somewhere between the progress and the code,<br />
+                          <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">we lost something.</span>
+                        </p>
 
-                    {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-6 max-w-xs mx-auto"></div>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          We built machines to talk like us,<br />
+                          while forgetting to listen to each other.
+                        </p>
 
-                    {/* Pull quote - Key message */}
-                    <div className="relative max-w-xl mx-auto mb-8">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-burgundy-600/40 via-rose-500/50 to-burgundy-700/40 rounded-2xl blur-lg"></div>
-                      <div className="relative backdrop-blur-xl rounded-2xl p-4 md:p-5
-                        bg-gradient-to-br from-burgundy-800/80 via-burgundy-700/70 to-rose-900/60
-                        border border-rose-400/60
-                        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_0_30px_rgba(136,19,55,0.4)]">
-                        {/* Inner frosted overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-rose-200/10 to-transparent rounded-2xl pointer-events-none"></div>
-                        <Heart className="relative w-6 h-6 md:w-8 md:h-8 text-rose-300 mx-auto mb-3 
-                          drop-shadow-[0_0_25px_rgba(253,164,175,0.8)] 
-                          filter brightness-110" />
-                        <p className="relative text-base md:text-lg text-white/95 font-normal leading-relaxed text-center">
-                          empathy is still the highest form of intelligence
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          Technology promised connection.<br />
+                          Instead, it left us scrolling for it —
+                        </p>
+
+                        <p className="text-base md:text-lg text-white/80 leading-loose italic">
+                          while the world around us grows more divided, more isolated, more disconnected.
                         </p>
                       </div>
-                    </div>
 
-                    {/* Closing section - The Solution */}
-                    <div className="text-center space-y-4 max-w-2xl mx-auto">
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        <span className="font-brand">heartlines</span> was built for this moment —
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        to remind us of what truly matters.
-                      </p>
+                      {/* Divider */}
+                      <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                          <div className="w-full border-t border-white/10"></div>
+                        </div>
+                      </div>
+
+                      {/* Call to Action */}
+                      <div className="space-y-3 text-center">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          So <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">this is our moment</span> —
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          to build AI that <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">protects what's real.</span>
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          To make <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">privacy sacred again.</span>
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          To make <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">community the center</span> of progress.
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                          <div className="w-full border-t border-white/10"></div>
+                        </div>
+                      </div>
+
+                      {/* Vision Section */}
+                      <div className="border-l-2 border-rose-400/40 pl-6 space-y-3 text-left">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          To build technology that remembers where it came from:
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 leading-loose italic">
+                          communities, classrooms, kitchen tables —<br />
+                          real people who still care about one another.
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                          <div className="w-full border-t border-white/10"></div>
+                        </div>
+                      </div>
+
+                      {/* Requirements Section */}
+                      <div className="space-y-3 text-center">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          We need AI that <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">understands, not just automates.</span>
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          That connects, not replaces.
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          That keeps what's human, safe.
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                          <div className="w-full border-t border-white/10"></div>
+                        </div>
+                      </div>
+
+                      {/* Solution Section - Emphasis Block */}
+                      <div className="bg-white/5 rounded-lg p-6 border-l-2 border-peach-400/50 space-y-3 text-center">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          And that's what we're building —
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          technology that brings <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">humanity back to intelligence,</span>
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">privacy back to connection,</span>
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          and <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">community back to the center of progress.</span>
+                        </p>
+                      </div>
                     </div>
                   </CollapsibleContent>
                 </Collapsible>
