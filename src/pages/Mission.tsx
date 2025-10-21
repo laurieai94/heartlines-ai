@@ -27,9 +27,9 @@ const Mission = () => {
       
       <div className="landing-page-scroll min-h-screen bg-burgundy-900 flex flex-col relative overflow-hidden">
       {/* Floating background elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute top-96 right-20 w-96 h-96 bg-coral-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-40 left-1/4 w-80 h-80 bg-peach-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/5 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute top-96 right-20 w-96 h-96 bg-coral-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute bottom-40 left-1/4 w-80 h-80 bg-peach-400/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
@@ -476,31 +476,31 @@ const Mission = () => {
                     </div>
                   </CollapsibleContent>
                 </Collapsible>
-
-                {/* CTAs with glass effect - Always visible */}
-                <div className="flex flex-wrap gap-4 justify-center items-center mt-10">
-                  <Button
-                    size="lg"
-                    variant="glass"
-                    onClick={handleSignInClick}
-                    className="glass-cta min-w-[200px] text-lg"
-                  >
-                    get started
-                  </Button>
-                  <Button
-                    size="lg"
-                    onClick={() => navigate('/contact')}
-                    className="min-w-[200px] text-lg backdrop-blur-xl
-                      bg-white/10 border border-white/30 text-white
-                      hover:bg-white/20 hover:scale-105 hover:-translate-y-1
-                      transition-all duration-300"
-                  >
-                    build community ai
-                  </Button>
-                </div>
               </div>
             </div>
           </section>
+
+          {/* CTAs with glass effect - Always visible */}
+          <div className="flex flex-wrap gap-4 justify-center items-center mt-8 mb-8">
+            <Button
+              size="lg"
+              variant="glass"
+              onClick={handleSignInClick}
+              className="glass-cta min-w-[200px] text-lg"
+            >
+              get started
+            </Button>
+            <Button
+              size="lg"
+              onClick={() => navigate('/contact')}
+              className="min-w-[200px] text-lg backdrop-blur-xl
+                bg-white/10 border border-white/30 text-white
+                hover:bg-white/20 hover:scale-105 hover:-translate-y-1
+                transition-all duration-300"
+            >
+              build community ai
+            </Button>
+          </div>
         </main>
 
         <SiteFooter />
