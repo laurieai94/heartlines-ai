@@ -183,48 +183,6 @@ const Mission = () => {
                         </p>
                       </div>
 
-                      {/* Divider */}
-                      <div className="relative my-6">
-                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                          <div className="w-full border-t border-white/10"></div>
-                        </div>
-                      </div>
-
-                      {/* Requirements Section */}
-                      <div className="space-y-3 text-center">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          We need AI that <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">understands, not just automates.</span>
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          That connects, not replaces.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          That keeps what's human, safe.
-                        </p>
-                      </div>
-
-                      {/* Divider */}
-                      <div className="relative my-6">
-                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                          <div className="w-full border-t border-white/10"></div>
-                        </div>
-                      </div>
-
-                      {/* Solution Section - Emphasis Block */}
-                      <div className="bg-white/5 rounded-lg p-6 border-l-2 border-peach-400/50 space-y-3 text-center">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          And that's what we're building —
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          technology that brings <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">humanity back to intelligence,</span>
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">privacy back to connection,</span>
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          and <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">community back to the center of progress.</span>
-                        </p>
-                      </div>
                     </div>
                   </CollapsibleContent>
                 </Collapsible>
