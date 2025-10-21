@@ -140,15 +140,31 @@ const Mission = () => {
                 {/* Middle paragraph */}
                 <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> is built for the chaos of real connection — the late-night overthinking, the "we need to talk" energy, the emotional hangovers.
+                    <span className="font-brand">heartlines</span> is for anyone who still believes love is worth understanding.
                   </p>
                   
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    it's not therapy. it's not a dating app.
+                    for the ones who overthink the text, replay the call,
                   </p>
                   
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    it's the space in-between — where you stop spiraling and start understanding.
+                    and want to connect instead of just move on.
+                  </p>
+                  
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    it's the space you come to when things get real —
+                  </p>
+                  
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    when you want to talk without fighting,
+                  </p>
+                  
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    listen without shutting down,
+                  </p>
+                  
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    and love without losing yourself.
                   </p>
                 </div>
 
@@ -158,7 +174,10 @@ const Mission = () => {
                     you bring the feelings.
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we help you make sense of them.
+                    we help you make sense of them —
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    so you can grow together, not apart.
                   </p>
                 </div>
               </div>
