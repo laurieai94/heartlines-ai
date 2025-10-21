@@ -108,10 +108,10 @@ const Mission = () => {
                   
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                     {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-6 max-w-xs mx-auto"></div>
 
                     {/* Core insight section */}
-                    <div className="text-center space-y-4 mb-10 max-w-2xl mx-auto">
+                    <div className="text-center space-y-4 mb-6 max-w-2xl mx-auto">
                       <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                         this is the paradox of now:
                       </p>
@@ -124,10 +124,10 @@ const Mission = () => {
                     </div>
 
                     {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto"></div>
+                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-6 max-w-xs mx-auto"></div>
 
                     {/* Pull quote - Key message */}
-                    <div className="relative max-w-xl mx-auto mb-10">
+                    <div className="relative max-w-xl mx-auto mb-8">
                       <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-md"></div>
                       <div className="relative backdrop-blur-sm rounded-2xl p-4 md:p-5
                         bg-white/10 border border-pink-400/30">
@@ -352,10 +352,10 @@ const Mission = () => {
                   
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                     {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-10 max-w-xs mx-auto mt-6"></div>
+                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-6 max-w-xs mx-auto mt-6"></div>
 
                     {/* What We Do */}
-                    <div className="max-w-2xl mx-auto mb-10">
+                    <div className="max-w-2xl mx-auto mb-6">
                       <div className="ml-8 border-l-2 border-pink-400/30 pl-6 space-y-4">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                           we create tools that help people grow, heal, and connect —
@@ -370,7 +370,7 @@ const Mission = () => {
                     </div>
 
                     {/* Pull quote - The Cycle */}
-                    <div className="relative max-w-xl mx-auto mb-10">
+                    <div className="relative max-w-xl mx-auto mb-8">
                       <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-md"></div>
                       <div className="relative backdrop-blur-sm rounded-2xl p-4 md:p-5
                         bg-white/10 border border-pink-400/30">
