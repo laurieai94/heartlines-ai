@@ -177,10 +177,23 @@ const Mission = () => {
                         <p className="text-base md:text-lg text-white/90 leading-loose">
                           To build technology that remembers where it came from:
                         </p>
-                        <p className="text-base md:text-lg text-white/80 leading-loose italic">
-                          communities, classrooms, kitchen tables —<br />
-                          real people who still care about one another.
+                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
+                          from classrooms that taught us how to think for ourselves,
                         </p>
+                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
+                          from kitchen tables where we learned to listen even when we disagreed,
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
+                          from communities where kindness still matters more than clicks.
+                        </p>
+                        <div className="pt-4">
+                          <p className="text-base md:text-lg text-white/90 leading-loose">
+                            Because progress means nothing
+                          </p>
+                          <p className="text-base md:text-lg text-white/90 leading-loose">
+                            if it forgets the people it was meant to serve.
+                          </p>
+                        </div>
                       </div>
 
                     </div>
