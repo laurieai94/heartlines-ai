@@ -144,7 +144,7 @@ const Mission = () => {
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Opening line */}
+                {/* Opening */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                     stronger relationships start here.
@@ -154,38 +154,47 @@ const Mission = () => {
                   </p>
                 </div>
 
-                {/* Middle paragraph */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                {/* Definition */}
+                <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> is for anyone who still believes love is worth understanding.
-                  </p>
-                  
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    for the ones who overthink the text, replay the call,
-                  </p>
-                  
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    and want to connect instead of just move on.
-                  </p>
-                  
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    it's the space you come to when things get real —
-                  </p>
-                  
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    when you want to talk without fighting,
-                  </p>
-                  
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    listen without shutting down,
-                  </p>
-                  
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    and love without losing yourself.
+                    <span className="font-brand">heartlines</span> is what happens when technology learns to listen.
                   </p>
                 </div>
 
-                {/* Closing line */}
+                {/* Context - The Chaos */}
+                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    built for the chaos of real connection —
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    the overthinking, the late-night silence, the "we need to talk" moments.
+                  </p>
+                </div>
+
+                {/* Philosophy */}
+                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    it's not about perfect communication.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    it's about honest conversation.
+                  </p>
+                </div>
+
+                {/* Audience */}
+                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    for anyone who still believes love is worth understanding —
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    who wants to connect instead of drift,
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    to grow instead of give up.
+                  </p>
+                </div>
+
+                {/* Closing */}
                 <div className="text-center max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                     you bring the feelings.
