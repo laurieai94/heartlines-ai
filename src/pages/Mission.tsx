@@ -128,11 +128,11 @@ const Mission = () => {
 
                     {/* Pull quote - Key message */}
                     <div className="relative max-w-xl mx-auto mb-10">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
-                      <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
+                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-md"></div>
+                      <div className="relative backdrop-blur-sm rounded-2xl p-4 md:p-5
                         bg-white/10 border border-pink-400/30">
-                        <Heart className="w-6 h-6 text-pink-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,107,157,0.5)]" />
-                        <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                        <Heart className="w-4 h-4 text-pink-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(255,107,157,0.5)]" />
+                        <p className="text-base md:text-lg text-white font-normal leading-relaxed text-center">
                           empathy is still the highest form of intelligence
                         </p>
                       </div>
@@ -183,7 +183,7 @@ const Mission = () => {
                     stronger relationships start here.
                   </p>
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    the ai relationship coach for messy, modern love — built for the chaos of real connection.
+                    the ai relationship coach for messy, modern love.
                   </p>
                 </div>
 
@@ -210,11 +210,6 @@ const Mission = () => {
                     
                       {/* LEFT COLUMN - Visual/Icon Side */}
                       <div className="flex flex-col items-center justify-start space-y-6 md:sticky md:top-8">
-                        {/* Large decorative heart icon */}
-                        <div className="relative">
-                          <div className="absolute -inset-4 bg-gradient-to-r from-pink-500/30 to-coral-500/30 rounded-full blur-2xl"></div>
-                          <Heart className="relative w-20 h-20 md:w-24 md:h-24 text-pink-400 drop-shadow-[0_0_30px_rgba(255,107,157,0.6)]" />
-                        </div>
                         
                         {/* Nested mini-card: Core Definition */}
                         <div className="relative w-full max-w-xs">
@@ -376,11 +371,11 @@ const Mission = () => {
 
                     {/* Pull quote - The Cycle */}
                     <div className="relative max-w-xl mx-auto mb-10">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-lg"></div>
-                      <div className="relative backdrop-blur-sm rounded-2xl p-6 md:p-8
+                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-coral-500/30 to-peach-400/20 rounded-2xl blur-md"></div>
+                      <div className="relative backdrop-blur-sm rounded-2xl p-4 md:p-5
                         bg-white/10 border border-pink-400/30">
-                        <Globe className="w-6 h-6 text-peach-400 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,183,123,0.5)]" />
-                        <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                        <Globe className="w-4 h-4 text-peach-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(255,183,123,0.5)]" />
+                        <p className="text-base md:text-lg text-white font-normal leading-relaxed text-center">
                           profit fuels purpose. purpose drives connection.
                         </p>
                       </div>
