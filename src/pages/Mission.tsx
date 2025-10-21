@@ -428,13 +428,7 @@ const Mission = () => {
                       {/* Business model explanation */}
                       <div className="space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          we build for-profit apps like heartlines to fund what comes next —
-                        </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          partnering with nonprofits, educators, and local orgs
-                        </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          to create purpose-built ai for the communities that need it most.
+                          we're building that vision here in seattle, starting in the neighborhoods where we live and work — partnering with local nonprofits, educators, and community orgs to create purpose-built ai for the people who need it most.
                         </p>
                       </div>
 
