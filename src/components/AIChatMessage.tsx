@@ -42,20 +42,20 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           {/* Subtle glow for avatars */}
           {!isMobile && (
             <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
-              isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
+              isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
             }`}></div>
           )}
           
           <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
             isUser 
-              ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
-              : 'bg-gradient-to-br from-purple-500 to-pink-500'
+              ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
+              : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
           }`}>
             {isUser && userAvatarUrl ? (
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
               <AvatarFallback 
-                className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-base font-medium uppercase"
+                className="bg-gradient-to-br from-coral-400 to-orange-400 text-white text-sm md:text-base font-medium uppercase"
                 style={{
                   fontFamily: "'Shrikhand', cursive"
                 }}
@@ -72,7 +72,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
                   decoding="async" 
                   
                 />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
+                <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-sm md:text-xs font-medium">
                   <Heart className="w-4 h-4 md:w-4 md:h-4" />
                 </AvatarFallback>
               </>
