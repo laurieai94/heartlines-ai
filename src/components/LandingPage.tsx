@@ -676,7 +676,7 @@ const LandingPage = ({
                   
                   <span className="relative z-10 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
-                    talk it out with kai
+                    get started
                   </span>
                 </Button>
               </div>
