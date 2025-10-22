@@ -107,8 +107,8 @@ const PartnerQuestionnaireLayout = ({
          <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[100dvh] sm:max-h-[70dvh] flex flex-col'} ${
            // Force desktop styling on tablet and above
            isTabletDesktop 
-             ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
-             : 'border border-white/15 rounded-xl sm:rounded-2xl bg-burgundy-900/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
+             ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-800/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
+             : 'border border-white/15 rounded-xl sm:rounded-2xl bg-burgundy-800/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
          } overflow-hidden relative ${
            isTabletDesktop
              ? 'before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none'

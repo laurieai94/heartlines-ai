@@ -22,7 +22,7 @@ const LoadingState: React.FC<LoadingStateProps> = ({
 }) => {
   const containerClasses = cn(
     'flex items-center justify-center',
-    fullScreen ? 'min-h-screen bg-burgundy-900' : 'min-h-32',
+    fullScreen ? 'min-h-screen bg-burgundy-800' : 'min-h-32',
     className
   );
 

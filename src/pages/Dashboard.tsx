@@ -116,9 +116,9 @@ const Dashboard = () => {
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
         <MobileHeaderVisibilityProvider>
-          <div className="h-[100dvh] bg-burgundy-900">
+          <div className="h-[100dvh] bg-burgundy-800">
             {/* Main Dashboard Content - This gets blurred when modals are open */}
-            <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+            <div className={`h-full flex flex-col relative bg-burgundy-800 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
               {/* Background overlays removed for unified burgundy theme */}
 
               <DashboardHeader 

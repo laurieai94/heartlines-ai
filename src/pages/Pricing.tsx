@@ -96,7 +96,7 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <div className="fixed inset-0 bg-burgundy-900 overflow-y-auto">
+  return <div className="fixed inset-0 bg-burgundy-800 overflow-y-auto">
       <div className="relative z-10">
         <SimpleHeader user={user} activeTab="plans" onSignInClick={() => navigate('/signin')} />
         

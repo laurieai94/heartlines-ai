@@ -58,7 +58,7 @@ const AccountLayout = () => {
   }, []);
 
   return (
-    <div className={`bg-burgundy-900 min-h-screen ${isMobile ? 'account-mobile' : ''}`}>
+    <div className={`bg-burgundy-800 min-h-screen ${isMobile ? 'account-mobile' : ''}`}>
       {/* Animated background elements - deferred for performance */}
       {showBackgroundEffects && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">

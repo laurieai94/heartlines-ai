@@ -53,9 +53,9 @@ export const ChatLayout = ({
   ];
 
   return (
-    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
+    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-800 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
       {/* Mobile only: Site navigation bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-[45] bg-burgundy-900 px-4 py-2 flex items-center justify-end">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-[45] bg-burgundy-800 px-4 py-2 flex items-center justify-end">
         <Popover modal={false} open={isNavPopoverOpen} onOpenChange={setIsNavPopoverOpen}>
           <PopoverTrigger asChild>
             <Button 
@@ -109,7 +109,7 @@ export const ChatLayout = ({
           <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 md:rounded-2xl lg:rounded-3xl blur-xl -z-10 hidden md:block"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:rounded-2xl lg:rounded-3xl -z-10 hidden md:block"></div>
           
-          <div className="flex-1 flex flex-col bg-burgundy-900 md:min-h-0 md:max-h-full md:bg-white/5 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-900/30 md:overflow-hidden relative z-10">
+          <div className="flex-1 flex flex-col bg-burgundy-800 md:min-h-0 md:max-h-full md:bg-white/5 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 md:overflow-hidden relative z-10">
             {/* Desktop: Header outside scroll */}
             <div className="hidden md:block">
               <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />

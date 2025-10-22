@@ -45,7 +45,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       }
 
       return (
-        <div className="min-h-screen bg-burgundy-900 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-burgundy-800 flex items-center justify-center p-6">
           <div className="max-w-md mx-auto text-center">
             <BrandMark size="md" className="mx-auto mb-6" />
             

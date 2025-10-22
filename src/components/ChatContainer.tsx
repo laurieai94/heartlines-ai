@@ -298,7 +298,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   );
 
   return (
-    <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-900">
+    <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-800">
       {isMobilePhone ? (
         /* Mobile: Fixed height container with keyboard-aware positioning */
         <div 
@@ -310,7 +310,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               : 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
             zIndex: 10,
             transition: 'height 0.2s ease-out',
-            background: 'rgb(64, 13, 24)' // burgundy-900 - prevent white screen
+            background: 'rgb(86, 18, 31)' // burgundy-800 - prevent white screen
           }}
         >
           
@@ -321,7 +321,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             style={{ 
               paddingTop: '0.5rem',
               paddingBottom: `${(inputSectionHeight || 280) + 40 + (showProfileNudge ? 200 : 0)}px`, // Reduced from 80 to 40 since keyboard handling is now in container height
-              background: 'rgb(64, 13, 24)', // burgundy-900 - prevent white screen
+              background: 'rgb(86, 18, 31)', // burgundy-800 - prevent white screen
               minHeight: '100%'
             }}
             role="log"
