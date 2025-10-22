@@ -317,22 +317,22 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className={`relative z-10 min-h-screen flex flex-col items-center py-4 sm:py-8 ${isKeyboardVisible ? 'justify-start pt-2' : 'justify-center'}`}>
+      <div className={`relative z-10 min-h-screen max-h-screen flex flex-col items-center overflow-y-auto py-2 sm:py-4 justify-start`}>
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
-          <div className="w-full flex flex-col items-center space-y-3 sm:space-y-4 px-4 mb-6 sm:mb-8">
+          <div className="w-full flex flex-col items-center space-y-3 sm:space-y-4 px-4 mb-3 sm:mb-6">
             {/* Logo */}
             <div className="text-center">
               <img 
                 src={BRAND.signUpLogoSrc}
                 alt="heartlines logo"
-                className="w-[211px] md:w-[243px] mx-auto"
+                className="w-[180px] sm:w-[211px] md:w-[243px] mx-auto"
               />
             </div>
             
             {/* Progress Bar */}
             <div className="w-full max-w-sm">
-              <div className="p-3 sm:p-4 rounded-xl glass-burgundy shadow-lg">
+              <div className="p-2 sm:p-3 md:p-4 rounded-xl glass-burgundy shadow-lg">
                 <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
                   {/* Step 1 - active */}
                   <div className="flex items-center justify-center gap-1 sm:gap-1.5">
@@ -365,9 +365,9 @@ const Auth = () => {
         )}
 
         {/* Form container - centered and flexible */}
-        <div className={`px-4 w-full ${isKeyboardVisible ? 'pb-24' : ''}`}>
+        <div className={`px-4 w-full flex-1 flex items-start justify-center overflow-y-auto`}>
           <div className="w-full max-w-sm sm:max-w-md mx-auto">
-            <div className="questionnaire-card p-5 sm:p-6 md:p-8">
+            <div className="questionnaire-card p-4 sm:p-5 md:p-6 lg:p-8">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
@@ -445,7 +445,7 @@ const Auth = () => {
             />
           </div>}
 
-          <form onSubmit={handleSubmit} className="space-y-3">
+          <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3">
             <div className="space-y-1">
               <Label htmlFor="email" className="text-white text-sm">
                 email
@@ -512,7 +512,7 @@ const Auth = () => {
           </form>
 
               {/* Toggle between sign up and sign in */}
-              <div className="mt-4 text-center">
+              <div className="mt-3 sm:mt-4 text-center">
                 <p className="text-white/70 text-xs">
                   {isSignUp ? 'already have an account?' : 'need an account?'}
                   {' '}
@@ -530,7 +530,7 @@ const Auth = () => {
                 </p>
                 
                 {/* Back to Home button */}
-                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:bg-transparent hover:text-white/60 active:text-white/80 text-xs py-1 h-auto -mt-2 md:mt-1.5 transition-none">
+                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:bg-transparent hover:text-white/60 active:text-white/80 text-xs py-1 h-auto -mt-1 sm:-mt-2 md:mt-1.5 mb-1 sm:mb-0 transition-none">
                   <ArrowLeft className="h-3 w-3 mr-1" />
                   back to home
                 </Button>
