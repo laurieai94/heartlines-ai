@@ -38,7 +38,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''} transition-all duration-300 ease-out ${isFirstInGroup ? 'group-hover:drop-shadow-[0_0_12px_rgba(255,138,120,0.6)]' : ''}`}>
+        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-40 drop-shadow-lg ${
             isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
@@ -87,11 +87,10 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       } ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            relative transition-all duration-300 ease-out transform-origin-center group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)] group-hover:scale-[1.02] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
-            before:absolute before:inset-[1px] before:rounded-[inherit] before:bg-gradient-to-b before:from-white/5 before:to-transparent before:pointer-events-none
+            transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
-              ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5),0_4px_12px_rgba(255,138,120,0.15),0_0_40px_rgba(255,138,120,0.05)]'
-              : 'bg-burgundy-600/60 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/25 ring-1 ring-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5),0_4px_12px_rgba(255,255,255,0.08),0_0_40px_rgba(255,255,255,0.03)]'
+              ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10'
+              : 'bg-burgundy-600/60 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/25 ring-1 ring-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-white/5'
             }
           `}
         >

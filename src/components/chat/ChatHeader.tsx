@@ -44,7 +44,7 @@ export const ChatHeader = ({
   };
 
   return (
-    <div className="md:sticky fixed top-[52px] md:top-0 left-0 right-0 z-[70] shrink-0 bg-gradient-to-b from-burgundy-800/60 via-burgundy-800/40 to-transparent backdrop-blur-xl border-b border-white/15 shadow-[0_4px_20px_rgba(0,0,0,0.3)] md:bg-gradient-to-b md:from-burgundy-800/60 md:via-burgundy-800/40 md:to-transparent md:backdrop-blur-xl">
+    <div className="md:sticky fixed top-[52px] md:top-0 left-0 right-0 z-[70] shrink-0 bg-burgundy-800 backdrop-blur-md border-b border-white/10 shadow-lg md:bg-burgundy-800/40 md:backdrop-blur-md">
       <div className="w-full md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
@@ -52,7 +52,7 @@ export const ChatHeader = ({
             {/* Left: Kai avatar + name */}
             <div className="flex items-center gap-2 min-w-0">
               <div className="relative flex-shrink-0">
-                <Avatar className="w-10 h-10 border-2 border-white/30 shadow-[0_0_20px_rgba(255,138,120,0.4),0_0_40px_rgba(134,25,45,0.3)] ring-2 ring-coral-400/30 bg-gradient-to-br from-coral-400 to-burgundy-500">
+                <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-burgundy-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
                     alt={BRAND.coach.name} 
@@ -65,7 +65,7 @@ export const ChatHeader = ({
                     <Heart className="w-4 h-4" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-burgundy-950 shadow-[0_0_8px_rgba(74,222,128,0.6)] ring-2 ring-green-400/50">
+                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-burgundy-950">
                   <div className="w-full h-full rounded-full bg-green-400 animate-pulse" />
                 </div>
               </div>
@@ -109,13 +109,13 @@ export const ChatHeader = ({
             {/* Kai Avatar - Far Left */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
-              <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-[0_0_20px_rgba(255,138,120,0.4),0_0_40px_rgba(134,25,45,0.3)] ring-2 ring-coral-400/30 relative z-10 w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 border-3 border-white/30">
+              <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 border-3 border-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                 <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
                   <Heart className="w-4 h-4 md:w-6 md:h-6" />
                 </AvatarFallback>
               </Avatar>
-              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 md:w-3 md:h-3 bg-green-400 rounded-full border border-white animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.6)] ring-2 ring-green-400/50"></div>
+              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 md:w-3 md:h-3 bg-green-400 rounded-full border border-white animate-pulse shadow-sm"></div>
             </div>
             
             {/* Kai Info - Center, aligned with messages */}
