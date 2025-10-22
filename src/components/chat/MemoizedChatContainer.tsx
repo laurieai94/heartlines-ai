@@ -43,7 +43,6 @@ export const MemoizedChatContainer = React.memo(
       prevProps.userName === nextProps.userName &&
       prevProps.isConfigured === nextProps.isConfigured &&
       prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
-      prevProps.userTyping === nextProps.userTyping &&
       prevProps.inputSectionHeight === nextProps.inputSectionHeight
     );
   }
