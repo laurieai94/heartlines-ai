@@ -66,11 +66,24 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
               <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-burgundy-600/75 backdrop-blur-sm hover:bg-burgundy-600/85 rounded-lg p-2 border-2 border-white/40 hover:border-coral-400/50 hover:shadow-[0_4px_16px_rgba(0,0,0,0.4)] shadow-md transition-all duration-200"
+                  className="group cursor-pointer relative rounded-lg shadow-md transition-all duration-200 overflow-hidden"
                 >
-                  <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
-                    {category}
-                  </h4>
+                  {/* Animated gradient border */}
+                  <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div 
+                      className="absolute inset-[-2px] rounded-lg animate-border-gradient" 
+                      style={{
+                        background: 'conic-gradient(from 0deg, #ec4899, #ff6b5a, #f97316, #ec4899)',
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Content layer */}
+                  <div className="relative bg-burgundy-600/75 backdrop-blur-sm group-hover:bg-burgundy-600/85 rounded-lg p-2 m-[2px] border-2 border-white/40 transition-all duration-200">
+                    <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
+                      {category}
+                    </h4>
+                  </div>
                 </div>
               ))}
             </div>
