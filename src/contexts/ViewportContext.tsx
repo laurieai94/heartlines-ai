@@ -17,6 +17,9 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
   const [height, setHeight] = useState(() => 
     typeof window !== 'undefined' ? window.innerHeight : 0
   );
+  const [initialHeight] = useState(() => 
+    typeof window !== 'undefined' ? window.innerHeight : 0
+  );
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [keyboardListeners] = useState(new Set<(isVisible: boolean) => void>());
 
@@ -50,7 +53,7 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
         // More reliable keyboard detection using visualViewport
         const isKeyboardNowVisible = visualViewport 
           ? (windowHeight - visualViewport.height) > 150
-          : false;
+          : (initialHeight - window.innerHeight) > 150;
         
         setHeight(newHeight);
         
