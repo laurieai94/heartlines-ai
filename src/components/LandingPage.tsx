@@ -699,7 +699,7 @@ const LandingPage = ({
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               
               {/* Left Column: Kai's Avatar */}
-              <div className="flex flex-col items-center md:items-end order-1">
+              <div className="relative flex items-center justify-center md:justify-end order-1">
                 <div className="relative">
                   {/* Outer glow */}
                   <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '3s' }}></div>
@@ -717,7 +717,7 @@ const LandingPage = ({
                 </div>
                 
                 {/* CTA Button */}
-                <div className="mt-6 ml-16 md:ml-0 animate-fade-in" style={{ animationDelay: '1s' }}>
+                <div className="absolute left-0 -translate-x-full pr-4 md:relative md:translate-x-0 md:mt-6 md:ml-0 md:left-auto animate-fade-in" style={{ animationDelay: '1s' }}>
                   <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                     {/* Glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
@@ -779,7 +779,7 @@ const LandingPage = ({
                 </div>
                 
                 {/* Feature pills */}
-                <div className="grid grid-cols-2 justify-center md:justify-start gap-3 mb-8 max-w-md animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
                     <span className="text-sm text-white font-medium">🧠 evidence-based psychology</span>
                   </div>
@@ -792,7 +792,7 @@ const LandingPage = ({
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
                     <span className="text-sm text-white font-medium">⏱ instant, 24/7 support</span>
                   </div>
-                  <div className="col-span-2 justify-self-center px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
+                  <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
                     <span className="text-sm text-white font-medium">🌈 inclusive for all relationships</span>
                   </div>
                 </div>
