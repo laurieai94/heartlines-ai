@@ -376,11 +376,11 @@ const Auth = () => {
         <div className={`px-4 w-full flex-1 flex items-start justify-center overflow-y-auto`}>
           <div className="w-full max-w-sm sm:max-w-md mx-auto">
             <div className="questionnaire-card p-4 sm:p-5 md:p-6 lg:p-8">
-          {showEmailVerification ? <div className="text-center space-y-4">
-              <div className="questionnaire-card p-6">
-                <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
-                <h3 className="questionnaire-text font-semibold mb-2">check your email!</h3>
-                <p className="questionnaire-text-muted text-sm mb-4">
+          {showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
+              <div className="questionnaire-card p-4 sm:p-5 md:p-6">
+                <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-green-400 mx-auto mb-2 sm:mb-3" />
+                <h3 className="questionnaire-text font-semibold mb-1.5 sm:mb-2">check your email!</h3>
+                <p className="questionnaire-text-muted text-sm mb-3 sm:mb-4">
                   we've sent you a verification link. click it to activate your account.
                 </p>
                 
@@ -394,7 +394,7 @@ const Auth = () => {
                   {isResendingVerification ? 'sending...' : resendCooldown > 0 ? `resend in ${resendCooldown}s` : 'resend email'}
                 </Button>
               </div>
-              <Button onClick={() => navigate('/')} variant="ghost" className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm">
+              <Button onClick={() => navigate('/')} variant="ghost" className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm py-1.5 h-auto mb-1">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 back to home
               </Button>
