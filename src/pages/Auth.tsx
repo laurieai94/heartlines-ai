@@ -367,7 +367,7 @@ const Auth = () => {
         {/* Form container - centered and flexible */}
         <div className={`px-4 w-full ${isKeyboardVisible ? 'pb-24' : ''}`}>
           <div className="w-full max-w-sm sm:max-w-md mx-auto">
-            <div className="questionnaire-card p-5 sm:p-6 md:p-8 animate-fade-in">
+            <div className="questionnaire-card p-5 sm:p-6 md:p-8">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
