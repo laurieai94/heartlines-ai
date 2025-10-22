@@ -159,12 +159,12 @@ const AIChatInput = ({
     <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? `brand-gradient-soft border-2 border-white/25 backdrop-blur-xl shadow-2xl shadow-black/40 ${
+          ? `brand-gradient-soft border-2 border-white/30 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl shadow-black/40 ${
               atLimit 
                 ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/25 shadow-2xl shadow-black/40'
+          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/30 ring-1 ring-white/10 shadow-2xl shadow-black/40'
       }`}>
         <Textarea
           unstyled

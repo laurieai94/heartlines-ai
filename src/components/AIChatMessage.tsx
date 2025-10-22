@@ -91,8 +91,8 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           className={`
             transition-all duration-300 group-hover:shadow-2xl px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
-              ? 'bg-burgundy-700/40 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border-2 border-coral-400/30 shadow-xl shadow-black/40 md:shadow-coral-400/20'
-              : 'bg-burgundy-700/50 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border-2 border-white/30 shadow-xl shadow-black/40'
+              ? 'bg-burgundy-700/40 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-200/20 shadow-xl shadow-black/40 md:shadow-coral-400/20'
+              : 'bg-burgundy-700/50 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/15 shadow-xl shadow-black/40'
             }
           `}
         >

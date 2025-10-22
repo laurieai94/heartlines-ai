@@ -3,7 +3,7 @@ import { Heart, Lightbulb } from "lucide-react";
 
 const KaiIntroCard = () => {
   return (
-    <Card className="p-3 bg-white/5 backdrop-blur-sm border border-white/10 shadow-sm animate-fade-in transition-all duration-300">
+    <Card className="p-3 bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 shadow-sm animate-fade-in transition-all duration-300">
       <div className="flex items-center gap-2 mb-2">
         <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-burgundy-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
           <Heart className="w-4 h-4 text-white" />
