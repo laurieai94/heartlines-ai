@@ -699,7 +699,7 @@ const LandingPage = ({
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               
               {/* Left Column: Kai's Avatar */}
-              <div className="flex justify-center md:justify-end order-2 md:order-1">
+              <div className="flex flex-col items-center md:items-end order-2 md:order-1">
                 <div className="relative">
                   {/* Outer glow */}
                   <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '3s' }}></div>
@@ -719,6 +719,37 @@ const LandingPage = ({
                   {/* Badge overlay */}
                   <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
                     <span className="text-xs md:text-sm font-medium text-white">your ai coach</span>
+                  </div>
+                </div>
+                
+                {/* CTA Button */}
+                <div className="mt-12 flex justify-center animate-fade-in" style={{ animationDelay: '1s' }}>
+                  <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                    {/* Glow effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <Button 
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base md:text-lg"
+                      style={{
+                        boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                      }}
+                    >
+                      {/* Shimmer overlay */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div 
+                          className="absolute inset-0 animate-shimmer"
+                          style={{
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                            backgroundSize: '200% 100%'
+                          }}
+                        />
+                      </div>
+                      
+                      <span className="relative z-10 flex items-center gap-2">
+                        <MessageCircleHeart className="w-5 h-5" />
+                        start chatting with kai
+                      </span>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -766,37 +797,6 @@ const LandingPage = ({
                   </div>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
                     <span className="text-sm text-white font-medium">⏱ instant, 24/7 support</span>
-                  </div>
-                </div>
-                
-                {/* CTA Button */}
-                <div className="flex justify-center md:justify-start animate-fade-in" style={{ animationDelay: '1s' }}>
-                  <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base md:text-lg"
-                      style={{
-                        boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                      }}
-                    >
-                      {/* Shimmer overlay */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div 
-                          className="absolute inset-0 animate-shimmer"
-                          style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                            backgroundSize: '200% 100%'
-                          }}
-                        />
-                      </div>
-                      
-                      <span className="relative z-10 flex items-center gap-2">
-                        <MessageCircleHeart className="w-5 h-5" />
-                        start chatting with kai
-                      </span>
-                    </Button>
                   </div>
                 </div>
               </div>
