@@ -78,7 +78,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
+                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
             <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                 </Button>
@@ -86,7 +86,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
-                className="w-16 p-2 z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
+                className="w-16 p-2 z-[60] bg-white/10 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -97,10 +97,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
                       title={item.label}
-                      className={`w-full flex items-center justify-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+                      className={`w-full flex items-center justify-center p-3 rounded-xl cursor-pointer transition-all duration-200 shadow-lg hover:shadow-xl ${
                         isActive 
-                          ? 'text-white bg-white/15 border border-white/20' 
-                          : 'text-white/80 hover:bg-white/10 hover:text-white border border-white/8 hover:border-white/15'
+                          ? 'text-white bg-white/20 shadow-white/10' 
+                          : 'text-white/80 hover:bg-white/15 hover:text-white shadow-transparent hover:shadow-white/5'
                       }`}
                     >
                       <IconComponent className="h-6 w-6" strokeWidth={2} />
@@ -130,7 +130,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
+                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
                   <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                 </Button>
@@ -138,7 +138,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
-                className="w-16 p-2 z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
+                className="w-16 p-2 z-[60] bg-white/10 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -149,10 +149,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
                       title={item.label}
-                      className={`w-full flex items-center justify-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+                      className={`w-full flex items-center justify-center p-3 rounded-xl cursor-pointer transition-all duration-200 shadow-lg hover:shadow-xl ${
                         isActive 
-                          ? 'text-white bg-white/15 border border-white/20' 
-                          : 'text-white/80 hover:bg-white/10 hover:text-white border border-white/8 hover:border-white/15'
+                          ? 'text-white bg-white/20 shadow-white/10' 
+                          : 'text-white/80 hover:bg-white/15 hover:text-white shadow-transparent hover:shadow-white/5'
                       }`}
                     >
                       <IconComponent className="h-6 w-6" strokeWidth={2} />
