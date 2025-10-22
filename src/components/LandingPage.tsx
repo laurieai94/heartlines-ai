@@ -736,7 +736,7 @@ const LandingPage = ({
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/90 font-medium leading-relaxed">
-                    Built on science, powered by empathy, made for real life.
+                    Backed by science. Grounded in empathy. Made for real life.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
