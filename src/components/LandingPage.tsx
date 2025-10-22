@@ -763,17 +763,17 @@ const LandingPage = ({
                 
                 <div className="space-y-4 mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    Kai's built for how we love now —<br />
+                    kai's built for how we love now —<br />
                     the apps, the almosts, the "wyd?"s that turn into something real, and the everyday work of keeping love alive.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/90 font-medium leading-relaxed">
-                    Backed by science. Grounded in empathy. Made for real life.
+                    backed by science. grounded in empathy. made for real life.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    Grounded in PhD-level psychology,<br />
-                    Kai helps you understand yourself and what it takes to keep love healthy, intimate, and real —<br />
+                    grounded in phd-level psychology,<br />
+                    kai helps you understand yourself and what it takes to keep love healthy, intimate, and real —<br />
                     one honest, human conversation at a time.
                   </p>
                 </div>
