@@ -40,13 +40,11 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       <div className="flex-shrink-0">
         <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
-          {!isMobile && (
-            <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
-              isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
-            }`}></div>
-          )}
+          <div className={`absolute inset-0 rounded-full blur-md opacity-40 drop-shadow-lg ${
+            isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
+          }`}></div>
           
-          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
               : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
@@ -89,10 +87,10 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       } ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            transition-all duration-300 group-hover:shadow-2xl px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
+            transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
-              ? 'bg-burgundy-700/40 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-200/20 shadow-xl shadow-black/40 md:shadow-coral-400/20'
-              : 'bg-burgundy-700/50 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/15 shadow-xl shadow-black/40'
+              ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10'
+              : 'bg-burgundy-600/60 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/25 ring-1 ring-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-white/5'
             }
           `}
         >
@@ -103,7 +101,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         
         {/* Timestamp - Only show for last message in group */}
         {(isLastInGroup || !isMobile) && (
-          <p className={`text-xs md:text-xs text-white/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+          <p className={`text-xs md:text-xs text-white/60 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
             {formatTime(message.timestamp)}
           </p>
         )}
