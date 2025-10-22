@@ -8,11 +8,19 @@ const FADE_OUT_DURATION = 300; // 0.3 seconds
 
 const FirstVisitSplash: React.FC = () => {
   // Check immediately if this is a return visit - skip all loading logic if so
-  const hasVisited = typeof sessionStorage !== 'undefined' && 
-    sessionStorage.getItem('homepage_visited') === 'true';
+  let hasVisited = false;
+  let resourcesCached = false;
   
-  const resourcesCached = typeof sessionStorage !== 'undefined' && 
-    sessionStorage.getItem('resources_loaded') === 'true';
+  try {
+    if (typeof sessionStorage !== 'undefined') {
+      hasVisited = sessionStorage.getItem('homepage_visited') === 'true';
+      resourcesCached = sessionStorage.getItem('resources_loaded') === 'true';
+    }
+  } catch (error) {
+    console.warn('[FirstVisitSplash] SessionStorage access failed:', error);
+    // On storage failure, show landing page directly
+    return <LandingPage />;
+  }
   
   // Early return for instant loading on return visits
   if (hasVisited || resourcesCached) {
@@ -32,10 +40,14 @@ const FirstVisitSplash: React.FC = () => {
 
   useEffect(() => {
     // Mark as visited on first mount
-    const hasVisited = sessionStorage.getItem('homepage_visited');
-    
-    if (!hasVisited) {
-      console.log('[FirstVisitSplash] First visit detected - showing splash');
+    try {
+      const hasVisited = sessionStorage.getItem('homepage_visited');
+      
+      if (!hasVisited) {
+        console.log('[FirstVisitSplash] First visit detected - showing splash');
+      }
+    } catch (error) {
+      console.warn('[FirstVisitSplash] SessionStorage access failed on mount:', error);
     }
   }, []);
 
@@ -54,8 +66,12 @@ const FirstVisitSplash: React.FC = () => {
     // Hide splash and mark as visited + cache resources
     hideTimer = setTimeout(() => {
       setShowSplash(false);
-      sessionStorage.setItem('homepage_visited', 'true');
-      sessionStorage.setItem('resources_loaded', 'true');
+      try {
+        sessionStorage.setItem('homepage_visited', 'true');
+        sessionStorage.setItem('resources_loaded', 'true');
+      } catch (error) {
+        console.warn('[FirstVisitSplash] Failed to set sessionStorage:', error);
+      }
     }, FADE_OUT_DURATION);
     
     return () => {
@@ -71,9 +87,13 @@ const FirstVisitSplash: React.FC = () => {
     const emergencyTimeout = setTimeout(() => {
       console.log('[FirstVisitSplash] Emergency timeout - forcing page load');
       setShowSplash(false);
-      sessionStorage.setItem('homepage_visited', 'true');
-      sessionStorage.setItem('resources_loaded', 'true');
-    }, isMobile ? 5000 : 8000); // 5s on mobile, 8s on desktop - buffer above 3s minDisplayTime
+      try {
+        sessionStorage.setItem('homepage_visited', 'true');
+        sessionStorage.setItem('resources_loaded', 'true');
+      } catch (error) {
+        console.warn('[FirstVisitSplash] Failed to set sessionStorage on emergency timeout:', error);
+      }
+    }, isMobile ? 2500 : 5000); // 2.5s on mobile, 5s on desktop - reduced for better UX
     
     return () => clearTimeout(emergencyTimeout);
   }, [showSplash, isMobile]);
@@ -86,7 +106,10 @@ const FirstVisitSplash: React.FC = () => {
       
       {/* Splash overlay - only visible during first visit */}
       {showSplash && (
-        <div className={`fixed inset-0 z-50 ${isFadingOut ? 'animate-fade-out' : ''}`}>
+        <div 
+          className={`fixed inset-0 z-50 ${isFadingOut ? 'animate-fade-out pointer-events-none' : ''}`}
+          style={{ pointerEvents: isFadingOut ? 'none' : 'auto' }}
+        >
           <SplashScreen
             showWordmark={true}
             wordmarkSize="xl"
