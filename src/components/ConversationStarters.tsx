@@ -96,7 +96,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-burgundy-600/60 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border border-white/30 hover:border-white/40"
+                  className="group text-white/80 hover:text-white hover:bg-burgundy-600/60 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200"
                 >
                   <span className="leading-tight">{starter}</span>
                 </Button>
