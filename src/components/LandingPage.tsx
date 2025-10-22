@@ -751,7 +751,7 @@ const LandingPage = ({
                 </div>
                 
                 {/* Feature pills */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
                     <span className="text-sm text-white font-medium">🧠 evidence-based psychology</span>
                   </div>
@@ -764,10 +764,8 @@ const LandingPage = ({
                   <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
                     <span className="text-sm text-white font-medium">🌈 inclusive for all relationships</span>
                   </div>
-                  <div className="sm:col-span-2 flex justify-center">
-                    <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
-                      <span className="text-sm text-white font-medium">⏱ instant, 24/7 support</span>
-                    </div>
+                  <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
+                    <span className="text-sm text-white font-medium">⏱ instant, 24/7 support</span>
                   </div>
                 </div>
                 
