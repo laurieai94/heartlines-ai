@@ -96,7 +96,7 @@
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 350 100% 20%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 100%;
+    --sidebar-border: 0 0% 100% / 0.1;
     --sidebar-ring: 350 85% 50%;
 
     /* Custom warm colors */
@@ -181,7 +181,7 @@
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 350 100% 20%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 100%;
+    --sidebar-border: 0 0% 100% / 0.1;
     --sidebar-ring: 350 85% 50%;
   }
 }
