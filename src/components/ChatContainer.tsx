@@ -298,7 +298,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   );
 
   return (
-    <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-800">
+    <div className="flex-1 min-h-0 md:max-h-none relative bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      {/* Radial gradient overlay for center spotlight effect */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,138,120,0.08),transparent_60%)] pointer-events-none" />
       {isMobilePhone ? (
         /* Mobile: Fixed height container with keyboard-aware positioning */
         <div 
@@ -310,9 +312,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               : 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
             zIndex: 10,
             transition: 'height 0.2s ease-out',
-            background: 'rgb(86, 18, 31)' // burgundy-800 - prevent white screen
+            background: 'linear-gradient(135deg, rgb(53,9,16) 0%, rgb(86,18,31) 50%, rgb(53,9,16) 100%)' // burgundy-900 to burgundy-800 gradient
           }}
         >
+          {/* Radial gradient overlay for mobile */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,138,120,0.08),transparent_60%)] pointer-events-none" />
           
           {/* Scrollable Messages - fills remaining space */}
           <div 
@@ -321,7 +325,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             style={{ 
               paddingTop: '0.5rem',
               paddingBottom: `${(inputSectionHeight || 280) + 40 + (showProfileNudge ? 200 : 0)}px`, // Reduced from 80 to 40 since keyboard handling is now in container height
-              background: 'rgb(86, 18, 31)', // burgundy-800 - prevent white screen
+              background: 'transparent', // Use parent gradient
               minHeight: '100%'
             }}
             role="log"
