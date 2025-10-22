@@ -28,7 +28,7 @@ const ProductionSplashScreen: React.FC<ProductionSplashScreenProps> = ({
 
   return (
     <div className={cn(
-      "min-h-screen bg-burgundy-900 flex flex-col items-center justify-center p-6",
+      "min-h-screen bg-burgundy-800 flex flex-col items-center justify-center p-6",
       className
     )}>
       <div className="text-center space-y-6">
