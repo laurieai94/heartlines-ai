@@ -773,7 +773,7 @@ const LandingPage = ({
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    grounded in phd-level psychology,<br />
+                    with phd-level psychology at her core,<br />
                     kai helps you understand yourself and what it takes to keep love healthy, intimate, and real —<br />
                     one honest, human conversation at a time.
                   </p>
