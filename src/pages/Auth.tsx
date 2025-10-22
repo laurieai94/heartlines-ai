@@ -109,10 +109,12 @@ const Auth = () => {
     return cleanup;
   }, [navigate, searchParams]);
 
-  // Preload critical sign-up logo for instant display
+  // Conditionally preload sign-up logo only when needed
   useEffect(() => {
-    preloadCriticalImages([BRAND.signUpLogoSrc]);
-  }, []);
+    if (isSignUp) {
+      preloadCriticalImages([BRAND.signUpLogoSrc]);
+    }
+  }, [isSignUp]);
 
   // Redirect if already authenticated
   if (user && !loading) {

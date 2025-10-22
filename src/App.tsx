@@ -20,7 +20,7 @@ const PrivacySecurity = React.lazy(() => import("@/pages/PrivacySecurity"));
 const Pricing = React.lazy(() => import("@/pages/Pricing"));
 const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
 const Account = React.lazy(() => import("@/pages/Account"));
-const Auth = React.lazy(() => import("@/pages/Auth"));
+import Auth from "@/pages/Auth"; // Synchronous import for instant loading
 const Mission = React.lazy(() => import("@/pages/Mission"));
 const Terms = React.lazy(() => import("@/pages/Terms"));
 const Contact = React.lazy(() => import("@/pages/Contact"));
@@ -75,16 +75,8 @@ const AppContent = () => {
             <AuthCallback />
           </Suspense>
         } />
-        <Route path="/signin" element={
-          <Suspense fallback={<div />}>
-            <Auth />
-          </Suspense>
-        } />
-        <Route path="/signup" element={
-          <Suspense fallback={<div />}>
-            <Auth />
-          </Suspense>
-        } />
+        <Route path="/signin" element={<Auth />} />
+        <Route path="/signup" element={<Auth />} />
         <Route path="/account" element={
           <Suspense fallback={<div />}>
             <Account />

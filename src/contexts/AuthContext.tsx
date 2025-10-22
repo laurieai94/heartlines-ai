@@ -77,15 +77,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     );
 
-    // Get initial session
+    // Get initial session - prioritize fast resolution for unauthenticated users
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      
+      // Clear timeout and resolve loading immediately
       clearTimeout(timeoutId);
+      if (progressTimer) clearTimeout(progressTimer);
       setLoading(false);
     }).catch((error) => {
       logError('Failed to get session', error);
       clearTimeout(timeoutId);
+      if (progressTimer) clearTimeout(progressTimer);
       setLoading(false);
     });
 
