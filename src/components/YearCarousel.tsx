@@ -165,11 +165,6 @@ export const YearCarousel = () => {
                 {/* Year Text */}
                 <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-8 md:pb-20 lg:pb-24 xl:pb-32 2xl:pb-40">
                   <div className="flex flex-col gap-2 md:gap-3 mb-4 md:mb-10 lg:mb-14 xl:mb-20 2xl:mb-24">
-              <h2 
-                className="font-['Shrikhand'] text-6xl md:text-7xl lg:text-7xl xl:text-8xl 2xl:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-500 leading-none"
-              >
-                {slide.year}
-              </h2>
                     <p className="text-white font-glacial text-lg md:text-xl lg:text-2xl font-normal drop-shadow-lg">
                       Love, but make it last.
                     </p>
