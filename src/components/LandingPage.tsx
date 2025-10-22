@@ -19,7 +19,6 @@ import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import HeroCarousel from "./HeroCarousel";
-
 import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
@@ -90,12 +89,10 @@ const StepCard = ({
             group-hover:text-white transition-colors duration-300">
             {description}
           </p>
-          {secondaryText && (
-            <p className="text-pink-200/70 sm:text-pink-200/60 text-sm md:text-base leading-relaxed mt-2 font-light italic
+          {secondaryText && <p className="text-pink-200/70 sm:text-pink-200/60 text-sm md:text-base leading-relaxed mt-2 font-light italic
               group-hover:text-white/70 transition-colors duration-300">
               {secondaryText}
-            </p>
-          )}
+            </p>}
         </div>
       </div>
     </article>;
@@ -113,7 +110,6 @@ const LandingPage = ({
   });
   const navigate = useNavigate();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
-
   const handleTalkToKai = () => {
     if (user) {
       navigate('/coach');
@@ -123,7 +119,9 @@ const LandingPage = ({
   };
   const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { scrollY } = useScrollDirection();
+  const {
+    scrollY
+  } = useScrollDirection();
 
   // Ensure menu closes when user navigates away or clicks outside
   useEffect(() => {
@@ -245,11 +243,10 @@ const LandingPage = ({
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const isMobile = window.innerWidth < 768;
-      
       if (isMobile) {
         // Force immediate scroll to top on mount
         window.scrollTo(0, 0);
-        
+
         // Prevent browser from restoring previous scroll position
         if ('scrollRestoration' in window.history) {
           window.history.scrollRestoration = 'manual';
@@ -266,7 +263,6 @@ const LandingPage = ({
     if (root) {
       root.classList.add('landing-page-active');
     }
-    
     return () => {
       document.documentElement.classList.remove('landing-page-active');
       document.body.classList.remove('landing-page-active');
@@ -284,25 +280,16 @@ const LandingPage = ({
         setIsSplashActive(false);
       }
     };
-    
     const interval = setInterval(checkSplash, 100);
-    
     return () => clearInterval(interval);
   }, []);
-
   return <>
       {/* Persistent Heartlines Logo - Top Right */}
-      {!isSplashActive && (
-        <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-40 pointer-events-none">
+      {!isSplashActive && <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-40 pointer-events-none">
           <div className="relative">
-            <img 
-              src={heartlinesLogo} 
-              alt="heartlines" 
-              className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg pointer-events-none"
-            />
+            <img src={heartlinesLogo} alt="heartlines" className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg pointer-events-none" />
           </div>
-        </div>
-      )}
+        </div>}
 
       {/* Navigation - Outside main container for proper fixed positioning */}
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`}>
@@ -329,28 +316,24 @@ const LandingPage = ({
               {user ? <>
                   <Link to="/profile">
                     <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
-                      <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
+                      <User className="h-5 w-5" style={{
+                  color: '#ffc0cb'
+                }} />
                     </Button>
                   </Link>
                   <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer">
                     {/* Glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                     
-                    <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 md:px-5 lg:px-6 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
-                      style={{
-                        boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
-                      }}
-                    >
+                    <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 md:px-5 lg:px-6 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300" style={{
+                boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+              }}>
                       {/* Shimmer overlay */}
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div 
-                          className="absolute inset-0 animate-shimmer"
-                          style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                            backgroundSize: '200% 100%'
-                          }}
-                        />
+                        <div className="absolute inset-0 animate-shimmer" style={{
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                    backgroundSize: '200% 100%'
+                  }} />
                       </div>
                       
                       <span className="relative z-10 text-sm md:text-base font-medium">get started</span>
@@ -359,31 +342,27 @@ const LandingPage = ({
                 </> : <>
                   <Link to="/signin">
                     <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
-                      <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
+                      <User className="h-5 w-5" style={{
+                  color: '#ffc0cb'
+                }} />
                     </Button>
                   </Link>
                   <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer">
                     {/* Glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                     
-                    <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 md:px-5 lg:px-6 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
-                      style={{
-                        boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
-                      }}
-                    >
+                    <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 md:px-5 lg:px-6 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300" style={{
+                boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+              }}>
                       {/* Shimmer overlay */}
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div 
-                          className="absolute inset-0 animate-shimmer"
-                          style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                            backgroundSize: '200% 100%'
-                          }}
-                        />
+                        <div className="absolute inset-0 animate-shimmer" style={{
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                    backgroundSize: '200% 100%'
+                  }} />
                       </div>
                       
-                      <span className="relative z-10 text-sm md:text-base font-medium">get started</span>
+                      <span className="relative z-10 text-sm md:text-base font-medium">chat </span>
                     </Button>
                   </div>
                 </>}
@@ -403,21 +382,15 @@ const LandingPage = ({
               {/* Glow effect */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-md md:group-hover:opacity-100 transition-opacity duration-300" />
               
-              <Button 
-                className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200"
-                style={{
-                  boxShadow: '0 0 30px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.5), 0 2px 8px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
-                }}
-              >
+              <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200" style={{
+                boxShadow: '0 0 30px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.5), 0 2px 8px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+              }}>
                 {/* Shimmer overlay */}
                 <div className="absolute inset-0 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-                  <div 
-                    className="absolute inset-0 animate-shimmer"
-                    style={{
-                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                      backgroundSize: '200% 100%'
-                    }}
-                  />
+                  <div className="absolute inset-0 animate-shimmer" style={{
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                    backgroundSize: '200% 100%'
+                  }} />
                 </div>
                 
                 <span className="relative z-10">
@@ -455,8 +428,8 @@ const LandingPage = ({
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
-      minHeight: 'clamp(40vh, 50vh, 65vh)'
-    }}>
+        minHeight: 'clamp(40vh, 50vh, 65vh)'
+      }}>
         {/* Static background preserved */}
         
         {/* Glassmorphic background layers */}
@@ -473,15 +446,15 @@ const LandingPage = ({
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0 md:max-w-[90%] lg:max-w-[85%] xl:max-w-[85%] 2xl:max-w-[90%] md:pr-4 lg:pr-6 xl:pr-8">
                     <div className="space-y-2 mb-1 md:mb-6">
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm overflow-visible" style={{
-                        fontSize: 'clamp(2.25rem, 4vw, 3.75rem)'
-                      }}>
+                      fontSize: 'clamp(2.25rem, 4vw, 3.75rem)'
+                    }}>
                         relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
-                        fontSize: 'clamp(1.25rem, 3.5vw, 2.25rem)',
-                        animationDelay: '0.2s'
-                      }}>
+                      fontSize: 'clamp(1.25rem, 3.5vw, 2.25rem)',
+                      animationDelay: '0.2s'
+                    }}>
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
@@ -493,22 +466,15 @@ const LandingPage = ({
                           {/* Glow effect */}
                           <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
                           
-                          <Button 
-                            size="lg"
-                            className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base lg:text-lg xl:text-xl rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-500 transform hover:scale-105 font-light animate-fade-in"
-                            style={{
-                              boxShadow: '0 0 50px rgba(255, 107, 157, 0.5), 0 8px 28px rgba(255, 107, 157, 0.55), 0 4px 14px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
-                            }}
-                          >
+                          <Button size="lg" className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base lg:text-lg xl:text-xl rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" style={{
+                          boxShadow: '0 0 50px rgba(255, 107, 157, 0.5), 0 8px 28px rgba(255, 107, 157, 0.55), 0 4px 14px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+                        }}>
                             {/* Shimmer overlay */}
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                              <div 
-                                className="absolute inset-0 animate-shimmer"
-                                style={{
-                                  background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                                  backgroundSize: '200% 100%'
-                                }}
-                              />
+                              <div className="absolute inset-0 animate-shimmer" style={{
+                              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                              backgroundSize: '200% 100%'
+                            }} />
                             </div>
                             
                             <span className="relative z-10 flex items-center">
@@ -546,9 +512,9 @@ const LandingPage = ({
                     </h1>
                     
                     <h3 className="md:leading-[1.25] md:pb-[0.1em] font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap" style={{
-                  fontSize: 'clamp(1.1rem, 4vw, 2.75rem)',
-                  animationDelay: '0.8s'
-                }}>
+                    fontSize: 'clamp(1.1rem, 4vw, 2.75rem)',
+                    animationDelay: '0.8s'
+                  }}>
                       <span className="font-brand">heartlines</span> helps you connect.
                     </h3>
                   </div>
@@ -558,22 +524,15 @@ const LandingPage = ({
                       {/* Glow effect */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
                       
-                      <Button 
-                        size="lg"
-                        className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-500 transform hover:scale-105 font-light animate-fade-in"
-                        style={{
-                          boxShadow: '0 0 50px rgba(255, 107, 157, 0.5), 0 8px 28px rgba(255, 107, 157, 0.55), 0 4px 14px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
-                        }}
-                      >
+                      <Button size="lg" className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" style={{
+                      boxShadow: '0 0 50px rgba(255, 107, 157, 0.5), 0 8px 28px rgba(255, 107, 157, 0.55), 0 4px 14px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+                    }}>
                         {/* Shimmer overlay */}
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div 
-                            className="absolute inset-0 animate-shimmer"
-                            style={{
-                              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                              backgroundSize: '200% 100%'
-                            }}
-                          />
+                          <div className="absolute inset-0 animate-shimmer" style={{
+                          background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                          backgroundSize: '200% 100%'
+                        }} />
                         </div>
                         
                         <span className="relative z-10 flex items-center">
@@ -588,8 +547,8 @@ const LandingPage = ({
                 {/* Right - Chat Animation */}
                 <div className="relative flex justify-center">
                   <div className="w-full max-w-md" style={{
-                height: 'min(min(56svh, 56dvh), 550px)'
-              }}>
+                  height: 'min(min(56svh, 56dvh), 550px)'
+                }}>
                     <HeroPhoneScroll className="animate-fade-in w-full h-full" />
                   </div>
                 </div>
@@ -604,11 +563,11 @@ const LandingPage = ({
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-orange-500/15 to-pink-600/10 rounded-full blur-3xl animate-pulse" style={{
-          animationDelay: '1s'
-        }}></div>
+            animationDelay: '1s'
+          }}></div>
           <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/10 to-orange-400/15 rounded-full blur-3xl animate-pulse" style={{
-          animationDelay: '2s'
-        }}></div>
+            animationDelay: '2s'
+          }}></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6">
@@ -621,34 +580,34 @@ const LandingPage = ({
           <div className="relative max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
               {[{
-              step: "01",
-              title: "build your profile",
-              description: "show how you really vibe—calm, stressed, or full chaos.",
-              secondaryText: "(no fake bios here.)",
-              icon: <UserPlus className="w-5 h-5" />,
-              iconName: "user-plus"
-            }, {
-              step: "02",
-              title: "add your person",
-              description: "bring them in too, so kai sees the full picture.",
-              secondaryText: "(every story has two (+) main characters)",
-              icon: <Heart className="w-5 h-5" />,
-              iconName: "heart"
-            }, {
-              step: "03",
-              title: "chat with kai",
-              description: "spill it, vent it, practice it—then get advice that actually slaps.",
-              secondaryText: "(less textbook therapy, more real talk)",
-              icon: <MessageCircleHeart className="w-5 h-5" />,
-              iconName: "message-heart"
-            }, {
-              step: "04",
-              title: "try it irl",
-              description: "test it out in the wild—less fights, more feels.",
-              secondaryText: "(because the magic happens offline)",
-              icon: <Sparkles className="w-5 h-5" />,
-              iconName: "sparkles"
-            }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
+                step: "01",
+                title: "build your profile",
+                description: "show how you really vibe—calm, stressed, or full chaos.",
+                secondaryText: "(no fake bios here.)",
+                icon: <UserPlus className="w-5 h-5" />,
+                iconName: "user-plus"
+              }, {
+                step: "02",
+                title: "add your person",
+                description: "bring them in too, so kai sees the full picture.",
+                secondaryText: "(every story has two (+) main characters)",
+                icon: <Heart className="w-5 h-5" />,
+                iconName: "heart"
+              }, {
+                step: "03",
+                title: "chat with kai",
+                description: "spill it, vent it, practice it—then get advice that actually slaps.",
+                secondaryText: "(less textbook therapy, more real talk)",
+                icon: <MessageCircleHeart className="w-5 h-5" />,
+                iconName: "message-heart"
+              }, {
+                step: "04",
+                title: "try it irl",
+                description: "test it out in the wild—less fights, more feels.",
+                secondaryText: "(because the magic happens offline)",
+                icon: <Sparkles className="w-5 h-5" />,
+                iconName: "sparkles"
+              }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
             </div>
 
             {/* Get Started CTA */}
@@ -657,21 +616,15 @@ const LandingPage = ({
                 {/* Glow effect */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                 
-                <Button 
-                  className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl"
-                  style={{
-                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                  }}
-                >
+                <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
+                  boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                }}>
                   {/* Shimmer overlay */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div 
-                      className="absolute inset-0 animate-shimmer"
-                      style={{
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                        backgroundSize: '200% 100%'
-                      }}
-                    />
+                    <div className="absolute inset-0 animate-shimmer" style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                      backgroundSize: '200% 100%'
+                    }} />
                   </div>
                   
                   <span className="relative z-10 flex items-center gap-2">
@@ -690,8 +643,13 @@ const LandingPage = ({
       <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Background Ambient Orbs */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/20 via-coral-400/15 to-orange-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
-          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-r from-orange-500/20 via-pink-500/15 to-coral-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+          <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/20 via-coral-400/15 to-orange-500/20 rounded-full blur-3xl animate-pulse" style={{
+            animationDuration: '4s'
+          }}></div>
+          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-r from-orange-500/20 via-pink-500/15 to-coral-400/20 rounded-full blur-3xl animate-pulse" style={{
+            animationDuration: '5s',
+            animationDelay: '1s'
+          }}></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -702,42 +660,36 @@ const LandingPage = ({
               <div className="relative flex items-center justify-center md:justify-end order-1">
                 <div className="relative">
                   {/* Outer glow */}
-                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{
+                    animationDuration: '3s'
+                  }}></div>
                   
                   {/* Inner glow */}
                   <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
                   
                   {/* Avatar container */}
                   <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
-                    <img 
-                      src={BRAND.coach.avatarSrc}
-                      alt="Kai, your AI relationship coach"
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover" />
                   </div>
                   
                   {/* CTA Button */}
-                  <div className="hidden md:flex md:justify-center md:mt-6 animate-fade-in" style={{ animationDelay: '1s' }}>
+                  <div className="hidden md:flex md:justify-center md:mt-6 animate-fade-in" style={{
+                    animationDelay: '1s'
+                  }}>
                     <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                       {/* Glow effect */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                       
-                      <Button 
-                        className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base"
-                        style={{
-                          boxShadow: '0 0 40px rgba(236, 72, 153, 0.4), 0 8px 32px rgba(251, 146, 60, 0.5)'
-                        }}
-                      >
+                      <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base" style={{
+                        boxShadow: '0 0 40px rgba(236, 72, 153, 0.4), 0 8px 32px rgba(251, 146, 60, 0.5)'
+                      }}>
                         {/* Shimmer overlay */}
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div 
-                            className="absolute inset-0"
-                            style={{
-                              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                              backgroundSize: '200% 100%',
-                              animation: 'shimmer 2s infinite'
-                            }}
-                          />
+                          <div className="absolute inset-0" style={{
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                            backgroundSize: '200% 100%',
+                            animation: 'shimmer 2s infinite'
+                          }} />
                         </div>
                         
                         <span className="relative z-10 flex items-center gap-2">
@@ -754,15 +706,21 @@ const LandingPage = ({
 
               {/* Right Column: Content */}
               <div className="order-2 text-center md:text-left">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-fade-in" style={{
+                  animationDelay: '0.2s'
+                }}>
                   meet kai
                 </h2>
                 
-                <h3 className="text-xl md:text-2xl text-white/90 font-light mb-6 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                <h3 className="text-xl md:text-2xl text-white/90 font-light mb-6 animate-fade-in" style={{
+                  animationDelay: '0.4s'
+                }}>
                   your ai relationship coach
                 </h3>
                 
-                <div className="space-y-4 mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                <div className="space-y-4 mb-6 max-w-2xl animate-fade-in" style={{
+                  animationDelay: '0.6s'
+                }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
                     kai's built for how we love now —<br />
                     the apps, the almosts, the "wyd?"s that turn into something real, and the everyday work of keeping love alive.
@@ -779,7 +737,9 @@ const LandingPage = ({
                 </div>
                 
                 {/* Feature pills */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{
+                  animationDelay: '0.8s'
+                }}>
                   <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
                     <span className="text-sm text-white font-medium">🌈 inclusive for all relationships</span>
                   </div>
@@ -811,20 +771,20 @@ const LandingPage = ({
           
           {/* Top left accent */}
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-pink-400/15 to-orange-500/10 rounded-full blur-3xl animate-pulse" style={{
-          animationDuration: '4s'
-        }} />
+            animationDuration: '4s'
+          }} />
           
           {/* Bottom right accent */}
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-orange-400/15 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{
-          animationDuration: '5s',
-          animationDelay: '1s'
-        }} />
+            animationDuration: '5s',
+            animationDelay: '1s'
+          }} />
           
           {/* Floating accent orbs */}
           <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-2xl animate-pulse" style={{
-          animationDuration: '3s',
-          animationDelay: '2s'
-        }} />
+            animationDuration: '3s',
+            animationDelay: '2s'
+          }} />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -839,33 +799,27 @@ const LandingPage = ({
           </div>
           
           {/* Timeline */}
-          <Timeline stops={[
-            {
-              title: "real talk only",
-              subtitle: "real talk for real struggles—support without the sugarcoat. (because \"good vibes only\" is a lie)",
-              icon: <HeartSupportIcon />
-            },
-            {
-              title: "queer- and trauma-informed",
-              subtitle: "for every identity and story—no binaries, no filters. (built for how real people love)",
-              icon: <InclusiveIcon />
-            },
-            {
-              title: "built for busy",
-              subtitle: "quick moves that actually shift your relationship, even on a slammed day. (zero fluff, just action)",
-              icon: <ClockIcon />
-            },
-            {
-              title: "tough talks welcome",
-              subtitle: "we don't erase conflict—we show you how to use it to grow stronger. (healthy fights > silent scrolling)",
-              icon: <ConversationIcon />
-            },
-            {
-              title: "private by design",
-              subtitle: "your convos stay yours—always encrypted, never sold. (kai listens, big tech doesn't)",
-              icon: <ShieldIcon />
-            }
-          ]} />
+          <Timeline stops={[{
+            title: "real talk only",
+            subtitle: "real talk for real struggles—support without the sugarcoat. (because \"good vibes only\" is a lie)",
+            icon: <HeartSupportIcon />
+          }, {
+            title: "queer- and trauma-informed",
+            subtitle: "for every identity and story—no binaries, no filters. (built for how real people love)",
+            icon: <InclusiveIcon />
+          }, {
+            title: "built for busy",
+            subtitle: "quick moves that actually shift your relationship, even on a slammed day. (zero fluff, just action)",
+            icon: <ClockIcon />
+          }, {
+            title: "tough talks welcome",
+            subtitle: "we don't erase conflict—we show you how to use it to grow stronger. (healthy fights > silent scrolling)",
+            icon: <ConversationIcon />
+          }, {
+            title: "private by design",
+            subtitle: "your convos stay yours—always encrypted, never sold. (kai listens, big tech doesn't)",
+            icon: <ShieldIcon />
+          }]} />
 
           {/* Closer Starts Here CTA */}
           <div className="mt-12 md:mt-16 text-center">
@@ -874,21 +828,15 @@ const LandingPage = ({
                 {/* Glow effect */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                 
-                <Button 
-                  className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl"
-                  style={{
-                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                  }}
-                >
+                <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
+                  boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                }}>
                   {/* Shimmer overlay */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div 
-                      className="absolute inset-0 animate-shimmer"
-                      style={{
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                        backgroundSize: '200% 100%'
-                      }}
-                    />
+                    <div className="absolute inset-0 animate-shimmer" style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                      backgroundSize: '200% 100%'
+                    }} />
                   </div>
                   
                   <span className="relative z-10 flex items-center gap-2">
