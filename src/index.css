@@ -116,20 +116,20 @@
     --peach-500: 25 76% 52%;
 
     /* Burgundy color scale */
-    --burgundy-50: 345 50% 95%;
-    --burgundy-100: 345 60% 88%;
-    --burgundy-200: 345 70% 78%;
-    --burgundy-300: 345 80% 65%;
-    --burgundy-400: 345 85% 50%;
-    --burgundy-500: 345 90% 40%;
-    --burgundy-600: 345 95% 30%;
-    --burgundy-700: 345 100% 25%;
-    --burgundy-800: 345 100% 20%;
-    --burgundy-900: 345 100% 10%;
+    --burgundy-50: 350 50% 95%;
+    --burgundy-100: 350 60% 88%;
+    --burgundy-200: 350 70% 78%;
+    --burgundy-300: 350 80% 65%;
+    --burgundy-400: 350 85% 50%;
+    --burgundy-500: 350 90% 40%;
+    --burgundy-600: 350 95% 30%;
+    --burgundy-700: 350 100% 25%;
+    --burgundy-800: 350 100% 20%;
+    --burgundy-900: 350 100% 10%;
 
     /* Premium questionnaire colors - Rich Burgundy */
-    --questionnaire-bg: 345 100% 20%;
-    --questionnaire-bg-dark: 345 100% 15%;
+    --questionnaire-bg: 350 100% 20%;
+    --questionnaire-bg-dark: 350 100% 15%;
     --questionnaire-card: 0 0% 100% / 0.1;
     --questionnaire-border: 0 0% 100% / 0.2;
     --questionnaire-text: 0 0% 100%;
