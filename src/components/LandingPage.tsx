@@ -717,15 +717,15 @@ const LandingPage = ({
                 </div>
                 
                 {/* CTA Button */}
-                <div className="mt-6 ml-8 md:ml-0 animate-fade-in" style={{ animationDelay: '1s' }}>
+                <div className="mt-6 ml-16 md:ml-0 animate-fade-in" style={{ animationDelay: '1s' }}>
                   <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                     {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <Button 
-                      className="relative bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base"
+                      className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base"
                       style={{
-                        boxShadow: '0 0 40px rgba(168, 85, 247, 0.4), 0 8px 32px rgba(168, 85, 247, 0.5)'
+                        boxShadow: '0 0 40px rgba(236, 72, 153, 0.4), 0 8px 32px rgba(251, 146, 60, 0.5)'
                       }}
                     >
                       {/* Shimmer overlay */}
@@ -779,7 +779,7 @@ const LandingPage = ({
                 </div>
                 
                 {/* Feature pills */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                <div className="grid grid-cols-2 justify-center md:justify-start gap-3 mb-8 max-w-md animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
                     <span className="text-sm text-white font-medium">🧠 evidence-based psychology</span>
                   </div>
@@ -789,11 +789,11 @@ const LandingPage = ({
                   <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
                     <span className="text-sm text-white font-medium">💗 trauma-aware & compassionate</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
-                    <span className="text-sm text-white font-medium">🌈 inclusive for all relationships</span>
-                  </div>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
                     <span className="text-sm text-white font-medium">⏱ instant, 24/7 support</span>
+                  </div>
+                  <div className="col-span-2 justify-self-center px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
+                    <span className="text-sm text-white font-medium">🌈 inclusive for all relationships</span>
                   </div>
                 </div>
               </div>
