@@ -298,7 +298,7 @@ export const ChatInputSection = ({
         {/* 80% usage warning banner with progress */}
         {nearLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
-            <Alert className="bg-burgundy-800/40 border-pink-400/30 backdrop-blur-sm">
+            <Alert className="bg-burgundy-700/70 border-2 border-coral-400/50 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.5),0_2px_8px_rgba(255,138,120,0.2)]">
               <Sparkles className="h-5 w-5 text-pink-300" />
               <AlertDescription className="space-y-3">
                 <div className="flex-1">
