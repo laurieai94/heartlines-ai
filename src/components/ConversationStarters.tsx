@@ -69,17 +69,17 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   className="group cursor-pointer relative rounded-lg shadow-md transition-all duration-200 overflow-hidden"
                 >
                   {/* Animated gradient border */}
-                  <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500">
                     <div 
-                      className="absolute inset-[-2px] rounded-lg animate-border-gradient" 
+                      className="absolute inset-[-1px] rounded-lg animate-border-gradient" 
                       style={{
-                        background: 'conic-gradient(from 0deg, #ec4899, #ff6b5a, #f97316, #ec4899)',
+                        background: 'conic-gradient(from 0deg, #f472b6, #fb923c, #fdba74, #fb923c, #f472b6)',
                       }}
                     />
                   </div>
                   
                   {/* Content layer */}
-                  <div className="relative bg-burgundy-600/75 backdrop-blur-sm group-hover:bg-burgundy-600/85 rounded-lg p-2 m-[2px] border-2 border-white/40 transition-all duration-200">
+                  <div className="relative bg-burgundy-600/75 backdrop-blur-sm group-hover:bg-burgundy-600/85 rounded-lg p-2 m-[1px] border-2 border-white/40 transition-all duration-200">
                     <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                       {category}
                     </h4>
