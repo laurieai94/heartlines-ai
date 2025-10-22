@@ -25,6 +25,8 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
   }, [saveData]);
 
   const handleComplete = useCallback(async () => {
+    // CRITICAL: Set flag immediately to prevent modal from reopening
+    sessionStorage.setItem('questionnaire-completing', 'true');
     console.log('[Questionnaire] Starting completion flow...');
     
     try {

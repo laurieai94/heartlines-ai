@@ -66,6 +66,12 @@ const Dashboard = () => {
       return;
     }
     
+    // PREVENT LOOP: Don't auto-open if modal is already showing
+    if (showQuestionnaireModal) {
+      console.log('[Dashboard] Modal already open - skipping auto-open');
+      return;
+    }
+    
     // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab
     // The user explicitly chose to go there, so don't interrupt
     if (activeTab === 'insights') {
@@ -75,8 +81,7 @@ const Dashboard = () => {
     
     if (activeTab === 'profile' && 
         accessLevel === 'profile-required' && 
-        user && 
-        !showQuestionnaireModal) {
+        user) {
       
       // Check if user is brand new (signed up within 24 hours)
       const userCreatedAt = new Date(user.created_at);

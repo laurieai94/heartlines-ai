@@ -96,14 +96,20 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     
     console.log('[Validation] ✅ All required fields present - proceeding with completion');
     
-    // STEP 1: Close modal smoothly
+    // STEP 1: Set completing flag and close modal with slight delay for state stability
     console.log('[Complete] Closing modal');
-    modalStates.setShowQuestionnaireModal(false);
-    modalStates.setQuestionnaireOrigin(null);
-    modalStates.setSuppressPersonalCompletionPopup(true);
+    sessionStorage.setItem('questionnaire-completing', 'true');
     
-    // STEP 2: Clear session flag immediately to prevent reopening
-    sessionStorage.removeItem('questionnaire-completing');
+    setTimeout(() => {
+      modalStates.setShowQuestionnaireModal(false);
+      modalStates.setQuestionnaireOrigin(null);
+      modalStates.setSuppressPersonalCompletionPopup(true);
+    }, 50);
+    
+    // STEP 2: Clear session flag after delay to prevent reopening
+    setTimeout(() => {
+      sessionStorage.removeItem('questionnaire-completing');
+    }, 150);
     
     // STEP 3: Merge and save data
     const existingProfile = temporaryProfiles.your[0] || {};
