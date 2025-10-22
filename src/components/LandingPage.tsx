@@ -355,7 +355,13 @@ const LandingPage = ({
                 boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
               }}>
                       {/* Shimmer overlay */}
-...
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-0 animate-shimmer" style={{
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                    backgroundSize: '200% 100%'
+                  }} />
+                      </div>
+                      
                       <span className="relative z-10 text-sm md:text-base font-medium">chat with kai</span>
                     </Button>
                   </div>
