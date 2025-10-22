@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { logEvent } from '@/utils/analytics';
 import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
 import { BRAND } from '@/branding';
+import { preloadCriticalImages } from '@/utils/imageOptimizer';
 import PhoneLockup from '@/components/Brand/PhoneLockup';
 import { listenForAuthSuccess } from '@/utils/authChannel';
 import { toast } from '@/components/ui/sonner';
@@ -107,6 +108,11 @@ const Auth = () => {
 
     return cleanup;
   }, [navigate, searchParams]);
+
+  // Preload critical sign-up logo for instant display
+  useEffect(() => {
+    preloadCriticalImages([BRAND.signUpLogoSrc]);
+  }, []);
 
   // Redirect if already authenticated
   if (user && !loading) {
@@ -327,6 +333,8 @@ const Auth = () => {
                 src={BRAND.signUpLogoSrc}
                 alt="heartlines logo"
                 className="w-[180px] sm:w-[211px] md:w-[243px] mx-auto"
+                loading="eager"
+                fetchPriority="high"
               />
             </div>
             
