@@ -714,13 +714,8 @@ const LandingPage = ({
                       alt="Kai, your AI relationship coach"
                       className="w-full h-full object-cover"
                     />
-                  </div>
-                  
-                  {/* Badge overlay */}
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                    <span className="text-xs md:text-sm font-medium text-white">your ai coach</span>
-                  </div>
                 </div>
+              </div>
                 
                 {/* CTA Button */}
                 <div className="mt-12 flex justify-center animate-fade-in" style={{ animationDelay: '1s' }}>
