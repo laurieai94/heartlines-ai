@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield } from "lucide-react";
+import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -717,15 +717,15 @@ const LandingPage = ({
                 </div>
                 
                 {/* CTA Button */}
-                <div className="mt-6 animate-fade-in" style={{ animationDelay: '1s' }}>
+                <div className="mt-6 ml-8 md:ml-0 animate-fade-in" style={{ animationDelay: '1s' }}>
                   <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                     {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base"
+                      className="relative bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base"
                       style={{
-                        boxShadow: '0 0 40px rgba(255, 107, 157, 0.4), 0 8px 32px rgba(255, 107, 157, 0.5)'
+                        boxShadow: '0 0 40px rgba(168, 85, 247, 0.4), 0 8px 32px rgba(168, 85, 247, 0.5)'
                       }}
                     >
                       {/* Shimmer overlay */}
@@ -741,8 +741,8 @@ const LandingPage = ({
                       </div>
                       
                       <span className="relative z-10 flex items-center gap-2">
-                        <MessageCircleHeart className="w-5 h-5" />
-                        chat with kai
+                        <Lock className="w-5 h-5" />
+                        private by design
                       </span>
                     </Button>
                   </div>
