@@ -118,7 +118,6 @@ const CleanQuestionnaireFooter = ({
             >
               <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               <span className="hidden sm:inline">your person</span>
-              <span className="sm:hidden">your person</span>
             </Button>
           )}
 
