@@ -115,11 +115,11 @@ export const UpgradeModal = ({
                 <Card 
                   key={plan.id}
                   className={`questionnaire-card relative rounded-3xl shadow-3xl border border-white/20 transition-all duration-300 hover:-translate-y-2 flex flex-col ${
-                    isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''
-                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''}`}
+                    isPopular ? 'ring-2 ring-coral-400/50' : ''
+                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50' : ''}`}
                 >
                   {isPopular && (
-                    <div className="absolute -top-2 lg:-top-3 left-1/2 -translate-x-1/2 z-10">
+                    <div className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 z-10">
                       <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 sm:px-5 lg:px-6 py-0.5 rounded-full text-xs font-semibold border border-white/10 whitespace-nowrap">
                         most popular
                       </span>
@@ -180,8 +180,8 @@ export const UpgradeModal = ({
                       disabled={upgrading !== null || isCurrent || !canUpgrade}
                       className={`w-full rounded-full text-sm font-semibold mt-auto ${
                         isPopular || isRecommended 
-                          ? 'bg-gradient-to-r from-coral-400 to-pink-500 text-white hover:from-coral-500 hover:to-pink-600 shadow-lg' 
-                          : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+                          ? 'questionnaire-button-primary shadow-lg' 
+                          : 'questionnaire-button-secondary'
                       }`}
                     >
                       {upgrading === plan.tier ? 'processing...' : 
