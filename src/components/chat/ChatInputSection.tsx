@@ -282,15 +282,16 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className={`flex-shrink-0 z-[100] bg-burgundy-800 md:bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate ${
+      className={`flex-shrink-0 z-[100] bg-burgundy-800 md:bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate border-t border-white/20 ${
         isMobilePhone ? 'fixed left-0 right-0 mobile-chat-input-container' : 'md:sticky md:bottom-0'
       }`}
       style={isMobilePhone ? {
         bottom: `${keyboardHeight}px`,
         paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.375rem)',
-        boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.3)'
+        boxShadow: '0 -4px 24px rgba(0, 0, 0, 0.5)'
       } : {
-        paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
+        paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
+        boxShadow: '0 -4px 24px rgba(0, 0, 0, 0.5)'
       }}
     >
       <div className="px-0 md:px-4 py-2 md:py-3">

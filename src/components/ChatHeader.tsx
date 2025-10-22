@@ -23,7 +23,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
   };
 
   return (
-    <div className={`sticky top-0 z-40 bg-white/80 backdrop-blur-lg rounded-2xl border border-white/20 shadow-xl ring-1 ring-white/10 ${
+    <div className={`sticky top-0 z-40 bg-white/80 backdrop-blur-lg rounded-2xl border-2 border-white/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)] ring-1 ring-white/10 ${
       isMobile ? 'p-3 mb-3' : 'p-6 mb-6'
     }`}>
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
