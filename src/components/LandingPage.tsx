@@ -741,8 +741,8 @@ const LandingPage = ({
                       </div>
                       
                       <span className="relative z-10 flex items-center gap-2">
-                        <Lock className="w-5 h-5" />
-                        private by design
+                        <MessageCircle className="w-5 h-5" />
+                        chat now
                       </span>
                     </Button>
                   </div>
