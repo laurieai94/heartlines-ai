@@ -699,7 +699,7 @@ const LandingPage = ({
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               
               {/* Left Column: Kai's Avatar */}
-              <div className="flex flex-col items-center md:items-end order-2 md:order-1">
+              <div className="flex flex-col items-center md:items-end order-1">
                 <div className="relative">
                   {/* Outer glow */}
                   <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '3s' }}></div>
@@ -752,7 +752,7 @@ const LandingPage = ({
             </div>
 
               {/* Right Column: Content */}
-              <div className="order-1 md:order-2 text-center md:text-left">
+              <div className="order-2 text-center md:text-left">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-fade-in" style={{ animationDelay: '0.2s' }}>
                   meet kai
                 </h2>
