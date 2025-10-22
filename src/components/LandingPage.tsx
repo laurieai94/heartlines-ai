@@ -717,7 +717,7 @@ const LandingPage = ({
                 </div>
                 
                 {/* CTA Button */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 animate-fade-in" style={{ animationDelay: '1s' }}>
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 animate-fade-in" style={{ animationDelay: '1s' }}>
                   <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                     {/* Glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
