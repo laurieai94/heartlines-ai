@@ -55,7 +55,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="bg-burgundy-800/50 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/30 shadow-2xl shadow-black/50 pointer-events-auto md:bg-white/10">
+      <div className="bg-burgundy-900/50 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/30 shadow-2xl shadow-black/50 pointer-events-auto md:bg-white/10">
         {!selectedCategory ? (
           <>
             <h3 className="text-sm font-medium text-white mb-2 text-center">
@@ -82,7 +82,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
-                className="p-1 hover:bg-burgundy-800/80 md:hover:bg-white/10 rounded-lg transition-colors text-white hover:text-white"
+                className="p-1 hover:bg-burgundy-900/80 md:hover:bg-white/10 rounded-lg transition-colors text-white hover:text-white"
               >
                 <ArrowLeft className="w-3 h-3" />
               </Button>
@@ -96,7 +96,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-burgundy-800/80 md:hover:bg-white/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border-0 md:border md:border-transparent hover:border-white/20"
+                  className="group text-white/80 hover:text-white hover:bg-burgundy-900/80 md:hover:bg-white/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border-0 md:border md:border-transparent hover:border-white/20"
                 >
                   <span className="leading-tight">{starter}</span>
                 </Button>

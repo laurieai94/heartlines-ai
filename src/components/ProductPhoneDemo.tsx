@@ -102,7 +102,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           <div className={`relative w-full h-full bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-coral-900 overflow-hidden transition-opacity duration-200 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
             
             {/* Chat Header */}
-            <div className="relative z-10 px-4 py-4 border-b border-white/10 backdrop-blur-sm bg-burgundy-800/35">
+            <div className="relative z-10 px-4 py-4 border-b border-white/10 backdrop-blur-sm bg-burgundy-900/35">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <FlameIconHalo intensity="medium" size="sm" animated={true}>

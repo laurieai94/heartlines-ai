@@ -50,7 +50,7 @@ const AuthGuard = ({ children, fallbackPath = '/signin' }: AuthGuardProps) => {
   // Show timeout error if loading too long
   if (loading && showTimeout) {
     return (
-      <div className="min-h-screen bg-burgundy-800 flex items-center justify-center p-6">
+      <div className="min-h-screen bg-burgundy-900 flex items-center justify-center p-6">
         <div className="text-center space-y-6 max-w-md">
           <p className="text-white/90 text-lg">Connection is taking longer than expected</p>
           <div className="space-y-3">

@@ -114,7 +114,7 @@ const QuestionnaireLayout = ({
         // Force desktop styling on tablet and above
         isTabletDesktop 
           ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-800/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
-          : 'border border-white/15 rounded-xl sm:rounded-2xl bg-burgundy-800/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
+          : 'border border-white/15 rounded-xl sm:rounded-2xl bg-burgundy-900/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
       } overflow-hidden relative ${
         isTabletDesktop
           ? 'before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none'
@@ -128,7 +128,7 @@ const QuestionnaireLayout = ({
             
             <WelcomeBanner overallProgress={overallProgress} />
 
-            <div className="hidden md:block bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
+            <div className="hidden md:block bg-burgundy-900/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/15 to-transparent"></div>
               <SectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
             </div>

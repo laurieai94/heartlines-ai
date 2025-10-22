@@ -301,7 +301,7 @@ const LandingPage = ({
                     <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent side="bottom" align="start" className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" onInteractOutside={() => setIsMenuOpen(false)} onEscapeKeyDown={() => setIsMenuOpen(false)}>
+                <PopoverContent side="bottom" align="start" className="w-16 p-2 bg-burgundy-900/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" onInteractOutside={() => setIsMenuOpen(false)} onEscapeKeyDown={() => setIsMenuOpen(false)}>
                   <div className="flex flex-col">
                     {navItems.map(item => <Link key={item.to} to={item.to} title={item.label} className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 p-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30 flex items-center justify-center" onClick={() => setIsMenuOpen(false)}>
                         <item.icon className="w-5 h-5" />
@@ -404,7 +404,7 @@ const LandingPage = ({
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
 
       {/* Main container */}
-      <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-800">
+      <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-900">
       {/* Static background preserved */}
 
       {/* Code-like Background Elements */}

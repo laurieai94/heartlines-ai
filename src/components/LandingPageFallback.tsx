@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function LandingPageFallback() {
   return (
-    <div className="min-h-screen bg-burgundy-800 relative overflow-hidden">
+    <div className="min-h-screen bg-burgundy-900 relative overflow-hidden">
       {/* Simple gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20"></div>
       
