@@ -227,14 +227,6 @@ export default {
 						transform: 'translateY(-2px)',
 						boxShadow: '0 0 25px hsl(var(--emerald-400) / 0.4), 0 0 50px hsl(var(--emerald-400) / 0.15)'
 					}
-				},
-				'border-gradient': {
-					'0%': {
-						transform: 'rotate(0deg)'
-					},
-					'100%': {
-						transform: 'rotate(360deg)'
-					}
 				}
 			},
 			animation: {
@@ -249,8 +241,7 @@ export default {
 				'line-grow': 'line-grow 1.1s ease-in-out forwards',
 				'line-left-sequence': 'line-grow-center 0.9s ease-out forwards, line-open-left 0.6s ease-in 1.1s forwards',
 				'line-right-sequence': 'line-grow-center 0.9s ease-out forwards, line-open-right 0.6s ease-in 1.1s forwards',
-				'soft-glow': 'soft-glow 6s ease-in-out infinite',
-				'border-gradient': 'border-gradient 3s linear infinite'
+				'soft-glow': 'soft-glow 6s ease-in-out infinite'
 			}
 		}
 	},
