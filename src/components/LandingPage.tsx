@@ -715,10 +715,9 @@ const LandingPage = ({
                       className="w-full h-full object-cover"
                     />
                 </div>
-              </div>
                 
                 {/* CTA Button */}
-                <div className="mt-12 flex justify-center animate-fade-in" style={{ animationDelay: '1s' }}>
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-10 animate-fade-in" style={{ animationDelay: '1s' }}>
                   <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                     {/* Glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
@@ -748,6 +747,7 @@ const LandingPage = ({
                   </div>
                 </div>
               </div>
+            </div>
 
               {/* Right Column: Content */}
               <div className="order-1 md:order-2 text-center md:text-left">
