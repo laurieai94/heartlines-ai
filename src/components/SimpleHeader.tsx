@@ -37,7 +37,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
   };
   
   return (
-    <div className="w-full fixed top-0 left-0 right-0 z-50 bg-burgundy-900 mb-1 sm:mb-2" style={{ transform: 'none', isolation: 'isolate' }}>
+    <div className="w-full fixed top-0 left-0 right-0 z-50 bg-burgundy-800 mb-1 sm:mb-2" style={{ transform: 'none', isolation: 'isolate' }}>
       <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto pl-4 pr-5 sm:px-6 xl:px-8 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">

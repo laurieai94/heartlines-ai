@@ -29,7 +29,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     lg: 'text-lg sm:text-xl'
   };
   return (
-    <div className="min-h-screen bg-burgundy-900 flex items-center justify-center">
+    <div className="min-h-screen bg-burgundy-800 flex items-center justify-center">
       <div className="relative flex items-center space-x-4 sm:space-x-8 md:space-x-12">
         {/* Left line */}
         {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-left animate-line-left-sequence motion-reduce:hidden" />}

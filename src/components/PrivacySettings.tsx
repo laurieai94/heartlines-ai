@@ -83,7 +83,7 @@ export const PrivacySettings = () => {
             <SelectTrigger className="w-32 bg-white/10 border-white/20 text-white backdrop-blur-sm">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-burgundy-900/95 backdrop-blur-md border border-white/20">
+            <SelectContent className="bg-burgundy-800/95 backdrop-blur-md border border-white/20">
               <SelectItem value="30" className="text-white hover:bg-white/10 focus:bg-white/10">30 days</SelectItem>
               <SelectItem value="90" className="text-white hover:bg-white/10 focus:bg-white/10">90 days</SelectItem>
               <SelectItem value="365" className="text-white hover:bg-white/10 focus:bg-white/10">1 year</SelectItem>
