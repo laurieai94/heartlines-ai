@@ -784,7 +784,7 @@ const LandingPage = ({
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
                     <span className="text-sm text-white font-medium">🧠 evidence-based psychology</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-purple-400/20 border border-purple-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-purple-400/30">
+                  <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
                     <span className="text-sm text-white font-medium">🔒 private by design</span>
                   </div>
                   <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
