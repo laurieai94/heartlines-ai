@@ -44,7 +44,7 @@ export const ChatHeader = ({
   };
 
   return (
-    <div className="md:sticky fixed top-[52px] md:top-0 left-0 right-0 z-[70] shrink-0 bg-burgundy-900 backdrop-blur-md border-b border-white/10 shadow-lg md:bg-white/10 md:backdrop-blur-md">
+    <div className="md:sticky fixed top-[52px] md:top-0 left-0 right-0 z-[70] shrink-0 bg-burgundy-900 backdrop-blur-md border-b border-white/10 shadow-lg md:bg-burgundy-900/80 md:backdrop-blur-md">
       <div className="w-full md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
@@ -52,7 +52,7 @@ export const ChatHeader = ({
             {/* Left: Kai avatar + name */}
             <div className="flex items-center gap-2 min-w-0">
               <div className="relative flex-shrink-0">
-                <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
+                <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-burgundy-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
                     alt={BRAND.coach.name} 
@@ -109,9 +109,9 @@ export const ChatHeader = ({
             {/* Kai Avatar - Far Left */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
-              <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 border-3 border-white/20">
+              <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 border-3 border-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
-                <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
+                <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
                   <Heart className="w-4 h-4 md:w-6 md:h-6" />
                 </AvatarFallback>
               </Avatar>
@@ -132,7 +132,7 @@ export const ChatHeader = ({
                   <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-4 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50">
                       <div className="space-y-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                        <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-burgundy-500 rounded-full flex items-center justify-center shadow-lg">
                           <Heart className="w-4 h-4 text-white" />
                         </div>
                         <h3 className="font-semibold text-white text-lg">meet kai</h3>
