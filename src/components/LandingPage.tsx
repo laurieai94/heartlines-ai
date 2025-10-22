@@ -716,6 +716,38 @@ const LandingPage = ({
                     />
                 </div>
                 
+                {/* CTA Button */}
+                <div className="mt-6 animate-fade-in" style={{ animationDelay: '1s' }}>
+                  <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                    {/* Glow effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <Button 
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base"
+                      style={{
+                        boxShadow: '0 0 40px rgba(255, 107, 157, 0.4), 0 8px 32px rgba(255, 107, 157, 0.5)'
+                      }}
+                    >
+                      {/* Shimmer overlay */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div 
+                          className="absolute inset-0"
+                          style={{
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                            backgroundSize: '200% 100%',
+                            animation: 'shimmer 2s infinite'
+                          }}
+                        />
+                      </div>
+                      
+                      <span className="relative z-10 flex items-center gap-2">
+                        <MessageCircleHeart className="w-5 h-5" />
+                        chat with kai
+                      </span>
+                    </Button>
+                  </div>
+                </div>
+                
               </div>
             </div>
 
