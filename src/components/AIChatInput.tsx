@@ -132,7 +132,7 @@ const AIChatInput = ({
                 ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/35 ring-2 ring-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:border-coral-300/50 focus-within:ring-coral-400/20 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.5)] focus-within:shadow-coral-400/20 transition-all duration-300'
+          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/35 ring-2 ring-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:ring-4 focus-within:ring-transparent focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_20px_rgba(255,107,157,0.4),0_0_40px_rgba(255,138,80,0.3)] transition-all duration-300'
       }`}>
         <Textarea
           unstyled
