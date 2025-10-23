@@ -270,8 +270,16 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         );
       })}
 
-      {/* Typing Indicator */}
-      {loading && <TypingIndicator />}
+      {/* Typing Indicator with smooth exit */}
+      <div 
+        className="overflow-hidden transition-all duration-300"
+        style={{ 
+          maxHeight: loading ? '100px' : '0',
+          opacity: loading ? 1 : 0
+        }}
+      >
+        <TypingIndicator />
+      </div>
 
       <div className="h-2 md:h-4" />
     </>
