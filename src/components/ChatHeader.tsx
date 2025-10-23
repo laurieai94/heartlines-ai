@@ -23,7 +23,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
   };
 
   return (
-    <div className={`sticky top-0 z-40 bg-burgundy-700/75 backdrop-blur-2xl rounded-2xl border-2 border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.15)] ring-1 ring-white/10 ${
+    <div className={`sticky top-0 z-40 bg-white/80 backdrop-blur-lg rounded-2xl border border-white/20 shadow-xl ring-1 ring-white/10 ${
       isMobile ? 'p-3 mb-3' : 'p-6 mb-6'
     }`}>
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
@@ -56,7 +56,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
         {/* Coach Info */}
         <div className="flex-1">
           <div className={`flex items-center gap-2 ${isMobile ? 'mb-0' : 'mb-1'}`}>
-            <h2 className={`font-bold text-white ${isMobile ? 'text-lg' : 'text-2xl'}`}>
+            <h2 className={`font-bold text-gray-900 ${isMobile ? 'text-lg' : 'text-2xl'}`}>
               {isMobile ? 'Kai' : 'Kai - Your Relationship Coach'}
             </h2>
             {!isMobile && (
@@ -65,7 +65,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="h-7 w-7 p-0 rounded-full bg-white/10 hover:bg-white/20 text-white"
+                    className="h-7 w-7 p-0 rounded-full bg-primary/10 hover:bg-primary/20 text-primary"
                     aria-label="Learn more about Kai"
                   >
                     <Info className="h-4 w-4" />
@@ -103,7 +103,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
             )}
           </div>
           {!isMobile && (
-            <p className="text-white/80 font-medium mb-2">
+            <p className="text-gray-600 font-medium mb-2">
               PhD Clinical Psychologist • Always here to help
             </p>
           )}

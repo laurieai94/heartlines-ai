@@ -36,32 +36,6 @@
   overscroll-behavior-y: auto;
 }
 
-/* Hide scrollbar utility class */
-.scrollbar-hide {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-/* Subtle pulse animation for upgrade prompts */
-@keyframes pulse-subtle {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.95;
-    transform: scale(1.002);
-  }
-}
-
-.animate-pulse-subtle {
-  animation: pulse-subtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
 /* Performance optimizations */
 @media (prefers-reduced-motion: reduce) {
   .motion-safe\:animate-fade-in,

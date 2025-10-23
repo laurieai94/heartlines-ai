@@ -113,9 +113,6 @@ const Auth = () => {
   useEffect(() => {
     if (isSignUp) {
       preloadCriticalImages([BRAND.signUpLogoSrc]);
-    } else {
-      // Preload phone lockup for sign-in view
-      preloadCriticalImages([BRAND.phoneLockupSrc]);
     }
   }, [isSignUp]);
 
@@ -455,8 +452,6 @@ const Auth = () => {
               size="lg"
               showTagline={true}
               className="mx-auto"
-              loading="eager"
-              fetchPriority="high"
             />
           </div>}
 

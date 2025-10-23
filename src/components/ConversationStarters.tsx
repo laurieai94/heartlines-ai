@@ -55,7 +55,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="bg-burgundy-700/70 backdrop-blur-2xl rounded-2xl px-4 py-3 border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.1)] pointer-events-auto">
+      <div className="bg-burgundy-800/50 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/30 shadow-2xl shadow-black/50 pointer-events-auto md:bg-white/10">
         {!selectedCategory ? (
           <>
             <h3 className="text-sm font-medium text-white mb-2 text-center">
@@ -63,10 +63,10 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
             </h3>
             <div className="grid grid-cols-2 gap-2">
               {Object.keys(conversationCategories).map((category, index) => (
-              <div
+                <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-burgundy-600/75 backdrop-blur-sm hover:bg-gradient-to-br hover:from-coral-400/15 hover:via-pink-400/15 hover:to-orange-400/10 rounded-lg p-2 border border-white/25 hover:border-pink-400/40 hover:shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_8px_rgba(255,138,80,0.2)] shadow-md transition-all duration-200"
+                  className="group cursor-pointer bg-burgundy-700/40 backdrop-blur-sm hover:bg-burgundy-700/60 rounded-lg p-2 border border-white/20 hover:border-white/40 shadow-md hover:shadow-lg transition-all duration-200 md:bg-white/10 md:hover:bg-white/20"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
@@ -82,7 +82,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
-                className="p-1 hover:bg-burgundy-600/60 rounded-lg transition-colors text-white hover:text-white"
+                className="p-1 hover:bg-burgundy-800/80 md:hover:bg-white/10 rounded-lg transition-colors text-white hover:text-white"
               >
                 <ArrowLeft className="w-3 h-3" />
               </Button>
@@ -96,7 +96,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-gradient-to-r hover:from-coral-400/20 hover:via-pink-400/20 hover:to-transparent rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 hover:border-l-2 hover:border-pink-400/50 hover:translate-x-0.5"
+                  className="group text-white/80 hover:text-white hover:bg-burgundy-800/80 md:hover:bg-white/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border-0 md:border md:border-transparent hover:border-white/20"
                 >
                   <span className="leading-tight">{starter}</span>
                 </Button>

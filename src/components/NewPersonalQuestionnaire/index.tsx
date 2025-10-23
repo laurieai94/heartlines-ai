@@ -25,13 +25,7 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
   }, [saveData]);
 
   const handleComplete = useCallback(async () => {
-    console.log('[Questionnaire] Starting completion flow with triple-lock mechanism...');
-    
-    // CRITICAL: Set triple-lock IMMEDIATELY to prevent modal from reopening
-    sessionStorage.setItem('questionnaire-completing', 'true');
-    sessionStorage.setItem('questionnaire-completed-this-session', 'true');
-    sessionStorage.setItem('personal-questionnaire-locked', 'true');
-    console.log('[Questionnaire] Triple-lock activated immediately');
+    console.log('[Questionnaire] Starting completion flow...');
     
     try {
       // STEP 1: Flush all pending debounced updates immediately
@@ -79,10 +73,6 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
       });
     } catch (error) {
       console.error('[Questionnaire] Error completing questionnaire:', error);
-      // Clear locks on error to allow retry
-      sessionStorage.removeItem('questionnaire-completing');
-      sessionStorage.removeItem('personal-questionnaire-locked');
-      console.log('[Questionnaire] Cleared locks due to error');
     }
   }, [profileData, saveData, onComplete]);
 

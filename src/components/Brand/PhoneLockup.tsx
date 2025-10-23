@@ -6,17 +6,13 @@ interface PhoneLockupProps {
   size?: "sm" | "md" | "lg" | "xl";
   showTagline?: boolean;
   onClick?: () => void;
-  loading?: "lazy" | "eager";
-  fetchPriority?: "high" | "low" | "auto";
 }
 
 const PhoneLockup: React.FC<PhoneLockupProps> = ({ 
   className = "", 
   size = "md",
   showTagline = true,
-  onClick,
-  loading = "lazy",
-  fetchPriority = "auto"
+  onClick 
 }) => {
   const sizeClasses = {
     sm: "w-32 md:w-[147px]",
@@ -37,8 +33,6 @@ const PhoneLockup: React.FC<PhoneLockupProps> = ({
         src={BRAND.phoneLockupSrc}
         alt={`${BRAND.name} ${showTagline ? 'with phone illustration and tagline' : 'logo'}`}
         className={sizeClasses[size]}
-        loading={loading}
-        fetchPriority={fetchPriority}
       />
     </div>
   );

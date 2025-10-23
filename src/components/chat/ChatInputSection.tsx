@@ -282,23 +282,22 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className={`flex-shrink-0 z-[100] bg-burgundy-800 md:bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate border-t border-white/20 ${
+      className={`flex-shrink-0 z-[100] bg-burgundy-800 md:bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate ${
         isMobilePhone ? 'fixed left-0 right-0 mobile-chat-input-container' : 'md:sticky md:bottom-0'
       }`}
       style={isMobilePhone ? {
         bottom: `${keyboardHeight}px`,
         paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.375rem)',
-        boxShadow: '0 -4px 24px rgba(0, 0, 0, 0.5)'
+        boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.3)'
       } : {
-        paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
-        boxShadow: '0 -4px 24px rgba(0, 0, 0, 0.5)'
+        paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
       }}
     >
       <div className="px-0 md:px-4 py-2 md:py-3">
         {/* 80% usage warning banner with progress */}
         {nearLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
-            <Alert className="bg-burgundy-700/70 border-2 border-coral-400/50 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.5),0_2px_8px_rgba(255,138,120,0.2)]">
+            <Alert className="bg-burgundy-800/40 border-pink-400/30 backdrop-blur-sm">
               <Sparkles className="h-5 w-5 text-pink-300" />
               <AlertDescription className="space-y-3">
                 <div className="flex-1">

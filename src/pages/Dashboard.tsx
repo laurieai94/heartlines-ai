@@ -59,13 +59,6 @@ const Dashboard = () => {
 
   // Auto-open Personal Questionnaire only for brand-new signups
   useEffect(() => {
-    // PREVENT LOOP: Check for modal-specific lock first
-    const isLocked = sessionStorage.getItem('personal-questionnaire-locked');
-    if (isLocked) {
-      console.log('[Dashboard] Questionnaire locked - user completed it, skipping auto-open');
-      return;
-    }
-    
     // PREVENT LOOP: Don't auto-open if we're completing questionnaire
     const isCompleting = sessionStorage.getItem('questionnaire-completing');
     if (isCompleting) {
@@ -73,29 +66,17 @@ const Dashboard = () => {
       return;
     }
     
-    // PREVENT LOOP: Don't auto-open if already completed in this session
-    const completedThisSession = sessionStorage.getItem('questionnaire-completed-this-session');
-    if (completedThisSession) {
-      console.log('[Dashboard] Questionnaire already completed this session - skipping auto-open');
-      return;
-    }
-    
-    // PREVENT LOOP: Don't auto-open if modal is already showing
-    if (showQuestionnaireModal) {
-      console.log('[Dashboard] Modal already open - skipping auto-open');
-      return;
-    }
-    
-    // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab OR /coach route
-    const currentPath = window.location.pathname;
-    if (activeTab === 'insights' || currentPath.includes('/coach')) {
-      console.log('[Dashboard] On coach tab or route - skipping auto-open logic');
+    // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab
+    // The user explicitly chose to go there, so don't interrupt
+    if (activeTab === 'insights') {
+      console.log('[Dashboard] On coach tab - skipping auto-open logic');
       return;
     }
     
     if (activeTab === 'profile' && 
         accessLevel === 'profile-required' && 
-        user) {
+        user && 
+        !showQuestionnaireModal) {
       
       // Check if user is brand new (signed up within 24 hours)
       const userCreatedAt = new Date(user.created_at);

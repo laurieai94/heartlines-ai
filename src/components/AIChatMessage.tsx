@@ -32,19 +32,19 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
   return (
     <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
       <div 
-        className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+        className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
         role="listitem"
         aria-label={`${isUser ? (userName || 'User') : 'kai'} message at ${formatTime(message.timestamp)}`}
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-8 h-8 md:w-10 md:h-10 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-40 drop-shadow-lg ${
-            isUser ? 'bg-gradient-to-r from-coral-300 via-pink-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
+            isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
           }`}></div>
           
-          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-8 h-8 md:w-10 md:h-10 md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
               : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
@@ -53,12 +53,12 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
               <AvatarFallback 
-                className="bg-gradient-to-br from-coral-400 to-orange-400 text-white text-base md:text-lg font-medium uppercase"
+                className="bg-gradient-to-br from-coral-400 to-orange-400 text-white text-sm md:text-base font-medium uppercase"
                 style={{
                   fontFamily: "'Shrikhand', cursive"
                 }}
               >
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5 md:w-5 md:h-5" />}
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
               </AvatarFallback>
             ) : (
               <>
@@ -70,8 +70,8 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
                   decoding="async" 
                   
                 />
-                <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-base md:text-base font-medium">
-                  <Heart className="w-5 h-5 md:w-5 md:h-5" />
+                <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-sm md:text-xs font-medium">
+                  <Heart className="w-4 h-4 md:w-4 md:h-4" />
                 </AvatarFallback>
               </>
             )}
@@ -85,25 +85,17 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
           : 'max-w-[80%]'
       } ${isUser ? 'items-end' : 'items-start'}`}>
-        {/* Gradient border wrapper */}
         <div
           className={`
-            transition-all duration-300 group-hover:shadow-[0_16px_56px_rgba(0,0,0,0.8)] group-hover:scale-[1.01] rounded-2xl md:rounded-2xl
+            transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
-              ? 'p-[2px] bg-gradient-to-r from-orange-400/50 via-rose-500/50 to-pink-500/50 rounded-br-md md:rounded-br-lg ring-1 ring-orange-400/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,138,120,0.25)]'
-              : 'p-[2px] bg-gradient-to-r from-white/40 via-white/30 to-white/40 rounded-bl-md md:rounded-bl-lg ring-1 ring-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.15)]'
+              ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10'
+              : 'bg-burgundy-600/60 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/25 ring-1 ring-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-white/5'
             }
           `}
         >
-          {/* Inner content with solid background */}
-          <div className={`px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl ${
-            isUser 
-              ? 'bg-burgundy-700/75 backdrop-blur-2xl text-white rounded-br-md md:rounded-br-lg' 
-              : 'bg-burgundy-600/75 backdrop-blur-2xl text-white rounded-bl-md md:rounded-bl-lg'
-          }`}>
-            <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
-              {message.content}
-            </div>
+          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
+            {message.content}
           </div>
         </div>
         

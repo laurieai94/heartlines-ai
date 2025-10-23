@@ -96,22 +96,14 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     
     console.log('[Validation] ✅ All required fields present - proceeding with completion');
     
-    // STEP 1: Close modal IMMEDIATELY - don't wait for setTimeout
-    console.log('[Complete] Closing modal immediately');
+    // STEP 1: Close modal smoothly
+    console.log('[Complete] Closing modal');
     modalStates.setShowQuestionnaireModal(false);
     modalStates.setQuestionnaireOrigin(null);
     modalStates.setSuppressPersonalCompletionPopup(true);
     
-    // STEP 2: Set all safety flags IMMEDIATELY (flags already set in index.tsx, but ensure they're here)
-    sessionStorage.setItem('questionnaire-completed-this-session', 'true');
-    sessionStorage.setItem('personal-questionnaire-locked', 'true');
-    console.log('[Complete] Set completion and lock flags immediately');
-    
-    // STEP 3: Clear completing flag after MUCH longer delay (2 seconds instead of 1)
-    setTimeout(() => {
-      sessionStorage.removeItem('questionnaire-completing');
-      console.log('[Complete] Cleared questionnaire-completing flag after 2s');
-    }, 2000);
+    // STEP 2: Clear session flag immediately to prevent reopening
+    sessionStorage.removeItem('questionnaire-completing');
     
     // STEP 3: Merge and save data
     const existingProfile = temporaryProfiles.your[0] || {};
@@ -228,10 +220,9 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const handleQuestionnaireClose = () => {
     console.log('Closing questionnaire modal');
     
-    // CRITICAL: Clear ALL flags to ensure clean state
+    // CRITICAL: Clear completion flag to ensure nudge shows correctly
     sessionStorage.removeItem('questionnaire-completing');
-    sessionStorage.removeItem('personal-questionnaire-locked');
-    console.log('[Close] Cleared all questionnaire flags');
+    console.log('[Close] Cleared questionnaire-completing flag');
     
     modalStates.setShowQuestionnaireModal(false);
     modalStates.setQuestionnaireOrigin(null);

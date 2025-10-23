@@ -3,19 +3,6 @@ import SplashScreen from '@/components/SplashScreen';
 import LandingPage from '@/components/LandingPage';
 import { useResourceLoader } from '@/hooks/useResourceLoader';
 import { CRITICAL_IMAGES } from '@/config/criticalResources';
-import { preloadCriticalImages } from '@/utils/imageOptimizer';
-import elderlyNativeAmericanWomenImage from '@/assets/elderly-native-american-women.webp';
-import elderlyHeritageImage from '@/assets/elderly-couple-heritage-living-room.webp';
-import elderlyCowboysSouthwesternImage from '@/assets/elderly-cowboys-southwestern-living-room.webp';
-import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.webp';
-import elderlyCowboysHandsImage from '@/assets/elderly-cowboys-hands-together.webp';
-import elderlyCouplePrideImage from '@/assets/elderly-couple-pride-living-room.webp';
-import elderlyCoupleVintageImage from '@/assets/elderly-couple-vintage-living-room.webp';
-import elderlyAsianCoupleImage from '@/assets/elderly-asian-couple-modern-apartment.webp';
-import elderlyManPortraitImage from '@/assets/elderly-man-portrait.webp';
-import elderlyFriendsCatsImage from '@/assets/elderly-friends-cats-city-apartment.webp';
-import elderlyWomenPeaceRetroImage from '@/assets/elderly-women-peace-retro-living-room.webp';
-import elderlyCoupleWarmVintageImage from '@/assets/elderly-couple-warm-vintage-living-room.webp';
 
 const FADE_OUT_DURATION = 300; // 0.3 seconds
 
@@ -82,27 +69,6 @@ const FirstVisitSplash: React.FC = () => {
       try {
         sessionStorage.setItem('homepage_visited', 'true');
         sessionStorage.setItem('resources_loaded', 'true');
-        
-        // Preload carousel images during splash for seamless homepage experience
-        if (!sessionStorage.getItem('carousel-images-preloaded')) {
-          const carouselImages = [
-            elderlyNativeAmericanWomenImage,
-            elderlyHeritageImage,
-            elderlyCowboysSouthwesternImage,
-            warmGatheringImage,
-            elderlyCowboysHandsImage,
-            elderlyCouplePrideImage,
-            elderlyCoupleVintageImage,
-            elderlyAsianCoupleImage,
-            elderlyManPortraitImage,
-            elderlyFriendsCatsImage,
-            elderlyWomenPeaceRetroImage,
-            elderlyCoupleWarmVintageImage
-          ];
-          
-          preloadCriticalImages(carouselImages);
-          sessionStorage.setItem('carousel-images-preloaded', 'true');
-        }
       } catch (error) {
         console.warn('[FirstVisitSplash] Failed to set sessionStorage:', error);
       }

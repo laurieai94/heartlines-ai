@@ -72,41 +72,39 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[85vh] overflow-hidden bg-burgundy-800 border-white/20 rounded-3xl p-2 sm:p-3 pr-1">
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-800 border-white/20 rounded-3xl p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-lg sm:text-xl font-light text-white flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-coral-300" />
+          <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
             time to dive deeper?
           </DialogTitle>
         </DialogHeader>
 
-        <div className="max-h-[calc(85vh-80px)] overflow-y-auto pb-2 scrollbar-hide pr-2">
-          <div className="px-2 sm:px-3">
-            <div className="space-y-2">
+        <div className="mt-4 space-y-2">
           {/* Current Usage */}
-          <Card className="questionnaire-card p-2 border border-white/30">
+          <Card className="questionnaire-card p-2.5 border border-white/20">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[10px] text-white/70">current plan</p>
-                <p className="text-sm font-semibold text-white">{currentTier}</p>
+                <p className="text-xs text-white/60">current plan</p>
+                <p className="text-lg font-semibold text-white">{currentTier}</p>
               </div>
               <div className="text-right">
-                <p className="text-[10px] text-white/70">messages used</p>
-                <p className="text-sm font-semibold text-white">
+                <p className="text-xs text-white/60">messages used</p>
+                <p className="text-lg font-semibold text-white">
                   {messagesUsed} / {messageLimit}
                 </p>
               </div>
             </div>
-            <div className="mt-1 w-full bg-white/15 rounded-full h-1.5">
+            <div className="mt-1.5 w-full bg-white/10 rounded-full h-2">
               <div 
-                className="bg-gradient-to-r from-coral-300 to-pink-400 h-1.5 rounded-full transition-all"
+                className="bg-gradient-to-r from-coral-400 to-pink-500 h-2 rounded-full transition-all"
                 style={{ width: `${Math.min((messagesUsed / messageLimit) * 100, 100)}%` }}
               />
             </div>
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2 max-w-7xl mx-auto items-stretch">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 max-w-7xl mx-auto items-stretch">
             {allPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.tier === currentTier;
@@ -116,62 +114,62 @@ export const UpgradeModal = ({
               return (
                 <Card 
                   key={plan.id}
-                  className={`questionnaire-card relative rounded-2xl shadow-2xl border border-white/30 transition-all duration-300 hover:-translate-y-1 flex flex-col ${
-                    isPopular ? 'ring-2 ring-coral-300/60' : ''
-                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-300/60' : ''}`}
+                  className={`questionnaire-card relative rounded-3xl shadow-3xl border border-white/20 transition-all duration-300 hover:-translate-y-2 flex flex-col ${
+                    isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''
+                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''}`}
                 >
                   {isPopular && (
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-10">
-                      <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-2.5 sm:px-3 py-0.5 rounded-full text-[10px] font-bold border border-white/20 whitespace-nowrap shadow-lg">
+                    <div className="absolute -top-2 lg:-top-3 left-1/2 -translate-x-1/2 z-10">
+                      <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 sm:px-5 lg:px-6 py-0.5 rounded-full text-xs font-semibold border border-white/10 whitespace-nowrap">
                         most popular
                       </span>
                     </div>
                   )}
                   
-                  <div className="p-1.5 sm:p-2 pb-2.5 sm:pb-3 flex-1 flex flex-col">
+                  <div className="p-3 sm:p-4 pb-5 sm:pb-6 flex-1 flex flex-col">
                     {/* Icon */}
-                    <div className="mb-1.5">
-                      <div className="w-7 h-7 mx-auto rounded-full bg-gradient-to-r from-coral-400/30 to-pink-400/30 border border-white/25 flex items-center justify-center">
-                        <plan.icon className="w-3.5 h-3.5 text-coral-300" />
+                    <div className="mb-3">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20 flex items-center justify-center">
+                        <plan.icon className="w-4 h-4 sm:w-5 sm:h-5 text-coral-400" />
                       </div>
                     </div>
 
                     {/* Plan Name */}
-                    <h3 className="text-xs sm:text-sm font-medium text-white mb-0.5 text-center">
+                    <h3 className="text-base font-light text-white mb-1 text-center">
                       {plan.name}
                     </h3>
 
                     {/* Price */}
-                    <div className="mb-0.5 text-center">
-                      <span className="text-lg sm:text-xl font-semibold text-white">{plan.price}</span>
+                    <div className="mb-1 text-center">
+                      <span className="text-2xl font-thin text-white">{plan.price}</span>
                     </div>
-                    <p className="text-white/80 text-[10px] mb-1.5 text-center">
+                    <p className="text-white/60 text-xs mb-2 text-center">
                       per {plan.period}
                     </p>
 
                     {/* Description */}
-                    <p className="text-white/80 text-[10px] leading-snug mb-2 text-center">
+                    <p className="text-white/60 text-xs leading-tight mb-4 text-center">
                       {plan.description}
                     </p>
 
                     {/* Message Count Badge */}
-                    <div className="mb-1.5">
-                      <div className="bg-gradient-to-r from-coral-400/15 to-pink-400/15 rounded-lg border border-white/15 p-1.5 text-center">
-                        <div className="text-lg sm:text-xl font-bold bg-gradient-to-r from-coral-300 to-pink-300 bg-clip-text text-transparent">
+                    <div className="mb-3">
+                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-white/10 p-2.5 sm:p-3 text-center">
+                        <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
                         </div>
-                        <div className="text-[9px] text-white/60 mt-0.5">
+                        <div className="text-xs text-white/50 mt-1">
                           per month
                         </div>
                       </div>
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-0.5 sm:space-y-1 mb-2 flex-1">
+                    <ul className="space-y-1.5 mb-3 flex-1">
                       {plan.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-1.5">
-                          <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-coral-300 flex-shrink-0 mt-0.5" />
-                          <span className="text-[10px] sm:text-xs text-white/80 leading-snug">{feature}</span>
+                        <li key={idx} className="flex items-start gap-2">
+                          <Check className="w-3.5 h-3.5 text-coral-400 flex-shrink-0 mt-0.5" />
+                          <span className="text-xs text-white/70 leading-relaxed">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -180,10 +178,10 @@ export const UpgradeModal = ({
                     <Button
                       onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe' | 'unlimited')}
                       disabled={upgrading !== null || isCurrent || !canUpgrade}
-                      className={`w-full rounded-full text-[11px] sm:text-xs font-semibold mt-auto py-1.5 ${
+                      className={`w-full rounded-full text-sm font-semibold mt-auto ${
                         isPopular || isRecommended 
-                          ? 'questionnaire-button-primary shadow-md' 
-                          : 'questionnaire-button-secondary'
+                          ? 'bg-gradient-to-r from-coral-400 to-pink-500 text-white hover:from-coral-500 hover:to-pink-600 shadow-lg' 
+                          : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
                       }`}
                     >
                       {upgrading === plan.tier ? 'processing...' : 
@@ -197,16 +195,14 @@ export const UpgradeModal = ({
             })}
           </div>
 
-          <div className="text-center pt-1">
+          <div className="text-center pt-2">
             <Button
               variant="ghost"
               onClick={() => onOpenChange(false)}
-              className="text-white/70 hover:text-white hover:bg-white/10 text-[11px] sm:text-xs py-1.5"
+              className="text-white/60 hover:text-white hover:bg-white/10 text-sm"
             >
               maybe later
             </Button>
-            </div>
-          </div>
           </div>
         </div>
       </DialogContent>
