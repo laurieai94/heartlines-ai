@@ -735,15 +735,16 @@ const LandingPage = ({
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     built for the way we love —<br />
-                    through texts, apps, time zones, and moments that can't wait.
+                    through texts, apps, time zones,<br />
+                    and moments that can't wait.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    rooted in science. guided by empathy. made for real life.
+                    rooted in research. guided by empathy. made for real life.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                    with phd-level psychology at her core, kai helps you make sense of what you feel and build closeness that lasts — one honest chat at a time.
+                    born from science and heart, kai helps you feel understood and stay connected to yourself and the people who matter — one honest chat at a time.
                   </p>
                 </div>
                 
