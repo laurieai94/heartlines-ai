@@ -41,7 +41,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         <div className={`relative w-8 h-8 md:w-10 md:h-10 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-40 drop-shadow-lg ${
-            isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
+            isUser ? 'bg-gradient-to-r from-coral-300 via-pink-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
           }`}></div>
           
           <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-8 h-8 md:w-10 md:h-10 md:border-2 md:border-white ${
@@ -89,7 +89,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           className={`
             transition-all duration-300 group-hover:shadow-[0_16px_56px_rgba(0,0,0,0.8)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
-              ? 'bg-burgundy-700/75 backdrop-blur-2xl text-white rounded-br-md md:rounded-br-lg border-2 border-coral-400/50 ring-1 ring-coral-400/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,138,120,0.25)]'
+              ? 'bg-burgundy-700/75 backdrop-blur-2xl text-white rounded-br-md md:rounded-br-lg border-2 border-transparent bg-gradient-to-r from-coral-400/50 via-pink-400/50 to-orange-400/50 bg-origin-border ring-1 ring-coral-400/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,138,120,0.25)]'
               : 'bg-burgundy-600/75 backdrop-blur-2xl text-white rounded-bl-md md:rounded-bl-lg border-2 border-white/40 ring-1 ring-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.15)]'
             }
           `}

@@ -66,7 +66,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
               <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-burgundy-600/75 backdrop-blur-sm hover:bg-burgundy-600/85 rounded-lg p-2 border border-white/25 hover:border-coral-400/30 hover:shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_8px_rgba(255,138,80,0.2)] shadow-md transition-all duration-200"
+                  className="group cursor-pointer bg-burgundy-600/75 backdrop-blur-sm hover:bg-gradient-to-br hover:from-coral-400/15 hover:via-pink-400/15 hover:to-orange-400/10 rounded-lg p-2 border border-white/25 hover:border-pink-400/40 hover:shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_8px_rgba(255,138,80,0.2)] shadow-md transition-all duration-200"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
@@ -96,7 +96,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-burgundy-600/60 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200"
+                  className="group text-white/80 hover:text-white hover:bg-gradient-to-r hover:from-coral-400/20 hover:via-pink-400/20 hover:to-transparent rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 hover:border-l-2 hover:border-pink-400/50 hover:translate-x-0.5"
                 >
                   <span className="leading-tight">{starter}</span>
                 </Button>
