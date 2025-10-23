@@ -946,11 +946,6 @@
     .glass {
       @apply backdrop-blur-sm;
     }
-    
-    /* Reduce complex gradients on mobile for better performance */
-    .bg-gradient-to-br {
-      background: hsl(var(--burgundy-900) / 0.85);
-    }
   }
 
   /* Profile answer text styling - reduced font size */
