@@ -325,7 +325,7 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className={`relative z-10 min-h-screen lg:max-h-screen flex flex-col items-center overflow-y-auto py-2 sm:py-4 justify-start lg:justify-center`}>
+      <div className={`relative z-10 min-h-screen lg:max-h-screen flex flex-col items-center overflow-y-auto py-2 sm:py-4 justify-start`}>
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
           <div className="w-full flex flex-col items-center space-y-3 sm:space-y-4 px-4 mb-3 sm:mb-6">
@@ -375,7 +375,7 @@ const Auth = () => {
         )}
 
         {/* Form container - centered and flexible */}
-        <div className={`px-4 w-full flex-1 flex items-start lg:items-center justify-center overflow-y-auto`}>
+        <div className={`px-4 w-full flex-1 flex items-start justify-center overflow-y-auto`}>
           <div className="w-full max-w-sm sm:max-w-md mx-auto">
             <div className="questionnaire-card p-4 sm:p-5 md:p-6 lg:p-8">
           {showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
