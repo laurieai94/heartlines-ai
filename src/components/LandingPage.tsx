@@ -445,7 +445,7 @@ const LandingPage = ({
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0 md:max-w-[90%] lg:max-w-[85%] xl:max-w-[85%] 2xl:max-w-[90%] md:pr-4 lg:pr-6 xl:pr-8">
                     <div className="space-y-2 mb-1 md:mb-6">
-<h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm pr-4" style={{
+<h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm pr-8" style={{
   fontSize: 'clamp(2.25rem, 5vw, 4.5rem)'
 }}>
   relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
