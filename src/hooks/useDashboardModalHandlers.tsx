@@ -104,12 +104,17 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       modalStates.setShowQuestionnaireModal(false);
       modalStates.setQuestionnaireOrigin(null);
       modalStates.setSuppressPersonalCompletionPopup(true);
+      
+      // Set additional flag to block Dashboard auto-open for this session
+      sessionStorage.setItem('questionnaire-completed-this-session', 'true');
+      console.log('[Complete] Set questionnaire-completed-this-session flag');
     }, 50);
     
     // STEP 2: Clear session flag after delay to prevent reopening
     setTimeout(() => {
       sessionStorage.removeItem('questionnaire-completing');
-    }, 150);
+      console.log('[Complete] Cleared questionnaire-completing flag after 1s');
+    }, 1000); // Extended from 150ms to 1000ms
     
     // STEP 3: Merge and save data
     const existingProfile = temporaryProfiles.your[0] || {};

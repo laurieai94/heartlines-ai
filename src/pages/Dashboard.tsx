@@ -66,6 +66,13 @@ const Dashboard = () => {
       return;
     }
     
+    // PREVENT LOOP: Don't auto-open if already completed in this session
+    const completedThisSession = sessionStorage.getItem('questionnaire-completed-this-session');
+    if (completedThisSession) {
+      console.log('[Dashboard] Questionnaire already completed this session - skipping auto-open');
+      return;
+    }
+    
     // PREVENT LOOP: Don't auto-open if modal is already showing
     if (showQuestionnaireModal) {
       console.log('[Dashboard] Modal already open - skipping auto-open');
