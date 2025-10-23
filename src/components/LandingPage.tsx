@@ -77,7 +77,8 @@ const StepCard = ({
           </div>
           
           {/* Clean Title */}
-          <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light
+          <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light tracking-wide
+            drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]
             group-hover:text-pink-100 transition-colors duration-300">
             {title}
           </h3>
@@ -85,12 +86,14 @@ const StepCard = ({
         
         {/* Description */}
         <div className="relative z-10">
-          <p className="text-pink-200/95 sm:text-pink-200/90 text-base md:text-lg leading-relaxed mt-4 font-light
+          <p className="text-pink-50/95 text-base md:text-lg leading-loose mt-4 font-light tracking-wide
+            drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
             group-hover:text-white transition-colors duration-300">
             {description}
           </p>
-          {secondaryText && <p className="text-pink-200/70 sm:text-pink-200/60 text-sm md:text-base leading-relaxed mt-2 font-light italic
-              group-hover:text-white/70 transition-colors duration-300">
+          {secondaryText && <p className="text-pink-100/70 text-sm md:text-base leading-loose mt-2 font-light italic tracking-wide
+              drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
+              group-hover:text-white/80 transition-colors duration-300">
               {secondaryText}
             </p>}
         </div>
@@ -450,13 +453,14 @@ const LandingPage = ({
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0">
                     <div className="space-y-2 mb-1 md:mb-6">
-<h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm pr-16 pb-1 will-change-transform" style={{
-  fontSize: 'clamp(2.25rem, 5vw, 4.5rem)'
+<h1 className="font-playfair font-normal leading-[1.15] tracking-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-300 via-pink-400 to-coral-400 pr-16 pb-1 will-change-transform" style={{
+  fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+  textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(251, 207, 232, 0.15)'
 }}>
   relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
 </h1>
                       
-                      <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
+                      <h3 className="font-playfair font-light leading-[1.25] tracking-wide animate-fade-in text-white/95 md:whitespace-nowrap max-w-full drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]" style={{
                       fontSize: 'clamp(1.25rem, 3.75vw, 2.75rem)',
                       animationDelay: '0.2s'
                     }}>
@@ -577,7 +581,9 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-3 md:mb-8">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">how it works</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent tracking-wider" style={{
+              textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(236, 72, 153, 0.2)'
+            }}>how it works</h2>
             
           </div>
           
@@ -711,31 +717,32 @@ const LandingPage = ({
 
               {/* Right Column: Content */}
               <div className="order-2 text-center md:text-left">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-fade-in" style={{
-                  animationDelay: '0.2s'
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
+                  animationDelay: '0.2s',
+                  textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(236, 72, 153, 0.2)'
                 }}>
                   meet kai
                 </h2>
                 
-                <h3 className="text-xl md:text-2xl text-white/90 font-light mb-6 animate-fade-in" style={{
+                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-6 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in" style={{
                   animationDelay: '0.4s'
                 }}>
                   your ai relationship coach
                 </h3>
                 
-                <div className="space-y-4 mb-6 max-w-2xl animate-fade-in" style={{
+                <div className="space-y-6 mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
                   animationDelay: '0.6s'
                 }}>
-                  <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
+                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     built for the way we love —<br />
                     through texts, apps, time zones, and moments that can't wait.
                   </p>
                   
-                  <p className="text-base md:text-lg lg:text-xl text-white/90 font-medium leading-relaxed">
+                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
                     rooted in science. guided by empathy. made for real life.
                   </p>
                   
-                  <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
+                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     with phd-level psychology at her core, kai helps you make sense of what you feel and build closeness that lasts — one honest chat at a time.
                   </p>
                 </div>
@@ -744,20 +751,30 @@ const LandingPage = ({
                 <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{
                   animationDelay: '0.8s'
                 }}>
-                  <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
-                    <span className="text-sm text-white font-medium">🌈 inclusive for all</span>
+                  <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-orange-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">🌈 inclusive for all</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
-                    <span className="text-sm text-white font-medium">🧠 evidence-based care</span>
+                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">🧠 evidence-based care</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
-                    <span className="text-sm text-white font-medium">🔒 private by design</span>
+                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">🔒 private by design</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
-                    <span className="text-sm text-white font-medium">💗 trauma-aware</span>
+                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">💗 trauma-aware</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
-                    <span className="text-sm text-white font-medium">⏱ instant support</span>
+                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">⏱ instant support</span>
                   </div>
                 </div>
               </div>
@@ -794,10 +811,12 @@ const LandingPage = ({
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
           <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent tracking-wider" style={{
+              textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(236, 72, 153, 0.2)'
+            }}>
               why we're different
             </h2>
-            <p className="text-lg md:text-xl text-white/90 font-light">
+            <p className="text-lg md:text-xl text-white/95 font-light tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
               
             </p>
           </div>
