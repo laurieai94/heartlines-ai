@@ -31,7 +31,7 @@ export const pricingPlans: PricingPlan[] = [
       "1 partner profile",
       "\"try before you commit\" vibes"
     ],
-    buttonText: "start free",
+    buttonText: "begin",
     popular: false,
     tier: "freemium"
   },

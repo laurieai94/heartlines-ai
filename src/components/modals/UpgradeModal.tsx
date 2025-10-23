@@ -72,39 +72,39 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-800 border-white/20 rounded-3xl p-4 sm:p-6">
+      <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto bg-gradient-to-br from-white via-pink-50 to-orange-50 border-orange-200/60 p-2 sm:p-3">
         <DialogHeader>
-          <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
-            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
+          <DialogTitle className="text-lg sm:text-xl font-light text-burgundy-900 flex items-center justify-center gap-2">
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-coral-500" />
             time to dive deeper?
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-4 space-y-2">
+        <div className="mt-2 space-y-1.5">
           {/* Current Usage */}
-          <Card className="questionnaire-card p-2.5 border border-white/20">
-            <div className="flex items-center justify-between">
+          <Card className="bg-white/95 backdrop-blur-sm border border-orange-200/60 p-2">
+            <div className="flex items-center justify-between mb-2">
               <div>
-                <p className="text-xs text-white/60">current plan</p>
-                <p className="text-lg font-semibold text-white">{currentTier}</p>
+                <p className="text-xs text-burgundy-600">current plan</p>
+                <p className="text-base font-semibold text-burgundy-900 capitalize">{currentTier}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs text-white/60">messages used</p>
-                <p className="text-lg font-semibold text-white">
+                <p className="text-xs text-burgundy-600">messages used</p>
+                <p className="text-base font-semibold text-burgundy-900">
                   {messagesUsed} / {messageLimit}
                 </p>
               </div>
             </div>
-            <div className="mt-1.5 w-full bg-white/10 rounded-full h-2">
+            <div className="mt-1 w-full bg-orange-100 rounded-full h-1.5">
               <div 
-                className="bg-gradient-to-r from-coral-400 to-pink-500 h-2 rounded-full transition-all"
+                className="bg-gradient-to-r from-orange-400 to-pink-500 h-1.5 rounded-full transition-all"
                 style={{ width: `${Math.min((messagesUsed / messageLimit) * 100, 100)}%` }}
               />
             </div>
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 max-w-7xl mx-auto items-stretch">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-stretch">
             {allPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.tier === currentTier;
@@ -112,94 +112,94 @@ export const UpgradeModal = ({
               const isPopular = plan.tier === 'vibe';
               
               return (
-                <Card 
-                  key={plan.id}
-                  className={`questionnaire-card relative rounded-3xl shadow-3xl border border-white/20 transition-all duration-300 hover:-translate-y-2 flex flex-col ${
-                    isPopular ? 'ring-2 ring-coral-400/50' : ''
-                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50' : ''}`}
-                >
+                <div key={plan.id} className="relative">
                   {isPopular && (
-                    <div className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 z-10">
-                      <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 sm:px-5 lg:px-6 py-0.5 rounded-full text-xs font-semibold border border-white/10 whitespace-nowrap">
+                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
+                      <span className="bg-gradient-to-r from-orange-400 to-pink-400 text-white px-3 sm:px-4 py-0.5 rounded-full text-[10px] font-bold border border-white/40 whitespace-nowrap shadow-md">
                         most popular
                       </span>
                     </div>
                   )}
-                  
-                  <div className="p-3 sm:p-4 pb-5 sm:pb-6 flex-1 flex flex-col">
-                    {/* Icon */}
-                    <div className="mb-3">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20 flex items-center justify-center">
-                        <plan.icon className="w-4 h-4 sm:w-5 sm:h-5 text-coral-400" />
-                      </div>
-                    </div>
-
-                    {/* Plan Name */}
-                    <h3 className="text-base font-light text-white mb-1 text-center">
-                      {plan.name}
-                    </h3>
-
-                    {/* Price */}
-                    <div className="mb-1 text-center">
-                      <span className="text-2xl font-thin text-white">{plan.price}</span>
-                    </div>
-                    <p className="text-white/60 text-xs mb-2 text-center">
-                      per {plan.period}
-                    </p>
-
-                    {/* Description */}
-                    <p className="text-white/60 text-xs leading-tight mb-4 text-center">
-                      {plan.description}
-                    </p>
-
-                    {/* Message Count Badge */}
-                    <div className="mb-3">
-                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-white/10 p-2.5 sm:p-3 text-center">
-                        <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
-                          {plan.messages === 0 ? '∞' : plan.messages}
-                        </div>
-                        <div className="text-xs text-white/50 mt-1">
-                          per month
+                  <Card 
+                    className={`bg-white/95 backdrop-blur-sm border border-orange-200/60 relative rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col ${
+                      isPopular ? 'ring-2 ring-orange-400/60' : ''
+                    } ${isRecommended && !isPopular ? 'ring-2 ring-orange-300/60' : ''}`}
+                  >
+                    <div className="p-2 sm:p-2.5 pb-3 sm:pb-4 flex-1 flex flex-col">
+                      {/* Icon */}
+                      <div className="mb-2">
+                        <div className="w-8 h-8 mx-auto rounded-full bg-gradient-to-br from-orange-100 to-pink-100 border border-orange-200/60 flex items-center justify-center">
+                          <plan.icon className="w-4 h-4 text-orange-500" />
                         </div>
                       </div>
+
+                      {/* Plan Name */}
+                      <h3 className="text-sm font-medium text-burgundy-900 mb-0.5 text-center">
+                        {plan.name}
+                      </h3>
+
+                      {/* Price */}
+                      <div className="mb-0.5 text-center">
+                        <span className="text-xl font-semibold text-burgundy-900">{plan.price}</span>
+                      </div>
+                      <p className="text-burgundy-600 text-xs mb-2 text-center">
+                        per {plan.period}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-burgundy-600 text-xs leading-snug mb-2 text-center">
+                        {plan.description}
+                      </p>
+
+                      {/* Message Count Badge */}
+                      <div className="mb-2">
+                        <div className="bg-gradient-to-br from-orange-50 to-pink-50 rounded-lg border border-orange-200/60 p-1.5 sm:p-2 text-center">
+                          <div className="text-lg sm:text-xl font-bold text-orange-500">
+                            {plan.messages === 0 ? '∞' : plan.messages}
+                          </div>
+                          <div className="text-xs text-burgundy-500 mt-0.5">
+                            per month
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Features */}
+                      <ul className="space-y-1 mb-2 flex-1">
+                        {plan.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <Check className="w-3 h-3 text-orange-500 flex-shrink-0 mt-0.5" />
+                            <span className="text-xs text-burgundy-700 leading-snug">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* CTA Button */}
+                      <Button
+                        onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe' | 'unlimited')}
+                        disabled={upgrading !== null || isCurrent || !canUpgrade}
+                        className={`w-full rounded-full text-xs sm:text-sm font-semibold mt-auto ${
+                          isPopular || isRecommended 
+                            ? 'bg-gradient-to-r from-orange-400 to-pink-400 hover:from-orange-500 hover:to-pink-500 text-white shadow-md hover:shadow-lg' 
+                            : 'bg-burgundy-100 hover:bg-burgundy-200 text-burgundy-900 border border-burgundy-200'
+                        }`}
+                      >
+                        {upgrading === plan.tier ? 'processing...' : 
+                         isCurrent ? 'current plan' :
+                         !canUpgrade ? 'not available' :
+                         plan.buttonText}
+                      </Button>
                     </div>
-
-                    {/* Features */}
-                    <ul className="space-y-1.5 mb-3 flex-1">
-                      {plan.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <Check className="w-3.5 h-3.5 text-coral-400 flex-shrink-0 mt-0.5" />
-                          <span className="text-xs text-white/70 leading-relaxed">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* CTA Button */}
-                    <Button
-                      onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe' | 'unlimited')}
-                      disabled={upgrading !== null || isCurrent || !canUpgrade}
-                      className={`w-full rounded-full text-sm font-semibold mt-auto ${
-                        isPopular || isRecommended 
-                          ? 'questionnaire-button-primary shadow-lg' 
-                          : 'questionnaire-button-secondary'
-                      }`}
-                    >
-                      {upgrading === plan.tier ? 'processing...' : 
-                       isCurrent ? 'current plan' :
-                       !canUpgrade ? 'not available' :
-                       plan.buttonText}
-                    </Button>
-                  </div>
-                </Card>
+                  </Card>
+                </div>
               );
             })}
           </div>
 
-          <div className="text-center pt-2">
+          <div className="text-center pt-1">
             <Button
               variant="ghost"
               onClick={() => onOpenChange(false)}
-              className="text-white/60 hover:text-white hover:bg-white/10 text-sm"
+              className="text-burgundy-600 hover:text-burgundy-900 hover:bg-burgundy-50 text-xs"
             >
               maybe later
             </Button>
