@@ -149,25 +149,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const signOut = async () => {
-    try {
-      // Clean up auth state first
-      cleanupAuthState();
-      
-      // Attempt global sign out
-      try {
-        await supabase.auth.signOut({ scope: 'global' });
-      } catch (err) {
-        // Continue even if this fails
-        logWarn('Sign out error', err);
-      }
-      
-      // Force redirect to homepage with clean state
-      window.location.href = '/';
-    } catch (error) {
-      logError('Sign out error', error);
-      // Still redirect even if cleanup fails
-      window.location.href = '/';
-    }
+    // Clean up auth state first
+    cleanupAuthState();
+    
+    // Fire and forget - don't wait for Supabase response
+    supabase.auth.signOut({ scope: 'global' }).catch(() => {
+      // Ignore errors - we're already redirecting
+    });
+    
+    // Immediately redirect without waiting
+    window.location.href = '/';
   };
 
   const resendVerification = async (email: string) => {
