@@ -159,10 +159,10 @@ const AIChatInput = ({
     <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? `brand-gradient-soft border-2 border-white/35 ring-2 ring-white/15 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] ${
+          ? `brand-gradient-soft border-2 ${atLimit ? 'border-coral-400/60' : 'border-white/35'} ring-2 ${atLimit ? 'ring-coral-400/30' : 'ring-white/15'} backdrop-blur-xl ${
               atLimit 
-                ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
-                : ''
+                ? 'shadow-[0_0_30px_rgba(255,138,80,0.6),0_0_50px_rgba(255,107,157,0.4),0_4px_24px_rgba(0,0,0,0.4)] hover:shadow-[0_0_40px_rgba(255,138,80,0.7),0_0_60px_rgba(255,107,157,0.5),0_4px_24px_rgba(0,0,0,0.4)] animate-pulse-subtle transition-all duration-500 cursor-pointer' 
+                : 'shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
             }` 
           : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/35 ring-2 ring-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:border-coral-300/50 focus-within:ring-coral-400/20 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.5)] focus-within:shadow-coral-400/20 transition-all duration-300'
       }`}>
