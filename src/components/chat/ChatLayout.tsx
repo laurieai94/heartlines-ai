@@ -55,7 +55,7 @@ export const ChatLayout = ({
   return (
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-800 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
       {/* Mobile only: Site navigation bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-[45] bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 px-4 py-2 flex items-center justify-end">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-[45] bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 backdrop-blur-xl shadow-lg border-b border-coral-400/20 px-4 py-2 flex items-center justify-end">
         <Popover modal={false} open={isNavPopoverOpen} onOpenChange={setIsNavPopoverOpen}>
           <PopoverTrigger asChild>
             <Button 
