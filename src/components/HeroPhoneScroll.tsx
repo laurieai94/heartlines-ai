@@ -257,7 +257,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             {/* Messages area */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
+              className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/15 to-burgundy-800/20 backdrop-blur-md overflow-y-auto no-scrollbar"
               aria-live="polite"
             >
               {visibleMessages.map((message) => (
