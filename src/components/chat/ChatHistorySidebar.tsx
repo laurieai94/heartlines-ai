@@ -59,8 +59,8 @@ export const ChatHistorySidebar = ({
       <div className="p-4 border-b border-white/10">
         <Button
           onClick={onNewConversation}
-          className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 flex items-center gap-2"
-          variant="outline"
+          className="w-full bg-white/5 hover:bg-white/10 text-white/80 hover:text-white backdrop-blur-sm flex items-center gap-2 border-0 shadow-sm transition-all duration-200"
+          variant="ghost"
         >
           <Plus className="w-4 h-4" />
           New Chat
