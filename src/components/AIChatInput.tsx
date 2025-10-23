@@ -157,23 +157,16 @@ const AIChatInput = ({
 
   return (
     <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
-      {/* Gradient border wrapper - 2px padding creates border space */}
-      <div className={`flex-1 p-[2px] rounded-2xl ${
+      <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? 'brand-gradient-soft' 
-          : 'brand-gradient-reverse'
+          ? `brand-gradient-soft border-2 border-white/35 ring-2 ring-white/15 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] ${
+              atLimit 
+                ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
+                : ''
+            }` 
+          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/35 ring-2 ring-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:border-coral-300/50 focus-within:ring-coral-400/20 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.5)] focus-within:shadow-coral-400/20 transition-all duration-300'
       }`}>
-        {/* Inner container with burgundy background */}
-        <div className={`relative isolate rounded-[14px] overflow-hidden ${
-          readOnly 
-            ? `backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] ${
-                atLimit 
-                  ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
-                  : ''
-              }` 
-            : 'bg-burgundy-800/40 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.5)] focus-within:shadow-coral-400/20 transition-all duration-300'
-        }`}>
-          <Textarea
+        <Textarea
           unstyled
           ref={textareaRef}
           value={currentMessage}
@@ -204,7 +197,6 @@ const AIChatInput = ({
           }}
           rows={1}
         />
-        </div>
       </div>
       
       <Button
