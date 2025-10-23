@@ -410,9 +410,17 @@ const LandingPage = ({
       <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
       {/* Premium gradient background with animated orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-r from-pink-500/15 via-coral-400/10 to-orange-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }}></div>
-        <div className="absolute bottom-1/3 right-1/5 w-80 h-80 bg-gradient-to-r from-orange-500/15 via-pink-500/10 to-coral-400/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '1.5s' }}></div>
-        <div className="absolute top-2/3 left-1/3 w-64 h-64 bg-gradient-to-r from-coral-400/12 via-pink-400/8 to-orange-400/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s', animationDelay: '3s' }}></div>
+        <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-r from-pink-500/15 via-coral-400/10 to-orange-500/15 rounded-full blur-3xl animate-pulse" style={{
+          animationDuration: '6s'
+        }}></div>
+        <div className="absolute bottom-1/3 right-1/5 w-80 h-80 bg-gradient-to-r from-orange-500/15 via-pink-500/10 to-coral-400/15 rounded-full blur-3xl animate-pulse" style={{
+          animationDuration: '7s',
+          animationDelay: '1.5s'
+        }}></div>
+        <div className="absolute top-2/3 left-1/3 w-64 h-64 bg-gradient-to-r from-coral-400/12 via-pink-400/8 to-orange-400/12 rounded-full blur-3xl animate-pulse" style={{
+          animationDuration: '8s',
+          animationDelay: '3s'
+        }}></div>
       </div>
 
       {/* Code-like Background Elements */}
@@ -453,12 +461,12 @@ const LandingPage = ({
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0">
                     <div className="space-y-2 mb-1 md:mb-6">
-<h1 className="font-playfair font-normal leading-[1.15] tracking-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-300 via-pink-400 to-coral-400 pr-16 pb-1 will-change-transform" style={{
-  fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
-  textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(251, 207, 232, 0.15)'
-}}>
+                    <h1 className="font-playfair font-normal leading-[1.15] tracking-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-300 via-pink-400 to-coral-400 pr-16 pb-1 will-change-transform" style={{
+                      fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+                      textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(251, 207, 232, 0.15)'
+                    }}>
   relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
-</h1>
+                    </h1>
                       
                       <h3 className="font-playfair font-light leading-[1.25] tracking-wide animate-fade-in text-white/95 md:whitespace-nowrap max-w-full drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]" style={{
                       fontSize: 'clamp(1.25rem, 3.75vw, 2.75rem)',
@@ -739,9 +747,8 @@ const LandingPage = ({
                     and moments that can't wait.
                   </p>
                   
-                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    rooted in research. guided by empathy. made for real life.
-                  </p>
+                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">rooted in research. guided by empathy. 
+made for real life.</p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     born from science and heart, kai helps you feel understood and stay connected to yourself and the people who matter — one honest chat at a time.
