@@ -167,8 +167,8 @@ const AIChatInput = ({
             }` 
           : 'p-[2px] bg-gradient-to-r from-orange-400/40 via-rose-500/40 to-pink-500/40 ring-2 ring-orange-300/20 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:from-orange-400/60 focus-within:via-rose-500/60 focus-within:to-pink-500/60 focus-within:ring-orange-400/30 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.5)] focus-within:shadow-orange-400/20'
       }`}>
-        {/* Inner container with transparent blur */}
-        <div className="relative isolate rounded-[14px] overflow-hidden backdrop-blur-xl">
+        {/* Inner container - transparent to show burgundy background */}
+        <div className="relative isolate rounded-[14px] overflow-hidden">
           <Textarea
           unstyled
           ref={textareaRef}
