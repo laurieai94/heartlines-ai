@@ -72,7 +72,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[85vh] overflow-hidden bg-burgundy-800 border-white/20 rounded-3xl p-2 sm:p-3">
+      <DialogContent className="max-w-7xl max-h-[85vh] overflow-hidden bg-burgundy-800 border-white/20 rounded-3xl p-2 sm:p-3 pr-1">
         <DialogHeader>
           <DialogTitle className="text-lg sm:text-xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-coral-300" />
@@ -80,8 +80,9 @@ export const UpgradeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="max-h-[calc(85vh-80px)] overflow-y-auto px-2 sm:px-3 pb-2">
-          <div className="space-y-2">
+        <div className="max-h-[calc(85vh-80px)] overflow-y-auto pb-2 scrollbar-hide pr-2">
+          <div className="px-2 sm:px-3">
+            <div className="space-y-2">
           {/* Current Usage */}
           <Card className="questionnaire-card p-2 border border-white/30">
             <div className="flex items-center justify-between">
@@ -204,6 +205,7 @@ export const UpgradeModal = ({
             >
               maybe later
             </Button>
+            </div>
           </div>
           </div>
         </div>
