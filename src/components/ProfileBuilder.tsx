@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useReducer } from "react";
 import { toast } from "sonner";
-import { Heart, Star, Search, Lock, MessageSquare, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
+import { Heart, Star, Search, Lock, MessageSquare, ChevronDown, ArrowRight, Sparkles, Shield, Database, Eye, Trash2, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -249,12 +249,12 @@ const ProfileBuilder = ({
     }}>
         {/* Main Header - Responsive */}
         <div className="text-center space-y-8 md:space-y-10 lg:space-y-12 flex-shrink-0 px-2 md:px-4">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand text-white">let's get to know your situationship</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand bg-gradient-to-r from-white via-white/95 to-white/90 bg-clip-text text-transparent tracking-tight [text-shadow:0_0_40px_rgba(255,255,255,0.15)]">let's get to know your situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
           {canUnlockCoaching && <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-              <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20">
-                <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-coaching-glow">
+              <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-[0_0_30px_rgba(251,146,120,0.5)] hover:shadow-xl hover:scale-105 border border-white/20">
+                <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-pulse">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
                   <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white font-bold text-sm">
                     {BRAND.coach.name.charAt(0)}
@@ -275,7 +275,7 @@ const ProfileBuilder = ({
             <OnboardingStepNudge completion={Math.round(completedRequiredFields / totalRequiredFields * 100)} onStartProfile={handleStartPersonalProfile} />
           </div>}
         {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-3 lg:py-4 -mt-4 md:mt-4 lg:mt-6" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-3 lg:py-4 -mt-4 md:mt-4 lg:mt-6 [&>*]:transition-all [&>*]:duration-300 [&>*]:hover:scale-[1.02]" data-profile-cards-container>
           {/* Your Profile Card */}
           <MemoizedProfileCard title="your profile" subheader="the real you → real advice" completion={yourProfileCompletion} description="just 5 required questions" benefits={[{
             icon: <Star className="w-3 h-3 text-orange-300" />,
@@ -301,9 +301,9 @@ const ProfileBuilder = ({
 
         {/* Privacy Banner - Clean Collapsible */}
         <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-1 md:py-3 lg:py-4 -mt-8 md:-mt-6 lg:-mt-8">
-          <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm shadow-lg shadow-white/5">
+          <div className="rounded-xl ring-1 ring-white/10 bg-white/5 backdrop-blur-md shadow-lg shadow-white/5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/8 hover:ring-white/15">
             <Collapsible>
-              <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 text-sm text-white/90 hover:bg-white/5 transition-colors rounded-xl">
+              <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 text-sm text-white/90 transition-colors rounded-xl">
                 <div className="flex items-center gap-3">
                   <div className="relative">
                     <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm"></div>
@@ -316,13 +316,13 @@ const ProfileBuilder = ({
                 <ChevronDown className="w-4 h-4 text-white/60 transition-transform duration-200" />
               </CollapsibleTrigger>
               <CollapsibleContent className="px-4 pb-3 pt-1">
-                <div className="pl-10 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 text-sm text-white/80">
-                  <p>• no ai training on chats</p>
-                  <p>• your data = yours only</p>
-                  <p>• encrypted at rest + transit</p>
-                  <p>• row-level security on all data</p>
-                  <p>• choose history: 30 / 90 / 365 / forever</p>
-                  <p>• delete everything anytime, no hassle</p>
+                <div className="pl-10 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/80">
+                  <p className="flex items-center gap-2"><Shield className="w-3.5 h-3.5 text-white/60" />no ai training on chats</p>
+                  <p className="flex items-center gap-2"><Lock className="w-3.5 h-3.5 text-white/60" />your data = yours only</p>
+                  <p className="flex items-center gap-2"><Shield className="w-3.5 h-3.5 text-white/60" />encrypted at rest + transit</p>
+                  <p className="flex items-center gap-2"><Database className="w-3.5 h-3.5 text-white/60" />row-level security on all data</p>
+                  <p className="flex items-center gap-2"><Clock className="w-3.5 h-3.5 text-white/60" />choose history: 30 / 90 / 365 / forever</p>
+                  <p className="flex items-center gap-2"><Trash2 className="w-3.5 h-3.5 text-white/60" />delete everything anytime, no hassle</p>
                   <Link to="/privacy-and-security" className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group" aria-label="Learn more about our privacy and security practices">
                     <span>learn more</span>
                     <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
