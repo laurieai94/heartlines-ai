@@ -722,17 +722,16 @@ const LandingPage = ({
                   animationDelay: '0.6s'
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    kai's built for how we love now —<br />
-                    the apps, the almosts, the "wyd?"s that turn into something real, and the everyday work of keeping love alive.
+                    built for the way we love —<br />
+                    through texts, apps, time zones, and moments that can't wait.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/90 font-medium leading-relaxed">
-                    backed by science. grounded in empathy. made for real life.
+                    rooted in science. guided by empathy. made for real life.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    with phd-level psychology at her core,<br />
-                    kai helps you understand yourself and what it takes to keep love healthy, intimate, and real — one honest conversation at a time.
+                    with phd-level psychology at her core, kai helps you make sense of what you feel and build closeness that lasts — one honest chat at a time.
                   </p>
                 </div>
                 
@@ -741,10 +740,10 @@ const LandingPage = ({
                   animationDelay: '0.8s'
                 }}>
                   <div className="px-4 py-2 rounded-full bg-orange-400/20 border border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30">
-                    <span className="text-sm text-white font-medium">🌈 inclusive for all relationships</span>
+                    <span className="text-sm text-white font-medium">🌈 inclusive for all</span>
                   </div>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
-                    <span className="text-sm text-white font-medium">🧠 evidence-based psychology</span>
+                    <span className="text-sm text-white font-medium">🧠 evidence-based care</span>
                   </div>
                   <div className="px-4 py-2 rounded-full bg-pink-400/20 border border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30">
                     <span className="text-sm text-white font-medium">🔒 private by design</span>
@@ -753,7 +752,7 @@ const LandingPage = ({
                     <span className="text-sm text-white font-medium">💗 trauma-aware</span>
                   </div>
                   <div className="px-4 py-2 rounded-full bg-coral-400/20 border border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30">
-                    <span className="text-sm text-white font-medium">⏱ instant, 24/7 support</span>
+                    <span className="text-sm text-white font-medium">⏱ instant support</span>
                   </div>
                 </div>
               </div>
