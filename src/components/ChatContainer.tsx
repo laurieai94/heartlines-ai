@@ -270,15 +270,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         );
       })}
 
-      {/* Typing Indicator with absolute positioning overlap */}
-      <div className="relative" style={{ minHeight: loading ? '80px' : '0px', transition: 'min-height 0.3s ease-out' }}>
-        {loading && (
-          <div className="absolute inset-0 animate-fade-in">
-            <TypingIndicator />
-          </div>
-        )}
-      </div>
-
       <div className="h-2 md:h-4" />
     </>
   );
