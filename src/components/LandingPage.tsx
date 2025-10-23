@@ -446,13 +446,13 @@ const LandingPage = ({
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0 md:max-w-[90%] lg:max-w-[85%] xl:max-w-[85%] 2xl:max-w-[90%] md:pr-4 lg:pr-6 xl:pr-8">
                     <div className="space-y-2 mb-1 md:mb-6">
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm overflow-visible" style={{
-                      fontSize: 'clamp(2.25rem, 5.5vw, 5.5rem)'
+                      fontSize: 'clamp(2.25rem, 5vw, 4.5rem)'
                     }}>
                         relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
-                      fontSize: 'clamp(1.25rem, 4vw, 3.5rem)',
+                      fontSize: 'clamp(1.25rem, 3.75vw, 2.75rem)',
                       animationDelay: '0.2s'
                     }}>
                         <span className="font-brand">heartlines</span> helps you connect.
