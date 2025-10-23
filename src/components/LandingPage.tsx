@@ -740,7 +740,8 @@ const LandingPage = ({
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    rooted in research. guided by empathy. made for real life.
+                    rooted in research. guided by empathy.<br />
+                    made for real life.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
