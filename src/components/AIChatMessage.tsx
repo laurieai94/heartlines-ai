@@ -85,19 +85,25 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
           : 'max-w-[80%]'
       } ${isUser ? 'items-end' : 'items-start'}`}>
-        <div
-          className={`
-            transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
-            ${isUser
-              ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10'
-              : 'bg-burgundy-600/60 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/25 ring-1 ring-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-white/5'
-            }
-          `}
-        >
-          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
-            {message.content}
+        {isUser ? (
+          // Gradient border wrapper for user messages
+          <div className="p-[2px] rounded-2xl brand-gradient-reverse">
+            <div className="px-2.5 py-1.5 md:px-3 md:py-2 rounded-[14px] rounded-br-sm md:rounded-br-md bg-burgundy-700/60 backdrop-blur-xl text-white transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01]">
+              <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
+                {message.content}
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          // AI messages keep existing white border styling
+          <div
+            className="transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl rounded-bl-md md:rounded-bl-lg bg-burgundy-600/60 backdrop-blur-xl text-white border border-white/25 ring-1 ring-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-white/5"
+          >
+            <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
+              {message.content}
+            </div>
+          </div>
+        )}
         
         {/* Timestamp - Only show for last message in group */}
         {(isLastInGroup || !isMobile) && (

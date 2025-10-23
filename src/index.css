@@ -145,6 +145,7 @@
   --gradient-brand-soft: linear-gradient(135deg, rgba(255, 107, 157, 0.35) 0%, hsl(var(--coral-500) / 0.35) 100%);
   --gradient-brand-soft-hover: linear-gradient(135deg, rgba(255, 107, 157, 0.45) 0%, hsl(var(--coral-500) / 0.45) 100%);
     --gradient-brand-hover: linear-gradient(135deg, #ff6b9d 0%, hsl(var(--coral-600)) 100%);
+    --gradient-brand-reverse: linear-gradient(135deg, hsl(var(--coral-500)) 0%, #ff6b9d 100%);
   }
 
   .dark {
@@ -754,6 +755,10 @@
   
 .brand-gradient-soft {
   background: var(--gradient-brand-soft);
+}
+
+.brand-gradient-reverse {
+  background: var(--gradient-brand-reverse);
 }
 
 .hover\:brand-gradient-soft-hover:hover {
