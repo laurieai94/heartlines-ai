@@ -85,17 +85,25 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
           : 'max-w-[80%]'
       } ${isUser ? 'items-end' : 'items-start'}`}>
+        {/* Gradient border wrapper */}
         <div
           className={`
-            transition-all duration-300 group-hover:shadow-[0_16px_56px_rgba(0,0,0,0.8)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
+            transition-all duration-300 group-hover:shadow-[0_16px_56px_rgba(0,0,0,0.8)] group-hover:scale-[1.01] rounded-2xl md:rounded-2xl
             ${isUser
-              ? 'bg-burgundy-700/75 backdrop-blur-2xl text-white rounded-br-md md:rounded-br-lg border-2 border-transparent bg-gradient-to-r from-orange-400/50 via-rose-500/50 to-pink-500/50 bg-origin-border ring-1 ring-orange-400/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,138,120,0.25)]'
-              : 'bg-burgundy-600/75 backdrop-blur-2xl text-white rounded-bl-md md:rounded-bl-lg border-2 border-white/40 ring-1 ring-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.15)]'
+              ? 'p-[2px] bg-gradient-to-r from-orange-400/50 via-rose-500/50 to-pink-500/50 rounded-br-md md:rounded-br-lg ring-1 ring-orange-400/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,138,120,0.25)]'
+              : 'p-[2px] bg-gradient-to-r from-white/40 via-white/30 to-white/40 rounded-bl-md md:rounded-bl-lg ring-1 ring-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.15)]'
             }
           `}
         >
-          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
-            {message.content}
+          {/* Inner content with solid background */}
+          <div className={`px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl ${
+            isUser 
+              ? 'bg-burgundy-700/75 backdrop-blur-2xl text-white rounded-br-md md:rounded-br-lg' 
+              : 'bg-burgundy-600/75 backdrop-blur-2xl text-white rounded-bl-md md:rounded-bl-lg'
+          }`}>
+            <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
+              {message.content}
+            </div>
           </div>
         </div>
         
