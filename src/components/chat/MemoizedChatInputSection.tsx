@@ -13,7 +13,6 @@ interface ChatInputSectionProps {
   isHistoryLoaded: boolean;
   showStarters?: boolean;
   onCloseStarters?: () => void;
-  onUserTypingChange?: (typing: boolean) => void;
   onHeightChange?: (height: number) => void;
   onInputFocus?: () => void;
 }

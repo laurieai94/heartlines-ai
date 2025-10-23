@@ -11,7 +11,6 @@ interface AIChatInputProps {
   placeholder?: string;
   inputRef?: React.RefObject<HTMLTextAreaElement>;
   onInputFocus?: () => void;
-  onTypingChange?: (typing: boolean) => void;
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
@@ -27,8 +26,7 @@ const AIChatInput = ({
   placeholder,
   inputRef,
   onInputFocus,
-  onTypingChange,
-  userName, 
+  userName,
   partnerName, 
   chatHistory = [],
   showProfileGlow = false,
@@ -37,7 +35,6 @@ const AIChatInput = ({
   const [currentMessage, setCurrentMessage] = useState("");
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = inputRef ?? internalRef;
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const sendMessage = () => {
@@ -47,14 +44,6 @@ const AIChatInput = ({
       // If disabled, trigger onInputFocus to show auth/profile modal
       onInputFocus?.();
       return;
-    }
-    
-    // Clear typing indicator when sending
-    if (onTypingChange) {
-      onTypingChange(false);
-    }
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
     }
     
     onSendMessage(currentMessage.trim());
@@ -109,24 +98,6 @@ const AIChatInput = ({
     const newValue = e.target.value;
     setCurrentMessage(newValue);
     adjustTextareaHeight();
-    
-    // Handle typing indicator
-    if (onTypingChange) {
-      const isTyping = newValue.trim().length > 0;
-      onTypingChange(isTyping);
-      
-      // Clear existing timeout
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current);
-      }
-      
-      // Set timeout to stop typing after inactivity
-      if (isTyping) {
-        typingTimeoutRef.current = setTimeout(() => {
-          onTypingChange(false);
-        }, 3000);
-      }
-    }
   };
 
 
@@ -146,9 +117,6 @@ const AIChatInput = ({
   // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current);
-      }
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }

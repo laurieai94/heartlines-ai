@@ -34,7 +34,6 @@ interface ChatInputSectionProps {
   isHistoryLoaded: boolean;
   showStarters?: boolean;
   onCloseStarters?: () => void;
-  onUserTypingChange?: (typing: boolean) => void;
   onHeightChange?: (height: number) => void;
   onInputFocus?: () => void;
 }
@@ -50,7 +49,6 @@ export const ChatInputSection = ({
   isHistoryLoaded,
   showStarters = false,
   onCloseStarters = () => {},
-  onUserTypingChange = () => {},
   onHeightChange = () => {},
   onInputFocus = () => {}
 }: ChatInputSectionProps) => {
@@ -65,10 +63,8 @@ export const ChatInputSection = ({
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
-  const [isComposing, setIsComposing] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const typingDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const { calculateYourCompletion } = useOptimizedProfileCompletion();
   
   // Stable completion state with debouncing to prevent UI flickering
@@ -148,37 +144,6 @@ export const ChatInputSection = ({
     onCloseStarters();
     onSendMessage(message);
   };
-
-
-  // Handle user typing with debouncing
-  const handleUserTyping = (typing: boolean) => {
-    if (typingDebounceRef.current) {
-      clearTimeout(typingDebounceRef.current);
-    }
-    
-    if (typing) {
-      setIsComposing(true);
-      onUserTypingChange(true);
-      
-      // Set timeout to stop typing indicator
-      typingDebounceRef.current = setTimeout(() => {
-        setIsComposing(false);
-        onUserTypingChange(false);
-      }, 2500);
-    } else {
-      setIsComposing(false);
-      onUserTypingChange(false);
-    }
-  };
-
-  // Cleanup typing timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (typingDebounceRef.current) {
-        clearTimeout(typingDebounceRef.current);
-      }
-    };
-  }, []);
 
   // Show starters only if user hasn't sent any messages yet
   const hasUserMessages = chatHistory.some(msg => msg.type === 'user');
@@ -382,7 +347,6 @@ export const ChatInputSection = ({
                   openUpgradeModal('limit-reached');
                 }
               }}
-              onTypingChange={handleUserTyping}
               userName={userName} 
               partnerName={partnerName}
               chatHistory={chatHistory}

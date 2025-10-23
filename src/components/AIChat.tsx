@@ -58,7 +58,6 @@ const AIChat = ({
   onCloseStarters = () => {}
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
-  const [userTyping, setUserTyping] = useState(false);
   const [inputSectionHeight, setInputSectionHeight] = useState(280);
   const { profile } = useUserProfile();
   const { canInteract, accessLevel, profileCompletion } = useProgressiveAccess();
@@ -134,7 +133,6 @@ useChatEffects({
           isConfigured={isConfigured}
           conversationStarter={conversationStarter}
           isHistoryLoaded={isHistoryLoaded}
-          userTyping={userTyping}
           onNewConversation={handleNewConversation}
           onOpenSidebar={onOpenSidebar}
           profileCompletion={profileCompletion}
@@ -164,7 +162,6 @@ useChatEffects({
           isHistoryLoaded={isHistoryLoaded}
           showStarters={showStarters}
           onCloseStarters={onCloseStarters}
-          onUserTypingChange={setUserTyping}
           onHeightChange={setInputSectionHeight}
           onInputFocus={handleInputFocus}
         />
