@@ -11,6 +11,9 @@ import { ChatHeader } from './chat/ChatHeader';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import OnboardingStepNudge from './OnboardingStepNudge';
+import TypingIndicator from './chat/TypingIndicator';
+import DateSeparator from './chat/DateSeparator';
+import { isSameDay } from 'date-fns';
 
 export interface ChatContainerRef {
   scrollToBottom: (behavior?: 'auto' | 'smooth') => void;
@@ -236,6 +239,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         const nextMessage = index < chatHistory.length - 1 ? chatHistory[index + 1] : null;
         const isLastMessage = index === chatHistory.length - 1;
         
+        // Check if we need a date separator
+        const currentDate = new Date(message.timestamp);
+        const prevDate = prevMessage ? new Date(prevMessage.timestamp) : null;
+        const showDateSeparator = prevDate && !isSameDay(currentDate, prevDate);
+        
         // Group consecutive messages from the same sender within 5 minutes
         const isFirstInGroup = !prevMessage || 
           prevMessage.type !== message.type || 
@@ -251,6 +259,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             ref={isLastMessage ? lastMessageRef : null}
             data-message-id={message.id}
           >
+            {showDateSeparator && <DateSeparator date={currentDate} />}
             <AIChatMessage 
               message={message} 
               userName={userName}
@@ -260,6 +269,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           </div>
         );
       })}
+
+      {/* Typing Indicator */}
+      {loading && <TypingIndicator />}
 
       <div className="h-2 md:h-4" />
     </>
