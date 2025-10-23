@@ -59,6 +59,13 @@ const Dashboard = () => {
 
   // Auto-open Personal Questionnaire only for brand-new signups
   useEffect(() => {
+    // PREVENT LOOP: Check for modal-specific lock first
+    const isLocked = sessionStorage.getItem('personal-questionnaire-locked');
+    if (isLocked) {
+      console.log('[Dashboard] Questionnaire locked - user completed it, skipping auto-open');
+      return;
+    }
+    
     // PREVENT LOOP: Don't auto-open if we're completing questionnaire
     const isCompleting = sessionStorage.getItem('questionnaire-completing');
     if (isCompleting) {
@@ -79,10 +86,10 @@ const Dashboard = () => {
       return;
     }
     
-    // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab
-    // The user explicitly chose to go there, so don't interrupt
-    if (activeTab === 'insights') {
-      console.log('[Dashboard] On coach tab - skipping auto-open logic');
+    // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab OR /coach route
+    const currentPath = window.location.pathname;
+    if (activeTab === 'insights' || currentPath.includes('/coach')) {
+      console.log('[Dashboard] On coach tab or route - skipping auto-open logic');
       return;
     }
     
