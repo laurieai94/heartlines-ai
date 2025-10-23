@@ -128,7 +128,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('assistant');
         
-        const typingTime = 1400 + (currentMessage.content.length * 28);
+        const typingTime = 1150 + (currentMessage.content.length * 28);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -159,7 +159,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     } else if (currentMessageIndex === 0) {
       timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < currentConversation.messages.length) {
-      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 1900;
+      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 750 : 1900;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
       timeoutId = setTimeout(() => {
