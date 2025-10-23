@@ -87,29 +87,35 @@ const slides: CarouselSlide[] = [
 ];
 
 export const YearCarousel = () => {
-  // Randomize slides order on component mount
+  // Get or create shuffled order - persist across navigations for seamless experience
   const shuffledSlides = useMemo(() => {
+    // Check for cached order
+    const cachedOrder = sessionStorage.getItem('carousel-slide-order');
+    if (cachedOrder) {
+      try {
+        const indices = JSON.parse(cachedOrder);
+        return indices.map((i: number) => slides[i]);
+      } catch (e) {
+        console.warn('Failed to parse cached slide order');
+      }
+    }
+    
+    // Create new shuffled order
     const shuffled = [...slides];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
+    
+    // Cache the indices for consistent experience
+    const indices = shuffled.map(slide => slides.indexOf(slide));
+    sessionStorage.setItem('carousel-slide-order', JSON.stringify(indices));
+    
     return shuffled;
   }, []);
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const preloadTriggered = useRef(false);
-
-  // Preload all carousel images in parallel after mount
-  useEffect(() => {
-    if (preloadTriggered.current) return;
-    preloadTriggered.current = true;
-
-    // Preload all images in parallel
-    const imageUrls = shuffledSlides.map(slide => slide.image);
-    preloadCriticalImages(imageUrls);
-  }, [shuffledSlides]);
 
   const autoplay = useMemo(() => 
     Autoplay({ 
@@ -154,8 +160,8 @@ export const YearCarousel = () => {
                   src={slide.image}
                   alt={slide.alt}
                   className="absolute inset-0 w-full h-full object-contain object-[center_20%]"
-                  loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
-                  fetchPriority={index === 0 ? 'high' : 'low'}
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                  fetchPriority={index === 0 ? 'high' : index < 3 ? 'auto' : 'low'}
                   decoding="async"
                 />
                 

@@ -23,6 +23,19 @@ import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, Cl
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
 import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
+import { preloadCriticalImages } from '@/utils/imageOptimizer';
+import elderlyNativeAmericanWomenImage from '@/assets/elderly-native-american-women.webp';
+import elderlyHeritageImage from '@/assets/elderly-couple-heritage-living-room.webp';
+import elderlyCowboysSouthwesternImage from '@/assets/elderly-cowboys-southwestern-living-room.webp';
+import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.webp';
+import elderlyCowboysHandsImage from '@/assets/elderly-cowboys-hands-together.webp';
+import elderlyCouplePrideImage from '@/assets/elderly-couple-pride-living-room.webp';
+import elderlyCoupleVintageImage from '@/assets/elderly-couple-vintage-living-room.webp';
+import elderlyAsianCoupleImage from '@/assets/elderly-asian-couple-modern-apartment.webp';
+import elderlyManPortraitImage from '@/assets/elderly-man-portrait.webp';
+import elderlyFriendsCatsImage from '@/assets/elderly-friends-cats-city-apartment.webp';
+import elderlyWomenPeaceRetroImage from '@/assets/elderly-women-peace-retro-living-room.webp';
+import elderlyCoupleWarmVintageImage from '@/assets/elderly-couple-warm-vintage-living-room.webp';
 
 // Clean StepCard Component - Mobile Style
 const StepCard = ({
@@ -200,6 +213,27 @@ const LandingPage = ({
     bio: "Artist & yoga instructor"
   }];
   useEffect(() => {
+    // Preload carousel images immediately for seamless navigation
+    if (!sessionStorage.getItem('carousel-images-preloaded')) {
+      const carouselImages = [
+        elderlyNativeAmericanWomenImage,
+        elderlyHeritageImage,
+        elderlyCowboysSouthwesternImage,
+        warmGatheringImage,
+        elderlyCowboysHandsImage,
+        elderlyCouplePrideImage,
+        elderlyCoupleVintageImage,
+        elderlyAsianCoupleImage,
+        elderlyManPortraitImage,
+        elderlyFriendsCatsImage,
+        elderlyWomenPeaceRetroImage,
+        elderlyCoupleWarmVintageImage
+      ];
+      
+      preloadCriticalImages(carouselImages);
+      sessionStorage.setItem('carousel-images-preloaded', 'true');
+    }
+    
     // Only run minimal timers for full marketing page
     if (!isEmbedded) {
       // Defer non-critical timers to idle time

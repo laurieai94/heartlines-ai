@@ -55,7 +55,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="bg-burgundy-700/70 backdrop-blur-2xl rounded-2xl px-4 py-3 border-2 border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.1)] pointer-events-auto">
+      <div className="bg-burgundy-700/70 backdrop-blur-2xl rounded-2xl px-4 py-3 border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(255,255,255,0.1)] pointer-events-auto">
         {!selectedCategory ? (
           <>
             <h3 className="text-sm font-medium text-white mb-2 text-center">
@@ -66,7 +66,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
               <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-burgundy-600/75 backdrop-blur-sm hover:bg-burgundy-600/85 rounded-lg p-2 border-2 border-white/40 hover:border-coral-400/50 hover:shadow-[0_4px_16px_rgba(0,0,0,0.4)] shadow-md transition-all duration-200"
+                  className="group cursor-pointer bg-burgundy-600/75 backdrop-blur-sm hover:bg-burgundy-600/85 rounded-lg p-2 border border-white/25 hover:border-coral-400/30 hover:shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_8px_rgba(255,138,80,0.2)] shadow-md transition-all duration-200"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
