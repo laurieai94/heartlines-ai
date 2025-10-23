@@ -12,6 +12,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { contactSchema } from "@/utils/contactValidation";
+import PremiumBackground from "@/components/PremiumBackground";
 
 const Contact = () => {
   const { user } = useAuth();
@@ -74,7 +75,8 @@ const Contact = () => {
         <meta name="description" content="Get in touch with the heartlines team. We're here to help with questions about our AI-powered relationship coaching platform." />
       </Helmet>
       
-      <div className="min-h-screen bg-burgundy-800 flex flex-col">
+      <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 flex flex-col relative">
+        <PremiumBackground />
         <SimpleHeader 
           user={user}
           activeTab="home"

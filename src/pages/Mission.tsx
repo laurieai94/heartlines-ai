@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import PremiumBackground from "@/components/PremiumBackground";
 
 
 const Mission = () => {
@@ -25,11 +26,8 @@ const Mission = () => {
         <meta name="keywords" content="relationship coaching, ai coaching, healthy relationships, couples therapy, communication skills" />
       </Helmet>
       
-      <div className="landing-page-scroll min-h-screen bg-burgundy-800 flex flex-col relative overflow-hidden">
-      {/* Floating background elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
-      <div className="absolute top-96 right-20 w-96 h-96 bg-coral-500/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-40 left-1/4 w-80 h-80 bg-peach-400/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+      <div className="landing-page-scroll min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 flex flex-col relative overflow-hidden">
+      <PremiumBackground />
       
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         

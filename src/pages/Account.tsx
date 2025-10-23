@@ -5,6 +5,7 @@ import DashboardHeader from '@/components/DashboardHeader';
 import DashboardModals from '@/components/DashboardModals';
 import AccountLayout from '@/components/account/AccountLayout';
 import { useDashboardModals } from '@/hooks/useDashboardModals';
+import PremiumBackground from '@/components/PremiumBackground';
 
 const Account = () => {
   const { user, loading } = useAuth();
@@ -78,7 +79,8 @@ const Account = () => {
       goToCoach={handleGoToCoachAccount} 
       goToPartner={handleGoToPartnerAccount}
     >
-      <div className="min-h-screen min-h-dvh bg-burgundy-800 mobile-optimized account-page-scroll">
+      <div className="min-h-screen min-h-dvh bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 mobile-optimized account-page-scroll relative">
+        <PremiumBackground />
         <DashboardHeader
           accessLevel={accessLevel}
           profileCompletion={profileCompletion}

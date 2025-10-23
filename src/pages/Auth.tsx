@@ -15,6 +15,7 @@ import PhoneLockup from '@/components/Brand/PhoneLockup';
 import { listenForAuthSuccess } from '@/utils/authChannel';
 import { toast } from '@/components/ui/sonner';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
+import PremiumBackground from '@/components/PremiumBackground';
 const Auth = () => {
   const {
     user,
@@ -318,12 +319,8 @@ const Auth = () => {
       setIsSubmitting(false);
     }
   };
-  return <div className="min-h-screen questionnaire-bg auth-page-scroll">
-      {/* Animated background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl"></div>
-      </div>
+  return <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 auth-page-scroll relative">
+      <PremiumBackground />
 
       <div className={`relative z-10 min-h-screen lg:max-h-screen flex flex-col items-center overflow-y-auto py-2 sm:py-4 justify-start`}>
         {/* Top section with logo and progress - only during sign-up */}
