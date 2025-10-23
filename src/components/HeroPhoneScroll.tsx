@@ -223,7 +223,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             }}
           >
             {/* Status bar */}
-            <div className="bg-burgundy-800 px-6 py-0.5 flex justify-between items-center text-white text-xs">
+            <div className="bg-burgundy-800/20 backdrop-blur-md px-6 py-0.5 flex justify-between items-center text-white text-xs">
               <span>9:41</span>
               <div className="flex items-center gap-1">
                 <div className="w-4 h-2 border border-white/50 rounded-sm">
@@ -233,7 +233,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header */}
-            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/15 to-burgundy-600/10 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
                 <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
                   <AvatarImage 
