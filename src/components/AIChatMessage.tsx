@@ -36,8 +36,8 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         role="listitem"
         aria-label={`${isUser ? (userName || 'User') : 'kai'} message at ${formatTime(message.timestamp)}`}
         style={{
-          animation: !isUser ? 'slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1)' : 'fade-in 0.3s ease-out',
-          animationDelay: !isUser ? '0.2s' : '0s',
+          animation: !isUser ? 'slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1)' : 'fade-in 0.3s ease-out',
+          animationDelay: '0s',
           animationFillMode: 'backwards'
         }}
       >
