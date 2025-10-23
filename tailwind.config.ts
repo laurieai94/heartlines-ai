@@ -149,6 +149,24 @@ export default {
 						transform: 'translateY(0)'
 					}
 				},
+				'scale-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.95)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				},
+				'fade-out': {
+					'0%': {
+						opacity: '1'
+					},
+					'100%': {
+						opacity: '0'
+					}
+				},
 				'bounce-gentle': {
 					'0%, 20%, 50%, 80%, 100%': {
 						transform: 'translateY(0)'
@@ -235,6 +253,8 @@ export default {
 				'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
 				'fade-in': 'fade-in 0.9s ease-out',
 				'slide-up': 'slide-up 0.6s ease-out',
+				'scale-in': 'scale-in 0.3s ease-out',
+				'fade-out': 'fade-out 0.2s ease-out',
 				'bounce-gentle': 'bounce-gentle 2s infinite',
 				'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
 				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite',

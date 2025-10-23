@@ -8,7 +8,12 @@ const TypingIndicator: React.FC = () => {
   const { isMobile } = useOptimizedMobile();
   
   return (
-    <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'} animate-fade-in`}>
+    <div 
+      className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}
+      style={{
+        animation: 'fade-in 0.3s ease-out'
+      }}
+    >
       <div 
         className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} mb-3 flex-row`}
         role="status"
