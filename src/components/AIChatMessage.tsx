@@ -30,13 +30,15 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
 
   
   return (
-    <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'} animate-fade-in`}>
+    <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
       <div 
         className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
         role="listitem"
         aria-label={`${isUser ? (userName || 'User') : 'kai'} message at ${formatTime(message.timestamp)}`}
         style={{
-          animation: 'fade-in 0.3s ease-out, scale-in 0.2s ease-out'
+          animation: `fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1)${!isUser ? ', translateY(8px) 0s' : ''}`,
+          animationDelay: !isUser ? '0.15s' : '0s',
+          animationFillMode: 'backwards'
         }}
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
