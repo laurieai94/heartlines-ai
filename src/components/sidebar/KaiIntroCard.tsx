@@ -15,9 +15,37 @@ const KaiIntroCard = () => {
           </h3>
         </div>
       </div>
-      <p className="text-xs text-pink-200/60 leading-relaxed">
-        your ai relationship coach, trained in <span className="bg-coral-400/30 text-white px-2 py-0.5 rounded">phd-level psychology</span> and real-world clinical care. grounded in <span className="bg-orange-400/30 text-white px-2 py-0.5 rounded">evidence-based</span> and <span className="bg-pink-400/30 text-white px-2 py-0.5 rounded">trauma-informed</span> practices, kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. lgbtq+ inclusive and designed for real life, kai meets you where you are.
-      </p>
+      <div className="space-y-2">
+        <p className="text-xs text-pink-200/60 leading-relaxed">
+          built for the way we love — through texts, apps, across time zones, in moments that can't wait for therapy hours.
+        </p>
+        
+        <p className="text-xs text-white font-semibold leading-relaxed">
+          rooted in science. guided by empathy. designed for real life.
+        </p>
+        
+        <p className="text-xs text-pink-200/60 leading-relaxed">
+          with phd-level psychology at her core, kai helps you make sense of what you feel and build closeness that lasts — one honest chat at a time.
+        </p>
+        
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          <span className="text-[10px] bg-white/10 text-pink-200/80 px-2 py-1 rounded-full">
+            🌈 inclusive for all
+          </span>
+          <span className="text-[10px] bg-white/10 text-pink-200/80 px-2 py-1 rounded-full">
+            🧠 evidence-based care
+          </span>
+          <span className="text-[10px] bg-white/10 text-pink-200/80 px-2 py-1 rounded-full">
+            🔒 private by design
+          </span>
+          <span className="text-[10px] bg-white/10 text-pink-200/80 px-2 py-1 rounded-full">
+            💗 trauma-aware
+          </span>
+          <span className="text-[10px] bg-white/10 text-pink-200/80 px-2 py-1 rounded-full">
+            ⏱ instant support
+          </span>
+        </div>
+      </div>
     </Card>
   );
 };
