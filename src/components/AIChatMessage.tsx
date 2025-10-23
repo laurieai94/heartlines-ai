@@ -38,13 +38,13 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative w-[29px] h-[29px] md:w-[37px] md:h-[37px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-40 drop-shadow-lg ${
             isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
           }`}></div>
           
-          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-[29px] h-[29px] md:w-[37px] md:h-[37px] md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
               : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
