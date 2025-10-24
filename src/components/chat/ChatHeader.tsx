@@ -52,7 +52,7 @@ export const ChatHeader = ({
             {/* Left: Kai avatar + name */}
             <div className="flex items-center gap-2 min-w-0">
               <div className="relative flex-shrink-0">
-                <Avatar className="w-[35px] h-[35px] border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-burgundy-500">
+                <Avatar className="w-[44px] h-[44px] border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-burgundy-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
                     alt={BRAND.coach.name} 
@@ -109,13 +109,13 @@ export const ChatHeader = ({
             {/* Kai Avatar - Far Left */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
-              <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[35px] h-[35px] md:w-[44px] md:h-[44px] border-3 border-white/20">
+              <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[44px] h-[44px] md:w-[56px] md:h-[56px] border-3 border-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                 <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
-                  <Heart className="w-4 h-4 md:w-6 md:h-6" />
+                  <Heart className="w-5 h-5 md:w-7 md:h-7" />
                 </AvatarFallback>
               </Avatar>
-              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 md:w-3 md:h-3 bg-green-400 rounded-full border border-white animate-pulse shadow-sm"></div>
+              <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 md:w-3.5 md:h-3.5 bg-green-400 rounded-full border border-white animate-pulse shadow-sm"></div>
             </div>
             
             {/* Kai Info - Center, aligned with messages */}
