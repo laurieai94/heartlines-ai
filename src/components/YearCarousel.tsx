@@ -166,12 +166,19 @@ export const YearCarousel = () => {
                 <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-8 md:pb-20 lg:pb-24 xl:pb-32 2xl:pb-40">
                   <div className="flex flex-col gap-2 md:gap-3 mb-4 md:mb-10 lg:mb-14 xl:mb-20 2xl:mb-24">
                     <h2 
-                      className="text-7xl md:text-8xl lg:text-9xl font-brand italic bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
-                      style={{
-                        textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-                      }}
+                      className="text-7xl md:text-8xl lg:text-9xl font-brand italic tracking-wider flex"
                     >
-                      {slide.year}
+                      {slide.year.split('').map((digit, idx) => (
+                        <span
+                          key={idx}
+                          className="bg-gradient-to-r from-pink-100 via-orange-200 to-orange-100 bg-clip-text text-transparent inline-block"
+                          style={{
+                            textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                          }}
+                        >
+                          {digit}
+                        </span>
+                      ))}
                     </h2>
                     <p className="text-white font-glacial text-lg md:text-xl lg:text-2xl font-normal drop-shadow-lg">
                       Love, but make it last.
