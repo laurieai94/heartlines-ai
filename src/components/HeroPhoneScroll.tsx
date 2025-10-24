@@ -264,7 +264,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                    {message.type === 'assistant' && (
                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
-                     <Avatar className="w-6 h-6 md:w-[23px] md:h-[23px] lg:w-[23px] lg:h-[23px] flex-shrink-0">
+                     <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0">
                        <AvatarImage 
                          src={BRAND.coach.avatarSrc} 
                          alt={BRAND.coach.name} 
@@ -285,7 +285,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                      {message.content}
                    </ChatBubble>
                    {message.type === 'user' && (
-                     <Avatar className="w-6 h-6 md:w-[23px] md:h-[23px] lg:w-[23px] lg:h-[23px] flex-shrink-0 ring-2 ring-coral-400/40">
+                     <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0 ring-2 ring-coral-400/40">
                        <AvatarImage 
                          src={getUserAvatar()} 
                          alt={currentConversation.userName || 'You'} 
@@ -303,7 +303,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               {/* Typing indicators */}
               {isTyping && typingSide === 'assistant' && (
                 <div className="flex gap-2 items-end justify-start animate-fade-in" aria-live="polite">
-                  <Avatar className="w-6 h-6 md:w-[23px] md:h-[23px] lg:w-[23px] lg:h-[23px] flex-shrink-0">
+                  <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0">
                      <AvatarImage 
                        src={BRAND.coach.avatarSrc} 
                        alt={BRAND.coach.name} 
@@ -334,7 +334,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                   <Avatar className="w-6 h-6 md:w-[23px] md:h-[23px] lg:w-[23px] lg:h-[23px] flex-shrink-0 ring-2 ring-coral-400/40">
+                   <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0 ring-2 ring-coral-400/40">
                      <AvatarImage 
                        src={getUserAvatar()} 
                        alt={currentConversation.userName || 'You'} 
