@@ -275,7 +275,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   );
 
   return (
-    <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-800">
+    <div className="flex-1 min-h-0 md:max-h-none relative bg-transparent">
       {isMobilePhone ? (
         /* Mobile: Fixed height container with keyboard-aware positioning */
         <div 
