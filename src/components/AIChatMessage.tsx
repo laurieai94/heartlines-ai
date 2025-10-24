@@ -99,7 +99,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
             }
           `}
         >
-          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase drop-shadow-sm">
+          <div className="text-sm md:text-[15px] leading-relaxed whitespace-pre-wrap font-light lowercase drop-shadow-sm">
             {message.content}
           </div>
         </div>
