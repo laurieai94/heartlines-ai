@@ -319,7 +319,7 @@ const Auth = () => {
       setIsSubmitting(false);
     }
   };
-  return <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 auth-page-scroll relative">
+  return <div className="min-h-screen bg-burgundy-800 auth-page-scroll relative">
       <PremiumBackground />
 
       <div className={`relative z-10 min-h-screen lg:max-h-screen flex flex-col items-center overflow-y-auto py-2 sm:py-4 justify-start`}>
