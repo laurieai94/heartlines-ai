@@ -94,12 +94,12 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           className={`
             transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(236,72,153,0.2)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
-              ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10'
-              : 'bg-gradient-to-br from-burgundy-700/80 via-burgundy-700/70 to-pink-900/40 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-pink-400/15 ring-1 ring-pink-400/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-pink-400/10'
+              ? 'bg-burgundy-700/85 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border-2 border-coral-300/50 ring-2 ring-coral-400/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(251,146,60,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]'
+              : 'bg-gradient-to-br from-burgundy-700/90 via-burgundy-700/85 to-pink-900/60 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border-2 border-pink-400/40 ring-2 ring-pink-400/25 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(236,72,153,0.25),inset_0_1px_0_rgba(255,255,255,0.08)]'
             }
           `}
         >
-          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase">
+          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light lowercase drop-shadow-sm">
             {message.content}
           </div>
         </div>
