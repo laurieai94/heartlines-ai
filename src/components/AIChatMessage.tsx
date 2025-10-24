@@ -32,7 +32,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
   return (
     <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
       <div 
-        className={`flex ${isMobile ? 'gap-1' : 'gap-2'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+        className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
         role="listitem"
         aria-label={`${isUser ? (userName || 'User') : 'kai'} message at ${formatTime(message.timestamp)}`}
         style={{
