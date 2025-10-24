@@ -278,7 +278,7 @@ const LandingPage = ({
 
   return <>
       {/* Persistent Heartlines Logo - Top Right */}
-      <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none">
+      <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none will-change-auto">
           <div className="relative">
             <img 
               src={heartlinesLogo} 
