@@ -45,7 +45,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       <div className="flex-shrink-0">
         <div className={`relative w-[29px] h-[29px] md:w-[37px] md:h-[37px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
-          <div className={`absolute inset-0 rounded-full blur-md opacity-40 drop-shadow-lg ${
+          <div className={`absolute inset-0 rounded-full blur-md opacity-50 drop-shadow-lg ${
             isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
           }`}></div>
           
@@ -92,7 +92,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       } ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
+            transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(236,72,153,0.2)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
               ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10'
               : 'bg-gradient-to-br from-burgundy-700/80 via-burgundy-700/70 to-pink-900/40 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-pink-400/15 ring-1 ring-pink-400/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-pink-400/10'
@@ -106,7 +106,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         
         {/* Timestamp - Only show for last message in group */}
         {(isLastInGroup || !isMobile) && (
-          <p className={`text-xs md:text-xs text-white/60 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+          <p className={`text-xs md:text-xs text-pink-200/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
             {formatTime(message.timestamp)}
           </p>
         )}

@@ -83,7 +83,7 @@ export const ChatHeader = ({
                   onClick={handleOpenSidebar}
                   variant="ghost" 
                   size="icon"
-                  className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
+                  className="h-10 w-10 text-white/90 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
                   aria-label="open chat history"
                 >
                   <Menu className="w-5 h-5" />
@@ -94,7 +94,7 @@ export const ChatHeader = ({
                 onClick={handleNewConversation}
                 variant="ghost" 
                 size="icon"
-                className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
+                className="h-10 w-10 text-white/90 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
                 aria-label="start new conversation"
               >
                 <Plus className="w-5 h-5" />
@@ -125,7 +125,7 @@ export const ChatHeader = ({
                 <span className="text-white/70 text-sm">your ai relationship coach</span>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="ghost" size="sm" aria-label="about kai" className="h-4 w-4 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white transition-all duration-200 ml-1">
+                    <Button variant="ghost" size="sm" aria-label="about kai" className="h-4 w-4 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white hover:shadow-[0_0_12px_rgba(236,72,153,0.3)] transition-all duration-200 ml-1">
                       <Info className="w-2.5 h-2.5" />
                     </Button>
                   </PopoverTrigger>
@@ -162,7 +162,7 @@ export const ChatHeader = ({
                     <Button 
                       variant="ghost" 
                       onClick={handleOpenSidebar} 
-                      className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
+                      className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
                     >
                       <Menu className="w-3.5 h-3.5" />
                       <span className="text-[10px] font-medium">chats</span>
@@ -182,7 +182,7 @@ export const ChatHeader = ({
                   <Button 
                     variant="ghost" 
                     onClick={handleNewConversation} 
-                    className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
+                    className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span className="text-[10px] font-medium">new</span>
