@@ -109,7 +109,7 @@ export const ChatLayout = ({
           <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 md:rounded-2xl lg:rounded-3xl blur-xl -z-10 hidden md:block"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:rounded-2xl lg:rounded-3xl -z-10 hidden md:block"></div>
           
-          <div className="flex-1 flex flex-col min-h-0 max-h-full bg-gradient-to-br from-burgundy-700/60 via-burgundy-800/50 to-burgundy-900/60 backdrop-blur-2xl rounded-none md:rounded-2xl lg:rounded-3xl border-0 md:border-2 border-coral-400/30 shadow-[0_20px_80px_rgba(0,0,0,0.6),0_0_40px_rgba(236,72,153,0.15)] ring-2 ring-pink-400/20 overflow-hidden relative z-10">
+          <div className="flex-1 flex flex-col bg-burgundy-800 md:min-h-0 md:max-h-full md:bg-white/5 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 md:overflow-hidden relative z-10">
             {/* Desktop: Header outside scroll */}
             <div className="hidden md:block">
               <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
