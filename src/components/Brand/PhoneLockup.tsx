@@ -18,7 +18,7 @@ const PhoneLockup: React.FC<PhoneLockupProps> = ({
     sm: "w-32 md:w-[147px]",
     md: "w-48 md:w-[221px]",
     lg: "w-[305px] md:w-[349px]",
-    xl: "w-80 md:w-[368px]"
+    xl: "w-96 md:w-[460px]"
   };
 
   return (
