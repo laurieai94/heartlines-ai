@@ -11,7 +11,7 @@ import { ChatHeader } from './chat/ChatHeader';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import OnboardingStepNudge from './OnboardingStepNudge';
-import TypingIndicator from './chat/TypingIndicator';
+
 import DateSeparator from './chat/DateSeparator';
 import { isSameDay } from 'date-fns';
 
