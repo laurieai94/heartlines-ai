@@ -38,7 +38,7 @@ const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
       </div>
       {showTagline && (
         <div 
-          className={`font-glacial ${taglineSizeClasses[size]} text-white/90 font-bold tracking-wide mt-1`}
+          className={`font-glacial ${taglineSizeClasses[size]} text-white/90 font-semibold tracking-wide mt-1`}
           style={{
             textShadow: '0 1px 3px rgba(0, 0, 0, 0.4)'
           }}

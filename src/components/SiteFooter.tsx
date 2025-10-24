@@ -48,7 +48,7 @@ const SiteFooter = () => {
           {/* Brand Section - Full Width */}
           <div className="text-center mb-8">
             <h3 className="text-xl font-semibold text-white mb-1 font-brand">{BRAND.name}</h3>
-            <p className="text-white/50 text-xs mb-3 font-bold">powered by laurie ai</p>
+            <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
             <p className="text-white/70 text-sm leading-relaxed font-semibold mb-1">
               stronger relationships start here
             </p>
@@ -78,7 +78,7 @@ const SiteFooter = () => {
           {/* Brand Section */}
           <div className="text-left">
             <h3 className="text-xl font-semibold text-white mb-1 font-brand">{BRAND.name}</h3>
-            <p className="text-white/50 text-xs mb-3 font-bold">powered by laurie ai</p>
+            <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
             <p className="text-white/70 text-sm leading-relaxed font-semibold">
               stronger relationships start here
             </p>
