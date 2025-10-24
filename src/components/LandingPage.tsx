@@ -551,7 +551,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Playful 4-Step Flow */}
-      <section id="how-it-works" className="pt-8 pb-6 md:pt-8 md:pb-10 relative overflow-hidden">
+      <section id="how-it-works" className="pt-6 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-3 md:mb-8">
@@ -625,7 +625,7 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="py-12 md:py-20 relative overflow-hidden">
+      <section className="py-8 md:py-14 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -750,7 +750,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-4 md:py-6 relative overflow-hidden">
+      <section className="py-3 md:py-5 relative overflow-hidden">
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
@@ -818,7 +818,7 @@ const LandingPage = ({
       </section>
 
       {/* HowItWorksSwipe Section - Standalone */}
-      <section className="pt-6 pb-4 md:pt-10 md:pb-8 relative overflow-hidden">
+      <section className="pt-4 pb-3 md:pt-8 md:pb-6 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
           <HowItWorksSwipe />
         </div>
