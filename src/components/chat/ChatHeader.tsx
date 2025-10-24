@@ -52,7 +52,7 @@ export const ChatHeader = ({
             {/* Left: Kai avatar + name */}
             <div className="flex items-center gap-2 min-w-0">
               <div className="relative flex-shrink-0">
-                <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-burgundy-500">
+                <Avatar className="w-[35px] h-[35px] border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-burgundy-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
                     alt={BRAND.coach.name} 
@@ -109,7 +109,7 @@ export const ChatHeader = ({
             {/* Kai Avatar - Far Left */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
-              <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 border-3 border-white/20">
+              <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[35px] h-[35px] md:w-[44px] md:h-[44px] border-3 border-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                 <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
                   <Heart className="w-4 h-4 md:w-6 md:h-6" />
