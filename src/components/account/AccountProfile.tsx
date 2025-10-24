@@ -88,10 +88,10 @@ const AccountProfile = () => {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
       </div>;
   }
-  return <div className={`${isMobile ? 'space-y-3' : 'space-y-2.5'} touch-manipulation`}>
+  return <div className={`${isMobile ? 'space-y-3' : 'space-y-2'} touch-manipulation`}>
       {/* Avatar Upload */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardContent className={isMobile ? 'p-3' : 'pt-2.5 p-2.5'}>
+        <CardContent className={isMobile ? 'p-3' : 'pt-2 p-2'}>
           <div className={`${isMobile ? 'flex items-center gap-3' : 'flex items-center gap-3 pt-2.5'}`}>
             <AvatarUpload currentAvatarUrl={profile?.avatar_url} onAvatarUpdate={handleAvatarUpdate} userName={profile?.name || user?.email || undefined} size="compact" />
             <div className="flex-1 min-w-0">
@@ -106,13 +106,13 @@ const AccountProfile = () => {
 
       {/* Basic Information */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2'}>
           <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>basic info</CardTitle>
           <CardDescription className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
             your personal details and contact information
           </CardDescription>
         </CardHeader>
-        <CardContent className={`${isMobile ? 'p-3 pt-0 space-y-3' : 'p-2.5 pt-0 space-y-3'}`}>
+        <CardContent className={`${isMobile ? 'p-3 pt-0 space-y-3' : 'p-2 pt-0 space-y-3'}`}>
           {/* Email (read-only) */}
           <div className={isMobile ? 'space-y-1.5' : 'space-y-1.5'}>
             <Label htmlFor="email" className={`text-white flex items-center gap-1.5 ${isMobile ? 'text-sm' : 'text-sm'}`}>
@@ -150,7 +150,7 @@ const AccountProfile = () => {
 
       {/* Reset Password */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2'}>
           <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
             reset password
           </CardTitle>
@@ -158,7 +158,7 @@ const AccountProfile = () => {
             send a reset link to {user?.email}
           </CardDescription>
         </CardHeader>
-        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2 pt-0'}>
           <Button onClick={e => {
           if (isMobile && e.currentTarget) {
             simulateHapticFeedback(e.currentTarget, 'medium');
@@ -173,7 +173,7 @@ const AccountProfile = () => {
 
       {/* View Personal Profile */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2'}>
           <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
             personal profile
           </CardTitle>
@@ -181,7 +181,7 @@ const AccountProfile = () => {
             access your complete personal profile and questionnaire
           </CardDescription>
         </CardHeader>
-        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2 pt-0'}>
           <Button onClick={e => {
           if (isMobile && e.currentTarget) {
             simulateHapticFeedback(e.currentTarget, 'light');
@@ -196,7 +196,7 @@ const AccountProfile = () => {
 
       {/* Sign Out */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2'}>
           <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
             sign out
           </CardTitle>
@@ -204,7 +204,7 @@ const AccountProfile = () => {
             sign out of your account
           </CardDescription>
         </CardHeader>
-        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2 pt-0'}>
           <Button onClick={e => {
           if (isMobile && e.currentTarget) {
             simulateHapticFeedback(e.currentTarget, 'medium');

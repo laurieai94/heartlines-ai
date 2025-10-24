@@ -68,15 +68,15 @@ const AccountLayout = () => {
       )}
 
       <div className={`relative z-10 container mx-auto pb-20 ${
-        isMobile ? 'px-4 pt-20' : 'px-4 pt-24 lg:pt-28'
-      } ${isMobile ? 'max-w-3xl' : 'max-w-5xl'} scroll-container`}>
+        isMobile ? 'px-4 pt-20' : 'px-4 pt-20 lg:pt-24'
+      } ${isMobile ? 'max-w-3xl' : 'max-w-4xl'} scroll-container`}>
 
         <div className={`questionnaire-card ${
           isMobile ? 'mobile-card p-4' : 'p-3 md:p-4'
         } animate-fade-in touch-manipulation`}>
-          <div className={`text-center ${isMobile ? 'mb-4' : 'mb-5'}`}>
+          <div className={`text-center ${isMobile ? 'mb-4' : 'mb-4'}`}>
             <h1 className={`font-brand text-white ${
-              isMobile ? 'text-3xl mb-1' : 'text-5xl mb-1'
+              isMobile ? 'text-3xl mb-1' : 'text-4xl mb-1'
             }`}>my account</h1>
             <p className={`text-white/70 ${
               isMobile ? 'text-xs leading-snug' : 'text-xs'
@@ -145,7 +145,7 @@ const AccountLayout = () => {
 
             <TabsContent 
               value="profile" 
-              className={`${isMobile ? 'safe-bottom' : 'space-y-2.5'} focus:outline-none`}
+              className={`${isMobile ? 'safe-bottom' : 'space-y-2'} focus:outline-none`}
             >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountProfile />
@@ -154,7 +154,7 @@ const AccountLayout = () => {
 
             <TabsContent 
               value="subscription" 
-              className={`${isMobile ? 'safe-bottom' : 'space-y-2.5'} focus:outline-none`}
+              className={`${isMobile ? 'safe-bottom' : 'space-y-2'} focus:outline-none`}
             >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSubscription />
@@ -163,7 +163,7 @@ const AccountLayout = () => {
 
             <TabsContent 
               value="security" 
-              className={`${isMobile ? 'safe-bottom' : 'space-y-2.5'} focus:outline-none`}
+              className={`${isMobile ? 'safe-bottom' : 'space-y-2'} focus:outline-none`}
             >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSecurity />
