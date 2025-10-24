@@ -107,7 +107,7 @@ const FirstVisitSplash: React.FC = () => {
       {/* Splash overlay - only visible during first visit */}
       {showSplash && (
         <div 
-          className={`fixed inset-0 z-50 ${isFadingOut ? 'animate-fade-out pointer-events-none' : ''}`}
+          className={`fixed inset-0 z-[9999] ${isFadingOut ? 'animate-fade-out pointer-events-none' : ''}`}
           style={{ pointerEvents: isFadingOut ? 'none' : 'auto' }}
         >
           <SplashScreen
