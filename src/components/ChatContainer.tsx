@@ -175,6 +175,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         <div 
           className={`pt-2 md:pt-3 pb-8 md:pb-12 ${showProfileNudge ? 'pb-64 md:pb-64' : ''}`}
           style={{
+            paddingTop: 'max(8px, env(safe-area-inset-top))',
             paddingLeft: 'max(4px, env(safe-area-inset-left))',
             paddingRight: 'max(4px, env(safe-area-inset-right))'
           }}

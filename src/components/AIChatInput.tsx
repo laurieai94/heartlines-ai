@@ -11,6 +11,7 @@ interface AIChatInputProps {
   placeholder?: string;
   inputRef?: React.RefObject<HTMLTextAreaElement>;
   onInputFocus?: () => void;
+  onInputBlur?: () => void;
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
@@ -26,6 +27,7 @@ const AIChatInput = ({
   placeholder,
   inputRef,
   onInputFocus,
+  onInputBlur,
   userName,
   partnerName, 
   chatHistory = [],
@@ -141,6 +143,7 @@ const AIChatInput = ({
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
           onFocus={handleFocus}
+          onBlur={() => onInputBlur?.()}
           onClick={() => onInputFocus?.()}
           placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "What's up?" : ""))}
           readOnly={readOnly || disabled}

@@ -218,7 +218,7 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className="sticky bottom-0 flex-shrink-0 z-[100] bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate"
+      className="fixed md:sticky bottom-0 left-0 right-0 flex-shrink-0 z-[100] bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate"
       style={{
         paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
       }}
@@ -306,11 +306,17 @@ export const ChatInputSection = ({
               inputRef={inputRef}
               onInputFocus={() => { 
                 onInputFocus();
+                // Dispatch custom event for ChatHeader to hide on mobile
+                window.dispatchEvent(new Event('chat-input-focus'));
                 if (!user) openAuthModalFromChat();
                 else if (accessLevel === 'profile-required') goToProfile('chat');
                 else if (atLimit) {
                   openUpgradeModal('limit-reached');
                 }
+              }}
+              onInputBlur={() => {
+                // Dispatch custom event for ChatHeader to show on mobile
+                window.dispatchEvent(new Event('chat-input-blur'));
               }}
               userName={userName} 
               partnerName={partnerName}

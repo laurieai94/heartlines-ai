@@ -38,7 +38,7 @@ export const ChatLayout = ({
   };
 
   return (
-    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-transparent px-0 md:px-0 lg:px-8 pt-4 lg:pt-6">
+    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-transparent px-0 lg:px-8 pt-0 md:pt-4 lg:pt-6">
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">
@@ -46,7 +46,7 @@ export const ChatLayout = ({
           <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 rounded-2xl lg:rounded-3xl blur-xl -z-10"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-2xl lg:rounded-3xl -z-10"></div>
           
-          <div className="flex-1 flex flex-col min-h-0 max-h-full bg-white/5 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-white/30 shadow-2xl shadow-black/30 ring-1 ring-white/10 ring-offset-1 ring-offset-burgundy-800/30 overflow-hidden relative z-10">
+          <div className="flex-1 flex flex-col min-h-0 max-h-full bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl lg:rounded-3xl border-0 md:border md:border-white/30 shadow-2xl shadow-black/30 ring-0 md:ring-1 md:ring-white/10 ring-offset-0 md:ring-offset-1 md:ring-offset-burgundy-800/30 overflow-hidden relative z-10">
             {/* Header - visible on all screens */}
             <div className="w-full">
               <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />

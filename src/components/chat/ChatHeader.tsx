@@ -5,6 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Heart, Plus, Menu, Info } from "lucide-react";
 import { BRAND } from "@/branding";
+import { useState, useEffect } from "react";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -17,9 +18,24 @@ export const ChatHeader = ({
   onNewConversation,
   onOpenSidebar
 }: ChatHeaderProps) => {
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  // Listen for keyboard open/close events from ChatInputSection
+  useEffect(() => {
+    const handleInputFocus = () => setIsInputFocused(true);
+    const handleInputBlur = () => setIsInputFocused(false);
+    
+    window.addEventListener('chat-input-focus', handleInputFocus);
+    window.addEventListener('chat-input-blur', handleInputBlur);
+    
+    return () => {
+      window.removeEventListener('chat-input-focus', handleInputFocus);
+      window.removeEventListener('chat-input-blur', handleInputBlur);
+    };
+  }, []);
 
   return (
-    <div className="sticky top-0 z-[70] shrink-0 bg-gradient-to-r from-burgundy-800/40 via-burgundy-800/40 to-burgundy-900/35 backdrop-blur-md border-b border-pink-400/10 shadow-lg">
+    <div className={`sticky top-0 z-[70] shrink-0 bg-gradient-to-r from-burgundy-800/40 via-burgundy-800/40 to-burgundy-900/35 backdrop-blur-md border-b border-pink-400/10 shadow-lg transition-transform duration-200 ${isInputFocused ? '-translate-y-full md:translate-y-0' : 'translate-y-0'}`}>
       <div className="w-full px-3 md:px-0 py-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Unified Layout - Responsive */}
         <div className="flex items-center gap-2 md:gap-3 max-w-3xl lg:max-w-4xl mx-auto md:px-6">
