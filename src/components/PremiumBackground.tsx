@@ -21,18 +21,6 @@ const PremiumBackground = ({ className = "" }: PremiumBackgroundProps) => {
         />
       </div>
 
-      {/* Code snippet decorations */}
-      <div className="absolute inset-0 overflow-hidden opacity-5 pointer-events-none">
-        <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
-          {`const love = { understanding: true, growth: infinite }`}
-        </div>
-        <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
-          {`if (relationship.status === 'complicated') { ai.help() }`}
-        </div>
-        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
-          {`return personalized.advice.filter(advice => advice.isRelevant)`}
-        </div>
-      </div>
     </>
   );
 };
