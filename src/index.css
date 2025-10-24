@@ -1255,7 +1255,7 @@
 
   /* Solid burgundy glass effect for timeline cards - hides background elements */
   .glass-burgundy-solid {
-    background: hsl(var(--burgundy-900) / 0.88);
+    background: hsl(var(--burgundy-700) / 0.35);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid hsl(var(--burgundy-500) / 0.35);
