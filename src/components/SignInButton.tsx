@@ -62,7 +62,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         </Button>
         </PopoverTrigger>
         <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
-          <TooltipProvider delayDuration={700} skipDelayDuration={300}>
+          <TooltipProvider delayDuration={5000} skipDelayDuration={300}>
             <div className="flex flex-col gap-1">
               {onOpenProfile && (
                 <Tooltip>
