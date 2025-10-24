@@ -40,7 +40,7 @@ const Mission = () => {
               our why
             </h1>
             <div className="flex items-center gap-2 mt-1 ml-[70px] md:ml-[110px] lg:ml-[160px] xl:ml-[230px]">
-            <span className="font-glacial text-lg md:text-xl lg:text-2xl text-white">
+            <span className="font-glacial text-lg md:text-xl lg:text-2xl text-white font-bold">
               powered by laurie ai
             </span>
               <DuckIcon className="w-5 h-5 lg:w-6 lg:h-6 text-coral-400" />
