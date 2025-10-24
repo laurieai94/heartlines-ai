@@ -137,14 +137,14 @@
     
     /* Premium gradients */
     --gradient-questionnaire: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
-    --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
-    --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    --gradient-primary-button: linear-gradient(135deg, hsl(var(--coral-400)) 0%, hsl(350 100% 70%) 100%);
+    --gradient-selected: linear-gradient(135deg, hsl(var(--coral-400)) 0%, hsl(350 100% 70%) 100%);
     
     /* Brand gradients for consistent UI */
-    --gradient-brand: linear-gradient(135deg, #ff6b9d 0%, hsl(var(--coral-500)) 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgba(255, 107, 157, 0.35) 0%, hsl(var(--coral-500) / 0.35) 100%);
-  --gradient-brand-soft-hover: linear-gradient(135deg, rgba(255, 107, 157, 0.45) 0%, hsl(var(--coral-500) / 0.45) 100%);
-    --gradient-brand-hover: linear-gradient(135deg, #ff6b9d 0%, hsl(var(--coral-600)) 100%);
+    --gradient-brand: linear-gradient(135deg, hsl(350 100% 70%) 0%, hsl(var(--coral-500)) 100%);
+  --gradient-brand-soft: linear-gradient(135deg, hsl(350 100% 70% / 0.35) 0%, hsl(var(--coral-500) / 0.35) 100%);
+  --gradient-brand-soft-hover: linear-gradient(135deg, hsl(350 100% 70% / 0.45) 0%, hsl(var(--coral-500) / 0.45) 100%);
+    --gradient-brand-hover: linear-gradient(135deg, hsl(350 100% 70%) 0%, hsl(var(--coral-600)) 100%);
   }
 
   .dark {
