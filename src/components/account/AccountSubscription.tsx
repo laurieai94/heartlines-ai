@@ -115,7 +115,7 @@ const AccountSubscription = () => {
         </div>
       </div>;
   }
-  return <div className={`${isMobile ? 'space-y-3' : 'space-y-2.5'} touch-manipulation`}>
+  return <div className={`${isMobile ? 'space-y-2' : 'space-y-2.5'} touch-manipulation`}>
       {/* Current Subscription Status */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
         <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
@@ -168,8 +168,8 @@ const AccountSubscription = () => {
 
       {/* Available Plans */}
       <div className={isMobile ? 'mt-1' : ''}>
-        <h3 className={`font-medium text-white px-1 ${isMobile ? 'text-base mb-2' : 'text-base mb-1.5'}`}>available plans</h3>
-        <div className={`grid ${isMobile ? 'grid-cols-1 gap-3' : 'grid-cols-1 md:grid-cols-4 gap-2.5 md:items-start'}`}>
+        <h3 className={`font-medium text-white px-1 ${isMobile ? 'text-sm mb-1.5' : 'text-base mb-1.5'}`}>available plans</h3>
+        <div className={`grid ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-1 md:grid-cols-4 gap-2.5 md:items-start'}`}>
           {plans.map(plan => <Card key={plan.name} className={`relative bg-white/10 backdrop-blur-sm border transition-all duration-300 ${plan.current ? 'border-pink-400/50 bg-white/15' : 'border-white/20 hover:border-white/30'} ${isMobile ? 'plan-card' : ''}`}>
               {plan.popular && <div className="absolute -top-2 left-1/2 -translate-x-1/2">
                   <span className={`bg-gradient-to-r from-pink-500 to-coral-500 text-white rounded-full font-medium ${isMobile ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-[3px] text-xs'}`}>
@@ -177,14 +177,14 @@ const AccountSubscription = () => {
                   </span>
                 </div>}
               
-              <CardHeader className={`text-center ${isMobile ? 'p-3' : 'p-2.5'}`}>
-                {plan.icon && <div className="mx-auto mb-2 p-2 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/10 w-fit">
-                    <plan.icon className={`questionnaire-text ${isMobile ? 'h-4 w-4' : 'h-4 w-4'}`} />
+              <CardHeader className={`text-center ${isMobile ? 'p-2.5 pb-2' : 'p-2.5'}`}>
+                {plan.icon && <div className="mx-auto mb-1.5 p-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/10 w-fit">
+                    <plan.icon className={`questionnaire-text ${isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} />
                   </div>}
-                <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
+                <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
                   {plan.name}
                 </CardTitle>
-                <div className={`font-bold text-white ${isMobile ? 'text-lg' : 'text-xl'}`}>
+                <div className={`font-bold text-white ${isMobile ? 'text-base' : 'text-xl'}`}>
                   {plan.price}
                   <span className={`font-normal text-white/60 ${isMobile ? 'text-sm' : 'text-sm'}`}>/month</span>
                 </div>
@@ -193,10 +193,10 @@ const AccountSubscription = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className={`flex flex-col h-full ${isMobile ? 'p-3 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-1.5'}`}>
+              <CardContent className={`flex flex-col h-full ${isMobile ? 'p-2.5 pt-0 space-y-1.5' : 'p-2.5 pt-0 space-y-1.5'}`}>
                 {/* Prominent Message Count */}
-                <div className={`text-center ${isMobile ? 'py-2.5' : 'py-2'} border-y border-white/10`}>
-                  <p className={`font-bold text-pink-400 ${isMobile ? 'text-xl' : 'text-2xl'}`}>
+                <div className={`text-center ${isMobile ? 'py-2' : 'py-2'} border-y border-white/10`}>
+                  <p className={`font-bold text-pink-400 ${isMobile ? 'text-lg' : 'text-2xl'}`}>
                     {plan.messages === 0 ? '∞' : plan.messages}
                   </p>
                   <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-xs'}`}>
@@ -204,9 +204,9 @@ const AccountSubscription = () => {
                   </p>
                 </div>
 
-                <ul className={`flex-grow ${isMobile ? 'space-y-2' : 'space-y-3'}`}>
-                  {plan.features.map((feature, index) => <li key={index} className={`flex items-start gap-2 text-white/80 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
-                      <Check className={`text-green-400 ${isMobile ? 'h-3.5 w-3.5 flex-shrink-0 mt-0.5' : 'h-3 w-3'}`} />
+                <ul className={`flex-grow ${isMobile ? 'space-y-1.5' : 'space-y-3'}`}>
+                  {plan.features.map((feature, index) => <li key={index} className={`flex items-start gap-1.5 text-white/80 ${isMobile ? 'text-xs leading-snug' : 'text-sm'}`}>
+                      <Check className={`text-green-400 ${isMobile ? 'h-3 w-3 flex-shrink-0 mt-0.5' : 'h-3 w-3'}`} />
                       <span>{feature}</span>
                     </li>)}
                 </ul>
