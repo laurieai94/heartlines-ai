@@ -46,12 +46,12 @@ export const ChatLayout = ({
           <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 rounded-2xl lg:rounded-3xl blur-xl -z-10"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-2xl lg:rounded-3xl -z-10"></div>
           
-          <div className="flex-1 flex flex-col min-h-0 max-h-full bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl lg:rounded-3xl border-0 md:border md:border-white/30 shadow-2xl shadow-black/30 ring-0 md:ring-1 md:ring-white/10 ring-offset-0 md:ring-offset-1 md:ring-offset-burgundy-800/30 overflow-hidden relative z-10">
+          <div className="flex-1 flex flex-col min-h-0 max-h-full bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl lg:rounded-3xl border-0 md:border md:border-white/30 shadow-2xl shadow-black/30 ring-0 md:ring-1 md:ring-white/10 ring-offset-0 md:ring-offset-1 md:ring-offset-burgundy-800/30 relative z-10">
             {/* Header - visible on all screens */}
             <div className="w-full">
               <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
             </div>
-            <div className="flex-1 flex flex-col min-h-0">
+            <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
               {children}
             </div>
           </div>

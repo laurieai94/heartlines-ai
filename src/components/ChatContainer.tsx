@@ -163,7 +163,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   );
 
   return (
-    <div className="flex-1 min-h-0 md:max-h-none relative bg-transparent">
+    <div className="flex-1 min-h-0 md:max-h-none relative bg-transparent h-full">
       {/* ScrollArea for all screen sizes */}
       <ScrollArea 
         viewportRef={viewportRef}
@@ -171,9 +171,10 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         role="log"
         aria-live="polite"
         aria-label="Chat conversation history"
+        style={{ height: '100%' }}
       >
         <div 
-          className={`pt-2 md:pt-3 pb-8 md:pb-12 ${showProfileNudge ? 'pb-64 md:pb-64' : ''}`}
+          className={`pt-2 md:pt-3 pb-32 md:pb-12 ${showProfileNudge ? 'pb-64 md:pb-64' : ''}`}
           style={{
             paddingTop: 'max(8px, env(safe-area-inset-top))',
             paddingLeft: 'max(4px, env(safe-area-inset-left))',
