@@ -8,7 +8,7 @@ export const BRAND = {
   // Phone + wordmark + tagline lockup
   phoneLockupSrc: "/lovable-uploads/heartlines-phone-lockup-fresh.png",
   // Sign-up specific logo
-  signUpLogoSrc: "/lovable-uploads/heartlines-signup-logo.svg",
+  signUpLogoSrc: "/lovable-uploads/heartlines-signup-logo-new.png",
   name: "heartlines",
   alt: "heartlines logo",
   tagline: "powered by laurie ai",
