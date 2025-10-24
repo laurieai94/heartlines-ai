@@ -43,7 +43,7 @@ const TypingIndicator: React.FC = () => {
         {/* Typing Animation Bubble */}
         <div className="flex flex-col max-w-[80%] items-start">
           <div
-            className="bg-gradient-to-r from-burgundy-600/60 via-coral-500/40 to-burgundy-600/60 backdrop-blur-xl text-white rounded-2xl rounded-bl-md border border-coral-400/20 ring-1 ring-coral-400/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10 px-4 py-3"
+            className="bg-gradient-to-r from-burgundy-600/50 via-coral-500/50 to-burgundy-600/50 backdrop-blur-xl text-white rounded-2xl rounded-bl-md border border-coral-400/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(251,146,60,0.2)]"
           >
             <div className="flex gap-1.5" aria-hidden="true">
               <div 

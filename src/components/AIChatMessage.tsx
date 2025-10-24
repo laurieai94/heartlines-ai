@@ -95,7 +95,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
             transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
               ? 'bg-burgundy-700/60 backdrop-blur-xl text-white rounded-br-md md:rounded-br-lg border border-coral-300/30 ring-1 ring-coral-400/20 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-coral-400/10'
-              : 'bg-burgundy-600/60 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-white/25 ring-1 ring-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-white/5'
+              : 'bg-gradient-to-br from-burgundy-700/80 via-burgundy-700/70 to-pink-900/40 backdrop-blur-xl text-white rounded-bl-md md:rounded-bl-lg border border-pink-400/15 ring-1 ring-pink-400/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] shadow-pink-400/10'
             }
           `}
         >

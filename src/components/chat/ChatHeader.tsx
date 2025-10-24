@@ -44,7 +44,7 @@ export const ChatHeader = ({
   };
 
   return (
-    <div className="md:sticky fixed top-[52px] md:top-0 left-0 right-0 z-[70] shrink-0 bg-burgundy-800 backdrop-blur-md border-b border-white/10 shadow-lg md:bg-burgundy-800/40 md:backdrop-blur-md">
+    <div className="md:sticky fixed top-[52px] md:top-0 left-0 right-0 z-[70] shrink-0 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-900/95 backdrop-blur-md border-b border-pink-400/10 shadow-lg md:bg-gradient-to-r md:from-burgundy-800/40 md:via-burgundy-800/40 md:to-burgundy-900/35 md:backdrop-blur-md">
       <div className="w-full md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (

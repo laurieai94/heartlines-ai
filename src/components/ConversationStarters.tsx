@@ -55,7 +55,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="rounded-2xl px-4 py-3 pointer-events-auto">
+      <div className="bg-gradient-to-br from-burgundy-800/50 via-burgundy-800/40 to-pink-900/20 backdrop-blur-lg rounded-2xl border border-pink-400/15 px-4 py-3 shadow-lg pointer-events-auto">
         {!selectedCategory ? (
           <>
             <h3 className="text-sm font-normal text-white/80 mb-2 text-center">
@@ -66,7 +66,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-white/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-500/10 hover:to-coral-400/10 rounded-lg p-2 border border-white/10 hover:border-coral-400/30 shadow-sm transition-all duration-200"
+                  className="group cursor-pointer bg-gradient-to-br from-white/8 via-pink-500/5 to-coral-400/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-500/10 hover:to-coral-400/10 rounded-lg p-2 border border-pink-400/15 hover:border-coral-400/30 shadow-sm transition-all duration-200"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
