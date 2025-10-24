@@ -278,14 +278,12 @@ const LandingPage = ({
 
   return <>
       {/* Persistent Heartlines Logo - Top Right */}
-      <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none">
+      <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none will-change-auto">
           <div className="relative">
-            <img 
-              src={heartlinesLogo} 
-              alt="heartlines" 
-              className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg pointer-events-none"
-              loading="eager"
-              fetchPriority="high"
+            <HeartlinesWordmark 
+              size="xl"
+              showTagline={true}
+              className="text-white"
             />
           </div>
         </div>
