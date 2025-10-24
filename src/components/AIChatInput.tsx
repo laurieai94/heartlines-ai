@@ -132,7 +132,7 @@ const AIChatInput = ({
                 ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-pink-400/20 ring-2 ring-pink-400/10 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_20px_rgba(236,72,153,0.5),0_0_40px_rgba(251,146,60,0.4)] transition-all duration-300'
+          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-pink-400/20 ring-2 ring-pink-400/10 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_24px_rgba(0,0,0,0.5),0_0_16px_rgba(251,146,60,0.4),0_0_32px_rgba(236,72,153,0.3)] transition-all duration-300'
       }`}>
         <Textarea
           unstyled
@@ -174,7 +174,7 @@ const AIChatInput = ({
         className={`rounded-2xl ${readOnly ? 'w-9 h-9' : 'w-8 h-8'} md:w-9 md:h-9 p-0 text-white focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-white/20 ${
           readOnly 
             ? 'brand-gradient-soft shadow-2xl shadow-black/50' 
-            : 'bg-gradient-to-br from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 transition-all duration-300'
+            : 'bg-gradient-to-br from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 shadow-[0_0_20px_rgba(251,146,60,0.3),0_0_40px_rgba(236,72,153,0.3)] hover:shadow-[0_0_24px_rgba(251,146,60,0.4),0_0_48px_rgba(236,72,153,0.4)] transition-all duration-300'
         }`}
       >{/* Keep existing button content */}
         <Send className={`${readOnly ? 'w-3 h-3' : 'w-2 h-2'} md:w-3 md:h-3`} />
