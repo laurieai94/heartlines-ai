@@ -23,6 +23,7 @@ import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, Cl
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
 import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
+import PremiumBackground from "./PremiumBackground";
 
 // Clean StepCard Component - Mobile Style
 const StepCard = ({
@@ -408,12 +409,7 @@ const LandingPage = ({
 
       {/* Main container */}
       <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
-      {/* Premium gradient background with animated orbs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-r from-pink-500/15 via-coral-400/10 to-orange-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }}></div>
-        <div className="absolute bottom-1/3 right-1/5 w-80 h-80 bg-gradient-to-r from-orange-500/15 via-pink-500/10 to-coral-400/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '1.5s' }}></div>
-        <div className="absolute top-2/3 left-1/3 w-64 h-64 bg-gradient-to-r from-coral-400/12 via-pink-400/8 to-orange-400/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s', animationDelay: '3s' }}></div>
-      </div>
+      <PremiumBackground />
 
       {/* Code-like Background Elements */}
       {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
@@ -568,16 +564,6 @@ const LandingPage = ({
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="pt-8 pb-6 md:pt-8 md:pb-10 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
-        {/* Background Ambient Orbs with Vibrant Gradients */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-orange-500/15 to-pink-600/10 rounded-full blur-3xl animate-pulse" style={{
-            animationDelay: '1s'
-          }}></div>
-          <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/10 to-orange-400/15 rounded-full blur-3xl animate-pulse" style={{
-            animationDelay: '2s'
-          }}></div>
-        </div>
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-3 md:mb-8">
@@ -652,16 +638,6 @@ const LandingPage = ({
 
       {/* Meet Kai Section */}
       <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
-        {/* Background Ambient Orbs */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/20 via-coral-400/15 to-orange-500/20 rounded-full blur-3xl animate-pulse" style={{
-            animationDuration: '4s'
-          }}></div>
-          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-r from-orange-500/20 via-pink-500/15 to-coral-400/20 rounded-full blur-3xl animate-pulse" style={{
-            animationDuration: '5s',
-            animationDelay: '1s'
-          }}></div>
-        </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -787,28 +763,6 @@ const LandingPage = ({
 
       {/* Why It's Different Section - Vertical Timeline */}
       <section className="py-4 md:py-6 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
-        {/* Enhanced Background Gradient Overlays */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Main center glow with pink-to-orange gradient */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-500/20 via-orange-400/15 to-coral-400/20 rounded-full blur-3xl" />
-          
-          {/* Top left accent */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-pink-400/15 to-orange-500/10 rounded-full blur-3xl animate-pulse" style={{
-            animationDuration: '4s'
-          }} />
-          
-          {/* Bottom right accent */}
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-orange-400/15 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{
-            animationDuration: '5s',
-            animationDelay: '1s'
-          }} />
-          
-          {/* Floating accent orbs */}
-          <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-2xl animate-pulse" style={{
-            animationDuration: '3s',
-            animationDelay: '2s'
-          }} />
-        </div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
