@@ -286,8 +286,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               ? `${viewportHeight - 112}px` // 112px = 7rem converted to px
               : 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
             zIndex: 10,
-            transition: 'height 0.2s ease-out',
-            background: 'linear-gradient(180deg, rgb(86, 18, 31) 0%, rgb(86, 18, 31) 70%, rgba(236, 72, 153, 0.08) 85%, rgba(251, 146, 60, 0.06) 100%)' // Enhanced pink-coral warmth at bottom
+            transition: 'height 0.2s ease-out'
           }}
         >
           
@@ -297,8 +296,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: `${(inputSectionHeight || 280) + 40 + (showProfileNudge ? 200 : 0)}px`, // Reduced from 80 to 40 since keyboard handling is now in container height
-              background: 'rgb(86, 18, 31)', // burgundy-800 - prevent white screen
+              paddingBottom: `${(inputSectionHeight || 280) + 40 + (showProfileNudge ? 200 : 0)}px`,
               minHeight: '100%'
             }}
             role="log"
