@@ -252,8 +252,7 @@ export const ChatInputSection = ({
       }`}
       style={isMobilePhone ? {
         bottom: `${keyboardHeight}px`,
-        paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.375rem)',
-        boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.3)'
+        paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.375rem)'
       } : {
         paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
       }}
