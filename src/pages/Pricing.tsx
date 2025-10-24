@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { ToastAction } from "@/components/ui/toast";
-import SimpleHeader from "@/components/SimpleHeader";
+import DashboardHeader from "@/components/DashboardHeader";
 import { pricingPlans } from "@/data/pricingPlans";
 import PremiumBackground from "@/components/PremiumBackground";
 const faqs = [{
@@ -101,7 +101,19 @@ const Pricing = () => {
       <PremiumBackground />
 
       <div className="relative z-10">
-        <SimpleHeader user={user} activeTab="plans" onSignInClick={() => navigate('/signin')} />
+        <DashboardHeader 
+          accessLevel="full" 
+          profileCompletion={100}
+          user={user}
+          activeTab="plans"
+          onValueChange={(tab) => {
+            if (tab === 'profile') navigate('/profile');
+            else if (tab === 'insights') navigate('/coach');
+            else if (tab === 'home') navigate('/');
+          }}
+          onSignInClick={() => navigate('/signin')}
+          onOpenProfile={() => navigate('/profile')}
+        />
         
         <div className="container mx-auto px-4 pt-20 pb-6 lg:pt-24">
           {/* Header Section */}
