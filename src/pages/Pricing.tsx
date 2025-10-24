@@ -97,7 +97,7 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <div className="fixed inset-0 bg-burgundy-800 overflow-hidden">
+  return <div className="min-h-screen bg-burgundy-800 overflow-y-auto">
       <PremiumBackground />
 
       <div className="relative z-10">
@@ -115,7 +115,7 @@ const Pricing = () => {
           onOpenProfile={() => navigate('/profile')}
         />
         
-        <div className="container mx-auto px-4 pt-20 pb-6 lg:pt-24">
+        <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl md:text-5xl font-brand questionnaire-text mb-3">
