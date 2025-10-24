@@ -97,7 +97,7 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <div className="fixed inset-0 bg-burgundy-800 overflow-y-auto">
+  return <div className="fixed inset-0 bg-burgundy-800 overflow-hidden">
       <PremiumBackground />
 
       <div className="relative z-10">
