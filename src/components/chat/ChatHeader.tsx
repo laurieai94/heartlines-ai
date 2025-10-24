@@ -23,25 +23,8 @@ export const ChatHeader = ({
   onOpenSidebar,
   isMobilePhone
 }: ChatHeaderProps) => {
-  const { isMobile, isTablet, simulateHapticFeedback } = useOptimizedMobile();
+  const { isMobile, isTablet } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
-
-  // Enhanced mobile button handlers with haptic feedback
-  const handleNewConversation = () => {
-    if (isMobile) {
-      simulateHapticFeedback(document.body as HTMLElement, 'medium');
-    }
-    onNewConversation();
-  };
-
-  const handleOpenSidebar = () => {
-    if (isMobile && onOpenSidebar) {
-      simulateHapticFeedback(document.body as HTMLElement, 'light');
-      onOpenSidebar();
-    } else if (onOpenSidebar) {
-      onOpenSidebar();
-    }
-  };
 
   return (
     <div className="md:sticky fixed top-[52px] md:top-0 left-0 right-0 z-[70] shrink-0 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-900/95 backdrop-blur-md border-b border-pink-400/10 shadow-lg md:bg-gradient-to-r md:from-burgundy-800/40 md:via-burgundy-800/40 md:to-burgundy-900/35 md:backdrop-blur-md">
@@ -80,7 +63,7 @@ export const ChatHeader = ({
             <div className="flex items-center gap-1 flex-shrink-0">
               {onOpenSidebar && (
                 <Button 
-                  onClick={handleOpenSidebar}
+                  onClick={onOpenSidebar}
                   variant="ghost" 
                   size="icon"
                   className="h-10 w-10 text-white/90 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
@@ -91,7 +74,7 @@ export const ChatHeader = ({
               )}
               
               <Button 
-                onClick={handleNewConversation}
+                onClick={onNewConversation}
                 variant="ghost" 
                 size="icon"
                 className="h-10 w-10 text-white/90 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
@@ -159,11 +142,11 @@ export const ChatHeader = ({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      onClick={handleOpenSidebar} 
-                      className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
-                    >
+                  <Button 
+                    variant="ghost" 
+                    onClick={onOpenSidebar} 
+                    className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
+                  >
                       <Menu className="w-3.5 h-3.5" />
                       <span className="text-[10px] font-medium">chats</span>
                     </Button>
@@ -179,11 +162,11 @@ export const ChatHeader = ({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    onClick={handleNewConversation} 
-                    className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
-                  >
+                <Button 
+                  variant="ghost" 
+                  onClick={onNewConversation} 
+                  className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
+                >
                     <Plus className="w-3.5 h-3.5" />
                     <span className="text-[10px] font-medium">new</span>
                   </Button>

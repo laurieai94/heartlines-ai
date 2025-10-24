@@ -36,7 +36,9 @@ export const useOptimizedSubscription = () => {
         throw new Error('User not authenticated');
       }
 
-      performance.mark('subscription-query-start');
+      if (!import.meta.env.PROD) {
+        performance.mark('subscription-query-start');
+      }
 
       const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
       
@@ -66,7 +68,9 @@ export const useOptimizedSubscription = () => {
           .maybeSingle()
       ]);
 
-      performance.mark('subscription-query-end');
+      if (!import.meta.env.PROD) {
+        performance.mark('subscription-query-end');
+      }
 
       const { data: subData } = subResult;
       const { data: override } = overrideResult;
@@ -89,9 +93,10 @@ export const useOptimizedSubscription = () => {
       return cachedData;
     },
     enabled: !!user,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000, // 10 minutes
+    staleTime: 15 * 60 * 1000, // 15 minutes
+    gcTime: 30 * 60 * 1000, // 30 minutes
     refetchOnWindowFocus: false, // Prevent excessive refetching
+    refetchOnMount: false, // Use cached data on mount
   });
 
   const upgrade = async (tier: 'glow' | 'vibe' | 'unlimited') => {
@@ -137,7 +142,9 @@ export const useOptimizedSubscription = () => {
     if (!user) return;
     
     try {
-      performance.mark('stripe-revalidation-start');
+      if (!import.meta.env.PROD) {
+        performance.mark('stripe-revalidation-start');
+      }
       const { data: freshData } = await supabase.functions.invoke('check-subscription');
       
       if (freshData) {
@@ -145,7 +152,9 @@ export const useOptimizedSubscription = () => {
           ...defaultData,
           ...freshData
         });
-        performance.mark('stripe-revalidation-end');
+        if (!import.meta.env.PROD) {
+          performance.mark('stripe-revalidation-end');
+        }
       }
     } catch (error) {
       console.warn('Stripe revalidation failed:', error);

@@ -22,10 +22,7 @@ const AccountProfile = () => {
     updateProfile
   } = useUserProfile();
   const navigate = useNavigate();
-  const {
-    isMobile,
-    simulateHapticFeedback
-  } = useOptimizedMobile();
+  const { isMobile } = useOptimizedMobile();
   const [formData, setFormData] = useState({
     name: profile?.name || ''
   });
@@ -88,7 +85,7 @@ const AccountProfile = () => {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
       </div>;
   }
-  return <div className={`${isMobile ? 'space-y-3' : 'space-y-2'} touch-manipulation`}>
+  return <div className={`${isMobile ? 'space-y-3' : 'space-y-2'}`}>
       {/* Avatar Upload */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
         <CardContent className={isMobile ? 'p-3' : 'pt-2 p-2'}>
@@ -135,12 +132,7 @@ const AccountProfile = () => {
 
           {/* Save Button */}
           {hasChanges && <div className={`flex justify-end ${isMobile ? 'pt-1' : 'pt-3'}`}>
-              <Button onClick={e => {
-            if (isMobile && e.currentTarget) {
-              simulateHapticFeedback(e.currentTarget, 'medium');
-            }
-            handleSave();
-          }} disabled={saving} className={`questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11 px-6' : 'text-sm py-1.5'}`}>
+              <Button onClick={handleSave} disabled={saving} className={`questionnaire-button-primary touch-manipulation ${isMobile ? 'text-sm h-11 px-6' : 'text-sm py-1.5'}`}>
                 <Save className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
                 {saving ? 'saving...' : 'save changes'}
               </Button>
@@ -159,12 +151,7 @@ const AccountProfile = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2 pt-0'}>
-          <Button onClick={e => {
-          if (isMobile && e.currentTarget) {
-            simulateHapticFeedback(e.currentTarget, 'medium');
-          }
-          handlePasswordReset();
-        }} disabled={sendingReset} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
+          <Button onClick={handlePasswordReset} disabled={sendingReset} className={`w-full questionnaire-button-primary touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
             <Key className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
             {sendingReset ? 'sending...' : 'reset your password'}
           </Button>
@@ -182,12 +169,7 @@ const AccountProfile = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2 pt-0'}>
-          <Button onClick={e => {
-          if (isMobile && e.currentTarget) {
-            simulateHapticFeedback(e.currentTarget, 'light');
-          }
-          navigate('/profile');
-        }} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
+          <Button onClick={() => navigate('/profile')} className={`w-full questionnaire-button-primary touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
             <User className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
             view personal profile
           </Button>
@@ -205,12 +187,7 @@ const AccountProfile = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2 pt-0'}>
-          <Button onClick={e => {
-          if (isMobile && e.currentTarget) {
-            simulateHapticFeedback(e.currentTarget, 'medium');
-          }
-          signOut();
-        }} className={`w-full bg-burgundy-600 hover:bg-burgundy-600 text-white touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
+          <Button onClick={signOut} className={`w-full bg-burgundy-600 hover:bg-burgundy-600 text-white touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
             <LogOut className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
             sign out
           </Button>

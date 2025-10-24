@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
+import { debounce } from '@/utils/throttle';
 
 // Simplified viewport context for mobile performance
 interface ViewportContextType {
@@ -41,36 +42,40 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
     // Fall back to window for older iOS or if visualViewport is unavailable
     const visualViewport = !isLegacyIOS && window.visualViewport ? window.visualViewport : null;
     
-    const handleResize = () => {
+    const handleResize = debounce(() => {
       try {
         // Prefer visualViewport for accurate mobile viewport measurement
         const newHeight = visualViewport ? visualViewport.height : window.innerHeight;
         const windowHeight = window.innerHeight;
+        const heightDiff = Math.abs(newHeight - height);
         
-        // More reliable keyboard detection using visualViewport
-        const isKeyboardNowVisible = visualViewport 
-          ? (windowHeight - visualViewport.height) > 150
-          : false;
-        
-        setHeight(newHeight);
-        
-        if (isKeyboardNowVisible !== isKeyboardVisible) {
-          setIsKeyboardVisible(isKeyboardNowVisible);
+        // Only update if significant change (>10px)
+        if (heightDiff > 10) {
+          // More reliable keyboard detection using visualViewport
+          const isKeyboardNowVisible = visualViewport 
+            ? (windowHeight - visualViewport.height) > 150
+            : false;
           
-          // Notify listeners only when keyboard state changes
-          keyboardListeners.forEach(callback => {
-            try {
-              callback(isKeyboardNowVisible);
-            } catch (error) {
-              // Silent error to prevent performance impact
-            }
-          });
+          setHeight(newHeight);
+          
+          if (isKeyboardNowVisible !== isKeyboardVisible) {
+            setIsKeyboardVisible(isKeyboardNowVisible);
+            
+            // Notify listeners only when keyboard state changes
+            keyboardListeners.forEach(callback => {
+              try {
+                callback(isKeyboardNowVisible);
+              } catch (error) {
+                // Silent error to prevent performance impact
+              }
+            });
+          }
         }
       } catch (error) {
         // Fallback for iOS errors - just use window.innerHeight
         setHeight(window.innerHeight);
       }
-    };
+    }, 150);
 
     // Listen to visualViewport resize events if available (better for mobile)
     if (visualViewport) {

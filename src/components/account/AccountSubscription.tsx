@@ -8,10 +8,7 @@ import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { toast } from 'sonner';
 import { pricingPlans } from '@/data/pricingPlans';
 const AccountSubscription = () => {
-  const {
-    isMobile,
-    simulateHapticFeedback
-  } = useOptimizedMobile();
+  const { isMobile } = useOptimizedMobile();
   const {
     subscribed,
     subscription_tier,
@@ -115,7 +112,7 @@ const AccountSubscription = () => {
         </div>
       </div>;
   }
-  return <div className={`${isMobile ? 'space-y-2' : 'space-y-2.5'} touch-manipulation`}>
+  return <div className={`${isMobile ? 'space-y-2' : 'space-y-2.5'}`}>
       {/* Current Subscription Status */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
         <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
@@ -154,12 +151,7 @@ const AccountSubscription = () => {
               </p>
             </div>}
 
-          {subscribed && <Button onClick={e => {
-          if (isMobile && e.currentTarget) {
-            simulateHapticFeedback(e.currentTarget, 'medium');
-          }
-          handleManageSubscription();
-        }} disabled={managing} className={`questionnaire-button-secondary touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm py-1.5'}`}>
+          {subscribed && <Button onClick={handleManageSubscription} disabled={managing} className={`questionnaire-button-secondary touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm py-1.5'}`}>
               <ExternalLink className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
               {managing ? 'opening...' : 'manage subscription'}
             </Button>}
@@ -214,12 +206,7 @@ const AccountSubscription = () => {
                 {plan.current ? <Button disabled className={`w-full bg-green-500/20 text-green-400 border border-green-400/30 touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
                     <Check className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
                     current plan
-                   </Button> : plan.tier ? <Button onClick={e => {
-              if (isMobile && e.currentTarget) {
-                simulateHapticFeedback(e.currentTarget, 'medium');
-              }
-              handleUpgrade(plan.tier as 'glow' | 'vibe');
-            }} disabled={upgrading === plan.tier} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
+                   </Button> : plan.tier ? <Button onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe')} disabled={upgrading === plan.tier} className={`w-full questionnaire-button-primary touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
                     <Zap className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
                     {upgrading === plan.tier ? 'processing...' : `upgrade to ${plan.name}`}
                   </Button> : <Button disabled variant="outline" className={`w-full bg-white/5 border-white/20 text-white/60 touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
