@@ -30,7 +30,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
 
   
   return (
-    <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
+    <div className={`${isMobile ? 'px-6' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-8 lg:px-12'}`}>
       <div 
         className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
         role="listitem"
