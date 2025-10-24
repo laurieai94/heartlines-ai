@@ -79,7 +79,7 @@ const Account = () => {
       goToCoach={handleGoToCoachAccount} 
       goToPartner={handleGoToPartnerAccount}
     >
-      <div className="min-h-screen min-h-dvh bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 mobile-optimized account-page-scroll relative">
+      <div className="min-h-screen min-h-dvh bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 bg-burgundy-800 mobile-optimized account-page-scroll relative">
         <PremiumBackground />
         <DashboardHeader
           accessLevel={accessLevel}

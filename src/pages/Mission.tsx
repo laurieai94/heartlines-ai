@@ -26,7 +26,7 @@ const Mission = () => {
         <meta name="keywords" content="relationship coaching, ai coaching, healthy relationships, couples therapy, communication skills" />
       </Helmet>
       
-      <div className="landing-page-scroll min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 flex flex-col relative overflow-hidden">
+      <div className="landing-page-scroll min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 bg-burgundy-800 flex flex-col relative overflow-hidden">
       <PremiumBackground />
       
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />

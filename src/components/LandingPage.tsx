@@ -408,7 +408,7 @@ const LandingPage = ({
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
 
       {/* Main container */}
-      <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 bg-burgundy-800">
       <PremiumBackground />
 
       {/* Code-like Background Elements */}
