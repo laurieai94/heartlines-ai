@@ -315,7 +315,7 @@ export const ChatInputSection = ({
 
         {/* Conversation Starters - show for complete profiles with empty chats */}
         {shouldShowStarters && (
-          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
+          <div className="mb-1 md:mb-2 md:max-w-[54rem] md:mx-auto md:px-12">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}

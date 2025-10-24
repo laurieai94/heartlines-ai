@@ -55,10 +55,10 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="bg-burgundy-800/50 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/30 shadow-2xl shadow-black/50 pointer-events-auto md:bg-white/10">
+      <div className="rounded-2xl px-4 py-3 pointer-events-auto">
         {!selectedCategory ? (
           <>
-            <h3 className="text-sm font-medium text-white mb-2 text-center">
+            <h3 className="text-sm font-normal text-white/80 mb-2 text-center">
               What's on your mind?
             </h3>
             <div className="grid grid-cols-2 gap-2">
@@ -66,7 +66,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-burgundy-700/40 backdrop-blur-sm hover:bg-burgundy-700/60 rounded-lg p-2 border border-white/20 hover:border-white/40 shadow-md hover:shadow-lg transition-all duration-200 md:bg-white/10 md:hover:bg-white/20"
+                  className="group cursor-pointer bg-white/5 backdrop-blur-sm hover:bg-white/10 rounded-lg p-2 border border-white/10 hover:border-white/20 shadow-sm transition-all duration-200"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
