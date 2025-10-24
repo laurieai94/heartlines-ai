@@ -68,7 +68,7 @@ const AccountLayout = () => {
       )}
 
       <div className={`relative z-10 container mx-auto pb-20 ${
-        isMobile ? 'px-4 pt-20' : 'px-4 pt-20 lg:pt-24'
+        isMobile ? 'px-4 pt-24' : 'px-4 pt-20 lg:pt-24'
       } ${isMobile ? 'max-w-3xl' : 'max-w-4xl'} scroll-container`}>
 
         <div className={`questionnaire-card ${
