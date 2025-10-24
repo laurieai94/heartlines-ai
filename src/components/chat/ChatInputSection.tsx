@@ -247,7 +247,7 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className={`flex-shrink-0 z-[100] bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate ${
+      className={`flex-shrink-0 z-[100] bg-burgundy-800 md:bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate ${
         isMobilePhone ? 'fixed left-0 right-0 mobile-chat-input-container' : 'md:sticky md:bottom-0'
       }`}
       style={isMobilePhone ? {
