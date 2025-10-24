@@ -567,7 +567,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-3 md:mb-8">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-300 via-coral-300 to-orange-300 bg-clip-text text-transparent tracking-wider" style={{
+            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-200 via-coral-200 to-orange-200 bg-clip-text text-transparent tracking-wider" style={{
               textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(236, 72, 153, 0.2)'
             }}>how it works</h2>
             
@@ -693,7 +693,7 @@ const LandingPage = ({
 
               {/* Right Column: Content */}
               <div className="order-2 text-center md:text-left">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-300 via-coral-300 to-orange-300 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-200 via-coral-200 to-orange-200 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
                   animationDelay: '0.2s',
                   textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(236, 72, 153, 0.2)'
                 }}>
@@ -767,7 +767,7 @@ const LandingPage = ({
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
           <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-300 via-coral-300 to-orange-300 bg-clip-text text-transparent tracking-wider" style={{
+            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-200 via-coral-200 to-orange-200 bg-clip-text text-transparent tracking-wider" style={{
               textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(236, 72, 153, 0.2)'
             }}>
               why we're different
