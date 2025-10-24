@@ -300,11 +300,10 @@
 }
 }
 
-/* Pronounced grain texture overlay for burgundy backgrounds */
-body::before,
-.bg-burgundy-800::before {
+/* Targeted grain texture overlay - only applied when textured-background class is used */
+.textured-background::before {
   content: '';
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;

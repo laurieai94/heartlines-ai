@@ -98,7 +98,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
       {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
       <div className="absolute left-1/2 top-0 bottom-0 w-2 -translate-x-1/2 overflow-hidden -z-10">
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-pink-400 via-coral-400 via-orange-400 to-pink-400 rounded-full opacity-30"
+          className="absolute inset-0 bg-gradient-to-b from-pink-400 via-coral-400 via-orange-400 to-pink-400 rounded-full opacity-40"
           style={{
             boxShadow: '0 0 8px hsl(var(--pink-400) / 0.3), 0 0 15px hsl(var(--coral-400) / 0.2), 0 0 25px hsl(var(--orange-400) / 0.15)'
           }}
@@ -125,9 +125,10 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
             {/* Card with Enhanced Hover Effects */}
             <div className={`
               relative mx-auto max-w-md z-10
-              glass-burgundy-solid rounded-2xl p-3.5 md:p-4
-              border border-coral-400/20
-              hover:border-pink-400/40
+              bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70
+              backdrop-blur-xl rounded-2xl p-3.5 md:p-4
+              border border-pink-400/30
+              hover:border-orange-400/50
               group hover:-translate-y-1 hover:translate-x-0.5
               transition-all duration-300 ease-out
               hover:shadow-2xl hover:shadow-pink-400/30
