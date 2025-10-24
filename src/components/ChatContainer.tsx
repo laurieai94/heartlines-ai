@@ -1,15 +1,9 @@
-import { useCallback, useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import { useCallback, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { ScrollToTopArrow } from './ScrollToTopArrow';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Heart } from "lucide-react";
-import { BRAND } from "@/branding";
-import { ChatHeader } from './chat/ChatHeader';
-import { useViewport } from '@/contexts/ViewportContext';
-import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import OnboardingStepNudge from './OnboardingStepNudge';
 
 import DateSeparator from './chat/DateSeparator';
@@ -50,33 +44,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   inputSectionHeight
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
-  const lastMessageRef = useRef<HTMLDivElement>(null);
-  const { isMobile, isTablet } = useOptimizedMobile();
-  const isMobilePhone = isMobile && !isTablet;
+  const { isMobile } = useOptimizedMobile();
   const prevChatLengthRef = useRef(chatHistory.length);
-  const { isKeyboardVisible } = useViewport();
-  const { forceVisible } = useMobileHeaderVisibility();
-  const userIsScrollingRef = useRef(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
-  const [viewportHeight, setViewportHeight] = useState(() => 
-    window.visualViewport?.height || window.innerHeight
-  );
 
-  // Track viewport height changes for keyboard detection
-  useEffect(() => {
-    if (!isMobilePhone) return;
-    
-    const handleViewportResize = () => {
-      if (window.visualViewport) {
-        setViewportHeight(window.visualViewport.height);
-      }
-    };
-    
-    window.visualViewport?.addEventListener('resize', handleViewportResize);
-    return () => {
-      window.visualViewport?.removeEventListener('resize', handleViewportResize);
-    };
-  }, [isMobilePhone]);
 
   // Enhanced scroll to bottom with buffer
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -91,29 +61,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       });
     });
   }, []);
-
-  // Scroll to top of chat
-  const scrollToTop = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
-    if (!viewportRef.current) return;
-    
-    const viewport = viewportRef.current;
-    viewport.scrollTo({
-      top: 0,
-      behavior
-    });
-  }, []);
-
-  // Reveal navigation and scroll to top
-  const revealNavigationAndScrollTop = useCallback(() => {
-    forceVisible(); // Show the header/navigation
-    scrollToTop('smooth'); // Scroll chat to top
-    
-    // Also scroll page to top to fully reveal header
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }, [forceVisible, scrollToTop]);
 
   // Smart scroll to bottom only if user has scrolled up
   const scrollToBottomIfScrolledUp = useCallback(() => {
@@ -170,64 +117,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Track user manual scrolling
-  useEffect(() => {
-    if (!isMobilePhone || !viewportRef.current) return;
-    
-    const viewport = viewportRef.current;
-    
-    const handleTouchStart = () => {
-      userIsScrollingRef.current = true;
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-    
-    const handleTouchEnd = () => {
-      // Keep flag true for 2 seconds to prevent auto-scroll interference
-      scrollTimeoutRef.current = setTimeout(() => {
-        userIsScrollingRef.current = false;
-      }, 2000);
-    };
-    
-    viewport.addEventListener('touchstart', handleTouchStart, { passive: true });
-    viewport.addEventListener('touchend', handleTouchEnd, { passive: true });
-    
-    return () => {
-      viewport.removeEventListener('touchstart', handleTouchStart);
-      viewport.removeEventListener('touchend', handleTouchEnd);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, [isMobilePhone]);
 
-  // Intersection Observer failsafe - ensure last message is visible (but not during manual scroll)
-  useEffect(() => {
-    if (!isMobilePhone || chatHistory.length === 0) return;
-    if (!lastMessageRef.current || !viewportRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Only auto-scroll if user is NOT manually scrolling
-        if (entry.intersectionRatio < 0.9 && !userIsScrollingRef.current) {
-          requestAnimationFrame(() => {
-            scrollToBottom('smooth');
-          });
-        }
-      },
-      {
-        root: viewportRef.current,
-        threshold: 0.9
-      }
-    );
-
-    observer.observe(lastMessageRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [chatHistory.length, isMobilePhone, scrollToBottom]);
 
   // Render chat messages (shared between mobile and desktop)
   const renderMessages = () => (
@@ -237,7 +127,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         const isUser = message.type === 'user';
         const prevMessage = index > 0 ? chatHistory[index - 1] : null;
         const nextMessage = index < chatHistory.length - 1 ? chatHistory[index + 1] : null;
-        const isLastMessage = index === chatHistory.length - 1;
         
         // Check if we need a date separator
         const currentDate = new Date(message.timestamp);
@@ -256,7 +145,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         return (
           <div 
             key={message.id} 
-            ref={isLastMessage ? lastMessageRef : null}
             data-message-id={message.id}
           >
             {showDateSeparator && <DateSeparator date={currentDate} />}
@@ -276,67 +164,26 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   return (
     <div className="flex-1 min-h-0 md:max-h-none relative bg-transparent">
-      {isMobilePhone ? (
-        /* Mobile: Fixed height container with keyboard-aware positioning */
+      {/* ScrollArea for all screen sizes */}
+      <ScrollArea 
+        viewportRef={viewportRef}
+        className="h-full w-full"
+        role="log"
+        aria-live="polite"
+        aria-label="Chat conversation history"
+      >
         <div 
-          className="fixed inset-0 flex flex-col"
-          style={{ 
-            top: 'calc(env(safe-area-inset-top) + 7rem)', // Account for site nav bar (3rem/48px) + ChatHeader (4rem/64px)
-            height: isMobilePhone && window.visualViewport
-              ? `${viewportHeight - 112}px` // 112px = 7rem converted to px
-              : 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
-            zIndex: 10,
-            transition: 'height 0.2s ease-out'
+          className={`pt-2 md:pt-3 pb-8 md:pb-12 ${showProfileNudge ? 'pb-64 md:pb-64' : ''}`}
+          style={{
+            paddingLeft: 'max(4px, env(safe-area-inset-left))',
+            paddingRight: 'max(4px, env(safe-area-inset-right))'
           }}
         >
-          
-          {/* Scrollable Messages - fills remaining space */}
-          <div 
-            ref={viewportRef}
-            className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
-            style={{ 
-              paddingTop: '0.5rem',
-              paddingBottom: `${(inputSectionHeight || 280) + 40 + (showProfileNudge ? 200 : 0)}px`,
-              minHeight: '100%'
-            }}
-            role="log"
-            aria-live="polite"
-            aria-label="Chat conversation history"
-          >
-            <div
-              style={{
-                paddingLeft: 'max(4px, env(safe-area-inset-left))',
-                paddingRight: 'max(4px, env(safe-area-inset-right))'
-              }}
-            >
-              <div role="list" aria-label="Chat messages">
-                {renderMessages()}
-              </div>
-            </div>
+          <div role="list" aria-label="Chat messages">
+            {renderMessages()}
           </div>
         </div>
-      ) : (
-        /* ScrollArea for tablets and desktop */
-        <ScrollArea 
-          viewportRef={viewportRef}
-          className="h-full w-full"
-          role="log"
-          aria-live="polite"
-          aria-label="Chat conversation history"
-        >
-          <div 
-            className={`pt-2 md:pt-3 pb-8 md:pb-12 ${showProfileNudge ? 'md:pb-64' : ''}`}
-            style={{
-              paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '0',
-              paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '0'
-            }}
-          >
-            <div role="list" aria-label="Chat messages">
-              {renderMessages()}
-            </div>
-          </div>
-        </ScrollArea>
-      )}
+      </ScrollArea>
 
       {/* Scroll to top arrow - handles its own logic */}
       <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />
@@ -344,15 +191,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       {/* Fixed profile completion nudge - floats above scrolling messages */}
       {showProfileNudge && !loading && (
         <div 
-          className="fixed left-1/2 -translate-x-1/2 z-50 pointer-events-none"
-          style={{
-            top: isMobilePhone 
-              ? 'calc(50vh - 2rem)' // Center in mobile viewport
-              : '50%', // Center in desktop viewport
-            transform: isMobilePhone 
-              ? 'translate(-50%, -50%)' 
-              : 'translate(-50%, -50%)'
-          }}
+          className="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-50 pointer-events-none"
         >
           <div className="pointer-events-auto">
             <OnboardingStepNudge 

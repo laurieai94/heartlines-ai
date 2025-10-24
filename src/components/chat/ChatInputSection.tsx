@@ -89,12 +89,9 @@ export const ChatInputSection = ({
     manageSubscription 
   } = useOptimizedSubscription();
   
-  // Mobile optimization hooks - distinguish between mobile phones and tablets
-  const { isMobile, isTablet } = useOptimizedMobile();
-  const isMobilePhone = isMobile && !isTablet;
   
-  // Track keyboard height for mobile positioning
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  // Mobile optimization hooks
+  const { isMobile, isTablet } = useOptimizedMobile();
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
@@ -195,32 +192,6 @@ export const ChatInputSection = ({
     };
   }, [accessLevel]);
 
-  // Optimized keyboard height tracking with throttling
-  useEffect(() => {
-    if (!isMobilePhone) return;
-    
-    let throttleTimer: NodeJS.Timeout | null = null;
-    const updateKeyboardHeight = () => {
-      if (throttleTimer) return;
-      
-      throttleTimer = setTimeout(() => {
-        if (window.visualViewport) {
-          const viewportHeight = window.visualViewport.height;
-          const windowHeight = window.innerHeight;
-          const calculatedKeyboardHeight = Math.max(0, windowHeight - viewportHeight);
-          setKeyboardHeight(calculatedKeyboardHeight);
-        }
-        throttleTimer = null;
-      }, 100);
-    };
-    
-    window.visualViewport?.addEventListener('resize', updateKeyboardHeight, { passive: true });
-    
-    return () => {
-      if (throttleTimer) clearTimeout(throttleTimer);
-      window.visualViewport?.removeEventListener('resize', updateKeyboardHeight);
-    };
-  }, [isMobilePhone]);
 
   // Measure and report height changes
   useEffect(() => {
@@ -247,14 +218,9 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className={`flex-shrink-0 z-[100] bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate ${
-        isMobilePhone ? 'fixed left-0 right-0 mobile-chat-input-container' : 'md:sticky md:bottom-0'
-      }`}
-      style={isMobilePhone ? {
-        bottom: `${keyboardHeight}px`,
-        paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.375rem)'
-      } : {
-        paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
+      className="sticky bottom-0 flex-shrink-0 z-[100] bg-transparent h-auto pointer-events-auto touch-action-manipulation isolate"
+      style={{
+        paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
       }}
     >
       <div className="px-0 md:px-4 py-0 md:py-3">
