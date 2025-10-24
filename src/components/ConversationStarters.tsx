@@ -66,7 +66,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-white/5 backdrop-blur-sm hover:bg-white/10 rounded-lg p-2 border border-white/10 hover:border-white/20 shadow-sm transition-all duration-200"
+                  className="group cursor-pointer bg-white/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-500/10 hover:to-coral-400/10 rounded-lg p-2 border border-white/10 hover:border-coral-400/30 shadow-sm transition-all duration-200"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
@@ -82,7 +82,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
-                className="p-1 hover:bg-burgundy-800/80 md:hover:bg-white/10 rounded-lg transition-colors text-white hover:text-white"
+                className="p-1 hover:bg-gradient-to-r hover:from-coral-500/20 hover:to-pink-500/20 rounded-lg transition-colors text-white hover:text-white"
               >
                 <ArrowLeft className="w-3 h-3" />
               </Button>
@@ -96,7 +96,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-burgundy-800/80 md:hover:bg-white/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border-0 md:border md:border-transparent hover:border-white/20"
+                  className="group text-white/80 hover:text-white hover:bg-gradient-to-r hover:from-coral-400/10 hover:to-pink-400/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border-0 md:border md:border-transparent hover:border-coral-400/25"
                 >
                   <span className="leading-tight">{starter}</span>
                 </Button>

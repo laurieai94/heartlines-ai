@@ -287,7 +287,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               : 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
             zIndex: 10,
             transition: 'height 0.2s ease-out',
-            background: 'rgb(86, 18, 31)' // burgundy-800 - prevent white screen
+            background: 'linear-gradient(180deg, rgb(86, 18, 31) 0%, rgb(86, 18, 31) 80%, rgba(251, 146, 60, 0.03) 100%)' // Subtle coral warmth at bottom
           }}
         >
           

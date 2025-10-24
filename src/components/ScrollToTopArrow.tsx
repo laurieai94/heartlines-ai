@@ -166,9 +166,10 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
       ref={buttonRef}
       onClick={handleClick}
       className="fixed bottom-24 right-4 rounded-full w-14 h-14 shadow-lg z-[999] 
-                 bg-red-900 hover:bg-red-800 text-white
-                 flex items-center justify-center
-                 transition-opacity duration-100"
+                 bg-gradient-to-br from-pink-500 to-coral-500 hover:from-pink-400 hover:to-coral-400 
+                 text-white flex items-center justify-center
+                 ring-2 ring-pink-400/30 shadow-[0_0_20px_rgba(236,72,153,0.3)]
+                 transition-all duration-200"
       style={{
         opacity: 0,
         pointerEvents: 'none',

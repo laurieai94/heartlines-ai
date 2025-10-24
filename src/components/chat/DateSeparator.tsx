@@ -22,11 +22,11 @@ const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
   return (
     <div className="flex items-center justify-center my-4 md:my-6 px-4">
       <div className="flex items-center gap-3 text-white/40 text-xs md:text-sm font-light">
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent max-w-[80px]"></div>
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-pink-400/25 to-coral-400/20 max-w-[80px]"></div>
         <time dateTime={date.toISOString()} className="whitespace-nowrap">
           {formatDate(date)}
         </time>
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent max-w-[80px]"></div>
+        <div className="h-px flex-1 bg-gradient-to-r from-coral-400/20 via-pink-400/25 to-transparent max-w-[80px]"></div>
       </div>
     </div>
   );
