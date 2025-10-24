@@ -97,7 +97,7 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <div className="fixed inset-0 bg-gradient-to-br from-burgundy-800 via-burgundy-700 to-burgundy-800 overflow-y-auto">
+  return <div className="fixed inset-0 bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900 overflow-y-auto">
       <PremiumBackground />
 
       <div className="relative z-10">
