@@ -43,6 +43,10 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('[Handler] Personal questionnaire completed with data:', questionnaireData);
     
+    // STEP 0: Set completion flag immediately
+    sessionStorage.setItem('questionnaire-completing', 'true');
+    console.log('[Handler] Set questionnaire-completing flag');
+    
     // Extract completion data
     const completionData = questionnaireData.completionData || {};
     
@@ -52,6 +56,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       pronouns: completionData.pronouns,
       relationshipStatus: completionData.relationshipStatus,
       loveLanguage: completionData.loveLanguage,
+      loveLanguageType: Array.isArray(completionData.loveLanguage) ? 'array' : typeof completionData.loveLanguage,
       attachmentStyle: completionData.attachmentStyle
     });
     
@@ -146,7 +151,11 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       // Dispatch event after modal has fully unmounted
       console.log('[Complete] Dispatching profile:requiredFieldUpdated event');
       window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
-    }, 500);
+      
+      // Clear completion flag after all updates are done
+      sessionStorage.removeItem('questionnaire-completing');
+      console.log('[Complete] Cleared questionnaire-completing flag');
+    }, 800);
     
     // STEP 5: Store completion marker
     if (typeof window !== 'undefined' && (window as any).user?.id) {

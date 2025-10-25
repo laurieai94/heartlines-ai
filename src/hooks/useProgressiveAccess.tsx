@@ -74,6 +74,7 @@ export const useProgressiveAccess = () => {
   const chatReadiness = useMemo(() => {
     const profileData = personalStorage.profileData as ProfileData;
     if (!profileData || Object.keys(profileData).length === 0) {
+      console.log('[ProgressiveAccess] No profile data found');
       return { 
         isComplete: false, 
         missingFields: ['Please complete your profile'],
@@ -82,11 +83,28 @@ export const useProgressiveAccess = () => {
       };
     }
 
+    // DEBUG: Log all required field values for troubleshooting
+    console.log('[ProgressiveAccess] Checking required fields:', {
+      name: profileData.name,
+      pronouns: profileData.pronouns,
+      relationshipStatus: profileData.relationshipStatus,
+      loveLanguage: profileData.loveLanguage,
+      loveLanguageType: Array.isArray(profileData.loveLanguage) ? 'array' : typeof profileData.loveLanguage,
+      attachmentStyle: profileData.attachmentStyle
+    });
+
     // Use optimized validation
     const totalRequired = getTotalRequiredFieldsCount();
     const totalCompleted = getCompletedRequiredFieldsCount(profileData);
     const overallProgress = totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
     const isComplete = overallProgress === 100;
+    
+    console.log('[ProgressiveAccess] Completion status:', {
+      totalRequired,
+      totalCompleted,
+      overallProgress,
+      isComplete
+    });
 
     // Check completion of each section using optimized validation
     const sectionStatus = [1, 2, 3, 4].map(section => ({

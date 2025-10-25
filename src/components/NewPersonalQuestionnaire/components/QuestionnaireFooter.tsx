@@ -24,6 +24,12 @@ const QuestionnaireFooter = ({
     return null;
   }
 
+  const handleComplete = () => {
+    console.log('[QuestionnaireFooter] Complete button clicked, setting completion flag');
+    sessionStorage.setItem('questionnaire-completing', 'true');
+    onComplete();
+  };
+
   return (
     <div className="p-6 pb-10 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">
       <div className="text-center space-y-4">
@@ -37,7 +43,7 @@ const QuestionnaireFooter = ({
         </div>
         
         <Button
-          onClick={onComplete}
+          onClick={handleComplete}
           disabled={!canComplete}
           className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-3 px-8 py-3 text-base rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100 font-semibold"
         >

@@ -39,6 +39,15 @@ const PartnerQuestionnaireFooter = ({
     const hasPronouns = !!profileData.partnerPronouns?.trim();
     const hasLoveLanguage = profileData.partnerLoveLanguage?.length > 0;
     const hasAttachmentStyle = !!profileData.partnerAttachmentStyle?.trim();
+    
+    console.log('[PartnerFooter] Required fields check:', {
+      hasName,
+      hasPronouns,
+      hasLoveLanguage,
+      hasAttachmentStyle,
+      canComplete: hasName && hasPronouns && hasLoveLanguage && hasAttachmentStyle
+    });
+    
     return hasName && hasPronouns && hasLoveLanguage && hasAttachmentStyle;
   }, [profileData.partnerName, profileData.partnerPronouns, profileData.partnerLoveLanguage, profileData.partnerAttachmentStyle, validationKey]);
   
