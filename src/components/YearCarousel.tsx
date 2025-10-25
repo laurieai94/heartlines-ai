@@ -15,7 +15,7 @@ import elderlyManPortraitImage from '@/assets/elderly-man-portrait.webp';
 import elderlyFriendsCatsImage from '@/assets/elderly-friends-cats-city-apartment.webp';
 import elderlyWomenPeaceRetroImage from '@/assets/elderly-women-peace-retro-living-room.webp';
 import elderlyCoupleWarmVintageImage from '@/assets/elderly-couple-warm-vintage-living-room.webp';
-import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
+import heartlinesCarouselLogo from '@/assets/heartlines-carousel-logo.png';
 
 interface CarouselSlide {
   year: string;
@@ -178,7 +178,11 @@ export const YearCarousel = () => {
       
       {/* Fixed Heartlines Watermark - Outside Carousel */}
       <div className="fixed top-8 right-8 md:top-12 md:right-16 lg:top-16 lg:right-24 z-20 pointer-events-none">
-        <HeartlinesWordmark className="text-white drop-shadow-lg" size="lg" showTagline={true} />
+        <img 
+          src={heartlinesCarouselLogo}
+          alt="heartlines - powered by laurie ai"
+          className="w-32 md:w-40 lg:w-48 drop-shadow-lg"
+        />
       </div>
     </section>
   );
