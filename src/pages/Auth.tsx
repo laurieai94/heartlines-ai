@@ -372,7 +372,7 @@ const Auth = () => {
         )}
 
         {/* Form container - centered and flexible */}
-        <div className={`w-full flex-1 flex flex-col items-center justify-start overflow-y-auto px-4`}>
+        <div className={`w-full flex-1 flex flex-col items-center ${isSignUp ? 'justify-start' : 'justify-center'} overflow-y-auto px-4`}>
           <div className="w-full max-w-sm sm:max-w-md mx-auto">
             <div className="questionnaire-card p-4 sm:p-5 md:p-6 lg:p-8">
           {showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
