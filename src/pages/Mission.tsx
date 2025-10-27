@@ -261,14 +261,14 @@ const Mission = () => {
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
                 {/* Preview content - always visible */}
-                <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-                  <p className="text-xl md:text-2xl text-white/95 font-semibold leading-relaxed">
-                    <span className="font-brand">heartlines</span> is an ai relationship coach for modern, messy love.
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    the real kind. the complicated kind. the kind that lives in texts, dms, and long pauses over facetime.
-                  </p>
-                </div>
+        <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
+          <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+            The AI relationship coach for modern, messy love.
+          </p>
+          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+            Built for the late-night texts, the "can we talk?" moments, and everything that makes love complicated and worth it.
+          </p>
+        </div>
 
                 {/* Collapsible full content */}
                 <Collapsible>
