@@ -437,7 +437,7 @@ const Auth = () => {
                   </Button>
                 </form>}
             </> : <>
-          {!isSignUp && <div className="text-center mb-2 sm:mb-4">
+          {!isSignUp && <div className="text-center mt-8 sm:mt-0 mb-2 sm:mb-4">
             <PhoneLockup 
               size="lg"
               showTagline={true}
