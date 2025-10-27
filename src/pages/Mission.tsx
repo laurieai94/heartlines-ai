@@ -69,9 +69,13 @@ const Mission = () => {
                 transition-all duration-400 ease-out">
                 
                 {/* Header with gradient */}
-                <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
-                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
-                  flex items-center justify-center gap-3">
+                <h2 
+                  className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-3"
+                  style={{
+                    animationDelay: '0.2s',
+                    textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                  }}
+                >
                   <Globe 
                     size={44} 
                     className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0 animate-pulse" 
@@ -387,9 +391,13 @@ const Mission = () => {
                 transition-all duration-400 ease-out">
                 
                 {/* Heading with gradient and duck icon */}
-                <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
-                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
-                  flex items-center justify-center gap-3">
+                <h2 
+                  className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-3"
+                  style={{
+                    animationDelay: '0.2s',
+                    textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                  }}
+                >
                   <DuckIcon 
                     size={48} 
                     className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
