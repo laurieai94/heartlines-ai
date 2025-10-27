@@ -9,8 +9,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import PremiumBackground from "@/components/PremiumBackground";
-
-
 const Mission = () => {
   const {
     user
@@ -34,13 +32,10 @@ const Mission = () => {
         <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
           <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
-              <h1 
-                className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in"
-                style={{
-                  animationDelay: '0.2s',
-                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-                }}
-              >
+              <h1 className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in" style={{
+            animationDelay: '0.2s',
+            textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+          }}>
                 our why
               </h1>
             <div className="flex items-center gap-2 mt-1 ml-[70px] md:ml-[110px] lg:ml-[160px] xl:ml-[230px]">
@@ -72,10 +67,7 @@ const Mission = () => {
                 <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
                   flex items-center justify-center gap-3">
-                  <Globe 
-                    size={44} 
-                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0 animate-pulse" 
-                  />
+                  <Globe size={44} className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0 animate-pulse" />
                   <span>our moment</span>
                 </h2>
                 
@@ -88,23 +80,18 @@ const Mission = () => {
                 <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
                   ai is here.
                 </p>
-                <p className="text-xl md:text-xl text-white/95 font-semibold leading-relaxed">
-                  we can't stop it—and we can't ignore it.
-                </p>
+                <p className="text-xl md:text-xl text-white/95 font-semibold leading-relaxed">we can't stop it — and we can't ignore it.</p>
                   </div>
                 </div>
 
                 {/* Collapsible full content */}
                 <Collapsible>
                   <CollapsibleTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
+                    <Button variant="ghost" className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/70 hover:text-white font-light text-sm
                         transition-all duration-300
                         hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
-                        group/button"
-                    >
+                        group/button">
                       <span className="group-data-[state=open]/button:hidden">read more</span>
                       <span className="group-data-[state=closed]/button:hidden">show less</span>
                       <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
@@ -247,13 +234,8 @@ const Mission = () => {
                 transition-all duration-400 ease-out">
                 
                 {/* Header with gradient */}
-                <h2 
-                  className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in"
-                  style={{
-                    animationDelay: '0.2s',
-                    textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-                  }}
-                >
+                <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
+                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
                   💞 what <span className="font-brand">heartlines</span> is
                 </h2>
                 
@@ -261,26 +243,23 @@ const Mission = () => {
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
                 {/* Preview content - always visible */}
-                <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-                  <p className="text-xl md:text-2xl text-white/95 font-semibold leading-relaxed">
-                    <span className="font-brand">heartlines</span> is an ai relationship coach for modern, messy love.
+                <div className="text-center mb-6 max-w-2xl mx-auto space-y-3">
+                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
+                    stronger relationships start here.
                   </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    the real kind. the complicated kind. the kind that lives in texts, dms, and long pauses over facetime.
+                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
+                    the ai relationship coach for messy, modern love.
                   </p>
                 </div>
 
                 {/* Collapsible full content */}
                 <Collapsible>
                   <CollapsibleTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
+                    <Button variant="ghost" className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/70 hover:text-white font-light text-sm
                         transition-all duration-300
                         hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
-                        group/button"
-                    >
+                        group/button">
                       <span className="group-data-[state=open]/button:hidden">read more</span>
                       <span className="group-data-[state=closed]/button:hidden">show less</span>
                       <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
@@ -294,64 +273,59 @@ const Mission = () => {
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
                       {/* Opening statement */}
-                      <div className="space-y-4">
-                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
-                          it's built for the messy middle:
-                        </p>
+                      <div className="space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          the late-night "are we okay?" talks, the post-fight spirals, the "i miss you but don't know what to say" moments that can't wait for therapy hours.
+                          <span className="font-brand">heartlines</span> is built for how we love now —
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          through late-night texts, voice notes, across time zones, and "hey, can we talk?" moments that don't wait for therapy appointments.
                         </p>
                       </div>
 
                       {/* Powered by Laurie AI */}
                       <div>
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          powered by laurie ai, heartlines helps you slow down, reflect, and understand yourself, before the distance, defensiveness, or silence sets in.
+                          powered by <span className="font-semibold text-white">laurie ai</span>, it's a space to slow down, talk it out, and understand yourself before things spiral.
                         </p>
                       </div>
 
                       {/* Kai section */}
                       <div className="border-l-2 border-coral-400/40 pl-6 space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          with kai, your ai relationship coach,
+                          with <span className="font-semibold text-white">kai</span>, your ai relationship coach,
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          you can unpack what happened,
+                          you can unpack what happened after a fight,
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          see your patterns,
-                        </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          and learn how to communicate without losing yourself.
+                          see your patterns, and learn how to communicate without losing yourself.
                         </p>
                       </div>
 
-                      {/* What it's not */}
-                      <div className="space-y-3">
+                      {/* Purpose statement */}
+                      <div>
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          it's not therapy.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          it's not another dating app.
-                        </p>
-                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
-                          it's the space in between —
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          where you make sense of love while you're still feeling it.
+                          it's about helping you show up the way you mean to.
                         </p>
                       </div>
 
                       {/* Decorative gradient divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
+                      {/* For everyone */}
+                      <div>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          whether you're on the apps, in a situationship, on the apps, or finding your way back to yourself, <span className="font-brand">heartlines</span> meets you where you are — in real time, in your own words.
+                        </p>
+                      </div>
+
                       {/* Privacy */}
-                      <div className="space-y-3">
+                      <div className="space-y-2">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          every conversation is private and encrypted.
+                          your conversations stay private and encrypted.
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          no tracking. no selling your emotions. just space to be honest.
+                          no tracking, no algorithms selling your emotions.
                         </p>
                       </div>
 
@@ -361,7 +335,16 @@ const Mission = () => {
                       {/* Closing statement */}
                       <div className="border-l-2 border-peach-400/30 pl-6 space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          because real intimacy starts with understanding — and love feels a lot better when you know yourself in it.
+                          <span className="font-brand">heartlines</span> is the <span className="font-semibold text-white">space between dating apps and therapy</span> —
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          a place to figure things out while you're still feeling them,
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          so love feels a little less confusing,
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          and a lot more real.
                         </p>
                       </div>
                     </div>
@@ -390,10 +373,7 @@ const Mission = () => {
                 <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
                   flex items-center justify-center gap-3">
-                  <DuckIcon 
-                    size={48} 
-                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
-                  />
+                  <DuckIcon size={48} className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" />
                   <span>powered by laurie ai</span>
                 </h2>
                 
@@ -413,14 +393,11 @@ const Mission = () => {
                 {/* Collapsible full content */}
                 <Collapsible>
                   <CollapsibleTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
+                    <Button variant="ghost" className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/70 hover:text-white font-light text-sm
                         transition-all duration-300
                         hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
-                        group/button"
-                    >
+                        group/button">
                       <span className="group-data-[state=open]/button:hidden">read more</span>
                       <span className="group-data-[state=closed]/button:hidden">show less</span>
                       <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
@@ -512,22 +489,13 @@ const Mission = () => {
 
           {/* CTAs with glass effect - Always visible */}
           <div className="flex flex-wrap gap-4 justify-center items-center mt-8 mb-8">
-            <Button
-              size="lg"
-              variant="glass"
-              onClick={handleSignInClick}
-              className="glass-cta min-w-[200px] text-lg"
-            >
+            <Button size="lg" variant="glass" onClick={handleSignInClick} className="glass-cta min-w-[200px] text-lg">
               get started
             </Button>
-            <Button
-              size="lg"
-              onClick={() => navigate('/contact')}
-              className="min-w-[200px] text-lg backdrop-blur-xl
+            <Button size="lg" onClick={() => navigate('/contact')} className="min-w-[200px] text-lg backdrop-blur-xl
                 bg-white/10 border border-white/30 text-white
                 hover:bg-white/20 hover:scale-105 hover:-translate-y-1
-                transition-all duration-300"
-            >
+                transition-all duration-300">
               partner with us
             </Button>
           </div>
