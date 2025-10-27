@@ -36,8 +36,8 @@ const DuckIcon = memo(({
       <path d="M9 10.5 Q11 12 12 13.5" stroke={color} strokeWidth="3.5" fill="none" strokeLinecap="round" />
       
       {/* Larger, more prominent beak with triangular shape */}
-      <path d="M3 8 L0 7.5 L3 9.5 Z" fill="#FFD700" stroke="#FFC700" strokeWidth="0.8" />
-      <path d="M3 8.5 Q1.5 8.5 1.5 8.2" stroke="#FFC700" strokeWidth="0.5" fill="none" />
+      <path d="M3 8 L0 7.5 L3 9.5 Z" fill="#FFDAB3" stroke="#FFB88C" strokeWidth="0.8" />
+      <path d="M3 8.5 Q1.5 8.5 1.5 8.2" stroke="#FFB88C" strokeWidth="0.5" fill="none" />
       
       {/* Eye - clear and visible */}
       <circle cx="8" cy="7.5" r="1.3" fill="white" />
