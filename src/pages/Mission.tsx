@@ -403,7 +403,7 @@ const Mission = () => {
                 >
                   <DuckIcon 
                     size={36} 
-                    className="text-yellow-300 drop-shadow-[0_0_10px_rgba(253,224,71,0.4)] flex-shrink-0" 
+                    className="text-orange-200 drop-shadow-[0_0_10px_rgba(251,146,60,0.4)] flex-shrink-0" 
                   />
                   <span>powered by laurie ai</span>
                 </h2>
