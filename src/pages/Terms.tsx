@@ -20,7 +20,7 @@ const Terms = () => {
         <meta name="description" content="read the terms of service for using heartlines ai-powered relationship coaching platform." />
       </Helmet>
       
-      <div className="min-h-screen bg-burgundy-800 flex flex-col">
+      <div className="min-h-screen bg-burgundy-800 flex flex-col landing-page-scroll">
         <SimpleHeader 
           user={user}
           activeTab="home"

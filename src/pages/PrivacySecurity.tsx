@@ -48,7 +48,7 @@ const PrivacySecurity = () => {
     label: 'plans',
     icon: CreditCard
   }];
-  return <div className="min-h-screen bg-burgundy-800">
+  return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
       {/* Background effects */}
 
       {/* Navigation */}

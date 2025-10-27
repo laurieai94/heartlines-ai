@@ -75,7 +75,7 @@ const Contact = () => {
         <meta name="description" content="Get in touch with the heartlines team. We're here to help with questions about our AI-powered relationship coaching platform." />
       </Helmet>
       
-      <div className="min-h-screen bg-burgundy-800 flex flex-col relative">
+      <div className="min-h-screen bg-burgundy-800 flex flex-col relative landing-page-scroll">
         <PremiumBackground />
         <SimpleHeader 
           user={user}

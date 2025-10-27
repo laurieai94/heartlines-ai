@@ -97,7 +97,7 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <div className="min-h-screen bg-burgundy-800 overflow-y-auto">
+  return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
       <PremiumBackground />
 
       <div className="relative z-10">
