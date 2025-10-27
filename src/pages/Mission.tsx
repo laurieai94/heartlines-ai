@@ -44,10 +44,13 @@ const Mission = () => {
                 our why
               </h1>
             <div className="flex items-center gap-2 mt-1 ml-[70px] md:ml-[110px] lg:ml-[160px] xl:ml-[230px]">
-            <span className="font-glacial text-lg md:text-xl lg:text-2xl text-white">
+            <span className="font-brand text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
+              style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              }}>
               powered by laurie ai
             </span>
-              <DuckIcon className="w-5 h-5 lg:w-6 lg:h-6 text-coral-400" />
+              <DuckIcon className="w-4 h-4 lg:w-5 lg:h-5 text-yellow-300" />
             </div>
           </section>
 
@@ -70,15 +73,15 @@ const Mission = () => {
                 
                 {/* Header with gradient */}
                 <h2 
-                  className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-3"
+                  className="text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-4"
                   style={{
                     animationDelay: '0.2s',
                     textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                   }}
                 >
                   <Globe 
-                    size={44} 
-                    className="text-orange-200 drop-shadow-[0_0_15px_rgba(251,146,60,0.5)] flex-shrink-0 animate-pulse" 
+                    size={36} 
+                    className="text-orange-100/80 flex-shrink-0" 
                   />
                   <span>our moment</span>
                 </h2>
@@ -89,10 +92,10 @@ const Mission = () => {
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
-                <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
+                <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
                   ai is here.
                 </p>
-                <p className="text-xl md:text-xl text-white/95 font-semibold leading-relaxed">
+                <p className="text-xl md:text-2xl text-white/95 font-semibold leading-relaxed">
                   we can't stop it—and we can't ignore it.
                 </p>
                   </div>
@@ -125,49 +128,49 @@ const Mission = () => {
                       </div>
 
                       {/* Opening stanzas */}
-                      <div className="space-y-3 text-left">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="space-y-4 text-left">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           it's writing our emails.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           driving our cars.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           curating our feeds.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           even finishing our thoughts.
                         </p>
                       </div>
 
-                      <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed text-left">
+                      <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose text-left">
                         it's changing how we live, work, love, and connect.
                       </p>
 
                       {/* The conflict */}
                       <div className="space-y-4 text-left">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           but somewhere between the progress and the code, we lost something.
                         </p>
 
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           we built machines to sound human—
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-semibold leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 font-semibold leading-loose">
                           and forgot how to be.
                         </p>
 
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           technology promised connection.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           instead, it left us scrolling for it.
                         </p>
 
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           the world feels louder.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           but somehow, lonelier.
                         </p>
                       </div>
@@ -180,17 +183,17 @@ const Mission = () => {
                       </div>
 
                       {/* Call to action */}
-                      <div className="space-y-3 text-left">
-                        <p className="text-base md:text-lg text-white/90 font-semibold leading-loose">
+                      <div className="space-y-4 text-left">
+                        <p className="text-lg md:text-xl text-white/90 font-semibold leading-loose">
                           so this is our moment—
                         </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           to build ai that protects what's real.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           to make privacy sacred again.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           to make community the center of progress.
                         </p>
                       </div>
@@ -203,25 +206,25 @@ const Mission = () => {
                       </div>
 
                       {/* Vision Section */}
-                      <div className="border-l-2 border-rose-400/40 pl-6 space-y-3 text-left">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                      <div className="border-l-2 border-rose-400/40 pl-6 space-y-4 text-left">
+                        <p className="text-lg md:text-xl text-white/90 leading-loose">
                           to build technology that remembers where it came from:
                         </p>
-                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
+                        <p className="text-lg md:text-xl text-white/80 italic leading-loose">
                           classrooms that taught us to think,
                         </p>
-                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
+                        <p className="text-lg md:text-xl text-white/80 italic leading-loose">
                           kitchen tables that taught us to listen,
                         </p>
-                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
+                        <p className="text-lg md:text-xl text-white/80 italic leading-loose">
                           communities that taught us to care.
                         </p>
                         
                         <div className="pt-4">
-                          <p className="text-base md:text-lg text-white/90 leading-loose">
+                          <p className="text-lg md:text-xl text-white/90 leading-loose">
                             because progress means nothing
                           </p>
-                          <p className="text-base md:text-lg text-white/90 leading-loose">
+                          <p className="text-lg md:text-xl text-white/90 leading-loose">
                             if it forgets the people it was meant to serve.
                           </p>
                         </div>
@@ -252,7 +255,7 @@ const Mission = () => {
                 
                 {/* Header with gradient */}
                 <h2 
-                  className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in"
+                  className="text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in"
                   style={{
                     animationDelay: '0.2s',
                     textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
@@ -269,7 +272,7 @@ const Mission = () => {
           <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
             the ai relationship coach for modern, messy love.
           </p>
-          <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
             built for the late-night texts, the "can we talk?" moments, and everything that makes love complicated and worth it.
           </p>
         </div>
@@ -299,49 +302,49 @@ const Mission = () => {
 
                       {/* Opening statement */}
                       <div className="space-y-4">
-                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose">
                           it's built for the messy middle:
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           the late-night "are we okay?" talks, the post-fight spirals, the "i miss you but don't know what to say" moments that can't wait for therapy hours.
                         </p>
                       </div>
 
                       {/* Powered by Laurie AI */}
                       <div>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           powered by laurie ai, <span className="font-brand">heartlines</span> helps you slow down, reflect, and understand yourself, before the distance, defensiveness, or silence sets in.
                         </p>
                       </div>
 
                       {/* Kai section */}
-                      <div className="border-l-2 border-coral-400/40 pl-6 space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="border-l-2 border-coral-400/40 pl-6 space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           with kai, your ai relationship coach,
                         </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           you can unpack what happened,
                         </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           see your patterns,
                         </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           and learn how to communicate without losing yourself.
                         </p>
                       </div>
 
                       {/* What it's not */}
-                      <div className="space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           it's not therapy.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           it's not another dating app.
                         </p>
-                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose">
                           it's the space in between —
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           where you make sense of love while you're still feeling it.
                         </p>
                       </div>
@@ -350,11 +353,11 @@ const Mission = () => {
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
                       {/* Privacy */}
-                      <div className="space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           every conversation is private and encrypted.
                         </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           no tracking. no selling your emotions. just space to be honest.
                         </p>
                       </div>
@@ -363,8 +366,8 @@ const Mission = () => {
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
                       {/* Closing statement */}
-                      <div className="border-l-2 border-peach-400/30 pl-6 space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="border-l-2 border-peach-400/30 pl-6 space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           because real intimacy starts with understanding — and love feels a lot better when you know yourself in it.
                         </p>
                       </div>
@@ -392,15 +395,15 @@ const Mission = () => {
                 
                 {/* Heading with gradient and duck icon */}
                 <h2 
-                  className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-3"
+                  className="text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-4"
                   style={{
                     animationDelay: '0.2s',
                     textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                   }}
                 >
                   <DuckIcon 
-                    size={48} 
-                    className="text-orange-200 drop-shadow-[0_0_15px_rgba(251,146,60,0.5)] flex-shrink-0" 
+                    size={36} 
+                    className="text-yellow-300 drop-shadow-[0_0_10px_rgba(253,224,71,0.4)] flex-shrink-0" 
                   />
                   <span>powered by laurie ai</span>
                 </h2>
@@ -410,10 +413,10 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
+                  <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
                     because if ai can help people connect,
                   </p>
-                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
+                  <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
                     it should also help communities thrive.
                   </p>
                 </div>
@@ -441,25 +444,25 @@ const Mission = () => {
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
                       {/* Opening belief */}
-                      <div className="space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           laurie ai is built on a simple belief:
                         </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           tech should make us more human, not less.
                         </p>
                       </div>
 
                       {/* Vision statement */}
-                      <div className="space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           our long-term vision starts here in seattle, partnering with local nonprofits, educators, and community leaders to create purpose-built ai that serves real people and real needs.
                         </p>
                       </div>
 
                       {/* Hybrid model */}
-                      <div className="space-y-2">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           it's a hybrid model — a new way of building tech that's part business, part mission— where growth funds inclusion and innovation serves everyone.
                         </p>
                       </div>
@@ -468,25 +471,25 @@ const Mission = () => {
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
                       {/* Working with communities */}
-                      <div className="space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           as we grow, we'll work side-by-side with the people living the challenges we're trying to solve — teachers, social workers, caregivers, organizers — the ones who know what their communities really need.
                         </p>
                       </div>
 
                       {/* Partnership approach */}
-                      <div className="border-l-2 border-pink-400/40 pl-6 space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="border-l-2 border-pink-400/40 pl-6 space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           we'll bring the ai and resources.
                         </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           they'll bring the insight and lived experience.
                         </p>
                       </div>
 
                       {/* Building approach */}
-                      <div className="space-y-2">
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           together, we'll build ai that starts small, stays human, and moves with intention.
                         </p>
                       </div>
@@ -495,21 +498,21 @@ const Mission = () => {
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
                       {/* Closing statement */}
-                      <div className="border-l-2 border-coral-400/30 pl-6 space-y-3">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                      <div className="border-l-2 border-coral-400/30 pl-6 space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           <span className="font-semibold text-white">profit fuels purpose.</span>
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           <span className="font-semibold text-white">purpose drives connection.</span>
                         </p>
                       </div>
 
                       {/* Final statement */}
-                      <div className="space-y-2">
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           because when ai helps people connect,
                         </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
                           communities get stronger.
                         </p>
                       </div>
