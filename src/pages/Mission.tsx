@@ -78,7 +78,7 @@ const Mission = () => {
                 >
                   <Globe 
                     size={44} 
-                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0 animate-pulse" 
+                    className="text-orange-200 drop-shadow-[0_0_15px_rgba(251,146,60,0.5)] flex-shrink-0 animate-pulse" 
                   />
                   <span>our moment</span>
                 </h2>
@@ -400,7 +400,7 @@ const Mission = () => {
                 >
                   <DuckIcon 
                     size={48} 
-                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
+                    className="text-orange-200 drop-shadow-[0_0_15px_rgba(251,146,60,0.5)] flex-shrink-0" 
                   />
                   <span>powered by laurie ai</span>
                 </h2>
