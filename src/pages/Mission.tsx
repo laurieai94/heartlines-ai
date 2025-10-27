@@ -85,7 +85,7 @@ const Mission = () => {
                   ai is here.
                 </p>
                 <p className="text-xl md:text-xl text-white/95 font-semibold leading-relaxed">
-                  we can't stop it, and we can't ignore it.
+                  we can't stop it—and we can't ignore it.
                 </p>
                   </div>
                 </div>
@@ -116,29 +116,51 @@ const Mission = () => {
                         </div>
                       </div>
 
-                      <p className="text-base md:text-lg text-white/90 font-light leading-relaxed text-left">
-                        it's writing our emails, driving our cars, curating our feeds, even finishing our thoughts — shaping how we live, work, love, and connect.
+                      {/* Opening stanzas */}
+                      <div className="space-y-3 text-left">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          it's writing our emails.
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          driving our cars.
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          curating our feeds.
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          even finishing our thoughts.
+                        </p>
+                      </div>
+
+                      <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed text-left">
+                        it's changing how we live, work, love, and connect.
                       </p>
 
-                      {/* Conflict Section */}
+                      {/* The conflict */}
                       <div className="space-y-4 text-left">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          but somewhere between the progress and the code,<br />
-                          <span className="text-white font-semibold">we lost something.</span>
+                          but somewhere between the progress and the code, we lost something.
                         </p>
 
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          we built machines to talk like us,<br />
-                          while forgetting to listen to each other.
+                          we built machines to sound human—
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 font-semibold leading-loose">
+                          and forgot how to be.
                         </p>
 
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          technology promised connection.<br />
-                          instead, it left us scrolling for it —
+                          technology promised connection.
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          instead, it left us scrolling for it.
                         </p>
 
-                        <p className="text-base md:text-lg text-white/80 leading-loose italic">
-                          while the world around us grows more divided, more isolated, more disconnected.
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          the world feels louder.
+                        </p>
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          but somehow, lonelier.
                         </p>
                       </div>
 
@@ -149,19 +171,19 @@ const Mission = () => {
                         </div>
                       </div>
 
-                      {/* Call to Action */}
+                      {/* Call to action */}
                       <div className="space-y-3 text-left">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          so <span className="text-white font-semibold">this is our moment</span> —
+                          so this is our moment—
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          to build ai that <span className="text-white font-semibold">protects what's real.</span>
+                          to build ai that protects what's real.
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          to make <span className="text-white font-semibold">privacy sacred again.</span>
+                          to make privacy sacred again.
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          to make <span className="text-white font-semibold">community the center</span> of progress.
+                          to make community the center of progress.
                         </p>
                       </div>
 
@@ -178,14 +200,15 @@ const Mission = () => {
                           to build technology that remembers where it came from:
                         </p>
                         <p className="text-base md:text-lg text-white/80 italic leading-loose">
-                          from classrooms that taught us how to think for ourselves,
+                          classrooms that taught us to think,
                         </p>
                         <p className="text-base md:text-lg text-white/80 italic leading-loose">
-                          from kitchen tables where we learned to listen even when we disagreed,
+                          kitchen tables that taught us to listen,
                         </p>
                         <p className="text-base md:text-lg text-white/80 italic leading-loose">
-                          from communities where kindness still matters more than clicks.
+                          communities that taught us to care.
                         </p>
+                        
                         <div className="pt-4">
                           <p className="text-base md:text-lg text-white/90 leading-loose">
                             because progress means nothing
