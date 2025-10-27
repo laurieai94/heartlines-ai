@@ -315,7 +315,7 @@ const Auth = () => {
   return <div className="min-h-screen bg-burgundy-800 auth-page-scroll relative">
       <PremiumBackground />
 
-      <div className="relative z-10 min-h-screen lg:max-h-screen flex flex-col items-center justify-center overflow-y-auto py-3 sm:py-4">
+      <div className="relative z-10 min-h-screen lg:max-h-screen flex flex-col items-center justify-start sm:justify-center overflow-y-auto py-6 sm:py-4">
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
           <div className="w-full flex flex-col items-center space-y-3 sm:space-y-4 px-4 mb-3 sm:mb-6">
