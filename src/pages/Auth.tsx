@@ -439,7 +439,7 @@ const Auth = () => {
             </> : <>
           {!isSignUp && <div className="text-center mb-2 sm:mb-4">
             <PhoneLockup 
-              size="md"
+              size="lg"
               showTagline={true}
               className="mx-auto"
             />
