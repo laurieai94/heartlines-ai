@@ -263,7 +263,7 @@ const Mission = () => {
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
-                    heartlines is an ai relationship coach for modern love — the real kind. the complicated kind. the kind that lives in texts, dms, and long pauses over facetime.
+                    <span className="font-brand">heartlines</span> is an ai relationship coach for modern love — the real kind. the complicated kind. the kind that lives in texts, dms, and long pauses over facetime.
                   </p>
                 </div>
 
