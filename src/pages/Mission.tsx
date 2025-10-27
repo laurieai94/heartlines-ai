@@ -173,7 +173,7 @@ const Mission = () => {
 
                       {/* Call to action */}
                       <div className="space-y-3 text-left">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-semibold leading-loose">
                           so this is our moment—
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
