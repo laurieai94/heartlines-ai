@@ -96,7 +96,7 @@ const Mission = () => {
                   ai is here.
                 </p>
               <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
-                we can't stop it—and we can't ignore it.
+                we can't stop it — and we can't ignore it.
               </p>
                   </div>
                 </div>
