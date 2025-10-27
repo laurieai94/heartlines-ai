@@ -441,7 +441,7 @@ const Auth = () => {
             <PhoneLockup 
               size="lg"
               showTagline={true}
-              className="mx-auto"
+              className="mx-auto w-40 sm:w-[305px] md:w-[349px]"
             />
           </div>}
 
