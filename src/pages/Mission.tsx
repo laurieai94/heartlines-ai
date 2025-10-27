@@ -33,26 +33,30 @@ const Mission = () => {
         
         <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
-          <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
-              <h1 
-                className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in"
-                style={{
-                  animationDelay: '0.2s',
-                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-                }}
-              >
-                our why
-              </h1>
-            <div className="flex items-center gap-2 mt-2 ml-[85px] md:ml-[135px] lg:ml-[195px] xl:ml-[280px]">
-            <span className="font-brand text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
+        <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
+          <div className="relative inline-block">
+            <h1 
+              className="font-brand text-6xl md:text-7xl lg:text-8xl 2xl:text-9xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in"
               style={{
+                animationDelay: '0.2s',
                 textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-              }}>
-              powered by laurie ai
-            </span>
+              }}
+            >
+              our why
+            </h1>
+            
+            {/* Position duck + text below, aligned with "y" in "why" */}
+            <div className="flex items-center gap-2 mt-2 ml-[72%] md:ml-[72%] lg:ml-[72%]">
               <DuckIcon className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-orange-200" />
+              <span className="font-brand text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider whitespace-nowrap"
+                style={{
+                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                }}>
+                powered by laurie ai
+              </span>
             </div>
-          </section>
+          </div>
+        </section>
 
 
           {/* 1.5. Our Moment */}
