@@ -92,8 +92,7 @@ export default {
 					700: 'hsl(var(--burgundy-700))',
 					800: 'hsl(var(--burgundy-800))',
 					900: 'hsl(var(--burgundy-900))',
-				},
-				warmWhite: '#FAF9F7',
+				}
 			},
 			fontFamily: {
 				serif: ['Crimson Text', 'Georgia', 'Times New Roman', 'serif'],
