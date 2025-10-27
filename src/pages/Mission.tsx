@@ -267,10 +267,10 @@ const Mission = () => {
                 {/* Preview content - always visible */}
         <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
           <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
-            The AI relationship coach for modern, messy love.
+            the ai relationship coach for modern, messy love.
           </p>
           <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-            Built for the late-night texts, the "can we talk?" moments, and everything that makes love complicated and worth it.
+            built for the late-night texts, the "can we talk?" moments, and everything that makes love complicated and worth it.
           </p>
         </div>
 
@@ -310,7 +310,7 @@ const Mission = () => {
                       {/* Powered by Laurie AI */}
                       <div>
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          powered by laurie ai, heartlines helps you slow down, reflect, and understand yourself, before the distance, defensiveness, or silence sets in.
+                          powered by laurie ai, <span className="font-brand">heartlines</span> helps you slow down, reflect, and understand yourself, before the distance, defensiveness, or silence sets in.
                         </p>
                       </div>
 
@@ -410,12 +410,12 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-            <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
-              <span className="font-brand">heartlines</span> is built by laurie ai
-            </p>
-            <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
-              ai for stronger relationships and stronger communities.
-            </p>
+                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
+                    because if ai can help people connect,
+                  </p>
+                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
+                    it should also help communities thrive.
+                  </p>
                 </div>
 
                 {/* Collapsible full content */}
@@ -440,59 +440,54 @@ const Mission = () => {
                       {/* Decorative gradient divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* Opening statement */}
+                      {/* Opening belief */}
                       <div className="space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          laurie ai runs on a <span className="font-semibold text-white">simple idea</span>:
+                          laurie ai is built on a simple belief:
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          if ai can help people connect, it should also help communities thrive.
+                          tech should make us more human, not less.
                         </p>
                       </div>
 
-                      {/* Business model explanation */}
+                      {/* Vision statement */}
                       <div className="space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          we're building that vision here in <span className="font-semibold text-white">seattle</span>, starting in the neighborhoods where we live and work — partnering with local nonprofits, educators, and community orgs to create purpose-built ai for the people who need it most.
+                          our long-term vision starts here in seattle, partnering with local nonprofits, educators, and community leaders to create purpose-built ai that serves real people and real needs.
                         </p>
                       </div>
 
                       {/* Hybrid model */}
                       <div className="space-y-2">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          it's a <span className="font-semibold text-white">hybrid model — part business, part mission</span> —
-                        </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          proving that tech can drive growth and give back.
+                          it's a hybrid model — a new way of building tech that's part business, part mission— where growth funds inclusion and innovation serves everyone.
                         </p>
                       </div>
 
                       {/* Decorative gradient divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* How we work */}
+                      {/* Working with communities */}
                       <div className="space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          we work directly with people who live the problems we're solving:
-                        </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          teachers, social workers, caregivers, and organizers
-                        </p>
-                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          who know what their communities actually need.
+                          as we grow, we'll work side-by-side with the people living the challenges we're trying to solve — teachers, social workers, caregivers, organizers — the ones who know what their communities really need.
                         </p>
                       </div>
 
                       {/* Partnership approach */}
                       <div className="border-l-2 border-pink-400/40 pl-6 space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          we bring the technology and resources.
+                          we'll bring the ai and resources.
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          they bring the insight and lived experience.
+                          they'll bring the insight and lived experience.
                         </p>
+                      </div>
+
+                      {/* Building approach */}
+                      <div className="space-y-2">
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          together, we build ai that starts small — <span className="font-semibold text-white">human, local, intentional.</span>
+                          together, we'll build ai that starts small, stays human, and moves with intention.
                         </p>
                       </div>
 
@@ -502,10 +497,17 @@ const Mission = () => {
                       {/* Closing statement */}
                       <div className="border-l-2 border-coral-400/30 pl-6 space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          <span className="font-semibold text-white">profit fuels purpose. purpose drives connection.</span>
+                          <span className="font-semibold text-white">profit fuels purpose.</span>
                         </p>
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          <span className="font-semibold text-white">purpose drives connection.</span>
+                        </p>
+                      </div>
+
+                      {/* Final statement */}
+                      <div className="space-y-2">
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          when ai helps people connect,
+                          because when ai helps people connect,
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
                           communities get stronger.
