@@ -293,22 +293,62 @@ const Mission = () => {
                     {/* Single-column content layout */}
               <div className="max-w-2xl mx-auto space-y-5 mt-6 text-left">
                 {/* Opening - what heartlines is */}
-                <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                  <span className="font-brand">heartlines</span> is built for <span className="text-white/95 font-medium">the messy middle</span>:
-                </p>
-                <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                  the quiet after a fight, the unread message, the "i miss you but don't know what to say" moments that hit before logic does.
-                </p>
+                <div className="space-y-2">
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <span className="font-brand">heartlines</span> is built for <span className="text-white/95 font-medium">the messy middle</span>:
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    the quiet after a fight,
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    the unread message,
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    the "i miss you but don't know what to say"
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    that hits before logic does.
+                  </p>
+                </div>
 
                 {/* What it does - Powered by Laurie AI */}
-                <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                  powered by laurie ai, it helps you slow down, make sense of what you feel, find the words before they get lost, and understand what's really going on between you and the people you care about.
-                </p>
+                <div className="space-y-3">
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    powered by laurie ai,
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    it helps you slow down.
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    make sense of what you feel.
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    find the words before they get lost.
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    understand what's really going on
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    between you and the people you care about.
+                  </p>
+                </div>
 
                 {/* Kai section */}
-                <div className="border-l-2 border-coral-400/50 pl-6 space-y-3 transition-all duration-300 hover:border-coral-400/70 hover:translate-x-1">
+                <div className="border-l-2 border-coral-400/50 pl-6 space-y-2 transition-all duration-300 hover:border-coral-400/70 hover:translate-x-1">
                   <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                    with kai, your ai relationship coach, you can unpack what happened, see your patterns, and learn how to communicate without losing yourself.
+                    with kai, your ai relationship coach,
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    you can unpack what happened,
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    see your patterns,
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    and learn how to communicate
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    without losing yourself.
                   </p>
                 </div>
 
@@ -333,15 +373,21 @@ const Mission = () => {
                   <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                     every conversation is private and encrypted.
                   </p>
-                  <p className="text-sm md:text-base text-white/80 font-light leading-relaxed">
-                    no tracking. no selling your emotions. just real talk, built on trust.
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    no tracking. no selling your emotions.
+                  </p>
+                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    just real talk built on trust.
                   </p>
                 </div>
 
                 {/* Closing statement */}
-                <div className="border-l-2 border-peach-400/40 pl-6 transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
+                <div className="border-l-2 border-peach-400/40 pl-6 space-y-2 transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
                   <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
-                    because real intimacy isn't about being perfect, it's about being understood.
+                    because true intimacy lives in the quiet moments
+                  </p>
+                  <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+                    we let ourselves be known.
                   </p>
                 </div>
               </div>
