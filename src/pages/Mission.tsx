@@ -339,21 +339,19 @@ const Mission = () => {
                   </p>
                 </div>
 
-                {/* What it's not */}
-                <div className="space-y-5">
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                    it's not therapy.
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                    it's not another app to scroll through.
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                    it's not a place to perform.
-                  </p>
-                  <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
-                    it's where you figure out love while you're still feeling it.
-                  </p>
-                </div>
+            {/* What it's not */}
+            <div className="space-y-3 text-left">
+              <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                it's not therapy.
+                <br />
+                it's not another app to scroll through.
+                <br />
+                it's not a place to perform.
+              </p>
+              <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+                it's where you figure out love while you're still feeling it.
+              </p>
+            </div>
 
                 {/* Privacy section */}
                 <div className="space-y-3 text-left">
