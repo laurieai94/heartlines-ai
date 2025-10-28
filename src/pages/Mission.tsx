@@ -128,21 +128,6 @@ const Mission = () => {
                         </div>
                       </div>
 
-                      {/* Opening stanzas - what AI is doing */}
-                      <div className="space-y-3 text-left">
-                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          it types with us,
-                          <br />
-                          talks to us,
-                          <br />
-                          thinks for us —
-                          <br />
-                          and sometimes,
-                          <br />
-                          instead of us.
-                        </p>
-                      </div>
-
                       {/* Second stanza - AI's actions */}
                       <div className="space-y-3 text-left">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
@@ -153,15 +138,6 @@ const Mission = () => {
                           curates our feeds.
                           <br />
                           finishes our thoughts.
-                        </p>
-                      </div>
-
-                      {/* Transition line */}
-                      <div className="space-y-3 text-left mt-5">
-                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          every click feels like progress
-                          <br />
-                          until we notice what slipped away.
                         </p>
                       </div>
 
