@@ -92,10 +92,10 @@ const Mission = () => {
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
-                <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   ai is here.
                 </p>
-              <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                 we can't stop it — and we can't ignore it.
               </p>
                   </div>
@@ -130,88 +130,88 @@ const Mission = () => {
 
                       {/* Opening stanzas */}
                       <div className="space-y-4 text-left">
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           it's writing our emails.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           driving our cars.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           curating our feeds.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           even finishing our thoughts.
                         </p>
                       </div>
 
-                      <p className="text-xl md:text-2xl text-white/95 font-semibold leading-loose text-left">
+                      <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose text-left">
                         it's changing how we live, work, love, and connect.
                       </p>
 
                       {/* The conflict */}
                       <div className="space-y-4 text-left">
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           but somewhere between <span className="text-white/95 font-medium">the progress and the code</span>, we lost something.
                         </p>
 
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           we built machines to sound human—
                         </p>
-                        <p className="text-xl md:text-2xl text-white/95 font-semibold leading-loose">
+                        <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose">
                           and forgot how to be.
                         </p>
 
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           technology promised connection.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           instead, it left us scrolling for it.
                         </p>
 
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           the world feels louder.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           but somehow, <span className="text-white/95 font-medium">lonelier</span>.
                         </p>
                       </div>
 
                       {/* Call to action */}
                       <div className="space-y-4 text-left">
-                        <p className="text-xl md:text-2xl text-white/95 font-semibold leading-loose">
+                        <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose">
                           so this is our moment—
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           to build ai that protects what's real.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           to make privacy sacred again.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           to make community the center of progress.
                         </p>
                       </div>
 
                       {/* Vision Section */}
                       <div className="border-l-2 border-rose-400/50 pl-6 space-y-4 text-left transition-all duration-300 hover:border-rose-400/70 hover:translate-x-1">
-                        <p className="text-xl md:text-2xl text-white/90 leading-loose">
+                        <p className="text-base md:text-lg text-white/90 leading-loose">
                           to build technology that remembers where it came from:
                         </p>
-                        <p className="text-xl md:text-2xl text-white/80 italic leading-loose">
+                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
                           classrooms that taught us to think,
                         </p>
-                        <p className="text-xl md:text-2xl text-white/80 italic leading-loose">
+                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
                           kitchen tables that taught us to listen,
                         </p>
-                        <p className="text-xl md:text-2xl text-white/80 italic leading-loose">
+                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
                           communities that taught us to care.
                         </p>
                         
                         <div className="pt-4">
-                          <p className="text-xl md:text-2xl text-white/95 font-medium leading-loose">
+                          <p className="text-lg md:text-xl text-white/95 font-medium leading-loose">
                             because progress means nothing
                           </p>
-                          <p className="text-xl md:text-2xl text-white/95 font-medium leading-loose">
+                          <p className="text-lg md:text-xl text-white/95 font-medium leading-loose">
                             if it forgets the people it was meant to serve.
                           </p>
                         </div>
@@ -256,10 +256,10 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
         <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-                <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   the ai relationship coach for messy, modern love.
                 </p>
-                <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
+                <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                   for the dms, the late-night texts, and the "can we talk?" moments that make love complicated and real.
                 </p>
         </div>
@@ -286,54 +286,54 @@ const Mission = () => {
                     {/* Single-column content layout */}
               <div className="max-w-2xl mx-auto space-y-6 mt-8 text-left">
                 {/* Opening - what heartlines is */}
-                <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                   <span className="font-brand">heartlines</span> is built for <span className="text-white/95 font-medium">the messy middle</span>:
                 </p>
-                <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                   the quiet after a fight, the unread message, the "i miss you but don't know what to say" moments that hit before logic does.
                 </p>
 
                 {/* What it does - Powered by Laurie AI */}
-                <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                   powered by laurie ai, it helps you slow down, make sense of what you feel, find the words before they get lost, and understand what's really going on between you and the people you care about.
                 </p>
 
                 {/* Kai section */}
                 <div className="border-l-2 border-coral-400/50 pl-6 space-y-4 transition-all duration-300 hover:border-coral-400/70 hover:translate-x-1">
-                  <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                  <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                     with kai, your ai relationship coach, you can unpack what happened, see your patterns, and learn how to communicate without losing yourself.
                   </p>
                 </div>
 
                 {/* What it's not */}
                 <div className="space-y-6">
-                  <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                  <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                     it's not therapy.
                   </p>
-                  <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                  <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                     it's not another app to scroll through.
                   </p>
-                  <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                  <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                     it's not a place to perform.
                   </p>
-                  <p className="text-xl md:text-2xl text-white/95 font-medium leading-loose">
+                  <p className="text-lg md:text-xl text-white/95 font-medium leading-loose">
                     it's where you figure out love while you're still feeling it.
                   </p>
                 </div>
 
                 {/* Privacy section */}
                 <div className="space-y-4">
-                  <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                  <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                     every conversation is private and encrypted.
                   </p>
-                  <p className="text-xl md:text-2xl text-white/80 font-light leading-loose">
+                  <p className="text-base md:text-lg text-white/80 font-light leading-loose">
                     no tracking. no selling your emotions. just real talk, built on trust.
                   </p>
                 </div>
 
                 {/* Closing statement */}
                 <div className="border-l-2 border-peach-400/40 pl-6 transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
-                  <p className="text-xl md:text-2xl text-white/95 font-medium leading-loose">
+                  <p className="text-lg md:text-xl text-white/95 font-medium leading-loose">
                     because real intimacy isn't about being perfect, it's about being understood.
                   </p>
                 </div>
@@ -379,10 +379,10 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-              <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                 laurie ai starts on a simple belief:
               </p>
-              <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                 stronger relationships build stronger communities.
               </p>
                 </div>
@@ -409,61 +409,61 @@ const Mission = () => {
                     <div className="max-w-2xl mx-auto space-y-6 mt-8">
                       {/* Seattle vision */}
                       <div className="space-y-4">
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           we're building toward that vision here in seattle,
                         </p>
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           planning to partner with people who make a difference every day: nonprofits, teachers, caregivers, organizers.
                         </p>
                       </div>
 
                       {/* Partnership approach */}
                       <div className="border-l-2 border-pink-400/50 pl-6 space-y-4 transition-all duration-300 hover:border-pink-400/70 hover:translate-x-1">
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           they bring lived experience.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/80 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/80 font-light leading-loose">
                           we bring tech and resources.
                         </p>
                       </div>
 
                       {/* Building approach */}
                       <div className="space-y-4">
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           together, we're creating ai that <span className="text-white/95 font-medium">starts small, stays human, and moves with intention</span>.
                         </p>
                       </div>
 
                       {/* Core principles */}
                       <div className="space-y-4">
-                        <p className="text-xl md:text-2xl text-white/95 font-medium leading-loose">
+                        <p className="text-lg md:text-xl text-white/95 font-medium leading-loose">
                           growth fuels inclusion.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/95 font-medium leading-loose">
+                        <p className="text-lg md:text-xl text-white/95 font-medium leading-loose">
                           purpose drives connection.
                         </p>
                       </div>
 
                       {/* AI's role */}
                       <div className="space-y-4">
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           when ai helps people connect, it doesn't erase our differences, it helps us understand them.
                         </p>
                       </div>
 
                       {/* Community vision */}
                       <div className="border-l-2 border-coral-400/40 pl-6 space-y-4 transition-all duration-300 hover:border-coral-400/60 hover:translate-x-1">
-                        <p className="text-xl md:text-2xl text-white/90 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
                           it builds communities where we can disagree and still listen, care, and show up for each other.
                         </p>
-                        <p className="text-xl md:text-2xl text-white/80 font-light leading-loose">
+                        <p className="text-base md:text-lg text-white/80 font-light leading-loose">
                           communities that are compassionate, collaborative, and still beautifully complex.
                         </p>
                       </div>
 
                       {/* Final vision */}
                       <div className="space-y-4">
-                        <p className="text-xl md:text-2xl text-white/95 font-medium leading-loose">
+                        <p className="text-lg md:text-xl text-white/95 font-medium leading-loose">
                           that's the future we're building, where ai doesn't replace what's human, it strengthens it.
                         </p>
                       </div>
