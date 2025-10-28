@@ -269,12 +269,12 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
         <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-          <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
-            the ai relationship coach for modern, messy love.
-          </p>
-          <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
-            built for the late-night texts, the "can we talk?" moments, and everything that makes love complicated and worth it.
-          </p>
+                <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+                  love doesn't wait for your next therapy session.
+                </p>
+                <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
+                  it happens in dms, in long voice memos, in the quiet after a fight when you don't know what to say.
+                </p>
         </div>
 
                 {/* Collapsible full content */}
@@ -296,40 +296,21 @@ const Mission = () => {
                   
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                     {/* Single-column content layout */}
-                    <div className="max-w-2xl mx-auto space-y-6 mt-8">
-                      {/* Decorative gradient divider */}
-                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+                    <div className="max-w-2xl mx-auto space-y-6 mt-8 text-left">
+                      {/* Opening - what heartlines is */}
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                        <span className="font-brand">heartlines</span> is built for that space, the messy middle where emotions hit before logic does.
+                      </p>
 
-                      {/* Opening statement */}
-                      <div className="space-y-4">
-                        <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose">
-                          it's built for the messy middle:
-                        </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          the late-night "are we okay?" talks, the post-fight spirals, the "i miss you but don't know what to say" moments that can't wait for therapy hours.
-                        </p>
-                      </div>
-
-                      {/* Powered by Laurie AI */}
-                      <div>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          powered by laurie ai, <span className="font-brand">heartlines</span> helps you slow down, reflect, and understand yourself, before the distance, defensiveness, or silence sets in.
-                        </p>
-                      </div>
+                      {/* What it does - Powered by Laurie AI */}
+                      <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                        powered by laurie ai, it helps you slow down, make sense of what you feel, find the words before they get lost, and actually understand what's going on between you and the people you care about.
+                      </p>
 
                       {/* Kai section */}
                       <div className="border-l-2 border-coral-400/40 pl-6 space-y-4">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          with kai, your ai relationship coach,
-                        </p>
-                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          you can unpack what happened,
-                        </p>
-                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          see your patterns,
-                        </p>
-                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          and learn how to communicate without losing yourself.
+                          with kai, your ai relationship coach, you can break down what happened, spot your patterns, and learn how to communicate without shutting down.
                         </p>
                       </div>
 
@@ -339,36 +320,33 @@ const Mission = () => {
                           it's not therapy.
                         </p>
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          it's not another dating app.
-                        </p>
-                        <p className="text-lg md:text-xl text-white/95 font-semibold leading-loose">
-                          it's the space in between —
+                          it's not another app to scroll through.
                         </p>
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          where you make sense of love while you're still feeling it.
+                          it's a space to figure yourself out while you're still in the middle of it all.
                         </p>
                       </div>
 
-                      {/* Decorative gradient divider */}
+                      {/* Divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* Privacy */}
+                      {/* Privacy section */}
                       <div className="space-y-4">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
                           every conversation is private and encrypted.
                         </p>
                         <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          no tracking. no selling your emotions. just space to be honest.
+                          no tracking. no selling your emotions. just real talk, built on trust.
                         </p>
                       </div>
 
-                      {/* Decorative gradient divider */}
+                      {/* Divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
                       {/* Closing statement */}
-                      <div className="border-l-2 border-peach-400/30 pl-6 space-y-4">
+                      <div className="border-l-2 border-peach-400/30 pl-6">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          because real intimacy starts with understanding — and love feels a lot better when you know yourself in it.
+                          because real intimacy isn't about being perfect, it's about being understood.
                         </p>
                       </div>
                     </div>
