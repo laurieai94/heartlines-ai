@@ -348,7 +348,7 @@ const Mission = () => {
                 <br />
                 it's not a place to perform.
               </p>
-              <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+              <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
                 it's where you figure out love while you're still feeling it.
               </p>
             </div>
@@ -366,7 +366,7 @@ const Mission = () => {
 
                 {/* Closing statement */}
                 <div className="border-l-2 border-peach-400/40 pl-6 space-y-3 text-left transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
-                  <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+                  <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
                     because true intimacy lives in the quiet moments
                     <br />
                     we let ourselves be known.
