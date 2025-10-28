@@ -707,13 +707,13 @@ const LandingPage = ({
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     kai helps you understand yourself<br />
-                    and show up with heart —<br />
+                    and show up with heart<br />
                     for the people who matter<br />
                     and the moments that can't wait.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    because love is work.<br />
+                    love is work.<br />
                     kai helps you do it well.<br />
                     one honest chat at a time.
                   </p>
