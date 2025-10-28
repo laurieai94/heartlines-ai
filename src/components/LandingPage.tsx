@@ -694,17 +694,28 @@ const LandingPage = ({
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     built for the way we love —<br />
-                    through texts, apps, time zones,<br />
-                    and moments that can't wait.
+                    through late-night texts, shared playlists,<br />
+                    time zones, hard talks,<br />
+                    in half-typed messages, quiet forgiveness,<br />
+                    and the courage to keep showing up.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    rooted in research. guided by empathy.<br />
-                    made for real life.
+                    built on research. powered by empathy.<br />
+                    made for the real.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                    born from science and heart, kai helps you feel understood, supported, and more connected to yourself and the people who matter most — one honest chat at a time.
+                    kai helps you understand yourself<br />
+                    and show up with heart —<br />
+                    for the people who matter<br />
+                    and the moments that can't wait.
+                  </p>
+                  
+                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                    because love is work.<br />
+                    kai helps you do it well.<br />
+                    one honest chat at a time.
                   </p>
                 </div>
                 
