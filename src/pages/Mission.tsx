@@ -128,122 +128,100 @@ const Mission = () => {
                         </div>
                       </div>
 
-                      {/* Opening stanzas */}
-                      <div className="space-y-4 text-left">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          it types with us.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          talks to us.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          thinks for us
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
+                      {/* Opening stanzas - what AI is doing */}
+                      <div className="space-y-3 text-left">
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          it types with us,
+                          <br />
+                          talks to us,
+                          <br />
+                          thinks for us —
+                          <br />
                           and sometimes,
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
+                          <br />
                           instead of us.
                         </p>
                       </div>
 
-                      <div className="space-y-4 text-left">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          it writes our emails,
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          drives our cars,
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          curates our feeds,
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
+                      {/* Second stanza - AI's actions */}
+                      <div className="space-y-3 text-left">
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          it writes our emails.
+                          <br />
+                          drives our cars.
+                          <br />
+                          curates our feeds.
+                          <br />
                           finishes our thoughts.
                         </p>
                       </div>
 
-                      <div className="space-y-4 text-left">
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          it's changing how we live,
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          how we work,
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 font-light leading-loose">
-                          how we love.
+                      {/* Transition line */}
+                      <div className="space-y-3 text-left mt-5">
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          every click feels like progress
+                          <br />
+                          until we notice what slipped away.
                         </p>
                       </div>
 
-                      {/* The conflict */}
-                      <div className="space-y-4 text-left">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          but somewhere between progress and code
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          we lost something.
-                        </p>
-
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                      {/* The conflict section - simplified */}
+                      <div className="space-y-3 text-left mt-5">
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           we built machines to sound human,
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          <br />
                           and forgot how to be.
                         </p>
 
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           technology promised connection.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          instead, it left us scrolling for it.
+                          <br />
+                          but left us scrolling for it.
                         </p>
 
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          the world got louder.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          and somehow, <span className="text-white/95 font-medium">lonelier</span>.
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          the world grew faster,
+                          <br />
+                          brighter,
+                          <br />
+                          louder
+                          <br />
+                          and somehow, lonelier.
                         </p>
                       </div>
 
-                      {/* Call to action */}
-                      <div className="space-y-4 text-left">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          so this is our moment,
+                      {/* Call to action - simplified */}
+                      <div className="space-y-3 text-left mt-5">
+                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
+                          this is our moment.
                         </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                        
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           to build ai that protects what's real.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          <br />
                           to make privacy sacred again.
-                        </p>
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
+                          <br />
                           to put community back at the center of progress.
                         </p>
                       </div>
 
-                      {/* Vision Section */}
-                      <div className="border-l-2 border-rose-400/50 pl-6 space-y-4 text-left transition-all duration-300 hover:border-rose-400/70 hover:translate-x-1">
-                        <p className="text-base md:text-lg text-white/90 leading-loose">
-                          to remember where technology began:
+                      {/* Vision section with border */}
+                      <div className="space-y-3 text-left mt-5 pl-4 border-l-2 border-rose-300/30 transition-all duration-300 hover:border-rose-400/70 hover:translate-x-1">
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          to design technology that remembers where it came from:
+                          <br />
+                          <span className="italic text-white/95 font-medium">classrooms that taught us to think,</span>
+                          <br />
+                          <span className="italic text-white/95 font-medium">kitchen tables that taught us to listen,</span>
+                          <br />
+                          <span className="italic text-white/95 font-medium">communities that taught us to care.</span>
                         </p>
-                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
-                          in classrooms that taught us to think,
+
+                        <p className="text-sm md:text-base text-white/95 font-medium leading-relaxed pt-2">
+                          because progress means nothing
+                          <br />
+                          if it forgets the people it was meant to serve.
                         </p>
-                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
-                          kitchen tables that taught us to listen,
-                        </p>
-                        <p className="text-base md:text-lg text-white/80 italic leading-loose">
-                          communities that taught us to care.
-                        </p>
-                        
-                        <div className="pt-4">
-                          <p className="text-base md:text-lg text-white/90 leading-loose">
-                            because progress means nothing
-                          </p>
-                          <p className="text-base md:text-lg text-white/90 leading-loose">
-                            if it forgets the people it was meant to serve.
-                          </p>
-                        </div>
                       </div>
 
                     </div>
