@@ -81,8 +81,8 @@ export const DataFlowCards = () => {
           <h2 className="font-brand text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent">
             how your data flows
           </h2>
-          <p className="text-xl text-coral-100/80 max-w-3xl mx-auto">
-            from the moment you type to when it's stored or deleted - complete transparency into your data's journey
+          <p className="font-brand text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent max-w-3xl mx-auto">
+            from the moment you type to when it's stored or deleted
           </p>
         </div>
 
