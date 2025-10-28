@@ -419,11 +419,10 @@ const Mission = () => {
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                     <div className="max-w-2xl mx-auto space-y-5 mt-6">
                       {/* Seattle vision */}
-                      <div className="space-y-3">
+                      <div className="space-y-3 text-left">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           we're building toward that vision here in seattle,
-                        </p>
-                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          <br />
                           planning to partner with people who make a difference every day: nonprofits, teachers, caregivers, organizers.
                         </p>
                       </div>
@@ -432,9 +431,8 @@ const Mission = () => {
                       <div className="border-l-2 border-pink-400/50 pl-6 space-y-3 transition-all duration-300 hover:border-pink-400/70 hover:translate-x-1">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           they bring lived experience.
-                        </p>
-                        <p className="text-sm md:text-base text-white/80 font-light leading-relaxed">
-                          we bring tech and resources.
+                          <br />
+                          <span className="text-white/80">we bring tech and resources.</span>
                         </p>
                       </div>
 
@@ -446,11 +444,10 @@ const Mission = () => {
                       </div>
 
                       {/* Core principles */}
-                      <div className="space-y-3">
+                      <div className="space-y-3 text-left">
                         <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
                           growth fuels inclusion.
-                        </p>
-                        <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+                          <br />
                           purpose drives connection.
                         </p>
                       </div>
@@ -466,9 +463,8 @@ const Mission = () => {
                       <div className="border-l-2 border-coral-400/40 pl-6 space-y-3 transition-all duration-300 hover:border-coral-400/60 hover:translate-x-1">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           it builds communities where we can disagree and still listen, care, and show up for each other.
-                        </p>
-                        <p className="text-sm md:text-base text-white/80 font-light leading-relaxed">
-                          communities that are compassionate, collaborative, and still beautifully complex.
+                          <br />
+                          <span className="text-white/80">communities that are compassionate, collaborative, and still beautifully complex.</span>
                         </p>
                       </div>
 
