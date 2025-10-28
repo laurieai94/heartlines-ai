@@ -400,12 +400,12 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-                  <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
-                    because if ai can help people connect,
-                  </p>
-                  <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
-                    it should also help communities thrive.
-                  </p>
+              <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+                laurie ai starts on a simple belief:
+              </p>
+              <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
+                stronger relationships build stronger communities.
+              </p>
                 </div>
 
                 {/* Collapsible full content */}
@@ -427,80 +427,76 @@ const Mission = () => {
                   
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                     <div className="max-w-2xl mx-auto space-y-6 mt-8">
-                      {/* Decorative gradient divider */}
-                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
-
-                      {/* Opening belief */}
+                      {/* Seattle vision */}
                       <div className="space-y-4">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          laurie ai is built on a simple belief:
+                          we're building toward that vision here in seattle,
                         </p>
-                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          tech should make us more human, not less.
-                        </p>
-                      </div>
-
-                      {/* Vision statement */}
-                      <div className="space-y-4">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          our long-term vision starts here in seattle, partnering with local nonprofits, educators, and community leaders to create purpose-built ai that serves real people and real needs.
-                        </p>
-                      </div>
-
-                      {/* Hybrid model */}
-                      <div className="space-y-4">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          it's a hybrid model — a new way of building tech that's part business, part mission— where growth funds inclusion and innovation serves everyone.
+                          planning to partner with people who make a difference every day: nonprofits, teachers, caregivers, organizers.
                         </p>
                       </div>
 
                       {/* Decorative gradient divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
-
-                      {/* Working with communities */}
-                      <div className="space-y-4">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          as we grow, we'll work side-by-side with the people living the challenges we're trying to solve — teachers, social workers, caregivers, organizers — the ones who know what their communities really need.
-                        </p>
-                      </div>
 
                       {/* Partnership approach */}
                       <div className="border-l-2 border-pink-400/40 pl-6 space-y-4">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          we'll bring the ai and resources.
+                          they bring lived experience.
                         </p>
                         <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          they'll bring the insight and lived experience.
+                          we bring tech and resources.
                         </p>
                       </div>
 
                       {/* Building approach */}
                       <div className="space-y-4">
-                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          together, we'll build ai that starts small, stays human, and moves with intention.
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                          together, we're creating ai that starts small, stays human, and moves with intention.
                         </p>
                       </div>
 
                       {/* Decorative gradient divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* Closing statement */}
-                      <div className="border-l-2 border-coral-400/30 pl-6 space-y-4">
+                      {/* Core principles */}
+                      <div className="space-y-4">
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          <span className="font-semibold text-white">profit fuels purpose.</span>
+                          growth fuels inclusion.
                         </p>
                         <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          <span className="font-semibold text-white">purpose drives connection.</span>
+                          purpose drives connection.
                         </p>
                       </div>
 
-                      {/* Final statement */}
+                      {/* Decorative gradient divider */}
+                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                      {/* AI's role */}
                       <div className="space-y-4">
-                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          because when ai helps people connect,
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                          when ai helps people connect, it doesn't erase our differences, it helps us understand them.
+                        </p>
+                      </div>
+
+                      {/* Community vision */}
+                      <div className="border-l-2 border-coral-400/30 pl-6 space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                          it builds communities where we can disagree and still listen, care, and show up for each other.
                         </p>
                         <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          communities get stronger.
+                          communities that are compassionate, collaborative, and still beautifully complex.
+                        </p>
+                      </div>
+
+                      {/* Decorative gradient divider */}
+                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                      {/* Final vision */}
+                      <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                          that's the future we're building, where ai doesn't replace what's human, it strengthens it.
                         </p>
                       </div>
                     </div>
