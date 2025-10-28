@@ -103,7 +103,7 @@ const PrivacySecurity = () => {
               your privacy, <br className="hidden lg:inline" />your control
             </h1>
             <p className="text-xl lg:text-2xl text-coral-100/80 mb-4">we're obsessed with protecting your conversations and data.</p>
-            <p className="text-xl lg:text-2xl text-coral-100/80 mb-8">here's exactly how we do it.</p>
+            <p className="text-xl lg:text-2xl text-coral-100/80 mb-2">here's exactly how we do it.</p>
           </div>
         </section>
 
