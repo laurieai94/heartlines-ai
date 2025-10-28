@@ -5,6 +5,7 @@ import SimpleHeader from "@/components/SimpleHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { Helmet } from "react-helmet";
+import PremiumBackground from "@/components/PremiumBackground";
 
 const Terms = () => {
   const { user } = useAuth();
@@ -20,8 +21,9 @@ const Terms = () => {
         <meta name="description" content="read the terms of service for using heartlines ai-powered relationship coaching platform." />
       </Helmet>
       
-      <div className="min-h-screen bg-burgundy-800 flex flex-col landing-page-scroll">
-        <SimpleHeader 
+      <div className="min-h-screen bg-burgundy-800 flex flex-col landing-page-scroll relative">
+        <PremiumBackground />
+        <SimpleHeader
           user={user}
           activeTab="home"
           onSignInClick={handleSignInClick}
@@ -35,7 +37,14 @@ const Terms = () => {
                 <FileText className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold questionnaire-text mb-4">terms of service</h1>
+          <h1 
+            className="text-5xl md:text-6xl lg:text-7xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
+            style={{
+              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+            }}
+          >
+            terms of service
+          </h1>
             <p className="text-lg questionnaire-text-muted">
               last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
