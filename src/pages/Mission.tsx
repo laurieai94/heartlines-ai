@@ -293,61 +293,48 @@ const Mission = () => {
                     {/* Single-column content layout */}
               <div className="max-w-2xl mx-auto space-y-5 mt-6 text-left">
                 {/* Opening - what heartlines is */}
-                <div className="space-y-2">
+                <div className="space-y-3 text-left">
                   <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                     <span className="font-brand">heartlines</span> is built for <span className="text-white/95 font-medium">the messy middle</span>:
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     the quiet after a fight,
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     the unread message,
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     the "i miss you but don't know what to say"
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     that hits before logic does.
                   </p>
                 </div>
 
                 {/* What it does - Powered by Laurie AI */}
-                <div className="space-y-3">
+                <div className="space-y-3 text-left">
                   <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                     powered by laurie ai,
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     it helps you slow down.
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     make sense of what you feel.
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     find the words before they get lost.
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     understand what's really going on
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     between you and the people you care about.
                   </p>
                 </div>
 
                 {/* Kai section */}
-                <div className="border-l-2 border-coral-400/50 pl-6 space-y-2 transition-all duration-300 hover:border-coral-400/70 hover:translate-x-1">
+                <div className="border-l-2 border-coral-400/50 pl-6 space-y-3 text-left transition-all duration-300 hover:border-coral-400/70 hover:translate-x-1">
                   <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                     with kai, your ai relationship coach,
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     you can unpack what happened,
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     see your patterns,
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     and learn how to communicate
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     without losing yourself.
                   </p>
                 </div>
@@ -369,24 +356,21 @@ const Mission = () => {
                 </div>
 
                 {/* Privacy section */}
-                <div className="space-y-3">
+                <div className="space-y-3 text-left">
                   <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                     every conversation is private and encrypted.
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     no tracking. no selling your emotions.
-                  </p>
-                  <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                    <br />
                     just real talk built on trust.
                   </p>
                 </div>
 
                 {/* Closing statement */}
-                <div className="border-l-2 border-peach-400/40 pl-6 space-y-2 transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
+                <div className="border-l-2 border-peach-400/40 pl-6 space-y-3 text-left transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
                   <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
                     because true intimacy lives in the quiet moments
-                  </p>
-                  <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+                    <br />
                     we let ourselves be known.
                   </p>
                 </div>
