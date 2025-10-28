@@ -704,7 +704,7 @@ const LandingPage = ({
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                    born from science and heart, kai helps you feel understood and stay connected to yourself and the people who matter — one honest chat at a time.
+                    born from science and heart, kai helps you feel understood, supported, and more connected to yourself and the people who matter most — one honest chat at a time.
                   </p>
                 </div>
                 
