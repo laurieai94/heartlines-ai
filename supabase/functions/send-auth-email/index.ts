@@ -28,10 +28,15 @@ Deno.serve(async (req) => {
   }
 
   try {
-    console.log('🚀 Auth email webhook received!')
+    const startTime = performance.now()
+    console.log('🚀 Auth email webhook received at:', new Date().toISOString())
+    
     const payload = await req.text()
     const headers = Object.fromEntries(req.headers)
     console.log('📧 Webhook headers:', Object.keys(headers))
+    
+    const webhookReceived = performance.now()
+    console.log(`⏱️ Webhook received and parsed: ${(webhookReceived - startTime).toFixed(2)}ms`)
     
     const wh = new Webhook(hookSecret)
     
@@ -51,6 +56,8 @@ Deno.serve(async (req) => {
       }
     }
 
+    const webhookVerified = performance.now()
+    console.log(`⏱️ Webhook verified: ${(webhookVerified - webhookReceived).toFixed(2)}ms`)
     console.log('Processing email type:', email_action_type, 'for user:', user.email)
 
     let html: string
@@ -58,6 +65,9 @@ Deno.serve(async (req) => {
     let fromEmail: string
 
     // Determine email template and content based on action type
+    const templateStartTime = performance.now()
+    console.log('🎨 Starting template rendering...')
+    
     switch (email_action_type) {
       case 'recovery':
         html = await renderAsync(
@@ -105,7 +115,13 @@ Deno.serve(async (req) => {
       default:
         throw new Error(`Unsupported email action type: ${email_action_type}`)
     }
+    
+    const templateRendered = performance.now()
+    console.log(`⏱️ Template rendered: ${(templateRendered - templateStartTime).toFixed(2)}ms`)
 
+    const resendStartTime = performance.now()
+    console.log('📤 Sending email via Resend...')
+    
     const { error } = await resend.emails.send({
       from: fromEmail,
       to: [user.email],
@@ -113,12 +129,23 @@ Deno.serve(async (req) => {
       html,
     })
 
+    const resendCompleted = performance.now()
+    console.log(`⏱️ Resend API call: ${(resendCompleted - resendStartTime).toFixed(2)}ms`)
+
     if (error) {
       console.error('Resend error:', error)
       throw error
     }
 
-    console.log(`Successfully sent ${email_action_type} email to ${user.email}`)
+    const totalTime = performance.now() - startTime
+    console.log(`✅ Successfully sent ${email_action_type} email to ${user.email}`)
+    console.log(`⏱️ TOTAL PROCESSING TIME: ${totalTime.toFixed(2)}ms`)
+    console.log(`📊 Breakdown:
+      - Webhook parsing: ${(webhookReceived - startTime).toFixed(2)}ms
+      - Webhook verification: ${(webhookVerified - webhookReceived).toFixed(2)}ms
+      - Template rendering: ${(templateRendered - templateStartTime).toFixed(2)}ms
+      - Resend API: ${(resendCompleted - resendStartTime).toFixed(2)}ms
+    `)
 
     return new Response(
       JSON.stringify({ success: true }),
