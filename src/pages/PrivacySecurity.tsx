@@ -113,6 +113,26 @@ const PrivacySecurity = () => {
         {/* How Your Data Flows */}
         <DataFlowCards />
 
+        {/* CTA Section */}
+        <section className="px-6 py-20">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl lg:text-4xl font-thin text-white mb-6">ready to take control of your privacy?</h2>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to="/account?tab=security">
+                <Button className="bg-burgundy-600 text-white rounded-full text-lg px-8 py-6 hover:bg-burgundy-600">
+                  <Settings className="w-5 h-5 mr-2" />
+                  manage privacy settings
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6">
+                  get started free
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         <SiteFooter />
       </div>
