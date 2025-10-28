@@ -270,10 +270,10 @@ const Mission = () => {
                 {/* Preview content - always visible */}
         <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
                 <p className="text-xl md:text-2xl text-white/95 font-light leading-relaxed">
-                  love doesn't wait for your next therapy session.
+                  the ai relationship coach for messy, modern love.
                 </p>
                 <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
-                  it happens in dms, in long voice memos, in the quiet after a fight when you don't know what to say.
+                  for the dms, the late-night texts, and the "can we talk?" moments that make love complicated and real.
                 </p>
         </div>
 
@@ -296,60 +296,69 @@ const Mission = () => {
                   
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                     {/* Single-column content layout */}
-                    <div className="max-w-2xl mx-auto space-y-6 mt-8 text-left">
-                      {/* Opening - what heartlines is */}
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                        <span className="font-brand">heartlines</span> is built for that space, the messy middle where emotions hit before logic does.
-                      </p>
+              <div className="max-w-2xl mx-auto space-y-6 mt-8 text-left">
+                {/* Opening - what heartlines is */}
+                <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                  <span className="font-brand">heartlines</span> is built for the messy middle:
+                </p>
+                <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                  the quiet after a fight, the unread message, the "i miss you but don't know what to say" moments that hit before logic does.
+                </p>
 
-                      {/* What it does - Powered by Laurie AI */}
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                        powered by laurie ai, it helps you slow down, make sense of what you feel, find the words before they get lost, and actually understand what's going on between you and the people you care about.
-                      </p>
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* Kai section */}
-                      <div className="border-l-2 border-coral-400/40 pl-6 space-y-4">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          with kai, your ai relationship coach, you can break down what happened, spot your patterns, and learn how to communicate without shutting down.
-                        </p>
-                      </div>
+                {/* What it does - Powered by Laurie AI */}
+                <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                  powered by laurie ai, it helps you slow down, make sense of what you feel, find the words before they get lost, and understand what's really going on between you and the people you care about.
+                </p>
 
-                      {/* What it's not */}
-                      <div className="space-y-4">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          it's not therapy.
-                        </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          it's not another app to scroll through.
-                        </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          it's a space to figure yourself out while you're still in the middle of it all.
-                        </p>
-                      </div>
+                {/* Kai section */}
+                <div className="border-l-2 border-coral-400/40 pl-6 space-y-4">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                    with kai, your ai relationship coach, you can unpack what happened, see your patterns, and learn how to communicate without losing yourself.
+                  </p>
+                </div>
 
-                      {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+                {/* What it's not */}
+                <div className="space-y-4">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                    it's not therapy.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                    it's not another app to scroll through.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                    it's not a place to perform.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                    it's where you figure out love while you're still feeling it.
+                  </p>
+                </div>
 
-                      {/* Privacy section */}
-                      <div className="space-y-4">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          every conversation is private and encrypted.
-                        </p>
-                        <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
-                          no tracking. no selling your emotions. just real talk, built on trust.
-                        </p>
-                      </div>
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+                {/* Privacy section */}
+                <div className="space-y-4">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                    every conversation is private and encrypted.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/80 font-light leading-loose">
+                    no tracking. no selling your emotions. just real talk, built on trust.
+                  </p>
+                </div>
 
-                      {/* Closing statement */}
-                      <div className="border-l-2 border-peach-400/30 pl-6">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
-                          because real intimacy isn't about being perfect, it's about being understood.
-                        </p>
-                      </div>
-                    </div>
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                {/* Closing statement */}
+                <div className="border-l-2 border-peach-400/30 pl-6">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose">
+                    because real intimacy isn't about being perfect, it's about being understood.
+                  </p>
+                </div>
+              </div>
                   </CollapsibleContent>
                 </Collapsible>
               </div>
