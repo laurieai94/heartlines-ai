@@ -79,9 +79,16 @@ const AccountLayout = () => {
           isMobile ? 'mobile-card p-4' : 'p-3 md:p-4'
         } animate-fade-in touch-manipulation`}>
           <div className={`text-center ${isMobile ? 'mb-4' : 'mb-4'}`}>
-            <h1 className={`font-brand text-white ${
-              isMobile ? 'text-3xl mb-1' : 'text-4xl mb-1'
-            }`}>my account</h1>
+            <h1 
+              className={`font-brand bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider ${
+                isMobile ? 'text-3xl mb-1' : 'text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl mb-4'
+              }`}
+              style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              }}
+            >
+              my account
+            </h1>
             <p className={`text-white/70 ${
               isMobile ? 'text-xs leading-snug' : 'text-xs'
             }`}>manage your profile, subscription, and security settings</p>
