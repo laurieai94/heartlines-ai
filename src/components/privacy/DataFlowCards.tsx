@@ -1,5 +1,7 @@
-import { Upload, Lock, Database, Sparkles, UserCheck } from "lucide-react";
+import { Upload, Lock, Database, Sparkles, UserCheck, Settings } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface FlowStep {
   icon: React.ElementType;
@@ -91,7 +93,7 @@ export const DataFlowCards = () => {
           {/* Desktop Connecting Line */}
           <div className="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-coral-500/20 via-coral-400/40 to-coral-500/20" />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative">
             {flowSteps.map((step, index) => (
               <div key={index} className="relative">
                 {/* Mobile Connecting Arrow */}
@@ -134,6 +136,36 @@ export const DataFlowCards = () => {
                 </Card>
               </div>
             ))}
+            
+            {/* CTA Buttons - 6th Grid Item (tablet & desktop) */}
+            <div className="hidden md:flex flex-col gap-4 justify-center items-stretch">
+              <Link to="/account?tab=security">
+                <Button className="w-full bg-burgundy-600 text-white rounded-full text-lg px-8 py-6 hover:bg-burgundy-700">
+                  <Settings className="w-5 h-5 mr-2" />
+                  manage privacy settings
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6">
+                  get started free
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile CTA Buttons - centered below */}
+          <div className="md:hidden flex flex-col gap-4 items-center mt-8">
+            <Link to="/account?tab=security" className="w-full max-w-sm">
+              <Button className="w-full bg-burgundy-600 text-white rounded-full text-lg px-8 py-6 hover:bg-burgundy-700">
+                <Settings className="w-5 h-5 mr-2" />
+                manage privacy settings
+              </Button>
+            </Link>
+            <Link to="/" className="w-full max-w-sm">
+              <Button className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6">
+                get started free
+              </Button>
+            </Link>
           </div>
         </div>
 
