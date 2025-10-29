@@ -693,7 +693,7 @@ const LandingPage = ({
                   animationDelay: '0.6s'
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                    built for the way we love —<br />
+                    built for the way we love,<br />
                     through late-night texts, shared playlists,<br />
                     time zones, hard talks,<br />
                     in half-typed messages, quiet forgiveness,<br />
