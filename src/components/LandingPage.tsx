@@ -620,11 +620,11 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="py-8 md:py-14 relative overflow-hidden">
+      <section className="py-6 md:py-10 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               
               {/* Left Column: Kai's Avatar */}
               <div className="relative flex items-center justify-center md:justify-end order-1">
@@ -638,12 +638,12 @@ const LandingPage = ({
                   <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
                   
                   {/* Avatar container */}
-                  <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
+                  <div className="relative w-[180px] h-[180px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
                     <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover" />
                   </div>
                   
                   {/* CTA Button */}
-                  <div className="hidden md:flex md:justify-center md:mt-6 animate-fade-in" style={{
+                  <div className="hidden md:flex md:justify-center md:mt-4 animate-fade-in" style={{
                     animationDelay: '1s'
                   }}>
                     <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
@@ -676,20 +676,20 @@ const LandingPage = ({
 
               {/* Right Column: Content */}
               <div className="order-2 text-center md:text-left">
-                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
+                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-3 md:mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
                   animationDelay: '0.2s',
                   textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                 }}>
                   meet kai
                 </h2>
                 
-                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-6 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in" style={{
+                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-4 md:mb-5 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in" style={{
                   animationDelay: '0.4s'
                 }}>
                   your ai relationship coach
                 </h3>
                 
-                <div className="space-y-6 mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
+                <div className="space-y-4 md:space-y-5 mb-5 md:mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
                   animationDelay: '0.6s'
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
@@ -720,7 +720,7 @@ const LandingPage = ({
                 </div>
                 
                 {/* Feature pills */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6 md:mb-7 animate-fade-in" style={{
                   animationDelay: '0.8s'
                 }}>
                   <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm 
