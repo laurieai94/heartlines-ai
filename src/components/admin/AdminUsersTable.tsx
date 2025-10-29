@@ -39,8 +39,8 @@ const AdminUsersTable = ({ users, onUserClick }: AdminUsersTableProps) => {
 
   const filteredUsers = users
     .filter(user => 
-      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.user_name?.toLowerCase().includes(searchTerm.toLowerCase())
+      (user.email?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+      (user.user_name?.toLowerCase() ?? '').includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
       const aVal = a[sortField];
@@ -100,7 +100,7 @@ const AdminUsersTable = ({ users, onUserClick }: AdminUsersTableProps) => {
                 onClick={() => onUserClick(user.user_id)}
                 className="border-pink-400/10 hover:bg-burgundy-800/40 cursor-pointer transition-colors"
               >
-                <TableCell className="text-white">{user.email}</TableCell>
+                <TableCell className="text-white">{user.email || "—"}</TableCell>
                 <TableCell className="text-white/90">{user.user_name || "—"}</TableCell>
                 <TableCell>
                   <span className="px-2 py-1 rounded-full text-xs bg-gradient-to-r from-pink-500/20 to-coral-500/20 text-pink-200 border border-pink-400/20">
