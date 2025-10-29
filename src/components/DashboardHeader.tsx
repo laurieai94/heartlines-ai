@@ -54,7 +54,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const handleNavigation = (item: any) => {
     if (item.isExternal) {
       if (item.value === 'plans') navigate('/plans');
-      else if (item.value === 'account') navigate('/account');
+      else if (item.value === 'account') {
+        if (!user) {
+          navigate('/signin');
+        } else {
+          navigate('/account');
+        }
+      }
       else if (item.value === 'profile') navigate('/profile');
     } else {
       onValueChange(item.value);

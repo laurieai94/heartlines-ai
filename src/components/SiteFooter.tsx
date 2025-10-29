@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User, MessageSquare, Settings, Shield, CreditCard, FileText, Mail, Target } from "lucide-react";
 import { BRAND } from "@/branding";
+import { useAuth } from "@/contexts/AuthContext";
 const SiteFooter = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  
+  const handleAccountClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!user) {
+      navigate('/signin');
+    } else {
+      navigate('/account');
+    }
+  };
+
   const footerSections = [{
     title: "app",
     links: [{
@@ -63,10 +76,20 @@ const SiteFooter = () => {
                 <h4 className="text-base font-semibold text-white mb-4">{section.title}</h4>
                 <ul className="space-y-2">
                   {section.links.map(link => <li key={link.to}>
-                      <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group">
-                        <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
-                        {link.label}
-                      </Link>
+                      {link.to === '/account' ? (
+                        <button
+                          onClick={handleAccountClick}
+                          className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group"
+                        >
+                          <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
+                          {link.label}
+                        </button>
+                      ) : (
+                        <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group">
+                          <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
+                          {link.label}
+                        </Link>
+                      )}
                     </li>)}
                 </ul>
               </div>)}
@@ -92,10 +115,20 @@ const SiteFooter = () => {
               <h4 className="text-base font-semibold text-white mb-4">{section.title}</h4>
               <ul className="space-y-2">
                 {section.links.map(link => <li key={link.to}>
-                    <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group">
-                      <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
-                      {link.label}
-                    </Link>
+                    {link.to === '/account' ? (
+                      <button
+                        onClick={handleAccountClick}
+                        className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group"
+                      >
+                        <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group">
+                        <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
+                        {link.label}
+                      </Link>
+                    )}
                   </li>)}
               </ul>
             </div>)}

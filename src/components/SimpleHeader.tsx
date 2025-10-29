@@ -30,7 +30,13 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
 
   const handleNavigation = (item: any) => {
     if (item.value === 'plans') navigate('/plans');
-    else if (item.value === 'account') navigate('/account');
+    else if (item.value === 'account') {
+      if (!user) {
+        navigate('/signin');
+      } else {
+        navigate('/account');
+      }
+    }
     else if (item.value === 'profile') navigate('/profile');
     else if (item.value === 'insights') navigate('/coach');
     else if (item.value === 'home') navigate('/');
