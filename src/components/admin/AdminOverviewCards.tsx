@@ -1,4 +1,4 @@
-import { Users, Activity, MessageSquare, DollarSign } from "lucide-react";
+import { Users, Activity, MessageSquare, DollarSign, ArrowDown, ArrowUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface AdminOverviewCardsProps {
@@ -6,9 +6,11 @@ interface AdminOverviewCardsProps {
   activeUsers: number;
   totalMessages: number;
   totalCost: number;
+  avgInputTokens: number;
+  avgOutputTokens: number;
 }
 
-const AdminOverviewCards = ({ totalUsers, activeUsers, totalMessages, totalCost }: AdminOverviewCardsProps) => {
+const AdminOverviewCards = ({ totalUsers, activeUsers, totalMessages, totalCost, avgInputTokens, avgOutputTokens }: AdminOverviewCardsProps) => {
   const cards = [
     {
       title: "Total Users",
@@ -33,11 +35,23 @@ const AdminOverviewCards = ({ totalUsers, activeUsers, totalMessages, totalCost 
       value: `$${totalCost.toFixed(4)}`,
       icon: DollarSign,
       gradient: "from-pink-500 to-burgundy-500"
+    },
+    {
+      title: "Avg Input Tokens",
+      value: Math.round(avgInputTokens).toLocaleString(),
+      icon: ArrowDown,
+      gradient: "from-coral-500 to-pink-500"
+    },
+    {
+      title: "Avg Output Tokens",
+      value: Math.round(avgOutputTokens).toLocaleString(),
+      icon: ArrowUp,
+      gradient: "from-pink-500 to-coral-500"
     }
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
       {cards.map((card, index) => (
         <Card 
           key={index}

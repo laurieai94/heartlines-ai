@@ -20,12 +20,23 @@ export const useAdminAnalytics = () => {
       ).length || 0;
       const totalMessages = summary?.reduce((sum, u) => sum + (u.messages_this_month || 0), 0) || 0;
       const totalCost = summary?.reduce((sum, u) => sum + (u.cost_last_30_days || 0), 0) || 0;
+      
+      // Calculate platform-wide token averages
+      const usersWithMessages = summary?.filter(u => u.messages_this_month > 0) || [];
+      const avgInputTokens = usersWithMessages.length > 0
+        ? usersWithMessages.reduce((sum, u) => sum + (u.avg_input_tokens || 0), 0) / usersWithMessages.length
+        : 0;
+      const avgOutputTokens = usersWithMessages.length > 0
+        ? usersWithMessages.reduce((sum, u) => sum + (u.avg_output_tokens || 0), 0) / usersWithMessages.length
+        : 0;
 
       return {
         totalUsers,
         activeUsers,
         totalMessages,
         totalCost,
+        avgInputTokens,
+        avgOutputTokens,
         users: summary || []
       };
     },

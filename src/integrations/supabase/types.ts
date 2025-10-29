@@ -63,15 +63,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "chat_conversations_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       conversation_topics: {
         Row: {
@@ -95,15 +87,7 @@ export type Database = {
           topic?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "conversation_topics_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       conversations: {
         Row: {
@@ -139,15 +123,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "conversations_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       crisis_logs: {
         Row: {
@@ -180,15 +156,7 @@ export type Database = {
           severity?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "crisis_logs_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       onboarding_status: {
         Row: {
@@ -218,15 +186,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "onboarding_status_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -256,15 +216,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       signup_cap: {
         Row: {
@@ -324,15 +276,7 @@ export type Database = {
           updated_at?: string
           user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "subscribers_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_message_usage: {
         Row: {
@@ -362,15 +306,7 @@ export type Database = {
           usage_month?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_message_usage_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_profiles: {
         Row: {
@@ -400,15 +336,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_profiles_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_reminders: {
         Row: {
@@ -450,15 +378,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_reminders_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_roles: {
         Row: {
@@ -479,15 +399,7 @@ export type Database = {
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_roles_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_token_usage: {
         Row: {
@@ -523,15 +435,7 @@ export type Database = {
           total_tokens?: number | null
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_token_usage_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_analytics_summary"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       waitlist: {
         Row: {
@@ -562,6 +466,8 @@ export type Database = {
       daily_cost_summary: {
         Row: {
           avg_cost_per_message: number | null
+          avg_input_tokens_per_message: number | null
+          avg_output_tokens_per_message: number | null
           avg_tokens_per_message: number | null
           date: string | null
           message_count: number | null
@@ -575,6 +481,8 @@ export type Database = {
       }
       user_analytics_summary: {
         Row: {
+          avg_input_tokens: number | null
+          avg_output_tokens: number | null
           cost_last_30_days: number | null
           email: string | null
           is_subscribed: boolean | null
