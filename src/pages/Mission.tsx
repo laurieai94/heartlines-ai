@@ -109,8 +109,7 @@ const Mission = () => {
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/80 hover:text-white font-light text-sm
                         transition-all duration-300
-                        hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
-                        hover:animate-pulse
+                        hover:bg-white/10 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
@@ -255,8 +254,7 @@ const Mission = () => {
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/80 hover:text-white font-light text-sm
                         transition-all duration-300
-                        hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
-                        hover:animate-pulse
+                        hover:bg-white/10 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
@@ -406,8 +404,7 @@ const Mission = () => {
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/80 hover:text-white font-light text-sm
                         transition-all duration-300
-                        hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
-                        hover:animate-pulse
+                        hover:bg-white/10 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
