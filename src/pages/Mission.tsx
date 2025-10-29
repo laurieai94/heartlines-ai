@@ -421,7 +421,7 @@ const Mission = () => {
                       {/* Seattle vision */}
                       <div className="space-y-3 text-left">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          we're building toward that vision here in seattle:
+                          we're building toward that vision here in seattle,
                           <br />
                           by partnering with those who hold communities together:
                           <br />
