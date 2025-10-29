@@ -196,7 +196,7 @@ const Contact = () => {
               <Card className="questionnaire-card p-6">
                 <h3 className="text-xl font-semibold questionnaire-text mb-4">feedback</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  we're always leveling up heartlines. share your thoughts and help us make it better for everyone.
+                  we're always leveling up <span className="font-brand">heartlines</span>. share your thoughts and help us make it better for everyone.
                 </p>
               </Card>
 
