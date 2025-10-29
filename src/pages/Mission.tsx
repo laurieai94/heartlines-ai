@@ -45,13 +45,13 @@ const Mission = () => {
                 our why
               </h1>
               <div className="flex items-center gap-1.5 sm:gap-2 self-end pr-2 sm:pr-8 md:pr-12 lg:pr-20">
+                <DuckIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-orange-200" />
                 <span className="font-brand text-base sm:text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
                   style={{
                     textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                   }}>
                   powered by laurie ai
                 </span>
-                <DuckIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-orange-200" />
               </div>
             </div>
           </section>
