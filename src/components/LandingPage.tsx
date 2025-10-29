@@ -620,7 +620,7 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="py-8 md:py-14 relative overflow-hidden">
+      <section className="py-10 md:py-16 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -630,7 +630,7 @@ const LandingPage = ({
               <div className="relative flex items-center justify-center md:justify-end order-1">
                 <div className="relative">
                   {/* Outer glow */}
-                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{
+                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/25 via-coral-400/15 to-orange-400/25 rounded-full blur-[80px] animate-pulse" style={{
                     animationDuration: '3s'
                   }}></div>
                   
@@ -677,22 +677,22 @@ const LandingPage = ({
               {/* Right Column: Content */}
               <div className="order-2 text-center md:text-left">
                 <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
-                  animationDelay: '0.2s',
+                  animationDelay: '0.3s',
                   textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                 }}>
                   meet kai
                 </h2>
                 
                 <h3 className="text-xl md:text-2xl text-white/95 font-light mb-6 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in" style={{
-                  animationDelay: '0.4s'
+                  animationDelay: '0.5s'
                 }}>
                   your ai relationship coach
                 </h3>
                 
                 <div className="space-y-6 mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
-                  animationDelay: '0.6s'
+                  animationDelay: '0.7s'
                 }}>
-                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                  <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     built for the way we love,<br />
                     through late-night texts, shared playlists,<br />
                     time zones, hard talks,<br />
@@ -700,19 +700,19 @@ const LandingPage = ({
                     and the courage to keep showing up.
                   </p>
                   
-                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
                     built on research. powered by empathy.<br />
                     made for the real.
                   </p>
                   
-                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                  <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     kai helps you understand yourself<br />
                     and show up with heart<br />
                     for the people who matter<br />
                     and the moments that can't wait.
                   </p>
                   
-                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
                     love is work.<br />
                     kai helps you do it well.<br />
                     one honest chat at a time.
@@ -720,8 +720,8 @@ const LandingPage = ({
                 </div>
                 
                 {/* Feature pills */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{
-                  animationDelay: '0.8s'
+                <div className="flex flex-wrap justify-center md:justify-start gap-2.5 md:gap-3 mb-8 animate-fade-in" style={{
+                  animationDelay: '0.9s'
                 }}>
                   <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm 
                     transition-all duration-300 hover:bg-orange-400/30 hover:shadow-lg hover:-translate-y-0.5
@@ -747,6 +747,20 @@ const LandingPage = ({
                     transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
                     shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
                     <span className="text-sm font-medium tracking-wide text-white">⏱ instant support</span>
+                  </div>
+                </div>
+                
+                {/* Mobile CTA Button */}
+                <div className="flex md:hidden justify-center animate-fade-in" style={{
+                  animationDelay: '1s'
+                }}>
+                  <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm font-light text-base">
+                      <MessageCircle className="w-5 h-5 mr-2" />
+                      chat now
+                    </Button>
                   </div>
                 </div>
               </div>
