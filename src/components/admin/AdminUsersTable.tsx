@@ -56,12 +56,12 @@ const AdminUsersTable = ({ users, onUserClick }: AdminUsersTableProps) => {
   return (
     <div className="space-y-4">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/40 w-4 h-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 w-4 h-4" />
         <Input
           placeholder="Search by email or name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10 bg-burgundy-800/40 border-pink-400/20 text-white placeholder:text-white/40"
+          className="pl-10 bg-burgundy-800/40 border-pink-400/20 text-white placeholder:text-white/60"
         />
       </div>
 
@@ -69,28 +69,28 @@ const AdminUsersTable = ({ users, onUserClick }: AdminUsersTableProps) => {
         <Table>
           <TableHeader>
             <TableRow className="border-pink-400/20 hover:bg-burgundy-800/30">
-              <TableHead className="text-white/80">
-                <Button variant="ghost" onClick={() => handleSort("email")} className="text-white/80 hover:text-white">
+              <TableHead className="text-white">
+                <Button variant="ghost" onClick={() => handleSort("email")} className="text-white hover:text-white">
                   Email <ArrowUpDown className="ml-2 w-3 h-3" />
                 </Button>
               </TableHead>
-              <TableHead className="text-white/80">Name</TableHead>
-              <TableHead className="text-white/80">
-                <Button variant="ghost" onClick={() => handleSort("subscription_tier")} className="text-white/80 hover:text-white">
+              <TableHead className="text-white">Name</TableHead>
+              <TableHead className="text-white">
+                <Button variant="ghost" onClick={() => handleSort("subscription_tier")} className="text-white hover:text-white">
                   Tier <ArrowUpDown className="ml-2 w-3 h-3" />
                 </Button>
               </TableHead>
-              <TableHead className="text-white/80 text-right">
-                <Button variant="ghost" onClick={() => handleSort("messages_this_month")} className="text-white/80 hover:text-white">
+              <TableHead className="text-white text-right">
+                <Button variant="ghost" onClick={() => handleSort("messages_this_month")} className="text-white hover:text-white">
                   Messages <ArrowUpDown className="ml-2 w-3 h-3" />
                 </Button>
               </TableHead>
-              <TableHead className="text-white/80 text-right">
-                <Button variant="ghost" onClick={() => handleSort("cost_last_30_days")} className="text-white/80 hover:text-white">
+              <TableHead className="text-white text-right">
+                <Button variant="ghost" onClick={() => handleSort("cost_last_30_days")} className="text-white hover:text-white">
                   Cost (30d) <ArrowUpDown className="ml-2 w-3 h-3" />
                 </Button>
               </TableHead>
-              <TableHead className="text-white/80">Last Active</TableHead>
+              <TableHead className="text-white">Last Active</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -101,7 +101,7 @@ const AdminUsersTable = ({ users, onUserClick }: AdminUsersTableProps) => {
                 className="border-pink-400/10 hover:bg-burgundy-800/40 cursor-pointer transition-colors"
               >
                 <TableCell className="text-white">{user.email}</TableCell>
-                <TableCell className="text-white/80">{user.user_name || "—"}</TableCell>
+                <TableCell className="text-white/90">{user.user_name || "—"}</TableCell>
                 <TableCell>
                   <span className="px-2 py-1 rounded-full text-xs bg-gradient-to-r from-pink-500/20 to-coral-500/20 text-pink-200 border border-pink-400/20">
                     {user.subscription_tier}
@@ -109,7 +109,7 @@ const AdminUsersTable = ({ users, onUserClick }: AdminUsersTableProps) => {
                 </TableCell>
                 <TableCell className="text-white text-right">{user.messages_this_month}</TableCell>
                 <TableCell className="text-white text-right">${user.cost_last_30_days.toFixed(4)}</TableCell>
-                <TableCell className="text-white/60 text-sm">
+                <TableCell className="text-white/80 text-sm">
                   {user.last_activity 
                     ? formatDistanceToNow(new Date(user.last_activity), { addSuffix: true })
                     : "Never"

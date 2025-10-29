@@ -53,7 +53,7 @@ const AdminDashboard = () => {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-200 via-coral-200 to-orange-200 bg-clip-text text-transparent mb-2">
               Admin Dashboard
             </h1>
-            <p className="text-white/60">Monitor users, costs, and platform analytics</p>
+            <p className="text-white/80">Monitor users, costs, and platform analytics</p>
           </div>
           <Button 
             variant="ghost"

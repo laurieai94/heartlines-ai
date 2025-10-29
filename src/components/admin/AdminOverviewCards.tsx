@@ -46,7 +46,7 @@ const AdminOverviewCards = ({ totalUsers, activeUsers, totalMessages, totalCost 
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-white/60 mb-1">{card.title}</p>
+                <p className="text-sm text-white/90 mb-1">{card.title}</p>
                 <p className="text-2xl font-bold bg-gradient-to-r from-pink-200 to-coral-200 bg-clip-text text-transparent">
                   {card.value}
                 </p>
