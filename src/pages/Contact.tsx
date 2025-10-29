@@ -86,12 +86,7 @@ const Contact = () => {
         <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <div className="flex justify-center mb-8">
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center backdrop-filter backdrop-blur-sm">
-                <Mail className="w-8 h-8 text-white" />
-              </div>
-            </div>
-            <h1 
+            <h1
               className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider mb-4"
               style={{
                 textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
