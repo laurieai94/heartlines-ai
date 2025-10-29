@@ -33,7 +33,7 @@ const Mission = () => {
         
         <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
-          <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
+          <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-2 md:pb-3">
               <h1 
                 className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in"
                 style={{
