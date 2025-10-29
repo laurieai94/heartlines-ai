@@ -1,4 +1,4 @@
-import { Shield, Lock, Database, Server, Eye, Key, HardDrive, Clock, Image } from "lucide-react";
+import { Shield, Lock, Server, Eye, Key, Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 interface SecurityFeature {
@@ -10,58 +10,40 @@ interface SecurityFeature {
 
 const securityFeatures: SecurityFeature[] = [
   {
-    icon: Shield,
-    name: "row-level security (rls)",
-    technical: "postgresql rls policies enforced on all tables. database queries automatically filtered by auth.uid() = user_id.",
-    meaning: "even if someone hacked into our database, they could only see their own data. the database itself enforces this - it's not just app code that can be bypassed."
-  },
-  {
-    icon: Lock,
-    name: "encrypted transport (https/tls)",
-    technical: "tls 1.2+ encryption for all data transmission. supabase enforces https for all api calls with certificate pinning.",
-    meaning: "your conversations can't be intercepted while traveling between your device and our servers - like sending a sealed letter instead of a postcard."
-  },
-  {
-    icon: HardDrive,
-    name: "encryption at rest",
-    technical: "supabase provides aes-256 encryption for all stored data in postgresql. encryption keys managed separately from data.",
-    meaning: "even if someone stole the physical hard drives, your data would be unreadable gibberish without the encryption keys that are stored separately."
-  },
-  {
-    icon: Server,
-    name: "secure edge functions",
-    technical: "api keys stored server-side in supabase edge functions environment variables. never exposed to client browser or network requests.",
-    meaning: "your browser never sees the 'keys to the kingdom' - sensitive credentials stay on secure servers, not in your browser's memory where malicious scripts could access them."
+    icon: Clock,
+    name: "user-controlled retention & file security",
+    technical: "configurable retention policies (30, 90, 365 days or forever), with automated cleanup jobs. supabase storage protected by rls so files are accessible only when user_id = auth.uid().",
+    meaning: "you decide how long we keep your conversations. your uploaded files, like profile pictures, stay locked to your account alone."
   },
   {
     icon: Eye,
     name: "zero-knowledge architecture",
-    technical: "anthropic api calls routed through edge functions with conversation context only. no pii (personally identifiable information) sent to ai models.",
-    meaning: "the ai coach receives your conversation content but not your name, email, or other identifying information. it knows what you're saying, not who you are."
+    technical: "anthropic api calls are routed through edge functions with only conversation context. no personally identifiable information (pii) is ever sent.",
+    meaning: "kai, the ai coach, knows what you say but not who you are. your identity stays separate from your conversations."
   },
   {
     icon: Key,
     name: "authentication security",
-    technical: "supabase auth with jwt tokens, bcrypt password hashing (cost factor 10), automatic session rotation and refresh token management.",
-    meaning: "your password is never stored - only a mathematical fingerprint that can verify but not reveal it. even we can't see your actual password."
+    technical: "supabase auth with jwt tokens, bcrypt password hashing (cost factor 10), automatic session rotation, and refresh token management.",
+    meaning: "your password is never stored. only a mathematical fingerprint is saved, which can verify but not reveal it."
   },
   {
-    icon: Database,
-    name: "isolated data storage",
-    technical: "each user's data logically isolated via rls policies. multi-tenant architecture with user_id foreign keys and cascade delete constraints.",
-    meaning: "your data is in its own secure compartment. when you delete your account, everything associated with it is automatically removed from our systems."
+    icon: Shield,
+    name: "row-level security (rls) & isolated storage",
+    technical: "postgresql rls policies enforced on all tables, tied to auth.uid(). each user's data is logically isolated with foreign keys and cascade delete constraints.",
+    meaning: "your data lives in its own locked compartment. if someone hacked into our database, they would only see their own info. when you delete your account, everything tied to you is automatically wiped."
   },
   {
-    icon: Clock,
-    name: "user-controlled retention",
-    technical: "configurable retention policies (30/90/365 days or forever) stored in privacy settings. automated cleanup jobs respect user preferences.",
-    meaning: "you decide how long we keep your conversations - set it to 30 days and we automatically delete older chats. you're in control of your digital footprint."
+    icon: Lock,
+    name: "encrypted transport & storage",
+    technical: "tls 1.2+ encryption for all data in transit with certificate pinning. aes-256 encryption at rest for all stored data, with keys managed separately.",
+    meaning: "your conversations travel like sealed letters instead of postcards. if someone stole the hard drives, they would find only unreadable gibberish."
   },
   {
-    icon: Image,
-    name: "secure file storage",
-    technical: "supabase storage with rls policies on storage.objects table. users can only upload/view files where user_id matches auth.uid().",
-    meaning: "your profile picture is locked to your account - no one else can replace it or access it without your permission. same for any files you upload."
+    icon: Server,
+    name: "secure edge functions",
+    technical: "api keys stored server-side in supabase edge functions environment variables, never exposed to the browser or network requests.",
+    meaning: "your device never sees the keys to the kingdom. sensitive credentials stay locked on secure servers, away from malicious scripts."
   }
 ];
 
