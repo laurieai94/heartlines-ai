@@ -8,6 +8,7 @@ import SimpleHeader from "@/components/SimpleHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,6 +17,7 @@ import PremiumBackground from "@/components/PremiumBackground";
 
 const Contact = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +27,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSignInClick = () => {
-    // Handle sign in
+    navigate('/signin');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
