@@ -31,11 +31,12 @@ const Mission = () => {
       
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
-        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-12 md:space-y-16 overflow-x-hidden">
           {/* 1. Hero Section */}
           <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-2 md:pb-3">
+            <div className="flex flex-col items-center gap-1 md:gap-2">
               <h1 
-                className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in"
+                className="font-brand text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in"
                 style={{
                   animationDelay: '0.2s',
                   textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
@@ -43,14 +44,15 @@ const Mission = () => {
               >
                 our why
               </h1>
-            <div className="flex items-center gap-2 mt-2 ml-[85px] md:ml-[135px] lg:ml-[195px] xl:ml-[280px]">
-            <span className="font-brand text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
-              style={{
-                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-              }}>
-              powered by laurie ai
-            </span>
-              <DuckIcon className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-orange-200" />
+              <div className="flex items-center gap-2 self-end pr-4 sm:pr-8 md:pr-12 lg:pr-20">
+                <span className="font-brand text-base sm:text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
+                  style={{
+                    textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                  }}>
+                  powered by laurie ai
+                </span>
+                <DuckIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-orange-200" />
+              </div>
             </div>
           </section>
 
@@ -60,10 +62,10 @@ const Mission = () => {
             <div className="relative group">
               {/* Outer glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
-                rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
+                rounded-3xl blur-md md:blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
               
               {/* Glass card */}
-              <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
+              <div className="relative backdrop-blur-xl rounded-3xl p-5 md:p-6 lg:p-8 max-w-[calc(100vw-2rem)] mx-auto
                 bg-gradient-to-br from-white/25 via-white/20 to-white/15
                 border border-pink-400/30
                 hover:bg-gradient-to-br hover:from-white/30 hover:via-white/25 hover:to-white/20
@@ -73,15 +75,14 @@ const Mission = () => {
                 
                 {/* Header with gradient */}
                 <h2 
-                  className="text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-4"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-3 md:gap-4"
                   style={{
                     animationDelay: '0.2s',
                     textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                   }}
                 >
                   <Globe 
-                    size={36} 
-                    className="text-orange-100/80 flex-shrink-0" 
+                    className="w-7 h-7 md:w-9 md:h-9 text-orange-100/80 flex-shrink-0" 
                   />
                   <span>our moment</span>
                 </h2>
@@ -92,10 +93,10 @@ const Mission = () => {
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
-                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   ai is here.
                 </p>
-              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-white/95 font-light leading-relaxed">
                 we can't stop it and we can't ignore it.
               </p>
                   </div>
@@ -108,8 +109,8 @@ const Mission = () => {
                       variant="ghost" 
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/80 hover:text-white font-light text-sm
-                        transition-all duration-300
-                        hover:bg-white/10 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
+                        transition-all duration-300 border border-white/10
+                        hover:bg-white/10 hover:border-white/20 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
@@ -181,7 +182,7 @@ const Mission = () => {
                       </div>
 
                       {/* Vision section with border */}
-                      <div className="space-y-3 text-left mt-5 pl-4 border-l-2 border-rose-300/30 transition-all duration-300 hover:border-rose-400/70 hover:translate-x-1">
+                      <div className="space-y-3 text-left mt-5 pl-3 md:pl-4 border-l-2 border-rose-300/30 transition-all duration-300 hover:border-rose-400/70 hover:translate-x-1">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           to design technology that remembers where it came from:
                           <br />
@@ -211,10 +212,10 @@ const Mission = () => {
             <div className="relative group">
               {/* Outer glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
-                rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
+                rounded-3xl blur-md md:blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
               
               {/* Glass card */}
-              <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
+              <div className="relative backdrop-blur-xl rounded-3xl p-5 md:p-6 lg:p-8 max-w-[calc(100vw-2rem)] mx-auto
                 bg-gradient-to-br from-white/25 via-white/20 to-white/15
                 border border-pink-400/30
                 hover:bg-gradient-to-br hover:from-white/30 hover:via-white/25 hover:to-white/20
@@ -224,7 +225,7 @@ const Mission = () => {
                 
                 {/* Header with gradient */}
                 <h2 
-                  className="text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in"
                   style={{
                     animationDelay: '0.2s',
                     textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
@@ -238,10 +239,10 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
         <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   the ai relationship coach for messy, modern love.
                 </p>
-                <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-white/90 font-light leading-relaxed">
                   for the dms, the late-night texts, and the "can we talk?" moments that make love complicated and real.
                 </p>
         </div>
@@ -253,8 +254,8 @@ const Mission = () => {
                       variant="ghost" 
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/80 hover:text-white font-light text-sm
-                        transition-all duration-300
-                        hover:bg-white/10 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
+                        transition-all duration-300 border border-white/10
+                        hover:bg-white/10 hover:border-white/20 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
@@ -299,7 +300,7 @@ const Mission = () => {
                 </div>
 
                 {/* Kai section */}
-                <div className="border-l-2 border-coral-400/50 pl-6 space-y-3 text-left transition-all duration-300 hover:border-coral-400/70 hover:translate-x-1">
+                <div className="border-l-2 border-coral-400/50 pl-4 md:pl-6 space-y-3 text-left transition-all duration-300 hover:border-coral-400/70 hover:translate-x-1">
                   <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                     with kai, your ai relationship coach,
                     <br />
@@ -339,7 +340,7 @@ const Mission = () => {
                 </div>
 
                 {/* Closing statement */}
-                <div className="border-l-2 border-peach-400/40 pl-6 space-y-3 text-left transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
+                <div className="border-l-2 border-peach-400/40 pl-4 md:pl-6 space-y-3 text-left transition-all duration-300 hover:border-peach-400/60 hover:translate-x-1">
                   <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
                     because true intimacy lives in the quiet moments
                     <br />
@@ -358,10 +359,10 @@ const Mission = () => {
             <div className="relative group">
               {/* Glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
-                rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
+                rounded-3xl blur-md md:blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
               
               {/* Glass container */}
-              <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
+              <div className="relative backdrop-blur-xl rounded-3xl p-5 md:p-6 lg:p-8 max-w-[calc(100vw-2rem)] mx-auto
                 bg-gradient-to-br from-white/25 via-white/20 to-white/15
                 border border-pink-400/30
                 hover:bg-gradient-to-br hover:from-white/30 hover:via-white/25 hover:to-white/20
@@ -370,15 +371,14 @@ const Mission = () => {
                 
                 {/* Heading with gradient and duck icon */}
                 <h2 
-                  className="text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-4"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-brand text-center mb-8 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in flex items-center justify-center gap-3 md:gap-4"
                   style={{
                     animationDelay: '0.2s',
                     textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                   }}
                 >
                   <DuckIcon 
-                    size={36} 
-                    className="text-orange-200 drop-shadow-[0_0_10px_rgba(251,146,60,0.4)] flex-shrink-0" 
+                    className="w-7 h-7 md:w-9 md:h-9 text-orange-200 drop-shadow-[0_0_10px_rgba(251,146,60,0.4)] flex-shrink-0" 
                   />
                   <span>powered by laurie ai</span>
                 </h2>
@@ -388,10 +388,10 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-white/95 font-light leading-relaxed">
                 laurie ai starts with a simple belief:
               </p>
-              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-white/95 font-light leading-relaxed">
                 stronger relationships build stronger communities.
               </p>
                 </div>
@@ -403,8 +403,8 @@ const Mission = () => {
                       variant="ghost" 
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/80 hover:text-white font-light text-sm
-                        transition-all duration-300
-                        hover:bg-white/10 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
+                        transition-all duration-300 border border-white/10
+                        hover:bg-white/10 hover:border-white/20 hover:translate-y-[-1px] hover:scale-[1.01] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
@@ -427,7 +427,7 @@ const Mission = () => {
                       </div>
 
                       {/* Partnership approach */}
-                      <div className="border-l-2 border-pink-400/50 pl-6 space-y-3 transition-all duration-300 hover:border-pink-400/70 hover:translate-x-1">
+                      <div className="border-l-2 border-pink-400/50 pl-4 md:pl-6 space-y-3 transition-all duration-300 hover:border-pink-400/70 hover:translate-x-1">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           they will bring lived experience.
                           <br />
@@ -461,7 +461,7 @@ const Mission = () => {
                       </div>
 
                       {/* Closing vision */}
-                      <div className="border-l-2 border-coral-400/40 pl-6 space-y-3 transition-all duration-300 hover:border-coral-400/60 hover:translate-x-1">
+                      <div className="border-l-2 border-coral-400/40 pl-4 md:pl-6 space-y-3 transition-all duration-300 hover:border-coral-400/60 hover:translate-x-1">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           a future where tech
                           <br />
@@ -478,19 +478,19 @@ const Mission = () => {
           </section>
 
           {/* CTAs with glass effect - Always visible */}
-          <div className="flex flex-wrap gap-4 justify-center items-center mt-8 mb-8">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center mt-8 mb-8 pb-safe px-4">
             <Button
               size="lg"
               variant="glass"
               onClick={handleSignInClick}
-              className="glass-cta min-w-[200px] text-lg"
+              className="glass-cta w-full sm:w-auto sm:min-w-[180px] text-base sm:text-lg"
             >
               get started
             </Button>
             <Button
               size="lg"
               onClick={() => navigate('/contact')}
-              className="min-w-[200px] text-lg backdrop-blur-xl
+              className="w-full sm:w-auto sm:min-w-[180px] text-base sm:text-lg backdrop-blur-2xl
                 bg-white/10 border border-white/30 text-white
                 hover:bg-white/20 hover:scale-105 hover:-translate-y-1
                 transition-all duration-300"
