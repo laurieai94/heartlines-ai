@@ -620,137 +620,135 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="py-8 md:py-14 relative overflow-hidden">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        {/* Atmospheric background effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Radial gradient centered on avatar position */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] opacity-40"
+            style={{
+              background: 'radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, rgba(251, 146, 60, 0.1) 50%, transparent 70%)',
+              filter: 'blur(60px)'
+            }} />
+          
+          {/* Floating orbs */}
+          <div className="absolute top-20 left-10 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl animate-pulse" 
+            style={{animationDuration: '8s'}} />
+          <div className="absolute bottom-40 right-20 w-40 h-40 bg-pink-400/10 rounded-full blur-2xl animate-pulse" 
+            style={{animationDuration: '8s', animationDelay: '1s'}} />
+        </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+          <div className="max-w-5xl mx-auto flex flex-col items-center">
+            
+            {/* Centered Avatar with Enhanced Effects */}
+            <div className="relative mb-12 md:mb-16">
+              {/* Multiple pulsing rings */}
+              <div className="absolute -inset-20 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" 
+                style={{animationDuration: '4s'}} />
+              <div className="absolute -inset-16 bg-gradient-to-br from-orange-400/20 to-pink-500/20 rounded-full blur-2xl animate-pulse" 
+                style={{animationDuration: '3s', animationDelay: '0.5s'}} />
+              <div className="absolute -inset-12 bg-gradient-to-r from-coral-400/40 to-pink-400/30 rounded-full blur-xl animate-pulse" 
+                style={{animationDuration: '2.5s', animationDelay: '1s'}} />
               
-              {/* Left Column: Kai's Avatar */}
-              <div className="relative flex items-center justify-center md:justify-end order-1">
-                <div className="relative">
-                  {/* Outer glow */}
-                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{
-                    animationDuration: '3s'
-                  }}></div>
-                  
-                  {/* Inner glow */}
-                  <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
-                  
-                  {/* Avatar container */}
-                  <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
-                    <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover" />
-                  </div>
-                  
-                  {/* CTA Button */}
-                  <div className="hidden md:flex md:justify-center md:mt-6 animate-fade-in" style={{
-                    animationDelay: '1s'
-                  }}>
-                    <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                      {/* Glow effect */}
-                      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base" style={{
-                        boxShadow: '0 0 40px rgba(236, 72, 153, 0.4), 0 8px 32px rgba(251, 146, 60, 0.5)'
-                      }}>
-                        {/* Shimmer overlay */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="absolute inset-0" style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                            backgroundSize: '200% 100%',
-                            animation: 'shimmer 2s infinite'
-                          }} />
-                        </div>
-                        
-                        <span className="relative z-10 flex items-center gap-2">
-                          <MessageCircle className="w-5 h-5" />
-                          chat now
-                        </span>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+              {/* Avatar */}
+              <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden ring-4 ring-white/30 shadow-2xl">
+                <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" 
+                  className="w-full h-full object-cover" />
               </div>
+            </div>
 
+            {/* Title */}
+            <h2 className="text-6xl md:text-7xl lg:text-8xl font-brand mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent text-center">
+              meet kai
+            </h2>
+            
+            <h3 className="text-2xl md:text-3xl text-white/95 font-light mb-12 text-center">
+              your ai relationship coach
+            </h3>
 
-
-              {/* Right Column: Content */}
-              <div className="order-2 text-center md:text-left">
-                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
-                  animationDelay: '0.2s',
-                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-                }}>
-                  meet kai
-                </h2>
-                
-                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-6 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in" style={{
-                  animationDelay: '0.4s'
-                }}>
-                  your ai relationship coach
-                </h3>
-                
-                <div className="space-y-6 mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
-                  animationDelay: '0.6s'
-                }}>
-                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+            {/* Floating Content Cards */}
+            <div className="w-full max-w-4xl space-y-6 mb-12">
+              
+              {/* Card 1 */}
+              <div className="relative group animate-fade-in" style={{animationDelay: '0.3s'}}>
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-400 to-orange-400 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
+                <div className="relative bg-burgundy-800/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                  <p className="text-lg md:text-xl text-pink-50/90 leading-loose text-center">
                     built for the way we love,<br />
                     through late-night texts, shared playlists,<br />
                     time zones, hard talks,<br />
                     in half-typed messages, quiet forgiveness,<br />
                     and the courage to keep showing up.
                   </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                </div>
+              </div>
+
+              {/* Card 2 */}
+              <div className="relative group animate-fade-in ml-auto max-w-3xl" style={{animationDelay: '0.5s'}}>
+                <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 via-coral-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
+                <div className="relative bg-burgundy-700/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl transform rotate-1">
+                  <p className="text-lg md:text-xl text-white/95 font-medium leading-loose text-center">
                     built on research. powered by empathy.<br />
                     made for the real.
                   </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div className="relative group animate-fade-in mr-auto max-w-3xl" style={{animationDelay: '0.7s'}}>
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
+                <div className="relative bg-burgundy-800/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-pink-400/20 hover:border-pink-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl transform -rotate-1">
+                  <p className="text-lg md:text-xl text-pink-50/90 leading-loose text-center">
                     kai helps you understand yourself<br />
                     and show up with heart<br />
                     for the people who matter<br />
                     and the moments that can't wait.
                   </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                </div>
+              </div>
+
+              {/* Card 4 */}
+              <div className="relative group animate-fade-in" style={{animationDelay: '0.9s'}}>
+                <div className="absolute -inset-1 bg-gradient-to-r from-coral-500 via-pink-500 to-orange-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
+                <div className="relative bg-burgundy-700/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-coral-400/20 hover:border-coral-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                  <p className="text-lg md:text-xl text-white/95 font-medium leading-loose text-center">
                     love is work.<br />
                     kai helps you do it well.<br />
                     one honest chat at a time.
                   </p>
                 </div>
-                
-                {/* Feature pills */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{
-                  animationDelay: '0.8s'
-                }}>
-                  <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-orange-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">🌈 inclusive for all</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">🧠 evidence-based care</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">🔒 private by design</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">💗 trauma-aware</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">⏱ instant support</span>
-                  </div>
-                </div>
               </div>
             </div>
+
+            {/* Feature Pills in Arc Layout */}
+            <div className="flex flex-wrap justify-center gap-4 mb-12 max-w-4xl animate-fade-in" style={{animationDelay: '1.1s'}}>
+              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-orange-400/30 to-coral-400/30 border-2 border-orange-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-orange-400/20 hover:-translate-y-1">
+                <span className="text-base font-medium tracking-wide text-white">🌈 inclusive for all</span>
+              </div>
+              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-coral-400/30 to-pink-400/30 border-2 border-coral-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-coral-400/20 hover:-translate-y-1">
+                <span className="text-base font-medium tracking-wide text-white">🧠 evidence-based care</span>
+              </div>
+              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-400/30 to-pink-500/30 border-2 border-pink-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-pink-400/20 hover:-translate-y-1">
+                <span className="text-base font-medium tracking-wide text-white">🔒 private by design</span>
+              </div>
+              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-400/30 to-coral-400/30 border-2 border-pink-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-pink-400/20 hover:-translate-y-1">
+                <span className="text-base font-medium tracking-wide text-white">💗 trauma-aware</span>
+              </div>
+              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-coral-400/30 to-orange-400/30 border-2 border-coral-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-coral-400/20 hover:-translate-y-1">
+                <span className="text-base font-medium tracking-wide text-white">⏱ instant support</span>
+              </div>
+            </div>
+
+            {/* Centered CTA Button */}
+            <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+              <div className="absolute -inset-2 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-2xl group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+              
+              <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-10 py-6 rounded-full text-xl font-light border-2 border-white/50 shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <MessageCircle className="w-6 h-6 mr-3" />
+                chat now
+              </Button>
+            </div>
+
           </div>
         </div>
       </section>
