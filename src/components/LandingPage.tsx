@@ -620,112 +620,137 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="py-8 md:py-12 relative overflow-hidden">
-        {/* Subtle atmospheric background */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Subtle radial gradient */}
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] opacity-20"
-            style={{
-              background: 'radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, rgba(251, 146, 60, 0.08) 50%, transparent 70%)',
-              filter: 'blur(80px)'
-            }} />
-        </div>
+      <section className="py-8 md:py-14 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-5xl mx-auto flex flex-col items-center">
-            
-            {/* Compact Centered Avatar */}
-            <div className="relative mb-8">
-              {/* Single subtle ring */}
-              <div className="absolute -inset-6 bg-gradient-to-r from-pink-500/20 via-coral-400/15 to-orange-400/20 rounded-full blur-2xl" />
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               
-              {/* Compact avatar */}
-              <div className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px] rounded-full overflow-hidden ring-2 ring-white/20 shadow-xl">
-                <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" 
-                  className="w-full h-full object-cover" />
+              {/* Left Column: Kai's Avatar */}
+              <div className="relative flex items-center justify-center md:justify-end order-1">
+                <div className="relative">
+                  {/* Outer glow */}
+                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" style={{
+                    animationDuration: '3s'
+                  }}></div>
+                  
+                  {/* Inner glow */}
+                  <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
+                  
+                  {/* Avatar container */}
+                  <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
+                    <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover" />
+                  </div>
+                  
+                  {/* CTA Button */}
+                  <div className="hidden md:flex md:justify-center md:mt-6 animate-fade-in" style={{
+                    animationDelay: '1s'
+                  }}>
+                    <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                      {/* Glow effect */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base" style={{
+                        boxShadow: '0 0 40px rgba(236, 72, 153, 0.4), 0 8px 32px rgba(251, 146, 60, 0.5)'
+                      }}>
+                        {/* Shimmer overlay */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="absolute inset-0" style={{
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                            backgroundSize: '200% 100%',
+                            animation: 'shimmer 2s infinite'
+                          }} />
+                        </div>
+                        
+                        <span className="relative z-10 flex items-center gap-2">
+                          <MessageCircle className="w-5 h-5" />
+                          chat now
+                        </span>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              {/* Right Column: Content */}
+              <div className="order-2 text-center md:text-left">
+                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
+                  animationDelay: '0.2s',
+                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                }}>
+                  meet kai
+                </h2>
+                
+                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-6 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in" style={{
+                  animationDelay: '0.4s'
+                }}>
+                  your ai relationship coach
+                </h3>
+                
+                <div className="space-y-6 mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
+                  animationDelay: '0.6s'
+                }}>
+                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                    built for the way we love,<br />
+                    through late-night texts, shared playlists,<br />
+                    time zones, hard talks,<br />
+                    in half-typed messages, quiet forgiveness,<br />
+                    and the courage to keep showing up.
+                  </p>
+                  
+                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                    built on research. powered by empathy.<br />
+                    made for the real.
+                  </p>
+                  
+                  <p className="text-base md:text-lg lg:text-xl text-pink-50/90 leading-loose tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                    kai helps you understand yourself<br />
+                    and show up with heart<br />
+                    for the people who matter<br />
+                    and the moments that can't wait.
+                  </p>
+                  
+                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-loose tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                    love is work.<br />
+                    kai helps you do it well.<br />
+                    one honest chat at a time.
+                  </p>
+                </div>
+                
+                {/* Feature pills */}
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8 animate-fade-in" style={{
+                  animationDelay: '0.8s'
+                }}>
+                  <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-orange-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">🌈 inclusive for all</span>
+                  </div>
+                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">🧠 evidence-based care</span>
+                  </div>
+                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">🔒 private by design</span>
+                  </div>
+                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">💗 trauma-aware</span>
+                  </div>
+                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
+                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
+                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                    <span className="text-sm font-medium tracking-wide text-white">⏱ instant support</span>
+                  </div>
+                </div>
               </div>
             </div>
-
-            {/* Title */}
-            <h2 className="text-5xl md:text-6xl font-brand mb-3 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent text-center">
-              meet kai
-            </h2>
-            
-            <h3 className="text-xl md:text-2xl text-white/90 font-light mb-8 text-center">
-              your ai relationship coach
-            </h3>
-
-            {/* Clean Text Content */}
-            <div className="w-full max-w-2xl space-y-6 mb-10 px-4">
-              
-              {/* Paragraph 1 */}
-              <div className="animate-fade-in text-center" style={{animationDelay: '0.2s'}}>
-                <p className="text-base md:text-lg text-pink-50/95 leading-relaxed font-light">
-                  built for the way we love,<br />
-                  through late-night texts, shared playlists,<br />
-                  time zones, hard talks,<br />
-                  in half-typed messages, quiet forgiveness,<br />
-                  and the courage to keep showing up.
-                </p>
-              </div>
-
-              {/* Paragraph 2 */}
-              <div className="animate-fade-in text-center" style={{animationDelay: '0.3s'}}>
-                <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed">
-                  built on research. powered by empathy.<br />
-                  made for the real.
-                </p>
-              </div>
-
-              {/* Paragraph 3 */}
-              <div className="animate-fade-in text-center" style={{animationDelay: '0.4s'}}>
-                <p className="text-base md:text-lg text-pink-50/95 leading-relaxed font-light">
-                  kai helps you understand yourself<br />
-                  and show up with heart<br />
-                  for the people who matter<br />
-                  and the moments that can't wait.
-                </p>
-              </div>
-
-              {/* Paragraph 4 */}
-              <div className="animate-fade-in text-center" style={{animationDelay: '0.5s'}}>
-                <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed">
-                  love is work.<br />
-                  kai helps you do it well.<br />
-                  one honest chat at a time.
-                </p>
-              </div>
-            </div>
-
-            {/* Simplified Feature Pills */}
-            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 max-w-2xl px-4 animate-fade-in" style={{animationDelay: '0.6s'}}>
-              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-400/20 to-coral-400/20 border border-orange-400/30 backdrop-blur-sm">
-                <span className="text-sm text-white/90">🌈 inclusive for all</span>
-              </div>
-              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-coral-400/30 backdrop-blur-sm">
-                <span className="text-sm text-white/90">🧠 evidence-based care</span>
-              </div>
-              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-400/20 to-pink-500/20 border border-pink-400/30 backdrop-blur-sm">
-                <span className="text-sm text-white/90">🔒 private by design</span>
-              </div>
-              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-400/20 to-coral-400/20 border border-pink-400/30 backdrop-blur-sm">
-                <span className="text-sm text-white/90">💗 trauma-aware</span>
-              </div>
-              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-orange-400/20 border border-coral-400/30 backdrop-blur-sm">
-                <span className="text-sm text-white/90">⏱ instant support</span>
-              </div>
-            </div>
-
-            {/* CTA Button */}
-            <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-60 blur-xl group-hover:opacity-80 transition-opacity duration-300" />
-              
-              <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-8 py-4 rounded-full text-lg font-light border border-white/40 shadow-xl transform hover:scale-105 transition-all duration-300">
-                <MessageCircle className="w-5 h-5 mr-2" />
-                chat now
-              </Button>
-            </div>
-
           </div>
         </div>
       </section>
