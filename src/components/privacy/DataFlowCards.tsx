@@ -1,5 +1,7 @@
-import { Upload, Lock, Database, Sparkles, UserCheck } from "lucide-react";
+import { Upload, Lock, Database, Sparkles, UserCheck, Settings } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface FlowStep {
   icon: React.ElementType;
@@ -91,49 +93,83 @@ export const DataFlowCards = () => {
           {/* Desktop Connecting Line */}
           <div className="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-coral-500/20 via-coral-400/40 to-coral-500/20" />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative">
-            {flowSteps.map((step, index) => (
-              <div key={index} className="relative">
-                {/* Mobile Connecting Arrow */}
-                {index < flowSteps.length - 1 && (
-                  <div className="lg:hidden absolute left-1/2 -bottom-4 transform -translate-x-1/2 translate-y-full">
-                    <div className="w-0.5 h-8 bg-gradient-to-b from-coral-400/40 to-transparent" />
-                  </div>
-                )}
+          {/* Wrapper for cards + CTA */}
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative flex-1">
+              {flowSteps.map((step, index) => (
+                <div key={index} className="relative">
+                  {/* Mobile Connecting Arrow */}
+                  {index < flowSteps.length - 1 && (
+                    <div className="lg:hidden absolute left-1/2 -bottom-4 transform -translate-x-1/2 translate-y-full">
+                      <div className="w-0.5 h-8 bg-gradient-to-b from-coral-400/40 to-transparent" />
+                    </div>
+                  )}
 
-                <Card className="relative p-6 bg-gradient-to-br from-coral-500/10 to-pink-500/5 border-coral-500/30 hover:border-coral-400/50 transition-all duration-300 hover:scale-[1.05] h-full">
-                  {/* Number Badge */}
-                  <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-gradient-to-br from-coral-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                    {step.number}
-                  </div>
+                  <Card className="relative p-6 bg-gradient-to-br from-coral-500/10 to-pink-500/5 border-coral-500/30 hover:border-coral-400/50 transition-all duration-300 hover:scale-[1.05] h-full">
+                    {/* Number Badge */}
+                    <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-gradient-to-br from-coral-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      {step.number}
+                    </div>
 
-                  {/* Icon */}
-                  <div className="mb-4 p-3 rounded-xl bg-coral-500/20 inline-block">
-                    <step.icon className="w-8 h-8 text-coral-400" />
-                  </div>
+                    {/* Icon */}
+                    <div className="mb-4 p-3 rounded-xl bg-coral-500/20 inline-block">
+                      <step.icon className="w-8 h-8 text-coral-400" />
+                    </div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-bold mb-2 text-coral-50">
-                    {step.title}
-                  </h3>
+                    {/* Title */}
+                    <h3 className="text-xl font-bold mb-2 text-coral-50">
+                      {step.title}
+                    </h3>
 
-                  {/* Description */}
-                  <p className="text-sm text-coral-100/90 mb-4">
-                    {step.description}
-                  </p>
+                    {/* Description */}
+                    <p className="text-sm text-coral-100/90 mb-4">
+                      {step.description}
+                    </p>
 
-                  {/* Details */}
-                  <ul className="space-y-2">
-                    {step.details.map((detail, idx) => (
-                      <li key={idx} className="text-xs text-coral-200/80 flex items-start gap-2">
-                        <span className="text-coral-400 mt-1">•</span>
-                        <span>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </div>
-            ))}
+                    {/* Details */}
+                    <ul className="space-y-2">
+                      {step.details.map((detail, idx) => (
+                        <li key={idx} className="text-xs text-coral-200/80 flex items-start gap-2">
+                          <span className="text-coral-400 mt-1">•</span>
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                </div>
+              ))}
+            </div>
+            
+            {/* CTA Buttons - visible on md+ */}
+            <div className="hidden md:flex flex-col gap-4 justify-center lg:w-80">
+              <Link to="/account?tab=security">
+                <Button className="w-full bg-burgundy-600 text-white rounded-full text-lg px-8 py-6 hover:bg-burgundy-600">
+                  <Settings className="w-5 h-5 mr-2" />
+                  manage privacy settings
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6">
+                  get started free
+                </Button>
+              </Link>
+            </div>
+          </div>
+          
+          {/* CTA Buttons for mobile - centered below */}
+          <div className="md:hidden flex flex-col gap-4 items-center mt-8">
+            <Link to="/account?tab=security" className="w-full max-w-sm">
+              <Button className="w-full bg-burgundy-600 text-white rounded-full text-lg px-8 py-6 hover:bg-burgundy-600">
+                <Settings className="w-5 h-5 mr-2" />
+                manage privacy settings
+              </Button>
+            </Link>
+            <Link to="/" className="w-full max-w-sm">
+              <Button className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6">
+                get started free
+              </Button>
+            </Link>
           </div>
         </div>
 
