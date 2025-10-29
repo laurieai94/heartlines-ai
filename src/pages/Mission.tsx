@@ -421,9 +421,9 @@ const Mission = () => {
                       {/* Seattle vision */}
                       <div className="space-y-3 text-left">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          we're building toward that vision here in seattle,
+                          we're building toward that vision here in seattle:
                           <br />
-                          planning to partner with people who make a difference every day: nonprofits, teachers, caregivers, organizers.
+                          by partnering with those who hold communities together: nonprofits, educators, caregivers, organizers.
                         </p>
                       </div>
 
@@ -432,46 +432,14 @@ const Mission = () => {
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
                           they bring lived experience.
                           <br />
-                          <span className="text-white/80">we bring tech and resources.</span>
-                        </p>
-                      </div>
-
-                      {/* Building approach */}
-                      <div className="space-y-3">
-                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          together, we're creating ai that <span className="text-white/95 font-medium">starts small, stays human, and moves with intention</span>.
-                        </p>
-                      </div>
-
-                      {/* Core principles */}
-                      <div className="space-y-3 text-left">
-                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
-                          growth fuels inclusion.
-                          <br />
-                          purpose drives connection.
-                        </p>
-                      </div>
-
-                      {/* AI's role */}
-                      <div className="space-y-3">
-                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          when ai helps people connect, it doesn't erase our differences, it helps us understand them.
-                        </p>
-                      </div>
-
-                      {/* Community vision */}
-                      <div className="border-l-2 border-coral-400/40 pl-6 space-y-3 transition-all duration-300 hover:border-coral-400/60 hover:translate-x-1">
-                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          it builds communities where we can disagree and still listen, care, and show up for each other.
-                          <br />
-                          <span className="text-white/80">communities that are compassionate, collaborative, and still beautifully complex.</span>
+                          <span className="text-white/80">we bring technology and resources.</span>
                         </p>
                       </div>
 
                       {/* Final vision */}
                       <div className="space-y-3">
-                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
-                          that's the future we're building, where ai doesn't replace what's human, it strengthens it.
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          together, we'll create ai that starts small, stays human, and acts with intention. growth will mean inclusion. purpose will mean connection. when ai helps people connect, it doesn't erase difference, it builds understanding. we're working toward communities that stay compassionate, collaborative, and beautifully complex.
                         </p>
                       </div>
                     </div>
