@@ -436,10 +436,41 @@ const Mission = () => {
                         </p>
                       </div>
 
-                      {/* Final vision */}
+                      {/* Core vision */}
                       <div className="space-y-3">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          together, we'll create ai that starts small, stays human, and acts with intention. growth will mean inclusion. purpose will mean connection. when ai helps people connect, it doesn't erase difference, it builds understanding. we're working toward communities that stay compassionate, collaborative, and beautifully complex.
+                          together, we'll create ai that starts small,
+                          <br />
+                          stays human, and acts with intention.
+                          <br /><br />
+                          growth will mean inclusion.
+                          <br />
+                          purpose will mean connection.
+                          <br /><br />
+                          when ai helps people connect,
+                          <br />
+                          it doesn't erase difference,
+                          <br />
+                          it builds understanding.
+                          <br /><br />
+                          we're working toward communities
+                          <br />
+                          that stay compassionate,
+                          <br />
+                          collaborative,
+                          <br />
+                          and beautifully complex.
+                        </p>
+                      </div>
+
+                      {/* Closing vision */}
+                      <div className="border-l-2 border-coral-400/40 pl-6 space-y-3 transition-all duration-300 hover:border-coral-400/60 hover:translate-x-1">
+                        <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
+                          a future where technology
+                          <br />
+                          listens first, learns fast,
+                          <br />
+                          and lifts entire communities.
                         </p>
                       </div>
                     </div>
