@@ -13,10 +13,9 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { contactSchema } from "@/utils/contactValidation";
 import PremiumBackground from "@/components/PremiumBackground";
+
 const Contact = () => {
-  const {
-    user
-  } = useAuth();
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,33 +23,31 @@ const Contact = () => {
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSignInClick = () => {
     // Handle sign in
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
     try {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
-
+      
       // Call edge function
-      const {
-        data,
-        error
-      } = await supabase.functions.invoke('send-contact-email', {
-        body: validatedData
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: validatedData,
       });
+
       if (error) throw error;
+
       toast.success("Message sent! We'll get back to you soon.");
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error: any) {
       console.error('Contact form error:', error);
+      
       if (error.errors) {
         // Zod validation errors
         error.errors.forEach((err: any) => {
@@ -63,13 +60,16 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
   };
-  return <>
+
+  return (
+    <>
       <Helmet>
         <title>Contact Us - {BRAND.name}</title>
         <meta name="description" content="Get in touch with the heartlines team. We're here to help with questions about our AI-powered relationship coaching platform." />
@@ -77,15 +77,28 @@ const Contact = () => {
       
       <div className="min-h-screen bg-burgundy-800 flex flex-col relative landing-page-scroll">
         <PremiumBackground />
-        <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} />
+        <SimpleHeader 
+          user={user}
+          activeTab="home"
+          onSignInClick={handleSignInClick}
+        />
         
-        <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <div className="flex justify-center mb-6">
-              
+            <div className="flex justify-center mb-8">
+              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center backdrop-filter backdrop-blur-sm">
+                <Mail className="w-8 h-8 text-white" />
+              </div>
             </div>
-            <h1 className="text-4xl font-bold questionnaire-text mb-4 font-brand">let's connect</h1>
+            <h1 
+              className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider mb-4"
+              style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              }}
+            >
+              let's connect
+            </h1>
             <p className="text-xl questionnaire-text-muted max-w-2xl mx-auto">
               got questions, feedback, or ideas?<br />
               drop us a note — we actually read these.
@@ -107,31 +120,70 @@ const Contact = () => {
                   <label htmlFor="name" className="block text-sm font-medium questionnaire-text-muted mb-2">
                     name
                   </label>
-                  <Input id="name" name="name" type="text" value={formData.name} onChange={handleChange} required className="questionnaire-input placeholder:text-[#ff6b9d]/80" placeholder="what should we call you?" />
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
+                    placeholder="what should we call you?"
+                  />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium questionnaire-text-muted mb-2">
                     email
                   </label>
-                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required className="questionnaire-input placeholder:text-[#ff6b9d]/80" placeholder="your email" />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
+                    placeholder="your email"
+                  />
                 </div>
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium questionnaire-text-muted mb-2">
                     subject
                   </label>
-                  <Input id="subject" name="subject" type="text" value={formData.subject} onChange={handleChange} required className="questionnaire-input placeholder:text-[#ff6b9d]/80" placeholder="what's up?" />
+                  <Input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
+                    placeholder="what's up?"
+                  />
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium questionnaire-text-muted mb-2">
                     message
                   </label>
-                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} required className="questionnaire-input min-h-[150px] placeholder:text-[#ff6b9d]/80" placeholder="spill the details..." />
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="questionnaire-input min-h-[150px] placeholder:text-[#ff6b9d]/80"
+                    placeholder="spill the details..."
+                  />
                 </div>
 
-                <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white">
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
+                >
                   {isSubmitting ? "sending..." : "send ✈️"}
                 </Button>
               </form>
@@ -165,6 +217,8 @@ const Contact = () => {
 
         <SiteFooter />
       </div>
-    </>;
+    </>
+  );
 };
+
 export default Contact;
