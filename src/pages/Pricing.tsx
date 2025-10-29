@@ -150,12 +150,12 @@ const Pricing = () => {
                       most popular
                     </Badge>}
                   
-                  <CardHeader className="text-center pb-3 p-4">
-                    <div className="mx-auto mb-3 p-2.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
-                      <IconComponent className="h-8 w-8 questionnaire-text" />
+                  <CardHeader className="text-center pb-2 md:pb-3 p-3 md:p-4">
+                    <div className="mx-auto mb-2 md:mb-3 p-2 md:p-2.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
+                      <IconComponent className="h-7 w-7 md:h-8 md:w-8 questionnaire-text" />
                     </div>
                     <CardTitle className="text-xl font-light questionnaire-text mb-2">{plan.name}</CardTitle>
-                    <div className="flex items-baseline justify-center gap-1 mb-2">
+                    <div className="flex items-baseline justify-center gap-1 mb-1 md:mb-2">
                       <span className="text-4xl font-thin questionnaire-text">{plan.price}</span>
                       <span className="questionnaire-text-muted text-sm md:text-sm text-base">/{plan.period}</span>
                     </div>
@@ -164,15 +164,15 @@ const Pricing = () => {
                     </p>
                   </CardHeader>
 
-                  <CardContent className="flex-1 flex flex-col space-y-4 p-4 pt-0">
-                    <div className="text-center py-2 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-questionnaire-border/50">
+                  <CardContent className="flex-1 flex flex-col space-y-3 md:space-y-4 p-3 md:p-4 pt-0">
+                    <div className="text-center py-1.5 md:py-2 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-questionnaire-border/50">
                       <div className="text-lg font-light questionnaire-text">
                         {plan.messages === 0 ? '∞' : plan.messages} messages
                       </div>
                       <div className="text-xs questionnaire-text-muted">per month</div>
                     </div>
 
-                    <ul className="space-y-2 flex-1">
+                    <ul className="space-y-1.5 md:space-y-2 flex-1">
                       {plan.features.map((feature, index) => <li key={index} className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-coral-400 flex-shrink-0 mt-0.5" />
                           <span className="text-sm md:text-xs questionnaire-text-muted leading-relaxed">{feature}</span>
@@ -180,7 +180,7 @@ const Pricing = () => {
                     </ul>
 
                     <div className="mt-auto">
-                      <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-3 text-sm mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
+                      <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-2.5 md:py-3 text-sm mt-4 md:mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
                         {loading === plan.tier ? "loading..." : plan.buttonText}
                       </Button>
                     </div>
