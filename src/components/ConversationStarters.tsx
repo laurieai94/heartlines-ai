@@ -55,10 +55,10 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="bg-gradient-to-br from-burgundy-800/50 via-burgundy-800/40 to-pink-900/20 backdrop-blur-lg rounded-2xl border border-pink-400/15 px-4 py-3 shadow-lg pointer-events-auto">
+      <div className="bg-gradient-to-br from-burgundy-800/50 via-pink-900/30 to-coral-900/25 backdrop-blur-lg rounded-2xl border border-pink-400/20 px-4 py-3 shadow-lg shadow-pink-500/5 pointer-events-auto">
         {!selectedCategory ? (
           <>
-            <h3 className="text-sm font-normal text-white/80 mb-2 text-center">
+            <h3 className="text-sm font-normal bg-gradient-to-r from-pink-200 via-coral-100 to-orange-100 bg-clip-text text-transparent mb-2 text-center">
               What's on your mind?
             </h3>
             <div className="grid grid-cols-2 gap-2">
@@ -66,9 +66,9 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-gradient-to-br from-white/8 via-pink-500/5 to-coral-400/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-500/10 hover:to-coral-400/10 rounded-lg p-2 border border-pink-400/15 hover:border-coral-400/30 shadow-sm transition-all duration-200"
+                  className="group cursor-pointer bg-gradient-to-br from-white/8 via-pink-500/5 to-coral-400/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-400/15 hover:via-coral-400/15 hover:to-orange-400/15 rounded-lg p-2 border border-pink-400/15 hover:border-gradient-to-r hover:from-pink-400/40 hover:via-coral-400/40 hover:to-orange-400/40 shadow-sm transition-all duration-200"
                 >
-                  <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
+                  <h4 className="font-medium text-white text-xs group-hover:bg-gradient-to-r group-hover:from-pink-100 group-hover:via-coral-50 group-hover:to-orange-100 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-200 text-center leading-tight">
                     {category}
                   </h4>
                 </div>
@@ -86,7 +86,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
               >
                 <ArrowLeft className="w-3 h-3" />
               </Button>
-              <h3 className="text-sm font-medium text-white">
+              <h3 className="text-sm font-medium bg-gradient-to-r from-pink-200 to-coral-200 bg-clip-text text-transparent">
                 {selectedCategory}
               </h3>
             </div>
@@ -96,7 +96,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-gradient-to-r hover:from-coral-400/10 hover:to-pink-400/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border-0 md:border md:border-transparent hover:border-coral-400/25"
+                  className="group text-white/80 hover:text-white hover:bg-gradient-to-r hover:from-coral-400/15 hover:via-pink-400/15 hover:to-orange-400/12 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border-0 md:border md:border-transparent hover:border-coral-400/35"
                 >
                   <span className="leading-tight">{starter}</span>
                 </Button>
