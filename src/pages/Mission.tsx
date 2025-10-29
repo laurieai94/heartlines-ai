@@ -391,7 +391,7 @@ const Mission = () => {
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
               <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                laurie ai starts on a simple belief:
+                laurie ai starts with a simple belief:
               </p>
               <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                 stronger relationships build stronger communities.
@@ -421,9 +421,9 @@ const Mission = () => {
                       {/* Seattle vision */}
                       <div className="space-y-3 text-left">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          we're building toward that vision here in seattle,
+                          we're working to bring that belief to life here in seattle,
                           <br />
-                          by partnering with those who hold communities together:
+                          partnering with the people who hold communities together:
                           <br />
                           nonprofits, educators, caregivers, organizers.
                         </p>
@@ -432,9 +432,9 @@ const Mission = () => {
                       {/* Partnership approach */}
                       <div className="border-l-2 border-pink-400/50 pl-6 space-y-3 transition-all duration-300 hover:border-pink-400/70 hover:translate-x-1">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          they bring lived experience.
+                          they will bring lived experience.
                           <br />
-                          <span className="text-white/80">we bring technology and resources.</span>
+                          we will bring tech and resources.
                         </p>
                       </div>
 
@@ -451,24 +451,22 @@ const Mission = () => {
                           <br /><br />
                           when ai helps people connect,
                           <br />
-                          it doesn't erase difference,
+                          it won't erase our differences,
                           <br />
-                          it builds understanding.
+                          it will help us understand them.
                           <br /><br />
-                          we're working toward communities
+                          we're building toward communities
                           <br />
-                          that stay compassionate,
+                          that remain compassionate,
                           <br />
-                          collaborative,
-                          <br />
-                          and beautifully complex.
+                          collaborative, and beautifully complex.
                         </p>
                       </div>
 
                       {/* Closing vision */}
                       <div className="border-l-2 border-coral-400/40 pl-6 space-y-3 transition-all duration-300 hover:border-coral-400/60 hover:translate-x-1">
                         <p className="text-sm md:text-base text-white/90 font-light leading-relaxed">
-                          a future where technology
+                          a future where tech
                           <br />
                           listens first, learns fast,
                           <br />
