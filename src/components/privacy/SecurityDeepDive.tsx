@@ -61,7 +61,7 @@ export const SecurityDeepDive = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon & Name */}
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-start gap-3 mb-6 min-h-[80px]">
                 <div className="p-2.5 rounded-lg bg-coral-500/10">
                   <feature.icon className="w-6 h-6 text-coral-400" />
                 </div>
