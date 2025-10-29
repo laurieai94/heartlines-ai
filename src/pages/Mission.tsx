@@ -445,7 +445,7 @@ const Mission = () => {
 
                       {/* Core principles */}
                       <div className="space-y-3 text-left">
-                        <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
                           growth fuels inclusion.
                           <br />
                           purpose drives connection.
@@ -470,7 +470,7 @@ const Mission = () => {
 
                       {/* Final vision */}
                       <div className="space-y-3">
-                        <p className="text-lg md:text-xl text-white/95 font-medium leading-relaxed">
+                        <p className="text-base md:text-lg text-white/95 font-semibold leading-relaxed">
                           that's the future we're building, where ai doesn't replace what's human, it strengthens it.
                         </p>
                       </div>
