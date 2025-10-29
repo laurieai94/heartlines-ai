@@ -19,6 +19,10 @@ export const MODEL_PRICING = {
   'claude-sonnet-4-20250514': {
     input: 0.000003,   // $3 per 1M input tokens
     output: 0.000015,  // $15 per 1M output tokens
+  },
+  'claude-3-7-sonnet-20250219': {
+    input: 0.000003,   // $3 per 1M input tokens
+    output: 0.000015,  // $15 per 1M output tokens
   }
 } as const;
 

@@ -14,6 +14,8 @@ import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityCont
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useState } from "react";
 import type { User } from '@supabase/supabase-js';
+import { useIsAdmin } from "@/hooks/useUserRole";
+import { Link } from "react-router-dom";
 
 interface DashboardHeaderProps {
   accessLevel: string;
@@ -31,6 +33,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const { isMobile } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
+  const { isAdmin } = useIsAdmin();
   
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'plans') {
@@ -179,7 +182,15 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             
           </div>
           
-          <div className="flex items-center">
+          <div className="flex items-center gap-3">
+            {isAdmin && (
+              <Link 
+                to="/admin"
+                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-400/20 to-coral-400/20 hover:from-pink-400/30 hover:to-coral-400/30 border border-pink-400/30 text-white text-sm font-medium transition-all"
+              >
+                Admin
+              </Link>
+            )}
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
           </div>
         </div>

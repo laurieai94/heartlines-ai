@@ -24,6 +24,7 @@ import Auth from "@/pages/Auth"; // Synchronous import for instant loading
 const Mission = React.lazy(() => import("@/pages/Mission"));
 const Terms = React.lazy(() => import("@/pages/Terms"));
 const Contact = React.lazy(() => import("@/pages/Contact"));
+const AdminDashboard = React.lazy(() => import("@/pages/AdminDashboard"));
 
 const AppContent = () => {
   // Removed disabled performance functions to eliminate unnecessary calls
@@ -90,6 +91,11 @@ const AppContent = () => {
         <Route path="/contact" element={
           <Suspense fallback={<div />}>
             <Contact />
+          </Suspense>
+        } />
+        <Route path="/admin" element={
+          <Suspense fallback={<div />}>
+            <AdminDashboard />
           </Suspense>
         } />
         <Route path="*" element={
