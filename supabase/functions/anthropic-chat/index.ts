@@ -128,7 +128,7 @@ serve(async (req) => {
       { role: 'user', content: userMessage }
     ]
 
-    console.log('Calling Anthropic API with Claude 3.7 Sonnet...')
+    console.log('Calling Anthropic API with Claude Sonnet 4.5...')
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -138,7 +138,7 @@ serve(async (req) => {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        model: 'claude-3-7-sonnet-20250219',
+        model: 'claude-sonnet-4-5-20250929',
         max_tokens: 400,
         messages: messages,
         system: systemPrompt
@@ -168,9 +168,9 @@ serve(async (req) => {
       try {
         const inputTokens = data.usage?.input_tokens || 0;
         const outputTokens = data.usage?.output_tokens || 0;
-        const model = 'claude-3-7-sonnet-20250219';
+        const model = 'claude-sonnet-4-5-20250929';
         
-        // Calculate cost (Claude 3.7 Sonnet: $3/1M input, $15/1M output tokens)
+        // Calculate cost (Claude Sonnet 4.5: $3/1M input, $15/1M output tokens)
         const estimatedCost = (inputTokens * 0.000003) + (outputTokens * 0.000015);
         
         const { error: tokenError } = await supabaseService
