@@ -29,6 +29,18 @@ export const useAdminAnalytics = () => {
       const avgOutputTokens = usersWithMessages.length > 0
         ? usersWithMessages.reduce((sum, u) => sum + (u.avg_output_tokens || 0), 0) / usersWithMessages.length
         : 0;
+      
+      // Calculate conversation and session metrics
+      const usersWithConversations = summary?.filter(u => u.total_conversations > 0) || [];
+      const avgMessagesPerConversation = usersWithConversations.length > 0
+        ? usersWithConversations.reduce((sum, u) => sum + (u.avg_messages_per_conversation || 0), 0) / usersWithConversations.length
+        : 0;
+      const avgConversationDuration = usersWithConversations.length > 0
+        ? usersWithConversations.reduce((sum, u) => sum + (u.avg_conversation_duration_minutes || 0), 0) / usersWithConversations.length
+        : 0;
+      const avgSessionDuration = usersWithConversations.length > 0
+        ? usersWithConversations.reduce((sum, u) => sum + (u.avg_session_duration_minutes || 0), 0) / usersWithConversations.length
+        : 0;
 
       return {
         totalUsers,
@@ -37,6 +49,9 @@ export const useAdminAnalytics = () => {
         totalCost,
         avgInputTokens,
         avgOutputTokens,
+        avgMessagesPerConversation,
+        avgConversationDuration,
+        avgSessionDuration,
         users: summary || []
       };
     },

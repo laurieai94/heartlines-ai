@@ -1,4 +1,4 @@
-import { Users, Activity, MessageSquare, DollarSign, ArrowDown, ArrowUp } from "lucide-react";
+import { Users, Activity, MessageSquare, DollarSign, ArrowDown, ArrowUp, MessageCircle, Clock, Timer } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface AdminOverviewCardsProps {
@@ -8,9 +8,22 @@ interface AdminOverviewCardsProps {
   totalCost: number;
   avgInputTokens: number;
   avgOutputTokens: number;
+  avgMessagesPerConversation: number;
+  avgConversationDuration: number;
+  avgSessionDuration: number;
 }
 
-const AdminOverviewCards = ({ totalUsers, activeUsers, totalMessages, totalCost, avgInputTokens, avgOutputTokens }: AdminOverviewCardsProps) => {
+const AdminOverviewCards = ({ 
+  totalUsers, 
+  activeUsers, 
+  totalMessages, 
+  totalCost, 
+  avgInputTokens, 
+  avgOutputTokens,
+  avgMessagesPerConversation,
+  avgConversationDuration,
+  avgSessionDuration
+}: AdminOverviewCardsProps) => {
   const cards = [
     {
       title: "Total Users",
@@ -47,6 +60,24 @@ const AdminOverviewCards = ({ totalUsers, activeUsers, totalMessages, totalCost,
       value: Math.round(avgOutputTokens).toLocaleString(),
       icon: ArrowUp,
       gradient: "from-pink-500 to-coral-500"
+    },
+    {
+      title: "Avg Messages/Chat",
+      value: Math.round(avgMessagesPerConversation).toLocaleString(),
+      icon: MessageCircle,
+      gradient: "from-orange-500 to-pink-500"
+    },
+    {
+      title: "Avg Chat Duration",
+      value: `${Math.round(avgConversationDuration)}m`,
+      icon: Clock,
+      gradient: "from-pink-500 to-coral-500"
+    },
+    {
+      title: "Avg Session Time",
+      value: `${Math.round(avgSessionDuration)}m`,
+      icon: Timer,
+      gradient: "from-coral-500 to-orange-500"
     }
   ];
 

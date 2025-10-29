@@ -481,8 +481,11 @@ export type Database = {
       }
       user_analytics_summary: {
         Row: {
+          avg_conversation_duration_minutes: number | null
           avg_input_tokens: number | null
+          avg_messages_per_conversation: number | null
           avg_output_tokens: number | null
+          avg_session_duration_minutes: number | null
           cost_last_30_days: number | null
           email: string | null
           is_subscribed: boolean | null
@@ -490,6 +493,7 @@ export type Database = {
           last_activity: string | null
           messages_this_month: number | null
           subscription_tier: string | null
+          total_conversation_time_minutes: number | null
           total_conversations: number | null
           total_cost: number | null
           total_input_tokens: number | null
