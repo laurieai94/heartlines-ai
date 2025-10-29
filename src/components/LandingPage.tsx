@@ -620,131 +620,108 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="py-12 md:py-20 relative overflow-hidden">
-        {/* Atmospheric background effects */}
+      <section className="py-8 md:py-12 relative overflow-hidden">
+        {/* Subtle atmospheric background */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Radial gradient centered on avatar position */}
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] opacity-40"
+          {/* Subtle radial gradient */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] opacity-20"
             style={{
-              background: 'radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, rgba(251, 146, 60, 0.1) 50%, transparent 70%)',
-              filter: 'blur(60px)'
+              background: 'radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, rgba(251, 146, 60, 0.08) 50%, transparent 70%)',
+              filter: 'blur(80px)'
             }} />
-          
-          {/* Floating orbs */}
-          <div className="absolute top-20 left-10 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl animate-pulse" 
-            style={{animationDuration: '8s'}} />
-          <div className="absolute bottom-40 right-20 w-40 h-40 bg-pink-400/10 rounded-full blur-2xl animate-pulse" 
-            style={{animationDuration: '8s', animationDelay: '1s'}} />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-5xl mx-auto flex flex-col items-center">
             
-            {/* Centered Avatar with Enhanced Effects */}
-            <div className="relative mb-12 md:mb-16">
-              {/* Multiple pulsing rings */}
-              <div className="absolute -inset-20 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-3xl animate-pulse" 
-                style={{animationDuration: '4s'}} />
-              <div className="absolute -inset-16 bg-gradient-to-br from-orange-400/20 to-pink-500/20 rounded-full blur-2xl animate-pulse" 
-                style={{animationDuration: '3s', animationDelay: '0.5s'}} />
-              <div className="absolute -inset-12 bg-gradient-to-r from-coral-400/40 to-pink-400/30 rounded-full blur-xl animate-pulse" 
-                style={{animationDuration: '2.5s', animationDelay: '1s'}} />
+            {/* Compact Centered Avatar */}
+            <div className="relative mb-8">
+              {/* Single subtle ring */}
+              <div className="absolute -inset-6 bg-gradient-to-r from-pink-500/20 via-coral-400/15 to-orange-400/20 rounded-full blur-2xl" />
               
-              {/* Avatar */}
-              <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden ring-4 ring-white/30 shadow-2xl">
+              {/* Compact avatar */}
+              <div className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px] rounded-full overflow-hidden ring-2 ring-white/20 shadow-xl">
                 <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" 
                   className="w-full h-full object-cover" />
               </div>
             </div>
 
             {/* Title */}
-            <h2 className="text-6xl md:text-7xl lg:text-8xl font-brand mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent text-center">
+            <h2 className="text-5xl md:text-6xl font-brand mb-3 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent text-center">
               meet kai
             </h2>
             
-            <h3 className="text-2xl md:text-3xl text-white/95 font-light mb-12 text-center">
+            <h3 className="text-xl md:text-2xl text-white/90 font-light mb-8 text-center">
               your ai relationship coach
             </h3>
 
-            {/* Floating Content Cards */}
-            <div className="w-full max-w-4xl space-y-6 mb-12">
+            {/* Clean Text Content */}
+            <div className="w-full max-w-2xl space-y-6 mb-10 px-4">
               
-              {/* Card 1 */}
-              <div className="relative group animate-fade-in" style={{animationDelay: '0.3s'}}>
-                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-400 to-orange-400 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
-                <div className="relative bg-burgundy-800/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                  <p className="text-lg md:text-xl text-pink-50/90 leading-loose text-center">
-                    built for the way we love,<br />
-                    through late-night texts, shared playlists,<br />
-                    time zones, hard talks,<br />
-                    in half-typed messages, quiet forgiveness,<br />
-                    and the courage to keep showing up.
-                  </p>
-                </div>
+              {/* Paragraph 1 */}
+              <div className="animate-fade-in text-center" style={{animationDelay: '0.2s'}}>
+                <p className="text-base md:text-lg text-pink-50/95 leading-relaxed font-light">
+                  built for the way we love,<br />
+                  through late-night texts, shared playlists,<br />
+                  time zones, hard talks,<br />
+                  in half-typed messages, quiet forgiveness,<br />
+                  and the courage to keep showing up.
+                </p>
               </div>
 
-              {/* Card 2 */}
-              <div className="relative group animate-fade-in ml-auto max-w-3xl" style={{animationDelay: '0.5s'}}>
-                <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 via-coral-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
-                <div className="relative bg-burgundy-700/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl transform rotate-1">
-                  <p className="text-lg md:text-xl text-white/95 font-medium leading-loose text-center">
-                    built on research. powered by empathy.<br />
-                    made for the real.
-                  </p>
-                </div>
+              {/* Paragraph 2 */}
+              <div className="animate-fade-in text-center" style={{animationDelay: '0.3s'}}>
+                <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed">
+                  built on research. powered by empathy.<br />
+                  made for the real.
+                </p>
               </div>
 
-              {/* Card 3 */}
-              <div className="relative group animate-fade-in mr-auto max-w-3xl" style={{animationDelay: '0.7s'}}>
-                <div className="absolute -inset-1 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
-                <div className="relative bg-burgundy-800/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-pink-400/20 hover:border-pink-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl transform -rotate-1">
-                  <p className="text-lg md:text-xl text-pink-50/90 leading-loose text-center">
-                    kai helps you understand yourself<br />
-                    and show up with heart<br />
-                    for the people who matter<br />
-                    and the moments that can't wait.
-                  </p>
-                </div>
+              {/* Paragraph 3 */}
+              <div className="animate-fade-in text-center" style={{animationDelay: '0.4s'}}>
+                <p className="text-base md:text-lg text-pink-50/95 leading-relaxed font-light">
+                  kai helps you understand yourself<br />
+                  and show up with heart<br />
+                  for the people who matter<br />
+                  and the moments that can't wait.
+                </p>
               </div>
 
-              {/* Card 4 */}
-              <div className="relative group animate-fade-in" style={{animationDelay: '0.9s'}}>
-                <div className="absolute -inset-1 bg-gradient-to-r from-coral-500 via-pink-500 to-orange-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500" />
-                <div className="relative bg-burgundy-700/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-coral-400/20 hover:border-coral-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                  <p className="text-lg md:text-xl text-white/95 font-medium leading-loose text-center">
-                    love is work.<br />
-                    kai helps you do it well.<br />
-                    one honest chat at a time.
-                  </p>
-                </div>
+              {/* Paragraph 4 */}
+              <div className="animate-fade-in text-center" style={{animationDelay: '0.5s'}}>
+                <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed">
+                  love is work.<br />
+                  kai helps you do it well.<br />
+                  one honest chat at a time.
+                </p>
               </div>
             </div>
 
-            {/* Feature Pills in Arc Layout */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12 max-w-4xl animate-fade-in" style={{animationDelay: '1.1s'}}>
-              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-orange-400/30 to-coral-400/30 border-2 border-orange-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-orange-400/20 hover:-translate-y-1">
-                <span className="text-base font-medium tracking-wide text-white">🌈 inclusive for all</span>
+            {/* Simplified Feature Pills */}
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 max-w-2xl px-4 animate-fade-in" style={{animationDelay: '0.6s'}}>
+              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-400/20 to-coral-400/20 border border-orange-400/30 backdrop-blur-sm">
+                <span className="text-sm text-white/90">🌈 inclusive for all</span>
               </div>
-              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-coral-400/30 to-pink-400/30 border-2 border-coral-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-coral-400/20 hover:-translate-y-1">
-                <span className="text-base font-medium tracking-wide text-white">🧠 evidence-based care</span>
+              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-coral-400/30 backdrop-blur-sm">
+                <span className="text-sm text-white/90">🧠 evidence-based care</span>
               </div>
-              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-400/30 to-pink-500/30 border-2 border-pink-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-pink-400/20 hover:-translate-y-1">
-                <span className="text-base font-medium tracking-wide text-white">🔒 private by design</span>
+              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-400/20 to-pink-500/20 border border-pink-400/30 backdrop-blur-sm">
+                <span className="text-sm text-white/90">🔒 private by design</span>
               </div>
-              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-400/30 to-coral-400/30 border-2 border-pink-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-pink-400/20 hover:-translate-y-1">
-                <span className="text-base font-medium tracking-wide text-white">💗 trauma-aware</span>
+              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-400/20 to-coral-400/20 border border-pink-400/30 backdrop-blur-sm">
+                <span className="text-sm text-white/90">💗 trauma-aware</span>
               </div>
-              <div className="px-6 py-3 rounded-full bg-gradient-to-r from-coral-400/30 to-orange-400/30 border-2 border-coral-400/40 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-coral-400/20 hover:-translate-y-1">
-                <span className="text-base font-medium tracking-wide text-white">⏱ instant support</span>
+              <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-orange-400/20 border border-coral-400/30 backdrop-blur-sm">
+                <span className="text-sm text-white/90">⏱ instant support</span>
               </div>
             </div>
 
-            {/* Centered CTA Button */}
+            {/* CTA Button */}
             <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-              <div className="absolute -inset-2 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-2xl group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-60 blur-xl group-hover:opacity-80 transition-opacity duration-300" />
               
-              <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-10 py-6 rounded-full text-xl font-light border-2 border-white/50 shadow-2xl transform hover:scale-105 transition-all duration-300">
-                <MessageCircle className="w-6 h-6 mr-3" />
+              <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-8 py-4 rounded-full text-lg font-light border border-white/40 shadow-xl transform hover:scale-105 transition-all duration-300">
+                <MessageCircle className="w-5 h-5 mr-2" />
                 chat now
               </Button>
             </div>
