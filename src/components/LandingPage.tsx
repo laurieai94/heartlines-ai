@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { BRAND } from "@/branding";
+import kaiPremiumPortrait from "@/assets/kai-premium-portrait.png";
 import BrandMark from "./BrandMark";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
@@ -619,47 +620,81 @@ const LandingPage = ({
         </div>
       </section>
 
-      {/* Meet Kai Section */}
-      <section className="py-10 md:py-16 relative overflow-hidden">
-        {/* Enhanced Background with Radial Gradient */}
-        <div className="absolute inset-0 bg-gradient-radial from-pink-500/5 via-transparent to-coral-500/5 pointer-events-none"></div>
+      {/* Meet Kai Section - Ultra Premium Redesign */}
+      <section className="py-16 md:py-24 lg:py-32 relative overflow-hidden">
+        {/* Enhanced Background with Multi-layer Gradient Mesh */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-radial from-pink-500/8 via-transparent to-transparent"></div>
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-coral-500/6 via-transparent to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-orange-500/6 via-transparent to-transparent"></div>
+        </div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+          {/* Hero Typography - Centered */}
+          <div className="text-center mb-12 md:mb-16 lg:mb-20">
+            <h2 className="font-space text-7xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-bold mb-4 md:mb-6
+              tracking-[-0.05em] leading-none animate-fade-in"
+              style={{
+                animationDelay: '0.2s',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitTextStroke: '2px transparent',
+                backgroundClip: 'text',
+                textShadow: '0 0 80px rgba(236, 72, 153, 0.4)',
+                filter: 'drop-shadow(0 4px 20px rgba(236,72,153,0.3))',
+                position: 'relative',
+              }}>
+              <span style={{
+                background: 'linear-gradient(135deg, #fef5f7 0%, #ffd4b8 50%, #fef5f7 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>meet kai</span>
+            </h2>
+            
+            <h3 className="font-inter text-2xl md:text-3xl lg:text-4xl font-light text-white/90 
+              tracking-[0.15em] uppercase animate-fade-in" 
+              style={{
+                animationDelay: '0.4s',
+                textShadow: '0 2px 20px rgba(236, 72, 153, 0.3)'
+              }}>
+              your ai relationship coach
+            </h3>
+          </div>
+
+          {/* Asymmetric Layout Grid */}
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
               
-              {/* Left Column: Kai's Avatar */}
-              <div className="relative flex items-center justify-center md:justify-end order-1">
-                <div className="relative group">
-                  {/* Outer glow - enhanced with mesh gradient */}
-                  <div className="absolute -inset-12 bg-gradient-to-r from-pink-500/30 via-coral-400/20 to-orange-400/30 rounded-full blur-[100px] animate-pulse" style={{
+              {/* Left Column: Premium Avatar + CTA (4 columns) */}
+              <div className="lg:col-span-4 flex flex-col items-center lg:items-start animate-fade-in" style={{
+                animationDelay: '0.6s'
+              }}>
+                <div className="relative group w-full max-w-md">
+                  {/* Multi-layer Glow System */}
+                  <div className="absolute -inset-16 bg-gradient-to-r from-pink-500/20 via-coral-400/15 to-orange-400/20 rounded-full blur-[120px] animate-pulse" style={{
                     animationDuration: '4s'
                   }}></div>
                   
-                  {/* Secondary glow layer */}
-                  <div className="absolute -inset-8 bg-gradient-to-br from-pink-400/35 via-coral-500/25 to-orange-500/35 rounded-full blur-[60px] opacity-80"></div>
+                  <div className="absolute -inset-12 bg-gradient-to-br from-pink-400/25 via-coral-500/15 to-orange-500/25 rounded-full blur-[80px]"></div>
                   
-                  {/* Inner glow with breathing effect */}
-                  <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl animate-pulse" style={{
-                    animationDuration: '2.5s',
-                    animationDelay: '0.5s'
-                  }}></div>
+                  {/* Frosted Glass Frame System */}
+                  <div className="absolute -inset-8 rounded-full backdrop-blur-3xl bg-gradient-to-br from-white/8 via-white/4 to-white/8 
+                    border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)]"></div>
                   
-                  {/* Frosted glass ring - outer */}
-                  <div className="absolute -inset-6 rounded-full border border-white/10 backdrop-blur-md bg-white/5"></div>
+                  <div className="absolute -inset-3 rounded-full border-2 border-white/20 
+                    shadow-[0_0_30px_rgba(236,72,153,0.3),inset_0_2px_4px_rgba(255,255,255,0.2)]"></div>
                   
-                  {/* Multi-layered border system */}
-                  <div className="absolute -inset-2 rounded-full border-2 border-pink-300/20 shadow-[0_0_20px_rgba(236,72,153,0.3)]"></div>
-                  <div className="absolute -inset-1 rounded-full border border-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"></div>
-                  
-                  {/* Avatar container with 3D tilt effect on hover */}
-                  <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden 
-                    ring-[3px] ring-white/40 shadow-2xl
-                    transition-transform duration-700 ease-out
-                    group-hover:scale-[1.02] group-hover:shadow-[0_20px_60px_rgba(236,72,153,0.4)]
-                    animate-fade-in"
+                  {/* Premium Portrait Container with 3D Effect */}
+                  <div className="relative aspect-square rounded-full overflow-hidden 
+                    ring-[4px] ring-white/30 shadow-[0_20px_60px_rgba(236,72,153,0.4)]
+                    transition-all duration-700 ease-out
+                    group-hover:scale-[1.03] group-hover:shadow-[0_30px_80px_rgba(236,72,153,0.5)]
+                    animate-scale-in"
                     style={{
                       transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
+                      filter: 'brightness(1.05) contrast(1.02) saturate(1.1)',
                     }}
                     onMouseMove={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
@@ -667,47 +702,56 @@ const LandingPage = ({
                       const y = e.clientY - rect.top;
                       const centerX = rect.width / 2;
                       const centerY = rect.height / 2;
-                      const rotateX = (y - centerY) / 20;
-                      const rotateY = (centerX - x) / 20;
-                      e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                      const rotateX = (y - centerY) / 25;
+                      const rotateY = (centerX - x) / 25;
+                      e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                      e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
                     }}>
-                    <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover" />
+                    <img 
+                      src={kaiPremiumPortrait} 
+                      alt="Kai, your AI relationship coach" 
+                      className="w-full h-full object-cover object-center" 
+                    />
                     
-                    {/* Inner reflection overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+                    {/* Premium Reflection Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent opacity-70 pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none"></div>
                   </div>
                   
-                  {/* Enhanced CTA Button with Magnetic Hover */}
-                  <div className="hidden md:flex md:justify-center md:mt-8 animate-fade-in" style={{
-                    animationDelay: '1s'
+                  {/* Floating Premium CTA */}
+                  <div className="mt-10 flex justify-center animate-fade-in" style={{
+                    animationDelay: '1.2s'
                   }}>
-                    <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                      {/* Enhanced multi-layer glow effect */}
-                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-60 blur-2xl group-hover:opacity-90 transition-all duration-500" />
-                      <div className="absolute -inset-1 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 rounded-full opacity-50 blur-lg group-hover:blur-xl transition-all duration-500" />
+                    <div className="relative group/btn inline-block cursor-pointer" onClick={handleTalkToKai}>
+                      {/* Multi-layer Glow */}
+                      <div className="absolute -inset-3 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-50 blur-3xl group-hover/btn:opacity-80 transition-all duration-500" />
+                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 rounded-full opacity-40 blur-xl group-hover/btn:blur-2xl transition-all duration-500" />
                       
-                      <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-8 py-4 rounded-full shadow-2xl hover:shadow-pink-500/60 transition-all duration-500 transform hover:scale-110 border-2 border-white/50 backdrop-blur-md overflow-hidden font-medium text-base tracking-wide" style={{
-                        boxShadow: '0 0 50px rgba(236, 72, 153, 0.5), 0 10px 40px rgba(251, 146, 60, 0.6), inset 0 1px 0 rgba(255,255,255,0.4)'
-                      }}>
-                        {/* Ripple effect */}
-                        <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                      <Button className="relative h-auto px-10 py-5 rounded-full overflow-hidden
+                        bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 
+                        hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 
+                        text-white font-space font-semibold text-lg tracking-wide
+                        border-2 border-white/40 backdrop-blur-md
+                        shadow-[0_0_50px_rgba(236,72,153,0.5),0_10px_40px_rgba(251,146,60,0.6),inset_0_2px_4px_rgba(255,255,255,0.3)]
+                        transition-all duration-500 transform hover:scale-110 group-hover/btn:shadow-[0_0_70px_rgba(236,72,153,0.7),0_15px_60px_rgba(251,146,60,0.8),inset_0_2px_4px_rgba(255,255,255,0.4)]">
+                        {/* Ripple Effect */}
+                        <div className="absolute inset-0 rounded-full opacity-0 group-hover/btn:opacity-100 transition-opacity duration-700">
                           <div className="absolute inset-0 rounded-full bg-white/20 animate-ping" style={{ animationDuration: '1.5s' }}></div>
                         </div>
                         
-                        {/* Shimmer overlay */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        {/* Shimmer Sweep */}
+                        <div className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500">
                           <div className="absolute inset-0 animate-shimmer" style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%)',
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%)',
                             backgroundSize: '200% 100%'
                           }} />
                         </div>
                         
-                        <span className="relative z-10 flex items-center gap-2.5">
-                          <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform duration-500" />
-                          chat now
+                        <span className="relative z-10 flex items-center gap-3">
+                          <Sparkles className="w-6 h-6 group-hover/btn:rotate-12 transition-transform duration-500" />
+                          Begin Your Journey
                         </span>
                       </Button>
                     </div>
@@ -715,173 +759,154 @@ const LandingPage = ({
                 </div>
               </div>
 
-
-
-              {/* Right Column: Content */}
-              <div className="order-2 text-center md:text-left">
-                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 
-                  bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent 
-                  tracking-[0.05em] animate-fade-in
-                  drop-shadow-[0_0_30px_rgba(236,72,153,0.4)]" 
-                  style={{
-                    animationDelay: '0.3s',
-                    textShadow: '0 2px 12px rgba(236, 72, 153, 0.5), 0 4px 20px rgba(251, 146, 60, 0.4)',
-                    filter: 'drop-shadow(0 0 20px rgba(236,72,153,0.3))'
-                  }}>
-                  meet kai
-                </h2>
-                
-                <h3 className="text-xl md:text-2xl text-white font-light mb-8 tracking-[0.08em] 
-                  drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] animate-fade-in" 
-                  style={{
-                    animationDelay: '0.5s'
-                  }}>
-                  your ai relationship coach
-                </h3>
-                
-                {/* Premium Content Containers */}
-                <div className="space-y-5 mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
-                  animationDelay: '0.7s'
-                }}>
-                  {/* Glass card 1 */}
-                  <div className="p-5 rounded-2xl backdrop-blur-sm bg-white/5 border border-white/10 
-                    shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/8 hover:border-white/15
-                    transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(236,72,153,0.2)]">
-                    <p className="text-base md:text-lg lg:text-xl text-pink-50 leading-relaxed tracking-[0.02em] 
-                      drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                      built for the way we love:<br />
-                      voice notes, time zones,<br />
-                      shared playlists, hard truths,<br />
-                      screenshots sent for advice,<br />
-                      and the quiet bravery to keep trying.
+              {/* Right Column: Bento Grid Content (8 columns) */}
+              <div className="lg:col-span-8 animate-fade-in" style={{
+                animationDelay: '0.8s'
+              }}>
+                {/* Bento Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 lg:gap-6">
+                  
+                  {/* Large Card - Spans 2 columns on desktop */}
+                  <div className="md:col-span-2 p-6 md:p-8 lg:p-10 rounded-3xl 
+                    backdrop-blur-xl bg-gradient-to-br from-white/10 via-white/5 to-white/8
+                    border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.2)]
+                    hover:bg-gradient-to-br hover:from-white/15 hover:via-white/8 hover:to-white/12 hover:border-white/30
+                    transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(236,72,153,0.25)]
+                    group/card">
+                    <p className="font-inter text-lg md:text-xl lg:text-2xl text-white leading-relaxed tracking-wide">
+                      <span className="font-medium">built for the way we love:</span><br />
+                      voice notes, time zones, shared playlists, hard truths,<br />
+                      screenshots sent for advice, and the quiet bravery to keep trying.
                     </p>
                   </div>
                   
-                  {/* Glass card 2 - emphasized */}
-                  <div className="p-5 rounded-2xl backdrop-blur-md bg-gradient-to-br from-pink-500/10 via-coral-500/10 to-orange-500/10 
-                    border border-pink-300/20 shadow-[0_8px_32px_rgba(236,72,153,0.15)]
-                    hover:from-pink-500/15 hover:via-coral-500/15 hover:to-orange-500/15 hover:border-pink-300/30
-                    transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(236,72,153,0.25)]">
-                    <p className="text-base md:text-lg lg:text-xl text-white font-medium leading-relaxed tracking-[0.03em] 
-                      drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                      rooted in research. powered by empathy.<br />
-                      made for the real.
+                  {/* Medium Card 1 */}
+                  <div className="p-6 md:p-7 lg:p-8 rounded-3xl text-center
+                    backdrop-blur-xl bg-gradient-to-br from-pink-500/12 via-coral-500/8 to-orange-500/12
+                    border border-pink-300/25 shadow-[0_8px_32px_rgba(236,72,153,0.15),inset_0_1px_0_rgba(255,255,255,0.15)]
+                    hover:from-pink-500/18 hover:via-coral-500/12 hover:to-orange-500/18 hover:border-pink-300/35
+                    transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(236,72,153,0.3)]
+                    group/card">
+                    <p className="font-space text-lg md:text-xl lg:text-2xl text-white font-semibold leading-relaxed tracking-wide">
+                      rooted in research.<br />
+                      powered by empathy.<br />
+                      <span className="bg-gradient-to-r from-pink-200 to-orange-200 bg-clip-text text-transparent">made for the real.</span>
                     </p>
                   </div>
                   
-                  {/* Glass card 3 */}
-                  <div className="p-5 rounded-2xl backdrop-blur-sm bg-white/5 border border-white/10 
-                    shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/8 hover:border-white/15
-                    transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(236,72,153,0.2)]">
-                    <p className="text-base md:text-lg lg:text-xl text-pink-50 leading-relaxed tracking-[0.02em] 
-                      drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                      kai helps you understand yourself<br />
-                      and show up with heart<br />
-                      for the people who matter<br />
-                      and the moments that can't wait.
+                  {/* Medium Card 2 - Feature Pills */}
+                  <div className="p-6 md:p-7 lg:p-8 rounded-3xl
+                    backdrop-blur-xl bg-gradient-to-br from-white/8 via-white/4 to-white/8
+                    border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)]
+                    hover:bg-gradient-to-br hover:from-white/12 hover:via-white/6 hover:to-white/12 hover:border-white/25
+                    transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(236,72,153,0.2)]">
+                    <div className="flex flex-wrap gap-3 justify-center">
+                      {/* Premium Feature Badges with Lucide Icons */}
+                      <div className="group/pill px-4 py-2.5 rounded-full backdrop-blur-lg
+                        bg-gradient-to-r from-orange-400/20 to-orange-400/10
+                        border border-orange-300/40 hover:border-orange-300/60
+                        shadow-[0_4px_20px_rgba(251,146,60,0.15),inset_0_1px_0_rgba(255,255,255,0.25)]
+                        hover:shadow-[0_6px_28px_rgba(251,146,60,0.3)]
+                        transition-all duration-500 hover:-translate-y-1 hover:scale-105">
+                        <span className="flex items-center gap-2 text-sm font-inter font-medium text-white tracking-wide">
+                          <Heart className="w-4 h-4" />
+                          inclusive for all
+                        </span>
+                      </div>
+                      
+                      <div className="group/pill px-4 py-2.5 rounded-full backdrop-blur-lg
+                        bg-gradient-to-r from-coral-400/20 to-coral-400/10
+                        border border-coral-300/40 hover:border-coral-300/60
+                        shadow-[0_4px_20px_rgba(251,113,133,0.15),inset_0_1px_0_rgba(255,255,255,0.25)]
+                        hover:shadow-[0_6px_28px_rgba(251,113,133,0.3)]
+                        transition-all duration-500 hover:-translate-y-1 hover:scale-105">
+                        <span className="flex items-center gap-2 text-sm font-inter font-medium text-white tracking-wide">
+                          <Brain className="w-4 h-4" />
+                          evidence-based
+                        </span>
+                      </div>
+                      
+                      <div className="group/pill px-4 py-2.5 rounded-full backdrop-blur-lg
+                        bg-gradient-to-r from-pink-400/20 to-pink-400/10
+                        border border-pink-300/40 hover:border-pink-300/60
+                        shadow-[0_4px_20px_rgba(236,72,153,0.15),inset_0_1px_0_rgba(255,255,255,0.25)]
+                        hover:shadow-[0_6px_28px_rgba(236,72,153,0.3)]
+                        transition-all duration-500 hover:-translate-y-1 hover:scale-105">
+                        <span className="flex items-center gap-2 text-sm font-inter font-medium text-white tracking-wide">
+                          <Lock className="w-4 h-4" />
+                          private by design
+                        </span>
+                      </div>
+                      
+                      <div className="group/pill px-4 py-2.5 rounded-full backdrop-blur-lg
+                        bg-gradient-to-r from-pink-400/20 to-pink-400/10
+                        border border-pink-300/40 hover:border-pink-300/60
+                        shadow-[0_4px_20px_rgba(236,72,153,0.15),inset_0_1px_0_rgba(255,255,255,0.25)]
+                        hover:shadow-[0_6px_28px_rgba(236,72,153,0.3)]
+                        transition-all duration-500 hover:-translate-y-1 hover:scale-105">
+                        <span className="flex items-center gap-2 text-sm font-inter font-medium text-white tracking-wide">
+                          <MessageCircle className="w-4 h-4" />
+                          available 24/7
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Medium Card 3 */}
+                  <div className="p-6 md:p-7 lg:p-8 rounded-3xl
+                    backdrop-blur-xl bg-gradient-to-br from-white/8 via-white/4 to-white/8
+                    border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)]
+                    hover:bg-gradient-to-br hover:from-white/12 hover:via-white/6 hover:to-white/12 hover:border-white/25
+                    transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(236,72,153,0.2)]">
+                    <p className="font-inter text-base md:text-lg text-white leading-relaxed tracking-wide">
+                      kai helps you understand yourself and show up with heart for the people who matter and the moments that can't wait.
                     </p>
                   </div>
                   
-                  {/* Glass card 4 - emphasized */}
-                  <div className="p-5 rounded-2xl backdrop-blur-md bg-gradient-to-br from-pink-500/10 via-coral-500/10 to-orange-500/10 
-                    border border-pink-300/20 shadow-[0_8px_32px_rgba(236,72,153,0.15)]
-                    hover:from-pink-500/15 hover:via-coral-500/15 hover:to-orange-500/15 hover:border-pink-300/30
-                    transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(236,72,153,0.25)]">
-                    <p className="text-base md:text-lg lg:text-xl text-white font-medium leading-relaxed tracking-[0.03em] 
-                      drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                  {/* Medium Card 4 - Emphasized */}
+                  <div className="p-6 md:p-7 lg:p-8 rounded-3xl text-center
+                    backdrop-blur-xl bg-gradient-to-br from-pink-500/12 via-coral-500/8 to-orange-500/12
+                    border border-pink-300/25 shadow-[0_8px_32px_rgba(236,72,153,0.15),inset_0_1px_0_rgba(255,255,255,0.15)]
+                    hover:from-pink-500/18 hover:via-coral-500/12 hover:to-orange-500/18 hover:border-pink-300/35
+                    transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(236,72,153,0.3)]">
+                    <p className="font-space text-lg md:text-xl text-white font-semibold leading-relaxed tracking-wide">
                       love is work.<br />
-                      kai helps you do it well.<br />
+                      <span className="bg-gradient-to-r from-pink-200 via-orange-200 to-pink-200 bg-clip-text text-transparent">
+                        kai helps you do it well.
+                      </span><br />
                       one honest chat at a time.
                     </p>
                   </div>
-                </div>
-                
-                {/* Sophisticated Feature Pills - Glass-morphic Badges */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-2.5 md:gap-3 mb-8 animate-fade-in" style={{
-                  animationDelay: '0.9s'
-                }}>
-                  <div className="group relative px-5 py-3 rounded-full backdrop-blur-xl 
-                    bg-gradient-to-br from-orange-400/15 via-orange-400/10 to-orange-400/15
-                    border border-orange-300/30 hover:border-orange-300/50
-                    transition-all duration-500 hover:-translate-y-1 hover:scale-105
-                    shadow-[0_4px_20px_rgba(251,146,60,0.15),inset_0_1px_0_0_rgba(255,255,255,0.2)]
-                    hover:shadow-[0_8px_32px_rgba(251,146,60,0.3),inset_0_1px_0_0_rgba(255,255,255,0.3)]"
-                    style={{ animationDelay: '1s' }}>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <span className="relative text-sm font-medium tracking-wide text-white flex items-center gap-2">
-                      <span className="text-base">🌈</span> inclusive for all
-                    </span>
-                  </div>
                   
-                  <div className="group relative px-5 py-3 rounded-full backdrop-blur-xl 
-                    bg-gradient-to-br from-coral-400/15 via-coral-400/10 to-coral-400/15
-                    border border-coral-300/30 hover:border-coral-300/50
-                    transition-all duration-500 hover:-translate-y-1 hover:scale-105
-                    shadow-[0_4px_20px_rgba(251,113,133,0.15),inset_0_1px_0_0_rgba(255,255,255,0.2)]
-                    hover:shadow-[0_8px_32px_rgba(251,113,133,0.3),inset_0_1px_0_0_rgba(255,255,255,0.3)]"
-                    style={{ animationDelay: '1.1s' }}>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <span className="relative text-sm font-medium tracking-wide text-white flex items-center gap-2">
-                      <span className="text-base">🧠</span> evidence-based care
-                    </span>
-                  </div>
-                  
-                  <div className="group relative px-5 py-3 rounded-full backdrop-blur-xl 
-                    bg-gradient-to-br from-pink-400/15 via-pink-400/10 to-pink-400/15
-                    border border-pink-300/30 hover:border-pink-300/50
-                    transition-all duration-500 hover:-translate-y-1 hover:scale-105
-                    shadow-[0_4px_20px_rgba(236,72,153,0.15),inset_0_1px_0_0_rgba(255,255,255,0.2)]
-                    hover:shadow-[0_8px_32px_rgba(236,72,153,0.3),inset_0_1px_0_0_rgba(255,255,255,0.3)]"
-                    style={{ animationDelay: '1.2s' }}>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <span className="relative text-sm font-medium tracking-wide text-white flex items-center gap-2">
-                      <span className="text-base">🔒</span> private by design
-                    </span>
-                  </div>
-                  
-                  <div className="group relative px-5 py-3 rounded-full backdrop-blur-xl 
-                    bg-gradient-to-br from-pink-400/15 via-pink-400/10 to-pink-400/15
-                    border border-pink-300/30 hover:border-pink-300/50
-                    transition-all duration-500 hover:-translate-y-1 hover:scale-105
-                    shadow-[0_4px_20px_rgba(236,72,153,0.15),inset_0_1px_0_0_rgba(255,255,255,0.2)]
-                    hover:shadow-[0_8px_32px_rgba(236,72,153,0.3),inset_0_1px_0_0_rgba(255,255,255,0.3)]"
-                    style={{ animationDelay: '1.3s' }}>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <span className="relative text-sm font-medium tracking-wide text-white flex items-center gap-2">
-                      <span className="text-base">💗</span> trauma-aware
-                    </span>
-                  </div>
-                  
-                  <div className="group relative px-5 py-3 rounded-full backdrop-blur-xl 
-                    bg-gradient-to-br from-coral-400/15 via-coral-400/10 to-coral-400/15
-                    border border-coral-300/30 hover:border-coral-300/50
-                    transition-all duration-500 hover:-translate-y-1 hover:scale-105
-                    shadow-[0_4px_20px_rgba(251,113,133,0.15),inset_0_1px_0_0_rgba(255,255,255,0.2)]
-                    hover:shadow-[0_8px_32px_rgba(251,113,133,0.3),inset_0_1px_0_0_rgba(255,255,255,0.3)]"
-                    style={{ animationDelay: '1.4s' }}>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <span className="relative text-sm font-medium tracking-wide text-white flex items-center gap-2">
-                      <span className="text-base">⏱</span> instant support
-                    </span>
-                  </div>
-                </div>
-                
-                {/* Mobile CTA Button */}
-                <div className="flex md:hidden justify-center animate-fade-in" style={{
-                  animationDelay: '1s'
-                }}>
-                  <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm font-light text-base">
-                      <MessageCircle className="w-5 h-5 mr-2" />
-                      chat now
-                    </Button>
-                  </div>
                 </div>
               </div>
+              
             </div>
           </div>
+          
+          {/* Mobile CTA - Shows only on mobile */}
+          <div className="lg:hidden mt-12 flex justify-center animate-fade-in" style={{
+            animationDelay: '1.4s'
+          }}>
+            <div className="relative group/btn inline-block cursor-pointer" onClick={handleTalkToKai}>
+              <div className="absolute -inset-3 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-50 blur-3xl group-hover/btn:opacity-80 transition-all duration-500" />
+              <div className="absolute -inset-2 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 rounded-full opacity-40 blur-xl group-hover/btn:blur-2xl transition-all duration-500" />
+              
+              <Button className="relative h-auto px-10 py-5 rounded-full overflow-hidden
+                bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 
+                hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 
+                text-white font-space font-semibold text-lg tracking-wide
+                border-2 border-white/40 backdrop-blur-md
+                shadow-[0_0_50px_rgba(236,72,153,0.5),0_10px_40px_rgba(251,146,60,0.6),inset_0_2px_4px_rgba(255,255,255,0.3)]
+                transition-all duration-500 transform active:scale-95 group-hover/btn:shadow-[0_0_70px_rgba(236,72,153,0.7),0_15px_60px_rgba(251,146,60,0.8),inset_0_2px_4px_rgba(255,255,255,0.4)]">
+                <span className="relative z-10 flex items-center gap-3">
+                  <Sparkles className="w-6 h-6" />
+                  Begin Your Journey
+                </span>
+              </Button>
+            </div>
+          </div>
+
         </div>
       </section>
 
