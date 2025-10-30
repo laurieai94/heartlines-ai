@@ -694,14 +694,14 @@ const LandingPage = ({
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
                     built for the way we love,<br />
-                    through late-night texts, shared playlists,<br />
-                    time zones, hard talks,<br />
-                    in half-typed messages, quiet forgiveness,<br />
-                    and the courage to keep showing up.
+                    voice notes, time zones,<br />
+                    shared playlists, hard truths,<br />
+                    screenshots sent for advice,<br />
+                    and the quiet bravery to keep trying.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    built on research. powered by empathy.<br />
+                    rooted in research. powered by empathy.<br />
                     made for the real.
                   </p>
                   
