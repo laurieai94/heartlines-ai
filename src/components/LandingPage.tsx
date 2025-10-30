@@ -627,7 +627,20 @@ const LandingPage = ({
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               
               {/* Left Column: Kai's Avatar */}
-              <div className="relative flex items-center justify-center md:justify-end order-1">
+              <div className="relative flex flex-col items-center md:items-end justify-start md:justify-end order-1">
+                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in text-left md:text-left" style={{
+                  animationDelay: '0.3s',
+                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                }}>
+                  meet kai
+                </h2>
+                
+                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-8 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in text-left md:text-left" style={{
+                  animationDelay: '0.5s'
+                }}>
+                  your ai relationship coach
+                </h3>
+                
                 <div className="relative">
                   {/* Outer glow */}
                   <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/25 via-coral-400/15 to-orange-400/25 rounded-full blur-[80px] animate-pulse" style={{
@@ -675,20 +688,7 @@ const LandingPage = ({
 
 
               {/* Right Column: Content */}
-              <div className="order-2 text-center md:text-left">
-                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in" style={{
-                  animationDelay: '0.3s',
-                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-                }}>
-                  meet kai
-                </h2>
-                
-                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-6 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in" style={{
-                  animationDelay: '0.5s'
-                }}>
-                  your ai relationship coach
-                </h3>
-                
+              <div className="order-2 text-center md:text-left flex items-center">
                 <div className="space-y-6 mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
                   animationDelay: '0.7s'
                 }}>
