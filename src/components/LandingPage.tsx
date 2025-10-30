@@ -693,7 +693,7 @@ const LandingPage = ({
                   animationDelay: '0.7s'
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                    built for the way we love,<br />
+                    built for the way we love:<br />
                     voice notes, time zones,<br />
                     shared playlists, hard truths,<br />
                     screenshots sent for advice,<br />
