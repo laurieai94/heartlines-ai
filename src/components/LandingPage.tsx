@@ -624,10 +624,10 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-center">
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-start">
               
               {/* Left Column: Kai's Avatar */}
-              <div className="relative flex flex-col items-center md:items-end justify-start md:justify-end order-1">
+              <div className="relative flex flex-col items-center md:items-end justify-start order-1">
                 <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in text-left md:text-left" style={{
                   animationDelay: '0.3s',
                   textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
