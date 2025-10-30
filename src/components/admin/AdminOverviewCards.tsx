@@ -1,4 +1,4 @@
-import { Users, Activity, MessageSquare, DollarSign, ArrowDown, ArrowUp, MessageCircle, Clock, Timer } from "lucide-react";
+import { Users, Activity, MessageSquare, DollarSign, ArrowDown, ArrowUp, MessageCircle, Clock, Timer, Crown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface AdminOverviewCardsProps {
@@ -6,6 +6,8 @@ interface AdminOverviewCardsProps {
   activeUsers: number;
   totalMessages: number;
   totalCost: number;
+  avgCostPerUser: number;
+  subscribersByPlan: Record<string, number>;
   avgInputTokens: number;
   avgOutputTokens: number;
   avgMessagesPerConversation: number;
@@ -17,7 +19,9 @@ const AdminOverviewCards = ({
   totalUsers, 
   activeUsers, 
   totalMessages, 
-  totalCost, 
+  totalCost,
+  avgCostPerUser,
+  subscribersByPlan,
   avgInputTokens, 
   avgOutputTokens,
   avgMessagesPerConversation,
@@ -48,6 +52,12 @@ const AdminOverviewCards = ({
       value: `$${totalCost.toFixed(4)}`,
       icon: DollarSign,
       gradient: "from-pink-500 to-burgundy-500"
+    },
+    {
+      title: "Avg Cost Per User (30d)",
+      value: `$${avgCostPerUser.toFixed(4)}`,
+      icon: DollarSign,
+      gradient: "from-burgundy-500 to-pink-500"
     },
     {
       title: "Avg Input Tokens",
@@ -81,9 +91,29 @@ const AdminOverviewCards = ({
     }
   ];
 
+  // Add subscriber cards dynamically based on tiers
+  const subscriberCards = Object.entries(subscribersByPlan).map(([tier, count]) => {
+    const tierName = tier.charAt(0).toUpperCase() + tier.slice(1);
+    const gradientMap: Record<string, string> = {
+      free: "from-gray-500 to-slate-500",
+      basic: "from-pink-500 to-coral-500",
+      premium: "from-purple-500 to-pink-500",
+      pro: "from-orange-500 to-coral-500"
+    };
+    
+    return {
+      title: `${tierName} Subscribers`,
+      value: count.toLocaleString(),
+      icon: tier === 'free' ? Users : Crown,
+      gradient: gradientMap[tier.toLowerCase()] || "from-pink-500 to-coral-500"
+    };
+  });
+
+  const allCards = [...cards, ...subscriberCards];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-      {cards.map((card, index) => (
+      {allCards.map((card, index) => (
         <Card 
           key={index}
           className="bg-gradient-to-br from-burgundy-800/40 to-burgundy-900/30 backdrop-blur-lg border-pink-400/20 hover:border-pink-400/40 transition-all duration-300"

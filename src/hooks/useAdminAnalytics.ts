@@ -21,6 +21,21 @@ export const useAdminAnalytics = () => {
       const totalMessages = summary?.reduce((sum, u) => sum + (u.messages_this_month || 0), 0) || 0;
       const totalCost = summary?.reduce((sum, u) => sum + (u.cost_last_30_days || 0), 0) || 0;
       
+      // Calculate average cost per user
+      const avgCostPerUser = totalUsers > 0 ? totalCost / totalUsers : 0;
+      
+      // Get subscriber counts by plan
+      const { data: subscriberData } = await supabase
+        .from('subscribers')
+        .select('subscription_tier')
+        .eq('subscribed', true);
+      
+      const subscribersByPlan = subscriberData?.reduce((acc, sub) => {
+        const tier = sub.subscription_tier || 'free';
+        acc[tier] = (acc[tier] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>) || {};
+      
       // Calculate platform-wide token averages
       const usersWithMessages = summary?.filter(u => u.messages_this_month > 0) || [];
       const avgInputTokens = usersWithMessages.length > 0
@@ -47,6 +62,8 @@ export const useAdminAnalytics = () => {
         activeUsers,
         totalMessages,
         totalCost,
+        avgCostPerUser,
+        subscribersByPlan,
         avgInputTokens,
         avgOutputTokens,
         avgMessagesPerConversation,

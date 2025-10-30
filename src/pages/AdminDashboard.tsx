@@ -72,6 +72,8 @@ const AdminDashboard = () => {
             activeUsers={analytics.activeUsers}
             totalMessages={analytics.totalMessages}
             totalCost={analytics.totalCost}
+            avgCostPerUser={analytics.avgCostPerUser}
+            subscribersByPlan={analytics.subscribersByPlan}
             avgInputTokens={analytics.avgInputTokens}
             avgOutputTokens={analytics.avgOutputTokens}
             avgMessagesPerConversation={analytics.avgMessagesPerConversation}
