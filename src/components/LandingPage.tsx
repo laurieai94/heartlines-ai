@@ -624,7 +624,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-center">
               
               {/* Left Column: Kai's Avatar */}
               <div className="relative flex flex-col items-center md:items-end justify-start md:justify-end order-1">
