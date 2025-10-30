@@ -53,7 +53,7 @@ serve(async (req) => {
     const pricing = {
       glow: { amount: 1900, name: "Glow Plan" }, // $19.00
       vibe: { amount: 2900, name: "Vibe Plan" }, // $29.00
-      unlimited: { amount: 4900, name: "Unlimited Plan" } // $49.00
+      unlimited: { amount: 3900, name: "Unlimited Plan" } // $39.00
     };
 
     const session = await stripe.checkout.sessions.create({

@@ -76,7 +76,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "unlimited",
     name: "unlimited",
-    price: "$49",
+    price: "$39",
     period: "month",
     description: "love without limits",
     tagline: "no limits on your journey",
