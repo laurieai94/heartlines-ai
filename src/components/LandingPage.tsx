@@ -688,8 +688,8 @@ const LandingPage = ({
 
 
               {/* Right Column: Content */}
-              <div className="order-2 text-center md:text-left flex items-center">
-                <div className="space-y-6 mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
+              <div className="order-2 text-center md:text-left flex flex-col">
+                <div className="space-y-6 mb-10 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
                   animationDelay: '0.7s'
                 }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
