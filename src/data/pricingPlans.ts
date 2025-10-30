@@ -57,7 +57,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "vibe",
     name: "vibe",
-    price: "$39",
+    price: "$29",
     period: "month",
     description: "dive deeper into connection",
     tagline: "turn insights into transformation",
@@ -76,7 +76,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "unlimited",
     name: "unlimited",
-    price: "$59",
+    price: "$49",
     period: "month",
     description: "love without limits",
     tagline: "no limits on your journey",

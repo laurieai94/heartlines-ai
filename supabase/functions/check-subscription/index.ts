@@ -137,16 +137,16 @@ serve(async (req) => {
       const price = subscription.items.data[0].price;
       const amount = price.unit_amount || 0;
       
-      if (amount === 1900) {
-        subscriptionTier = "glow";
-        messageLimit = 150;
-      } else if (amount === 3900) {
-        subscriptionTier = "vibe";
-        messageLimit = 300;
-      } else if (amount === 5900) {
-        subscriptionTier = "unlimited";
-        messageLimit = 0; // unlimited
-      }
+    if (amount === 1900) {
+      subscriptionTier = "glow";
+      messageLimit = 150;
+    } else if (amount === 2900 || amount === 3900) { // Support both old and new vibe pricing
+      subscriptionTier = "vibe";
+      messageLimit = 300;
+    } else if (amount === 4900 || amount === 5900) { // Support both old and new unlimited pricing
+      subscriptionTier = "unlimited";
+      messageLimit = 0; // unlimited
+    }
       
       logStep("Active subscription found", { 
         subscriptionId: subscription.id, 
