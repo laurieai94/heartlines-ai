@@ -627,15 +627,15 @@ const LandingPage = ({
             <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-start">
               
               {/* Left Column: Kai's Avatar */}
-              <div className="relative flex flex-col items-center md:items-end justify-start order-1">
-                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in text-left md:text-left" style={{
+              <div className="relative flex flex-col items-center justify-start order-1">
+                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in text-center" style={{
                   animationDelay: '0.3s',
                   textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
                 }}>
                   meet kai
                 </h2>
                 
-                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-8 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in text-left md:text-left" style={{
+                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-8 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in text-center" style={{
                   animationDelay: '0.5s'
                 }}>
                   your ai relationship coach
