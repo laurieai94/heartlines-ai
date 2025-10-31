@@ -36,12 +36,11 @@ export const ChatHeader = ({
           
           {/* Kai Info - Center */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg truncate">kai</h3>
-            <div className="flex items-center gap-1">
-              <span className="text-white/70 text-xs md:text-sm truncate">your ai relationship coach</span>
+            <div className="flex items-center gap-1.5">
+              <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg truncate">kai</h3>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="ghost" size="sm" aria-label="about kai" className="h-4 w-4 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white hover:shadow-[0_0_12px_rgba(236,72,153,0.3)] transition-all duration-200 ml-1 flex-shrink-0">
+                  <Button variant="ghost" size="sm" aria-label="about kai" className="h-4 w-4 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white hover:shadow-[0_0_12px_rgba(236,72,153,0.3)] transition-all duration-200 flex-shrink-0">
                     <Info className="w-2.5 h-2.5" />
                   </Button>
                 </PopoverTrigger>
@@ -68,6 +67,7 @@ export const ChatHeader = ({
                 </PopoverContent>
               </Popover>
             </div>
+            <span className="hidden md:block text-white/70 text-xs md:text-sm truncate">your ai relationship coach</span>
           </div>
 
           {/* Sidebar Button */}
