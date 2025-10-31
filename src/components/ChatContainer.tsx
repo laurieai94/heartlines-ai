@@ -163,7 +163,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   );
 
   return (
-    <div className="flex-1 md:min-h-0 md:max-h-none relative md:h-full bg-[hsl(0,85%,25%)] md:bg-burgundy-800">
+    <div className="flex-1 md:min-h-0 md:max-h-none relative md:h-full">
       {/* ScrollArea for all screen sizes */}
       <ScrollArea 
         viewportRef={viewportRef}
