@@ -192,7 +192,7 @@ const DashboardContent = ({
   ]);
 
   return (
-    <div className={`flex-1 min-h-0 dashboard-container scrollbar-hide bg-burgundy-800 ${
+    <div className={`flex-1 min-h-0 dashboard-container scrollbar-hide bg-transparent md:bg-burgundy-800 ${
       activeTab === 'coach' || activeTab === 'insights' 
         ? 'overflow-hidden h-[100dvh] md:h-[calc(100vh-5rem)] md:pt-20 lg:pt-24' 
         : 'pt-16 md:pt-16 overflow-y-auto min-h-[100dvh]'
