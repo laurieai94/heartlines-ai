@@ -218,12 +218,12 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className="sticky bottom-0 left-0 right-0 flex-shrink-0 z-40 bg-transparent"
+      className="sticky bottom-0 left-0 right-0 flex-shrink-0 z-40"
       style={{
         paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
       }}
     >
-      <div className="px-0 md:px-4 py-0 md:py-3">
+      <div className="px-3 md:px-4 py-2 md:py-3">
         {/* 80% usage warning banner with progress */}
         {nearLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">

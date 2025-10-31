@@ -124,7 +124,7 @@ useChatEffects({
       onLoadConversation={onLoadConversation}
       onDeleteConversation={onDeleteConversation}
     >
-      <div className="flex flex-col h-full md:overflow-hidden bg-burgundy-800 md:bg-transparent">
+      <div className="flex flex-col min-h-screen md:h-full md:overflow-hidden">
         <MemoizedChatContainer
           ref={chatContainerRef}
           chatHistory={chatHistory}
