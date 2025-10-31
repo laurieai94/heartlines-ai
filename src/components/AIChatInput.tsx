@@ -81,19 +81,9 @@ const AIChatInput = ({
     }
   };
 
-  // Handle focus to scroll input into view on mobile
+  // Handle focus - let browser handle keyboard naturally
   const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     onInputFocus?.();
-    
-    // On mobile, scroll input into view instantly for better responsiveness
-    if (window.innerWidth < 768 && textareaRef.current) {
-      requestAnimationFrame(() => {
-        textareaRef.current?.scrollIntoView({
-          behavior: 'instant',
-          block: 'center'
-        });
-      });
-    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

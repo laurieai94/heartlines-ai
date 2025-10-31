@@ -174,8 +174,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         style={{ height: '100%' }}
       >
         <div 
-          className={`pt-2 md:pt-3 pb-32 md:pb-12 ${showProfileNudge ? 'pb-64 md:pb-64' : ''}`}
+          className="pt-2 md:pt-3"
           style={{
+            paddingBottom: `${(inputSectionHeight || 280) + 16}px`,
             paddingTop: 'max(8px, env(safe-area-inset-top))',
             paddingLeft: 'max(4px, env(safe-area-inset-left))',
             paddingRight: 'max(4px, env(safe-area-inset-right))'
