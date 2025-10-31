@@ -30,7 +30,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
 
   
   return (
-    <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
+    <div className={`${isMobile ? 'px-2' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
       <div 
         className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
         role="listitem"
@@ -43,13 +43,13 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-[35px] h-[35px] md:w-[44px] md:h-[44px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative w-[40px] h-[40px] md:w-[44px] md:h-[44px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-50 drop-shadow-lg ${
             isUser ? 'bg-gradient-to-r from-coral-300 to-orange-300' : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
           }`}></div>
           
-          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-[35px] h-[35px] md:w-[44px] md:h-[44px] md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-[40px] h-[40px] md:w-[44px] md:h-[44px] md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
               : 'bg-gradient-to-br from-coral-400 to-burgundy-500'

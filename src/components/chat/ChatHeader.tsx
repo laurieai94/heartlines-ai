@@ -19,9 +19,9 @@ export const ChatHeader = ({
 }: ChatHeaderProps) => {
   return (
     <div className="sticky top-0 z-30 md:z-[70] shrink-0 bg-burgundy-800/50 backdrop-blur-md border-b border-pink-400/10 shadow-lg">
-      <div className="w-full px-3 md:px-0 py-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
+      <div className="w-full px-2 md:px-0 py-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Unified Layout - Responsive */}
-        <div className="flex items-center gap-2 md:gap-3 max-w-3xl lg:max-w-4xl mx-auto md:px-6">
+        <div className="flex items-center justify-between md:gap-3 max-w-3xl lg:max-w-4xl mx-auto md:px-6">
           {/* Kai Avatar - Far Left */}
           <div className="relative flex-shrink-0">
             <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
