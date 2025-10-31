@@ -163,7 +163,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   );
 
   return (
-    <div className="flex-1 md:min-h-0 md:max-h-none relative md:h-full">
+    <div className="flex-1 md:min-h-0 md:max-h-none relative md:h-full bg-burgundy-800">
       {/* ScrollArea for all screen sizes */}
       <ScrollArea 
         viewportRef={viewportRef}
@@ -174,7 +174,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         style={{ height: '100%' }}
       >
         <div 
-          className="pt-20 md:pt-3"
+          className="pt-2 md:pt-3"
           style={{
             paddingBottom: `${(inputSectionHeight || 280) + 16}px`,
             paddingTop: 'max(8px, env(safe-area-inset-top))',
