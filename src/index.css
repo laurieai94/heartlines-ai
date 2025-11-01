@@ -1389,3 +1389,47 @@
   }
 }
 
+/* ===== MOBILE-ONLY CHAT HARDENING (keeps desktop/tablet intact) ===== */
+@media (max-width: 768px) {
+  /* Make chat route an opaque, isolated paint root on mobile */
+  .chat-root {
+    position: relative;
+    overflow: clip;                  /* prevents backdrop peeking during URL bar/keyboard anims */
+    min-height: 100dvh;             /* dynamic viewport height for iOS/Android */
+  }
+
+  /* Ensure the scroll pane is the ONLY overflow container and is opaque */
+  #chat-scroll {
+    overscroll-behavior: contain;
+  }
+
+  /* Footer pinned with a safe shadow (no backdrop/filter on mobile) */
+  .chat-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.35); /* replaces filter: drop-shadow() */
+    will-change: transform;
+    transform: translateZ(0); /* own layer to avoid stale bitmaps */
+  }
+}
+
+/* ===== iOS MOBILE ONLY: disable backdrop/filter sources of the purple "ghost" ===== */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+    .chat-footer,
+    .chat-header {
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      filter: none !important; /* nukes filter: drop-shadow() glow artifacts */
+      background: rgba(102, 0, 51, 0.95) !important; /* burgundy-800 with 95% opacity */
+    }
+  }
+}
+
+/* Optional utility if you want a class instead of bracket syntax */
+@supports (height: 100dvh) {
+  .min-h-100dvh { min-height: 100dvh; }
+}
+
