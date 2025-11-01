@@ -67,23 +67,6 @@ const AIChat = ({
   const isMobilePhone = isMobile && !isTablet;
   const chatContainerRef = useRef<ChatContainerRef>(null);
 
-  // Debug: Track mobile state and issues
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    console.log('[Mobile Chat Debug]', {
-      timestamp: new Date().toISOString(),
-      isMobile: true,
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-      devicePixelRatio: window.devicePixelRatio,
-      chatHistoryLength: chatHistory.length,
-      isHistoryLoaded,
-      canInteract,
-      userAgent: navigator.userAgent
-    });
-  }, [isMobile, chatHistory.length, isHistoryLoaded, canInteract]);
-
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
 

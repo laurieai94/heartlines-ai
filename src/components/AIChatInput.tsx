@@ -124,11 +124,7 @@ const AIChatInput = ({
                 ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : `bg-white/5 backdrop-blur-xl border-2 border-white/10 ring-2 ring-pink-400/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all ${
-              window.innerWidth < 768 
-                ? 'focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/40 focus-within:shadow-lg duration-150' 
-                : 'focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] duration-300'
-            }`
+          : 'bg-white/5 backdrop-blur-xl border-2 border-white/10 ring-2 ring-pink-400/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
       }`}>
         <Textarea
           unstyled
