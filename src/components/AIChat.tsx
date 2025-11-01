@@ -13,6 +13,7 @@ import { useNavigation } from "@/contexts/NavigationContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { ChatContainerRef } from "./ChatContainer";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
+import { useKeyboardDetection } from "@/hooks/useKeyboardDetection";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -67,6 +68,8 @@ const AIChat = ({
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const chatContainerRef = useRef<ChatContainerRef>(null);
+  const isKeyboardVisible = useKeyboardDetection();
+  const prevKeyboardVisible = useRef(isKeyboardVisible);
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -88,10 +91,17 @@ const AIChat = ({
     }
   }, [onNewConversation, setChatHistory]);
 
-  // Handle input focus - scroll to bottom if scrolled up (mobile only)
+  // Handle input focus - force scroll to bottom when keyboard appears (mobile only)
   const handleInputFocus = useCallback(() => {
     if (!isMobilePhone) return;
-    chatContainerRef.current?.scrollToBottomIfScrolledUp();
+    
+    // Immediate scroll
+    chatContainerRef.current?.scrollToBottom('smooth');
+    
+    // Delayed scroll to account for keyboard animation
+    setTimeout(() => {
+      chatContainerRef.current?.scrollToBottom('smooth');
+    }, 300);
   }, [isMobilePhone]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
@@ -100,6 +110,42 @@ const AIChat = ({
       setIsHistoryLoaded(true);
     }
   }, [canInteract, historyLoading]);
+
+  // Phase 1: Scroll to bottom when keyboard becomes visible
+  useEffect(() => {
+    if (!isMobilePhone) return;
+    
+    // Detect keyboard visibility transition
+    if (isKeyboardVisible && !prevKeyboardVisible.current) {
+      chatContainerRef.current?.scrollToBottom('smooth');
+    }
+    
+    prevKeyboardVisible.current = isKeyboardVisible;
+  }, [isKeyboardVisible, isMobilePhone]);
+
+  // Phase 3: Listen for visualViewport resize events
+  useEffect(() => {
+    if (!isMobilePhone || !window.visualViewport) return;
+
+    let lastHeight = window.visualViewport.height;
+
+    const handleResize = () => {
+      const currentHeight = window.visualViewport?.height || 0;
+      
+      // Keyboard appearing (viewport shrinking)
+      if (currentHeight < lastHeight) {
+        chatContainerRef.current?.scrollToBottom('smooth');
+      }
+      
+      lastHeight = currentHeight;
+    };
+
+    window.visualViewport.addEventListener('resize', handleResize);
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleResize);
+    };
+  }, [isMobilePhone]);
 
 useChatEffects({
   chatHistory,
