@@ -1349,5 +1349,54 @@
     content-visibility: auto;
     contain-intrinsic-size: 1px 1200px;
   }
+
+  /* ===== iOS Safari: Prevent backdrop-filter compositor artifacts ===== */
+  @supports (-webkit-touch-callout: none) {
+    @media (hover: none) and (pointer: coarse) {
+      /* Force hardware acceleration and prevent bitmap caching on iOS */
+      .backdrop-blur-xl,
+      .backdrop-blur-md,
+      [class*="backdrop-blur"] {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
+      }
+      
+      /* Ensure sticky elements create their own compositing layers */
+      [class*="sticky"] {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+      
+      /* Prevent overscroll bounce from revealing underlying gradients */
+      body {
+        overscroll-behavior-y: contain;
+      }
+      
+      /* Force immediate repaints during scroll */
+      .scroll-smooth {
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
+
+  /* ===== Mobile chat glassmorphism fallbacks for older browsers ===== */
+  @media (max-width: 768px) {
+    /* Ensure solid background fallback if backdrop-filter not supported */
+    @supports not (backdrop-filter: blur(12px)) {
+      [class*="backdrop-blur"] {
+        background: hsl(var(--burgundy-800) / 0.95) !important;
+      }
+    }
+    
+    /* Safe area insets for iOS notch/home indicator */
+    .chat-safe-area-top {
+      padding-top: max(0.5rem, env(safe-area-inset-top));
+    }
+    
+    .chat-safe-area-bottom {
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    }
+  }
 }
 

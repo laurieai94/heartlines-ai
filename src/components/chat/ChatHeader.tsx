@@ -18,7 +18,7 @@ export const ChatHeader = ({
   onOpenSidebar
 }: ChatHeaderProps) => {
   return (
-    <div className="sticky top-0 z-40 md:z-[70] shrink-0 bg-burgundy-800 md:bg-burgundy-800/50 md:backdrop-blur-md border-b border-pink-400/10 shadow-lg">
+    <div className="sticky top-0 z-40 md:z-[70] shrink-0 bg-burgundy-800/50 backdrop-blur-md border-b border-pink-400/10 shadow-lg">
       <div className="w-full px-2 md:px-0 py-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Unified Layout - Responsive */}
         <div className="flex items-center justify-between gap-3 md:gap-4 max-w-3xl lg:max-w-4xl mx-auto md:px-6">
