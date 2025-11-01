@@ -40,7 +40,7 @@ export const ChatHeader = ({
               <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg truncate">kai</h3>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="ghost" size="sm" aria-label="about kai" className="h-4 w-4 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white hover:shadow-[0_0_12px_rgba(236,72,153,0.3)] transition-all duration-200 flex-shrink-0">
+                  <Button variant="ghost" size="sm" aria-label="about kai" className="h-4 w-4 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white hover:shadow-[0_0_12px_rgba(159,18,57,0.3)] transition-all duration-200 flex-shrink-0">
                     <Info className="w-2.5 h-2.5" />
                   </Button>
                 </PopoverTrigger>
@@ -78,7 +78,7 @@ export const ChatHeader = ({
                   <Button 
                     variant="ghost" 
                     onClick={onOpenSidebar} 
-                    className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[36px] min-w-[36px] md:min-h-[44px] md:min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation flex-shrink-0"
+                    className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-burgundy-500/15 transition-colors min-h-[36px] min-w-[36px] md:min-h-[44px] md:min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation flex-shrink-0"
                   >
                     <Menu className="w-3.5 h-3.5" />
                     <span className="text-[10px] font-medium hidden md:block">chats</span>
@@ -98,7 +98,7 @@ export const ChatHeader = ({
                 <Button 
                   variant="ghost" 
                   onClick={onNewConversation} 
-                  className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-pink-500/15 transition-colors min-h-[36px] min-w-[36px] md:min-h-[44px] md:min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation flex-shrink-0"
+                  className="text-white/70 hover:text-white hover:bg-gradient-to-br hover:from-coral-500/15 hover:to-burgundy-500/15 transition-colors min-h-[36px] min-w-[36px] md:min-h-[44px] md:min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation flex-shrink-0"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span className="text-[10px] font-medium hidden md:block">new</span>
