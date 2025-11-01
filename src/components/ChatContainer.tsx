@@ -170,18 +170,19 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       {/* ScrollArea for all screen sizes */}
       <ScrollArea 
         viewportRef={viewportRef}
-        className="h-full w-full bg-transparent"
+        className="h-full w-full bg-burgundy-800"
         role="log"
         aria-live="polite"
         aria-label="Chat conversation history"
-        style={{ height: '100%' }}
+        style={{ height: '100%', backgroundColor: 'hsl(350, 100%, 20%)' }}
       >
         <div 
-          className="pt-2 md:pt-3"
+          className="pt-2 md:pt-3 bg-burgundy-800 min-h-screen md:min-h-0"
           style={{
             paddingTop: 'max(8px, env(safe-area-inset-top))',
             paddingLeft: 'max(4px, env(safe-area-inset-left))',
-            paddingRight: 'max(4px, env(safe-area-inset-right))'
+            paddingRight: 'max(4px, env(safe-area-inset-right))',
+            backgroundColor: 'hsl(350, 100%, 20%)'
           }}
         >
           <div role="list" aria-label="Chat messages">
@@ -190,8 +191,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           
           {/* Content spacer instead of padding - prevents purple rectangle */}
           <div 
-            className="h-16 md:h-[280px] w-full bg-burgundy-800"
-            style={{ backgroundColor: 'hsl(var(--burgundy-800))' }}
+            className="h-[100vh] md:h-[280px] w-full bg-burgundy-800"
+            style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
             aria-hidden="true"
           />
         </div>

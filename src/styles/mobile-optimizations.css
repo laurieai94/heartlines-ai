@@ -157,6 +157,12 @@ html, body, #root {
     -ms-overflow-style: none !important; /* IE/Edge */
   }
   
+  /* Force burgundy on Radix ScrollArea internals */
+  .mobile-chat-scroll [data-radix-scroll-area-viewport] {
+    background-color: rgb(102, 0, 20) !important;
+    min-height: 100vh !important;
+  }
+  
   /* Ensure mobile header is always visible and sticky */
   .mobile-chat-scroll > [class*="sticky"] {
     position: sticky !important;
