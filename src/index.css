@@ -1351,16 +1351,3 @@
   }
 }
 
-/* ===== iOS MOBILE: Nuclear backdrop-filter killer ===== */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 768px) and (hover: none) and (pointer: coarse) {
-    /* Target all elements that might have backdrop-filter */
-    [class*="backdrop-blur"],
-    [class*="sticky"][class*="top-0"],
-    [class*="sticky"][class*="bottom-0"] {
-      -webkit-backdrop-filter: none !important;
-      backdrop-filter: none !important;
-    }
-  }
-}
-

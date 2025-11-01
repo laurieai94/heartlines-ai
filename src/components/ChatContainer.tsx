@@ -163,11 +163,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   );
 
   return (
-    <div className="flex-1 md:min-h-0 md:max-h-none relative md:h-full bg-burgundy-800 md:bg-transparent">
+    <div className="flex-1 md:min-h-0 md:max-h-none relative md:h-full">
       {/* ScrollArea for all screen sizes */}
       <ScrollArea 
         viewportRef={viewportRef}
-        className="h-full w-full bg-burgundy-800 md:bg-transparent"
+        className="h-full w-full"
         role="log"
         aria-live="polite"
         aria-label="Chat conversation history"
