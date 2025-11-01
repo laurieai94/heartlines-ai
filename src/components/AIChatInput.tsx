@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 
 interface AIChatInputProps {
   onSendMessage: (message: string) => void;
@@ -38,6 +39,7 @@ const AIChatInput = ({
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = inputRef ?? internalRef;
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { isMobile } = useOptimizedMobile();
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -124,7 +126,9 @@ const AIChatInput = ({
                 ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : 'bg-white/5 backdrop-blur-xl border-2 border-white/10 ring-2 ring-pink-400/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
+          : isMobile
+            ? 'bg-white/5 border-2 border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
+            : 'bg-white/5 backdrop-blur-xl border-2 border-white/10 ring-2 ring-pink-400/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
       }`}>
         <Textarea
           unstyled

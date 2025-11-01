@@ -434,3 +434,51 @@ html {
     background: rgba(128, 0, 32, 0.8);
   }
 }
+
+/* Phase 2: Mobile Performance Optimizations */
+@media (max-width: 768px) {
+  /* Faster fade-in animations on mobile */
+  .animate-fade-in {
+    animation-duration: 0.15s !important;
+  }
+  
+  /* Remove hover effects on touch devices */
+  @media (pointer: coarse) {
+    *:hover {
+      transform: none !important;
+    }
+  }
+  
+  /* Fast transitions for inputs */
+  input, textarea, button {
+    transition-duration: 0.15s !important;
+  }
+  
+  /* Optimize message bubble rendering */
+  [role="listitem"] {
+    contain: layout style paint;
+    will-change: auto;
+  }
+  
+  /* Remove backdrop-filter from message bubbles on mobile */
+  [role="listitem"] [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  /* Ensure solid backgrounds on mobile chat */
+  [data-mobile-chat] {
+    background: rgb(87, 13, 30) !important;
+  }
+  
+  /* GPU accelerate textarea */
+  .mobile-chat-input {
+    transform: translateZ(0);
+  }
+  
+  /* Native-feeling button active states */
+  button:active {
+    transform: scale(0.98);
+    transition-duration: 0.1s !important;
+  }
+}
