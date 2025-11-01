@@ -149,7 +149,7 @@ html, body, #root {
     contain: none;
     
     /* Prevent white screen on keyboard open */
-    background: rgb(64, 13, 24) !important; /* burgundy-900 */
+    background-color: rgb(102, 0, 20) !important; /* burgundy-800 solid */
     min-height: 100% !important;
     
     /* Hide scrollbar but keep functionality */

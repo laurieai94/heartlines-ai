@@ -164,7 +164,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   return (
     <div 
-      className="flex-1 min-h-0 relative h-full bg-burgundy-800 md:bg-burgundy-900/10"
+      className="flex-1 min-h-0 relative min-h-full bg-burgundy-800"
       style={{ backgroundColor: 'hsl(var(--burgundy-800))' }}
     >
       {/* ScrollArea for all screen sizes */}
@@ -179,9 +179,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         <div 
           className="pt-2 md:pt-3"
           style={{
-            paddingBottom: isMobile 
-              ? 'max(1rem, env(safe-area-inset-bottom))'
-              : `${(inputSectionHeight || 280) + 16}px`,
             paddingTop: 'max(8px, env(safe-area-inset-top))',
             paddingLeft: 'max(4px, env(safe-area-inset-left))',
             paddingRight: 'max(4px, env(safe-area-inset-right))'
@@ -190,6 +187,13 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           <div role="list" aria-label="Chat messages">
             {renderMessages()}
           </div>
+          
+          {/* Content spacer instead of padding - prevents purple rectangle */}
+          <div 
+            className="h-16 md:h-[280px] w-full bg-burgundy-800"
+            style={{ backgroundColor: 'hsl(var(--burgundy-800))' }}
+            aria-hidden="true"
+          />
         </div>
       </ScrollArea>
 

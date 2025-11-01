@@ -49,7 +49,8 @@ const ScrollArea = React.forwardRef<
         overscrollBehaviorX: 'none',
         touchAction: 'pan-y',
         overflow: 'auto',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
+        backgroundColor: 'inherit'
       }}
     >
       {children}
