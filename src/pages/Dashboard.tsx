@@ -120,9 +120,7 @@ const Dashboard = () => {
           <div className="h-[100dvh] bg-burgundy-800">
             {/* Main Dashboard Content - This gets blurred when modals are open */}
             <div className={`h-full flex flex-col relative ${isAnyModalOpen ? 'blur-sm md:blur-sm' : ''} transition-all duration-300`}>
-          <div className="hidden md:block">
-            <PremiumBackground />
-          </div>
+              <PremiumBackground />
 
               <DashboardHeader 
                 accessLevel={accessLevel}
