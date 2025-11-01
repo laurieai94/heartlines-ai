@@ -61,12 +61,12 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
             <h3 className="text-sm font-normal bg-gradient-to-r from-pink-200 via-coral-100 to-orange-100 bg-clip-text text-transparent mb-2 text-center">
               What's on your mind?
             </h3>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-2">
               {Object.keys(conversationCategories).map((category, index) => (
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-gradient-to-br from-white/8 via-pink-500/5 to-coral-400/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-400/15 hover:via-coral-400/15 hover:to-orange-400/15 rounded-lg p-2 border border-pink-400/15 hover:border-gradient-to-r hover:from-pink-400/40 hover:via-coral-400/40 hover:to-orange-400/40 shadow-sm transition-all duration-200"
+                  className="group cursor-pointer bg-gradient-to-br from-white/8 via-pink-500/5 to-coral-400/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-400/15 hover:via-coral-400/15 hover:to-orange-400/15 rounded-lg p-4 md:p-2 min-h-[56px] md:min-h-0 border border-pink-400/15 hover:border-gradient-to-r hover:from-pink-400/40 hover:via-coral-400/40 hover:to-orange-400/40 shadow-sm transition-all duration-200 active:scale-98 active:bg-coral-400/20"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:bg-gradient-to-r group-hover:from-pink-100 group-hover:via-coral-50 group-hover:to-orange-100 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-200 text-center leading-tight">
                     {category}

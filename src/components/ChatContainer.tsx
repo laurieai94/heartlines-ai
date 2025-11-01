@@ -47,6 +47,33 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const { isMobile } = useOptimizedMobile();
   const prevChatLengthRef = useRef(chatHistory.length);
 
+  // Debug: Monitor mobile scroll performance
+  useEffect(() => {
+    if (!isMobile || !viewportRef.current) return;
+    
+    let frameCount = 0;
+    let lastTime = performance.now();
+    let rafId: number;
+    
+    const measureFPS = () => {
+      frameCount++;
+      const currentTime = performance.now();
+      
+      if (currentTime - lastTime >= 2000) {
+        const fps = Math.round(frameCount / 2);
+        console.log('[Mobile Scroll FPS]:', fps, fps < 50 ? '⚠️ JANK DETECTED' : '✅ Smooth');
+        frameCount = 0;
+        lastTime = currentTime;
+      }
+      
+      rafId = requestAnimationFrame(measureFPS);
+    };
+    
+    rafId = requestAnimationFrame(measureFPS);
+    
+    return () => cancelAnimationFrame(rafId);
+  }, [isMobile]);
+
 
   // Enhanced scroll to bottom with buffer
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
