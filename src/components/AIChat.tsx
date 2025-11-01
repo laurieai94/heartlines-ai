@@ -6,6 +6,7 @@ import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useChatEffects } from "./chat/ChatEffects";
 import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
+import { ChatHeader } from "./chat/ChatHeader";
 import { MemoizedChatContainer } from "./chat/MemoizedChatContainer";
 import MemoizedChatInputSection from "./chat/MemoizedChatInputSection";
 import { useNavigation } from "@/contexts/NavigationContext";
@@ -114,18 +115,31 @@ useChatEffects({
 });
 
   return (
-    <ChatLayout 
-      userName={userName} 
-      onNewConversation={handleNewConversation} 
-      onOpenSidebar={onOpenSidebar}
-      conversations={conversations}
-      currentConversationId={currentConversationId}
-      loading={historyLoading}
-      onLoadConversation={onLoadConversation}
-      onDeleteConversation={onDeleteConversation}
-    >
-      <div className="flex flex-col h-full md:overflow-hidden">
-        <MemoizedChatContainer
+    <>
+      {/* Chat Header - Mobile only, renders above ChatLayout */}
+      {isMobilePhone && (
+        <div className="fixed top-[44px] left-0 right-0 z-30">
+          <ChatHeader 
+            userName={userName} 
+            onNewConversation={handleNewConversation} 
+            onOpenSidebar={onOpenSidebar} 
+          />
+        </div>
+      )}
+      
+      <ChatLayout 
+        userName={userName} 
+        onNewConversation={handleNewConversation} 
+        onOpenSidebar={onOpenSidebar}
+        conversations={conversations}
+        currentConversationId={currentConversationId}
+        loading={historyLoading}
+        onLoadConversation={onLoadConversation}
+        onDeleteConversation={onDeleteConversation}
+        hideHeader={isMobilePhone}
+      >
+        <div className="flex flex-col h-full md:overflow-hidden">
+          <MemoizedChatContainer
           ref={chatContainerRef}
           chatHistory={chatHistory}
           loading={loading}
@@ -167,6 +181,7 @@ useChatEffects({
         />
       </div>
     </ChatLayout>
+    </>
   );
 };
 

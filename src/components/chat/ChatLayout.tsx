@@ -17,6 +17,7 @@ interface ChatLayoutProps {
   loading: boolean;
   onLoadConversation: (conversationId: string) => void;
   onDeleteConversation: (conversationId: string) => void;
+  hideHeader?: boolean;
 }
 
 export const ChatLayout = ({ 
@@ -28,7 +29,8 @@ export const ChatLayout = ({
   currentConversationId,
   loading,
   onLoadConversation,
-  onDeleteConversation
+  onDeleteConversation,
+  hideHeader = false
 }: ChatLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
@@ -46,10 +48,12 @@ export const ChatLayout = ({
             data-mobile-chat
             className="flex-1 flex flex-col min-h-0 bg-burgundy-800 md:bg-gradient-to-b md:from-burgundy-900/30 md:to-burgundy-800/20 backdrop-blur-none md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl border-0 md:border md:border-white/30 shadow-none md:shadow-2xl md:shadow-black/30 ring-0 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 relative z-10 isolation-isolate"
           >
-            {/* Header - visible on all screens */}
-            <div className="w-full">
-              <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
-            </div>
+            {/* Header - conditionally visible */}
+            {!hideHeader && (
+              <div className="w-full">
+                <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
+              </div>
+            )}
             <div className="flex-1 flex flex-col md:min-h-0 md:overflow-hidden">
               {children}
             </div>
