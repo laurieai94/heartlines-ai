@@ -177,8 +177,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         style={{ height: '100%', backgroundColor: 'hsl(350, 100%, 20%)' }}
       >
         <div 
-          className="pt-[132px] md:pt-3 bg-burgundy-800 min-h-screen md:min-h-0"
+          className="pt-[120px] md:pt-3 bg-burgundy-800 min-h-screen md:min-h-0"
           style={{
+            paddingTop: 'max(8px, env(safe-area-inset-top))',
             paddingLeft: 'max(4px, env(safe-area-inset-left))',
             paddingRight: 'max(4px, env(safe-area-inset-right))',
             backgroundColor: 'hsl(350, 100%, 20%)'
