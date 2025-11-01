@@ -38,11 +38,11 @@ export const ChatLayout = ({
   };
 
   return (
-    <div className="chat-root h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-800 isolate md:bg-transparent md:isolation-auto px-0 lg:px-8 md:pt-4 lg:pt-6">
+    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full px-0 lg:px-8 md:pt-4 lg:pt-6">
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">
-          <div className="flex-1 flex flex-col md:min-h-0 md:max-h-full bg-burgundy-800 md:bg-gradient-to-b md:from-burgundy-900/30 md:to-burgundy-800/20 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 relative z-10">
+          <div className="flex-1 flex flex-col md:min-h-0 md:max-h-full md:bg-gradient-to-b md:from-burgundy-900/30 md:to-burgundy-800/20 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 relative z-10">
             {/* Header - visible on all screens */}
             <div className="w-full">
               <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
