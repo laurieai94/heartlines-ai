@@ -468,7 +468,7 @@ html {
   
   /* Ensure solid backgrounds on mobile chat */
   [data-mobile-chat] {
-    background: rgb(87, 13, 30) !important;
+    background: rgb(102, 0, 20) !important;
   }
   
   /* GPU accelerate textarea */

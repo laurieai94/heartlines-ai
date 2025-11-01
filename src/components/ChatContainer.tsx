@@ -176,7 +176,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         <div 
           className="pt-2 md:pt-3"
           style={{
-            paddingBottom: `${(inputSectionHeight || 280) + 16}px`,
+            paddingBottom: isMobile 
+              ? 'max(1rem, env(safe-area-inset-bottom))'
+              : `${(inputSectionHeight || 280) + 16}px`,
             paddingTop: 'max(8px, env(safe-area-inset-top))',
             paddingLeft: 'max(4px, env(safe-area-inset-left))',
             paddingRight: 'max(4px, env(safe-area-inset-right))'
