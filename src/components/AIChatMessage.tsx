@@ -95,7 +95,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           transition-all duration-300 md:group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(236,72,153,0.2)] md:group-hover:scale-[1.01] px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl
           ${isUser
             ? 'bg-burgundy-700/40 backdrop-blur-xl text-white rounded-br-lg border-2 border-coral-300/60 ring-2 ring-coral-400/30 md:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(251,146,60,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]'
-            : 'bg-gradient-to-br from-burgundy-700/45 via-burgundy-700/40 to-burgundy-800/35 backdrop-blur-xl text-white rounded-bl-lg border-2 border-burgundy-400/50 ring-2 ring-burgundy-400/25 md:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(159,18,57,0.25),inset_0_1px_0_rgba(255,255,255,0.08)]'
+            : 'bg-gradient-to-br from-burgundy-700/45 via-burgundy-700/40 to-pink-900/35 backdrop-blur-xl text-white rounded-bl-lg border-2 border-pink-400/50 ring-2 ring-pink-400/25 md:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(236,72,153,0.25),inset_0_1px_0_rgba(255,255,255,0.08)]'
           }
         `}
       >
@@ -106,7 +106,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         
         {/* Timestamp - Only show for last message in group */}
         {(isLastInGroup || !isMobile) && (
-          <p className={`text-xs md:text-xs text-burgundy-200/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+          <p className={`text-xs md:text-xs text-pink-200/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
             {formatTime(message.timestamp)}
           </p>
         )}
