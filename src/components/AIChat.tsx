@@ -118,8 +118,8 @@ useChatEffects({
     <>
       {/* Chat Header - Mobile only, renders above ChatLayout */}
       {isMobilePhone && (
-        <div className="fixed top-[44px] left-0 right-0 z-30">
-          <ChatHeader 
+        <div className="fixed top-[60px] left-0 right-0 z-30">
+          <ChatHeader
             userName={userName} 
             onNewConversation={handleNewConversation} 
             onOpenSidebar={onOpenSidebar} 
