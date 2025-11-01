@@ -121,10 +121,10 @@ const AIChatInput = ({
         readOnly 
           ? `bg-white/5 backdrop-blur-xl border-2 border-white/10 shadow-sm ${
               atLimit 
-                ? 'shadow-coral-500/40 hover:shadow-burgundy-500/40 transition-all duration-300' 
+                ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : 'bg-white/5 backdrop-blur-xl border-2 border-white/10 ring-2 ring-burgundy-400/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(159,18,57,0.6),0_0_24px_rgba(220,38,38,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
+          : 'bg-white/5 backdrop-blur-xl border-2 border-white/10 ring-2 ring-pink-400/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
       }`}>
         <Textarea
           unstyled
@@ -167,7 +167,7 @@ const AIChatInput = ({
         className={`rounded-2xl w-9 h-9 md:w-11 md:h-11 p-0 text-white focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-white/20 ${
           readOnly 
             ? 'brand-gradient-soft shadow-2xl shadow-black/50' 
-            : 'bg-gradient-to-br from-coral-500 via-burgundy-500 to-orange-500 hover:from-coral-400 hover:via-burgundy-400 hover:to-orange-400 shadow-[0_0_20px_rgba(251,146,60,0.3),0_0_40px_rgba(159,18,57,0.3)] hover:shadow-[0_0_24px_rgba(251,146,60,0.4),0_0_48px_rgba(159,18,57,0.4)] transition-all duration-300'
+            : 'bg-gradient-to-br from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 shadow-[0_0_20px_rgba(251,146,60,0.3),0_0_40px_rgba(236,72,153,0.3)] hover:shadow-[0_0_24px_rgba(251,146,60,0.4),0_0_48px_rgba(236,72,153,0.4)] transition-all duration-300'
         }`}
       >
         <Send className="w-3.5 h-3.5 md:w-4 md:h-4" />
