@@ -218,7 +218,7 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className="sticky bottom-0 left-0 right-0 flex-shrink-0 z-40 bg-[#2A0F13] md:bg-transparent"
+      className="sticky bottom-0 left-0 right-0 flex-shrink-0 z-40 bg-burgundy-800 md:bg-transparent"
       style={{
         paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
       }}

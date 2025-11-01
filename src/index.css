@@ -1368,7 +1368,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(42, 15, 19, 0.85); /* #2A0F13 with 85% opacity */
+    background: hsl(350 100% 20% / 0.85); /* burgundy-800 with 85% opacity */
     pointer-events: none;
     z-index: -1;
     /* Only show on desktop */
