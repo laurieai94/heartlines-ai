@@ -10,8 +10,9 @@ import DateSeparator from './chat/DateSeparator';
 import { isSameDay } from 'date-fns';
 
 export interface ChatContainerRef {
-  scrollToBottom: (behavior?: 'auto' | 'smooth') => void;
+  scrollToBottom: (behavior?: 'auto' | 'smooth', offset?: number) => void;
   scrollToBottomIfScrolledUp: () => void;
+  scrollToShowMessages: (offset?: number) => void;
 }
 
 interface ChatContainerProps {
@@ -48,16 +49,31 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const prevChatLengthRef = useRef(chatHistory.length);
 
 
-  // Enhanced scroll to bottom with buffer
-  const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
+  // Enhanced scroll to bottom with buffer and optional offset
+  const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth', offset: number = 0) => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
     requestAnimationFrame(() => {
-      const scrollTarget = viewport.scrollHeight - viewport.clientHeight + 10;
+      const scrollTarget = viewport.scrollHeight - viewport.clientHeight + 10 - offset;
       viewport.scrollTo({
-        top: scrollTarget,
+        top: Math.max(0, scrollTarget),
         behavior
+      });
+    });
+  }, []);
+
+  // Scroll to show messages (not spacer) when keyboard is visible
+  const scrollToShowMessages = useCallback((offset: number = 280) => {
+    if (!viewportRef.current) return;
+    
+    const viewport = viewportRef.current;
+    requestAnimationFrame(() => {
+      // Scroll to show messages, accounting for input section + keyboard space
+      const scrollTarget = viewport.scrollHeight - viewport.clientHeight - offset;
+      viewport.scrollTo({
+        top: Math.max(0, scrollTarget),
+        behavior: 'smooth'
       });
     });
   }, []);
@@ -84,8 +100,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   // Expose methods via ref
   useImperativeHandle(ref, () => ({
     scrollToBottom,
-    scrollToBottomIfScrolledUp
-  }), [scrollToBottom, scrollToBottomIfScrolledUp]);
+    scrollToBottomIfScrolledUp,
+    scrollToShowMessages
+  }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages]);
 
 
   // Auto-scroll to bottom for ALL new messages (user and AI)

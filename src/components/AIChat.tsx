@@ -98,18 +98,21 @@ const AIChat = ({
     setIsSidebarOpen(true);
   }, [onOpenSidebar]);
 
-  // Handle input focus - force scroll to bottom when keyboard appears (mobile only)
+  // Handle input focus - scroll to show messages, not spacer (mobile only)
   const handleInputFocus = useCallback(() => {
     if (!isMobilePhone) return;
     
-    // Immediate scroll
-    chatContainerRef.current?.scrollToBottom('smooth');
+    // Calculate offset: input section height + extra space for keyboard
+    const offset = inputSectionHeight + 100; // 100px buffer
+    
+    // Immediate scroll with offset
+    chatContainerRef.current?.scrollToShowMessages?.(offset);
     
     // Delayed scroll to account for keyboard animation
     setTimeout(() => {
-      chatContainerRef.current?.scrollToBottom('smooth');
+      chatContainerRef.current?.scrollToShowMessages?.(offset);
     }, 300);
-  }, [isMobilePhone]);
+  }, [isMobilePhone, inputSectionHeight]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
   useEffect(() => {
@@ -118,17 +121,18 @@ const AIChat = ({
     }
   }, [canInteract, historyLoading]);
 
-  // Phase 1: Scroll to bottom when keyboard becomes visible
+  // Phase 1: Scroll to show messages when keyboard becomes visible
   useEffect(() => {
     if (!isMobilePhone) return;
     
     // Detect keyboard visibility transition
     if (isKeyboardVisible && !prevKeyboardVisible.current) {
-      chatContainerRef.current?.scrollToBottom('smooth');
+      const offset = inputSectionHeight + 100;
+      chatContainerRef.current?.scrollToShowMessages?.(offset);
     }
     
     prevKeyboardVisible.current = isKeyboardVisible;
-  }, [isKeyboardVisible, isMobilePhone]);
+  }, [isKeyboardVisible, isMobilePhone, inputSectionHeight]);
 
   // Phase 3: Listen for visualViewport resize events
   useEffect(() => {
@@ -141,7 +145,8 @@ const AIChat = ({
       
       // Keyboard appearing (viewport shrinking)
       if (currentHeight < lastHeight) {
-        chatContainerRef.current?.scrollToBottom('smooth');
+        const offset = inputSectionHeight + 100;
+        chatContainerRef.current?.scrollToShowMessages?.(offset);
       }
       
       lastHeight = currentHeight;
@@ -152,7 +157,7 @@ const AIChat = ({
     return () => {
       window.visualViewport?.removeEventListener('resize', handleResize);
     };
-  }, [isMobilePhone]);
+  }, [isMobilePhone, inputSectionHeight]);
 
 useChatEffects({
   chatHistory,
