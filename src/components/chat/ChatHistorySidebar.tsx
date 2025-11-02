@@ -85,10 +85,10 @@ export const ChatHistorySidebar = ({
               {conversations.map((conversation) => (
                 <div
                   key={conversation.id}
-                  className={`group relative p-3 rounded-lg cursor-pointer transition-all ${
+                  className={`group relative p-3 rounded-lg cursor-pointer transition-all backdrop-blur-sm ${
                     currentConversationId === conversation.id
-                      ? 'bg-white/20 border border-white/30'
-                      : 'hover:bg-white/10 border border-white/8 hover:border-white/15'
+                      ? 'bg-white/20 border border-white/15'
+                      : 'hover:bg-white/10 border border-white/5 hover:border-white/10'
                   }`}
                   onClick={() => onLoadConversation(conversation.id)}
                 >
