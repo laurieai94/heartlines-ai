@@ -219,8 +219,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           
           {/* Content spacer instead of padding - prevents purple rectangle */}
           <div 
-            className="h-[40vh] md:h-[120px] w-full bg-burgundy-800"
-            style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
+            className="md:h-[120px] w-full bg-burgundy-800"
+            style={{ 
+              backgroundColor: 'hsl(350, 100%, 20%)',
+              height: isMobile ? `${Math.max(inputSectionHeight || 0, 150)}px` : undefined
+            }}
             aria-hidden="true"
           />
         </div>
