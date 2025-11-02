@@ -12,6 +12,8 @@ interface ChatLayoutProps {
   userName?: string;
   onNewConversation: () => void;
   onOpenSidebar?: () => void;
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: (open: boolean) => void;
   conversations: ChatConversation[];
   currentConversationId: string | null;
   loading: boolean;
@@ -25,6 +27,8 @@ export const ChatLayout = ({
   userName, 
   onNewConversation, 
   onOpenSidebar, 
+  isSidebarOpen,
+  setIsSidebarOpen,
   conversations,
   currentConversationId,
   loading,
@@ -32,12 +36,6 @@ export const ChatLayout = ({
   onDeleteConversation,
   hideHeader = false
 }: ChatLayoutProps) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-  const handleOpenSidebar = () => {
-    onOpenSidebar?.();
-    setIsSidebarOpen(true);
-  };
 
   return (
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full px-0 lg:px-8 md:pt-4 lg:pt-6">
@@ -51,7 +49,7 @@ export const ChatLayout = ({
             {/* Header - conditionally visible */}
             {!hideHeader && (
               <div className="w-full">
-                <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
+                <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
               </div>
             )}
             <div className="flex-1 flex flex-col md:min-h-0 md:overflow-hidden">

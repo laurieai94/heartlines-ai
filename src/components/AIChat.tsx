@@ -61,6 +61,7 @@ const AIChat = ({
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const [inputSectionHeight, setInputSectionHeight] = useState(280);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { profile } = useUserProfile();
   const { canInteract, accessLevel, profileCompletion } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
@@ -90,6 +91,12 @@ const AIChat = ({
       onNewConversation();
     }
   }, [onNewConversation, setChatHistory]);
+
+  // Handle opening sidebar
+  const handleOpenChatSidebar = useCallback(() => {
+    onOpenSidebar?.();
+    setIsSidebarOpen(true);
+  }, [onOpenSidebar]);
 
   // Handle input focus - force scroll to bottom when keyboard appears (mobile only)
   const handleInputFocus = useCallback(() => {
@@ -168,7 +175,7 @@ useChatEffects({
           <ChatHeader
             userName={userName} 
             onNewConversation={handleNewConversation} 
-            onOpenSidebar={onOpenSidebar} 
+            onOpenSidebar={handleOpenChatSidebar} 
           />
         </div>
       )}
@@ -176,7 +183,9 @@ useChatEffects({
       <ChatLayout 
         userName={userName} 
         onNewConversation={handleNewConversation} 
-        onOpenSidebar={onOpenSidebar}
+        onOpenSidebar={handleOpenChatSidebar}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
         conversations={conversations}
         currentConversationId={currentConversationId}
         loading={historyLoading}
