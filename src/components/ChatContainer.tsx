@@ -28,7 +28,6 @@ interface ChatContainerProps {
   onCompleteProfile?: () => void;
   showProfileNudge?: boolean;
   inputSectionHeight?: number;
-  currentConversationId?: string | null;
 }
 
 const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({ 
@@ -43,8 +42,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   profileCompletion = 100,
   onCompleteProfile,
   showProfileNudge = false,
-  inputSectionHeight = 150,
-  currentConversationId
+  inputSectionHeight
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useOptimizedMobile();
@@ -136,16 +134,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Scroll to bottom when switching conversations (desktop/tablet chat pills)
-  useEffect(() => {
-    if (currentConversationId && chatHistory.length > 0) {
-      // Use setTimeout to ensure DOM is fully rendered with new messages
-      setTimeout(() => {
-        scrollToBottom('auto');
-      }, 50);
-    }
-  }, [currentConversationId, chatHistory.length, scrollToBottom]);
-
 
 
   // Render chat messages (shared between mobile and desktop)
@@ -217,13 +205,10 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             {renderMessages()}
           </div>
           
-          {/* Content spacer - dynamic on mobile to match input height, fixed on desktop */}
+          {/* Content spacer instead of padding - prevents purple rectangle */}
           <div 
-            className="md:h-[120px] w-full bg-burgundy-800"
-            style={{ 
-              backgroundColor: 'hsl(350, 100%, 20%)',
-              height: isMobile ? `${Math.max(inputSectionHeight || 0, 150)}px` : undefined
-            }}
+            className="h-[40vh] md:h-[120px] w-full bg-burgundy-800"
+            style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
             aria-hidden="true"
           />
         </div>

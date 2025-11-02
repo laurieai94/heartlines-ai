@@ -223,7 +223,6 @@ useChatEffects({
             return shouldShowNudge;
           })()}
           inputSectionHeight={inputSectionHeight}
-          currentConversationId={currentConversationId}
         />
 
         <MemoizedChatInputSection
