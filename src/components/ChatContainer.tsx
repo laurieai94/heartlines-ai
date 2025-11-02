@@ -43,7 +43,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   profileCompletion = 100,
   onCompleteProfile,
   showProfileNudge = false,
-  inputSectionHeight,
+  inputSectionHeight = 150,
   currentConversationId
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -217,10 +217,13 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             {renderMessages()}
           </div>
           
-          {/* Content spacer instead of padding - prevents purple rectangle */}
+          {/* Content spacer - dynamic on mobile to match input height, fixed on desktop */}
           <div 
-            className="h-[40vh] md:h-[120px] w-full bg-burgundy-800"
-            style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
+            className="md:h-[120px] w-full bg-burgundy-800"
+            style={{ 
+              backgroundColor: 'hsl(350, 100%, 20%)',
+              height: isMobile ? `${Math.max(inputSectionHeight || 0, 150)}px` : undefined
+            }}
             aria-hidden="true"
           />
         </div>
