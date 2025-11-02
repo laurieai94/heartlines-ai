@@ -193,7 +193,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   return (
     <div 
-      className="flex-1 min-h-0 relative min-h-full bg-burgundy-800"
+      className="absolute inset-0 md:relative md:flex-1 md:min-h-0 bg-burgundy-800"
       style={{ backgroundColor: 'hsl(var(--burgundy-800))' }}
     >
       {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}
@@ -201,14 +201,14 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         /* Native scrolling for mobile */
         <div
           ref={viewportRef}
-          className="mobile-native-scroll h-full w-full overflow-y-auto bg-burgundy-800"
+          className="mobile-native-scroll absolute inset-0 w-full overflow-y-auto bg-burgundy-800"
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
           style={{
             WebkitOverflowScrolling: 'touch',
             overscrollBehavior: 'contain',
-            height: '100%',
+            paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
             backgroundColor: 'hsl(350, 100%, 20%)'
           }}
         >
@@ -223,16 +223,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             <div role="list" aria-label="Chat messages">
               {renderMessages()}
             </div>
-            
-            {/* Content spacer instead of padding - prevents purple rectangle */}
-            <div 
-              className="w-full bg-burgundy-800"
-              style={{ 
-                backgroundColor: 'hsl(350, 100%, 20%)',
-                height: `${Math.max(inputSectionHeight || 0, 150) + 80}px`
-              }}
-              aria-hidden="true"
-            />
           </div>
         </div>
       ) : (

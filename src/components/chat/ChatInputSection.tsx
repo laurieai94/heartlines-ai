@@ -218,10 +218,10 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className="sticky bottom-0 left-0 right-0 flex-shrink-0 z-40 bg-burgundy-800 md:bg-burgundy-900/20 backdrop-blur-none md:backdrop-blur-md"
+      className="absolute bottom-0 left-0 right-0 md:relative flex-shrink-0 z-40 bg-burgundy-800/95 md:bg-burgundy-900/20 backdrop-blur-sm md:backdrop-blur-md"
       style={{
         paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))',
-        backgroundColor: 'hsl(350, 100%, 20%)'
+        backgroundColor: 'hsl(350, 100%, 20%, 0.95)'
       }}
     >
       <div className="px-0 md:px-4 py-0 md:py-3">
