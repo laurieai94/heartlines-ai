@@ -207,7 +207,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           
           {/* Content spacer instead of padding - prevents purple rectangle */}
           <div 
-            className="h-[100vh] md:h-[280px] w-full bg-burgundy-800"
+            className="h-[40vh] md:h-[120px] w-full bg-burgundy-800"
             style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
             aria-hidden="true"
           />
