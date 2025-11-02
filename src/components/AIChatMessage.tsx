@@ -125,7 +125,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
               ? 'bg-gradient-to-br from-coral-500/90 to-orange-500/80 text-white border-2 border-coral-400/50 shadow-lg shadow-coral-400/20 rounded-br-sm'
               : 'bg-burgundy-700/40 backdrop-blur-xl text-white rounded-br-lg border-2 border-coral-300/60 ring-2 ring-coral-400/30 md:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(251,146,60,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]'
             : isMobile
-              ? 'bg-gradient-to-br from-pink-600/85 via-burgundy-600/75 to-burgundy-700/70 text-white border-2 border-pink-400/40 shadow-lg shadow-pink-400/15 rounded-bl-sm'
+              ? 'bg-gradient-to-br from-pink-600/85 via-burgundy-600/75 to-burgundy-700/70 text-white border-2 border-pink-400/40 shadow-md shadow-black/20 rounded-bl-sm'
               : 'bg-gradient-to-br from-burgundy-700/45 via-burgundy-700/40 to-pink-900/35 backdrop-blur-xl text-white rounded-bl-lg border-2 border-pink-400/50 ring-2 ring-pink-400/25 md:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(236,72,153,0.25),inset_0_1px_0_rgba(255,255,255,0.08)]'
           }
           transition-all duration-300 md:group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(236,72,153,0.2)] md:group-hover:scale-[1.01]
