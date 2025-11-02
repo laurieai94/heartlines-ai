@@ -42,7 +42,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   profileCompletion = 100,
   onCompleteProfile,
   showProfileNudge = false,
-  inputSectionHeight = 150
+  inputSectionHeight
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useOptimizedMobile();
@@ -207,11 +207,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           
           {/* Content spacer instead of padding - prevents purple rectangle */}
           <div 
-            className="md:h-[120px] w-full bg-burgundy-800"
-            style={{ 
-              backgroundColor: 'hsl(350, 100%, 20%)',
-              height: isMobile ? `${Math.max(inputSectionHeight, 150)}px` : undefined
-            }}
+            className="h-[40vh] md:h-[120px] w-full bg-burgundy-800"
+            style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
             aria-hidden="true"
           />
         </div>
