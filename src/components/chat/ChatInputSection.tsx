@@ -286,7 +286,7 @@ export const ChatInputSection = ({
           </div>
         )}
         
-        <div className="md:max-w-[54rem] md:mx-auto md:px-12">
+        <div className="px-4 md:max-w-[54rem] md:mx-auto md:px-12">
           <ProgressiveAccessWrapper action="chat">
             <AIChatInput
               onSendMessage={handleSend} 

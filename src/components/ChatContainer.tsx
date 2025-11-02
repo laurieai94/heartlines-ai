@@ -57,7 +57,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     
     const viewport = viewportRef.current;
     requestAnimationFrame(() => {
-      const scrollTarget = viewport.scrollHeight - viewport.clientHeight + 10 - offset;
+      const scrollTarget = viewport.scrollHeight - viewport.clientHeight - offset;
       viewport.scrollTo({
         top: Math.max(0, scrollTarget),
         behavior
