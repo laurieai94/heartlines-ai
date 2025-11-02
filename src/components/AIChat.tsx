@@ -60,7 +60,7 @@ const AIChat = ({
   onCloseStarters = () => {}
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
-  const [inputSectionHeight, setInputSectionHeight] = useState(280);
+  const [inputSectionHeight, setInputSectionHeight] = useState(150);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { profile } = useUserProfile();
   const { canInteract, accessLevel, profileCompletion } = useProgressiveAccess();
