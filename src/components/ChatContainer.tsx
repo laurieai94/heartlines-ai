@@ -28,6 +28,7 @@ interface ChatContainerProps {
   onCompleteProfile?: () => void;
   showProfileNudge?: boolean;
   inputSectionHeight?: number;
+  currentConversationId?: string | null;
 }
 
 const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({ 
@@ -42,7 +43,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   profileCompletion = 100,
   onCompleteProfile,
   showProfileNudge = false,
-  inputSectionHeight
+  inputSectionHeight,
+  currentConversationId
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useOptimizedMobile();
@@ -133,6 +135,16 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       scrollToBottom('auto');
     }
   }, [isHistoryLoaded, scrollToBottom]);
+
+  // Scroll to bottom when switching conversations (desktop/tablet chat pills)
+  useEffect(() => {
+    if (currentConversationId && chatHistory.length > 0) {
+      // Use setTimeout to ensure DOM is fully rendered with new messages
+      setTimeout(() => {
+        scrollToBottom('auto');
+      }, 50);
+    }
+  }, [currentConversationId, chatHistory.length, scrollToBottom]);
 
 
 

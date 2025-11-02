@@ -22,6 +22,7 @@ const MemoizedChatContainer = React.memo(ChatContainer, (prevProps, nextProps) =
     prevProps.isConfigured === nextProps.isConfigured &&
     prevProps.conversationStarter === nextProps.conversationStarter &&
     prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
+    prevProps.currentConversationId === nextProps.currentConversationId &&
     prevProps.chatHistory.length === nextProps.chatHistory.length &&
     // Deep check chat history content changes
     prevProps.chatHistory.every((msg, index) => {
