@@ -196,38 +196,78 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       className="flex-1 min-h-0 relative min-h-full bg-burgundy-800"
       style={{ backgroundColor: 'hsl(var(--burgundy-800))' }}
     >
-      {/* ScrollArea for all screen sizes */}
-      <ScrollArea 
-        viewportRef={viewportRef}
-        className="h-full w-full bg-burgundy-800"
-        role="log"
-        aria-live="polite"
-        aria-label="Chat conversation history"
-        style={{ height: '100%', backgroundColor: 'hsl(350, 100%, 20%)' }}
-      >
-        <div 
-          className="pt-[15px] bg-burgundy-800"
+      {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}
+      {isMobile ? (
+        /* Native scrolling for mobile */
+        <div
+          ref={viewportRef}
+          className="mobile-native-scroll h-full w-full overflow-y-auto bg-burgundy-800"
+          role="log"
+          aria-live="polite"
+          aria-label="Chat conversation history"
           style={{
-            paddingLeft: 'max(4px, env(safe-area-inset-left))',
-            paddingRight: 'max(4px, env(safe-area-inset-right))',
+            WebkitOverflowScrolling: 'touch',
+            overscrollBehavior: 'contain',
+            height: '100%',
             backgroundColor: 'hsl(350, 100%, 20%)'
           }}
         >
-          <div role="list" aria-label="Chat messages">
-            {renderMessages()}
-          </div>
-          
-          {/* Content spacer instead of padding - prevents purple rectangle */}
           <div 
-            className="md:h-[160px] w-full bg-burgundy-800"
-            style={{ 
-              backgroundColor: 'hsl(350, 100%, 20%)',
-              height: isMobile ? `${Math.max(inputSectionHeight || 0, 150) + 80}px` : undefined
+            className="pt-[15px] bg-burgundy-800"
+            style={{
+              paddingLeft: 'max(4px, env(safe-area-inset-left))',
+              paddingRight: 'max(4px, env(safe-area-inset-right))',
+              backgroundColor: 'hsl(350, 100%, 20%)'
             }}
-            aria-hidden="true"
-          />
+          >
+            <div role="list" aria-label="Chat messages">
+              {renderMessages()}
+            </div>
+            
+            {/* Content spacer instead of padding - prevents purple rectangle */}
+            <div 
+              className="w-full bg-burgundy-800"
+              style={{ 
+                backgroundColor: 'hsl(350, 100%, 20%)',
+                height: `${Math.max(inputSectionHeight || 0, 150) + 80}px`
+              }}
+              aria-hidden="true"
+            />
+          </div>
         </div>
-      </ScrollArea>
+      ) : (
+        /* Radix ScrollArea for desktop/tablet */
+        <ScrollArea 
+          viewportRef={viewportRef}
+          className="h-full w-full bg-burgundy-800"
+          role="log"
+          aria-live="polite"
+          aria-label="Chat conversation history"
+          style={{ height: '100%', backgroundColor: 'hsl(350, 100%, 20%)' }}
+        >
+          <div 
+            className="pt-[15px] bg-burgundy-800"
+            style={{
+              paddingLeft: 'max(4px, env(safe-area-inset-left))',
+              paddingRight: 'max(4px, env(safe-area-inset-right))',
+              backgroundColor: 'hsl(350, 100%, 20%)'
+            }}
+          >
+            <div role="list" aria-label="Chat messages">
+              {renderMessages()}
+            </div>
+            
+            {/* Content spacer instead of padding - prevents purple rectangle */}
+            <div 
+              className="md:h-[160px] w-full bg-burgundy-800"
+              style={{ 
+                backgroundColor: 'hsl(350, 100%, 20%)'
+              }}
+              aria-hidden="true"
+            />
+          </div>
+        </ScrollArea>
+      )}
 
       {/* Scroll to top arrow - handles its own logic */}
       <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />

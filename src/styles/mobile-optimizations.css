@@ -355,6 +355,34 @@ html, body, #root {
   }
 }
 
+/* Native mobile scrolling optimization for chat */
+.mobile-native-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  overscroll-behavior-x: none;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Hide scrollbar on mobile for clean look */
+.mobile-native-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-native-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ensure smooth momentum scrolling on iOS */
+@supports (-webkit-overflow-scrolling: touch) {
+  .mobile-native-scroll {
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+  }
+}
+
 /* Reduce motion for performance and accessibility */
 @media (prefers-reduced-motion: reduce) {
   *:not(.animate-soft-glow),
