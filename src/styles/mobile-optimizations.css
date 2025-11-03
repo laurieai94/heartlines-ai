@@ -140,9 +140,10 @@ html, body, #root {
     overflow-y: auto;
     overflow-x: hidden;
     /* Prevent overscroll entirely - let pull-to-reveal handle header visibility */
-    overscroll-behavior-y: none;
+    overscroll-behavior-y: none !important;
     /* Prevent horizontal overscroll */
-    overscroll-behavior-x: none;
+    overscroll-behavior-x: none !important;
+    overscroll-behavior: none !important;
     touch-action: pan-y;
     
     /* Remove containment - was blocking natural iOS behavior */
@@ -358,11 +359,14 @@ html, body, #root {
 /* Native mobile scrolling optimization for chat */
 .mobile-native-scroll {
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
-  overscroll-behavior-x: none;
+  overscroll-behavior-y: none !important;
+  overscroll-behavior-x: none !important;
+  overscroll-behavior: none !important;
+  touch-action: pan-y;
   scroll-behavior: smooth;
   overflow-x: hidden;
   overflow-y: auto;
+  min-height: 100%;
 }
 
 /* Hide scrollbar on mobile for clean look - force with !important */
