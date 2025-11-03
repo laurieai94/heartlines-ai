@@ -260,14 +260,6 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
   }
-  
-  /* Mobile-specific background enforcement to prevent purple rectangle */
-  @media (max-width: 768px) {
-    body {
-      background-color: hsl(350, 100%, 20%) !important;
-      background-attachment: fixed;
-    }
-  }
 
   body::-webkit-scrollbar {
     display: none; /* Chrome/Safari/Edge */
