@@ -144,7 +144,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     WebkitOverflowScrolling: 'touch' as const,
     overscrollBehavior: 'none' as const,
     overscrollBehaviorY: 'none' as const,
-    backgroundColor: 'hsl(var(--burgundy-800))',
     paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
     scrollbarWidth: 'none' as const,
     msOverflowStyle: 'none' as const,
@@ -154,28 +153,21 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   const contentPaddingStyle = useMemo(() => ({
     paddingLeft: 'max(4px, env(safe-area-inset-left))',
-    paddingRight: 'max(4px, env(safe-area-inset-right))',
-    backgroundColor: 'hsl(var(--burgundy-800))'
+    paddingRight: 'max(4px, env(safe-area-inset-right))'
   }), []);
 
-  const containerStyle = useMemo(() => ({ 
-    backgroundColor: 'hsl(var(--burgundy-800))' 
-  }), []);
+  const containerStyle = useMemo(() => ({}), []);
 
   const desktopScrollStyle = useMemo(() => ({ 
-    height: '100%', 
-    backgroundColor: 'hsl(var(--burgundy-800))' 
+    height: '100%'
   }), []);
 
   const desktopContentPaddingStyle = useMemo(() => ({
     paddingLeft: 'max(4px, env(safe-area-inset-left))',
-    paddingRight: 'max(4px, env(safe-area-inset-right))',
-    backgroundColor: 'hsl(var(--burgundy-800))'
+    paddingRight: 'max(4px, env(safe-area-inset-right))'
   }), []);
 
-  const desktopSpacerStyle = useMemo(() => ({ 
-    backgroundColor: 'hsl(var(--burgundy-800))' 
-  }), []);
+  const desktopSpacerStyle = useMemo(() => ({}), []);
 
 
   // Render chat messages (shared between mobile and desktop)

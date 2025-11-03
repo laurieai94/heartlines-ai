@@ -220,8 +220,7 @@ export const ChatInputSection = ({
       ref={containerRef}
       className="absolute bottom-0 left-0 right-0 flex-shrink-0 z-40 bg-burgundy-800/95 backdrop-blur-sm md:relative md:bottom-auto md:left-auto md:right-auto md:bg-burgundy-900/20 md:backdrop-blur-md"
       style={{
-        paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))',
-        backgroundColor: isMobile && !isTablet ? 'hsla(var(--burgundy-800), 0.95)' : 'hsl(var(--burgundy-800))'
+        paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
       }}
     >
       <div className="px-0 md:px-4 py-0 md:py-3">
