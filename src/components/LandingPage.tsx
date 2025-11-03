@@ -430,16 +430,16 @@ const LandingPage = ({
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 xl:gap-16 items-center min-h-[50vh] md:min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
-                  <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0">
+                  <div className="text-left w-full max-w-xl md:max-w-2xl lg:max-w-3xl self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0">
                     <div className="space-y-2 mb-1 md:mb-6">
-<h1 className="font-playfair font-normal leading-[1.15] tracking-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-300 via-pink-400 to-coral-400 pr-16 pb-1 will-change-transform" style={{
+<h1 className="font-playfair font-normal leading-[1.15] tracking-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-300 via-pink-400 to-coral-400 pr-20 md:pr-24 lg:pr-28 xl:pr-32 pb-1 will-change-transform" style={{
   fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
   textShadow: '0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(251, 207, 232, 0.15)'
 }}>
   relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
 </h1>
                       
-                      <h3 className="font-playfair font-light leading-[1.25] tracking-wide animate-fade-in text-white/95 md:whitespace-nowrap max-w-full drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]" style={{
+                      <h3 className="font-playfair font-light leading-[1.25] tracking-wide animate-fade-in text-white/95 md:whitespace-nowrap max-w-full pr-16 md:pr-20 lg:pr-24 xl:pr-28 drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]" style={{
                       fontSize: 'clamp(1.25rem, 3.75vw, 2.75rem)',
                       animationDelay: '0.2s'
                     }}>
