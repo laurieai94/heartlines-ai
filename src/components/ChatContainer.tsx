@@ -164,17 +164,17 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   const desktopScrollStyle = useMemo(() => ({ 
     height: '100%', 
-    backgroundColor: 'hsl(350, 100%, 20%)' 
+    backgroundColor: 'hsl(var(--burgundy-800))' 
   }), []);
 
   const desktopContentPaddingStyle = useMemo(() => ({
     paddingLeft: 'max(4px, env(safe-area-inset-left))',
     paddingRight: 'max(4px, env(safe-area-inset-right))',
-    backgroundColor: 'hsl(350, 100%, 20%)'
+    backgroundColor: 'hsl(var(--burgundy-800))'
   }), []);
 
   const desktopSpacerStyle = useMemo(() => ({ 
-    backgroundColor: 'hsl(350, 100%, 20%)' 
+    backgroundColor: 'hsl(var(--burgundy-800))' 
   }), []);
 
 
