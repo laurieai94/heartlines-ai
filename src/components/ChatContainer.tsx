@@ -207,11 +207,14 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           aria-label="Chat conversation history"
         style={{
           WebkitOverflowScrolling: 'touch',
-          overscrollBehavior: 'contain',
-          backgroundColor: 'hsl(350, 100%, 20%)',
+          overscrollBehavior: 'none',
+          overscrollBehaviorY: 'none',
+          backgroundColor: 'hsl(var(--burgundy-800))',
           paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
           scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
+          msOverflowStyle: 'none',
+          position: 'relative',
+          minHeight: '100%'
         }}
         >
           <div 
@@ -219,7 +222,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             style={{
               paddingLeft: 'max(4px, env(safe-area-inset-left))',
               paddingRight: 'max(4px, env(safe-area-inset-right))',
-              backgroundColor: 'hsl(350, 100%, 20%)'
+              backgroundColor: 'hsl(var(--burgundy-800))'
             }}
           >
             <div role="list" aria-label="Chat messages">
