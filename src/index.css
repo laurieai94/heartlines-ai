@@ -81,7 +81,7 @@
 
 @layer base {
   :root {
-    --background: 350 100% 10%; /* burgundy-900 - matches chat background */
+    --background: 342 100% 18%; /* #5a001b - solid burgundy for mobile */
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -355,6 +355,13 @@
       rgba(255, 255, 255, 0.02) 8px
     );
   mix-blend-mode: overlay;
+}
+
+/* Remove textured background on mobile */
+@media (max-width: 768px) {
+  .textured-background::before {
+    display: none !important;
+  }
 }
 
 @layer utilities {
