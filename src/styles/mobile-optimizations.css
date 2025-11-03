@@ -149,7 +149,7 @@ html, body, #root {
     contain: none;
     
     /* Prevent white screen on keyboard open */
-    background-color: rgb(102, 0, 20) !important; /* burgundy-800 solid */
+    background-color: hsl(350, 100%, 20%) !important; /* burgundy-800 solid */
     min-height: 100% !important;
     
     /* Hide scrollbar but keep functionality */
@@ -159,7 +159,7 @@ html, body, #root {
   
   /* Force burgundy on Radix ScrollArea internals */
   .mobile-chat-scroll [data-radix-scroll-area-viewport] {
-    background-color: rgb(102, 0, 20) !important;
+    background-color: hsl(350, 100%, 20%) !important;
     min-height: 100vh !important;
   }
   
@@ -201,7 +201,7 @@ html, body, #root {
     pointer-events: auto !important;
     touch-action: manipulation !important;
     isolation: isolate !important;
-    background: rgb(64, 13, 24) !important; /* burgundy-900 - prevent white screen */
+    background: hsl(350, 100%, 10%) !important; /* burgundy-900 - prevent white screen */
     will-change: transform;
   }
   
@@ -343,7 +343,7 @@ html, body, #root {
 
   /* Ensure messages container has solid background */
   [role="log"][aria-label="Chat conversation history"] {
-    background: rgb(64, 13, 24) !important; /* burgundy-900 */
+    background: hsl(350, 100%, 10%) !important; /* burgundy-900 */
     min-height: 100%;
   }
 }
