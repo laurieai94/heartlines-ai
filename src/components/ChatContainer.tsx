@@ -57,18 +57,13 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     
     const viewport = viewportRef.current;
     requestAnimationFrame(() => {
-      // On mobile, add extra offset to account for input overlay
-      // Use inputSectionHeight + 20px buffer to ensure message is fully visible
-      const mobileOffset = isMobile ? (inputSectionHeight || 150) + 20 : 0;
-      const totalOffset = offset + mobileOffset;
-      
-      const scrollTarget = viewport.scrollHeight - viewport.clientHeight - totalOffset;
+      const scrollTarget = viewport.scrollHeight - viewport.clientHeight - offset;
       viewport.scrollTo({
         top: Math.max(0, scrollTarget),
         behavior
       });
     });
-  }, [isMobile, inputSectionHeight]);
+  }, []);
 
   // Scroll to show messages (not spacer) when keyboard is visible
   const scrollToShowMessages = useCallback((offset: number = 280) => {
