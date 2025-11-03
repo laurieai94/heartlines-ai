@@ -94,13 +94,21 @@ const DashboardContent = ({
           if (!dropdown) {
             setNavigationOpened(false);
             observer.disconnect();
+            document.removeEventListener('click', handleClickOutside);
           }
         });
         
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           document.addEventListener('click', handleClickOutside);
           observer.observe(document.body, { childList: true, subtree: true });
         }, 100);
+        
+        // Cleanup on unmount
+        return () => {
+          clearTimeout(timeoutId);
+          observer.disconnect();
+          document.removeEventListener('click', handleClickOutside);
+        };
       } else {
         // Try alternative selectors for menu button
         const headerButtons = document.querySelectorAll('[data-mobile-header] button');

@@ -28,16 +28,15 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
     });
   };
 
-  // Debug: Track message render performance on mobile
+  // Performance monitoring - development only
   useEffect(() => {
-    if (!isMobile) return;
+    if (import.meta.env.PROD || !isMobile) return;
     
     const renderStart = performance.now();
     
-    // Measure after render completes
     requestAnimationFrame(() => {
       const renderTime = performance.now() - renderStart;
-      if (renderTime > 16) { // Longer than 1 frame (60fps = 16.67ms)
+      if (renderTime > 16) {
         console.warn('[Mobile Message Slow Render]:', {
           messageId: message.id,
           renderTime: renderTime.toFixed(2) + 'ms',
@@ -51,14 +50,11 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
   return (
     <div className={`${isMobile ? 'px-2' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
       <div 
-        className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+        className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group ${
+          !isUser ? 'animate-[slide-up_0.3s_cubic-bezier(0.16,1,0.3,1)]' : 'animate-fade-in'
+        }`}
         role="listitem"
         aria-label={`${isUser ? (userName || 'User') : 'kai'} message at ${formatTime(message.timestamp)}`}
-        style={{
-          animation: !isUser ? 'slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1)' : 'fade-in 0.3s ease-out',
-          animationDelay: '0s',
-          animationFillMode: 'backwards'
-        }}
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">

@@ -24,15 +24,14 @@ export const MemoizedChatContainer = React.memo(
     return <ChatContainer {...props} ref={ref} />;
   }),
   (prevProps, nextProps) => {
-    // Quick length check first
+    // Optimized: Quick checks first, then simplified last message check
     if (prevProps.chatHistory.length !== nextProps.chatHistory.length) return false;
     
-    // Only check last 2 messages for changes (most common case)
-    const checkMessages = Math.min(2, prevProps.chatHistory.length);
-    for (let i = prevProps.chatHistory.length - checkMessages; i < prevProps.chatHistory.length; i++) {
-      const prevMsg = prevProps.chatHistory[i];
-      const nextMsg = nextProps.chatHistory[i];
-      if (!nextMsg || prevMsg.id !== nextMsg.id || prevMsg.content !== nextMsg.content) {
+    // Only check last message ID (streaming updates will change content, full messages won't)
+    if (prevProps.chatHistory.length > 0) {
+      const prevLast = prevProps.chatHistory[prevProps.chatHistory.length - 1];
+      const nextLast = nextProps.chatHistory[nextProps.chatHistory.length - 1];
+      if (prevLast.id !== nextLast.id || prevLast.content !== nextLast.content) {
         return false;
       }
     }

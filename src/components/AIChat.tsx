@@ -134,27 +134,32 @@ const AIChat = ({
     prevKeyboardVisible.current = isKeyboardVisible;
   }, [isKeyboardVisible, isMobilePhone, inputSectionHeight]);
 
-  // Phase 3: Listen for visualViewport resize events
+  // Phase 3: Listen for visualViewport resize events (optimized with debouncing)
   useEffect(() => {
     if (!isMobilePhone || !window.visualViewport) return;
 
     let lastHeight = window.visualViewport.height;
+    let resizeTimer: NodeJS.Timeout;
 
     const handleResize = () => {
-      const currentHeight = window.visualViewport?.height || 0;
-      
-      // Keyboard appearing (viewport shrinking)
-      if (currentHeight < lastHeight) {
-        const offset = inputSectionHeight + 100;
-        chatContainerRef.current?.scrollToShowMessages?.(offset);
-      }
-      
-      lastHeight = currentHeight;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const currentHeight = window.visualViewport?.height || 0;
+        
+        // Keyboard appearing (viewport shrinking)
+        if (currentHeight < lastHeight) {
+          const offset = inputSectionHeight + 100;
+          chatContainerRef.current?.scrollToShowMessages?.(offset);
+        }
+        
+        lastHeight = currentHeight;
+      }, 50); // Debounce by 50ms
     };
 
     window.visualViewport.addEventListener('resize', handleResize);
 
     return () => {
+      clearTimeout(resizeTimer);
       window.visualViewport?.removeEventListener('resize', handleResize);
     };
   }, [isMobilePhone, inputSectionHeight]);
@@ -214,12 +219,16 @@ useChatEffects({
           showProfileNudge={(() => {
             const isCompleting = sessionStorage.getItem('questionnaire-completing');
             if (isCompleting) {
-              console.log('[AIChat] Questionnaire completing - hiding nudge');
+              if (!import.meta.env.PROD) {
+                console.log('[AIChat] Questionnaire completing - hiding nudge');
+              }
               return false;
             }
             
             const shouldShowNudge = accessLevel === 'profile-required' && !!user && profileCompletion < 100;
-            console.log('[AIChat] Nudge logic:', { accessLevel, hasUser: !!user, profileCompletion, shouldShowNudge, isCompleting });
+            if (!import.meta.env.PROD) {
+              console.log('[AIChat] Nudge logic:', { accessLevel, hasUser: !!user, profileCompletion, shouldShowNudge, isCompleting });
+            }
             return shouldShowNudge;
           })()}
           inputSectionHeight={inputSectionHeight}

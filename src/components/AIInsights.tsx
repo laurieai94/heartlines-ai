@@ -56,37 +56,37 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     performanceMonitor.measure('insights-chunk-load');
   }, []);
 
+  // Optimized: Combined profile merging effect with early returns
   useEffect(() => {
-    // Reduced logging for better performance
+    if (!personalDataReady || partnerDataLoading) return;
 
-    if (personalDataReady && !partnerDataLoading) {
-      // Merge ALL personal profile data sources
-      const mergedPersonalData = {
-        ...temporaryDemographics.your,
-        ...personalProfileData
-      };
+    const mergedPersonalData = {
+      ...temporaryDemographics.your,
+      ...personalProfileData
+    };
 
-      // Merge partner profile data from questionnaire and temporary sources
-      const mergedPartnerData = {
-        ...temporaryDemographics.partner,
-        ...temporaryProfiles.partner[0], // Get first partner profile if exists
-        ...partnerProfileData // This includes data from 'partner_profile_questionnaire' localStorage
-      };
+    const mergedPartnerData = {
+      ...temporaryDemographics.partner,
+      ...temporaryProfiles.partner[0],
+      ...partnerProfileData
+    };
 
-      // Create unified profile structure - ensure we have data in both profile and demographics
-      const newUnifiedProfiles = {
-        your: Object.keys(mergedPersonalData).length > 0 ? [mergedPersonalData] : temporaryProfiles.your,
-        partner: Object.keys(mergedPartnerData).length > 0 ? [mergedPartnerData] : temporaryProfiles.partner
-      };
+    const hasPersonalData = Object.keys(mergedPersonalData).length > 0;
+    const hasPartnerData = Object.keys(mergedPartnerData).length > 0;
 
-      const newUnifiedDemographics = {
-        your: Object.keys(mergedPersonalData).length > 0 ? mergedPersonalData : temporaryDemographics.your,
-        partner: Object.keys(mergedPartnerData).length > 0 ? mergedPartnerData : temporaryDemographics.partner
-      };
+    // Only update if there's actual data changes
+    const newUnifiedProfiles = {
+      your: hasPersonalData ? [mergedPersonalData] : temporaryProfiles.your,
+      partner: hasPartnerData ? [mergedPartnerData] : temporaryProfiles.partner
+    };
 
-      setUnifiedProfiles(newUnifiedProfiles);
-      setUnifiedDemographics(newUnifiedDemographics);
-    }
+    const newUnifiedDemographics = {
+      your: hasPersonalData ? mergedPersonalData : temporaryDemographics.your,
+      partner: hasPartnerData ? mergedPartnerData : temporaryDemographics.partner
+    };
+
+    setUnifiedProfiles(newUnifiedProfiles);
+    setUnifiedDemographics(newUnifiedDemographics);
   }, [personalProfileData, partnerProfileData, personalDataReady, partnerDataLoading, temporaryProfiles, temporaryDemographics]);
 
   // Initialize Supabase immediately for faster startup

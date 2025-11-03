@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Profiler } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -11,21 +11,40 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 import { PerformanceOptimizedApp } from '@/components/PerformanceOptimizedApp'
 
+// React Profiler callback for development only
+const onRenderCallback = (
+  id: string,
+  phase: "mount" | "update",
+  actualDuration: number,
+  baseDuration: number,
+  startTime: number,
+  commitTime: number
+) => {
+  if (!import.meta.env.PROD && actualDuration > 16) {
+    console.log(`[Profiler] ${id} ${phase}:`, {
+      actualDuration: actualDuration.toFixed(2) + 'ms',
+      baseDuration: baseDuration.toFixed(2) + 'ms',
+      startTime: startTime.toFixed(2),
+      commitTime: commitTime.toFixed(2)
+    });
+  }
+};
+
 // Production optimizations component with enhanced mobile diagnostics
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   const { isEmergencyMode } = useProductionOptimizations();
   
-  // Enhanced mobile diagnostics
+  // Enhanced mobile diagnostics - development only
   React.useEffect(() => {
+    if (import.meta.env.PROD) return;
+    
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
-      // Detect iOS version
       const ua = navigator.userAgent;
       const isIOS = /iPad|iPhone|iPod/.test(ua);
       const iOSVersion = isIOS ? ua.match(/OS (\d+)_/) : null;
       const isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
       
-      // Connection info
       const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
       const connectionType = connection?.effectiveType || 'unknown';
       
@@ -46,9 +65,9 @@ const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// Optimized app structure - always use MobileErrorBoundary (handles both mobile and desktop)
+// Optimized app structure with React Profiler in development
 const AppWithBoundary = () => {
-  return (
+  const content = (
     <MobileErrorBoundary>
       <PerformanceOptimizedApp>
         <ProductionWrapper>
@@ -61,6 +80,17 @@ const AppWithBoundary = () => {
       </PerformanceOptimizedApp>
     </MobileErrorBoundary>
   );
+
+  // Wrap with Profiler only in development
+  if (!import.meta.env.PROD) {
+    return (
+      <Profiler id="App" onRender={onRenderCallback}>
+        {content}
+      </Profiler>
+    );
+  }
+
+  return content;
 };
 
 createRoot(document.getElementById("root")!).render(<AppWithBoundary />);

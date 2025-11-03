@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useCallback, useEffect, useRef, forwardRef, useImperativeHandle, useMemo } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
@@ -107,45 +107,75 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages]);
 
 
-  // Auto-scroll to bottom for ALL new messages (user and AI)
+  // Optimized: Combined scroll effects to reduce effect overhead
   useEffect(() => {
     const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
     const lastMessage = chatHistory[chatHistory.length - 1];
     const isUserMessage = lastMessage?.type === 'user';
     
-    // Auto-scroll for all new messages
-    if (hasNewMessage) {
-      // Double RAF ensures DOM is fully updated
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          // Instant scroll for user messages, smooth for AI messages
-          scrollToBottom(isUserMessage ? 'auto' : 'smooth');
-        });
-      });
-    } else if (chatHistory.length <= 1) {
+    // Handle initial scroll when history loads
+    if (isHistoryLoaded && prevChatLengthRef.current === 0) {
       scrollToBottom('auto');
+      prevChatLengthRef.current = chatHistory.length;
+      return;
     }
     
-    prevChatLengthRef.current = chatHistory.length;
-  }, [chatHistory.length, scrollToBottom]);
-
-  // Initial scroll when history loads
-  useEffect(() => {
-    if (isHistoryLoaded) {
+    // Handle conversation switching
+    if (currentConversationId && chatHistory.length > 0 && hasNewMessage) {
+      setTimeout(() => scrollToBottom('auto'), 50);
+      prevChatLengthRef.current = chatHistory.length;
+      return;
+    }
+    
+    // Handle new messages
+    if (hasNewMessage) {
+      requestAnimationFrame(() => {
+        scrollToBottom(isUserMessage ? 'auto' : 'smooth');
+      });
+      prevChatLengthRef.current = chatHistory.length;
+    } else if (chatHistory.length <= 1) {
       scrollToBottom('auto');
+      prevChatLengthRef.current = chatHistory.length;
     }
-  }, [isHistoryLoaded, scrollToBottom]);
+  }, [chatHistory.length, isHistoryLoaded, currentConversationId, scrollToBottom]);
 
-  // Scroll to bottom when switching conversations (all screen sizes)
-  useEffect(() => {
-    if (currentConversationId && chatHistory.length > 0) {
-      // Small delay to ensure DOM is fully rendered with new conversation messages
-      setTimeout(() => {
-        scrollToBottom('auto');
-      }, 50);
-    }
-  }, [currentConversationId, chatHistory.length, scrollToBottom]);
+  // Memoized style objects to prevent recreation on every render
+  const mobileScrollStyle = useMemo(() => ({
+    WebkitOverflowScrolling: 'touch' as const,
+    overscrollBehavior: 'none' as const,
+    overscrollBehaviorY: 'none' as const,
+    backgroundColor: 'hsl(var(--burgundy-800))',
+    paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
+    scrollbarWidth: 'none' as const,
+    msOverflowStyle: 'none' as const,
+    position: 'relative' as const,
+    minHeight: '100%'
+  }), [inputSectionHeight]);
 
+  const contentPaddingStyle = useMemo(() => ({
+    paddingLeft: 'max(4px, env(safe-area-inset-left))',
+    paddingRight: 'max(4px, env(safe-area-inset-right))',
+    backgroundColor: 'hsl(var(--burgundy-800))'
+  }), []);
+
+  const containerStyle = useMemo(() => ({ 
+    backgroundColor: 'hsl(var(--burgundy-800))' 
+  }), []);
+
+  const desktopScrollStyle = useMemo(() => ({ 
+    height: '100%', 
+    backgroundColor: 'hsl(350, 100%, 20%)' 
+  }), []);
+
+  const desktopContentPaddingStyle = useMemo(() => ({
+    paddingLeft: 'max(4px, env(safe-area-inset-left))',
+    paddingRight: 'max(4px, env(safe-area-inset-right))',
+    backgroundColor: 'hsl(350, 100%, 20%)'
+  }), []);
+
+  const desktopSpacerStyle = useMemo(() => ({ 
+    backgroundColor: 'hsl(350, 100%, 20%)' 
+  }), []);
 
 
   // Render chat messages (shared between mobile and desktop)
@@ -194,7 +224,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   return (
     <div 
       className="absolute inset-0 flex flex-col bg-burgundy-800 md:relative md:flex-1 md:min-h-0"
-      style={{ backgroundColor: 'hsl(var(--burgundy-800))' }}
+      style={containerStyle}
     >
       {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}
       {isMobile ? (
@@ -205,25 +235,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
-        style={{
-          WebkitOverflowScrolling: 'touch',
-          overscrollBehavior: 'none',
-          overscrollBehaviorY: 'none',
-          backgroundColor: 'hsl(var(--burgundy-800))',
-          paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          position: 'relative',
-          minHeight: '100%'
-        }}
+        style={mobileScrollStyle}
         >
           <div 
             className="pt-[15px] bg-burgundy-800"
-            style={{
-              paddingLeft: 'max(4px, env(safe-area-inset-left))',
-              paddingRight: 'max(4px, env(safe-area-inset-right))',
-              backgroundColor: 'hsl(var(--burgundy-800))'
-            }}
+            style={contentPaddingStyle}
           >
             <div role="list" aria-label="Chat messages">
               {renderMessages()}
@@ -238,15 +254,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
-          style={{ height: '100%', backgroundColor: 'hsl(350, 100%, 20%)' }}
+          style={desktopScrollStyle}
         >
           <div 
             className="pt-[15px] bg-burgundy-800"
-            style={{
-              paddingLeft: 'max(4px, env(safe-area-inset-left))',
-              paddingRight: 'max(4px, env(safe-area-inset-right))',
-              backgroundColor: 'hsl(350, 100%, 20%)'
-            }}
+            style={desktopContentPaddingStyle}
           >
             <div role="list" aria-label="Chat messages">
               {renderMessages()}
@@ -255,9 +267,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             {/* Content spacer instead of padding - prevents purple rectangle */}
             <div 
               className="md:h-[160px] w-full bg-burgundy-800"
-              style={{ 
-                backgroundColor: 'hsl(350, 100%, 20%)'
-              }}
+              style={desktopSpacerStyle}
               aria-hidden="true"
             />
           </div>
