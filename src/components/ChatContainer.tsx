@@ -237,10 +237,10 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           aria-label="Chat conversation history"
         style={mobileScrollStyle}
         >
-          <div 
-            className="pt-[15px] bg-burgundy-800"
-            style={contentPaddingStyle}
-          >
+        <div 
+          className="pt-[16px] bg-burgundy-800"
+          style={contentPaddingStyle}
+        >
             <div role="list" aria-label="Chat messages">
               {renderMessages()}
             </div>
