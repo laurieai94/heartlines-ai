@@ -205,12 +205,14 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
-          style={{
-            WebkitOverflowScrolling: 'touch',
-            overscrollBehavior: 'contain',
-            backgroundColor: 'hsl(350, 100%, 20%)',
-            paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`
-          }}
+        style={{
+          WebkitOverflowScrolling: 'touch',
+          overscrollBehavior: 'contain',
+          backgroundColor: 'hsl(350, 100%, 20%)',
+          paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}
         >
           <div 
             className="pt-[15px] bg-burgundy-800"

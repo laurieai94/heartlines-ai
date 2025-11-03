@@ -365,14 +365,16 @@ html, body, #root {
   overflow-y: auto;
 }
 
-/* Hide scrollbar on mobile for clean look */
+/* Hide scrollbar on mobile for clean look - force with !important */
 .mobile-native-scroll::-webkit-scrollbar {
-  display: none;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .mobile-native-scroll {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
 /* Ensure smooth momentum scrolling on iOS */
