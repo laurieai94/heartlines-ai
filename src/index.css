@@ -168,6 +168,41 @@
     --gradient-brand-hover: linear-gradient(135deg, hsl(350 100% 70%) 0%, hsl(var(--coral-600)) 100%);
   }
 
+/* Mobile-only: Shift burgundy from 350° to 0° for purer red tone */
+@media (max-width: 767px) {
+  :root {
+    /* Burgundy color scale - pure red hue for mobile */
+    --burgundy-50: 0 50% 95%;
+    --burgundy-100: 0 60% 88%;
+    --burgundy-200: 0 70% 78%;
+    --burgundy-300: 0 80% 65%;
+    --burgundy-400: 0 85% 50%;
+    --burgundy-500: 0 90% 40%;
+    --burgundy-600: 0 95% 30%;
+    --burgundy-700: 0 100% 25%;
+    --burgundy-800: 0 100% 20%;
+    --burgundy-900: 0 100% 10%;
+
+    /* Sidebar colors */
+    --sidebar-background: 0 100% 10%;
+    --sidebar-primary: 0 85% 50%;
+    --sidebar-accent: 0 100% 20%;
+    --sidebar-ring: 0 85% 50%;
+
+    /* Questionnaire colors */
+    --questionnaire-bg: 0 100% 20%;
+    --questionnaire-bg-dark: 0 100% 15%;
+    
+    /* Premium gradients */
+    --gradient-primary-button: linear-gradient(135deg, hsl(var(--coral-400)) 0%, hsl(0 100% 70%) 100%);
+    --gradient-selected: linear-gradient(135deg, hsl(var(--coral-400)) 0%, hsl(0 100% 70%) 100%);
+    --gradient-brand: linear-gradient(135deg, hsl(0 100% 70%) 0%, hsl(var(--coral-500)) 100%);
+    --gradient-brand-soft: linear-gradient(135deg, hsl(0 100% 70% / 0.35) 0%, hsl(var(--coral-500) / 0.35) 100%);
+    --gradient-brand-soft-hover: linear-gradient(135deg, hsl(0 100% 70% / 0.45) 0%, hsl(var(--coral-500) / 0.45) 100%);
+    --gradient-brand-hover: linear-gradient(135deg, hsl(0 100% 70%) 0%, hsl(var(--coral-600)) 100%);
+  }
+}
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
