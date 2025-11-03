@@ -193,30 +193,33 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   return (
     <div 
-      className="absolute inset-0 flex flex-col md:bg-burgundy-800 md:relative md:flex-1 md:min-h-0"
+      className="absolute inset-0 flex flex-col bg-burgundy-800 md:relative md:flex-1 md:min-h-0"
+      style={{ backgroundColor: 'hsl(var(--burgundy-800))' }}
     >
       {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}
       {isMobile ? (
         /* Native scrolling for mobile */
         <div
           ref={viewportRef}
-          className="mobile-native-scroll absolute inset-0 overflow-y-auto"
+          className="mobile-native-scroll absolute inset-0 overflow-y-auto bg-burgundy-800"
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
         style={{
           WebkitOverflowScrolling: 'touch',
           overscrollBehavior: 'contain',
+          backgroundColor: 'hsl(350, 100%, 20%)',
           paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
         }}
         >
           <div 
-            className="pt-[15px]"
+            className="pt-[15px] bg-burgundy-800"
             style={{
               paddingLeft: 'max(4px, env(safe-area-inset-left))',
-              paddingRight: 'max(4px, env(safe-area-inset-right))'
+              paddingRight: 'max(4px, env(safe-area-inset-right))',
+              backgroundColor: 'hsl(350, 100%, 20%)'
             }}
           >
             <div role="list" aria-label="Chat messages">
@@ -228,16 +231,18 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         /* Radix ScrollArea for desktop/tablet */
         <ScrollArea 
           viewportRef={viewportRef}
-          className="h-full w-full md:bg-burgundy-800"
+          className="h-full w-full bg-burgundy-800"
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
+          style={{ height: '100%', backgroundColor: 'hsl(350, 100%, 20%)' }}
         >
           <div 
-            className="pt-[15px] md:bg-burgundy-800"
+            className="pt-[15px] bg-burgundy-800"
             style={{
               paddingLeft: 'max(4px, env(safe-area-inset-left))',
-              paddingRight: 'max(4px, env(safe-area-inset-right))'
+              paddingRight: 'max(4px, env(safe-area-inset-right))',
+              backgroundColor: 'hsl(350, 100%, 20%)'
             }}
           >
             <div role="list" aria-label="Chat messages">
@@ -246,7 +251,10 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             
             {/* Content spacer instead of padding - prevents purple rectangle */}
             <div 
-              className="md:h-[160px] w-full md:bg-burgundy-800"
+              className="md:h-[160px] w-full bg-burgundy-800"
+              style={{ 
+                backgroundColor: 'hsl(350, 100%, 20%)'
+              }}
               aria-hidden="true"
             />
           </div>
