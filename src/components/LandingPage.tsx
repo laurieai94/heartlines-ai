@@ -439,7 +439,7 @@ const LandingPage = ({
   relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
 </h1>
                       
-                      <h3 className="font-playfair font-light leading-[1.25] tracking-wide animate-fade-in text-white/95 md:whitespace-nowrap max-w-full pr-16 md:pr-20 lg:pr-24 xl:pr-28 drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]" style={{
+                      <h3 className="font-playfair font-light leading-[1.25] tracking-wide animate-fade-in text-white/95 lg:whitespace-nowrap max-w-full pr-16 md:pr-20 lg:pr-24 xl:pr-28 drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]" style={{
                       fontSize: 'clamp(1.25rem, 3.75vw, 2.75rem)',
                       animationDelay: '0.2s'
                     }}>
