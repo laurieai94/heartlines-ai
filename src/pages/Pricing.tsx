@@ -116,15 +116,17 @@ const Pricing = () => {
       />
 
       <div className="relative z-10">
-        <div className="container mx-auto px-4 pt-28 sm:pt-32 pb-12 lg:pt-28">
+        <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
           {/* Header Section */}
-          <div className="text-center mb-6 sm:mb-8 md:mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 sm:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider px-2">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider" style={{
+              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+            }}>
               choose your growth plan
             </h1>
             
             {/* Trust Badges - Inline */}
-            <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-xs questionnaire-text-muted px-4">
+            <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
               <div className="flex items-center gap-1.5">
                 <Shield className="h-4 w-4" />
                 <span>your data, your rules</span>
