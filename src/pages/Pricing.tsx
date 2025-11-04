@@ -119,7 +119,9 @@ const Pricing = () => {
         <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-orange-400 to-pink-400 bg-clip-text text-transparent tracking-wider drop-shadow-[0_0_30px_rgba(236,72,153,0.8)]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 text-white tracking-wider" style={{
+              textShadow: '0 0 20px rgba(236, 72, 153, 0.8), 0 0 40px rgba(251, 146, 60, 0.6), 0 0 60px rgba(236, 72, 153, 0.4)'
+            }}>
               choose your growth plan
             </h1>
             
