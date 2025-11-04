@@ -176,7 +176,7 @@ const Pricing = () => {
                       <div className="text-xs questionnaire-text-muted">per month</div>
                     </div>
 
-                    <ul className="space-y-1.5 md:space-y-2 flex-1 min-h-[180px] lg:min-h-[200px]">
+                    <ul className="space-y-1.5 md:space-y-2 flex-1">
                       {plan.features.map((feature, index) => <li key={index} className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-coral-400 flex-shrink-0 mt-0.5" />
                           <span className="text-sm md:text-xs questionnaire-text-muted leading-relaxed">{feature}</span>
