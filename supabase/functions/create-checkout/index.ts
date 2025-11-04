@@ -36,7 +36,14 @@ serve(async (req) => {
     if (!tier || !["glow", "vibe", "unlimited"].includes(tier)) {
       throw new Error("Invalid subscription tier. Must be 'glow', 'vibe', or 'unlimited'");
     }
-    logStep("Tier validated", { tier });
+    // Fixed Stripe Price IDs for each tier
+    const priceIds = {
+      glow: "price_1SPptv0Qbw5K8bv3ZSnhora7",
+      vibe: "price_1SPpwt0Qbw5K8bv3SylnAw9H",
+      unlimited: "price_1SPpxr0Qbw5K8bv32sY31kqe"
+    };
+    
+    logStep("Tier validated", { tier, priceId: priceIds[tier as keyof typeof priceIds] });
 
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", { 
       apiVersion: "2023-10-16" 
@@ -49,27 +56,12 @@ serve(async (req) => {
       logStep("Found existing customer", { customerId });
     }
 
-    // Pricing configuration
-    const pricing = {
-      glow: { amount: 1900, name: "Glow Plan" }, // $19.00
-      vibe: { amount: 2900, name: "Vibe Plan" }, // $29.00
-      unlimited: { amount: 3900, name: "Unlimited Plan" } // $39.00
-    };
-
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
       line_items: [
         {
-          price_data: {
-            currency: "usd",
-            product_data: { 
-              name: pricing[tier as keyof typeof pricing].name,
-              description: tier === "glow" ? "150 messages per month" : tier === "vibe" ? "300 messages per month" : "Unlimited messages per month"
-            },
-            unit_amount: pricing[tier as keyof typeof pricing].amount,
-            recurring: { interval: "month" },
-          },
+          price: priceIds[tier as keyof typeof priceIds],
           quantity: 1,
         },
       ],
