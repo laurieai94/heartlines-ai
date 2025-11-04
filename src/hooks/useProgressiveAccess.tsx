@@ -44,13 +44,15 @@ export const useProgressiveAccess = () => {
       const isCompleting = sessionStorage.getItem('questionnaire-completing');
       if (isCompleting) return;
       
-      // Throttle updates to max once every 300ms
-      if (throttleTimer) return;
+      // DEBOUNCE: Clear existing timer and restart (don't drop events)
+      if (throttleTimer) {
+        clearTimeout(throttleTimer);
+      }
       
       throttleTimer = setTimeout(() => {
         setProfileUpdateCounter(prev => prev + 1);
         throttleTimer = null;
-      }, 50); // Reduced from 300ms to 50ms for instant updates
+      }, 50);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
