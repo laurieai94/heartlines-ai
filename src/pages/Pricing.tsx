@@ -146,7 +146,7 @@ const Pricing = () => {
           {user && <SubscriptionStatusBanner />}
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12 items-stretch">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12 items-stretch md:px-8 md:max-w-4xl lg:px-4 lg:max-w-7xl">
             {pricingPlans.map(plan => {
             const IconComponent = plan.icon;
             return <Card key={plan.id} className={`flex flex-col h-full questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
