@@ -333,8 +333,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           // Cache module not ready yet
         }
         
-        // Dispatch event for immediate UI update
-        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+        // Dispatch event after render completes
+        requestAnimationFrame(() => {
+          window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+        });
         
         // Broadcast to other hook instances in this tab
         window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
@@ -943,10 +945,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         });
       });
       
-      // Broadcast immediate update for UI components
-      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-        detail: { fields: Object.keys(clonedUpdates), timestamp: Date.now() }
-      }));
+      // Dispatch event after render completes
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+          detail: { fields: Object.keys(clonedUpdates), timestamp: Date.now() }
+        }));
+      });
     } else {
       setProfile(prev => {
         const updated = { ...prev, ...clonedUpdates };
@@ -1058,10 +1062,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         });
       });
       
-      // Broadcast immediate update for UI components
-      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-        detail: { field, value, timestamp: Date.now() }
-      }));
+      // Dispatch event after render completes
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+          detail: { field, value, timestamp: Date.now() }
+        }));
+      });
     } else {
       setProfile(prev => {
         const updated = { ...prev, ...clonedUpdates };
@@ -1124,10 +1130,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         });
       });
       
-      // Broadcast immediate update for UI components
-      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-        detail: { field, value, timestamp: Date.now() }
-      }));
+      // Dispatch event after render completes
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+          detail: { field, value, timestamp: Date.now() }
+        }));
+      });
       
       // Trigger timeout-based database sync
       pendingUpdates.current = { 
