@@ -140,10 +140,10 @@ serve(async (req) => {
     if (amount === 1900) {
       subscriptionTier = "glow";
       messageLimit = 150;
-    } else if (amount === 2900 || amount === 3900) { // Support both old and new vibe pricing
+    } else if (amount === 2900) {
       subscriptionTier = "vibe";
       messageLimit = 300;
-    } else if (amount === 3900 || amount === 4900 || amount === 5900) { // Support all unlimited pricing tiers
+    } else if (amount === 3900 || amount === 4900 || amount === 5900) {
       subscriptionTier = "unlimited";
       messageLimit = 0; // unlimited
     }
