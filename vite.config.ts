@@ -32,20 +32,16 @@ export default defineConfig(({ mode }) => ({
           // Essential routing and state - loaded early
           'vendor-router': ['react-router-dom', '@tanstack/react-query'],
           
-          // UI Framework - split into smaller chunks for better caching
-          'vendor-radix-core': [
+          // UI Framework - merged for fewer HTTP requests
+          'vendor-radix': [
             '@radix-ui/react-dialog',
             '@radix-ui/react-dropdown-menu',
             '@radix-ui/react-toast',
             '@radix-ui/react-popover',
-          ],
-          'vendor-radix-forms': [
             '@radix-ui/react-checkbox',
             '@radix-ui/react-select',
             '@radix-ui/react-radio-group',
             '@radix-ui/react-tabs',
-          ],
-          'vendor-radix-layout': [
             '@radix-ui/react-accordion',
             '@radix-ui/react-separator',
             '@radix-ui/react-progress',

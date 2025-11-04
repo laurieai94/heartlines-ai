@@ -13,6 +13,8 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 
 // Import FirstVisitSplash for session-based splash screen
 import FirstVisitSplash from "@/components/FirstVisitSplash";
+import LazyPageSkeleton from "@/components/LazyPageSkeleton";
+
 // Lazy load non-critical components
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
@@ -52,54 +54,54 @@ const AppContent = () => {
         
         {/* Non-critical routes can be lazy */}
         <Route path="/mission" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <Mission />
           </Suspense>
         } />
         <Route path="/privacy-and-security" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <PrivacySecurity />
           </Suspense>
         } />
         <Route path="/plans" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <Pricing />
           </Suspense>
         } />
         <Route path="/billing/success" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <BillingSuccess />
           </Suspense>
         } />
         <Route path="/auth/callback" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <AuthCallback />
           </Suspense>
         } />
         <Route path="/signin" element={<Auth />} />
         <Route path="/signup" element={<Auth />} />
         <Route path="/account" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <Account />
           </Suspense>
         } />
         <Route path="/terms" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <Terms />
           </Suspense>
         } />
         <Route path="/contact" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <Contact />
           </Suspense>
         } />
         <Route path="/admin" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <AdminDashboard />
           </Suspense>
         } />
         <Route path="*" element={
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<LazyPageSkeleton />}>
             <NotFound />
           </Suspense>
         } />
@@ -111,8 +113,11 @@ const AppContent = () => {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes
+      staleTime: 10 * 60 * 1000, // 10 minutes - increased for better caching
+      gcTime: 30 * 60 * 1000, // 30 minutes - keep data longer in cache
+      refetchOnWindowFocus: false, // Prevent unnecessary refetches
+      refetchOnMount: false, // Use cached data when available
+      retry: 1, // Reduce retry attempts for faster failures
     },
   },
 });
