@@ -19,7 +19,16 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
 
   const handleGoToProfile = (origin: 'header' | 'chat' = 'header') => {
-    console.log('Opening profile questionnaire modal from:', origin);
+    console.log('Opening profile questionnaire from:', origin);
+    
+    // If called from chat/coach page, navigate to profile tab instead of opening modal
+    if (origin === 'chat') {
+      console.log('Navigating to profile tab from chat');
+      modalStates.setActiveTab('profile');
+      return;
+    }
+    
+    // Otherwise, open modal as usual (for header clicks)
     modalStates.setQuestionnaireOrigin(origin);
     modalStates.setShowQuestionnaireModal(true);
   };
