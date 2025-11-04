@@ -50,7 +50,7 @@ export const useProgressiveAccess = () => {
       throttleTimer = setTimeout(() => {
         setProfileUpdateCounter(prev => prev + 1);
         throttleTimer = null;
-      }, 300);
+      }, 50); // Reduced from 300ms to 50ms for instant updates
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
@@ -60,6 +60,25 @@ export const useProgressiveAccess = () => {
       if (throttleTimer) clearTimeout(throttleTimer);
     };
   }, []);
+
+  // Force immediate update bypassing throttle - for navigation events
+  const forceAccessLevelUpdate = useCallback(() => {
+    setProfileUpdateCounter(prev => prev + 1);
+  }, []);
+
+  // Listen for tab changes to force immediate recalculation
+  useEffect(() => {
+    const handleTabChange = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      if (customEvent.detail?.tab === 'insights') {
+        // Force immediate recalculation when navigating to coach
+        forceAccessLevelUpdate();
+      }
+    };
+    
+    window.addEventListener('dashboard:tabChange', handleTabChange);
+    return () => window.removeEventListener('dashboard:tabChange', handleTabChange);
+  }, [forceAccessLevelUpdate]);
 
   // Memoized profile completion calculation
   const profileCompletion = useMemo(() => {

@@ -130,7 +130,13 @@ const Dashboard = () => {
                 compact={activeTab === 'insights'}
                 user={user}
                 activeTab={activeTab}
-                onValueChange={setActiveTab}
+                onValueChange={(newTab) => {
+                  setActiveTab(newTab);
+                  // Notify hooks when switching tabs for immediate access level updates
+                  window.dispatchEvent(new CustomEvent('dashboard:tabChange', {
+                    detail: { tab: newTab }
+                  }));
+                }}
                 onSignInClick={handleSignInClick}
                 onOpenProfile={handleOpenProfile}
               />
