@@ -58,26 +58,26 @@ export const SubscriptionStatusBanner: React.FC = () => {
   };
 
   return (
-    <Card className="relative mb-8 overflow-hidden rounded-3xl border-2 border-white/10 bg-gradient-to-br from-burgundy-900/90 via-burgundy-800/80 to-burgundy-900/90 backdrop-blur-xl shadow-2xl">
+    <Card className="relative mb-4 md:mb-6 lg:mb-8 overflow-hidden rounded-3xl border-2 border-white/10 bg-gradient-to-br from-burgundy-900/90 via-burgundy-800/80 to-burgundy-900/90 backdrop-blur-xl shadow-2xl">
       {/* Dismiss Button */}
       <button
         onClick={handleDismiss}
-        className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+        className="absolute top-3 right-3 z-10 p-1 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
         aria-label="Dismiss banner"
       >
         <X className="h-4 w-4 text-white/60" />
       </button>
 
       {/* Content */}
-      <div className="p-6 md:p-8">
-        <div className="flex flex-col md:flex-row md:items-center gap-6">
+      <div className="p-3 sm:p-4 md:p-6 lg:p-8">
+        <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 md:gap-6">
           {/* Left: Current Plan */}
-          <div className="flex items-center gap-4 min-w-[200px]">
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-coral-400/20 to-pink-400/20 border border-white/10">
-              <TierIcon className="h-8 w-8 text-coral-300" />
+          <div className="flex items-center gap-3 md:gap-4 md:min-w-[200px]">
+            <div className="p-2 md:p-3 rounded-2xl bg-gradient-to-br from-coral-400/20 to-pink-400/20 border border-white/10">
+              <TierIcon className="h-6 w-6 md:h-8 md:w-8 text-coral-300" />
             </div>
             <div>
-              <h3 className="text-2xl font-brand text-white tracking-wide">{tierName}</h3>
+              <h3 className="text-xl md:text-2xl font-brand text-white tracking-wide">{tierName}</h3>
               <p className="text-sm text-white/60">
                 {subscribed ? 'premium plan' : 'free plan'}
               </p>
@@ -86,7 +86,7 @@ export const SubscriptionStatusBanner: React.FC = () => {
 
           {/* Center: Usage */}
           <div className="flex-1">
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-white/80">
                   {isUnlimited ? (
@@ -125,18 +125,18 @@ export const SubscriptionStatusBanner: React.FC = () => {
           </div>
 
           {/* Right: Renewal/Upgrade Info */}
-          <div className="text-center md:text-right min-w-[200px]">
+          <div className="text-center md:text-right md:min-w-[200px]">
             {subscribed && subscription_end ? (
               <div>
                 <p className="text-sm text-white/60 mb-1">Renews on</p>
-                <p className="text-lg font-medium text-white">
+                <p className="text-base md:text-lg font-medium text-white">
                   {format(new Date(subscription_end), 'MMMM dd, yyyy')}
                 </p>
               </div>
             ) : (
               <div>
                 <p className="text-sm text-white/60 mb-2">Ready to grow?</p>
-                <p className="text-lg font-medium bg-gradient-to-r from-coral-300 to-pink-300 bg-clip-text text-transparent">
+                <p className="text-base md:text-lg font-medium bg-gradient-to-r from-coral-300 to-pink-300 bg-clip-text text-transparent">
                   Upgrade anytime
                 </p>
               </div>
