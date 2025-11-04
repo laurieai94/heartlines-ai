@@ -1,8 +1,8 @@
-/* Mobile-only: Force solid #5a001b background, no gradients */
+/* Mobile-only: Force solid burgundy background, no gradients */
 @media (max-width: 768px) {
   html, body, #root {
-    background-color: #5a001b !important;
-    background: #5a001b !important;
+    background-color: hsl(var(--burgundy-800)) !important;
+    background: hsl(var(--burgundy-800)) !important;
     background-image: none !important;
   }
   
@@ -12,8 +12,8 @@
   [role="log"],
   [data-mobile-chat],
   .mobile-chat-input-container {
-    background-color: #5a001b !important;
-    background: #5a001b !important;
+    background-color: hsl(var(--burgundy-800)) !important;
+    background: hsl(var(--burgundy-800)) !important;
     background-image: none !important;
   }
   
@@ -24,13 +24,13 @@
   .bg-gradient-to-t,
   .bg-gradient-to-b {
     background-image: none !important;
-    background-color: #5a001b !important;
+    background-color: hsl(var(--burgundy-800)) !important;
   }
   
-  /* Force burgundy-800 and burgundy-900 to exact #5a001b */
+  /* Force burgundy-800 and burgundy-900 to design system color */
   .bg-burgundy-800,
   .bg-burgundy-900 {
-    background-color: #5a001b !important;
+    background-color: hsl(var(--burgundy-800)) !important;
   }
 }
 
