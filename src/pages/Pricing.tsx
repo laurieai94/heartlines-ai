@@ -101,21 +101,21 @@ const Pricing = () => {
   return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
       <PremiumBackground />
 
+      <DashboardHeader 
+        accessLevel="full" 
+        profileCompletion={100}
+        user={user}
+        activeTab="plans"
+        onValueChange={(tab) => {
+          if (tab === 'profile') navigate('/profile');
+          else if (tab === 'insights') navigate('/coach');
+          else if (tab === 'home') navigate('/');
+        }}
+        onSignInClick={() => navigate('/signin')}
+        onOpenProfile={() => navigate('/profile')}
+      />
+
       <div className="relative z-10">
-        <DashboardHeader 
-          accessLevel="full" 
-          profileCompletion={100}
-          user={user}
-          activeTab="plans"
-          onValueChange={(tab) => {
-            if (tab === 'profile') navigate('/profile');
-            else if (tab === 'insights') navigate('/coach');
-            else if (tab === 'home') navigate('/');
-          }}
-          onSignInClick={() => navigate('/signin')}
-          onOpenProfile={() => navigate('/profile')}
-        />
-        
         <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
