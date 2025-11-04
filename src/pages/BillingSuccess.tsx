@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import PremiumBackground from "@/components/PremiumBackground";
 
 const BillingSuccess = () => {
   const navigate = useNavigate();
@@ -56,11 +57,12 @@ const BillingSuccess = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-accent/5 to-primary/5 flex items-center justify-center">
-        <Card className="w-full max-w-md mx-4">
+      <div className="min-h-screen bg-burgundy-800 relative overflow-hidden flex items-center justify-center">
+        <PremiumBackground />
+        <Card className="w-full max-w-md mx-4 relative z-10 bg-burgundy-700/50 backdrop-blur-lg border-pink-400/20">
           <CardContent className="pt-6 text-center">
-            <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Processing your subscription...</p>
+            <div className="animate-spin h-8 w-8 border-2 border-coral-400 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-white/70">Processing your subscription...</p>
           </CardContent>
         </Card>
       </div>
@@ -84,9 +86,10 @@ const BillingSuccess = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-accent/5 to-primary/5 flex items-center justify-center">
-      <div className="container mx-auto px-4">
-        <Card className="w-full max-w-2xl mx-auto">
+    <div className="min-h-screen bg-burgundy-800 relative overflow-hidden flex items-center justify-center">
+      <PremiumBackground />
+      <div className="container mx-auto px-4 relative z-10">
+        <Card className="w-full max-w-2xl mx-auto bg-burgundy-700/50 backdrop-blur-lg border-pink-400/20">
           <CardHeader className="text-center pb-6">
             <div className="mx-auto mb-4 p-4 rounded-full bg-green-100 w-fit">
               <Check className="h-8 w-8 text-green-600" />

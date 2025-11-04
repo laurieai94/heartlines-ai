@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   // Redirect if not admin
   if (!isLoadingAdmin && !isAdmin) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-pink-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-burgundy-800 flex items-center justify-center p-4">
         <div className="text-center space-y-4">
           <Shield className="w-16 h-16 text-pink-300 mx-auto" />
           <h1 className="text-2xl font-bold text-white">Access Denied</h1>
@@ -38,14 +38,14 @@ const AdminDashboard = () => {
 
   if (isLoadingAdmin || isLoadingAnalytics) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-pink-900 flex items-center justify-center">
+      <div className="min-h-screen bg-burgundy-800 flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-coral-400" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-pink-900 p-4 md:p-8">
+    <div className="min-h-screen bg-burgundy-800 p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
