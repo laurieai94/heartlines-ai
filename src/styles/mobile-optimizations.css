@@ -1,8 +1,8 @@
-/* Mobile-only: Force solid #660026 background, no gradients */
+/* Mobile-only: Force solid #5a001b background, no gradients */
 @media (max-width: 768px) {
   html, body, #root {
-    background-color: #660026 !important;
-    background: #660026 !important;
+    background-color: #5a001b !important;
+    background: #5a001b !important;
     background-image: none !important;
   }
   
@@ -12,8 +12,8 @@
   [role="log"],
   [data-mobile-chat],
   .mobile-chat-input-container {
-    background-color: #660026 !important;
-    background: #660026 !important;
+    background-color: #5a001b !important;
+    background: #5a001b !important;
     background-image: none !important;
   }
   
@@ -24,13 +24,13 @@
   .bg-gradient-to-t,
   .bg-gradient-to-b {
     background-image: none !important;
-    background-color: #660026 !important;
+    background-color: #5a001b !important;
   }
   
-  /* Force burgundy-800 and burgundy-900 to exact #660026 */
+  /* Force burgundy-800 and burgundy-900 to exact #5a001b */
   .bg-burgundy-800,
   .bg-burgundy-900 {
-    background-color: #660026 !important;
+    background-color: #5a001b !important;
   }
 }
 
@@ -185,7 +185,7 @@ html, body, #root {
     contain: none;
     
     /* Prevent white screen on keyboard open */
-    background-color: #660026 !important; /* solid burgundy */
+    background-color: #5a001b !important; /* solid burgundy */
     min-height: 100% !important;
     
     /* Hide scrollbar but keep functionality */
@@ -195,7 +195,7 @@ html, body, #root {
   
   /* Force burgundy on Radix ScrollArea internals */
   .mobile-chat-scroll [data-radix-scroll-area-viewport] {
-    background-color: #660026 !important;
+    background-color: #5a001b !important;
     min-height: 100vh !important;
   }
   
@@ -237,7 +237,7 @@ html, body, #root {
     pointer-events: auto !important;
     touch-action: manipulation !important;
     isolation: isolate !important;
-    background: #660026 !important; /* solid burgundy - prevent white screen */
+    background: #5a001b !important; /* solid burgundy - prevent white screen */
     will-change: transform;
   }
   
@@ -379,7 +379,7 @@ html, body, #root {
 
   /* Ensure messages container has solid background */
   [role="log"][aria-label="Chat conversation history"] {
-    background: #660026 !important; /* solid burgundy */
+    background: #5a001b !important; /* solid burgundy */
     min-height: 100%;
   }
 }
@@ -534,7 +534,7 @@ html {
   
   /* Ensure solid backgrounds on mobile chat */
   [data-mobile-chat] {
-    background: #660026 !important;
+    background: #5a001b !important;
   }
   
   /* Fallback background layer to catch keyboard transition gaps */
