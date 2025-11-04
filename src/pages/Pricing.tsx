@@ -184,7 +184,7 @@ const Pricing = () => {
                     </ul>
 
                     <div className="mt-auto">
-                      <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-2.5 md:py-3 text-sm mt-4 md:mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
+                      <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-2.5 md:py-3 text-sm ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
                         {loading === plan.tier ? "loading..." : plan.buttonText}
                       </Button>
                     </div>
