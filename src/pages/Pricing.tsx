@@ -12,6 +12,7 @@ import { ToastAction } from "@/components/ui/toast";
 import DashboardHeader from "@/components/DashboardHeader";
 import { pricingPlans } from "@/data/pricingPlans";
 import PremiumBackground from "@/components/PremiumBackground";
+import { SubscriptionStatusBanner } from "@/components/account/SubscriptionStatusBanner";
 const faqs = [{
   question: "can i change or cancel my plan anytime?",
   answer: "yep. no contracts, no weird fine print. cancel, upgrade, or downgrade whenever you want."
@@ -140,6 +141,9 @@ const Pricing = () => {
               </div>
             </div>
           </div>
+
+          {/* Subscription Status Banner */}
+          {user && <SubscriptionStatusBanner />}
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12 items-stretch">
