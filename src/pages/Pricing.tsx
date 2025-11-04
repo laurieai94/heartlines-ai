@@ -119,14 +119,12 @@ const Pricing = () => {
         <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider" style={{
-              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-            }}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">
               choose your growth plan
             </h1>
             
             {/* Trust Badges - Inline */}
-            <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
+            <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-white/90">
               <div className="flex items-center gap-1.5">
                 <Shield className="h-4 w-4" />
                 <span>your data, your rules</span>
@@ -146,7 +144,7 @@ const Pricing = () => {
           {user && <SubscriptionStatusBanner />}
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12 items-stretch md:px-8 md:max-w-4xl lg:px-4 lg:max-w-7xl">
+          <div className="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12 items-stretch">
             {pricingPlans.map(plan => {
             const IconComponent = plan.icon;
             return <Card key={plan.id} className={`flex flex-col h-full questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
