@@ -150,8 +150,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 40}px`,
     scrollbarWidth: 'none' as const,
     msOverflowStyle: 'none' as const,
-    position: 'relative' as const,
-    minHeight: '100%'
+    position: 'relative' as const
   }), [inputSectionHeight]);
 
   const contentPaddingStyle = useMemo(() => ({
@@ -271,7 +270,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         style={{ ...mobileScrollStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
         >
         <div 
-          className="pt-[24px] md:pt-[16px]"
+          className="pt-[8px] md:pt-[16px]"
           style={{ ...contentPaddingStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
         >
             <div role="list" aria-label="Chat messages">
