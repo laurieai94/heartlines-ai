@@ -124,7 +124,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 sideOffset={8}
                 collisionPadding={0}
                 avoidCollisions={false}
-                className="w-16 p-2 z-[55] bg-burgundy-900 md:backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="w-16 p-2 z-[55] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
                 style={{ contain: 'layout' }}
               >
                 {navigationItems.map((item) => {
@@ -180,7 +180,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 sideOffset={8}
                 collisionPadding={0}
                 avoidCollisions={false}
-                className="w-16 p-2 z-[55] bg-burgundy-900 md:backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="w-16 p-2 z-[55] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
                 style={{ contain: 'layout' }}
               >
                 {navigationItems.map((item) => {

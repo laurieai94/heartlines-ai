@@ -164,6 +164,45 @@ const AIChat = ({
     };
   }, [isMobilePhone, inputSectionHeight]);
 
+  // Auto-scroll to latest message when navigating to /coach on mobile
+  useEffect(() => {
+    if (!isMobilePhone) return;
+    
+    // Detect when user navigates to this page/tab
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && chatHistory.length > 0) {
+        // Small delay to ensure component is fully rendered
+        setTimeout(() => {
+          chatContainerRef.current?.scrollToBottom?.('smooth');
+        }, 100);
+      }
+    };
+    
+    // Also handle when component becomes visible via tab change
+    const handleTabChange = (event: CustomEvent) => {
+      if (event.detail?.tab === 'insights' && chatHistory.length > 0) {
+        setTimeout(() => {
+          chatContainerRef.current?.scrollToBottom?.('smooth');
+        }, 150);
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('dashboard:tabChange', handleTabChange as EventListener);
+    
+    // Initial scroll on mount if chat history exists
+    if (chatHistory.length > 0) {
+      setTimeout(() => {
+        chatContainerRef.current?.scrollToBottom?.('smooth');
+      }, 200);
+    }
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('dashboard:tabChange', handleTabChange as EventListener);
+    };
+  }, [isMobilePhone, chatHistory.length]);
+
 useChatEffects({
   chatHistory,
   setChatHistory,
