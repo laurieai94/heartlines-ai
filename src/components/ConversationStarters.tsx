@@ -66,7 +66,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-gradient-to-br from-white/8 via-pink-500/5 to-coral-400/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-400/15 hover:via-coral-400/15 hover:to-orange-400/15 rounded-lg p-2 border border-pink-400/15 hover:border-gradient-to-r hover:from-pink-400/40 hover:via-coral-400/40 hover:to-orange-400/40 shadow-sm transition-all duration-200"
+                  className="group cursor-pointer hover:bg-gradient-to-br hover:from-pink-400/10 hover:via-coral-400/10 hover:to-orange-400/10 rounded-lg p-2 border border-pink-400/20 hover:border-pink-400/40 transition-all duration-200"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:bg-gradient-to-r group-hover:from-pink-100 group-hover:via-coral-50 group-hover:to-orange-100 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-200 text-center leading-tight">
                     {category}
@@ -82,7 +82,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
-                className="p-1 hover:bg-gradient-to-r hover:from-coral-500/20 hover:to-pink-500/20 rounded-lg transition-colors text-white hover:text-white"
+                className="p-1 hover:bg-gradient-to-r hover:from-coral-500/15 hover:to-pink-500/15 rounded-lg transition-colors text-white hover:text-white"
               >
                 <ArrowLeft className="w-3 h-3" />
               </Button>

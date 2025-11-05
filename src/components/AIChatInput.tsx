@@ -121,14 +121,14 @@ const AIChatInput = ({
     <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? `bg-white/5 backdrop-blur-xl border-2 border-white/10 shadow-sm ${
+          ? `border-2 border-white/20 ${
               atLimit 
                 ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
           : isMobile
-            ? 'bg-white/5 border-2 border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
-            : 'bg-white/5 backdrop-blur-xl border-2 border-white/10 ring-2 ring-pink-400/10 shadow-[0_2px_8px_rgba(0,0,0,0.15)] focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
+            ? 'border-2 border-white/20 focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
+            : 'border-2 border-white/20 ring-2 ring-pink-400/10 focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
       }`}>
         <Textarea
           unstyled
