@@ -151,8 +151,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       // Keyboard visible: add input height + small buffer
       return inputSectionHeight ? inputSectionHeight + 20 : 180;
     }
-    // Keyboard hidden: account for dashboard header (60px) + chat header (~64px) + buffer (20px)
-    return 144;
+    // Keyboard hidden: minimal padding since ChatLayout already has marginTop: 120px
+    return 16;
   }, [isKeyboardVisible, inputSectionHeight]);
 
   // Memoized style objects to prevent recreation on every render
