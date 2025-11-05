@@ -16,42 +16,50 @@ const BillingSuccess = () => {
   useEffect(() => {
     const sessionId = searchParams.get('session_id');
     
-    if (!sessionId) {
-        toast.error("Invalid session", {
-          description: "No session ID found. Redirecting to plans."
-        });
-      navigate('/plans');
-      return;
+    // Log session_id for debugging (optional)
+    if (sessionId) {
+      console.log('Stripe session_id:', sessionId);
     }
 
     // Refresh subscription status
     const refreshSubscription = async () => {
       try {
-        const { data, error } = await supabase.functions.invoke('check-subscription');
+        // First try with Stripe validation
+        let response = await supabase.functions.invoke('check-subscription');
         
-        if (error) throw error;
+        // If Stripe validation fails, try with cached data from database
+        if (response.error) {
+          console.log('Stripe validation failed, using cached data:', response.error);
+          response = await supabase.functions.invoke('check-subscription', {
+            body: { skipStripe: true }
+          });
+        }
         
-        setSubscriptionDetails(data);
+        if (response.error) throw response.error;
+        
+        setSubscriptionDetails(response.data);
         
         toast.success("Welcome to your new plan! 🎉", {
-          description: `You now have ${data.message_limit} messages per month.`
+          description: `You now have ${response.data.message_limit} messages per month.`
         });
         
         // Redirect to coach page after successful subscription
         setTimeout(() => {
           navigate('/coach');
         }, 2000);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error refreshing subscription:', error);
-        toast.error("Error", {
-          description: "Failed to refresh subscription status."
+        toast.error("Unable to load subscription details", {
+          description: error.message || "Please try refreshing the page or contact support."
         });
+        
+        // Don't redirect on error, let user see the error and retry
       } finally {
         setLoading(false);
       }
     };
 
-    // Wait a moment for Stripe to process, then refresh
+    // Wait a moment for webhook to process, then refresh
     setTimeout(refreshSubscription, 2000);
   }, [searchParams, navigate]);
 
