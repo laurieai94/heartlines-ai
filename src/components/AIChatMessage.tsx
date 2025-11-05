@@ -117,10 +117,10 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         className={`
           px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl
           ${isUser
-            ? 'text-white rounded-br-lg border-2 border-coral-300/60 ring-2 ring-coral-400/30 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(251,146,60,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]'
-            : 'text-white rounded-bl-lg border-2 border-pink-400/50 ring-2 ring-pink-400/25 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]'
+            ? 'text-white rounded-br-lg border-2 border-coral-300/60 ring-2 ring-coral-400/30 md:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_4px_16px_rgba(251,146,60,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]'
+            : 'text-white rounded-bl-lg border-2 border-pink-400/50 ring-2 ring-pink-400/25 md:shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]'
           }
-          transition-all duration-300 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] group-hover:scale-[1.01]
+          transition-all duration-300 md:group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] group-hover:scale-[1.01]
         `}
         style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
       >
