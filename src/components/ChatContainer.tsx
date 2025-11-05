@@ -32,7 +32,6 @@ interface ChatContainerProps {
   showProfileNudge?: boolean;
   inputSectionHeight?: number;
   currentConversationId?: string | null;
-  isKeyboardVisible?: boolean;
 }
 
 const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({ 
@@ -48,8 +47,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   onCompleteProfile,
   showProfileNudge = false,
   inputSectionHeight,
-  currentConversationId,
-  isKeyboardVisible = false
+  currentConversationId
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useOptimizedMobile();
@@ -144,16 +142,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       prevChatLengthRef.current = chatHistory.length;
     }
   }, [chatHistory.length, isHistoryLoaded, currentConversationId, scrollToBottom]);
-
-  // Dynamic padding calculation based on keyboard visibility
-  const mobilePaddingTop = useMemo(() => {
-    if (isKeyboardVisible) {
-      // Keyboard visible: add input height + small buffer
-      return inputSectionHeight ? inputSectionHeight + 20 : 180;
-    }
-    // Keyboard hidden: minimal padding since ChatLayout already has marginTop: 120px
-    return 16;
-  }, [isKeyboardVisible, inputSectionHeight]);
 
   // Memoized style objects to prevent recreation on every render
   const mobileScrollStyle = useMemo(() => ({
@@ -282,12 +270,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         style={{ ...mobileScrollStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
         >
         <div 
-          className="md:pt-[16px]"
-          style={{ 
-            ...contentPaddingStyle, 
-            backgroundColor: 'hsl(350, 100%, 20%)',
-            paddingTop: isMobile ? `${mobilePaddingTop}px` : undefined
-          }}
+          className="pt-[132px] md:pt-[16px]"
+          style={{ ...contentPaddingStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
         >
             <div role="list" aria-label="Chat messages">
               {renderMessages()}
