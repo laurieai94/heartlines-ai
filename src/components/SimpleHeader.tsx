@@ -59,7 +59,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
               <PopoverContent 
                 align="start"
                 sideOffset={8}
-                className="w-16 p-2 z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
+                className="w-16 p-2 z-[60] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
