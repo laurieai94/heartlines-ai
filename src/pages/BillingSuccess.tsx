@@ -94,7 +94,7 @@ const BillingSuccess = () => {
             <div className="mx-auto mb-4 p-4 rounded-full bg-green-100 w-fit">
               <Check className="h-8 w-8 text-green-600" />
             </div>
-            <CardTitle className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-2">
+            <CardTitle className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-coral-300 via-pink-400 to-coral-400 mb-2">
               Subscription Successful! 🎉
             </CardTitle>
             <p className="text-gray-200">
@@ -111,7 +111,7 @@ const BillingSuccess = () => {
                 <h3 className="text-xl font-semibold text-white mb-2">
                   {getPlanName(subscriptionDetails.subscription_tier)}
                 </h3>
-                <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-400 mb-1">
+                <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-500 mb-1">
                   {subscriptionDetails.message_limit} messages
                 </p>
                 <p className="text-sm text-gray-300">
