@@ -55,7 +55,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="px-4 py-3 pointer-events-auto">
+      <div className="bg-gradient-to-br from-burgundy-800/50 via-pink-900/30 to-coral-900/25 backdrop-blur-lg rounded-2xl border border-pink-400/20 px-4 py-3 shadow-lg shadow-pink-500/5 pointer-events-auto">
         {!selectedCategory ? (
           <>
             <h3 className="text-sm font-normal bg-gradient-to-r from-pink-200 via-coral-100 to-orange-100 bg-clip-text text-transparent mb-2 text-center">
