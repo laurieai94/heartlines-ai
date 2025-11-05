@@ -59,7 +59,7 @@ export const ChatLayout = ({
                 <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
               </div>
             )}
-            <div className="absolute inset-0 flex flex-col md:relative md:flex-1 md:min-h-0 md:overflow-hidden">
+            <div className={`absolute left-0 right-0 bottom-0 flex flex-col md:relative md:flex-1 md:min-h-0 md:overflow-hidden ${hideHeader ? 'top-0' : 'top-[60px]'}`}>
               {children}
             </div>
           </div>
