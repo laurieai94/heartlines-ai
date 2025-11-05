@@ -118,7 +118,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     
     // Handle initial scroll when history loads
     if (isHistoryLoaded && prevChatLengthRef.current === 0) {
-      scrollToBottom('auto');
+      // Only auto-scroll if there are many messages (overflow scenario)
+      // For sparse conversations, let them naturally sit at top
+      if (chatHistory.length > 5) {
+        scrollToBottom('auto');
+      }
       prevChatLengthRef.current = chatHistory.length;
       return;
     }
@@ -135,9 +139,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       requestAnimationFrame(() => {
         scrollToBottom(isUserMessage ? 'auto' : 'smooth');
       });
-      prevChatLengthRef.current = chatHistory.length;
-    } else if (chatHistory.length <= 1) {
-      scrollToBottom('auto');
       prevChatLengthRef.current = chatHistory.length;
     }
   }, [chatHistory.length, isHistoryLoaded, currentConversationId, scrollToBottom]);
