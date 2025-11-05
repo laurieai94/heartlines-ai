@@ -104,7 +104,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
-                className="w-16 p-2 z-[60] bg-white/10 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="w-16 p-2 z-[55] bg-burgundy-900 md:backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                style={{ contain: 'layout' }}
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -115,11 +116,12 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
                       title={item.label}
-                      className={`w-full flex items-center justify-center p-3 rounded-xl cursor-pointer transition-all duration-200 shadow-lg hover:shadow-xl ${
+                      className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
                         isActive 
-                          ? 'text-white bg-white/20 shadow-white/10' 
-                          : 'text-white/80 hover:bg-white/15 hover:text-white shadow-transparent hover:shadow-white/5'
+                          ? 'text-white bg-white/20' 
+                          : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
                       }`}
+                      style={{ minHeight: '48px', minWidth: '48px', maxHeight: '48px', maxWidth: '48px', padding: '12px' }}
                     >
                       <IconComponent className="h-6 w-6" strokeWidth={2} />
                     </button>
@@ -156,7 +158,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
-                className="w-16 p-2 z-[60] bg-white/10 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="w-16 p-2 z-[55] bg-burgundy-900 md:backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                style={{ contain: 'layout' }}
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -167,11 +170,12 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
                       title={item.label}
-                      className={`w-full flex items-center justify-center p-3 rounded-xl cursor-pointer transition-all duration-200 shadow-lg hover:shadow-xl ${
+                      className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
                         isActive 
-                          ? 'text-white bg-white/20 shadow-white/10' 
-                          : 'text-white/80 hover:bg-white/15 hover:text-white shadow-transparent hover:shadow-white/5'
+                          ? 'text-white bg-white/20' 
+                          : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
                       }`}
+                      style={{ minHeight: '48px', minWidth: '48px', maxHeight: '48px', maxWidth: '48px', padding: '12px' }}
                     >
                       <IconComponent className="h-6 w-6" strokeWidth={2} />
                     </button>
