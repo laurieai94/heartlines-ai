@@ -49,7 +49,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
 
   
   return (
-    <div className={`${isMobile ? 'px-2' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`} data-message-container>
+    <div className={`${isMobile ? 'px-1' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`} data-message-container>
       <div 
         className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group ${
           !isUser ? 'animate-[slide-up_0.3s_cubic-bezier(0.16,1,0.3,1)]' : 'animate-fade-in'

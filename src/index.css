@@ -1415,14 +1415,14 @@
     
     /* Message bubbles - proper alignment */
     [data-message-container] {
-      padding-left: 0.5rem !important;
-      padding-right: 0.5rem !important;
+      padding-left: 0.25rem !important;
+      padding-right: 0.25rem !important;
     }
     
     /* Chat input section - prevent overlap */
     .chat-footer {
-      padding-left: 0.5rem !important;
-      padding-right: 0.5rem !important;
+      padding-left: 0.25rem !important;
+      padding-right: 0.25rem !important;
     }
     
     /* Text readability */
