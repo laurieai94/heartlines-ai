@@ -98,21 +98,18 @@ const AIChat = ({
     setIsSidebarOpen(true);
   }, [onOpenSidebar]);
 
-  // Handle input focus - scroll to show messages, not spacer (mobile only)
+  // Handle input focus - scroll to bottom to show latest message (mobile only)
   const handleInputFocus = useCallback(() => {
     if (!isMobilePhone) return;
     
-    // Calculate offset: input section height + extra space for keyboard
-    const offset = inputSectionHeight + 100; // 100px buffer
-    
-    // Immediate scroll with offset
-    chatContainerRef.current?.scrollToShowMessages?.(offset);
+    // Immediate scroll to bottom to show latest message
+    chatContainerRef.current?.scrollToBottom?.('smooth');
     
     // Delayed scroll to account for keyboard animation
     setTimeout(() => {
-      chatContainerRef.current?.scrollToShowMessages?.(offset);
+      chatContainerRef.current?.scrollToBottom?.('smooth');
     }, 300);
-  }, [isMobilePhone, inputSectionHeight]);
+  }, [isMobilePhone]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
   useEffect(() => {
