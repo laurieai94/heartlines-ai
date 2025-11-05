@@ -181,7 +181,7 @@ useChatEffects({
     <>
       {/* Chat Header - Mobile only, renders above ChatLayout */}
       {isMobilePhone && (
-        <div className="fixed top-[60px] left-0 right-0 z-30">
+        <div className="sticky top-[60px] left-0 right-0 z-30">
           <ChatHeader
             userName={userName} 
             onNewConversation={handleNewConversation} 

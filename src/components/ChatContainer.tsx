@@ -142,8 +142,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   // Memoized style objects to prevent recreation on every render
   const mobileScrollStyle = useMemo(() => ({
     WebkitOverflowScrolling: 'touch' as const,
-    overscrollBehavior: 'none' as const,
-    overscrollBehaviorY: 'none' as const,
+    overscrollBehaviorY: 'auto' as const,
     paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 20}px`,
     scrollbarWidth: 'none' as const,
     msOverflowStyle: 'none' as const,

@@ -46,10 +46,10 @@ export const ChatLayout = ({
         <div className="flex-1 flex flex-col relative mx-0 md:mx-auto w-full max-w-none md:max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">
           <div 
             data-mobile-chat
-            className="fixed left-0 right-0 flex flex-col bg-burgundy-800 md:relative md:flex-1 md:min-h-0 md:bg-gradient-to-b md:from-burgundy-900/30 md:to-burgundy-800/20 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 z-10 isolation-isolate"
+            className="flex flex-col bg-burgundy-800 md:relative md:flex-1 md:min-h-0 md:bg-gradient-to-b md:from-burgundy-900/30 md:to-burgundy-800/20 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 z-10 isolation-isolate"
             style={{
-              top: isMobilePhone ? '120px' : undefined,
-              bottom: isMobilePhone ? 0 : undefined
+              marginTop: isMobilePhone ? '120px' : undefined,
+              minHeight: isMobilePhone ? 'calc(100dvh - 120px)' : undefined
             }}
           >
             {/* Header - conditionally visible */}
