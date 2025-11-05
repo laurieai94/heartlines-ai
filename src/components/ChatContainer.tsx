@@ -263,7 +263,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         <div
           id="chat-scroll"
           ref={viewportRef}
-          className="chat-scroll mobile-native-scroll absolute left-0 right-0 top-[70px] md:top-0 bottom-0 overflow-y-auto"
+          className="chat-scroll mobile-native-scroll absolute left-0 right-0 top-0 md:top-0 bottom-0 overflow-y-auto"
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
