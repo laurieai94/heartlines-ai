@@ -3,7 +3,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
-import { ScrollToTopArrow } from './ScrollToTopArrow';
 import OnboardingStepNudge from './OnboardingStepNudge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Heart } from 'lucide-react';
@@ -307,8 +306,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         </ScrollArea>
       )}
 
-      {/* Scroll to top arrow - handles its own logic */}
-      <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />
       
       {/* Fixed profile completion nudge - floats above scrolling messages */}
       {showProfileNudge && !loading && (
