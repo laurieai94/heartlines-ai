@@ -12,7 +12,7 @@ import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { User } from '@supabase/supabase-js';
 import { useIsAdmin } from "@/hooks/useUserRole";
 import { Link } from "react-router-dom";
@@ -34,6 +34,24 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const { visible } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
   const { isAdmin } = useIsAdmin();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  // Lock scroll when nav is open on mobile
+  useEffect(() => {
+    if (isNavOpen && isMobile) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      
+      return () => {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isNavOpen, isMobile]);
   
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'plans') {
@@ -92,7 +110,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
-            <Popover>
+            <Popover open={isNavOpen} onOpenChange={setIsNavOpen}>
               <PopoverTrigger asChild>
                 <Button 
                   variant="ghost" 
@@ -104,6 +122,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
+                collisionPadding={0}
+                avoidCollisions={false}
                 className="w-16 p-2 z-[55] bg-burgundy-900 md:backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
                 style={{ contain: 'layout' }}
               >
@@ -158,6 +178,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
+                collisionPadding={0}
+                avoidCollisions={false}
                 className="w-16 p-2 z-[55] bg-burgundy-900 md:backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
                 style={{ contain: 'layout' }}
               >
