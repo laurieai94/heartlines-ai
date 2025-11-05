@@ -34,6 +34,7 @@ export const SubscriptionStatusBanner: React.FC = () => {
   const TierIcon = tierIcons[tier as keyof typeof tierIcons] || Sprout;
   const tierName = tierNames[tier as keyof typeof tierNames] || 'begin';
   const isUnlimited = message_limit === 0;
+  const messagesRemaining = message_limit - messages_used;
   const isHighUsage = usagePercentage > 80;
 
   const getUsageColor = () => {
@@ -62,7 +63,7 @@ export const SubscriptionStatusBanner: React.FC = () => {
             </span>
           ) : (
             <span className={`text-sm ${getUsageColor()}`}>
-              {messages_used} / {message_limit} messages
+              {messagesRemaining} messages left
             </span>
           )}
         </div>
