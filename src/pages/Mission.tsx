@@ -481,9 +481,11 @@ const Mission = () => {
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center mt-8 mb-8 pb-safe px-4">
             <Button
               size="lg"
-              variant="glass"
               onClick={handleSignInClick}
-              className="glass-cta w-full sm:w-auto sm:min-w-[180px] text-base sm:text-lg"
+              className="w-full sm:w-auto sm:min-w-[180px] text-base sm:text-lg text-white rounded-full border-2 border-white/40 backdrop-blur-sm hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+              style={{
+                background: 'linear-gradient(to right, #FF8A50, #EC4899)'
+              }}
             >
               get started
             </Button>
