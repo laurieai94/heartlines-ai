@@ -218,6 +218,17 @@ useChatEffects({
 
   return (
     <>
+      {/* Chat Header - Mobile only, renders above ChatLayout */}
+      {isMobilePhone && (
+        <div className="sticky top-[60px] left-0 right-0 z-30">
+          <ChatHeader
+            userName={userName} 
+            onNewConversation={handleNewConversation} 
+            onOpenSidebar={handleOpenChatSidebar} 
+          />
+        </div>
+      )}
+      
       <ChatLayout 
         userName={userName} 
         onNewConversation={handleNewConversation} 
@@ -229,7 +240,7 @@ useChatEffects({
         loading={historyLoading}
         onLoadConversation={onLoadConversation}
         onDeleteConversation={onDeleteConversation}
-        hideHeader={false}
+        hideHeader={isMobilePhone}
       >
         <div className="relative flex flex-col h-full md:overflow-hidden">
           <MemoizedChatContainer
