@@ -5,6 +5,9 @@ import { ChatMessage } from '@/types/AIInsights';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { ScrollToTopArrow } from './ScrollToTopArrow';
 import OnboardingStepNudge from './OnboardingStepNudge';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Heart } from 'lucide-react';
+import { BRAND } from '@/branding';
 
 import DateSeparator from './chat/DateSeparator';
 import { isSameDay } from 'date-fns';
@@ -208,6 +211,42 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           </div>
         );
       })}
+
+      {/* Kai thinking avatar - shown when no AI message exists yet */}
+      {loading && (chatHistory.length === 0 || chatHistory[chatHistory.length - 1]?.type === 'user') && (
+        <div className={`${isMobile ? 'px-2' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'} animate-fade-in`}>
+          <div className="flex gap-2 md:gap-3 mb-2 md:mb-3">
+            {/* Kai's Pulsing Avatar */}
+            <div className="flex-shrink-0">
+              <div className="relative w-[40px] h-[40px] md:w-[44px] md:h-[44px]">
+                {/* Pulsing glow */}
+                <div className={`absolute inset-0 rounded-full blur-md drop-shadow-lg ${
+                  isMobile ? 'opacity-60' : 'opacity-50'
+                } bg-gradient-to-r from-pink-400 to-coral-400 animate-pulse`}></div>
+                
+                {/* Avatar */}
+                <Avatar className="relative z-10 shadow-lg drop-shadow-lg w-[40px] h-[40px] md:w-[44px] md:h-[44px] md:border-2 md:border-white bg-gradient-to-br from-coral-400 to-burgundy-500 ring-4 ring-pink-400/40 animate-pulse">
+                  <AvatarImage 
+                    src={BRAND.coach.avatarSrc} 
+                    alt={BRAND.coach.name} 
+                    className="object-cover"
+                    loading="eager" 
+                    decoding="async" 
+                  />
+                  <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-sm md:text-xs font-medium">
+                    <Heart className="w-4 h-4 md:w-4 md:h-4" />
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            </div>
+            
+            {/* Thinking text indicator */}
+            <div className="flex items-center">
+              <span className="text-xs text-pink-200/60 italic">thinking...</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="h-2 md:h-4" />
     </>
