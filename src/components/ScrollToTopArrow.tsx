@@ -15,6 +15,7 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
   const rafIdRef = useRef<number>();
   const userIsScrollingRef = useRef(false);
   const touchEndTimeoutRef = useRef<number>();
+  const hideTimeoutRef = useRef<number>();
   const hasNewActivityRef = useRef(true);
   const isProgrammaticScrollRef = useRef(false);
   const prevChatLengthRef = useRef(chatHistory.length);
@@ -56,7 +57,7 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
         const isScrollingUp = currentScrollTop < previousScrollTop;
         const isAtTop = currentScrollTop <= 10;
 
-        // Hide arrow ONLY when user reaches the top
+        // When user reaches top, hide arrow
         if (isAtTop) {
           button.style.opacity = '0';
           button.style.pointerEvents = 'none';
@@ -65,18 +66,34 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
           return;
         }
 
-        // Show arrow when user manually scrolls up past 100px (not programmatic)
+        // Show arrow ONLY when user manually scrolls up (not programmatic)
         if (isScrollingUp && 
             currentScrollTop > 100 && 
             userIsScrollingRef.current && 
             !isProgrammaticScrollRef.current) {
+          // Cancel any pending hide timer
+          if (hideTimeoutRef.current) {
+            clearTimeout(hideTimeoutRef.current);
+          }
           button.style.opacity = '1';
           button.style.pointerEvents = 'auto';
           button.style.transform = 'translateY(0)';
         }
 
-        // Keep arrow visible if it's already shown and user is past 100px
-        // (This handles momentum scrolling - arrow stays visible)
+        // Hide arrow when scrolling down (with 2-second delay)
+        if (!isScrollingUp && currentScrollTop > 100 && !userIsScrollingRef.current) {
+          // Cancel any previous hide timer
+          if (hideTimeoutRef.current) {
+            clearTimeout(hideTimeoutRef.current);
+          }
+          
+          // Start new hide timer - gives user 2 seconds to tap
+          hideTimeoutRef.current = window.setTimeout(() => {
+            button.style.opacity = '0';
+            button.style.pointerEvents = 'none';
+            button.style.transform = 'translateY(10px)';
+          }, 2000);
+        }
 
         lastScrollTopRef.current = currentScrollTop;
       });
@@ -96,6 +113,9 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
       }
       if (touchEndTimeoutRef.current) {
         clearTimeout(touchEndTimeoutRef.current);
+      }
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
       }
     };
   }, [isMobilePhone, scrollContainerRef]);

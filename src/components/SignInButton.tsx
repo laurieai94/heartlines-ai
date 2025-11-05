@@ -61,11 +61,11 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
           <NavAvatar>{initial}</NavAvatar>
         </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" align="end">
+        <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
           <div className="flex flex-col gap-1">
             {onOpenProfile && (
               <Button
-                className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-coral-400/30 transition-all duration-200 rounded-xl"
+                className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
                 onClick={() => {
                   onOpenProfile();
                   setShowUserMenu(false);
@@ -76,7 +76,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             )}
             
             <Button
-              className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-coral-400/30 transition-all duration-200 rounded-xl"
+              className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
               onClick={() => {
                 window.location.href = '/account';
                 setShowUserMenu(false);
