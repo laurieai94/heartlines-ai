@@ -47,11 +47,6 @@ export const ChatLayout = ({
           <div 
             data-mobile-chat
             className="flex flex-col bg-burgundy-800 md:relative md:flex-1 md:min-h-0 md:bg-gradient-to-b md:from-burgundy-900/30 md:to-burgundy-800/20 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 z-10 isolation-isolate"
-            style={{
-              marginTop: isMobilePhone ? '120px' : undefined,
-              height: isMobilePhone ? 'calc(100dvh - 120px)' : undefined,
-              maxHeight: isMobilePhone ? 'calc(100dvh - 120px)' : undefined
-            }}
           >
             {/* Header - conditionally visible */}
             {!hideHeader && (

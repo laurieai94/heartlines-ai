@@ -255,56 +255,33 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   return (
     <div 
       className="chat-root absolute inset-0 flex flex-col md:bg-burgundy-800 md:relative md:flex-1 md:min-h-0"
-      style={{ ...containerStyle, backgroundColor: isMobile ? 'hsl(350, 100%, 20%)' : undefined }}
+      style={{ ...containerStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
     >
-      {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}
-      {isMobile ? (
-        /* Native scrolling for mobile */
-        <div
-          id="chat-scroll"
-          ref={viewportRef}
-          className="chat-scroll mobile-native-scroll absolute left-0 right-0 top-0 md:top-0 bottom-0 overflow-y-auto"
-          role="log"
-          aria-live="polite"
-          aria-label="Chat conversation history"
-        style={{ ...mobileScrollStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
-        >
+      {/* Use ScrollArea for all devices including mobile */}
+      <ScrollArea 
+        viewportRef={viewportRef}
+        className="h-full w-full bg-burgundy-800"
+        role="log"
+        aria-live="polite"
+        aria-label="Chat conversation history"
+        style={desktopScrollStyle}
+      >
         <div 
-          className="pt-[132px] md:pt-[16px]"
-          style={{ ...contentPaddingStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
+          className="pt-[15px] bg-burgundy-800"
+          style={desktopContentPaddingStyle}
         >
-            <div role="list" aria-label="Chat messages">
-              {renderMessages()}
-            </div>
+          <div role="list" aria-label="Chat messages">
+            {renderMessages()}
           </div>
-        </div>
-      ) : (
-        /* Radix ScrollArea for desktop/tablet */
-        <ScrollArea 
-          viewportRef={viewportRef}
-          className="h-full w-full bg-burgundy-800"
-          role="log"
-          aria-live="polite"
-          aria-label="Chat conversation history"
-          style={desktopScrollStyle}
-        >
+          
+          {/* Content spacer instead of padding - prevents purple rectangle */}
           <div 
-            className="pt-[15px] bg-burgundy-800"
-            style={desktopContentPaddingStyle}
-          >
-            <div role="list" aria-label="Chat messages">
-              {renderMessages()}
-            </div>
-            
-            {/* Content spacer instead of padding - prevents purple rectangle */}
-            <div 
-              className="md:h-[160px] w-full bg-burgundy-800"
-              style={desktopSpacerStyle}
-              aria-hidden="true"
-            />
-          </div>
-        </ScrollArea>
-      )}
+            className="md:h-[160px] w-full bg-burgundy-800"
+            style={desktopSpacerStyle}
+            aria-hidden="true"
+          />
+        </div>
+      </ScrollArea>
 
       {/* Scroll to top arrow - handles its own logic */}
       <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />
