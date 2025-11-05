@@ -16,6 +16,7 @@ interface MemoizedChatContainerProps {
   showProfileNudge?: boolean;
   inputSectionHeight?: number;
   currentConversationId?: string | null;
+  isKeyboardVisible?: boolean;
 }
 
 // Memoize ChatContainer with optimized comparison
@@ -43,6 +44,7 @@ export const MemoizedChatContainer = React.memo(
       prevProps.isConfigured === nextProps.isConfigured &&
       prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
       prevProps.inputSectionHeight === nextProps.inputSectionHeight &&
+      prevProps.isKeyboardVisible === nextProps.isKeyboardVisible &&
       prevProps.currentConversationId === nextProps.currentConversationId
     );
   }

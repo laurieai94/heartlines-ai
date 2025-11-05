@@ -271,6 +271,7 @@ useChatEffects({
             return shouldShowNudge;
           })()}
           inputSectionHeight={inputSectionHeight}
+          isKeyboardVisible={isKeyboardVisible}
           currentConversationId={currentConversationId}
         />
 
