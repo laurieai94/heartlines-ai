@@ -534,7 +534,7 @@ html {
   
   /* Ensure solid backgrounds on mobile chat */
   [data-mobile-chat] {
-    background: #5a001b !important;
+    background: hsl(350, 100%, 20%) !important;
   }
   
   /* Fallback background layer to catch keyboard transition gaps */
@@ -545,7 +545,7 @@ html {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgb(102, 0, 20);
+    background: hsl(350, 100%, 20%);
     z-index: -1;
     pointer-events: none;
   }
@@ -570,7 +570,7 @@ html {
 @media (max-width: 768px) {
   /* Local surface palette for chat page only (don't stomp global tokens) */
   .chat-page {
-    --chat-surface: #5a001b;           /* deep burgundy */
+    --chat-surface: hsl(350, 100%, 20%);           /* deep burgundy */
     --chat-surface-rgb: 90 0 27;
   }
 

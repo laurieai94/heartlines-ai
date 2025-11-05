@@ -81,7 +81,7 @@
 
 @layer base {
   :root {
-    --background: 342 100% 18%; /* #5a001b - solid burgundy for mobile */
+    --background: 350 100% 20%; /* burgundy-800 - consistent across all screens */
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
