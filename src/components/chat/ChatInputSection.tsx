@@ -223,7 +223,7 @@ export const ChatInputSection = ({
         paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
       }}
     >
-      <div className="px-0 md:px-4 py-0 md:py-3">
+      <div>
         {/* 80% usage warning banner with progress */}
         {nearLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
