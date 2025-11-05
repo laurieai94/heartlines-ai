@@ -49,7 +49,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
 
   
   return (
-    <div className={`${isMobile ? 'px-2' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
+    <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`} data-message-container>
       <div 
         className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group ${
           !isUser ? 'animate-[slide-up_0.3s_cubic-bezier(0.16,1,0.3,1)]' : 'animate-fade-in'
@@ -59,7 +59,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-[40px] h-[40px] md:w-[44px] md:h-[44px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md drop-shadow-lg ${
             isMobile ? 'opacity-60' : 'opacity-50'
@@ -75,7 +75,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
             !isUser && isLoading ? 'animate-pulse' : ''
           }`}></div>
           
-          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-[40px] h-[40px] md:w-[44px] md:h-[44px] md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
               : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
@@ -129,7 +129,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         `}
         style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
       >
-          <div className="text-sm md:text-[15px] leading-relaxed whitespace-pre-wrap font-light lowercase drop-shadow-sm">
+          <div className="text-sm md:text-[15px] leading-relaxed whitespace-pre-wrap font-light lowercase drop-shadow-sm message-text">
             {message.content}
           </div>
         </div>

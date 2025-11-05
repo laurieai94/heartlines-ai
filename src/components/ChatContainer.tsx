@@ -255,7 +255,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   return (
     <div 
       className="chat-root absolute inset-0 flex flex-col md:bg-burgundy-800 md:relative md:flex-1 md:min-h-0"
-      style={{ ...containerStyle, backgroundColor: isMobile ? 'hsl(350, 100%, 20%)' : undefined }}
+      style={containerStyle}
     >
       {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}
       {isMobile ? (
@@ -267,11 +267,12 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
-        style={{ ...mobileScrollStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
+        style={mobileScrollStyle}
         >
         <div 
-          className="pt-[132px] md:pt-[16px]"
-          style={{ ...contentPaddingStyle, backgroundColor: 'hsl(350, 100%, 20%)' }}
+          className="pt-[88px] md:pt-[16px]"
+          style={contentPaddingStyle}
+          data-message-container
         >
             <div role="list" aria-label="Chat messages">
               {renderMessages()}

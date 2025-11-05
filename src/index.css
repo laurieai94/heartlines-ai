@@ -1405,5 +1405,46 @@
       padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
     }
   }
+
+  /* iPhone-specific optimizations (≤430px) */
+  @media (max-width: 430px) {
+    /* Chat container spacing - more breathing room */
+    .chat-root {
+      background: linear-gradient(to bottom, hsl(350, 100%, 20%), hsl(350, 100%, 15%)) !important;
+    }
+    
+    /* Message bubbles - proper alignment */
+    [data-message-container] {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+    
+    /* Chat input section - prevent overlap */
+    .chat-footer {
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+    }
+    
+    /* Text readability */
+    .message-text {
+      font-size: 0.95rem !important;
+      line-height: 1.4 !important;
+    }
+    
+    /* Avatar sizing for small screens */
+    .avatar-mobile {
+      width: 36px !important;
+      height: 36px !important;
+    }
+    
+    /* Header pinning and spacing */
+    .chat-header {
+      position: sticky !important;
+      top: 0 !important;
+      padding-top: max(0.75rem, env(safe-area-inset-top)) !important;
+      padding-bottom: 0.75rem !important;
+      z-index: 50 !important;
+    }
+  }
 }
 

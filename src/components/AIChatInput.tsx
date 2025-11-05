@@ -118,7 +118,7 @@ const AIChatInput = ({
   }, []);
 
   return (
-    <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
+    <div className={`flex gap-1.5 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
           ? `border-2 border-white/20 ${
