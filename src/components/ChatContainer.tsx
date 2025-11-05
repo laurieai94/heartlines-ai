@@ -203,6 +203,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               userName={userName}
               isFirstInGroup={isFirstInGroup}
               isLastInGroup={isLastInGroup}
+              isLoading={loading && index === chatHistory.length - 1 && message.type === 'ai'}
             />
           </div>
         );

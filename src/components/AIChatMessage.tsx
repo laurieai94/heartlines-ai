@@ -12,9 +12,10 @@ interface AIChatMessageProps {
   userName?: string;
   isFirstInGroup?: boolean;
   isLastInGroup?: boolean;
+  isLoading?: boolean;
 }
 
-const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true }: AIChatMessageProps) => {
+const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true, isLoading = false }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
   const { isMobile } = useOptimizedMobile();
   
@@ -70,12 +71,16 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
               : isMobile 
                 ? 'bg-gradient-to-r from-pink-400 to-coral-400' 
                 : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
+          } ${
+            !isUser && isLoading ? 'animate-pulse' : ''
           }`}></div>
           
           <Avatar className={`relative z-10 shadow-lg drop-shadow-lg w-[40px] h-[40px] md:w-[44px] md:h-[44px] md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
               : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
+          } ${
+            !isUser && isLoading ? 'ring-4 ring-pink-400/40 animate-pulse' : ''
           }`}>
             {isUser && userAvatarUrl ? (
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
