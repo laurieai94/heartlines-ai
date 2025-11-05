@@ -94,52 +94,52 @@ const BillingSuccess = () => {
             <div className="mx-auto mb-4 p-4 rounded-full bg-green-100 w-fit">
               <Check className="h-8 w-8 text-green-600" />
             </div>
-            <CardTitle className="text-3xl font-bold text-primary mb-2">
+            <CardTitle className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-2">
               Subscription Successful! 🎉
             </CardTitle>
-            <p className="text-muted-foreground">
+            <p className="text-gray-200">
               Welcome to {subscriptionDetails ? getPlanName(subscriptionDetails.subscription_tier) : 'your new plan'}
             </p>
           </CardHeader>
 
           <CardContent className="space-y-6">
             {subscriptionDetails && (
-              <div className="bg-accent/20 rounded-lg p-6 text-center">
+              <div className="bg-white/5 rounded-lg p-6 text-center">
                 <div className="text-4xl mb-2">
                   {getPlanEmoji(subscriptionDetails.subscription_tier)}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-semibold text-white mb-2">
                   {getPlanName(subscriptionDetails.subscription_tier)}
                 </h3>
-                <p className="text-2xl font-bold text-primary mb-1">
+                <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-400 mb-1">
                   {subscriptionDetails.message_limit} messages
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-300">
                   per month • {subscriptionDetails.messages_used || 0} used
                 </p>
               </div>
             )}
 
             <div className="space-y-4">
-              <h4 className="font-semibold flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-primary" />
+              <h4 className="font-semibold text-white flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-coral-400" />
                 What's next?
               </h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="space-y-2 text-sm text-gray-200">
                 <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
+                  <span className="text-coral-400">•</span>
                   Your subscription is now active and ready to use
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
+                  <span className="text-coral-400">•</span>
                   Start having deeper conversations with your AI relationship coach
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
+                  <span className="text-coral-400">•</span>
                   Access advanced features and personalized insights
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
+                  <span className="text-coral-400">•</span>
                   Manage your subscription anytime from your dashboard
                 </li>
               </ul>
