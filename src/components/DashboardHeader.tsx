@@ -36,19 +36,15 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const { isAdmin } = useIsAdmin();
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  // Lock scroll when nav is open on mobile
+  // Lock scroll when nav is open on mobile - optimized for performance
   useEffect(() => {
     if (isNavOpen && isMobile) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
       
       return () => {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, scrollY);
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
       };
     }
   }, [isNavOpen, isMobile]);
@@ -124,8 +120,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 sideOffset={8}
                 collisionPadding={0}
                 avoidCollisions={false}
-                className="w-16 p-2 z-[55] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
-                style={{ contain: 'layout' }}
+                className="w-16 p-2 z-[45] bg-burgundy-800/98 md:backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
+                style={{ 
+                  contain: 'layout',
+                  transform: 'translateZ(0)',
+                  willChange: 'transform, opacity',
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation'
+                }}
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -141,7 +143,16 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                           ? 'text-white bg-white/20' 
                           : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
                       }`}
-                      style={{ minHeight: '48px', minWidth: '48px', maxHeight: '48px', maxWidth: '48px', padding: '12px' }}
+                      style={{ 
+                        minHeight: '48px', 
+                        minWidth: '48px', 
+                        maxHeight: '48px', 
+                        maxWidth: '48px', 
+                        padding: '12px',
+                        WebkitTapHighlightColor: 'transparent',
+                        touchAction: 'manipulation',
+                        transform: 'translateZ(0)'
+                      }}
                     >
                       <IconComponent className="h-6 w-6" strokeWidth={2} />
                     </button>
@@ -180,8 +191,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 sideOffset={8}
                 collisionPadding={0}
                 avoidCollisions={false}
-                className="w-16 p-2 z-[55] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
-                style={{ contain: 'layout' }}
+                className="w-16 p-2 z-[45] bg-burgundy-800/98 md:backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
+                style={{ 
+                  contain: 'layout',
+                  transform: 'translateZ(0)',
+                  willChange: 'transform, opacity',
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation'
+                }}
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -197,7 +214,16 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                           ? 'text-white bg-white/20' 
                           : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
                       }`}
-                      style={{ minHeight: '48px', minWidth: '48px', maxHeight: '48px', maxWidth: '48px', padding: '12px' }}
+                      style={{ 
+                        minHeight: '48px', 
+                        minWidth: '48px', 
+                        maxHeight: '48px', 
+                        maxWidth: '48px', 
+                        padding: '12px',
+                        WebkitTapHighlightColor: 'transparent',
+                        touchAction: 'manipulation',
+                        transform: 'translateZ(0)'
+                      }}
                     >
                       <IconComponent className="h-6 w-6" strokeWidth={2} />
                     </button>
