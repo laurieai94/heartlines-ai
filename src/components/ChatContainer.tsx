@@ -153,9 +153,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   }), [inputSectionHeight]);
 
   const contentPaddingStyle = useMemo(() => ({
-    paddingLeft: 'max(4px, env(safe-area-inset-left))',
-    paddingRight: 'max(4px, env(safe-area-inset-right))'
-  }), []);
+    paddingLeft: isMobile ? 'max(8px, env(safe-area-inset-left))' : 'max(4px, env(safe-area-inset-left))',
+    paddingRight: isMobile ? 'max(8px, env(safe-area-inset-right))' : 'max(4px, env(safe-area-inset-right))'
+  }), [isMobile]);
 
   const containerStyle = useMemo(() => ({}), []);
 
