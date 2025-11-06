@@ -52,26 +52,7 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
             </feDisplacementMap>
           </filter>
 
-          {/* Glow filter */}
-          <filter id={`navGlow-${uniqueId}`} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="2" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
         </defs>
-
-        {/* Glow stroke behind heart */}
-        <path
-          d="M100 162 C 92 154, 60 129, 44 110 C 22 83, 26 48, 54 36 C 71 28, 89 33, 100 47 C 111 33, 129 28, 146 36 C 174 48, 178 83, 156 110 C 140 129, 108 154, 100 162 Z"
-          fill="none"
-          stroke="white"
-          strokeOpacity="0.5"
-          strokeWidth="8"
-          filter={`url(#navGlow-${uniqueId})`}
-          opacity="0.55"
-        />
 
         {/* Main heart with molten fill */}
         <path
