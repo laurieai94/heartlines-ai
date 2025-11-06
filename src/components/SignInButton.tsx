@@ -68,7 +68,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             </Button>
           </DrawerTrigger>
           <DrawerContent 
-            className="w-[260px] h-full bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-l border-coral-400/20 p-0 fixed right-0 top-0 bottom-0"
+            className="w-[240px] h-full bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-l border-coral-400/20 p-0 fixed right-0 top-0 bottom-0"
           >
             <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
               {onOpenProfile && (
@@ -77,15 +77,15 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
                     onOpenProfile();
                     setShowUserMenu(false);
                   }}
-                  className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/90 bg-white/20 hover:bg-white/25 hover:text-white shadow-lg w-full text-left"
+                  className="flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/80 hover:bg-white/10 hover:text-white w-full text-left"
                   style={{ 
                     minHeight: '48px',
                     WebkitTapHighlightColor: 'transparent',
                     touchAction: 'manipulation'
                   }}
                 >
-                  <UserCircle className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                  <span className="text-base font-medium">Open Profile</span>
+                  <UserCircle className="h-5 w-5" />
+                  <span className="text-base">Open Profile</span>
                 </button>
               )}
               
@@ -94,30 +94,30 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
                   window.location.href = '/account';
                   setShowUserMenu(false);
                 }}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/90 bg-white/20 hover:bg-white/25 hover:text-white shadow-lg w-full text-left"
+                className="flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/80 hover:bg-white/10 hover:text-white w-full text-left"
                 style={{ 
                   minHeight: '48px',
                   WebkitTapHighlightColor: 'transparent',
                   touchAction: 'manipulation'
                 }}
               >
-                <Settings className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                <span className="text-base font-medium">My Account</span>
+                <Settings className="h-5 w-5" />
+                <span className="text-base">My Account</span>
               </button>
               
               <div className="h-px bg-white/10 my-1" />
               
               <button
                 onClick={handleSignOut}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-rose-300 bg-rose-500/20 hover:text-white hover:bg-rose-500/30 shadow-lg w-full text-left"
+                className="flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-rose-300 hover:text-white hover:bg-rose-500/20 w-full text-left"
                 style={{ 
                   minHeight: '48px',
                   WebkitTapHighlightColor: 'transparent',
                   touchAction: 'manipulation'
                 }}
               >
-                <LogOut className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                <span className="text-base font-medium">Sign Out</span>
+                <LogOut className="h-5 w-5" />
+                <span className="text-base">Sign Out</span>
               </button>
             </nav>
           </DrawerContent>
