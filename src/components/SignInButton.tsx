@@ -3,9 +3,11 @@ import { User, LogOut, UserCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavAvatar from "@/components/NavAvatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface SignInButtonProps {
@@ -17,6 +19,7 @@ interface SignInButtonProps {
 const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps) => {
   const { signOut } = useAuth();
   const { profileData } = usePersonalProfileData();
+  const { isMobile } = useOptimizedMobile();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [triggerUpdate, setTriggerUpdate] = useState(0);
 
@@ -51,6 +54,78 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
 
   if (user) {
     // Show user avatar/menu for authenticated users
+    
+    // Mobile: Full drawer with text labels
+    if (isMobile) {
+      return (
+        <Drawer open={showUserMenu} onOpenChange={setShowUserMenu} direction="right">
+          <DrawerTrigger asChild>
+            <Button
+              variant="ghost"
+              className="h-8 w-8 sm:h-9 sm:w-9 md:h-11 md:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+            >
+              <NavAvatar>{initial}</NavAvatar>
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent 
+            className="w-[240px] h-full bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-l border-coral-400/20 p-0 fixed right-0 top-0 bottom-0"
+          >
+            <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
+              {onOpenProfile && (
+                <button
+                  onClick={() => {
+                    onOpenProfile();
+                    setShowUserMenu(false);
+                  }}
+                  className="flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/80 hover:bg-white/10 hover:text-white w-full text-left"
+                  style={{ 
+                    minHeight: '48px',
+                    WebkitTapHighlightColor: 'transparent',
+                    touchAction: 'manipulation'
+                  }}
+                >
+                  <UserCircle className="h-5 w-5" />
+                  <span className="text-base">Open Profile</span>
+                </button>
+              )}
+              
+              <button
+                onClick={() => {
+                  window.location.href = '/account';
+                  setShowUserMenu(false);
+                }}
+                className="flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/80 hover:bg-white/10 hover:text-white w-full text-left"
+                style={{ 
+                  minHeight: '48px',
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation'
+                }}
+              >
+                <Settings className="h-5 w-5" />
+                <span className="text-base">My Account</span>
+              </button>
+              
+              <div className="h-px bg-white/10 my-1" />
+              
+              <button
+                onClick={handleSignOut}
+                className="flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-rose-300 hover:text-white hover:bg-rose-500/20 w-full text-left"
+                style={{ 
+                  minHeight: '48px',
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation'
+                }}
+              >
+                <LogOut className="h-5 w-5" />
+                <span className="text-base">Sign Out</span>
+              </button>
+            </nav>
+          </DrawerContent>
+        </Drawer>
+      );
+    }
+    
+    // Desktop: Compact popover (unchanged)
     return (
       <Popover open={showUserMenu} onOpenChange={setShowUserMenu}>
         <PopoverTrigger asChild>
