@@ -15,6 +15,7 @@ export interface ChatContainerRef {
   scrollToBottom: (behavior?: 'auto' | 'smooth', offset?: number) => void;
   scrollToBottomIfScrolledUp: () => void;
   scrollToShowMessages: (offset?: number) => void;
+  viewportRef: React.RefObject<HTMLDivElement>;
 }
 
 interface ChatContainerProps {
@@ -105,7 +106,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   useImperativeHandle(ref, () => ({
     scrollToBottom,
     scrollToBottomIfScrolledUp,
-    scrollToShowMessages
+    scrollToShowMessages,
+    viewportRef
   }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages]);
 
 

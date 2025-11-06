@@ -14,6 +14,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { ChatContainerRef } from "./ChatContainer";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useKeyboardDetection } from "@/hooks/useKeyboardDetection";
+import { ScrollToTopArrow } from './ScrollToTopArrow';
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -286,6 +287,14 @@ useChatEffects({
           onHeightChange={setInputSectionHeight}
           onInputFocus={handleInputFocus}
         />
+
+        {/* Scroll to top arrow - Mobile only */}
+        {chatContainerRef.current?.viewportRef && (
+          <ScrollToTopArrow 
+            scrollContainerRef={chatContainerRef.current.viewportRef}
+            chatHistory={chatHistory}
+          />
+        )}
       </div>
     </ChatLayout>
     </>
