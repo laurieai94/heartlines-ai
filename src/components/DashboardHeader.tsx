@@ -188,7 +188,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               user={user} 
               onSignInClick={onSignInClick} 
               onOpenProfile={onOpenProfile}
-              disableMenuOnMobile={activeTab === 'insights'}
+              disableMenuOnMobile={true}
             />
           </div>
         </div>
