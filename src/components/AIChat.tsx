@@ -98,18 +98,16 @@ const AIChat = ({
     setIsSidebarOpen(true);
   }, [onOpenSidebar]);
 
-  // Handle input focus - scroll to bottom to show latest message (mobile only)
+  // Handle input focus - scroll to bottom to show latest message
   const handleInputFocus = useCallback(() => {
-    if (!isMobilePhone) return;
-    
     // Immediate scroll to bottom to show latest message
     chatContainerRef.current?.scrollToBottom?.('smooth');
     
-    // Delayed scroll to account for keyboard animation
+    // Delayed scroll to account for keyboard animation on mobile
     setTimeout(() => {
       chatContainerRef.current?.scrollToBottom?.('smooth');
     }, 300);
-  }, [isMobilePhone]);
+  }, []);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
   useEffect(() => {
