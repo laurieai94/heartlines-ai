@@ -68,7 +68,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             </Button>
           </DrawerTrigger>
           <DrawerContent 
-            className="w-[260px] h-full bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-l border-coral-400/20 p-0 fixed right-0 top-0 bottom-0"
+            className="w-[260px] h-full bg-gradient-to-br from-burgundy-900/20 to-burgundy-800/30 backdrop-blur-xl border-l border-coral-400/20 p-0 fixed right-0 top-0 bottom-0"
           >
             <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
               {onOpenProfile && (
