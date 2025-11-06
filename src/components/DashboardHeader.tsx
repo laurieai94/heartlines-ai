@@ -10,8 +10,6 @@ import {
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings, X } from "lucide-react";
@@ -119,21 +117,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   variant="ghost" 
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
-                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
+                  <FlipPhoneIcon className="h-12 w-12 sm:h-14 sm:w-14" />
                 </Button>
               </SheetTrigger>
               <SheetContent 
                 side="left"
-                className="w-[280px] bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-r border-coral-400/20 p-0"
+                className="w-[260px] bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-r border-coral-400/20 p-0"
               >
-                <SheetHeader className="px-6 pt-8 pb-4 border-b border-white/10">
-                  <SheetTitle className="text-white text-xl font-semibold flex items-center gap-2">
-                    <FlipPhoneIcon className="h-6 w-6" />
-                    Menu
-                  </SheetTitle>
-                </SheetHeader>
-                
-                <nav className="flex flex-col gap-1 p-4">
+                <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
                   {navigationItems.map((item) => {
                     const IconComponent = item.icon;
                     const isActive = (!item.isExternal && activeTab === item.value) || (item.isExternal && activeTab === item.value);
@@ -145,13 +136,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                           handleNavigation(item);
                           setIsNavOpen(false);
                         }}
-                        className={`flex items-center gap-4 px-4 py-4 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 ${
+                        className={`flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 ${
                           isActive 
                             ? 'text-white bg-white/20 shadow-lg' 
                             : 'text-white/80 hover:bg-white/10 hover:text-white'
                         }`}
                         style={{ 
-                          minHeight: '56px',
+                          minHeight: '48px',
                           WebkitTapHighlightColor: 'transparent',
                           touchAction: 'manipulation'
                         }}
