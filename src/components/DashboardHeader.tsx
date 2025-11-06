@@ -12,7 +12,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings, X } from "lucide-react";
+import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings, X, LogOut } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import type { User } from '@supabase/supabase-js';
 import { useIsAdmin } from "@/hooks/useUserRole";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface DashboardHeaderProps {
   accessLevel: string;
@@ -40,6 +41,12 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const isCoachMode = activeTab === 'insights';
   const { isAdmin } = useIsAdmin();
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const { signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsNavOpen(false);
+  };
 
   // Lock scroll when nav is open on mobile - optimized for performance
   useEffect(() => {
@@ -152,6 +159,23 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       </button>
                     );
                   })}
+                  
+                  {/* Separator before sign out */}
+                  <div className="h-px bg-white/10 my-1" />
+                  
+                  {/* Sign Out button */}
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-rose-300 hover:text-white hover:bg-rose-500/20"
+                    style={{ 
+                      minHeight: '48px',
+                      WebkitTapHighlightColor: 'transparent',
+                      touchAction: 'manipulation'
+                    }}
+                  >
+                    <LogOut className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
+                    <span className="text-base font-medium">Sign Out</span>
+                  </button>
                 </nav>
               </SheetContent>
             </Sheet>
