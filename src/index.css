@@ -463,25 +463,18 @@
     isolation: isolate;
   }
   
-  /* Avatar sizing - reserve exact space */
+  /* Let components control their own sizing - just prevent clipping */
   .avatar,
-  .avatar-mobile,
-  [data-avatar] {
-    flex: 0 0 40px !important;
-    width: 40px !important;
-    height: 40px !important;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-    transform: translateZ(0); /* iOS Safari paint layer */
-    z-index: 10;
+  .avatar-mobile {
     overflow: visible !important;
+    -webkit-mask-image: none !important;
+    clip-path: none !important;
   }
 
-  /* Ensure glow div (absolute inset-0 blur-md) renders fully */
+  /* Ensure glow div renders fully */
   .avatar .absolute,
-  .avatar-mobile .absolute {
+  .avatar-mobile .absolute,
+  [class*="avatar"] > .absolute {
     overflow: visible !important;
   }
 }
@@ -493,14 +486,6 @@
     overflow: visible !important;
     -webkit-mask-image: none !important;
     clip-path: none !important;
-  }
-
-  /* Smaller avatars for mobile */
-  .avatar-mobile,
-  .avatar-mobile [data-avatar] {
-    flex: 0 0 36px !important;
-    width: 36px !important;
-    height: 36px !important;
   }
 }
 
