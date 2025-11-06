@@ -14,9 +14,10 @@ interface SignInButtonProps {
   onSignInClick: () => void;
   user: SupabaseUser | null;
   onOpenProfile?: () => void;
+  disableMenuOnMobile?: boolean;
 }
 
-const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps) => {
+const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile }: SignInButtonProps) => {
   const { signOut } = useAuth();
   const { profileData } = usePersonalProfileData();
   const { isMobile } = useOptimizedMobile();
@@ -57,6 +58,18 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
     
     // Mobile: Full drawer with text labels
     if (isMobile) {
+      // If menu is disabled on mobile, just show the avatar without drawer
+      if (disableMenuOnMobile) {
+        return (
+          <Button
+            variant="ghost"
+            className="h-8 w-8 sm:h-9 sm:w-9 md:h-11 md:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+          >
+            <NavAvatar>{initial}</NavAvatar>
+          </Button>
+        );
+      }
+      
       return (
         <Drawer open={showUserMenu} onOpenChange={setShowUserMenu} direction="right">
           <DrawerTrigger asChild>

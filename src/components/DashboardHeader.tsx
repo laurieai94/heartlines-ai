@@ -262,7 +262,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 Admin
               </Link>
             )}
-            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} disableMenuOnMobile={activeTab === 'insights'} />
           </div>
         </div>
       </div>
