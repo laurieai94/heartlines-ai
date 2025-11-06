@@ -82,16 +82,6 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
           strokeWidth="3"
         />
 
-        {/* Dashed inner accent with rotation */}
-        <path
-          d="M100 150 C 94 144, 67 123, 54 108 C 37 88, 39 63, 58 55 C 69 50, 83 53, 92 65 C 101 53, 115 50, 126 55 C 145 63, 147 86, 133 105 C 121 121, 106 139, 100 150 Z"
-          fill="none"
-          stroke="white"
-          strokeDasharray="2,3"
-          strokeOpacity="0.6"
-          className={!reduceMotion ? 'animate-spin' : undefined}
-          style={{ animationDuration: '12s' }}
-        />
       </svg>
 
       {/* Initial overlay */}
