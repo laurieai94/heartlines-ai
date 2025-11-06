@@ -14,7 +14,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { ChatContainerRef } from "./ChatContainer";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useKeyboardDetection } from "@/hooks/useKeyboardDetection";
-import { ScrollToTopArrow } from './ScrollToTopArrow';
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -99,16 +98,18 @@ const AIChat = ({
     setIsSidebarOpen(true);
   }, [onOpenSidebar]);
 
-  // Handle input focus - scroll to bottom to show latest message
+  // Handle input focus - scroll to bottom to show latest message (mobile only)
   const handleInputFocus = useCallback(() => {
+    if (!isMobilePhone) return;
+    
     // Immediate scroll to bottom to show latest message
     chatContainerRef.current?.scrollToBottom?.('smooth');
     
-    // Delayed scroll to account for keyboard animation on mobile
+    // Delayed scroll to account for keyboard animation
     setTimeout(() => {
       chatContainerRef.current?.scrollToBottom?.('smooth');
     }, 300);
-  }, []);
+  }, [isMobilePhone]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
   useEffect(() => {
@@ -219,7 +220,7 @@ useChatEffects({
     <>
       {/* Chat Header - Mobile only, renders above ChatLayout */}
       {isMobilePhone && (
-        <div className="sticky top-[60px] left-0 right-0 z-30 bg-burgundy-800">
+        <div className="sticky top-[60px] left-0 right-0 z-30">
           <ChatHeader
             userName={userName} 
             onNewConversation={handleNewConversation} 
@@ -287,14 +288,6 @@ useChatEffects({
           onHeightChange={setInputSectionHeight}
           onInputFocus={handleInputFocus}
         />
-
-        {/* Scroll to top arrow - Mobile only */}
-        {chatContainerRef.current?.viewportRef && (
-          <ScrollToTopArrow 
-            scrollContainerRef={chatContainerRef.current.viewportRef}
-            chatHistory={chatHistory}
-          />
-        )}
       </div>
     </ChatLayout>
     </>

@@ -18,13 +18,13 @@ export const ChatHeader = ({
   onOpenSidebar
 }: ChatHeaderProps) => {
   return (
-    <div className="chat-header sticky top-0 z-50 md:z-[70] shrink-0 bg-burgundy-800 md:bg-burgundy-800/50 backdrop-blur-none md:backdrop-blur-md md:border-b md:border-pink-400/10 md:shadow-lg">
+    <div className="chat-header sticky top-0 z-50 md:z-[70] shrink-0 bg-burgundy-800 md:bg-burgundy-800/50 backdrop-blur-none md:backdrop-blur-md border-b border-pink-400/10 shadow-lg">
       <div className="w-full px-2 md:px-0 py-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Unified Layout - Responsive */}
         <div className="flex items-center justify-between gap-3 md:gap-4 max-w-3xl lg:max-w-4xl mx-auto md:px-6">
           {/* Kai Avatar - Far Left */}
           <div className="relative flex-shrink-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/10 to-burgundy-400/10 rounded-full blur-md"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
             <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[40px] h-[40px] md:w-[56px] md:h-[56px] border-2 md:border-3 border-white/20">
               <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
               <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">

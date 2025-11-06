@@ -61,8 +61,8 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       <div className="flex-shrink-0 overflow-visible">
         <div className={`relative overflow-visible ${isMobile ? 'w-[60px] h-[60px]' : 'w-[64px] h-[64px]'} md:w-[68px] md:h-[68px] ${isMobile && !isFirstInGroup ? 'invisible' : ''} flex items-center justify-center`}>
           {/* Subtle glow for avatars */}
-          <div className={`absolute inset-0 rounded-full blur-sm ${
-            isMobile ? 'opacity-20' : 'opacity-15'
+          <div className={`absolute inset-0 rounded-full blur-md drop-shadow-lg ${
+            isMobile ? 'opacity-60' : 'opacity-50'
           } ${
             isUser 
               ? isMobile 

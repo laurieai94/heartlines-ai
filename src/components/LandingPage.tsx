@@ -796,7 +796,7 @@ const LandingPage = ({
           
           {/* Timeline */}
           <Timeline stops={[{
-            title: "real shit only",
+            title: "real talk only",
             subtitle: "real talk for real struggles—support without the sugarcoat. (because \"good vibes only\" is a lie)",
             icon: <HeartSupportIcon />
           }, {

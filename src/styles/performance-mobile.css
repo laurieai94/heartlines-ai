@@ -22,24 +22,6 @@
   user-select: none;
 }
 
-/* Allow interaction with buttons, links, and interactive elements */
-.mobile-optimized button,
-.mobile-optimized [role="button"],
-.mobile-optimized a,
-.mobile-optimized [data-radix-popover-trigger],
-.mobile-optimized [data-radix-popover-content] {
-  user-select: auto;
-  -webkit-user-select: auto;
-  pointer-events: auto;
-}
-
-/* Ensure popover content and children are fully interactive */
-.mobile-optimized [data-radix-popover-content] * {
-  user-select: auto;
-  -webkit-user-select: auto;
-  pointer-events: auto;
-}
-
 /* Fast CSS-only button feedback */
 .mobile-optimized button:active,
 .mobile-optimized [role="button"]:active {
@@ -100,43 +82,6 @@
   textarea {
     min-height: 44px;
     min-width: 44px;
-    touch-action: manipulation;
-  }
-}
-
-/* Mobile header navigation - mobile only */
-@media (max-width: 768px) {
-  /* Keep header buttons above overlay and drawer */
-  .header-actions {
-    position: relative;
-    z-index: 80; /* above overlay (40) and drawer (50) */
-  }
-  
-  .header-avatar-btn,
-  .header-flip-btn {
-    position: relative;
-    z-index: 81;
-    pointer-events: auto;
-  }
-  
-  /* Normalize flip phone icon on mobile */
-  .header-flip-btn {
-    transform: none !important; /* remove decorative rotations */
-  }
-  
-  /* Mobile drawer styling */
-  .mobile-drawer {
-    contain: layout;
-    will-change: transform;
-  }
-  
-  .mobile-drawer.open {
-    will-change: auto;
-  }
-  
-  /* Mobile overlay styling */
-  .mobile-overlay {
-    contain: layout;
     touch-action: manipulation;
   }
 }
