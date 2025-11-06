@@ -43,7 +43,7 @@ export const ChatLayout = ({
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full px-0 lg:px-8 md:pt-4 lg:pt-6">
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
         {/* Chat Section - Proportional Width */}
-        <div className="flex-1 flex flex-col relative mx-0 md:mx-auto w-full max-w-none md:max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">
+        <div className="flex-1 flex flex-col relative mx-0 md:mx-auto w-full max-w-none md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl md:min-h-0 md:max-h-full">
           <div 
             data-mobile-chat
             className="flex flex-col bg-burgundy-800 md:relative md:flex-1 md:min-h-0 md:bg-gradient-to-b md:from-burgundy-900/30 md:to-burgundy-800/20 md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-800/30 z-10 isolation-isolate"
