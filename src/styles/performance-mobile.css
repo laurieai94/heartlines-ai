@@ -103,3 +103,40 @@
     touch-action: manipulation;
   }
 }
+
+/* Mobile header navigation - mobile only */
+@media (max-width: 768px) {
+  /* Keep header buttons above overlay and drawer */
+  .header-actions {
+    position: relative;
+    z-index: 80; /* above overlay (40) and drawer (50) */
+  }
+  
+  .header-avatar-btn,
+  .header-flip-btn {
+    position: relative;
+    z-index: 81;
+    pointer-events: auto;
+  }
+  
+  /* Normalize flip phone icon on mobile */
+  .header-flip-btn {
+    transform: none !important; /* remove decorative rotations */
+  }
+  
+  /* Mobile drawer styling */
+  .mobile-drawer {
+    contain: layout;
+    will-change: transform;
+  }
+  
+  .mobile-drawer.open {
+    will-change: auto;
+  }
+  
+  /* Mobile overlay styling */
+  .mobile-overlay {
+    contain: layout;
+    touch-action: manipulation;
+  }
+}
