@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { User, LogOut, UserCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavAvatar from "@/components/NavAvatar";
@@ -19,6 +19,28 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
   const { profileData } = usePersonalProfileData();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [triggerUpdate, setTriggerUpdate] = useState(0);
+  const toggleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Debounced toggle to prevent rapid open/close
+  const handleToggle = useCallback((open: boolean) => {
+    if (toggleTimeoutRef.current) {
+      clearTimeout(toggleTimeoutRef.current);
+    }
+    
+    toggleTimeoutRef.current = setTimeout(() => {
+      setShowUserMenu(open);
+      toggleTimeoutRef.current = null;
+    }, 50); // 50ms debounce
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (toggleTimeoutRef.current) {
+        clearTimeout(toggleTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const handleProfileUpdate = () => {
@@ -52,7 +74,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
   if (user) {
     // Show user avatar/menu for authenticated users
     return (
-      <Popover open={showUserMenu} onOpenChange={setShowUserMenu}>
+      <Popover open={showUserMenu} onOpenChange={handleToggle}>
         <PopoverTrigger asChild>
         <Button
           variant="ghost"
@@ -71,6 +93,12 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         <PopoverContent 
           className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl" 
           align="end"
+          side="bottom"
+          sideOffset={12}
+          collisionPadding={8}
+          onInteractOutside={() => {
+            setShowUserMenu(false);
+          }}
           style={{
             zIndex: 100,
             touchAction: 'manipulation',

@@ -117,8 +117,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </PopoverTrigger>
               <PopoverContent 
                 align="start"
-                sideOffset={8}
-                collisionPadding={0}
+                side="bottom"
+                sideOffset={16}
+                alignOffset={-4}
+                collisionPadding={16}
                 avoidCollisions={false}
                 className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
                 style={{ 
@@ -189,8 +191,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </PopoverTrigger>
               <PopoverContent 
                 align="start"
-                sideOffset={8}
-                collisionPadding={0}
+                side="bottom"
+                sideOffset={16}
+                alignOffset={-4}
+                collisionPadding={16}
                 avoidCollisions={false}
                 className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
                 style={{ 
