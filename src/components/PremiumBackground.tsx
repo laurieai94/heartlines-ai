@@ -6,7 +6,7 @@ const PremiumBackground = ({ className = "" }: PremiumBackgroundProps) => {
   return (
     <>
       {/* Animated orbs */}
-      <div className={`absolute inset-0 pointer-events-none ${className}`}>
+      <div className={`absolute inset-0 pointer-events-none -z-10 ${className}`}>
         <div 
           className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-r from-pink-500/25 via-coral-400/20 to-orange-500/25 rounded-full blur-3xl animate-pulse" 
           style={{ animationDuration: '6s' }}
