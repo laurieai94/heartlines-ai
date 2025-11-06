@@ -79,7 +79,7 @@ const SiteFooter = () => {
                       {link.to === '/account' ? (
                         <button
                           onClick={handleAccountClick}
-                          className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group"
+                          className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group bg-transparent border-0 p-0 w-full cursor-pointer"
                         >
                           <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                           {link.label}
@@ -118,7 +118,7 @@ const SiteFooter = () => {
                     {link.to === '/account' ? (
                       <button
                         onClick={handleAccountClick}
-                        className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group"
+                        className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group bg-transparent border-0 p-0 w-full cursor-pointer"
                       >
                         <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                         {link.label}
