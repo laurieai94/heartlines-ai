@@ -202,7 +202,7 @@ const DashboardContent = ({
   return (
     <div className={`flex-1 min-h-0 dashboard-container scrollbar-hide ${
       activeTab === 'coach' || activeTab === 'insights'
-        ? 'overflow-hidden h-[100dvh] md:h-[calc(100vh-5rem)] md:pt-20 lg:pt-24' 
+        ? 'overflow-hidden h-[100dvh] md:h-full md:pt-0' 
         : 'pt-16 md:pt-16 overflow-y-auto min-h-[100dvh]'
     }`}>
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col">
