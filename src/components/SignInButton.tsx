@@ -77,7 +77,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
                     onOpenProfile();
                     setShowUserMenu(false);
                   }}
-                  className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/90 bg-white/8 hover:bg-white/15 hover:text-white shadow-sm w-full text-left"
+                  className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/80 hover:bg-white/10 hover:text-white w-full text-left"
                   style={{ 
                     minHeight: '48px',
                     WebkitTapHighlightColor: 'transparent',
@@ -94,7 +94,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
                   window.location.href = '/account';
                   setShowUserMenu(false);
                 }}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/90 bg-white/8 hover:bg-white/15 hover:text-white shadow-sm w-full text-left"
+                className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-white/80 hover:bg-white/10 hover:text-white w-full text-left"
                 style={{ 
                   minHeight: '48px',
                   WebkitTapHighlightColor: 'transparent',
@@ -109,7 +109,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
               
               <button
                 onClick={handleSignOut}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-rose-300 bg-rose-500/10 hover:text-white hover:bg-rose-500/25 shadow-sm w-full text-left"
+                className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-rose-300 hover:text-white hover:bg-rose-500/20 w-full text-left"
                 style={{ 
                   minHeight: '48px',
                   WebkitTapHighlightColor: 'transparent',
