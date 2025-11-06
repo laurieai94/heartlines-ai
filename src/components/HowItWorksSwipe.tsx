@@ -92,7 +92,7 @@ const HowItWorksSwipe = () => {
   return (
     <div className="max-w-5xl mx-auto px-4">
       {/* Single Interactive Card */}
-      <Card className="relative overflow-hidden backdrop-blur-xl border border-white/30 sm:border-white/10 rounded-3xl p-6 md:p-8 lg:p-12 min-h-[320px] shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/20 via-white/15 to-white/10 sm:from-white/[0.08] sm:via-white/[0.05] sm:to-white/[0.02] hover:shadow-primary/20 transition-all duration-500">
+      <Card className="relative overflow-hidden backdrop-blur-xl border border-white/30 rounded-3xl p-6 md:p-8 lg:p-12 min-h-[320px] shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/20 via-white/15 to-white/10 hover:shadow-primary/20 transition-all duration-500">
         <Carousel 
           setApi={setApi}
           className="w-full"
@@ -192,18 +192,18 @@ const HowItWorksSwipe = () => {
         {/* Navigation Buttons */}
         <button
           onClick={scrollPrev}
-          className="absolute left-1 md:left-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full bg-transparent border-transparent md:backdrop-blur-md md:bg-white/20 md:border md:border-white/30 md:hover:bg-white/30 md:hover:scale-110 transition-all duration-300 group md:shadow-lg"
+          className="absolute left-1 md:left-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full backdrop-blur-md bg-white/20 border border-white/30 hover:bg-white/30 hover:scale-110 transition-all duration-300 group shadow-lg"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-5 h-5 text-white/90 md:text-white/70 md:group-hover:text-white transition-colors drop-shadow-sm" />
+          <ChevronLeft className="w-5 h-5 text-white/70 group-hover:text-white transition-colors drop-shadow-sm" />
         </button>
         
         <button
           onClick={scrollNext}
-          className="absolute right-1 md:right-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full bg-transparent border-transparent md:backdrop-blur-md md:bg-white/20 md:border md:border-white/30 md:hover:bg-white/30 md:hover:scale-110 transition-all duration-300 group md:shadow-lg"
+          className="absolute right-1 md:right-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full backdrop-blur-md bg-white/20 border border-white/30 hover:bg-white/30 hover:scale-110 transition-all duration-300 group shadow-lg"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-5 h-5 text-white/90 md:text-white/70 md:group-hover:text-white transition-colors drop-shadow-sm" />
+          <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors drop-shadow-sm" />
         </button>
       </Card>
     </div>

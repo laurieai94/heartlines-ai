@@ -253,7 +253,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   return (
     <div 
-      className="chat-root absolute inset-0 flex flex-col md:bg-burgundy-800 md:relative md:flex-1 md:min-h-0"
+      className="chat-root absolute inset-0 flex flex-col md:relative md:flex-1 md:min-h-0"
       style={containerStyle}
     >
       {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}

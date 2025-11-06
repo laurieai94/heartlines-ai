@@ -1,38 +1,3 @@
-/* Mobile-only: Force solid burgundy background, no gradients */
-@media (max-width: 768px) {
-  html, body, #root {
-    background-color: hsl(var(--burgundy-800)) !important;
-    background: hsl(var(--burgundy-800)) !important;
-    background-image: none !important;
-  }
-  
-  /* Force solid background on all chat-related containers */
-  .mobile-chat-scroll,
-  .mobile-native-scroll,
-  [role="log"],
-  [data-mobile-chat],
-  .mobile-chat-input-container {
-    background-color: hsl(var(--burgundy-800)) !important;
-    background: hsl(var(--burgundy-800)) !important;
-    background-image: none !important;
-  }
-  
-  /* Remove any gradient backgrounds */
-  .bg-gradient-to-br,
-  .bg-gradient-to-r,
-  .bg-gradient-to-l,
-  .bg-gradient-to-t,
-  .bg-gradient-to-b {
-    background-image: none !important;
-    background-color: hsl(var(--burgundy-800)) !important;
-  }
-  
-  /* Force burgundy-800 and burgundy-900 to design system color */
-  .bg-burgundy-800,
-  .bg-burgundy-900 {
-    background-color: hsl(var(--burgundy-800)) !important;
-  }
-}
 
 /* Critical: Prevent white screen on mobile overscroll */
 html {

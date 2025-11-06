@@ -86,7 +86,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   
   return (
     <div 
-      className={`w-full fixed top-0 left-0 right-0 z-50 ${isCoachMode ? 'bg-transparent backdrop-blur-sm md:backdrop-blur-none' : 'bg-transparent'} ${
+      className={`w-full fixed top-0 left-0 right-0 z-50 ${isCoachMode ? 'bg-transparent backdrop-blur-sm' : 'bg-transparent'} ${
         compact ? 'pt-0 md:pt-0 lg:pt-0' : 'pt-0 md:pt-0 lg:pt-2'
       }`}
       style={{ 

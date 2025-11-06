@@ -58,7 +58,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
       <div className="px-4 py-3 pointer-events-auto">
         {!selectedCategory ? (
           <>
-            <h3 className="text-sm font-normal mb-2 text-center text-pink-200 md:bg-gradient-to-r md:from-pink-200 md:via-coral-100 md:to-orange-100 md:bg-clip-text md:text-transparent">
+            <h3 className="text-sm font-normal mb-2 text-center bg-gradient-to-r from-pink-200 via-coral-100 to-orange-100 bg-clip-text text-transparent">
               What's on your mind?
             </h3>
             <div className="grid grid-cols-2 gap-2">
