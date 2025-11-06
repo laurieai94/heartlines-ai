@@ -24,7 +24,7 @@ export const ChatHeader = ({
         <div className="flex items-center justify-between gap-3 md:gap-4 max-w-3xl lg:max-w-4xl mx-auto md:px-6">
           {/* Kai Avatar - Far Left */}
           <div className="relative flex-shrink-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/10 to-burgundy-400/10 rounded-full blur-md"></div>
             <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[40px] h-[40px] md:w-[56px] md:h-[56px] border-2 md:border-3 border-white/20">
               <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
               <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
