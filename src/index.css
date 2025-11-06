@@ -431,88 +431,58 @@
 
   /* Prevent avatar clipping on tablet/mobile */
   @media (max-width: 1024px) {
-    /* Stop clipping from all potential wrapper ancestors */
-    :where([data-mobile-chat], .chat-card, .chat-scroll, .chat-header, .chat-body, [data-message-container], .chat-root, .surface, .panel) {
+    /* Ensure chat containers don't clip avatars */
+    [data-mobile-chat],
+    [data-message-container],
+    .message-row,
+    .chat-scroll {
       overflow: visible !important;
+    }
+    
+    /* Remove any webkit masks that might clip */
+    [data-mobile-chat],
+    [data-message-container] {
       -webkit-mask-image: none !important;
-      clip-path: none !important;
     }
 
-    /* iOS backdrop-filter + rounded card fix: move blur to pseudo-element */
-    :where([data-mobile-chat])::before {
-      position: absolute;
-      inset: 0;
-      content: "";
-      pointer-events: none;
-      border-radius: inherit;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: -1;
-    }
-
-    /* Remove backdrop filter from parent so it doesn't clip */
-    :where([data-mobile-chat]) {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-
-    /* Dedicated avatar column layout - prevents overlap/clipping */
-    :where(.message-row, [data-message-container] > div > div) {
-      display: grid !important;
-      grid-template-columns: 44px 1fr;
-      align-items: flex-start;
-      gap: 12px;
-      isolation: isolate;
+    /* Avatar layout optimization */
+    [data-message-container] {
+      display: block;
       overflow: visible;
     }
-
-    /* Avatar sizing and rendering optimization */
-    :where(.avatar, .avatar-mobile, [data-avatar], [data-message-container] img) {
-      width: 44px !important;
-      height: 44px !important;
+    
+    .avatar,
+    .avatar-mobile,
+    [data-avatar] {
+      flex: 0 0 40px;
+      width: 40px;
+      height: 40px;
       aspect-ratio: 1 / 1;
       border-radius: 50%;
       object-fit: cover;
       object-position: center;
-      flex: 0 0 44px;
+      transform: translateZ(0); /* iOS Safari rendering fix */
       z-index: 1;
-      transform: translateZ(0);
-    }
-
-    /* Bubble constraints - prevent overlap with avatar */
-    :where(.message-row .bubble, [data-message-container] > div > div > div:last-child) {
-      max-inline-size: 100%;
-      white-space: normal;
-      word-break: break-word;
-      margin: 0;
     }
   }
 
-  /* Mobile-specific adjustments for iPhone widths */
+  /* Extra protection for iPhone widths */
   @media (max-width: 430px) {
-    /* Extra protection: ensure no ancestor clips */
-    :where(.chat-surface, .chat-card, .panel, .surface, .app, .shell) {
+    /* Ensure no parent rounds/clips the avatar */
+    .chat-surface,
+    .chat-card,
+    .panel,
+    .surface {
       overflow: visible !important;
       -webkit-mask-image: none !important;
       clip-path: none !important;
     }
 
-    /* Smaller avatar column for compact mobile screens */
-    :where(.message-row, [data-message-container] > div > div) {
-      grid-template-columns: 40px 1fr !important;
-      gap: 10px;
-    }
-
-    /* Mobile avatar sizing */
-    :where(.avatar-mobile, .avatar-mobile [data-avatar], .avatar-mobile img) {
-      width: 40px !important;
-      height: 40px !important;
-      flex: 0 0 40px;
-    }
-
-    /* Add safe gutters so avatars never touch card edge */
-    :where(.chat-scroll, .chat-body, #chat-scroll) {
-      padding-inline: 14px;
+    .avatar-mobile,
+    .avatar-mobile [data-avatar] {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
     }
   }
 
