@@ -112,7 +112,7 @@ const SignInButton = ({
             WebkitTapHighlightColor: 'transparent'
           }}
         >
-          <NavAvatar>{initial}</NavAvatar>
+          <NavAvatar />
         </button>
 
         {/* Mobile: Portal-based drawer */}
@@ -218,7 +218,7 @@ const SignInButton = ({
                 variant="ghost"
                 className="h-11 w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
               >
-                <NavAvatar>{initial}</NavAvatar>
+                <NavAvatar />
               </Button>
             </PopoverTrigger>
             <PopoverContent 
