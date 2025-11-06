@@ -7,7 +7,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings, X } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
@@ -106,60 +113,57 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
-            <Popover open={isNavOpen} onOpenChange={setIsNavOpen}>
-              <PopoverTrigger asChild>
+            <Sheet open={isNavOpen} onOpenChange={setIsNavOpen}>
+              <SheetTrigger asChild>
                 <Button 
                   variant="ghost" 
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
-            <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
+                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent 
-                align="start"
-                sideOffset={8}
-                collisionPadding={0}
-                avoidCollisions={false}
-                className="w-16 p-2 z-[45] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
-                style={{ 
-                  contain: 'layout',
-                  transform: 'translateZ(0)',
-                  willChange: 'transform, opacity',
-                  WebkitTapHighlightColor: 'transparent',
-                  touchAction: 'manipulation'
-                }}
+              </SheetTrigger>
+              <SheetContent 
+                side="left"
+                className="w-[280px] bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-r border-coral-400/20 p-0"
               >
-                {navigationItems.map((item) => {
-                  const IconComponent = item.icon;
-                  const isActive = (!item.isExternal && activeTab === item.value) || (item.isExternal && activeTab === item.value);
-                  return (
-                    <button
-                      key={item.value}
-                      onMouseEnter={() => handleTabHover(item.value)}
-                      onClick={() => handleNavigation(item)}
-                      title={item.label}
-                      className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
-                        isActive 
-                          ? 'text-white bg-white/20' 
-                          : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
-                      }`}
-                      style={{ 
-                        minHeight: '48px', 
-                        minWidth: '48px', 
-                        maxHeight: '48px', 
-                        maxWidth: '48px', 
-                        padding: '12px',
-                        WebkitTapHighlightColor: 'transparent',
-                        touchAction: 'manipulation',
-                        transform: 'translateZ(0)'
-                      }}
-                    >
-                      <IconComponent className="h-6 w-6" strokeWidth={2} />
-                    </button>
-                  );
-                })}
-              </PopoverContent>
-            </Popover>
+                <SheetHeader className="px-6 pt-8 pb-4 border-b border-white/10">
+                  <SheetTitle className="text-white text-xl font-semibold flex items-center gap-2">
+                    <FlipPhoneIcon className="h-6 w-6" />
+                    Menu
+                  </SheetTitle>
+                </SheetHeader>
+                
+                <nav className="flex flex-col gap-1 p-4">
+                  {navigationItems.map((item) => {
+                    const IconComponent = item.icon;
+                    const isActive = (!item.isExternal && activeTab === item.value) || (item.isExternal && activeTab === item.value);
+                    return (
+                      <button
+                        key={item.value}
+                        onMouseEnter={() => handleTabHover(item.value)}
+                        onClick={() => {
+                          handleNavigation(item);
+                          setIsNavOpen(false);
+                        }}
+                        className={`flex items-center gap-4 px-4 py-4 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 ${
+                          isActive 
+                            ? 'text-white bg-white/20 shadow-lg' 
+                            : 'text-white/80 hover:bg-white/10 hover:text-white'
+                        }`}
+                        style={{ 
+                          minHeight: '56px',
+                          WebkitTapHighlightColor: 'transparent',
+                          touchAction: 'manipulation'
+                        }}
+                      >
+                        <IconComponent className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
+                        <span className="text-base font-medium">{item.label}</span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </SheetContent>
+            </Sheet>
             
           </div>
           
