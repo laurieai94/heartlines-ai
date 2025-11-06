@@ -22,6 +22,24 @@
   user-select: none;
 }
 
+/* Allow interaction with buttons, links, and interactive elements */
+.mobile-optimized button,
+.mobile-optimized [role="button"],
+.mobile-optimized a,
+.mobile-optimized [data-radix-popover-trigger],
+.mobile-optimized [data-radix-popover-content] {
+  user-select: auto;
+  -webkit-user-select: auto;
+  pointer-events: auto;
+}
+
+/* Ensure popover content and children are fully interactive */
+.mobile-optimized [data-radix-popover-content] * {
+  user-select: auto;
+  -webkit-user-select: auto;
+  pointer-events: auto;
+}
+
 /* Fast CSS-only button feedback */
 .mobile-optimized button:active,
 .mobile-optimized [role="button"]:active {

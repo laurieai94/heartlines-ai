@@ -57,11 +57,18 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         <Button
           variant="ghost"
           className="h-8 w-8 sm:h-9 sm:w-9 md:h-11 md:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+          style={{
+            touchAction: 'manipulation',
+            pointerEvents: 'auto',
+            WebkitTapHighlightColor: 'transparent',
+            userSelect: 'auto',
+            WebkitUserSelect: 'auto'
+          }}
         >
           <NavAvatar>{initial}</NavAvatar>
         </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
+        <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-[100]" align="end">
           <div className="flex flex-col gap-1">
             {onOpenProfile && (
               <Button
