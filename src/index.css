@@ -213,10 +213,11 @@
   }
 
   /* Full-height root chain for reliable h-full layouts */
-  html, body, #root {
-    height: 100%;
-    min-height: 100dvh;
-  }
+html, body, #root {
+  height: 100%;
+  min-height: 100dvh;
+  background-color: hsl(350 100% 20%); /* burgundy-800 fallback */
+}
 
   html {
     /* Prevent white screen on mobile overscroll */
@@ -234,9 +235,8 @@
     display: none; /* Chrome/Safari/Edge */
   }
 
-  body {
-    @apply text-foreground;
-    background: transparent;
+body {
+  @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;

@@ -134,9 +134,9 @@ const Dashboard = () => {
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
         <MobileHeaderVisibilityProvider>
-          <div className={`h-[100dvh] ${activeTab === 'insights' ? 'chat-page' : ''}`}>
+          <div className={`h-[100dvh] bg-burgundy-800 ${activeTab === 'insights' ? 'chat-page' : ''}`}>
             {/* Main Dashboard Content - This gets blurred when modals are open */}
-            <div className={`h-full flex flex-col relative ${isAnyModalOpen ? 'blur-sm md:blur-sm' : ''} transition-all duration-300`}>
+            <div className={`h-full flex flex-col relative bg-burgundy-800 ${isAnyModalOpen ? 'blur-sm md:blur-sm' : ''} transition-all duration-300`}>
           <PremiumBackground />
 
               <DashboardHeader 
