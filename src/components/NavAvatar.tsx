@@ -59,8 +59,6 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
           d="M100 162 C 92 154, 60 129, 44 110 C 22 83, 26 48, 54 36 C 71 28, 89 33, 100 47 C 111 33, 129 28, 146 36 C 174 48, 178 83, 156 110 C 140 129, 108 154, 100 162 Z"
           fill={`url(#navLava-${uniqueId})`}
           filter={`url(#navLiquid-${uniqueId})`}
-          stroke="white"
-          strokeWidth="3"
         />
 
       </svg>
