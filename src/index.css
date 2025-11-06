@@ -429,6 +429,30 @@
     transform: translateZ(0);
   }
 
+  /* Prevent avatar clipping on mobile/tablet */
+  @media (max-width: 1024px) {
+    .chat-root,
+    .chat-scroll,
+    [data-message-container] {
+      overflow: visible !important;
+    }
+  }
+
+  /* Avatar-specific optimizations for mobile */
+  @media (max-width: 430px) {
+    .avatar-mobile {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    /* Prevent Safari iOS masking issues */
+    .avatar-mobile,
+    .avatar-mobile img {
+      -webkit-mask-image: none;
+    }
+  }
+
   /* Prevent momentum scrolling issues and improve mobile performance */
   .overscroll-contain {
     overscroll-behavior: none; /* Prevent white screen */

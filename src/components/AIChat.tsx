@@ -242,7 +242,7 @@ useChatEffects({
         onDeleteConversation={onDeleteConversation}
         hideHeader={isMobilePhone}
       >
-        <div className="relative flex flex-col h-full md:overflow-hidden">
+        <div className="relative flex flex-col h-full">
           <MemoizedChatContainer
           ref={chatContainerRef}
           chatHistory={chatHistory}

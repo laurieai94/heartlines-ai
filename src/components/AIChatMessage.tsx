@@ -51,15 +51,15 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
   return (
     <div className={`${isMobile ? 'px-3' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`} data-message-container>
       <div 
-        className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group ${
+        className={`flex overflow-visible ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-2' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group ${
           !isUser ? 'animate-[slide-up_0.3s_cubic-bezier(0.16,1,0.3,1)]' : 'animate-fade-in'
         }`}
         role="listitem"
         aria-label={`${isUser ? (userName || 'User') : 'kai'} message at ${formatTime(message.timestamp)}`}
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
-      <div className="flex-shrink-0">
-        <div className={`relative ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+      <div className="flex-shrink-0 overflow-visible">
+        <div className={`relative overflow-visible ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md drop-shadow-lg ${
             isMobile ? 'opacity-60' : 'opacity-50'
