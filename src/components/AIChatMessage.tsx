@@ -59,7 +59,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0 overflow-visible">
-        <div className={`relative overflow-visible ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative overflow-visible ${isMobile ? 'w-[60px] h-[60px] avatar-mobile' : 'w-[64px] h-[64px]'} md:w-[68px] md:h-[68px] ${isMobile && !isFirstInGroup ? 'invisible' : ''} flex items-center justify-center`}>
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md drop-shadow-lg ${
             isMobile ? 'opacity-60' : 'opacity-50'
