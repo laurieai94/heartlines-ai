@@ -120,13 +120,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 sideOffset={8}
                 collisionPadding={0}
                 avoidCollisions={false}
-                className="w-16 p-2 z-[45] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
+                className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
                 style={{ 
                   contain: 'layout',
                   transform: 'translateZ(0)',
                   willChange: 'transform, opacity',
                   WebkitTapHighlightColor: 'transparent',
-                  touchAction: 'manipulation'
+                  touchAction: 'manipulation',
+                  zIndex: 60
                 }}
               >
                 {navigationItems.map((item) => {
@@ -191,13 +192,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 sideOffset={8}
                 collisionPadding={0}
                 avoidCollisions={false}
-                className="w-16 p-2 z-[45] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
+                className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
                 style={{ 
                   contain: 'layout',
                   transform: 'translateZ(0)',
                   willChange: 'transform, opacity',
                   WebkitTapHighlightColor: 'transparent',
-                  touchAction: 'manipulation'
+                  touchAction: 'manipulation',
+                  zIndex: 60
                 }}
               >
                 {navigationItems.map((item) => {
