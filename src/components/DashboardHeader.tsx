@@ -1,4 +1,5 @@
 import BrandMark from "./BrandMark";
+import SignInButton from "./SignInButton";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import { Button } from "@/components/ui/button";
 import {
@@ -137,6 +138,17 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             >
               <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11" />
             </button>
+          </div>
+          
+          {/* User avatar on the right side */}
+          <div className="flex items-center header-actions">
+            <SignInButton 
+              user={user} 
+              onSignInClick={onSignInClick} 
+              onOpenProfile={onOpenProfile}
+              isFlipMenuOpen={isNavOpen}
+              onFlipMenuOpenChange={setIsNavOpen}
+            />
           </div>
         </div>
 
@@ -298,6 +310,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 Admin
               </Link>
             )}
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
           </div>
         </div>
       </div>
