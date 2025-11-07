@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, lazy, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
@@ -63,6 +64,7 @@ export const ChatInputSection = ({
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
+  const [searchParams] = useSearchParams();
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { calculateYourCompletion } = useOptimizedProfileCompletion();
@@ -86,7 +88,8 @@ export const ChatInputSection = ({
     subscription_tier, 
     subscribed, 
     upgrade, 
-    manageSubscription 
+    manageSubscription,
+    refresh 
   } = useOptimizedSubscription();
   
   
@@ -108,6 +111,13 @@ export const ChatInputSection = ({
       localStorage.removeItem('focusChatInputAfterAuth');
     }
   }, [user]);
+
+  // Refresh subscription data when returning from billing
+  useEffect(() => {
+    if (searchParams.get('upgraded') === 'true' || searchParams.get('from') === 'billing') {
+      refresh();
+    }
+  }, [searchParams, refresh]);
 
   // Prefetch profile questionnaire when profile is required for better UX
   useEffect(() => {

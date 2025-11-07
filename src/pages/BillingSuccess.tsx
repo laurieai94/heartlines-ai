@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Sparkles } from "lucide-react";
@@ -10,6 +11,7 @@ import PremiumBackground from "@/components/PremiumBackground";
 const BillingSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const queryClient = useQueryClient();
   const [loading, setLoading] = useState(true);
   const [subscriptionDetails, setSubscriptionDetails] = useState<any>(null);
 
@@ -39,13 +41,16 @@ const BillingSuccess = () => {
         
         setSubscriptionDetails(response.data);
         
+        // Invalidate subscription cache globally so all components refresh
+        queryClient.invalidateQueries({ queryKey: ['subscription'] });
+        
         toast.success("Welcome to your new plan! 🎉", {
           description: `You now have ${response.data.message_limit} messages per month.`
         });
         
         // Redirect to coach page after successful subscription
         setTimeout(() => {
-          navigate('/coach');
+          navigate('/coach?upgraded=true&from=billing');
         }, 2000);
       } catch (error: any) {
         console.error('Error refreshing subscription:', error);
