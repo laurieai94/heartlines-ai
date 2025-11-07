@@ -22,16 +22,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
       <div className="relative glass-burgundy border-burgundy-500/20 rounded-2xl p-8 max-w-md w-full animate-fade-in shadow-2xl">
         {/* Flip Phone Icon */}
         <div className="flex justify-center mb-6">
-          <div 
-            className="p-4 bg-gradient-to-br from-coral-500/20 to-burgundy-500/20 border border-coral-500/30"
-            style={{
-              clipPath: "path('M50,15 C50,10 55,5 60,5 C70,5 75,15 75,25 C75,40 50,55 50,55 C50,55 25,40 25,25 C25,15 30,5 40,5 C45,5 50,10 50,15 Z')",
-              width: '180px',
-              height: '180px'
-            }}
-          >
-            <FlipPhoneIcon size={110} className="text-coral-400" />
-          </div>
+          <FlipPhoneIcon size={110} className="text-coral-400" />
         </div>
 
         {/* Header */}
