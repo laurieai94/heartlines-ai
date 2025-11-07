@@ -40,7 +40,7 @@ export const ChatLayout = ({
   const isMobilePhone = isMobile && !isTablet;
 
   return (
-    <div className="h-full flex flex-col min-h-0 px-0 lg:px-8" style={{ background: isMobilePhone ? '#58151A' : undefined }}>
+    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full px-0 lg:px-8 md:pt-4 lg:pt-6" style={{ background: isMobilePhone ? '#58151A' : undefined }}>
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 flex flex-col relative mx-0 md:mx-auto w-full max-w-none md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl md:min-h-0 md:max-h-full">
