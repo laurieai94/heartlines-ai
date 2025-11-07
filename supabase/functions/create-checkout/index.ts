@@ -67,7 +67,7 @@ serve(async (req) => {
       ],
       mode: "subscription",
       success_url: `${req.headers.get("origin")}/coach?upgraded=true`,
-      cancel_url: `${req.headers.get("origin")}/pricing`,
+      cancel_url: `${req.headers.get("origin")}/plans`,
       metadata: {
         tier: tier,
         user_id: user.id
