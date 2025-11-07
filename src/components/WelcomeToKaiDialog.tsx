@@ -22,7 +22,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
       <div className="relative glass-burgundy border-burgundy-500/20 rounded-2xl p-8 max-w-md w-full animate-fade-in shadow-2xl">
         {/* Flip Phone Icon */}
         <div className="flex justify-center mb-6">
-          <FlipPhoneIcon size={110} className="text-coral-400" />
+          <FlipPhoneIcon size={110} className="text-coral-400" animated={true} />
         </div>
 
         {/* Header */}
