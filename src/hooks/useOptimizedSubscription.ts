@@ -99,12 +99,18 @@ export const useOptimizedSubscription = () => {
     refetchOnMount: false, // Use cached data on mount
   });
 
-  const upgrade = async (tier: 'glow' | 'vibe' | 'unlimited') => {
+  const upgrade = async (tier: 'glow' | 'vibe' | 'unlimited', returnUrl?: string) => {
     if (!user) return;
 
     try {
+      // Use current path as return URL if not provided
+      const finalReturnUrl = returnUrl || window.location.pathname;
+      
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { tier }
+        body: { 
+          tier,
+          returnUrl: finalReturnUrl
+        }
       });
 
       if (error) throw error;

@@ -32,7 +32,7 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
-    const { tier } = await req.json();
+    const { tier, returnUrl } = await req.json();
     if (!tier || !["glow", "vibe", "unlimited"].includes(tier)) {
       throw new Error("Invalid subscription tier. Must be 'glow', 'vibe', or 'unlimited'");
     }
@@ -67,7 +67,7 @@ serve(async (req) => {
       ],
       mode: "subscription",
       success_url: `${req.headers.get("origin")}/coach?upgraded=true`,
-      cancel_url: `${req.headers.get("origin")}/plans`,
+      cancel_url: `${req.headers.get("origin")}${returnUrl || '/plans'}`,
       metadata: {
         tier: tier,
         user_id: user.id
