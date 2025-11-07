@@ -95,20 +95,20 @@ export const UpgradeModal = ({
 
         <div className="mt-3 md:mt-2 space-y-2 md:space-y-1.5">
           {/* Current Usage */}
-          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/20 via-white/15 to-white/10 border border-white/30 shadow-lg w-full box-border">
+          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-white/60">current plan</p>
+                <p className="text-xs text-white/80">current plan</p>
                 <p className="text-lg font-semibold text-white">{currentTier}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs text-white/60">messages used</p>
+                <p className="text-xs text-white/80">messages used</p>
                 <p className="text-lg font-semibold text-white">
                   {messagesUsed} / {messageLimit}
                 </p>
               </div>
             </div>
-            <div className="mt-1.5 w-full bg-white/15 rounded-full h-2">
+            <div className="mt-1.5 w-full bg-white/25 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-coral-400 to-pink-500 h-2 rounded-full transition-all"
                 style={{ width: `${Math.min((messagesUsed / messageLimit) * 100, 100)}%` }}
@@ -127,13 +127,13 @@ export const UpgradeModal = ({
               return (
                 <Card 
                   key={plan.id}
-                  className={`backdrop-blur-xl bg-gradient-to-br from-white/20 via-white/15 to-white/10 relative rounded-3xl shadow-3xl border border-white/30 transition-all duration-300 md:hover:-translate-y-2 flex flex-col w-full box-border ${
-                    isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''
-                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''}`}
+                  className={`backdrop-blur-xl bg-gradient-to-br from-white/35 via-white/30 to-white/25 relative rounded-3xl shadow-2xl border border-white/50 transition-all duration-300 md:hover:-translate-y-2 flex flex-col w-full box-border ${
+                    isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''
+                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''}`}
                 >
                   {isPopular && (
                     <div className="absolute -top-2 lg:-top-3 left-1/2 -translate-x-1/2 z-10">
-                      <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 sm:px-5 lg:px-6 py-0.5 rounded-full text-xs font-semibold border border-white/10 whitespace-nowrap">
+                      <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 sm:px-5 lg:px-6 py-0.5 rounded-full text-xs font-semibold border border-white/30 shadow-lg whitespace-nowrap">
                         most popular
                       </span>
                     </div>
@@ -142,7 +142,7 @@ export const UpgradeModal = ({
                   <div className="p-3 md:p-3.5 lg:p-3 pb-5 md:pb-4 flex-1 flex flex-col">
                     {/* Icon */}
                     <div className="mb-2 md:mb-2.5">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/30 to-pink-400/30 border border-white/30 flex items-center justify-center">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/40 to-pink-400/40 border border-white/40 shadow-md flex items-center justify-center">
                         <plan.icon className="w-4 h-4 sm:w-5 sm:h-5 text-coral-400" />
                       </div>
                     </div>
@@ -156,22 +156,22 @@ export const UpgradeModal = ({
                     <div className="mb-1 text-center">
                       <span className="text-2xl font-thin text-white">{plan.price}</span>
                     </div>
-                    <p className="text-white/60 text-xs mb-2 text-center">
+                    <p className="text-white/80 text-xs mb-2 text-center">
                       per {plan.period}
                     </p>
 
                     {/* Description */}
-                    <p className="text-white/60 text-xs leading-tight mb-4 text-center">
+                    <p className="text-white/80 text-xs leading-tight mb-4 text-center">
                       {plan.description}
                     </p>
 
                     {/* Message Count Badge */}
                     <div className="mb-2 md:mb-2.5">
-                      <div className="bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg border border-white/20 p-2.5 sm:p-3 text-center">
+                      <div className="bg-gradient-to-r from-coral-400/35 to-pink-400/35 rounded-lg border border-white/40 shadow-md p-2.5 sm:p-3 text-center">
                         <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
                         </div>
-                        <div className="text-xs text-white/50 mt-1">
+                        <div className="text-xs text-white/70 mt-1">
                           per month
                         </div>
                       </div>
@@ -182,7 +182,7 @@ export const UpgradeModal = ({
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-coral-400 flex-shrink-0 mt-0.5" />
-                          <span className="text-xs text-white/70 leading-relaxed">{feature}</span>
+                          <span className="text-xs text-white/85 leading-relaxed">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -194,7 +194,7 @@ export const UpgradeModal = ({
                       className={`w-full rounded-full text-sm font-semibold mt-auto ${
                         isPopular || isRecommended 
                           ? 'bg-gradient-to-r from-coral-400 to-pink-500 text-white hover:from-coral-500 hover:to-pink-600 shadow-lg' 
-                          : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+                          : 'bg-white/15 text-white hover:bg-white/25 border border-white/30'
                       }`}
                     >
                       {upgrading === plan.tier ? 'processing...' : 
