@@ -197,10 +197,10 @@ export const UpgradeModal = ({
                           : 'bg-white/15 text-white hover:bg-white/25 border border-white/30'
                       }`}
                     >
-                      {upgrading === plan.tier ? 'processing...' : 
-                       isCurrent ? 'current plan' :
-                       !canUpgrade ? 'not available' :
-                       plan.buttonText}
+                  {upgrading === plan.tier ? 'opening checkout...' : 
+                   isCurrent ? 'current plan' :
+                   !canUpgrade ? 'not available' :
+                   plan.buttonText}
                     </Button>
                   </div>
                 </Card>
