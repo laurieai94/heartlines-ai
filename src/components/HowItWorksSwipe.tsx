@@ -192,7 +192,7 @@ const HowItWorksSwipe = () => {
         {/* Navigation Buttons */}
         <button
           onClick={scrollPrev}
-          className="absolute left-1 md:left-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full backdrop-blur-md bg-white/20 border border-white/30 hover:bg-white/30 hover:scale-110 transition-all duration-300 group shadow-lg"
+          className="absolute left-1 md:left-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full md:backdrop-blur-md md:bg-white/20 md:border md:border-white/30 md:hover:bg-white/30 hover:scale-110 transition-all duration-300 group md:shadow-lg"
           aria-label="Previous slide"
         >
           <ChevronLeft className="w-5 h-5 text-white/70 group-hover:text-white transition-colors drop-shadow-sm" />
@@ -200,7 +200,7 @@ const HowItWorksSwipe = () => {
         
         <button
           onClick={scrollNext}
-          className="absolute right-1 md:right-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full backdrop-blur-md bg-white/20 border border-white/30 hover:bg-white/30 hover:scale-110 transition-all duration-300 group shadow-lg"
+          className="absolute right-1 md:right-4 top-1/2 -translate-y-1/2 p-1 md:p-3 rounded-lg md:rounded-full md:backdrop-blur-md md:bg-white/20 md:border md:border-white/30 md:hover:bg-white/30 hover:scale-110 transition-all duration-300 group md:shadow-lg"
           aria-label="Next slide"
         >
           <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors drop-shadow-sm" />

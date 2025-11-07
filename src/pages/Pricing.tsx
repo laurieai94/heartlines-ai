@@ -13,6 +13,7 @@ import DashboardHeader from "@/components/DashboardHeader";
 import { pricingPlans } from "@/data/pricingPlans";
 import PremiumBackground from "@/components/PremiumBackground";
 import { SubscriptionStatusBanner } from "@/components/account/SubscriptionStatusBanner";
+import { MobileHeaderVisibilityProvider } from '@/contexts/MobileHeaderVisibilityContext';
 const faqs = [{
   question: "can i change or cancel my plan anytime?",
   answer: "yep. no contracts, no weird fine print. cancel, upgrade, or downgrade whenever you want."
@@ -98,10 +99,11 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
+  return <MobileHeaderVisibilityProvider>
+    <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
       <PremiumBackground />
 
-      <DashboardHeader 
+      <DashboardHeader
         accessLevel="full" 
         profileCompletion={100}
         user={user}
@@ -212,6 +214,7 @@ const Pricing = () => {
 
         </div>
       </div>
-    </div>;
+    </div>
+  </MobileHeaderVisibilityProvider>;
 };
 export default Pricing;
