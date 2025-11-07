@@ -242,7 +242,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             {/* Thinking text indicator */}
             <div className="flex items-center">
               <span className="text-xs text-pink-200/60 italic">
-                thinking
+                pondering
                 <span className="inline-flex ml-0.5">
                   <span className="animate-[fadeInOut_1.4s_ease-in-out_infinite]">.</span>
                   <span className="animate-[fadeInOut_1.4s_ease-in-out_0.2s_infinite]">.</span>
