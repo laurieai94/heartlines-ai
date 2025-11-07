@@ -31,7 +31,10 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
         <div className="text-center mb-8">
           <h1 
             id="welcome-dialog-title"
-            className="text-3xl font-brand text-white mb-3"
+            className="text-3xl font-brand mb-3 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
+            style={{
+              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+            }}
           >
             welcome to heartlines
           </h1>
