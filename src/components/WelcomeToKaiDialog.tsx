@@ -37,7 +37,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
             heartlines calling
           </h1>
           <p className="text-white/80 text-lg leading-relaxed md:whitespace-nowrap">
-            5 questions before kai picks up.
+            just 5 q's to break the ice.
           </p>
         </div>
 
