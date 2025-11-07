@@ -32,8 +32,8 @@ export const UpgradeModal = ({
   
   // Reorder plans to show current plan last
   const reorderedPlans = [...allPlans].sort((a, b) => {
-    const aIsCurrent = a.tier === currentTier;
-    const bIsCurrent = b.tier === currentTier;
+    const aIsCurrent = a.id === currentTier;
+    const bIsCurrent = b.id === currentTier;
     
     if (aIsCurrent) return 1;  // Move current plan to end
     if (bIsCurrent) return -1;
@@ -117,7 +117,7 @@ export const UpgradeModal = ({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 w-full mx-auto items-stretch">
             {reorderedPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
-              const isCurrent = plan.tier === currentTier;
+              const isCurrent = plan.id === currentTier;
               const canUpgrade = canUpgradeTo(plan.tier || '');
               const isPopular = plan.tier === 'vibe';
               
