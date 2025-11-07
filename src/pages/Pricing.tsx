@@ -88,8 +88,8 @@ const Pricing = () => {
       });
       if (error) throw error;
 
-      // Open Stripe checkout in new tab
-      window.open(data.url, '_blank');
+      // Navigate to Stripe checkout in same window
+      window.location.href = data.url;
     } catch (error) {
       console.error('Error creating checkout session:', error);
       toast.error("error", {
