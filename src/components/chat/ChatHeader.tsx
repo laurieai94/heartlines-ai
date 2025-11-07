@@ -21,7 +21,6 @@ export const ChatHeader = ({
 }: ChatHeaderProps) => {
   const { isMobile } = useOptimizedMobile();
   const [isActionsOpen, setIsActionsOpen] = useState(false);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
 
   return (
     <div className="chat-header sticky top-0 z-50 md:z-[70] shrink-0 bg-burgundy-800 md:bg-burgundy-800/50 backdrop-blur-none md:backdrop-blur-md border-b border-pink-400/10 shadow-lg">
@@ -45,7 +44,47 @@ export const ChatHeader = ({
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold text-base truncate">kai</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-white font-semibold text-base truncate">kai</h3>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          aria-label="about kai" 
+                          className="h-5 w-5 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white transition-all duration-200 flex-shrink-0"
+                        >
+                          <Info className="w-3 h-3" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent 
+                        side="bottom" 
+                        align="start" 
+                        sideOffset={8}
+                        className="w-[calc(100vw-32px)] max-w-md p-4 bg-burgundy-900/95 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-[100]"
+                      >
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-coral-400 to-burgundy-500 rounded-full flex items-center justify-center shadow-lg">
+                              <Heart className="w-5 h-5 text-white" />
+                            </div>
+                            <h3 className="font-semibold text-white text-lg">meet kai</h3>
+                          </div>
+                          <div className="space-y-3">
+                            <p className="text-sm text-white/90 leading-relaxed">
+                              your ai relationship coach, trained in phd-level psychology and real-world clinical care.
+                            </p>
+                            <p className="text-sm text-white/80 leading-relaxed">
+                              grounded in evidence-based and trauma-informed practices, kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
+                            </p>
+                            <p className="text-sm text-white/80 leading-relaxed">
+                              <span className="text-coral-300 font-medium">lgbtq+ inclusive</span> and designed for real life, kai meets you where you are.
+                            </p>
+                          </div>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                   <span className="text-white/70 text-xs truncate block">your ai coach</span>
                 </div>
               </div>
@@ -93,51 +132,6 @@ export const ChatHeader = ({
                         <span className="text-base font-medium">Chat History</span>
                       </Button>
                     )}
-                    
-                    <Button
-                      variant="ghost"
-                      onClick={() => {
-                        setIsActionsOpen(false);
-                        setIsAboutOpen(true);
-                      }}
-                      className="w-full h-14 justify-start gap-3 text-white hover:bg-white/10 active:scale-[0.98] transition-all touch-manipulation rounded-xl"
-                    >
-                      <Info className="w-5 h-5 text-coral-400" />
-                      <span className="text-base font-medium">About Kai</span>
-                    </Button>
-                  </div>
-                </PopoverContent>
-              </Popover>
-
-              {/* About Kai Popover - Separate from Actions Menu */}
-              <Popover open={isAboutOpen} onOpenChange={setIsAboutOpen}>
-                <PopoverTrigger asChild>
-                  <div className="hidden" />
-                </PopoverTrigger>
-                <PopoverContent 
-                  side="bottom" 
-                  align="center" 
-                  sideOffset={8}
-                  className="w-[calc(100vw-32px)] max-w-md p-4 bg-burgundy-900/95 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-[100]"
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-coral-400 to-burgundy-500 rounded-full flex items-center justify-center shadow-lg">
-                        <Heart className="w-5 h-5 text-white" />
-                      </div>
-                      <h3 className="font-semibold text-white text-lg">meet kai</h3>
-                    </div>
-                    <div className="space-y-3">
-                      <p className="text-sm text-white/90 leading-relaxed">
-                        your ai relationship coach, trained in phd-level psychology and real-world clinical care.
-                      </p>
-                      <p className="text-sm text-white/80 leading-relaxed">
-                        grounded in evidence-based and trauma-informed practices, kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
-                      </p>
-                      <p className="text-sm text-white/80 leading-relaxed">
-                        <span className="text-coral-300 font-medium">lgbtq+ inclusive</span> and designed for real life, kai meets you where you are.
-                      </p>
-                    </div>
                   </div>
                 </PopoverContent>
               </Popover>
