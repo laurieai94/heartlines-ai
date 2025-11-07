@@ -17,15 +17,15 @@ export interface DemoConversation {
 export const demoConversations: DemoConversation[] = [
   {
     id: 'texting-communication',
-    title: 'Texting Anxiety',
-    theme: 'Communication',
+    title: 'texting anxiety',
+    theme: 'communication',
     userName: 'Maya',
-    coachName: 'Kai',
+    coachName: 'kai',
     messages: [
       {
         id: '1',
         type: 'user',
-        content: 'Kai, he hasn\'t texted me all day.',
+        content: 'kai, he hasn\'t texted me all day.',
         timestamp: '10:23 AM'
       },
       {
@@ -110,15 +110,15 @@ export const demoConversations: DemoConversation[] = [
   },
   {
     id: 'grindr-connection',
-    title: 'Dating App Fatigue',
-    theme: 'Self-Worth & Connection',
+    title: 'dating app fatigue',
+    theme: 'self-worth & connection',
     userName: 'Alex',
-    coachName: 'Kai',
+    coachName: 'kai',
     messages: [
       {
         id: '1',
         type: 'user',
-        content: 'Kai, I\'m so drained from Grindr. Same cycle every night.',
+        content: 'kai, I\'m so drained from Grindr. Same cycle every night.',
         timestamp: '8:15 PM'
       },
       {
@@ -251,15 +251,15 @@ export const demoConversations: DemoConversation[] = [
   },
   {
     id: 'new-baby-closeness',
-    title: 'New Baby, Less Closeness',
-    theme: 'Parenthood & Connection',
+    title: 'new baby, less closeness',
+    theme: 'parenthood & connection',
     userName: 'Marcus',
-    coachName: 'Kai',
+    coachName: 'kai',
     messages: [
       {
         id: '1',
         type: 'user',
-        content: 'Kai, I feel like I lost my wife since the baby came.',
+        content: 'kai, I feel like I lost my wife since the baby came.',
         timestamp: '9:15 PM'
       },
       {
@@ -350,15 +350,15 @@ export const demoConversations: DemoConversation[] = [
   },
   {
     id: 'moving-in-together',
-    title: 'Moving In Together',
-    theme: 'Commitment & Timing',
+    title: 'moving in together',
+    theme: 'commitment & timing',
     userName: 'Jordan',
-    coachName: 'Kai',
+    coachName: 'kai',
     messages: [
       {
         id: '1',
         type: 'user',
-        content: 'Kai, she wants us to move in together after 3 months.',
+        content: 'kai, she wants us to move in together after 3 months.',
         timestamp: '2:15 PM'
       },
       {
@@ -461,10 +461,10 @@ export const demoConversations: DemoConversation[] = [
   },
   {
     id: 'money-conflict',
-    title: 'Money Talks',
-    theme: 'Financial Communication',
+    title: 'money talks',
+    theme: 'financial communication',
     userName: 'Sarah',
-    coachName: 'Kai',
+    coachName: 'kai',
     messages: [
       {
         id: '1',
