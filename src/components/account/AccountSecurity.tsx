@@ -14,6 +14,7 @@ import { validatePasswordPolicy } from '@/utils/passwordPolicy';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { cleanupAuthState } from '@/utils/authCleanup';
 
 const AccountSecurity = () => {
   const { isMobile } = useOptimizedMobile();
@@ -162,6 +163,9 @@ const AccountSecurity = () => {
         });
         return;
       }
+      
+      // Clean up all user data before signing out
+      cleanupAuthState();
       
       // Sign out and notify (proper deletion requires backend implementation)
       await supabase.auth.signOut();
