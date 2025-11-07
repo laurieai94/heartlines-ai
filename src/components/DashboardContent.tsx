@@ -159,12 +159,10 @@ const DashboardContent = ({
       case "insights":
         return (
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden flex flex-col">
-            <ProgressiveAccessWrapper action="insights">
-              <AIInsights 
-                profiles={temporaryProfiles}
-                demographicsData={temporaryDemographics}
-              />
-            </ProgressiveAccessWrapper>
+            <AIInsights 
+              profiles={temporaryProfiles}
+              demographicsData={temporaryDemographics}
+            />
           </div>
         );
       case "privacy":
