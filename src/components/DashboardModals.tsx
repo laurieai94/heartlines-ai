@@ -4,6 +4,7 @@ import SignUpModal from "@/components/SignUpModal";
 import SplashScreen from "@/components/SplashScreen";
 import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
 import BrandLoadingText from "@/components/BrandLoadingText";
+import WelcomeToKaiDialog from "@/components/WelcomeToKaiDialog";
 
 // Simple error boundary for chunk loading failures
 class ChunkErrorBoundary extends Component<
@@ -52,6 +53,8 @@ interface DashboardModalsProps {
   onCloseSignUpModal: () => void;
   showSignInModal?: boolean;
   onCloseSignInModal?: () => void;
+  showWelcomeDialog?: boolean;
+  onWelcomeDialogContinue?: () => void;
   blockingAction?: string;
   showQuestionnaireModal: boolean;
   onQuestionnaireComplete: (data: any) => void;
@@ -76,6 +79,8 @@ const DashboardModals = ({
   onCloseSignUpModal,
   showSignInModal,
   onCloseSignInModal,
+  showWelcomeDialog,
+  onWelcomeDialogContinue,
   blockingAction,
   showQuestionnaireModal,
   onQuestionnaireComplete,
@@ -111,6 +116,14 @@ const DashboardModals = ({
           isOpen={showSignInModal}
           onClose={onCloseSignInModal}
           initialMode="signIn"
+        />
+      )}
+
+      {/* Welcome Dialog */}
+      {showWelcomeDialog && onWelcomeDialogContinue && (
+        <WelcomeToKaiDialog
+          isOpen={showWelcomeDialog}
+          onGetStarted={onWelcomeDialogContinue}
         />
       )}
 

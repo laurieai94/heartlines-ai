@@ -37,6 +37,7 @@ export const useDashboardModalState = () => {
   const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
   const [questionnaireOrigin, setQuestionnaireOrigin] = useState<'header' | 'chat' | null>(null);
   
   // Persistent suppress flag for partner completion popup
@@ -136,6 +137,8 @@ export const useDashboardModalState = () => {
     setShowPartnerCompletionOptions,
     showSignInModal,
     setShowSignInModal,
+    showWelcomeDialog,
+    setShowWelcomeDialog,
     questionnaireOrigin,
     setQuestionnaireOrigin,
     suppressPartnerCompletionPopup,

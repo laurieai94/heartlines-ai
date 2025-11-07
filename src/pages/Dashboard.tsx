@@ -27,10 +27,14 @@ const Dashboard = () => {
     showPartnerCompletionOptions,
     shouldShowSignUpModal,
     showSignInModal,
+    showWelcomeDialog,
+    setShowWelcomeDialog,
     blockingAction,
     closeSignUpModal,
     closeSignInModal,
     openSignInModal,
+    closeWelcomeDialog,
+    handleWelcomeDialogContinue,
     accessLevel,
     profileCompletion,
     temporaryProfiles,
@@ -75,7 +79,7 @@ const Dashboard = () => {
     }
   }, [accessLevel, user]);
 
-  // Auto-open Personal Questionnaire only for brand-new signups
+  // Show welcome dialog for brand-new signups, then auto-open questionnaire
   useEffect(() => {
     // PREVENT LOOP: Don't auto-open if we're completing questionnaire
     const isCompleting = sessionStorage.getItem('questionnaire-completing');
@@ -85,7 +89,6 @@ const Dashboard = () => {
     }
     
     // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab
-    // The user explicitly chose to go there, so don't interrupt
     if (activeTab === 'insights') {
       console.log('[Dashboard] On coach tab - skipping auto-open logic');
       return;
@@ -94,28 +97,32 @@ const Dashboard = () => {
     if (activeTab === 'profile' && 
         accessLevel === 'profile-required' && 
         user && 
-        !showQuestionnaireModal) {
+        !showQuestionnaireModal &&
+        !showWelcomeDialog) {
       
       // Check if user is brand new (signed up within 24 hours)
       const userCreatedAt = new Date(user.created_at);
       const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
       const isBrandNew = userCreatedAt > twentyFourHoursAgo;
       
-      // Use per-user localStorage key to avoid cross-user conflicts
+      // Use per-user localStorage keys to avoid cross-user conflicts
       const userAutoOpenKey = `profileAutoOpenedOnce_${user.id}`;
+      const userWelcomeShownKey = `welcomeDialogShown_${user.id}`;
       const hasAutoOpened = localStorage.getItem(userAutoOpenKey);
+      const hasShownWelcome = localStorage.getItem(userWelcomeShownKey);
       
-      if (isBrandNew && !hasAutoOpened) {
-        // Set per-user flag to avoid reopening repeatedly
+      if (isBrandNew && !hasAutoOpened && !hasShownWelcome) {
+        // Set per-user flags
         localStorage.setItem(userAutoOpenKey, 'true');
+        localStorage.setItem(userWelcomeShownKey, 'true');
         
-        // Small delay to ensure component is mounted
+        // Small delay to ensure component is mounted, then show welcome dialog
         setTimeout(() => {
-          handleOpenQuestionnaire('header');
+          setShowWelcomeDialog(true);
         }, 100);
       }
     }
-  }, [activeTab, accessLevel, user, showQuestionnaireModal, handleOpenQuestionnaire]);
+  }, [activeTab, accessLevel, user, showQuestionnaireModal, showWelcomeDialog, setShowWelcomeDialog]);
 
   const handleSignInClick = () => {
     openSignInModal();
@@ -173,6 +180,8 @@ const Dashboard = () => {
             onCloseSignUpModal={closeSignUpModal}
             showSignInModal={showSignInModal}
             onCloseSignInModal={closeSignInModal}
+            showWelcomeDialog={showWelcomeDialog}
+            onWelcomeDialogContinue={handleWelcomeDialogContinue}
             blockingAction={blockingAction}
             showQuestionnaireModal={showQuestionnaireModal}
             onQuestionnaireComplete={handleQuestionnaireComplete}

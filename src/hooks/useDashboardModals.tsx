@@ -29,7 +29,7 @@ export const useDashboardModals = () => {
   });
 
   // Add sign-in modal state management
-  const { showSignInModal, setShowSignInModal } = modalState;
+  const { showSignInModal, setShowSignInModal, showWelcomeDialog, setShowWelcomeDialog } = modalState;
 
   const openSignInModal = useCallback(() => {
     setShowSignInModal(true);
@@ -39,9 +39,23 @@ export const useDashboardModals = () => {
     setShowSignInModal(false);
   }, [setShowSignInModal]);
 
+  // Welcome dialog handlers
+  const closeWelcomeDialog = useCallback(() => {
+    setShowWelcomeDialog(false);
+  }, [setShowWelcomeDialog]);
+
+  const handleWelcomeDialogContinue = useCallback(() => {
+    setShowWelcomeDialog(false);
+    // Small delay to ensure welcome dialog closes before questionnaire opens
+    setTimeout(() => {
+      modalHandlers.handleOpenQuestionnaire('header');
+    }, 100);
+  }, [setShowWelcomeDialog, modalHandlers]);
+
   const isAnyModalOpen = useMemo(() => 
     shouldShowSignUpModal || 
     showSignInModal ||
+    showWelcomeDialog ||
     modalState.showQuestionnaireModal || 
     modalState.showPartnerQuestionnaireModal || 
     modalState.showPersonalCompletionOptions || 
@@ -49,6 +63,7 @@ export const useDashboardModals = () => {
     [
       shouldShowSignUpModal,
       showSignInModal,
+      showWelcomeDialog,
       modalState.showQuestionnaireModal,
       modalState.showPartnerQuestionnaireModal,
       modalState.showPersonalCompletionOptions,
@@ -61,10 +76,13 @@ export const useDashboardModals = () => {
     ...modalState,
     shouldShowSignUpModal,
     showSignInModal,
+    showWelcomeDialog,
     blockingAction,
     closeSignUpModal,
     closeSignInModal,
     openSignInModal,
+    closeWelcomeDialog,
+    handleWelcomeDialogContinue,
     accessLevel,
     profileCompletion,
     isAnyModalOpen,
@@ -74,10 +92,13 @@ export const useDashboardModals = () => {
     modalState,
     shouldShowSignUpModal,
     showSignInModal,
+    showWelcomeDialog,
     blockingAction,
     closeSignUpModal,
     closeSignInModal,
     openSignInModal,
+    closeWelcomeDialog,
+    handleWelcomeDialogContinue,
     accessLevel,
     profileCompletion,
     isAnyModalOpen,
