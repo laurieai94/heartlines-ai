@@ -82,7 +82,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[95vw] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-700/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border-white/20 rounded-3xl p-4 sm:p-6">
+      <DialogContent className="max-w-[95vw] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-700/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border-white/20 rounded-3xl p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
@@ -90,9 +90,9 @@ export const UpgradeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-4 space-y-2">
+        <div className="mt-3 md:mt-2 space-y-2 md:space-y-1.5">
           {/* Current Usage */}
-          <Card className="backdrop-blur-xl rounded-2xl p-2.5 bg-gradient-to-br from-white/15 via-white/10 to-white/5 border border-white/25 shadow-lg">
+          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/15 via-white/10 to-white/5 border border-white/25 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/60">current plan</p>
@@ -136,9 +136,9 @@ export const UpgradeModal = ({
                     </div>
                   )}
                   
-                  <div className="p-3 sm:p-4 pb-5 sm:pb-6 flex-1 flex flex-col">
+                  <div className="p-3 md:p-3.5 lg:p-3 pb-5 md:pb-4 flex-1 flex flex-col">
                     {/* Icon */}
-                    <div className="mb-3">
+                    <div className="mb-2 md:mb-2.5">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/30 to-pink-400/30 border border-white/30 flex items-center justify-center">
                         <plan.icon className="w-4 h-4 sm:w-5 sm:h-5 text-coral-400" />
                       </div>
@@ -163,7 +163,7 @@ export const UpgradeModal = ({
                     </p>
 
                     {/* Message Count Badge */}
-                    <div className="mb-3">
+                    <div className="mb-2 md:mb-2.5">
                       <div className="bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg border border-white/20 p-2.5 sm:p-3 text-center">
                         <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
@@ -175,7 +175,7 @@ export const UpgradeModal = ({
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-1.5 mb-3 flex-1">
+                    <ul className="space-y-1.5 mb-2 md:mb-2.5 flex-1">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-coral-400 flex-shrink-0 mt-0.5" />
@@ -205,7 +205,7 @@ export const UpgradeModal = ({
             })}
           </div>
 
-          <div className="text-center pt-2">
+          <div className="text-center pt-2 md:pt-1">
             <Button
               variant="ghost"
               onClick={() => onOpenChange(false)}
