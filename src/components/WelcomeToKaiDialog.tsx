@@ -23,7 +23,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
         {/* Flip Phone Icon */}
         <div className="flex justify-center mb-6">
           <div className="p-4 rounded-full bg-gradient-to-br from-coral-500/20 to-burgundy-500/20 border border-coral-500/30">
-            <FlipPhoneIcon size={32} className="text-coral-400" />
+            <FlipPhoneIcon size={64} className="text-coral-400" />
           </div>
         </div>
 
@@ -33,7 +33,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
             id="welcome-dialog-title"
             className="text-3xl font-brand text-white mb-3"
           >
-            welcome to heartlines 💛
+            welcome to heartlines
           </h1>
           <p className="text-white/80 text-lg leading-relaxed md:whitespace-nowrap">
             you're 5 questions away from chatting with kai.
