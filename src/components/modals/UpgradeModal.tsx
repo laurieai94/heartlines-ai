@@ -82,7 +82,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[95vw] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-4 sm:p-6">
+      <DialogContent className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-4 sm:p-6 box-border">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
@@ -92,7 +92,7 @@ export const UpgradeModal = ({
 
         <div className="mt-3 md:mt-2 space-y-2 md:space-y-1.5">
           {/* Current Usage */}
-          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/20 via-white/15 to-white/10 border border-white/30 shadow-lg">
+          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/20 via-white/15 to-white/10 border border-white/30 shadow-lg w-full box-border">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/60">current plan</p>
@@ -114,7 +114,7 @@ export const UpgradeModal = ({
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 w-full mx-auto items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 w-full mx-auto items-stretch overflow-x-hidden">
             {reorderedPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.id === currentTier;
@@ -124,7 +124,7 @@ export const UpgradeModal = ({
               return (
                 <Card 
                   key={plan.id}
-                  className={`backdrop-blur-xl bg-gradient-to-br from-white/20 via-white/15 to-white/10 relative rounded-3xl shadow-3xl border border-white/30 transition-all duration-300 md:hover:-translate-y-2 flex flex-col ${
+                  className={`backdrop-blur-xl bg-gradient-to-br from-white/20 via-white/15 to-white/10 relative rounded-3xl shadow-3xl border border-white/30 transition-all duration-300 md:hover:-translate-y-2 flex flex-col w-full box-border ${
                     isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''
                   } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''}`}
                 >
