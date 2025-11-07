@@ -61,7 +61,7 @@ export const ChatHeader = ({
                         side="bottom" 
                         align="start" 
                         sideOffset={8}
-                        className="w-[calc(100vw-32px)] max-w-md p-4 bg-burgundy-900/85 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-[100]"
+                        className="w-[280px] max-w-[calc(100vw-32px)] p-4 bg-burgundy-900/85 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-[100]"
                       >
                         <div className="space-y-4">
                           <div className="flex items-center gap-3">
