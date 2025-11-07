@@ -11,20 +11,21 @@ interface NavigationPullTabProps {
 
 const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   const location = useLocation();
-  const { visible, setVisible, forceVisible } = useMobileHeaderVisibility();
+  const { visible, forceVisible, setNavigationOpened } = useMobileHeaderVisibility();
   const isKeyboardVisible = useKeyboardDetection();
   const { isMobile } = useOptimizedMobile();
 
   // Only show on dashboard route
   const isDashboardRoute = location.pathname === '/';
 
-  // Debounced forceVisible to prevent excessive re-renders
-  const debouncedForceVisible = useCallback(() => {
+  // Debounced handler to open navigation drawer
+  const handleOpenNavigation = useCallback(() => {
     requestAnimationFrame(() => {
       forceVisible();
+      setNavigationOpened(true);
       onOpenNavigation?.();
     });
-  }, [forceVisible, onOpenNavigation]);
+  }, [forceVisible, setNavigationOpened, onOpenNavigation]);
 
   // Show when keyboard is visible OR header is hidden
   const shouldShow = isDashboardRoute && isMobile && (isKeyboardVisible || !visible);
@@ -36,7 +37,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   return (
     <div 
       className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[55] bg-primary rounded-b-3xl px-12 py-6 shadow-2xl cursor-pointer active:scale-95 border-b-4 border-primary-foreground/40"
-      onClick={debouncedForceVisible}
+      onClick={handleOpenNavigation}
       style={{
         touchAction: 'manipulation',
         WebkitTouchCallout: 'none',

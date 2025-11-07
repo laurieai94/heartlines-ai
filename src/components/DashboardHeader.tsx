@@ -37,20 +37,19 @@ interface DashboardHeaderProps {
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   const navigate = useNavigate();
   const { isMobile } = useOptimizedMobile();
-  const { visible } = useMobileHeaderVisibility();
+  const { visible, navigationOpened, setNavigationOpened } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
   const { isAdmin } = useIsAdmin();
-  const [isNavOpen, setIsNavOpen] = useState(false);
   const { signOut } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
-    setIsNavOpen(false);
+    setNavigationOpened(false);
   };
 
   // Lock scroll when nav is open on mobile - optimized for performance
   useEffect(() => {
-    if (isNavOpen && isMobile) {
+    if (navigationOpened && isMobile) {
       document.body.style.overflow = 'hidden';
       document.body.style.touchAction = 'none';
       
@@ -59,7 +58,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
         document.body.style.touchAction = '';
       };
     }
-  }, [isNavOpen, isMobile]);
+  }, [navigationOpened, isMobile]);
   
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'plans') {
@@ -118,7 +117,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
-            <Sheet open={isNavOpen} onOpenChange={setIsNavOpen}>
+            <Sheet open={navigationOpened} onOpenChange={setNavigationOpened}>
               <SheetTrigger asChild>
                 <Button 
                   variant="ghost" 
@@ -141,7 +140,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                         onMouseEnter={() => handleTabHover(item.value)}
                         onClick={() => {
                           handleNavigation(item);
-                          setIsNavOpen(false);
+                          setNavigationOpened(false);
                         }}
                         className={`flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 ${
                           isActive 
