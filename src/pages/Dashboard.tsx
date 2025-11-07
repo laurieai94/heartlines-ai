@@ -137,7 +137,7 @@ const Dashboard = () => {
           <div className={`h-[100dvh] ${activeTab === 'insights' ? 'chat-page' : ''}`}>
             {/* Main Dashboard Content - This gets blurred when modals are open */}
             <div className={`h-full flex flex-col relative ${isAnyModalOpen ? 'blur-sm md:blur-sm' : ''} transition-all duration-300`}>
-          <PremiumBackground />
+          <PremiumBackground className={activeTab === 'insights' ? 'md:block hidden' : ''} />
 
               <DashboardHeader 
                 accessLevel={accessLevel}

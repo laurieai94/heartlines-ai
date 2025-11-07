@@ -236,7 +236,7 @@
 
   body {
     @apply text-foreground;
-    background: transparent;
+    background: hsl(350, 100%, 20%);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;
@@ -431,7 +431,7 @@
   }
 
 /* Prevent avatar glow clipping on tablet/mobile */
-@media (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   /* Move backdrop-filter to pseudo-element to prevent clipping children */
   [data-mobile-chat]::before {
     content: "";
