@@ -47,7 +47,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
             onClick={onGetStarted} 
             className="w-full questionnaire-button-primary text-lg py-6"
           >
-            let's go
+            let's get real
           </Button>
         </div>
       </div>
