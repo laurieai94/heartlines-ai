@@ -60,7 +60,7 @@ serve(async (req) => {
     let event: Stripe.Event;
     
     try {
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+      event = await stripe.webhooks.constructEventAsync(body, signature, webhookSecret);
       logStep("Signature verified", { type: event.type });
     } catch (err) {
       logStep("Signature verification failed", { error: err.message });
