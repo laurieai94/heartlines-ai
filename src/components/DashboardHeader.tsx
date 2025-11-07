@@ -129,7 +129,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <SheetContent 
                 side="left"
                 hideClose={true}
-                className="w-[260px] bg-gradient-to-br from-burgundy-900/98 to-burgundy-800/98 backdrop-blur-xl border-r border-coral-400/20 p-0"
+                className="w-[260px] bg-gradient-to-br from-burgundy-900/75 to-burgundy-800/75 backdrop-blur-2xl border-r border-coral-400/10 shadow-2xl p-0"
               >
                 <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
                   {navigationItems.map((item) => {

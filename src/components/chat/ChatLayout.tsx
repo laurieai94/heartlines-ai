@@ -69,7 +69,7 @@ export const ChatLayout = ({
 
       {/* Chat History Sidebar - Lazy loaded */}
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-        <SheetContent side="left" className="bg-background/10 backdrop-blur-xl border border-white/10 shadow-2xl ring-1 ring-white/5 sm:max-w-sm p-0">
+        <SheetContent side="left" className="bg-burgundy-900/15 backdrop-blur-2xl border border-white/10 shadow-2xl ring-1 ring-white/5 sm:max-w-sm p-0">
           <Suspense fallback={
             <div className="p-4">
               <div className="animate-pulse space-y-4">
