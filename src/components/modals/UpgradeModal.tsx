@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { pricingPlans } from "@/data/pricingPlans";
-import { Check, Sparkles, Zap } from "lucide-react";
+import { Check, Clock, Zap } from "lucide-react";
 import { useOptimizedSubscription } from "@/hooks/useOptimizedSubscription";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -85,7 +85,7 @@ export const UpgradeModal = ({
       <DialogContent className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-4 sm:p-6 box-border">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
-            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
+            <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
             time to dive deeper?
           </DialogTitle>
         </DialogHeader>
