@@ -249,6 +249,11 @@ export default {
 				'fadeInOut': {
 					'0%, 100%': { opacity: '0' },
 					'50%': { opacity: '1' }
+				},
+				'wiggle': {
+					'0%, 100%': { transform: 'rotate(0deg)' },
+					'10%, 30%, 50%, 70%, 90%': { transform: 'rotate(-3deg)' },
+					'20%, 40%, 60%, 80%': { transform: 'rotate(3deg)' }
 				}
 			},
 			animation: {
@@ -266,7 +271,8 @@ export default {
 				'line-left-sequence': 'line-grow-center 0.9s ease-out forwards, line-open-left 0.6s ease-in 1.1s forwards',
 				'line-right-sequence': 'line-grow-center 0.9s ease-out forwards, line-open-right 0.6s ease-in 1.1s forwards',
 				'soft-glow': 'soft-glow 6s ease-in-out infinite',
-				'fadeInOut': 'fadeInOut 1.4s ease-in-out infinite'
+				'fadeInOut': 'fadeInOut 1.4s ease-in-out infinite',
+				'wiggle': 'wiggle 2s ease-in-out infinite'
 			}
 		}
 	},

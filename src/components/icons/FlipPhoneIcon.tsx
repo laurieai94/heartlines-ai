@@ -11,7 +11,7 @@ const FlipPhoneIcon = memo(({ className = "", size }: FlipPhoneIconProps) => {
     <img 
       src={flipPhone} 
       alt="Menu" 
-      className={`${className} transition-all duration-200 hover:rotate-6 active:scale-95`}
+      className={`${className} animate-wiggle transition-all duration-200 hover:rotate-6 active:scale-95`}
       style={size ? { width: size, height: size } : undefined}
     />
   );
