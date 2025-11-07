@@ -123,7 +123,7 @@ const AIChatInput = ({
         readOnly 
           ? `border-2 ${
               atLimit 
-                ? 'border-coral-400/60 shadow-[0_0_20px_rgba(251,146,60,0.5),0_0_40px_rgba(236,72,153,0.4),0_0_60px_rgba(251,113,133,0.3)] animate-pulse-glow' 
+                ? 'border-coral-400/30 shadow-[0_0_12px_rgba(251,146,60,0.25),0_0_24px_rgba(236,72,153,0.2),0_0_36px_rgba(251,113,133,0.15)] animate-pulse-glow' 
                 : 'border-white/20'
             }` 
           : isMobile
