@@ -82,7 +82,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[95vw] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-700/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border-white/20 rounded-3xl p-4 sm:p-6">
+      <DialogContent className="max-w-[95vw] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
@@ -92,7 +92,7 @@ export const UpgradeModal = ({
 
         <div className="mt-3 md:mt-2 space-y-2 md:space-y-1.5">
           {/* Current Usage */}
-          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/15 via-white/10 to-white/5 border border-white/25 shadow-lg">
+          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/20 via-white/15 to-white/10 border border-white/30 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/60">current plan</p>
@@ -105,7 +105,7 @@ export const UpgradeModal = ({
                 </p>
               </div>
             </div>
-            <div className="mt-1.5 w-full bg-white/10 rounded-full h-2">
+            <div className="mt-1.5 w-full bg-white/15 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-coral-400 to-pink-500 h-2 rounded-full transition-all"
                 style={{ width: `${Math.min((messagesUsed / messageLimit) * 100, 100)}%` }}
@@ -124,7 +124,7 @@ export const UpgradeModal = ({
               return (
                 <Card 
                   key={plan.id}
-                  className={`backdrop-blur-xl bg-gradient-to-br from-white/15 via-white/10 to-white/5 relative rounded-3xl shadow-3xl border border-white/25 transition-all duration-300 md:hover:-translate-y-2 flex flex-col ${
+                  className={`backdrop-blur-xl bg-gradient-to-br from-white/20 via-white/15 to-white/10 relative rounded-3xl shadow-3xl border border-white/30 transition-all duration-300 md:hover:-translate-y-2 flex flex-col ${
                     isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''
                   } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''}`}
                 >
