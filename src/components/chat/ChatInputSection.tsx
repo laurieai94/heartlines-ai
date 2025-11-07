@@ -260,10 +260,9 @@ export const ChatInputSection = ({
               <AlertCircle className="h-5 w-5 text-coral-400" />
               <AlertDescription className="flex items-center justify-between gap-4">
                 <div className="flex-1">
-                  <span className="font-semibold questionnaire-text">Running low on messages!</span>
+                  <span className="font-semibold questionnaire-text">💌 you're almost out of messages!</span>
                   <p className="text-sm questionnaire-text-muted mt-1">
-                    Only {messagesRemaining} message{messagesRemaining !== 1 ? 's' : ''} left this month. 
-                    Upgrade now to keep the conversation going.
+                    only {messagesRemaining} left — upgrade to keep the conversation flowing.
                   </p>
                 </div>
                 <Button
@@ -271,7 +270,7 @@ export const ChatInputSection = ({
                   onClick={() => openUpgradeModal('near-limit')}
                   className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white flex-shrink-0"
                 >
-                  Upgrade
+                  stay connected
                 </Button>
               </AlertDescription>
             </Alert>
