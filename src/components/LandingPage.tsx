@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock, LogOut } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -107,7 +107,8 @@ const LandingPage = ({
   showMarketingTopBar?: boolean;
 }) => {
   const {
-    user
+    user,
+    signOut
   } = useAuth();
   const [isSplashActive, setIsSplashActive] = useState(() => {
     return !sessionStorage.getItem('homepage_visited');
@@ -294,20 +295,48 @@ const LandingPage = ({
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`}>
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-                <PopoverTrigger asChild>
+              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                <SheetTrigger asChild>
                   <Button variant="ghost" className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent border-0 p-0 transition-all duration-200" aria-label="Open menu">
                     <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent side="bottom" align="start" className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" onInteractOutside={() => setIsMenuOpen(false)} onEscapeKeyDown={() => setIsMenuOpen(false)}>
-                  <div className="flex flex-col">
-                    {navItems.map(item => <Link key={item.to} to={item.to} title={item.label} className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 p-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30 flex items-center justify-center" onClick={() => setIsMenuOpen(false)}>
-                        <item.icon className="w-5 h-5" />
-                      </Link>)}
-                  </div>
-                </PopoverContent>
-              </Popover>
+                </SheetTrigger>
+                <SheetContent 
+                  side="left"
+                  hideClose={true}
+                  className="w-[260px] bg-gradient-to-br from-burgundy-900/75 to-burgundy-800/75 backdrop-blur-2xl border-r border-coral-400/10 shadow-2xl p-0"
+                >
+                  <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
+                    {navItems.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 group"
+                      >
+                        <item.icon className="w-5 h-5 text-coral-300 group-hover:text-coral-200 transition-colors" />
+                        <span className="text-sm font-medium capitalize">{item.label}</span>
+                      </Link>
+                    ))}
+                    
+                    {user && (
+                      <>
+                        <Separator className="my-2 bg-white/10" />
+                        <button
+                          onClick={async () => {
+                            await signOut();
+                            setIsMenuOpen(false);
+                          }}
+                          className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 group w-full text-left"
+                        >
+                          <LogOut className="w-5 h-5 text-coral-300 group-hover:text-coral-200 transition-colors" />
+                          <span className="text-sm font-medium">Sign Out</span>
+                        </button>
+                      </>
+                    )}
+                  </nav>
+                </SheetContent>
+              </Sheet>
             </div>
             
             {/* Desktop Navigation CTAs */}
