@@ -261,7 +261,7 @@ export const ChatInputSection = ({
                 <div className="flex-1">
                   <span className="font-semibold questionnaire-text">💌 you're almost out of messages!</span>
                   <p className="text-sm questionnaire-text-muted mt-1">
-                    only {messagesRemaining} left — upgrade to keep the conversation flowing.
+                    only {messagesRemaining} left — upgrade to keep the convo flowing.
                   </p>
                 </div>
                 <Button
