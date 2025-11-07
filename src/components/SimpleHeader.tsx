@@ -21,11 +21,11 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
   const navigate = useNavigate();
 
   const navigationItems = [
-    { value: 'home', label: 'Home', icon: Home },
-    { value: 'profile', label: 'Profile', icon: UserIcon },
-    { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'plans', label: 'Plans', icon: CreditCard },
-    { value: 'account', label: 'My Account', icon: Settings },
+    { value: 'home', label: 'home', icon: Home },
+    { value: 'profile', label: 'profile', icon: UserIcon },
+    { value: 'insights', label: 'coach', icon: MessageSquare },
+    { value: 'plans', label: 'plans', icon: CreditCard },
+    { value: 'account', label: 'my account', icon: Settings },
   ];
 
   const handleNavigation = (item: any) => {

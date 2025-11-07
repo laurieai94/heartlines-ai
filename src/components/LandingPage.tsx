@@ -148,23 +148,23 @@ const LandingPage = ({
   const glassCard = "rounded-2xl border border-burgundy-500/15 glass-burgundy shadow-md";
   const navItems = [{
     to: '/',
-    label: 'Home',
+    label: 'home',
     icon: Home
   }, {
     to: '/profile',
-    label: 'Profile',
+    label: 'profile',
     icon: User
   }, {
     to: '/coach',
-    label: 'Coach',
+    label: 'coach',
     icon: MessageSquare
   }, {
     to: '/account',
-    label: 'My Account',
+    label: 'my account',
     icon: Settings
   }, {
     to: '/plans',
-    label: 'Plans',
+    label: 'plans',
     icon: CreditCard
   }];
   const datingProfiles = [{
