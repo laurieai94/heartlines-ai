@@ -121,10 +121,10 @@ const AIChatInput = ({
     <div className={`flex gap-1.5 md:gap-3 items-center px-1 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? `border-2 border-white/20 ${
+          ? `border-2 ${
               atLimit 
-                ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
-                : ''
+                ? 'border-coral-400/60 shadow-[0_0_20px_rgba(251,146,60,0.5),0_0_40px_rgba(236,72,153,0.4),0_0_60px_rgba(251,113,133,0.3)] animate-pulse-glow' 
+                : 'border-white/20'
             }` 
           : isMobile
             ? 'border-2 border-white/20 focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'

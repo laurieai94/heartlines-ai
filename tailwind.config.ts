@@ -254,6 +254,14 @@ export default {
 					'0%, 100%': { transform: 'rotate(0deg)' },
 					'10%, 30%, 50%, 70%, 90%': { transform: 'rotate(-3deg)' },
 					'20%, 40%, 60%, 80%': { transform: 'rotate(3deg)' }
+				},
+				'pulse-glow': {
+					'0%, 100%': {
+						boxShadow: '0 0 20px rgba(251, 146, 60, 0.5), 0 0 40px rgba(236, 72, 153, 0.4), 0 0 60px rgba(251, 113, 133, 0.3)'
+					},
+					'50%': {
+						boxShadow: '0 0 30px rgba(251, 146, 60, 0.7), 0 0 60px rgba(236, 72, 153, 0.6), 0 0 90px rgba(251, 113, 133, 0.5)'
+					}
 				}
 			},
 			animation: {
@@ -272,7 +280,8 @@ export default {
 				'line-right-sequence': 'line-grow-center 0.9s ease-out forwards, line-open-right 0.6s ease-in 1.1s forwards',
 				'soft-glow': 'soft-glow 6s ease-in-out infinite',
 				'fadeInOut': 'fadeInOut 1.4s ease-in-out infinite',
-				'wiggle': 'wiggle 2s ease-in-out infinite'
+				'wiggle': 'wiggle 2s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite'
 			}
 		}
 	},
