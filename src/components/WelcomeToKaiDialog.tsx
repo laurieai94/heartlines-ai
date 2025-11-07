@@ -31,12 +31,12 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
         <div className="text-center mb-8">
           <h1 
             id="welcome-dialog-title"
-            className="text-3xl font-bold text-white mb-3"
+            className="text-3xl font-brand text-white mb-3"
           >
-            Welcome to heartlines!
+            welcome to heartlines 💛
           </h1>
           <p className="text-white/80 text-lg leading-relaxed">
-            You're just 5 quick questions away from chatting with Kai, your AI relationship coach.
+            you're 5 questions away from chatting with kai.
           </p>
         </div>
 
@@ -46,7 +46,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
             onClick={onGetStarted} 
             className="w-full questionnaire-button-primary text-lg py-6"
           >
-            Let's get started
+            let's go
           </Button>
           
           {/* Footer text */}
