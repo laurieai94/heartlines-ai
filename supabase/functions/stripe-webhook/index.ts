@@ -25,6 +25,18 @@ const TIER_MESSAGE_LIMITS: Record<string, number> = {
   unlimited: 0 // 0 = unlimited
 };
 
+// Helper function to safely convert timestamp to ISO string
+const getSubscriptionEndDate = (timestamp: number | null | undefined): string | null => {
+  if (!timestamp || isNaN(timestamp)) return null;
+  try {
+    const date = new Date(timestamp * 1000);
+    if (isNaN(date.getTime())) return null;
+    return date.toISOString();
+  } catch {
+    return null;
+  }
+};
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -103,7 +115,7 @@ serve(async (req) => {
               stripe_customer_id: session.customer as string,
               subscribed: true,
               subscription_tier: tier,
-              subscription_end: new Date(subscription.current_period_end * 1000).toISOString(),
+              subscription_end: getSubscriptionEndDate(subscription.current_period_end),
               updated_at: new Date().toISOString()
             }, {
               onConflict: "stripe_customer_id"
@@ -157,7 +169,7 @@ serve(async (req) => {
             stripe_customer_id: subscription.customer as string,
             subscribed: true,
             subscription_tier: tier,
-            subscription_end: new Date(subscription.current_period_end * 1000).toISOString(),
+            subscription_end: getSubscriptionEndDate(subscription.current_period_end),
             updated_at: new Date().toISOString()
           }, {
             onConflict: "stripe_customer_id"
@@ -185,7 +197,7 @@ serve(async (req) => {
           .update({
             subscribed: subscription.status === "active",
             subscription_tier: tier,
-            subscription_end: new Date(subscription.current_period_end * 1000).toISOString(),
+            subscription_end: getSubscriptionEndDate(subscription.current_period_end),
             updated_at: new Date().toISOString()
           })
           .eq("stripe_customer_id", subscription.customer as string);
@@ -234,7 +246,7 @@ serve(async (req) => {
             .update({
               subscribed: true,
               subscription_tier: tier,
-              subscription_end: new Date(subscription.current_period_end * 1000).toISOString(),
+              subscription_end: getSubscriptionEndDate(subscription.current_period_end),
               updated_at: new Date().toISOString()
             })
             .eq("stripe_customer_id", invoice.customer as string);
