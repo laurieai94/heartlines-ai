@@ -25,7 +25,6 @@ export const UpgradeModal = ({
   reason = 'upgrade'
 }: UpgradeModalProps) => {
   const { upgrade } = useOptimizedSubscription();
-  const [upgrading, setUpgrading] = useState<string | null>(null);
 
   // Get all plans in display order
   const allPlans = pricingPlans.filter(p => ['begin', 'glow', 'vibe', 'unlimited'].includes(p.id));
@@ -43,12 +42,10 @@ export const UpgradeModal = ({
   const usagePercentage = (messagesUsed / messageLimit) * 100;
 
   const handleUpgrade = async (tier: 'glow' | 'vibe' | 'unlimited') => {
-    setUpgrading(tier);
     try {
       await upgrade(tier);
     } catch (error) {
       toast.error("Failed to start upgrade. Please try again.");
-      setUpgrading(null);
     }
   };
 
@@ -190,15 +187,14 @@ export const UpgradeModal = ({
                     {/* CTA Button */}
                     <Button
                       onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe' | 'unlimited')}
-                      disabled={upgrading !== null || isCurrent || !canUpgrade}
+                      disabled={false}
                       className={`w-full rounded-full text-sm font-semibold mt-auto ${
                         isPopular || isRecommended 
                           ? 'bg-gradient-to-r from-coral-400 to-pink-500 text-white hover:from-coral-500 hover:to-pink-600 shadow-lg' 
                           : 'bg-white/15 text-white hover:bg-white/25 border border-white/30'
                       }`}
                     >
-                  {upgrading === plan.tier ? 'opening checkout...' : 
-                   isCurrent ? 'current plan' :
+                  {isCurrent ? 'current plan' :
                    !canUpgrade ? 'not available' :
                    plan.buttonText}
                     </Button>
