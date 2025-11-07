@@ -256,7 +256,7 @@ export const ChatInputSection = ({
         {/* Critical 90% usage warning banner */}
         {criticalLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
-            <Alert className="bg-coral-500/20 border-coral-400/60 backdrop-blur-sm ring-1 ring-coral-400/30">
+            <Alert className="bg-coral-500/20 border-pink-400/60 backdrop-blur-sm ring-1 ring-pink-400/30">
               <AlertDescription className="flex items-center justify-between gap-4">
                 <div className="flex-1">
                   <span className="font-semibold questionnaire-text">💌 you're almost out of messages!</span>
