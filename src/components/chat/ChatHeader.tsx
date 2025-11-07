@@ -61,7 +61,7 @@ export const ChatHeader = ({
                         side="bottom" 
                         align="start" 
                         sideOffset={8}
-                        className="w-[calc(100vw-32px)] max-w-md p-4 bg-white/25 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-[100]"
+                        className="w-[calc(100vw-32px)] max-w-md p-4 bg-burgundy-900/85 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-[100]"
                       >
                         <div className="space-y-4">
                           <div className="flex items-center gap-3">
@@ -161,7 +161,7 @@ export const ChatHeader = ({
                         <Info className="w-3.5 h-3.5" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-4 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50">
+                    <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-4 max-w-[calc(100vw-32px)] bg-burgundy-900/85 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50">
                       <div className="space-y-4">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-burgundy-500 rounded-full flex items-center justify-center shadow-lg">
