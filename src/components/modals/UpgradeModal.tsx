@@ -30,6 +30,16 @@ export const UpgradeModal = ({
   // Get all plans in display order
   const allPlans = pricingPlans.filter(p => ['begin', 'glow', 'vibe', 'unlimited'].includes(p.id));
   
+  // Reorder plans to show current plan last
+  const reorderedPlans = [...allPlans].sort((a, b) => {
+    const aIsCurrent = a.tier === currentTier;
+    const bIsCurrent = b.tier === currentTier;
+    
+    if (aIsCurrent) return 1;  // Move current plan to end
+    if (bIsCurrent) return -1;
+    return 0; // Keep other plans in original order
+  });
+  
   const usagePercentage = (messagesUsed / messageLimit) * 100;
 
   const handleUpgrade = async (tier: 'glow' | 'vibe' | 'unlimited') => {
@@ -72,7 +82,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[95vw] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-800 border-white/20 rounded-3xl p-4 sm:p-6">
+      <DialogContent className="max-w-[95vw] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-burgundy-700/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border-white/20 rounded-3xl p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
@@ -82,7 +92,7 @@ export const UpgradeModal = ({
 
         <div className="mt-4 space-y-2">
           {/* Current Usage */}
-          <Card className="questionnaire-card p-2.5 border border-white/20">
+          <Card className="backdrop-blur-xl rounded-2xl p-2.5 bg-gradient-to-br from-white/15 via-white/10 to-white/5 border border-white/25 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/60">current plan</p>
@@ -105,7 +115,7 @@ export const UpgradeModal = ({
 
           {/* Pricing Plans */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 w-full mx-auto items-stretch">
-            {allPlans.map((plan) => {
+            {reorderedPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.tier === currentTier;
               const canUpgrade = canUpgradeTo(plan.tier || '');
@@ -114,7 +124,7 @@ export const UpgradeModal = ({
               return (
                 <Card 
                   key={plan.id}
-                  className={`questionnaire-card relative rounded-3xl shadow-3xl border border-white/20 transition-all duration-300 md:hover:-translate-y-2 flex flex-col ${
+                  className={`backdrop-blur-xl bg-gradient-to-br from-white/15 via-white/10 to-white/5 relative rounded-3xl shadow-3xl border border-white/25 transition-all duration-300 md:hover:-translate-y-2 flex flex-col ${
                     isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''
                   } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''}`}
                 >
@@ -129,7 +139,7 @@ export const UpgradeModal = ({
                   <div className="p-3 sm:p-4 pb-5 sm:pb-6 flex-1 flex flex-col">
                     {/* Icon */}
                     <div className="mb-3">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20 flex items-center justify-center">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/30 to-pink-400/30 border border-white/30 flex items-center justify-center">
                         <plan.icon className="w-4 h-4 sm:w-5 sm:h-5 text-coral-400" />
                       </div>
                     </div>
@@ -154,7 +164,7 @@ export const UpgradeModal = ({
 
                     {/* Message Count Badge */}
                     <div className="mb-3">
-                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-white/10 p-2.5 sm:p-3 text-center">
+                      <div className="bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg border border-white/20 p-2.5 sm:p-3 text-center">
                         <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
                         </div>
