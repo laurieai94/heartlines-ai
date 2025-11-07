@@ -71,21 +71,21 @@ const SiteFooter = () => {
           </div>
 
           {/* App & Company - Two Columns */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-8">
             {footerSections.map(section => <div key={section.title} className="text-center">
                 <h4 className="text-base font-semibold text-white mb-4">{section.title}</h4>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {section.links.map(link => <li key={link.to}>
                       {link.to === '/account' ? (
                         <button
                           onClick={handleAccountClick}
-                          className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group"
+                          className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 inline-flex items-center gap-2 group w-auto mx-auto"
                         >
                           <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                           {link.label}
                         </button>
                       ) : (
-                        <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group">
+                        <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 inline-flex items-center gap-2 group w-auto mx-auto">
                           <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                           {link.label}
                         </Link>
@@ -97,7 +97,7 @@ const SiteFooter = () => {
         </div>
 
         {/* Desktop/Tablet Layout: 3 columns */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6 md:gap-8 mb-8">
+        <div className="hidden md:grid md:grid-cols-3 gap-8 lg:gap-12 mb-8">
           {/* Brand Section */}
           <div className="text-left">
             <h3 className="text-xl font-semibold text-white mb-1 font-brand">{BRAND.name}</h3>
@@ -113,18 +113,18 @@ const SiteFooter = () => {
           {/* Navigation Sections */}
           {footerSections.map(section => <div key={section.title} className="text-left">
               <h4 className="text-base font-semibold text-white mb-4">{section.title}</h4>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {section.links.map(link => <li key={link.to}>
                     {link.to === '/account' ? (
                       <button
                         onClick={handleAccountClick}
-                        className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group"
+                        className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 inline-flex items-center gap-2 group w-auto"
                       >
                         <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                         {link.label}
                       </button>
                     ) : (
-                      <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group">
+                      <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 inline-flex items-center gap-2 group w-auto">
                         <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                         {link.label}
                       </Link>
@@ -135,7 +135,7 @@ const SiteFooter = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-white/10">
+        <div className="pt-10 border-t border-white/10">
           <div className="text-center">
             <p className="text-white/70 text-sm mb-4">built by humans figuring it out too</p>
             <p className="text-white/50 text-xs">
