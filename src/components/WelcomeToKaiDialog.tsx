@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
+import FlipPhoneIcon from "@/components/icons/FlipPhoneIcon";
 
 interface WelcomeToKaiDialogProps {
   isOpen: boolean;
@@ -20,10 +20,10 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
       <div className="absolute inset-0" />
 
       <div className="relative glass-burgundy border-burgundy-500/20 rounded-2xl p-8 max-w-md w-full animate-fade-in shadow-2xl">
-        {/* Sparkles Icon */}
+        {/* Flip Phone Icon */}
         <div className="flex justify-center mb-6">
           <div className="p-4 rounded-full bg-gradient-to-br from-coral-500/20 to-burgundy-500/20 border border-coral-500/30">
-            <Sparkles className="w-8 h-8 text-coral-400" />
+            <FlipPhoneIcon size={32} className="text-coral-400" />
           </div>
         </div>
 
@@ -35,24 +35,19 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
           >
             welcome to heartlines 💛
           </h1>
-          <p className="text-white/80 text-lg leading-relaxed">
+          <p className="text-white/80 text-lg leading-relaxed md:whitespace-nowrap">
             you're 5 questions away from chatting with kai.
           </p>
         </div>
 
         {/* CTA Button */}
-        <div className="space-y-4">
+        <div>
           <Button 
             onClick={onGetStarted} 
             className="w-full questionnaire-button-primary text-lg py-6"
           >
             let's go
           </Button>
-          
-          {/* Footer text */}
-          <p className="text-center text-white/50 text-sm">
-            Takes about 2 minutes · You can add more details anytime
-          </p>
         </div>
       </div>
     </div>
