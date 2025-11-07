@@ -33,7 +33,7 @@ export const ChatHeader = ({
               {/* Kai Avatar & Name - Left */}
               <div className="flex items-center gap-3 flex-1 min-w-0">
                 <div className="relative flex-shrink-0">
-                  <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-coral-400/20 to-burgundy-400/20 rounded-full blur-md animate-pulse"></div>
                   <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[44px] h-[44px] border-2 border-white/20">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                     <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
@@ -68,7 +68,7 @@ export const ChatHeader = ({
                             <div className="w-10 h-10 bg-gradient-to-br from-coral-400 to-burgundy-500 rounded-full flex items-center justify-center shadow-lg">
                               <Heart className="w-5 h-5 text-white" />
                             </div>
-                            <h3 className="font-semibold text-white text-lg">meet kai</h3>
+            <h3 className="font-semibold text-white/90 text-lg">meet kai</h3>
                           </div>
                           <div className="space-y-3">
                             <p className="text-sm text-white/90 leading-relaxed">
@@ -141,7 +141,7 @@ export const ChatHeader = ({
             <>
               {/* Kai Avatar - Far Left */}
               <div className="relative flex-shrink-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-burgundy-400/30 rounded-full blur-xl animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-coral-400/20 to-burgundy-400/20 rounded-full blur-md animate-pulse"></div>
                 <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[56px] h-[56px] border-3 border-white/20">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                   <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
@@ -167,7 +167,7 @@ export const ChatHeader = ({
                           <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-burgundy-500 rounded-full flex items-center justify-center shadow-lg">
                             <Heart className="w-4 h-4 text-white" />
                           </div>
-                          <h3 className="font-semibold text-white text-lg">meet kai</h3>
+                          <h3 className="font-semibold text-white/90 text-lg">meet kai</h3>
                         </div>
                         <div className="space-y-3">
                           <p className="text-sm text-white/90 leading-relaxed">

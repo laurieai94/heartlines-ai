@@ -219,8 +219,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             <div className="flex-shrink-0">
               <div className="relative w-[40px] h-[40px] md:w-[44px] md:h-[44px]">
                 {/* Pulsing glow */}
-                <div className={`absolute inset-0 rounded-full blur-md drop-shadow-lg ${
-                  isMobile ? 'opacity-60' : 'opacity-50'
+                <div className={`absolute inset-0 rounded-full blur-sm drop-shadow-lg ${
+                  isMobile ? 'opacity-30' : 'opacity-25'
                 } bg-gradient-to-r from-pink-400 to-coral-400 animate-pulse`}></div>
                 
                 {/* Avatar */}
