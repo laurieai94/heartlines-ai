@@ -43,10 +43,10 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
               textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
             }}
           >
-            welcome to heartlines
+            heartlines calling
           </h1>
           <p className="text-white/80 text-lg leading-relaxed md:whitespace-nowrap">
-            you're 5 questions away from chatting with kai.
+            5 questions before kai picks up.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ const WelcomeToKaiDialog = ({ isOpen, onGetStarted }: WelcomeToKaiDialogProps) =
             onClick={onGetStarted} 
             className="w-full questionnaire-button-primary text-lg py-6"
           >
-            let's go
+            lets go
           </Button>
         </div>
       </div>
