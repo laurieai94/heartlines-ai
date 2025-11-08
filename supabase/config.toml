@@ -38,3 +38,7 @@ verify_jwt = true
 [functions.customer-portal]
 # Customer portal requires authentication
 verify_jwt = true
+
+[functions.check-stripe-mode]
+# Public endpoint to check Stripe mode
+verify_jwt = false

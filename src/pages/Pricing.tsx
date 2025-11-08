@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Shield, Users, Heart } from "lucide-react";
+import { Check, Shield, Users, Heart, AlertCircle } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -14,6 +14,7 @@ import { pricingPlans } from "@/data/pricingPlans";
 import PremiumBackground from "@/components/PremiumBackground";
 import { SubscriptionStatusBanner } from "@/components/account/SubscriptionStatusBanner";
 import { MobileHeaderVisibilityProvider } from '@/contexts/MobileHeaderVisibilityContext';
+import { useStripeMode } from "@/hooks/useStripeMode";
 const faqs = [{
   question: "can i change or cancel my plan anytime?",
   answer: "yep. no contracts, no weird fine print. cancel, upgrade, or downgrade whenever you want."
@@ -33,6 +34,7 @@ const Pricing = () => {
     user
   } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
+  const { data: stripeMode } = useStripeMode();
   // Auto-trigger checkout if user just signed in with intended plan
   useEffect(() => {
     if (user) {
@@ -119,6 +121,26 @@ const Pricing = () => {
 
       <div className="relative z-10">
         <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
+          {/* Test Mode Indicator */}
+          {stripeMode?.testMode && (
+            <div className="max-w-2xl mx-auto mb-6">
+              <div className="bg-yellow-500/20 border border-yellow-500/50 rounded-lg p-3 flex items-center gap-3 backdrop-blur-sm">
+                <AlertCircle className="h-5 w-5 text-yellow-300 flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-yellow-100">
+                    Test Mode Active
+                  </p>
+                  <p className="text-xs text-yellow-200/80">
+                    Using Stripe test prices. No real charges will be made.
+                  </p>
+                </div>
+                <Badge className="bg-yellow-500/30 text-yellow-100 border-yellow-500/50 whitespace-nowrap">
+                  TEST
+                </Badge>
+              </div>
+            </div>
+          )}
+
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 text-white tracking-wider" style={{
