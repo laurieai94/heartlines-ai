@@ -132,7 +132,7 @@ const Dashboard = () => {
         <MobileHeaderVisibilityProvider>
           <div className={`h-[100dvh] ${activeTab === 'insights' ? 'chat-page' : ''}`}>
             {/* Main Dashboard Content - This gets blurred when modals are open */}
-            <div className={`h-full flex flex-col relative ${isAnyModalOpen ? 'blur-sm md:blur-sm' : ''} transition-all duration-300`}>
+            <div className={`h-full flex flex-col relative md:pl-24 lg:pl-28 ${isAnyModalOpen ? 'blur-sm md:blur-sm' : ''} transition-all duration-300`}>
           <PremiumBackground className={activeTab === 'insights' ? 'md:block hidden' : ''} />
 
               <DashboardHeader 

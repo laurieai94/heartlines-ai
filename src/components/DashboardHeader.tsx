@@ -96,16 +96,69 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   };
   
   return (
-    <div 
-      className={`w-full fixed top-0 left-0 right-0 z-50 ${isCoachMode ? 'bg-transparent backdrop-blur-sm' : 'bg-transparent'} ${
-        compact ? 'pt-0 md:pt-0 lg:pt-0' : 'pt-0 md:pt-0 lg:pt-2'
-      }`}
-      style={{ 
-        transform: 'none', 
-        isolation: 'isolate',
-        paddingTop: isCoachMode ? 'max(0px, env(safe-area-inset-top))' : '0'
-      }}
-    >
+    <>
+      {/* Desktop/Tablet Persistent Vertical Sidebar - Hidden on mobile */}
+      <div className="hidden md:flex fixed left-4 top-4 bottom-4 z-50">
+        <div className="flex flex-col items-center gap-4 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-3xl p-4">
+          {/* Flip phone icon at top */}
+          <div className="pb-4 border-b border-coral-400/20">
+            <FlipPhoneIcon className="h-10 w-10" />
+          </div>
+          
+          {/* Navigation icons */}
+          <nav className="flex flex-col gap-2" role="navigation" aria-label="Main navigation">
+            {navigationItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = !item.isExternal && activeTab === item.value;
+              
+              return (
+                <button
+                  key={item.value}
+                  onClick={() => handleNavigation(item)}
+                  onMouseEnter={() => handleTabHover(item.value)}
+                  className={`
+                    relative p-3 rounded-2xl transition-all duration-300
+                    ${isActive 
+                      ? 'bg-white/20 text-white shadow-lg shadow-coral-500/20' 
+                      : 'text-coral-200/70 hover:bg-white/10 hover:text-white hover:scale-105'
+                    }
+                  `}
+                  aria-current={isActive ? 'page' : undefined}
+                  title={item.label}
+                  aria-label={item.label}
+                >
+                  <Icon className="h-6 w-6" strokeWidth={2} />
+                </button>
+              );
+            })}
+            
+            {user && (
+              <>
+                <div className="h-px bg-coral-400/20 my-2" />
+                <button
+                  onClick={handleSignOut}
+                  className="p-3 rounded-2xl text-coral-200/70 hover:bg-white/10 hover:text-white hover:scale-105 transition-all duration-300"
+                  aria-label="sign out"
+                  title="sign out"
+                >
+                  <LogOut className="h-6 w-6" strokeWidth={2} />
+                </button>
+              </>
+            )}
+          </nav>
+        </div>
+      </div>
+
+      <div 
+        className={`w-full fixed top-0 left-0 right-0 z-50 ${isCoachMode ? 'bg-transparent backdrop-blur-sm' : 'bg-transparent'} ${
+          compact ? 'pt-0 md:pt-0 lg:pt-0' : 'pt-0 md:pt-0 lg:pt-2'
+        }`}
+        style={{ 
+          transform: 'none', 
+          isolation: 'isolate',
+          paddingTop: isCoachMode ? 'max(0px, env(safe-area-inset-top))' : '0'
+        }}
+      >
       <div className={`max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative ${
         isCoachMode 
           ? 'pl-1 pr-3 py-2' // Compact padding with more right breathing room on coach page
@@ -193,67 +246,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           </div>
         </div>
 
-        {/* Desktop Navigation - Hidden on mobile */}
-        <div className={`hidden md:flex items-center justify-between`}>
-          {/* Always use hamburger layout on desktop */}
-          <div className="flex items-center gap-3">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
-                >
-                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent 
-                align="start"
-                sideOffset={8}
-                collisionPadding={0}
-                avoidCollisions={false}
-                className="w-16 p-2 z-[45] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
-                style={{ 
-                  contain: 'layout',
-                  transform: 'translateZ(0)',
-                  willChange: 'transform, opacity',
-                  WebkitTapHighlightColor: 'transparent',
-                  touchAction: 'manipulation'
-                }}
-              >
-                {navigationItems.map((item) => {
-                  const IconComponent = item.icon;
-                  const isActive = (!item.isExternal && activeTab === item.value) || (item.isExternal && activeTab === item.value);
-                  return (
-                    <button
-                      key={item.value}
-                      onMouseEnter={() => handleTabHover(item.value)}
-                      onClick={() => handleNavigation(item)}
-                      title={item.label}
-                      className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
-                        isActive 
-                          ? 'text-white bg-white/20' 
-                          : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
-                      }`}
-                      style={{ 
-                        minHeight: '48px', 
-                        minWidth: '48px', 
-                        maxHeight: '48px', 
-                        maxWidth: '48px', 
-                        padding: '12px',
-                        WebkitTapHighlightColor: 'transparent',
-                        touchAction: 'manipulation',
-                        transform: 'translateZ(0)'
-                      }}
-                    >
-                      <IconComponent className="h-6 w-6" strokeWidth={2} />
-                    </button>
-                  );
-                })}
-              </PopoverContent>
-            </Popover>
-            
-          </div>
-          
+        {/* Desktop/Tablet - Just show right side items */}
+        <div className="hidden md:flex items-center justify-end w-full">
           <div className="flex items-center gap-3">
             {isAdmin && (
               <Link 
@@ -268,6 +262,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
         </div>
       </div>
     </div>
+    </>
   );
 };
 
