@@ -170,7 +170,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
-            <Sheet open={navigationOpened} onOpenChange={setNavigationOpened}>
+            <Sheet open={navigationOpened && isMobile} onOpenChange={setNavigationOpened}>
               <SheetTrigger asChild>
                 <Button 
                   variant="ghost" 
