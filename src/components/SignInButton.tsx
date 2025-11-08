@@ -98,7 +98,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
                   }}
                 >
                   <UserCircle className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                  <span className="text-base font-medium">Open Profile</span>
+                  <span className="text-base font-medium">open profile</span>
                 </button>
               )}
               
@@ -115,7 +115,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
                 }}
               >
                 <Settings className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                <span className="text-base font-medium">My Account</span>
+                <span className="text-base font-medium">my account</span>
               </button>
               
               <div className="h-px bg-white/10 my-1" />
@@ -130,7 +130,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
                 }}
               >
                 <LogOut className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                <span className="text-base font-medium">Sign Out</span>
+                <span className="text-base font-medium">sign out</span>
               </button>
             </nav>
           </DrawerContent>

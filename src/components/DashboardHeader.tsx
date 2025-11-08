@@ -260,7 +260,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 to="/admin"
                 className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-400/20 to-coral-400/20 hover:from-pink-400/30 hover:to-coral-400/30 border border-pink-400/30 text-white text-sm font-medium transition-all"
               >
-                Admin
+                admin
               </Link>
             )}
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} disableMenuOnMobile={activeTab === 'insights'} />
