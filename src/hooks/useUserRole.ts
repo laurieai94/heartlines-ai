@@ -23,7 +23,7 @@ export const useUserRole = () => {
         return null;
       }
 
-      return data?.role as AppRole | null;
+      return (data?.role as AppRole) || null;
     },
     enabled: !!user?.id,
     staleTime: 5 * 60 * 1000, // 5 minutes

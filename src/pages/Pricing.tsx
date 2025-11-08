@@ -94,15 +94,15 @@ const Pricing = () => {
         // Try immediate redirect
         window.location.href = data.url;
         
-        // Fallback: Show link if redirect doesn't work within 2 seconds
+        // Fallback: Show link if redirect doesn't work within 1 second
         setTimeout(() => {
-          toast.info("opening checkout...", {
-            description: "if the page doesn't redirect automatically, click here:",
+          toast.info("Opening checkout...", {
+            description: "If the page doesn't redirect automatically, click here:",
             action: <ToastAction altText="Open checkout" onClick={() => window.open(data.url, '_self')}>
-              open checkout
+              Open Checkout
             </ToastAction>
           });
-        }, 2000);
+        }, 1000);
       } else {
         throw new Error('no checkout url returned');
       }
