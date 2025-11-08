@@ -315,7 +315,7 @@ const LandingPage = ({
                         className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 group"
                       >
                         <item.icon className="w-5 h-5 text-coral-300 group-hover:text-coral-200 transition-colors" />
-                        <span className="text-sm font-medium capitalize">{item.label}</span>
+                        <span className="text-sm font-medium">{item.label}</span>
                       </Link>
                     ))}
                     
