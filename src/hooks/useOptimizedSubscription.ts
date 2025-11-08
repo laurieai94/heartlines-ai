@@ -104,27 +104,32 @@ export const useOptimizedSubscription = () => {
   useEffect(() => {
     if (!user?.id) return;
     
-    const channel = supabase
-      .channel('subscription-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*', // Listen to all changes
-          schema: 'public',
-          table: 'subscribers',
-          filter: `user_id=eq.${user.id}`
-        },
-        (payload) => {
-          console.log('Subscription updated via realtime:', payload);
-          // Invalidate cache to trigger refetch
-          queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
-        }
-      )
-      .subscribe();
+    try {
+      const channel = supabase
+        .channel(`subscription-changes:${user.id}`)
+        .on(
+          'postgres_changes',
+          {
+            event: '*', // Listen to all changes
+            schema: 'public',
+            table: 'subscribers',
+            filter: `user_id=eq.${user.id}`
+          },
+          (payload) => {
+            console.log('Subscription updated via realtime:', payload);
+            // Invalidate cache to trigger refetch
+            queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
+          }
+        )
+        .subscribe();
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    } catch (error) {
+      console.warn('Failed to set up realtime subscription:', error);
+      // Page continues to work without realtime updates
+    }
   }, [user?.id, queryClient]);
 
   const upgrade = async (tier: 'glow' | 'vibe' | 'unlimited', returnUrl?: string) => {
