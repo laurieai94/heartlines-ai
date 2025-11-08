@@ -193,8 +193,48 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           </div>
         </div>
 
-        {/* Desktop Navigation - Hidden on mobile */}
-        <div className={`hidden md:flex items-center justify-between`}>
+        {/* Desktop/Tablet Vertical Sidebar - Only on Coach Page */}
+        {isCoachMode && (
+          <div className="hidden md:flex fixed left-0 top-0 h-screen z-50 p-3">
+            <div className="flex flex-col items-center gap-3 bg-gradient-to-br from-burgundy-900/75 to-burgundy-800/75 backdrop-blur-2xl border border-coral-400/20 shadow-2xl rounded-3xl p-3">
+              {/* Flip phone icon at top */}
+              <FlipPhoneIcon className="h-12 w-12 lg:h-14 lg:w-14" />
+              
+              {/* Navigation icons */}
+              <div className="flex flex-col gap-2">
+                {navigationItems.map((item) => {
+                  const IconComponent = item.icon;
+                  const isActive = (!item.isExternal && activeTab === item.value) || 
+                                  (item.isExternal && activeTab === item.value);
+                  return (
+                    <button
+                      key={item.value}
+                      onMouseEnter={() => handleTabHover(item.value)}
+                      onClick={() => handleNavigation(item)}
+                      title={item.label}
+                      className={`flex items-center justify-center rounded-2xl cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 ${
+                        isActive 
+                          ? 'text-white bg-white/20 shadow-lg' 
+                          : 'text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                      style={{ 
+                        minHeight: '56px', 
+                        minWidth: '56px',
+                        padding: '16px'
+                      }}
+                    >
+                      <IconComponent className="h-6 w-6" strokeWidth={2} />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Desktop Navigation - Hidden on mobile AND hidden on coach page */}
+        {!isCoachMode && (
+          <div className={`hidden md:flex items-center justify-between`}>
           {/* Always use hamburger layout on desktop */}
           <div className="flex items-center gap-3">
             <Popover>
@@ -266,6 +306,22 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} disableMenuOnMobile={activeTab === 'insights'} />
           </div>
         </div>
+        )}
+
+        {/* User controls for coach mode - positioned differently */}
+        {isCoachMode && (
+          <div className="hidden md:flex items-center gap-3 fixed top-3 right-3 z-50">
+            {isAdmin && (
+              <Link 
+                to="/admin"
+                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-400/20 to-coral-400/20 hover:from-pink-400/30 hover:to-coral-400/30 border border-pink-400/30 text-white text-sm font-medium transition-all"
+              >
+                Admin
+              </Link>
+            )}
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} disableMenuOnMobile={true} />
+          </div>
+        )}
       </div>
     </div>
   );
