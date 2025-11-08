@@ -36,9 +36,12 @@ serve(async (req) => {
     if (!tier || !["glow", "vibe", "unlimited"].includes(tier)) {
       throw new Error("Invalid subscription tier. Must be 'glow', 'vibe', or 'unlimited'");
     }
-    // Fixed Stripe Price IDs for each tier
+    // Stripe Price IDs - use test price for Glow tier in test mode
+    const isTestMode = Deno.env.get("STRIPE_SECRET_KEY")?.includes("_test_");
     const priceIds = {
-      glow: "price_1SPptv0Qbw5K8bv3ZSnhora7",
+      glow: isTestMode 
+        ? "price_1Ry0zK0FsQykOZHtDQtaOR8r"  // Test mode
+        : "price_1SPptv0Qbw5K8bv3ZSnhora7", // Live mode
       vibe: "price_1SPpwt0Qbw5K8bv3SylnAw9H",
       unlimited: "price_1SPpxr0Qbw5K8bv32sY31kqe"
     };
