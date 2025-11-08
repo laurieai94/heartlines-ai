@@ -88,8 +88,24 @@ const Pricing = () => {
       });
       if (error) throw error;
 
-      // Navigate to Stripe checkout in same window
-      window.location.href = data.url;
+      console.log('Checkout URL received:', data?.url);
+      
+      if (data?.url) {
+        // Try immediate redirect
+        window.location.href = data.url;
+        
+        // Fallback: Show link if redirect doesn't work within 2 seconds
+        setTimeout(() => {
+          toast.info("opening checkout...", {
+            description: "if the page doesn't redirect automatically, click here:",
+            action: <ToastAction altText="Open checkout" onClick={() => window.open(data.url, '_self')}>
+              open checkout
+            </ToastAction>
+          });
+        }, 2000);
+      } else {
+        throw new Error('no checkout url returned');
+      }
     } catch (error) {
       console.error('Error creating checkout session:', error);
       toast.error("error", {
