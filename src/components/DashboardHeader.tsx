@@ -72,11 +72,11 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   };
 
   const navigationItems = [
-    { value: 'home', label: 'Home', icon: Home },
-    { value: 'profile', label: 'Profile', icon: UserIcon, isExternal: true },
-    { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'plans', label: 'Plans', icon: CreditCard, isExternal: true },
-    { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
+    { value: 'home', label: 'home', icon: Home },
+    { value: 'profile', label: 'profile', icon: UserIcon, isExternal: true },
+    { value: 'insights', label: 'coach', icon: MessageSquare },
+    { value: 'plans', label: 'plans', icon: CreditCard, isExternal: true },
+    { value: 'account', label: 'account', icon: Settings, isExternal: true },
   ];
 
   const handleNavigation = (item: any) => {
@@ -174,7 +174,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     }}
                   >
                     <LogOut className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                    <span className="text-base font-medium">Sign Out</span>
+                    <span className="text-base font-medium">sign out</span>
                   </button>
                 </nav>
               </SheetContent>

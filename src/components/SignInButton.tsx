@@ -115,7 +115,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
                 }}
               >
                 <Settings className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
-                <span className="text-base font-medium">My Account</span>
+                <span className="text-base font-medium">account</span>
               </button>
               
               <div className="h-px bg-white/10 my-1" />
