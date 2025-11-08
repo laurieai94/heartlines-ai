@@ -13,12 +13,9 @@ const logStep = (step: string, details?: any) => {
 
 // Price ID to tier mapping
 const PRICE_TO_TIER: Record<string, string> = {
-  // Live mode prices
   "price_1SPptv0Qbw5K8bv3ZSnhora7": "glow",
   "price_1SPpwt0Qbw5K8bv3SylnAw9H": "vibe",
-  "price_1SPpxr0Qbw5K8bv32sY31kqe": "unlimited",
-  // Test mode price (Glow tier)
-  "price_1Ry0zK0FsQykOZHtDQtaOR8r": "glow"
+  "price_1SPpxr0Qbw5K8bv32sY31kqe": "unlimited"
 };
 
 // Tier to message limit mapping
