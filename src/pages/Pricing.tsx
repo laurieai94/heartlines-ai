@@ -14,6 +14,7 @@ import { pricingPlans } from "@/data/pricingPlans";
 import PremiumBackground from "@/components/PremiumBackground";
 import { SubscriptionStatusBanner } from "@/components/account/SubscriptionStatusBanner";
 import { MobileHeaderVisibilityProvider } from '@/contexts/MobileHeaderVisibilityContext';
+import { useCheckoutSuccess } from "@/hooks/useCheckoutSuccess";
 const faqs = [{
   question: "can i change or cancel my plan anytime?",
   answer: "yep. no contracts, no weird fine print. cancel, upgrade, or downgrade whenever you want."
@@ -33,6 +34,8 @@ const Pricing = () => {
     user
   } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
+  // Handle checkout success with shared hook
+  useCheckoutSuccess();
   // Auto-trigger checkout if user just signed in with intended plan
   useEffect(() => {
     if (user) {

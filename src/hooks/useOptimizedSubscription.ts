@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from 'react';
 
 interface SubscriptionData {
   subscribed: boolean;
@@ -93,11 +94,38 @@ export const useOptimizedSubscription = () => {
       return cachedData;
     },
     enabled: !!user,
-    staleTime: 15 * 60 * 1000, // 15 minutes
-    gcTime: 30 * 60 * 1000, // 30 minutes
-    refetchOnWindowFocus: false, // Prevent excessive refetching
-    refetchOnMount: false, // Use cached data on mount
+    staleTime: 2 * 60 * 1000, // 2 minutes - shorter for faster updates
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: true, // Update when user returns to tab
+    refetchOnMount: true, // Update on component mount
   });
+
+  // Subscribe to realtime updates on subscribers table
+  useEffect(() => {
+    if (!user?.id) return;
+    
+    const channel = supabase
+      .channel('subscription-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // Listen to all changes
+          schema: 'public',
+          table: 'subscribers',
+          filter: `user_id=eq.${user.id}`
+        },
+        (payload) => {
+          console.log('Subscription updated via realtime:', payload);
+          // Invalidate cache to trigger refetch
+          queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, queryClient]);
 
   const upgrade = async (tier: 'glow' | 'vibe' | 'unlimited', returnUrl?: string) => {
     if (!user) return;

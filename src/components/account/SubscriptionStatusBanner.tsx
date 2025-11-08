@@ -1,7 +1,10 @@
-import React from "react";
-import { Sprout, Zap, Heart, Infinity } from "lucide-react";
+import React, { useState } from "react";
+import { Sprout, Zap, Heart, Infinity, RefreshCw } from "lucide-react";
 import { useOptimizedSubscription } from "@/hooks/useOptimizedSubscription";
+import { useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '@/contexts/AuthContext';
 import { format } from "date-fns";
+import { toast } from "sonner";
 
 const tierIcons = {
   glow: Zap,
@@ -26,7 +29,26 @@ export const SubscriptionStatusBanner: React.FC = () => {
     messages_used,
     usagePercentage,
     loading,
+    revalidateWithStripe,
   } = useOptimizedSubscription();
+  
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    if (!user) return;
+    setRefreshing(true);
+    try {
+      await revalidateWithStripe();
+      queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
+      toast.success("Subscription refreshed!");
+    } catch (error) {
+      toast.error("Failed to refresh");
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   if (loading) return null;
 
@@ -51,6 +73,14 @@ export const SubscriptionStatusBanner: React.FC = () => {
         <div className="flex items-center gap-2">
           <TierIcon className="h-4 w-4 text-coral-300" />
           <span className="text-sm font-medium text-white/90">{tierName} plan</span>
+          <button 
+            onClick={handleRefresh}
+            className="ml-1 opacity-60 hover:opacity-100 transition-opacity disabled:opacity-30"
+            disabled={refreshing}
+            title="Refresh subscription status"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 text-white/80 ${refreshing ? 'animate-spin' : ''}`} />
+          </button>
         </div>
 
         {/* Center: Usage */}

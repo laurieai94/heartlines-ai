@@ -9,13 +9,15 @@ import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { toast } from "sonner";
 import PremiumBackground from "@/components/PremiumBackground";
+import { useCheckoutSuccess } from "@/hooks/useCheckoutSuccess";
 // Performance optimization removed
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  // Handle checkout success with shared hook
+  useCheckoutSuccess();
   // Performance optimization removed for better stability
   
   const {
@@ -58,19 +60,6 @@ const Dashboard = () => {
     handleProfileUpdate
   } = useDashboardModals();
 
-  // Check for upgrade notification
-  useEffect(() => {
-    const upgraded = searchParams.get('upgraded');
-    if (upgraded === 'true') {
-      toast.success("You're officially upgraded! ✨", {
-        description: "Welcome to your new plan"
-      });
-      
-      // Clean up URL parameter
-      searchParams.delete('upgraded');
-      setSearchParams(searchParams, { replace: true });
-    }
-  }, [searchParams, setSearchParams]);
 
   // Preload questionnaire chunk for gated users
   useEffect(() => {
