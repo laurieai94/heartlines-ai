@@ -131,14 +131,14 @@ const CleanQuestionnaireFooter = ({
           )}
 
           {/* Next Section Button (when not on last section and coaching not unlocked yet) */}
-          {currentSection < 4 && !canUnlockCoaching && <Button onClick={onNextSection} disabled={!canGoNext} className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 ${canGoNext ? 'animate-soft-pulse-glow' : ''}`}>
+          {currentSection < 4 && !canUnlockCoaching && <Button onClick={onNextSection} disabled={!canGoNext} className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-[transform,opacity,background-color] duration-200 disabled:opacity-30 disabled:hover:scale-100 ${canGoNext ? 'animate-soft-pulse-glow' : ''}`}>
               <span className="hidden sm:inline">next</span>
               <span className="sm:hidden">next</span>
               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </Button>}
 
           {/* Show both Next and Unlock buttons when on early sections but requirements are met */}
-          {currentSection < 4 && canUnlockCoaching && <Button onClick={onNextSection} disabled={!canGoNext} className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 font-medium ${canGoNext ? 'animate-soft-pulse-glow' : ''}`}>
+          {currentSection < 4 && canUnlockCoaching && <Button onClick={onNextSection} disabled={!canGoNext} className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-[transform,opacity,background-color] duration-200 disabled:opacity-30 disabled:hover:scale-100 font-medium ${canGoNext ? 'animate-soft-pulse-glow' : ''}`}>
               <span className="hidden sm:inline">next</span>
               <span className="sm:hidden">next</span>
               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
