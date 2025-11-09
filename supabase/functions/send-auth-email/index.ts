@@ -81,7 +81,7 @@ Deno.serve(async (req) => {
           })
         )
         subject = 'Reset your Heartlines password'
-        fromEmail = 'Sam from Heartlines <sam@heartlines.ai>'
+        fromEmail = 'Heartlines <onboarding@resend.dev>'
         break
 
       case 'magiclink':
@@ -95,7 +95,7 @@ Deno.serve(async (req) => {
           })
         )
         subject = 'Your secure login link for Heartlines'
-        fromEmail = 'Sam from Heartlines <sam@heartlines.ai>'
+        fromEmail = 'Heartlines <onboarding@resend.dev>'
         break
 
       case 'signup':
@@ -110,7 +110,7 @@ Deno.serve(async (req) => {
           })
         )
         subject = 'Welcome to Heartlines! Please confirm your email'
-        fromEmail = 'Sam from Heartlines <sam@heartlines.ai>'
+        fromEmail = 'Heartlines <onboarding@resend.dev>'
         break
 
       default:
