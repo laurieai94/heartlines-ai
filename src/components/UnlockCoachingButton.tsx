@@ -19,7 +19,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
     <Button
       variant="glass"
       onClick={goToCoach}
-      className={`${isCompact ? 'w-full h-10 px-4' : 'w-auto h-12 px-6'} rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-burgundy-700/50 backdrop-blur-xl hover:bg-burgundy-600/60 shadow-lg hover:shadow-xl hover:scale-105 border-2 border-white/30 hover:border-white/40 ${className}`}
+      className={`${isCompact ? 'w-full h-10 px-4' : 'w-auto h-12 px-6'} rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-burgundy-700/50 backdrop-blur-xl hover:bg-burgundy-600/60 shadow-lg hover:shadow-xl hover:scale-105 border-2 border-white/30 hover:border-white/40 shadow-[0_0_20px_rgba(251,146,140,0.3)] hover:shadow-[0_0_30px_rgba(251,146,140,0.5)] ${className}`}
     >
       <Avatar className={`${isCompact ? 'w-6 h-6' : 'w-8 h-8'} ring-2 ring-white/30`}>
         <AvatarImage 
