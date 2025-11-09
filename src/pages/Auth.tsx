@@ -315,24 +315,24 @@ const Auth = () => {
   return <div className="min-h-screen bg-burgundy-800 auth-page-scroll relative">
       <PremiumBackground />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center overflow-y-auto py-4 sm:py-6 md:py-8 px-4">
+      <div className="relative z-10 h-screen max-h-screen flex flex-col items-center justify-center px-4 overflow-y-auto">
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
-          <div className="w-full flex flex-col items-center space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-shrink-0">
+          <div className="w-full flex flex-col items-center space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 flex-shrink-0">
             {/* Logo */}
             <div className="text-center">
               <img 
                 src={BRAND.signUpLogoSrc}
                 alt="heartlines logo"
-                className="w-40 sm:w-48 md:w-56 lg:w-60 mx-auto max-w-full h-auto"
+                className="w-32 sm:w-40 md:w-48 lg:w-56 mx-auto max-w-full h-auto"
                 loading="eager"
                 fetchPriority="high"
               />
             </div>
             
             {/* Progress Bar */}
-            <div className="w-full max-w-xs sm:max-w-sm px-2">
-              <div className="p-2 sm:p-3 rounded-xl glass-burgundy shadow-lg">
+            <div className="w-full max-w-xs sm:max-w-sm px-1">
+              <div className="p-1.5 sm:p-2 rounded-xl glass-burgundy shadow-lg">
                 <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
                   {/* Step 1 - active */}
                   <div className="flex items-center justify-center gap-1 sm:gap-1.5">
@@ -367,7 +367,7 @@ const Auth = () => {
         {/* Form container - centered and flexible */}
         <div className="w-full flex flex-col items-center flex-shrink-0">
           <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
-            <div className="questionnaire-card p-4 sm:p-5 md:p-6 lg:p-8">
+            <div className="questionnaire-card p-3 sm:p-4 md:p-5 lg:p-6">
           {showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
               <div className="questionnaire-card p-4 sm:p-5 md:p-6">
                 <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-green-400 mx-auto mb-2 sm:mb-3" />
