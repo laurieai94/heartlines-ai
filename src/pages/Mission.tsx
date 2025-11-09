@@ -58,7 +58,7 @@ const Mission = () => {
 
 
           {/* 1.5. Our Moment */}
-          <section className="animate-slide-up animation-delay-100 -mt-4 scroll-fade-in">
+          <section className="animate-slide-up animation-delay-100 -mt-12 md:-mt-16 scroll-fade-in">
             <div className="relative group">
               {/* Outer glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
