@@ -89,18 +89,13 @@ const Dashboard = () => {
         !showQuestionnaireModal &&
         !showWelcomeDialog) {
       
-      // Check if user is brand new (signed up within 24 hours)
-      const userCreatedAt = new Date(user.created_at);
-      const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-      const isBrandNew = userCreatedAt > twentyFourHoursAgo;
-      
       // Use per-user localStorage keys to avoid cross-user conflicts
       const userAutoOpenKey = `profileAutoOpenedOnce_${user.id}`;
       const userWelcomeShownKey = `welcomeDialogShown_${user.id}`;
       const hasAutoOpened = localStorage.getItem(userAutoOpenKey);
       const hasShownWelcome = localStorage.getItem(userWelcomeShownKey);
       
-      if (isBrandNew && !hasAutoOpened && !hasShownWelcome) {
+      if (!hasAutoOpened && !hasShownWelcome) {
         // Set per-user flags
         localStorage.setItem(userAutoOpenKey, 'true');
         localStorage.setItem(userWelcomeShownKey, 'true');

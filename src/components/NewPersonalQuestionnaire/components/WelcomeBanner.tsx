@@ -1,56 +1,28 @@
-import { useState, useEffect } from "react";
-import { X, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
+import { ProfileData } from "../types";
+import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from "../utils/requirements";
 
 interface WelcomeBannerProps {
-  overallProgress: number;
+  profileData: ProfileData;
 }
 
-const WelcomeBanner = ({ overallProgress }: WelcomeBannerProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
+const WelcomeBanner = ({ profileData }: WelcomeBannerProps) => {
+  // Check if all 5 required questions are answered
+  const requiredCompleted = getCompletedRequiredFieldsCount(profileData);
+  const requiredTotal = getTotalRequiredFieldsCount();
+  
+  // Only show banner when required fields are incomplete
+  const shouldShow = requiredCompleted < requiredTotal;
 
-  useEffect(() => {
-    const dismissed = localStorage.getItem("heartlines_profile_welcome_dismissed");
-    if (!dismissed && overallProgress === 0) {
-      setIsVisible(true);
-    } else {
-      setIsDismissed(true);
-    }
-  }, [overallProgress]);
-
-  const handleDismiss = () => {
-    setIsVisible(false);
-    setIsDismissed(true);
-    localStorage.setItem("heartlines_profile_welcome_dismissed", "true");
-  };
-
-  // Auto-hide when user starts filling
-  useEffect(() => {
-    if (overallProgress > 0 && isVisible) {
-      setIsVisible(false);
-    }
-  }, [overallProgress, isVisible]);
-
-  if (isDismissed || !isVisible) return null;
+  if (!shouldShow) return null;
 
   return (
     <div className="bg-rose-900/20 border-b border-white/10 px-4 py-3 animate-in fade-in duration-300 shadow-[0_0_15px_rgba(251,207,232,0.15)]">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5 flex-1">
-          <Sparkles className="w-4 h-4 text-pink-300 flex-shrink-0" />
-          <p className="text-sm text-white/90">
-            welcome! answer just 5 core questions to chat with kai. you can always add more details later.
-          </p>
-        </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleDismiss}
-          className="h-7 w-7 p-0 hover:bg-white/10 text-white/60 hover:text-white flex-shrink-0"
-        >
-          <X className="w-3.5 h-3.5" />
-        </Button>
+      <div className="flex items-center gap-2.5">
+        <Sparkles className="w-4 h-4 text-pink-300 flex-shrink-0" />
+        <p className="text-sm text-white/90">
+          welcome! answer just 5 core questions to chat with kai. you can always add more details later.
+        </p>
       </div>
     </div>
   );
