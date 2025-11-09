@@ -31,9 +31,9 @@ const Mission = () => {
       
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
-        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-12 md:space-y-16 overflow-x-hidden">
+        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 space-y-6 md:space-y-8 overflow-x-hidden">
           {/* 1. Hero Section */}
-          <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-2 md:pb-3">
+          <section className="flex flex-col items-center animate-fade-in pt-4 md:pt-6 pb-2 md:pb-3">
             <div className="flex flex-col items-center gap-1 md:gap-2">
               <h1 
                 className="font-brand text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider animate-fade-in"
@@ -58,7 +58,7 @@ const Mission = () => {
 
 
           {/* 1.5. Our Moment */}
-          <section className="animate-slide-up animation-delay-100 -mt-4 scroll-fade-in">
+          <section className="animate-slide-up animation-delay-100 -mt-8 md:-mt-10 scroll-fade-in">
             <div className="relative group">
               {/* Outer glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
