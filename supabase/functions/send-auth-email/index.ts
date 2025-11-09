@@ -8,6 +8,7 @@ import { EmailConfirmationEmail } from './_templates/email-confirmation.tsx'
 
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string)
 const hookSecret = Deno.env.get('SEND_AUTH_EMAIL_HOOK_SECRET') as string
+const base64Secret = hookSecret?.replace('v1,whsec_', '') || ''
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -38,7 +39,7 @@ Deno.serve(async (req) => {
     const webhookReceived = performance.now()
     console.log(`⏱️ Webhook received and parsed: ${(webhookReceived - startTime).toFixed(2)}ms`)
     
-    const wh = new Webhook(hookSecret)
+    const wh = new Webhook(base64Secret)
     
     const {
       user,
