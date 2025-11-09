@@ -312,19 +312,19 @@ const Auth = () => {
       setIsSubmitting(false);
     }
   };
-  return <div className="h-screen max-h-screen bg-burgundy-800 auth-page-scroll relative overflow-hidden">
+  return <div className="min-h-screen bg-burgundy-800 auth-page-scroll relative">
       <PremiumBackground />
 
-      <div className="relative z-10 h-full max-h-screen flex flex-col items-center justify-center overflow-y-auto py-2 sm:py-4 px-4">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center overflow-y-auto py-4 sm:py-6 md:py-8 px-4">
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
-          <div className="w-full flex flex-col items-center space-y-1.5 sm:space-y-2 mb-2 sm:mb-3 flex-shrink-0">
+          <div className="w-full flex flex-col items-center space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-shrink-0">
             {/* Logo */}
             <div className="text-center">
               <img 
                 src={BRAND.signUpLogoSrc}
                 alt="heartlines logo"
-                className="w-32 sm:w-40 md:w-48 mx-auto max-w-full h-auto max-h-[12vh] object-contain"
+                className="w-40 sm:w-48 md:w-56 lg:w-60 mx-auto max-w-full h-auto"
                 loading="eager"
                 fetchPriority="high"
               />
@@ -365,9 +365,9 @@ const Auth = () => {
         )}
 
         {/* Form container - centered and flexible */}
-        <div className="w-full flex flex-col items-center flex-1 min-h-0">
-          <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto max-h-[85vh] overflow-y-auto">
-            <div className="questionnaire-card p-3 sm:p-4 md:p-5 lg:p-6">
+        <div className="w-full flex flex-col items-center flex-shrink-0">
+          <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+            <div className="questionnaire-card p-4 sm:p-5 md:p-6 lg:p-8">
           {showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
               <div className="questionnaire-card p-4 sm:p-5 md:p-6">
                 <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-green-400 mx-auto mb-2 sm:mb-3" />
@@ -437,11 +437,11 @@ const Auth = () => {
                   </Button>
                 </form>}
             </> : <>
-          {!isSignUp && <div className="text-center mb-2 sm:mb-3 flex-shrink-0">
+          {!isSignUp && <div className="text-center mb-3 sm:mb-4 flex-shrink-0">
             <PhoneLockup 
-              size="md"
+              size="lg"
               showTagline={true}
-              className="mx-auto w-40 sm:w-48 md:w-56 max-w-full max-h-[20vh] object-contain"
+              className="mx-auto w-48 sm:w-64 md:w-72 lg:w-80 max-w-full"
             />
           </div>}
 
