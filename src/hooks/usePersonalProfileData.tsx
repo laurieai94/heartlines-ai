@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useProfileStoreV2 } from './useProfileStoreV2';
 import { ProfileData } from '../components/NewPersonalQuestionnaire/types';
 
@@ -29,8 +30,8 @@ export const usePersonalProfileData = () => {
     return FIELD_NORMALIZATIONS[field] || field;
   };
 
-  // Create default values to ensure all required fields are present
-  const defaultProfileData: ExtendedProfileData = {
+  // Memoize default values to ensure stable reference
+  const defaultProfileData: ExtendedProfileData = useMemo(() => ({
     name: '',
     age: '',
     gender: [],
@@ -54,10 +55,12 @@ export const usePersonalProfileData = () => {
     heartbreakBetrayal: [],
     familyStructure: [],
     attachmentStyle: ''
-  };
+  }), []);
 
-  // Merge with defaults to ensure all fields exist
-  const mergedProfileData = { ...defaultProfileData, ...v2Store.profileData } as ExtendedProfileData;
+  // Memoize merged data to provide stable reference that only changes when actual data changes
+  const mergedProfileData = useMemo(() => {
+    return { ...defaultProfileData, ...v2Store.profileData } as ExtendedProfileData;
+  }, [v2Store.profileData, defaultProfileData]);
 
   // Wrap updateField to normalize field names with immediate updates for required fields
   const normalizedUpdateField = (field: string, value: any) => {

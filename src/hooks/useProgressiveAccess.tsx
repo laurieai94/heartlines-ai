@@ -35,31 +35,21 @@ export const useProgressiveAccess = () => {
   const [upgradeReason, setUpgradeReason] = useState<'limit-reached' | 'near-limit' | 'upgrade'>('upgrade');
   const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
 
-  // Throttled profile update listener to reduce re-renders
+  // IMMEDIATE profile update listener for real-time responsiveness
   useEffect(() => {
-    let throttleTimer: NodeJS.Timeout | null = null;
-    
     const handleProfileUpdate = () => {
       // SAFETY: Ignore events if questionnaire is completing
       const isCompleting = sessionStorage.getItem('questionnaire-completing');
       if (isCompleting) return;
       
-      // DEBOUNCE: Clear existing timer and restart (don't drop events)
-      if (throttleTimer) {
-        clearTimeout(throttleTimer);
-      }
-      
-      throttleTimer = setTimeout(() => {
-        setProfileUpdateCounter(prev => prev + 1);
-        throttleTimer = null;
-      }, 50);
+      // IMMEDIATE UPDATE: No throttle/debounce for instant responsiveness
+      setProfileUpdateCounter(prev => prev + 1);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     
     return () => {
       window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
-      if (throttleTimer) clearTimeout(throttleTimer);
     };
   }, []);
 
