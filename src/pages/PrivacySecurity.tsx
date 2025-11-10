@@ -11,6 +11,7 @@ import SiteFooter from '@/components/SiteFooter';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 import { SecurityDeepDive } from '@/components/privacy/SecurityDeepDive';
 import { DataFlowCards } from '@/components/privacy/DataFlowCards';
+import PremiumBackground from '@/components/PremiumBackground';
 const PrivacySecurity = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
@@ -50,6 +51,7 @@ const PrivacySecurity = () => {
   }];
   return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
       {/* Background effects */}
+      <PremiumBackground />
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 backdrop-blur-xl shadow-lg">
