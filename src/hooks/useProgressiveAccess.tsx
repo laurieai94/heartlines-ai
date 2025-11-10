@@ -93,6 +93,17 @@ export const useProgressiveAccess = () => {
 
   // Memoized chat readiness computation
   const chatReadiness = useMemo(() => {
+    // CRITICAL FIX: Wait for profile data to fully load before checking completion
+    if (!personalStorage.isReady) {
+      console.log('[ProgressiveAccess] Profile data not ready yet, returning incomplete status');
+      return { 
+        isComplete: false, 
+        missingFields: ['Loading profile...'],
+        incompleteSections: [],
+        overallProgress: 0
+      };
+    }
+    
     const profileData = personalStorage.profileData as ProfileData;
     if (!profileData || Object.keys(profileData).length === 0) {
       console.log('[ProgressiveAccess] No profile data found');
@@ -159,7 +170,7 @@ export const useProgressiveAccess = () => {
       incompleteSections,
       overallProgress
     };
-  }, [personalStorage.profileData, profileUpdateCounter]);
+  }, [personalStorage.profileData, profileUpdateCounter, personalStorage.isReady]);
 
   const hasPersonalProfileForChat = chatReadiness.isComplete;
   const missingFieldsForChat = chatReadiness.missingFields;
@@ -176,6 +187,14 @@ export const useProgressiveAccess = () => {
       return 'signup-required';
     }
     
+    // CRITICAL FIX: Wait for profile data to fully load before checking completion
+    // This prevents false "profile incomplete" lockouts during data loading
+    if (!personalStorage.isReady) {
+      console.log('[ProgressiveAccess] Profile data still loading, returning last known access level');
+      // Return last known access level to prevent flickering during load
+      return lastAccessLevelRef.current;
+    }
+    
     if (!hasPersonalProfileForChat) {
       lastAccessLevelRef.current = 'profile-required';
       return 'profile-required';
@@ -183,7 +202,7 @@ export const useProgressiveAccess = () => {
     
     lastAccessLevelRef.current = 'full-access';
     return 'full-access';
-  }, [user, hasPersonalProfileForChat, missingFieldsForChat, personalStorage.profileData]);
+  }, [user, hasPersonalProfileForChat, missingFieldsForChat, personalStorage.profileData, personalStorage.isReady]);
 
   // Memoized permission checker
   const checkInteractionPermission = useCallback((action: string): boolean => {
