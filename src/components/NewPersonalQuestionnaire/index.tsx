@@ -1,8 +1,8 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
 import { toast } from "@/hooks/use-toast";
+import { batchedStorage } from "@/utils/batchedStorage";
 
 interface NewPersonalQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -126,6 +126,23 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     }
   }, [autoCompleteCallback]);
 
+  // Wrap onClose to ensure all data is flushed to localStorage immediately
+  const handleClose = useCallback(() => {
+    console.log('[Questionnaire] Closing - flushing all pending data');
+    
+    // Flush profile store
+    if ((saveData as any).flush) {
+      (saveData as any).flush();
+    }
+    
+    // CRITICAL: Flush batchedStorage to write to actual localStorage
+    batchedStorage.flush();
+    
+    console.log('[Questionnaire] All data flushed to localStorage');
+    
+    // Now close
+    onClose();
+  }, [saveData, onClose]);
 
   return (
     <QuestionnaireLayout
@@ -133,7 +150,7 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
       updateField={updateField}
       handleMultiSelect={handleMultiSelect}
       onComplete={handleComplete}
-      onClose={onClose}
+      onClose={handleClose}
       isModal={isModal}
       onAutoComplete={autoCompleteCallback}
     />
