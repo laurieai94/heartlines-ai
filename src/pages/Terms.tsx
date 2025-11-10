@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import { BRAND } from "@/branding";
-import { FileText } from "lucide-react";
 import SimpleHeader from "@/components/SimpleHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
@@ -32,12 +31,7 @@ const Terms = () => {
         <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center backdrop-filter backdrop-blur-sm">
-                <FileText className="w-8 h-8 text-white" />
-              </div>
-            </div>
-          <h1 
+          <h1
             className="text-5xl md:text-6xl lg:text-7xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider"
             style={{
               textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
