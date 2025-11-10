@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
+import { toast } from "@/hooks/use-toast";
 
 interface NewPersonalQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -34,29 +35,66 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
         (saveData as any).flush();
       }
       
-      // STEP 2: Wait for storage to sync
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // STEP 2: Wait longer for all storage operations to complete
+      await new Promise(resolve => setTimeout(resolve, 200));
       
-      // STEP 3: Read fresh data directly from localStorage
-      let freshData = profileData;
+      // STEP 3: ALWAYS read fresh data directly from localStorage (not from profileData prop)
+      let freshData;
       try {
         const stored = localStorage.getItem('personal_profile_v2');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          freshData = parsed.profile || parsed || profileData;
-          console.log('[Questionnaire] Fresh data from localStorage:', {
-            name: freshData.name,
-            pronouns: freshData.pronouns,
-            relationshipStatus: freshData.relationshipStatus,
-            loveLanguage: freshData.loveLanguage,
-            attachmentStyle: freshData.attachmentStyle
+        if (!stored) {
+          console.error('[Questionnaire] ERROR: No data in localStorage!');
+          toast({
+            title: "Error",
+            description: "Profile data not found. Please try again.",
+            variant: "destructive"
           });
+          return;
         }
+        
+        const parsed = JSON.parse(stored);
+        freshData = parsed.profile || {};
+        
+        console.log('[Questionnaire] Fresh data from localStorage:', {
+          name: freshData.name,
+          pronouns: freshData.pronouns,
+          relationshipStatus: freshData.relationshipStatus,
+          loveLanguage: freshData.loveLanguage,
+          loveLanguageLength: freshData.loveLanguage?.length,
+          attachmentStyle: freshData.attachmentStyle
+        });
+        
+        // Validate that we have all required fields BEFORE sending
+        const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+        const missing = requiredFields.filter(field => {
+          const value = freshData[field];
+          if (Array.isArray(value)) {
+            return !value || value.length === 0;
+          }
+          return !value || value.trim() === '';
+        });
+        
+        if (missing.length > 0) {
+          console.error('[Questionnaire] Missing required fields:', missing);
+          toast({
+            title: "Missing Required Fields",
+            description: `Please complete: ${missing.join(', ')}`,
+            variant: "destructive"
+          });
+          return; // Don't proceed with completion
+        }
+        
       } catch (e) {
         console.error('[Questionnaire] Error reading localStorage:', e);
+        toast({
+          title: "Error",
+          description: "Error reading profile data. Please try again.",
+          variant: "destructive"
+        });
+        return;
       }
       
-      // STEP 4: Build completion data with fresh values
+      // STEP 4: Build completion data with ONLY fresh values
       const completedData = {
         ...freshData,
         completedAt: new Date().toISOString(),
@@ -73,8 +111,13 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
       });
     } catch (error) {
       console.error('[Questionnaire] Error completing questionnaire:', error);
+      toast({
+        title: "Error",
+        description: "Error completing questionnaire. Please try again.",
+        variant: "destructive"
+      });
     }
-  }, [profileData, saveData, onComplete]);
+  }, [saveData, onComplete]);
 
   // Set the auto-complete callback after we have access to handleComplete
   useEffect(() => {
