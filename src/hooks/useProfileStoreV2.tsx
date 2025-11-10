@@ -1102,6 +1102,9 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     }
     
+    // CRITICAL FIX: Mark field as recently modified to protect from database overwrites
+    recentlyModifiedFields.current.set(field, Date.now());
+    
     // Use functional update to get fresh state
     // Wrap in flushSync for required fields to force immediate re-render
     if (requiredFields.includes(field)) {
