@@ -296,11 +296,11 @@ const ProfileBuilder = ({
       {/* Mobile optimization disabled for performance */}
       {/* Pull-to-refresh indicator removed - was causing freezing */}
       
-      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-6 md:pt-8 lg:pt-12" style={{
+      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-10 md:pt-14 lg:pt-16" style={{
       paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined
     }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-8 md:space-y-10 lg:space-y-12 flex-shrink-0 px-2 md:px-4">
+        <div className="text-center space-y-10 md:space-y-12 lg:space-y-14 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand bg-gradient-to-r from-orange-300 via-peach-300 to-pink-300 bg-clip-text text-transparent tracking-wide [text-shadow:0_2px_20px_rgba(251,146,120,0.4)]">let's get to know your situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
@@ -323,7 +323,7 @@ const ProfileBuilder = ({
       {/* Main Content Area - Scrollable */}
       <div className="space-y-3 md:space-y-4 lg:space-y-6">
         {/* Step 1 Nudge - Only show if 5 required questions aren't complete */}
-        {!canUnlockCoaching && <div className="px-3 md:px-4 lg:px-6">
+        {!canUnlockCoaching && <div className="px-3 md:px-4 lg:px-6 my-8 md:my-10 lg:my-12">
             <OnboardingStepNudge completion={Math.round(completedRequiredFields / totalRequiredFields * 100)} onStartProfile={handleStartPersonalProfile} />
           </div>}
         {/* Responsive Two-Card Layout */}
