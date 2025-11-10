@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useReducer } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { toast } from "sonner";
 import { Heart, Star, Search, Lock, MessageSquare, ChevronDown, ArrowRight, Sparkles, Shield, Database, Eye, Trash2, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -51,8 +51,8 @@ const ProfileBuilder = ({
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
   
-  // Force update hook for profile completion changes
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
+  // Profile update counter for real-time button state updates
+  const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
 
   // Use centralized progress tracking and temporary profile data
   const {
@@ -119,32 +119,26 @@ const ProfileBuilder = ({
       canUnlockCoaching: completed >= total
     };
   }, [
-    personalProfileData?.name?.trim() || null,
-    personalProfileData?.pronouns?.trim() || null,
-    personalProfileData?.relationshipStatus?.trim() || null,
+    personalProfileData?.name,
+    personalProfileData?.pronouns,
+    personalProfileData?.relationshipStatus,
     personalProfileData?.loveLanguage,
-    personalProfileData?.attachmentStyle?.trim() || null,
-    (personalProfileData as any)?._updateTimestamp
+    personalProfileData?.attachmentStyle,
+    personalProfileData,
+    profileUpdateCounter  // Force recalculation on any profile update
   ]);
 
   // Listen for required field updates to force immediate UI update
   useEffect(() => {
     const handleRequiredFieldUpdate = () => {
-      console.log('[ProfileBuilder] Required field updated - forcing re-render');
-      forceUpdate();
-    };
-    
-    const handleProfileUpdate = () => {
-      console.log('[ProfileBuilder] Profile updated - forcing re-render for avatar');
-      forceUpdate();
+      console.log('[ProfileBuilder] Required field updated - forcing recalculation');
+      setProfileUpdateCounter(prev => prev + 1);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
-    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     
     return () => {
       window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
-      window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     };
   }, []);
 
