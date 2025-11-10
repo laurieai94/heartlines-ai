@@ -53,6 +53,9 @@ const ProfileBuilder = ({
   
   // Profile update counter for real-time button state updates
   const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
+  
+  // Cache required fields for instant updates
+  const [cachedRequiredFields, setCachedRequiredFields] = useState<any>({});
 
   // Use centralized progress tracking and temporary profile data
   const {
@@ -99,18 +102,22 @@ const ProfileBuilder = ({
     totalRequiredFields,
     canUnlockCoaching
   } = useMemo(() => {
-    const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
+    const completed = cachedRequiredFields._timestamp 
+      ? getCompletedRequiredFieldsCount(cachedRequiredFields as any)
+      : personalProfileData 
+        ? getCompletedRequiredFieldsCount(personalProfileData as any) 
+        : 0;
     const total = getTotalRequiredFieldsCount();
     console.log('[ProfileBuilder] Completion check:', { 
       completed, 
       total, 
       canUnlock: completed >= total,
       fields: {
-        name: !!personalProfileData?.name,
-        pronouns: !!personalProfileData?.pronouns,
-        relationshipStatus: !!personalProfileData?.relationshipStatus,
-        loveLanguage: !!personalProfileData?.loveLanguage,
-        attachmentStyle: !!personalProfileData?.attachmentStyle
+        name: !!(cachedRequiredFields.name || personalProfileData?.name),
+        pronouns: !!(cachedRequiredFields.pronouns || personalProfileData?.pronouns),
+        relationshipStatus: !!(cachedRequiredFields.relationshipStatus || personalProfileData?.relationshipStatus),
+        loveLanguage: !!(cachedRequiredFields.loveLanguage || personalProfileData?.loveLanguage),
+        attachmentStyle: !!(cachedRequiredFields.attachmentStyle || personalProfileData?.attachmentStyle)
       }
     });
     return {
@@ -119,23 +126,55 @@ const ProfileBuilder = ({
       canUnlockCoaching: completed >= total
     };
   }, [
-    personalProfileData?.name,
-    personalProfileData?.pronouns,
-    personalProfileData?.relationshipStatus,
-    personalProfileData?.loveLanguage,
-    personalProfileData?.attachmentStyle,
+    cachedRequiredFields.name || personalProfileData?.name,
+    cachedRequiredFields.pronouns || personalProfileData?.pronouns,
+    cachedRequiredFields.relationshipStatus || personalProfileData?.relationshipStatus,
+    cachedRequiredFields.loveLanguage || personalProfileData?.loveLanguage,
+    cachedRequiredFields.attachmentStyle || personalProfileData?.attachmentStyle,
+    cachedRequiredFields._timestamp, // Force recalc when fresh data arrives
     personalProfileData,
-    profileUpdateCounter  // Force recalculation on any profile update
+    profileUpdateCounter
   ]);
 
-  // Listen for required field updates to force immediate UI update
+  // Listen for required field updates and immediately read fresh data
   useEffect(() => {
     const handleRequiredFieldUpdate = () => {
-      console.log('[ProfileBuilder] Required field updated - forcing recalculation');
+      console.log('[ProfileBuilder] Required field updated - reading fresh data from storage');
+      
+      // Immediately read fresh data from localStorage (bypass all hooks)
+      try {
+        const stored = localStorage.getItem('personal_profile_v2');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          const freshData = parsed.profile || {};
+          
+          // Extract only required fields for performance
+          const freshRequired = {
+            name: freshData.name,
+            pronouns: freshData.pronouns,
+            relationshipStatus: freshData.relationshipStatus,
+            loveLanguage: freshData.loveLanguage,
+            attachmentStyle: freshData.attachmentStyle,
+            _timestamp: Date.now() // Force new object reference
+          };
+          
+          console.log('[ProfileBuilder] Fresh required fields:', freshRequired);
+          
+          // Update cached state immediately
+          setCachedRequiredFields(freshRequired);
+        }
+      } catch (e) {
+        console.error('[ProfileBuilder] Error reading fresh data:', e);
+      }
+      
+      // Still increment counter as fallback
       setProfileUpdateCounter(prev => prev + 1);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
+    
+    // Also read initial data on mount
+    handleRequiredFieldUpdate();
     
     return () => {
       window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
