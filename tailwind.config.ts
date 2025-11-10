@@ -252,8 +252,8 @@ export default {
 				},
 				'wiggle': {
 					'0%, 100%': { transform: 'rotate(0deg)' },
-					'10%, 30%, 50%, 70%, 90%': { transform: 'rotate(-3deg)' },
-					'20%, 40%, 60%, 80%': { transform: 'rotate(3deg)' }
+					'25%': { transform: 'rotate(-4deg)' },
+					'75%': { transform: 'rotate(4deg)' }
 				},
 				'pulse-glow': {
 					'0%, 100%': {
@@ -296,7 +296,7 @@ export default {
 				'line-right-sequence': 'line-grow-center 0.9s ease-out forwards, line-open-right 0.6s ease-in 1.1s forwards',
 				'soft-glow': 'soft-glow 6s ease-in-out infinite',
 				'fadeInOut': 'fadeInOut 1.4s ease-in-out infinite',
-				'wiggle': 'wiggle 3s ease-in-out infinite',
+				'wiggle': 'wiggle 6s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'soft-pulse-glow': 'soft-pulse-glow 4s ease-in-out infinite',
 				'emerald-soft-glow': 'emerald-soft-glow 6s ease-in-out infinite'
