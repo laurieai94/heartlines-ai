@@ -68,45 +68,32 @@ const Dashboard = () => {
     }
   }, [accessLevel, user]);
 
-  // Show welcome dialog for brand-new signups, then auto-open questionnaire
+  // Show welcome dialog only once after email verification
   useEffect(() => {
-    // PREVENT LOOP: Don't auto-open if we're completing questionnaire
-    const isCompleting = sessionStorage.getItem('questionnaire-completing');
-    if (isCompleting) {
-      console.log('[Dashboard] Questionnaire completing - skipping auto-open');
-      return;
-    }
+    if (!user) return;
     
-    // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab
-    if (activeTab === 'insights') {
-      console.log('[Dashboard] On coach tab - skipping auto-open logic');
-      return;
-    }
+    // Check if this is a first-time email verification
+    const firstTimeVerificationKey = `first_email_verification_${user.id}`;
+    const hasFirstTimeVerification = sessionStorage.getItem(firstTimeVerificationKey);
+    const userWelcomeShownKey = `welcomeDialogShown_${user.id}`;
+    const hasShownWelcome = localStorage.getItem(userWelcomeShownKey);
     
-    if (activeTab === 'profile' && 
-        accessLevel === 'profile-required' && 
-        user && 
-        !showQuestionnaireModal &&
-        !showWelcomeDialog) {
+    // Only show welcome if:
+    // 1. Coming from email verification (sessionStorage flag exists)
+    // 2. Haven't shown welcome before (localStorage flag doesn't exist)
+    if (hasFirstTimeVerification && !hasShownWelcome) {
+      // Clear the verification flag (one-time use)
+      sessionStorage.removeItem(firstTimeVerificationKey);
       
-      // Use per-user localStorage keys to avoid cross-user conflicts
-      const userAutoOpenKey = `profileAutoOpenedOnce_${user.id}`;
-      const userWelcomeShownKey = `welcomeDialogShown_${user.id}`;
-      const hasAutoOpened = localStorage.getItem(userAutoOpenKey);
-      const hasShownWelcome = localStorage.getItem(userWelcomeShownKey);
+      // Set permanent flag so it never shows again
+      localStorage.setItem(userWelcomeShownKey, 'true');
       
-      if (!hasAutoOpened && !hasShownWelcome) {
-        // Set per-user flags
-        localStorage.setItem(userAutoOpenKey, 'true');
-        localStorage.setItem(userWelcomeShownKey, 'true');
-        
-        // Small delay to ensure component is mounted, then show welcome dialog
-        setTimeout(() => {
-          setShowWelcomeDialog(true);
-        }, 100);
-      }
+      // Show welcome dialog
+      setTimeout(() => {
+        setShowWelcomeDialog(true);
+      }, 100);
     }
-  }, [activeTab, accessLevel, user, showQuestionnaireModal, showWelcomeDialog, setShowWelcomeDialog]);
+  }, [user, setShowWelcomeDialog]);
 
   const handleSignInClick = () => {
     openSignInModal();

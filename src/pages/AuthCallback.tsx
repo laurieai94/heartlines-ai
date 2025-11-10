@@ -93,6 +93,11 @@ const AuthCallback = () => {
         // Log successful login
         logEvent("login_success");
         
+        // Mark this as a first-time email verification
+        if (userId) {
+          sessionStorage.setItem(`first_email_verification_${userId}`, 'true');
+        }
+        
         // Check if this is a new tab/window (opened from email)
         const isNewTab = window.opener !== null;
         
