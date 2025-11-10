@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useProfileStoreV2 } from './useProfileStoreV2';
 import { ProfileData } from '../components/NewPersonalQuestionnaire/types';
 
@@ -14,6 +14,9 @@ interface ExtendedProfileData extends ProfileData {
 export const usePersonalProfileData = () => {
   // Use the new V2 storage system
   const v2Store = useProfileStoreV2('personal');
+  
+  // Track profile updates to force re-memoization
+  const [updateTrigger, setUpdateTrigger] = useState(0);
 
   // Field name normalization mappings
   const FIELD_NORMALIZATIONS: Record<string, string> = {
@@ -57,10 +60,24 @@ export const usePersonalProfileData = () => {
     attachmentStyle: ''
   }), []);
 
+  // Listen for profile updates to force re-memoization
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      // Force memoization to recalculate by incrementing trigger
+      setUpdateTrigger(prev => prev + 1);
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    
+    return () => {
+      window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    };
+  }, []);
+
   // Memoize merged data to provide stable reference that only changes when actual data changes
   const mergedProfileData = useMemo(() => {
     return { ...defaultProfileData, ...v2Store.profileData } as ExtendedProfileData;
-  }, [v2Store.profileData, defaultProfileData]);
+  }, [v2Store.profileData, defaultProfileData, updateTrigger]);
 
   // Wrap updateField to normalize field names with immediate updates for required fields
   const normalizedUpdateField = (field: string, value: any) => {
