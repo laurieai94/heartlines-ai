@@ -1,5 +1,5 @@
 
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,20 +13,19 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 
 // Import FirstVisitSplash for session-based splash screen
 import FirstVisitSplash from "@/components/FirstVisitSplash";
-import LazyPageSkeleton from "@/components/LazyPageSkeleton";
 
-// Lazy load non-critical components
-const NotFound = React.lazy(() => import("@/pages/NotFound"));
-const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
-const PrivacySecurity = React.lazy(() => import("@/pages/PrivacySecurity"));
+// All pages loaded synchronously for instant navigation
+import NotFound from "@/pages/NotFound";
+import AuthCallback from "@/pages/AuthCallback";
+import PrivacySecurity from "@/pages/PrivacySecurity";
 import Pricing from "@/pages/Pricing";
-const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
-const Account = React.lazy(() => import("@/pages/Account"));
-import Auth from "@/pages/Auth"; // Synchronous import for instant loading
-const Mission = React.lazy(() => import("@/pages/Mission"));
-const Terms = React.lazy(() => import("@/pages/Terms"));
-const Contact = React.lazy(() => import("@/pages/Contact"));
-const AdminDashboard = React.lazy(() => import("@/pages/AdminDashboard"));
+import BillingSuccess from "@/pages/BillingSuccess";
+import Account from "@/pages/Account";
+import Auth from "@/pages/Auth";
+import Mission from "@/pages/Mission";
+import Terms from "@/pages/Terms";
+import Contact from "@/pages/Contact";
+import AdminDashboard from "@/pages/AdminDashboard";
 
 const AppContent = () => {
   // Removed disabled performance functions to eliminate unnecessary calls
@@ -52,55 +51,19 @@ const AppContent = () => {
         <Route path="/dashboard" element={<Navigate to="/profile" replace />} />
         <Route path="/privacy" element={<Navigate to="/privacy-and-security" replace />} />
         
-        {/* Non-critical routes can be lazy */}
-        <Route path="/mission" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <Mission />
-          </Suspense>
-        } />
-        <Route path="/privacy-and-security" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <PrivacySecurity />
-          </Suspense>
-        } />
+        {/* All routes load instantly without skeleton screens */}
+        <Route path="/mission" element={<Mission />} />
+        <Route path="/privacy-and-security" element={<PrivacySecurity />} />
         <Route path="/plans" element={<Pricing />} />
-        <Route path="/billing/success" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <BillingSuccess />
-          </Suspense>
-        } />
-        <Route path="/auth/callback" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <AuthCallback />
-          </Suspense>
-        } />
+        <Route path="/billing/success" element={<BillingSuccess />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/signin" element={<Auth />} />
         <Route path="/signup" element={<Auth />} />
-        <Route path="/account" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <Account />
-          </Suspense>
-        } />
-        <Route path="/terms" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <Terms />
-          </Suspense>
-        } />
-        <Route path="/contact" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <Contact />
-          </Suspense>
-        } />
-        <Route path="/admin" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <AdminDashboard />
-          </Suspense>
-        } />
-        <Route path="*" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <NotFound />
-          </Suspense>
-        } />
+        <Route path="/account" element={<Account />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
