@@ -127,7 +127,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           }
           transition-all duration-300 md:group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] group-hover:scale-[1.01]
         `}
-        style={{ backgroundColor: 'hsl(350, 100%, 20%)' }}
+        style={{ backgroundColor: 'hsl(350, 100%, 26%)' }}
       >
           <div className="text-sm md:text-[15px] leading-relaxed whitespace-pre-wrap font-light lowercase drop-shadow-sm message-text">
             {message.content}
