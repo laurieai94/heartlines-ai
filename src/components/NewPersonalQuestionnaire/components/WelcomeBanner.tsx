@@ -21,7 +21,7 @@ const WelcomeBanner = ({ profileData }: WelcomeBannerProps) => {
       <div className="flex items-center gap-2.5">
         <Sparkles className="w-4 h-4 text-pink-300 flex-shrink-0" />
         <p className="text-sm text-white/90">
-          welcome! answer just 5 core questions to chat with kai. you can always add more details later.
+          just 5 core qs to tune kai into you. the rest can come as you go 💫
         </p>
       </div>
     </div>
