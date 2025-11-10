@@ -124,11 +124,11 @@ const AIChatInput = ({
           ? `border-2 ${
               atLimit 
                 ? 'border-coral-400/30 shadow-[0_0_12px_rgba(251,146,60,0.25),0_0_24px_rgba(236,72,153,0.2),0_0_36px_rgba(251,113,133,0.15)] animate-pulse-glow' 
-                : 'border-white/20'
+                : 'border-pink-400/30'
             }` 
           : isMobile
-            ? 'border-2 border-white/20 focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
-            : 'border-2 border-white/20 ring-2 ring-pink-400/10 focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
+            ? 'border-2 border-pink-400/30 focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
+            : 'border-2 border-pink-400/30 ring-2 ring-pink-400/10 focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
       }`}>
         <Textarea
           unstyled
