@@ -19,7 +19,7 @@ import LazyPageSkeleton from "@/components/LazyPageSkeleton";
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
 const PrivacySecurity = React.lazy(() => import("@/pages/PrivacySecurity"));
-const Pricing = React.lazy(() => import("@/pages/Pricing"));
+import Pricing from "@/pages/Pricing";
 const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
 const Account = React.lazy(() => import("@/pages/Account"));
 import Auth from "@/pages/Auth"; // Synchronous import for instant loading
@@ -63,11 +63,7 @@ const AppContent = () => {
             <PrivacySecurity />
           </Suspense>
         } />
-        <Route path="/plans" element={
-          <Suspense fallback={<LazyPageSkeleton />}>
-            <Pricing />
-          </Suspense>
-        } />
+        <Route path="/plans" element={<Pricing />} />
         <Route path="/billing/success" element={
           <Suspense fallback={<LazyPageSkeleton />}>
             <BillingSuccess />
