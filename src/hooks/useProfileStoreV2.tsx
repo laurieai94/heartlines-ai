@@ -945,12 +945,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         });
       });
       
-      // Dispatch event after render completes
-      requestAnimationFrame(() => {
-        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-          detail: { fields: Object.keys(clonedUpdates), timestamp: Date.now() }
-        }));
-      });
+      // Dispatch event immediately after flushSync completes
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+        detail: { fields: Object.keys(clonedUpdates), timestamp: Date.now() }
+      }));
     } else {
       setProfile(prev => {
         const updated = { ...prev, ...clonedUpdates };
@@ -1062,12 +1060,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         });
       });
       
-      // Dispatch event after render completes
-      requestAnimationFrame(() => {
-        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-          detail: { field, value, timestamp: Date.now() }
-        }));
-      });
+      // Dispatch event immediately after flushSync completes
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+        detail: { field, value, timestamp: Date.now() }
+      }));
     } else {
       setProfile(prev => {
         const updated = { ...prev, ...clonedUpdates };
@@ -1133,12 +1129,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         });
       });
       
-      // Dispatch event after render completes
-      requestAnimationFrame(() => {
-        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-          detail: { field, value, timestamp: Date.now() }
-        }));
-      });
+      // Dispatch event immediately after flushSync completes
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+        detail: { field, value, timestamp: Date.now() }
+      }));
       
       // Trigger timeout-based database sync
       pendingUpdates.current = { 
