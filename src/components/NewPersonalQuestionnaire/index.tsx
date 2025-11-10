@@ -25,6 +25,44 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     };
   }, [saveData]);
 
+  // Wrap onClose to ensure all data is flushed to localStorage immediately
+  const handleClose = useCallback(() => {
+    console.log('[Questionnaire] Closing - flushing all pending data');
+    
+    // Flush profile store
+    if ((saveData as any).flush) {
+      (saveData as any).flush();
+    }
+    
+    // CRITICAL: Flush batchedStorage to write to actual localStorage
+    batchedStorage.flush();
+    
+    console.log('[Questionnaire] All data flushed to localStorage');
+    
+    // CRITICAL: Dispatch event so ProfileBuilder updates immediately
+    window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+      detail: { source: 'questionnaire-close', timestamp: Date.now() }
+    }));
+    console.log('[Questionnaire] Dispatched profile:requiredFieldUpdated event');
+    
+    // Now close
+    onClose();
+  }, [saveData, onClose]);
+
+  // Listen for close request from modal handler
+  useEffect(() => {
+    const handleCloseRequest = () => {
+      console.log('[Questionnaire] Received close request - executing handleClose');
+      handleClose();
+      
+      // Signal that close is complete
+      window.dispatchEvent(new CustomEvent('questionnaire:closeComplete'));
+    };
+
+    window.addEventListener('questionnaire:requestClose', handleCloseRequest);
+    return () => window.removeEventListener('questionnaire:requestClose', handleCloseRequest);
+  }, [handleClose]);
+
   const handleComplete = useCallback(async () => {
     console.log('[Questionnaire] Starting completion flow...');
     
@@ -124,31 +162,7 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     if (!autoCompleteCallback) {
       setAutoCompleteCallback(() => handleComplete);
     }
-  }, [autoCompleteCallback]);
-
-  // Wrap onClose to ensure all data is flushed to localStorage immediately
-  const handleClose = useCallback(() => {
-    console.log('[Questionnaire] Closing - flushing all pending data');
-    
-    // Flush profile store
-    if ((saveData as any).flush) {
-      (saveData as any).flush();
-    }
-    
-    // CRITICAL: Flush batchedStorage to write to actual localStorage
-    batchedStorage.flush();
-    
-    console.log('[Questionnaire] All data flushed to localStorage');
-    
-    // CRITICAL: Dispatch event so ProfileBuilder updates immediately
-    window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-      detail: { source: 'questionnaire-close', timestamp: Date.now() }
-    }));
-    console.log('[Questionnaire] Dispatched profile:requiredFieldUpdated event');
-    
-    // Now close
-    onClose();
-  }, [saveData, onClose]);
+  }, [autoCompleteCallback, handleComplete]);
 
   return (
     <QuestionnaireLayout

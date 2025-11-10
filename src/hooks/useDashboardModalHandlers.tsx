@@ -236,14 +236,32 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   };
 
   const handleQuestionnaireClose = () => {
-    console.log('Closing questionnaire modal');
+    console.log('[Handler] Requesting questionnaire close');
     
     // CRITICAL: Clear completion flag to ensure nudge shows correctly
     sessionStorage.removeItem('questionnaire-completing');
-    console.log('[Close] Cleared questionnaire-completing flag');
+    console.log('[Handler] Cleared questionnaire-completing flag');
     
-    modalStates.setShowQuestionnaireModal(false);
-    modalStates.setQuestionnaireOrigin(null);
+    // Set up listener for close completion
+    const handleCloseComplete = () => {
+      console.log('[Handler] Questionnaire close complete - closing modal');
+      modalStates.setShowQuestionnaireModal(false);
+      modalStates.setQuestionnaireOrigin(null);
+      window.removeEventListener('questionnaire:closeComplete', handleCloseComplete);
+    };
+    
+    window.addEventListener('questionnaire:closeComplete', handleCloseComplete);
+    
+    // Request the questionnaire to close itself (it will flush data first)
+    window.dispatchEvent(new CustomEvent('questionnaire:requestClose'));
+    
+    // Fallback timeout in case event doesn't fire
+    setTimeout(() => {
+      console.log('[Handler] Fallback timeout - closing modal');
+      modalStates.setShowQuestionnaireModal(false);
+      modalStates.setQuestionnaireOrigin(null);
+      window.removeEventListener('questionnaire:closeComplete', handleCloseComplete);
+    }, 500);
   };
 
   const handlePartnerQuestionnaireClose = () => {
