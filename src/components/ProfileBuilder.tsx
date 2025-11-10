@@ -54,8 +54,27 @@ const ProfileBuilder = ({
   // Profile update counter for real-time button state updates
   const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
   
-  // Cache required fields for instant updates
-  const [cachedRequiredFields, setCachedRequiredFields] = useState<any>({});
+  // Cache required fields for instant updates - initialize with real data
+  const [cachedRequiredFields, setCachedRequiredFields] = useState<any>(() => {
+    try {
+      const stored = localStorage.getItem('personal_profile_v2');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        const profileData = parsed.profile || {};
+        return {
+          name: profileData.name,
+          pronouns: profileData.pronouns,
+          relationshipStatus: profileData.relationshipStatus,
+          loveLanguage: profileData.loveLanguage,
+          attachmentStyle: profileData.attachmentStyle,
+          _timestamp: Date.now()
+        };
+      }
+    } catch (e) {
+      console.error('[ProfileBuilder] Error initializing cached fields:', e);
+    }
+    return {};
+  });
 
   // Use centralized progress tracking and temporary profile data
   const {
