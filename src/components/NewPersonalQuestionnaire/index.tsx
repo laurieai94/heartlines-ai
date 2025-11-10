@@ -140,6 +140,12 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     
     console.log('[Questionnaire] All data flushed to localStorage');
     
+    // CRITICAL: Dispatch event so ProfileBuilder updates immediately
+    window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+      detail: { source: 'questionnaire-close', timestamp: Date.now() }
+    }));
+    console.log('[Questionnaire] Dispatched profile:requiredFieldUpdated event');
+    
     // Now close
     onClose();
   }, [saveData, onClose]);
