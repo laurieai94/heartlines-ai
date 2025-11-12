@@ -19,7 +19,6 @@ import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
-import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
 import ProfileTips from "@/components/ProfileBuilder/ProfileTips";
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
@@ -302,21 +301,29 @@ const ProfileBuilder = ({
     }}>
         {/* Main Header - Responsive */}
         <div className="text-center space-y-10 md:space-y-12 lg:space-y-14 flex-shrink-0 px-2 md:px-4">
-          <h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-brand font-bold bg-gradient-to-r from-orange-200 via-peach-200 to-pink-200 bg-clip-text text-transparent tracking-wide"
-            style={{
-              textShadow: '0 2px 10px rgba(251, 146, 120, 0.6), 0 4px 20px rgba(236, 72, 153, 0.5), 0 8px 40px rgba(251, 146, 120, 0.3), 0 0 80px rgba(236, 72, 153, 0.2)'
-            }}
-          >
-            let's get to know your situationship
-          </h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand bg-gradient-to-r from-orange-300 via-peach-300 to-pink-300 bg-clip-text text-transparent tracking-wide [text-shadow:0_2px_20px_rgba(251,146,120,0.4)]">let's get to know your situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
-          {canUnlockCoaching && (
-            <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-              <UnlockCoachingButton size="default" />
-            </div>
-          )}
+          {canUnlockCoaching && <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+              <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-[0_0_30px_rgba(251,146,120,0.5)] hover:shadow-xl hover:scale-105 border border-white/20">
+                <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-pulse">
+                  <AvatarImage 
+                    src={BRAND.coach.avatarSrc} 
+                    alt={BRAND.coach.name} 
+                    className="object-cover"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                  <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white font-bold text-sm">
+                    {BRAND.coach.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="flex items-center gap-1">
+                  unlock coaching with {BRAND.coach.name}
+                  <MessageSquare className="w-4 h-4" />
+                </span>
+              </Button>
+            </div>}
         </div>
 
       {/* Main Content Area - Scrollable */}
