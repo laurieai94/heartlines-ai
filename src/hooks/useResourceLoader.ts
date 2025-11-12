@@ -33,6 +33,12 @@ export const useResourceLoader = (
     let loadedCount = 0;
     const totalImages = imageSources.length;
     const startTime = Date.now();
+    
+    // Track readiness states
+    let imagesLoaded = false;
+    let documentReady = false;
+    let fontsReady = false;
+    let minTimeElapsed = false;
 
     // Aggressive timeout fallback - force proceed on mobile
     const timeoutId = setTimeout(() => {
@@ -44,7 +50,6 @@ export const useResourceLoader = (
     }, maxTimeout);
 
     // Track minimum display time
-    let minTimeElapsed = false;
     const minTimeId = setTimeout(() => {
       minTimeElapsed = true;
       checkComplete();
@@ -55,12 +60,47 @@ export const useResourceLoader = (
       
       const allLoaded = loadedCount >= totalImages;
       
-      if (allLoaded && minTimeElapsed) {
+      // Wait for images, document, fonts, and minimum time
+      if (allLoaded && documentReady && fontsReady && minTimeElapsed) {
         const elapsed = Date.now() - startTime;
-        console.log(`[ResourceLoader] All ${totalImages} resources loaded in ${elapsed}ms`);
+        console.log(`[ResourceLoader] All resources loaded in ${elapsed}ms (images: ${totalImages}, doc: ready, fonts: ready)`);
         setIsLoading(false);
       }
     };
+    
+    // Check if images are loaded
+    const markImagesLoaded = () => {
+      imagesLoaded = true;
+      checkComplete();
+    };
+    
+    // Wait for document to be fully loaded
+    const checkDocumentReady = () => {
+      if (document.readyState === 'complete') {
+        documentReady = true;
+        checkComplete();
+      }
+    };
+    
+    // Initial check
+    checkDocumentReady();
+    
+    // Listen for document load
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', checkDocumentReady);
+    }
+    
+    // Wait for fonts to be ready
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        if (isMounted) {
+          fontsReady = true;
+          checkComplete();
+        }
+      });
+    } else {
+      fontsReady = true; // Fallback if font API not supported
+    }
 
     // Load all images
     const imagePromises = imageSources.map((src, index) => {
@@ -95,7 +135,7 @@ export const useResourceLoader = (
     // Wait for all images
     Promise.all(imagePromises).then(() => {
       if (isMounted) {
-        checkComplete();
+        markImagesLoaded();
       }
     });
 
@@ -103,6 +143,9 @@ export const useResourceLoader = (
       isMounted = false;
       clearTimeout(timeoutId);
       clearTimeout(minTimeId);
+      if (document.readyState !== 'complete') {
+        window.removeEventListener('load', checkDocumentReady);
+      }
     };
   }, [imageSources, minDisplayTime, maxTimeout]);
 

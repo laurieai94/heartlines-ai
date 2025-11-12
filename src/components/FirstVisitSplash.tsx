@@ -33,9 +33,10 @@ const FirstVisitSplash: React.FC = () => {
   
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   
+  // Longer minimum display time to ensure everything loads
   const { isLoading: resourcesLoading } = useResourceLoader(CRITICAL_IMAGES, {
-    minDisplayTime: 3000,
-    maxTimeout: isMobile ? 1500 : 4000
+    minDisplayTime: isMobile ? 2500 : 5000, // Increased: 2.5s mobile, 5s desktop
+    maxTimeout: isMobile ? 3500 : 8000      // Increased: 3.5s mobile, 8s desktop
   });
 
   useEffect(() => {
@@ -51,28 +52,62 @@ const FirstVisitSplash: React.FC = () => {
     }
   }, []);
 
-  // Hide splash only when resources are loaded
+  // Hide splash only when resources are loaded AND page is painted
   useEffect(() => {
     if (!showSplash || resourcesLoading) return;
 
     let fadeOutTimer: NodeJS.Timeout;
     let hideTimer: NodeJS.Timeout;
 
-    // Resources loaded - start fade out
-    fadeOutTimer = setTimeout(() => {
-      setIsFadingOut(true);
-    }, 0);
+    // Wait for next frame to ensure page is fully painted
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!isMounted()) return;
+        
+        // Check for critical DOM elements being rendered
+        const criticalElementsReady = 
+          document.querySelector('.hero-carousel') !== null ||
+          document.querySelector('[class*="carousel"]') !== null ||
+          document.readyState === 'complete';
+        
+        if (!criticalElementsReady) {
+          console.log('[FirstVisitSplash] Waiting for critical elements to paint...');
+          // Try again in next frame
+          setTimeout(() => checkComplete(), 100);
+          return;
+        }
+        
+        console.log('[FirstVisitSplash] Resources loaded and page painted - hiding splash');
+        
+        // Resources loaded and page painted - start fade out
+        fadeOutTimer = setTimeout(() => {
+          setIsFadingOut(true);
+        }, 0);
+        
+        // Hide splash and mark as visited + cache resources
+        hideTimer = setTimeout(() => {
+          setShowSplash(false);
+          try {
+            sessionStorage.setItem('homepage_visited', 'true');
+            sessionStorage.setItem('resources_loaded', 'true');
+          } catch (error) {
+            console.warn('[FirstVisitSplash] Failed to set sessionStorage:', error);
+          }
+        }, FADE_OUT_DURATION);
+      });
+    });
     
-    // Hide splash and mark as visited + cache resources
-    hideTimer = setTimeout(() => {
-      setShowSplash(false);
-      try {
-        sessionStorage.setItem('homepage_visited', 'true');
-        sessionStorage.setItem('resources_loaded', 'true');
-      } catch (error) {
-        console.warn('[FirstVisitSplash] Failed to set sessionStorage:', error);
-      }
-    }, FADE_OUT_DURATION);
+    function isMounted() {
+      return showSplash && !resourcesLoading;
+    }
+    
+    function checkComplete() {
+      if (!isMounted()) return;
+      
+      // Trigger effect again by forcing re-check
+      const event = new Event('resources-ready');
+      window.dispatchEvent(event);
+    }
     
     return () => {
       clearTimeout(fadeOutTimer);
@@ -93,7 +128,7 @@ const FirstVisitSplash: React.FC = () => {
       } catch (error) {
         console.warn('[FirstVisitSplash] Failed to set sessionStorage on emergency timeout:', error);
       }
-    }, isMobile ? 2500 : 5000); // 2.5s on mobile, 5s on desktop - reduced for better UX
+    }, isMobile ? 4000 : 9000); // 4s on mobile, 9s on desktop - longer to allow full loading
     
     return () => clearTimeout(emergencyTimeout);
   }, [showSplash, isMobile]);
