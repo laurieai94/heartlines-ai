@@ -26,9 +26,9 @@ export const pricingPlans: PricingPlan[] = [
     messages: 25,
     icon: Sprout,
     features: [
+      "1 partner profile",
       "kai's science-backed tools",
       "dating + relationship insights",
-      "1 partner profile",
       "\"try before you commit\" vibes"
     ],
     buttonText: "start free",
@@ -45,8 +45,8 @@ export const pricingPlans: PricingPlan[] = [
     messages: 150,
     icon: Zap,
     features: [
-      "everything in begin",
       "2 partner profiles (track both sides)",
+      "everything in begin",
       "deeper self-reflection + coaching",
       "role-play tough convos"
     ],
@@ -64,8 +64,8 @@ export const pricingPlans: PricingPlan[] = [
     messages: 300,
     icon: Heart,
     features: [
-      "everything in glow",
       "6 partner profiles",
+      "everything in glow",
       "growth check-ins",
       "advanced insights"
     ],
@@ -83,8 +83,8 @@ export const pricingPlans: PricingPlan[] = [
     messages: 0,
     icon: Infinity,
     features: [
-      "everything in vibe",
       "unlimited partner profiles",
+      "everything in vibe",
       "talk anytime, as much as you need",
       "priority support when it matters most"
     ],
