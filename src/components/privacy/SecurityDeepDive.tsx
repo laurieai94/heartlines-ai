@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Shield, Lock, Server, Eye, Key, Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
@@ -47,7 +48,7 @@ const securityFeatures: SecurityFeature[] = [
   }
 ];
 
-export const SecurityDeepDive = () => {
+export const SecurityDeepDive = memo(() => {
   return (
     <section className="relative px-6 pt-4 lg:pt-6 pb-8 lg:pb-12 bg-gradient-to-b from-burgundy-950 via-burgundy-900 to-burgundy-900">
       <div className="max-w-7xl mx-auto">
@@ -57,8 +58,7 @@ export const SecurityDeepDive = () => {
           {securityFeatures.map((feature, index) => (
             <Card 
               key={index}
-              className="p-8 bg-burgundy-800/50 border-coral-500/20 hover:border-coral-400/40 transition-all duration-500 hover:scale-[1.01] shadow-lg hover:shadow-2xl hover:shadow-coral-500/10 animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="p-8 bg-burgundy-800/50 border-coral-500/20 hover:border-coral-400/40 transition-all duration-300 hover:scale-[1.01] shadow-lg hover:shadow-2xl hover:shadow-coral-500/10"
             >
               {/* Icon & Name */}
               <div className="flex items-start gap-3 mb-6 min-h-[80px]">
@@ -105,4 +105,4 @@ export const SecurityDeepDive = () => {
       </div>
     </section>
   );
-};
+});

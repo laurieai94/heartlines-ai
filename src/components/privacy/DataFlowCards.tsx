@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Upload, Lock, Database, Sparkles, UserCheck, Settings } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -74,7 +75,7 @@ const flowSteps: FlowStep[] = [
   }
 ];
 
-export const DataFlowCards = () => {
+export const DataFlowCards = memo(() => {
   return (
     <section className="px-6 pt-6 pb-12 lg:pt-8 lg:pb-16">
       <div className="max-w-7xl mx-auto">
@@ -228,4 +229,4 @@ export const DataFlowCards = () => {
       </div>
     </section>
   );
-};
+});

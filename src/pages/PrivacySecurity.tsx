@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Shield, Database, Server, MessageSquare, Settings, Eye, User, Home, CreditCard } from 'lucide-react';
+import { MessageSquare, Settings, User, Home, CreditCard } from 'lucide-react';
 import FlipPhoneIcon from '@/components/icons/FlipPhoneIcon';
-import { BRAND } from '@/branding';
 import SiteFooter from '@/components/SiteFooter';
-import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 import { SecurityDeepDive } from '@/components/privacy/SecurityDeepDive';
 import { DataFlowCards } from '@/components/privacy/DataFlowCards';
 import PremiumBackground from '@/components/PremiumBackground';
