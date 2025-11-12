@@ -5,6 +5,15 @@ import { profileCompletionCache } from '@/utils/calculationCache';
 import { calculateProgress } from '@/components/NewPersonalQuestionnaire/utils/validation';
 import { calculatePartnerProgress } from '@/components/NewPartnerProfile/utils/partnerValidation';
 
+// Round progress to milestone percentages for cleaner, more premium UX
+const roundToMilestone = (progress: number): number => {
+  if (progress === 0) return 0;
+  if (progress <= 25) return 25;
+  if (progress <= 50) return 50;
+  if (progress <= 75) return 75;
+  return 100;
+};
+
 // Streamlined hook for instant completion calculations
 export const useOptimizedProfileCompletion = () => {
   const { profileData: personalData } = usePersonalProfileData();
@@ -34,9 +43,10 @@ export const useOptimizedProfileCompletion = () => {
     };
     
     // Use cache for fast lookups with stable data
-    return profileCompletionCache.get('personal', stableData, () => {
+    const actualProgress = profileCompletionCache.get('personal', stableData, () => {
       return calculateProgress(personalData as any);
     });
+    return roundToMilestone(actualProgress);
   }, [personalData]);
 
   const calculatePartnerCompletion = useCallback(() => {
@@ -45,9 +55,10 @@ export const useOptimizedProfileCompletion = () => {
     }
     
     // Use cache for fast lookups
-    return profileCompletionCache.get('partner', partnerData, () => {
+    const actualProgress = profileCompletionCache.get('partner', partnerData, () => {
       return calculatePartnerProgress(partnerData as any);
     });
+    return roundToMilestone(actualProgress);
   }, [partnerData]);
 
   return {
