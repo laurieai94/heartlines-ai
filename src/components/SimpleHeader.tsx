@@ -39,7 +39,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
     { value: 'profile', label: 'profile', icon: UserIcon },
     { value: 'insights', label: 'coach', icon: MessageSquare },
     { value: 'plans', label: 'plans', icon: CreditCard },
-    { value: 'account', label: 'my account', icon: Settings },
+    { value: 'account', label: 'account', icon: Settings },
   ];
 
   const handleNavigation = (item: any) => {
