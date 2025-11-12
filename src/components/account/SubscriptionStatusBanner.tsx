@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { Sprout, Zap, Heart, Infinity, RefreshCw } from "lucide-react";
+import React from "react";
+import { Sprout, Zap, Heart, Infinity } from "lucide-react";
 import { useOptimizedSubscription } from "@/hooks/useOptimizedSubscription";
-import { useQueryClient } from '@tanstack/react-query';
-import { useAuth } from '@/contexts/AuthContext';
 import { format } from "date-fns";
-import { toast } from "sonner";
 
 const tierIcons = {
   glow: Zap,
@@ -29,26 +26,7 @@ export const SubscriptionStatusBanner: React.FC = () => {
     messages_used,
     usagePercentage,
     loading,
-    revalidateWithStripe,
   } = useOptimizedSubscription();
-  
-  const queryClient = useQueryClient();
-  const { user } = useAuth();
-  const [refreshing, setRefreshing] = useState(false);
-
-  const handleRefresh = async () => {
-    if (!user) return;
-    setRefreshing(true);
-    try {
-      await revalidateWithStripe();
-      queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
-      toast.success("Subscription refreshed!");
-    } catch (error) {
-      toast.error("Failed to refresh");
-    } finally {
-      setRefreshing(false);
-    }
-  };
 
   if (loading) return null;
 
@@ -68,7 +46,7 @@ export const SubscriptionStatusBanner: React.FC = () => {
 
   return (
     <div className="mb-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/5 bg-white/3 backdrop-blur-sm">
-      <div className="flex items-center justify-center sm:justify-between gap-1.5 sm:gap-3 flex-wrap">
+      <div className="flex items-center justify-center gap-1.5 sm:gap-3 flex-wrap">
         {/* Icon + Plan */}
         <div className="flex items-center gap-1.5">
           <TierIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-coral-300" />
@@ -104,16 +82,6 @@ export const SubscriptionStatusBanner: React.FC = () => {
             <span className="text-coral-300">upgrade anytime</span>
           )}
         </span>
-
-        {/* Refresh button - subtle */}
-        <button 
-          onClick={handleRefresh}
-          className="sm:ml-auto opacity-50 hover:opacity-100 transition-opacity disabled:opacity-20"
-          disabled={refreshing}
-          title="Refresh subscription status"
-        >
-          <RefreshCw className={`h-3 w-3 sm:h-3.5 sm:w-3.5 text-white/70 ${refreshing ? 'animate-spin' : ''}`} />
-        </button>
       </div>
     </div>
   );

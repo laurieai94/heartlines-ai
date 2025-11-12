@@ -15,6 +15,7 @@ import PremiumBackground from "@/components/PremiumBackground";
 import { SubscriptionStatusBanner } from "@/components/account/SubscriptionStatusBanner";
 import { MobileHeaderVisibilityProvider } from '@/contexts/MobileHeaderVisibilityContext';
 import { useCheckoutSuccess } from "@/hooks/useCheckoutSuccess";
+import { useOptimizedSubscription } from "@/hooks/useOptimizedSubscription";
 const faqs = [{
   question: "can i change or cancel my plan anytime?",
   answer: "yep. no contracts, no weird fine print. cancel, upgrade, or downgrade whenever you want."
@@ -33,9 +34,17 @@ const Pricing = () => {
   const {
     user
   } = useAuth();
+  const { subscription_tier } = useOptimizedSubscription();
   const [loading, setLoading] = useState<string | null>(null);
   // Handle checkout success with shared hook
   useCheckoutSuccess();
+
+  const isCurrentPlan = (planTier: string) => {
+    if (!user) return false;
+    // Normalize tier comparison (subscription_tier might be null for freemium)
+    const currentTier = subscription_tier || 'freemium';
+    return currentTier.toLowerCase() === planTier.toLowerCase();
+  };
   // Auto-trigger checkout if user just signed in with intended plan
   useEffect(() => {
     if (user) {
@@ -205,8 +214,23 @@ const Pricing = () => {
                     </ul>
 
                     <div className="mt-auto">
-                      <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-2.5 md:py-3 text-sm ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
-                        {loading === plan.tier ? "loading..." : plan.buttonText}
+                      <Button 
+                        variant="ghost" 
+                        onClick={() => handlePlanSelect(plan)} 
+                        disabled={loading === plan.tier || isCurrentPlan(plan.tier)} 
+                        className={`w-full rounded-full py-2.5 md:py-3 text-sm ${
+                          isCurrentPlan(plan.tier)
+                            ? 'opacity-50 cursor-not-allowed bg-white/5 text-white/40'
+                            : plan.popular
+                            ? 'questionnaire-button-primary'
+                            : 'questionnaire-button-secondary'
+                        }`}
+                      >
+                        {loading === plan.tier
+                          ? "loading..."
+                          : isCurrentPlan(plan.tier)
+                          ? "current plan"
+                          : plan.buttonText}
                       </Button>
                     </div>
                   </CardContent>

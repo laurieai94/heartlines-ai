@@ -100,7 +100,7 @@ export const useOptimizedSubscription = () => {
     refetchOnMount: true, // Update on component mount
   });
 
-  // Subscribe to realtime updates on subscribers table
+  // Subscribe to realtime updates on subscribers table and message usage
   useEffect(() => {
     if (!user?.id) return;
     
@@ -123,8 +123,28 @@ export const useOptimizedSubscription = () => {
         )
         .subscribe();
 
+      // Subscribe to message usage updates for real-time message count
+      const usageChannel = supabase
+        .channel(`usage-changes:${user.id}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE', // Listen to updates when message count increments
+            schema: 'public',
+            table: 'user_message_usage',
+            filter: `user_id=eq.${user.id}`
+          },
+          (payload) => {
+            console.log('Message usage updated via realtime:', payload);
+            // Invalidate cache to trigger refetch with new message count
+            queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
+          }
+        )
+        .subscribe();
+
       return () => {
         supabase.removeChannel(channel);
+        supabase.removeChannel(usageChannel);
       };
     } catch (error) {
       console.warn('Failed to set up realtime subscription:', error);
