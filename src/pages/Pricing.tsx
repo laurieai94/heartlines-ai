@@ -34,13 +34,15 @@ const Pricing = () => {
   const {
     user
   } = useAuth();
-  const { subscription_tier } = useOptimizedSubscription();
+  const { subscription_tier, loading: subscriptionLoading } = useOptimizedSubscription();
   const [loading, setLoading] = useState<string | null>(null);
   // Handle checkout success with shared hook
   useCheckoutSuccess();
 
   const isCurrentPlan = (planTier: string) => {
     if (!user) return false;
+    // Wait for subscription data to load before comparing
+    if (subscriptionLoading) return false;
     // Normalize tier comparison (subscription_tier might be null for freemium)
     const currentTier = subscription_tier || 'freemium';
     return currentTier.toLowerCase() === planTier.toLowerCase();
