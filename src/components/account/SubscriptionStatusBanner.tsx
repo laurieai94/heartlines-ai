@@ -68,7 +68,7 @@ export const SubscriptionStatusBanner: React.FC = () => {
 
   return (
     <div className="mb-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/5 bg-white/3 backdrop-blur-sm">
-      <div className="flex items-center justify-between gap-1.5 sm:gap-3 flex-wrap">
+      <div className="flex items-center justify-center sm:justify-between gap-1.5 sm:gap-3 flex-wrap">
         {/* Icon + Plan */}
         <div className="flex items-center gap-1.5">
           <TierIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-coral-300" />
@@ -108,7 +108,7 @@ export const SubscriptionStatusBanner: React.FC = () => {
         {/* Refresh button - subtle */}
         <button 
           onClick={handleRefresh}
-          className="ml-auto opacity-50 hover:opacity-100 transition-opacity disabled:opacity-20"
+          className="sm:ml-auto opacity-50 hover:opacity-100 transition-opacity disabled:opacity-20"
           disabled={refreshing}
           title="Refresh subscription status"
         >
