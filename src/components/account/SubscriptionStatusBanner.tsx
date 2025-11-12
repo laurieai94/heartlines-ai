@@ -67,48 +67,53 @@ export const SubscriptionStatusBanner: React.FC = () => {
   };
 
   return (
-    <div className="mb-6 px-4 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-6">
-        {/* Left: Current Plan */}
-        <div className="flex items-center gap-2">
-          <TierIcon className="h-4 w-4 text-coral-300" />
-          <span className="text-sm font-medium text-white/90">{tierName} plan</span>
-          <button 
-            onClick={handleRefresh}
-            className="ml-1 opacity-60 hover:opacity-100 transition-opacity disabled:opacity-30"
-            disabled={refreshing}
-            title="Refresh subscription status"
-          >
-            <RefreshCw className={`h-3.5 w-3.5 text-white/80 ${refreshing ? 'animate-spin' : ''}`} />
-          </button>
+    <div className="mb-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/5 bg-white/3 backdrop-blur-sm">
+      <div className="flex items-center justify-between gap-1.5 sm:gap-3 flex-wrap">
+        {/* Icon + Plan */}
+        <div className="flex items-center gap-1.5">
+          <TierIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-coral-300" />
+          <span className="text-xs sm:text-sm font-medium text-white/90">
+            {tierName}<span className="hidden sm:inline"> plan</span>
+          </span>
         </div>
 
-        {/* Center: Usage */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-white/60">•</span>
-          {isUnlimited ? (
-            <span className="flex items-center gap-1.5 text-sm text-white/80">
-              <Infinity className="h-3.5 w-3.5" />
-              <span>unlimited messages</span>
-            </span>
-          ) : (
-            <span className={`text-sm ${getUsageColor()}`}>
-              {messagesRemaining} messages left
-            </span>
-          )}
-        </div>
+        {/* Bullet separator */}
+        <span className="text-white/30 text-xs">•</span>
 
-        {/* Right: Renewal/Upgrade Info */}
-        <div className="flex items-center gap-2 text-xs text-white/60">
-          <span className="hidden sm:inline">•</span>
+        {/* Usage - compact */}
+        {isUnlimited ? (
+          <span className="flex items-center gap-1 text-xs sm:text-sm text-emerald-400">
+            <Infinity className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+            <span className="hidden sm:inline">unlimited </span>
+            <span className="sm:hidden">∞ </span>messages
+          </span>
+        ) : (
+          <span className={`text-xs sm:text-sm ${getUsageColor()}`}>
+            {messagesRemaining}<span className="hidden sm:inline"> messages</span> left
+          </span>
+        )}
+
+        {/* Bullet separator */}
+        <span className="text-white/30 text-xs">•</span>
+
+        {/* Renewal/Upgrade - compact */}
+        <span className="text-xs text-white/60">
           {subscribed && subscription_end ? (
-            <span>
-              renews {format(new Date(subscription_end), 'MMM d')}
-            </span>
+            <>renews {format(new Date(subscription_end), 'MMM d')}</>
           ) : (
             <span className="text-coral-300">upgrade anytime</span>
           )}
-        </div>
+        </span>
+
+        {/* Refresh button - subtle */}
+        <button 
+          onClick={handleRefresh}
+          className="ml-auto opacity-50 hover:opacity-100 transition-opacity disabled:opacity-20"
+          disabled={refreshing}
+          title="Refresh subscription status"
+        >
+          <RefreshCw className={`h-3 w-3 sm:h-3.5 sm:w-3.5 text-white/70 ${refreshing ? 'animate-spin' : ''}`} />
+        </button>
       </div>
     </div>
   );
