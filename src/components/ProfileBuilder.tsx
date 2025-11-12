@@ -307,7 +307,13 @@ const ProfileBuilder = ({
           {canUnlockCoaching && <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
               <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-[0_0_30px_rgba(251,146,120,0.5)] hover:shadow-xl hover:scale-105 border border-white/20">
                 <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-pulse">
-                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
+                  <AvatarImage 
+                    src={BRAND.coach.avatarSrc} 
+                    alt={BRAND.coach.name} 
+                    className="object-cover"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
                   <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white font-bold text-sm">
                     {BRAND.coach.name.charAt(0)}
                   </AvatarFallback>

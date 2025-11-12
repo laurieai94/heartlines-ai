@@ -23,8 +23,8 @@ const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 >(({ className, ...props }, ref) => {
-  // Remove fetchPriority if it exists to prevent React warnings
-  const { fetchPriority, ...validProps } = props as any;
+  // Allow fetchPriority for performance optimization
+  const validProps = props;
   
   return (
     <AvatarPrimitive.Image
