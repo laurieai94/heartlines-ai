@@ -67,7 +67,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData: _propData 
           </button>
           <button
             onClick={onClose}
-            className="text-white/60 hover:text-white w-6 h-6 sm:w-6 sm:h-6 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors duration-200 touch-manipulation"
+            className="text-white/60 hover:text-white p-2 transition-all duration-200 hover:scale-105 touch-manipulation"
             aria-label="Close"
           >
             <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

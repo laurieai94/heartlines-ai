@@ -37,7 +37,7 @@ const PartnerQuestionnaireHeader = ({ onClose, currentSection, totalSections, pr
           </div>
         </div>
         
-        <Button variant="ghost" onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/10 p-1 rounded-full">
+        <Button variant="ghost" onClick={onClose} className="text-white/80 hover:text-white p-2 transition-all duration-200 hover:scale-105">
           <X className="w-3.5 h-3.5" />
         </Button>
       </div>
