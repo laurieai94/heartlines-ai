@@ -24,9 +24,12 @@ export const SupportNotificationEmail = ({
   message,
 }: SupportNotificationProps) => (
   <Html>
-    <Head />
+    <Head>
+      <meta name="color-scheme" content="light only" />
+      <meta name="supported-color-schemes" content="light" />
+    </Head>
     <Preview>New contact form submission from {name}</Preview>
-    <Body style={main}>
+    <Body style={{...main, colorScheme: 'light'}}>
       <Container style={container}>
         <div style={logoContainer}>
           <img 
@@ -69,7 +72,8 @@ export const SupportNotificationEmail = ({
 export default SupportNotificationEmail;
 
 const main = {
-  backgroundColor: '#0a0a0a',
+  backgroundColor: '#660010',
+  colorScheme: 'light',
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
 };
 

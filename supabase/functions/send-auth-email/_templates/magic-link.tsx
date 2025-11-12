@@ -26,9 +26,12 @@ export const MagicLinkEmail = ({
   token_hash,
 }: MagicLinkEmailProps) => (
   <Html>
-    <Head />
+    <Head>
+      <meta name="color-scheme" content="light only" />
+      <meta name="supported-color-schemes" content="light" />
+    </Head>
     <Preview>Your secure login link for Heartlines</Preview>
-    <Body style={main}>
+    <Body style={{...main, colorScheme: 'light'}}>
       <Container style={container}>
         <div style={logoContainer}>
           <img 
@@ -86,7 +89,8 @@ export const MagicLinkEmail = ({
 export default MagicLinkEmail
 
 const main = {
-  backgroundColor: '#0a0a0a',
+  backgroundColor: '#660010',
+  colorScheme: 'light',
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
 }
 
