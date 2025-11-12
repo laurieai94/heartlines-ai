@@ -55,7 +55,7 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName, size = 'full
     <div className={`flex ${layout}`}>
       <div className="relative group">
         <Avatar className={`${avatarSize} border-4 border-white shadow-2xl ring-4 ring-purple-200/50 bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500`}>
-          <AvatarImage src={currentAvatarUrl} alt={userName || 'User'} />
+          <AvatarImage src={currentAvatarUrl} alt={userName || 'User'} loading="eager" fetchPriority="high" />
           <AvatarFallback className="bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500 text-white text-4xl font-bold shadow-inner">
             <User className={isCompact ? "w-6 h-6" : "w-8 h-8"} />
           </AvatarFallback>
