@@ -62,8 +62,7 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`questionnaire-card group p-2 md:p-3 lg:p-4 
-        transition-all duration-300 hover:scale-[1.02] hover:bg-white/8 hover:border-white/20
+      className={`questionnaire-card group p-3 md:p-4 lg:p-5 
         min-h-[200px] md:min-h-[240px] lg:min-h-[260px] ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
@@ -110,8 +109,8 @@ const ProfileCard = ({
           ref={buttonRef}
           onClick={handleButtonClick}
           onTouchStart={isMobile ? handleButtonTouch : undefined}
-          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-1.5 md:py-2 lg:py-2 rounded-xl font-semibold text-sm md:text-sm lg:text-base glass-cta-gradient glass-sheen shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 animate-soft-glow ${
-            isMobile ? 'min-h-[40px] touch-action-manipulation active:scale-95' : 'md:min-h-[44px] lg:min-h-[48px]'
+          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg glass-cta-gradient glass-sheen shadow-lg hover:shadow-2xl transition-all duration-400 group-hover:scale-[1.03] group-hover:shadow-[0_0_40px_rgba(255,107,157,0.4)] border-0 animate-soft-glow ${
+            isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95' : 'md:min-h-[48px] lg:min-h-[52px]'
           }`}
         >
           {buttonText}
