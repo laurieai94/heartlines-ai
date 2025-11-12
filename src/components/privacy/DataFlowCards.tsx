@@ -93,7 +93,7 @@ export const DataFlowCards = () => {
           {/* Desktop Connecting Line */}
           <div className="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-coral-500/20 via-coral-400/40 to-coral-500/20" />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative">
             {flowSteps.map((step, index) => (
               <div key={index} className="relative">
                 {/* Mobile Connecting Arrow */}
@@ -136,49 +136,49 @@ export const DataFlowCards = () => {
                 </Card>
               </div>
             ))}
-            
-            {/* CTA Buttons - 6th Grid Item (tablet & desktop) */}
-            <div className="hidden md:flex flex-col gap-4 justify-center items-stretch">
-              <Link to="/account?tab=security" className="w-full">
-                <div className="relative group w-full">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-burgundy-500 to-burgundy-600 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                  <Button className="relative w-full bg-burgundy-600/90 text-white rounded-full text-lg px-8 py-6 border-2 border-white/40 backdrop-blur-sm overflow-hidden hover:bg-burgundy-500/90 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-burgundy-500/50"
-                    style={{
-                      boxShadow: '0 0 40px rgba(139, 25, 53, 0.4), 0 8px 32px rgba(139, 25, 53, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                    }}>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 animate-shimmer" style={{
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                        backgroundSize: '200% 100%'
-                      }} />
-                    </div>
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      <Settings className="w-5 h-5" />
-                      manage privacy settings
-                    </span>
-                  </Button>
-                </div>
-              </Link>
-              <Link to="/" className="w-full">
-                <div className="relative group w-full">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                  <Button className="relative w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6 border-2 border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-coral-500/50"
-                    style={{
-                      boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                    }}>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 animate-shimmer" style={{
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                        backgroundSize: '200% 100%'
-                      }} />
-                    </div>
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      get started free
-                    </span>
-                  </Button>
-                </div>
-              </Link>
-            </div>
+          </div>
+
+          {/* Desktop/Tablet CTA Buttons - centered below cards */}
+          <div className="hidden md:flex flex-row gap-6 justify-center items-center mt-12">
+            <Link to="/account?tab=security">
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-burgundy-500 to-burgundy-600 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                <Button className="relative bg-burgundy-600/90 text-white rounded-full text-lg px-8 py-6 border-2 border-white/40 backdrop-blur-sm overflow-hidden hover:bg-burgundy-500/90 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-burgundy-500/50 whitespace-nowrap"
+                  style={{
+                    boxShadow: '0 0 40px rgba(139, 25, 53, 0.4), 0 8px 32px rgba(139, 25, 53, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  }}>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 animate-shimmer" style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                      backgroundSize: '200% 100%'
+                    }} />
+                  </div>
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    <Settings className="w-5 h-5" />
+                    manage privacy settings
+                  </span>
+                </Button>
+              </div>
+            </Link>
+            <Link to="/">
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6 border-2 border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-coral-500/50 whitespace-nowrap"
+                  style={{
+                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  }}>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 animate-shimmer" style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                      backgroundSize: '200% 100%'
+                    }} />
+                  </div>
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    get started free
+                  </span>
+                </Button>
+              </div>
+            </Link>
           </div>
 
           {/* Mobile CTA Buttons - centered below */}
