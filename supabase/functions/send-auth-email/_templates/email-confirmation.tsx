@@ -9,6 +9,7 @@ import {
   Text,
 } from 'npm:@react-email/components@0.0.22'
 import * as React from 'npm:react@18.3.1'
+import { LOGO_BASE64 } from '../../_shared/logo-base64.ts'
 
 interface EmailConfirmationProps {
   supabase_url: string
@@ -35,7 +36,7 @@ export const EmailConfirmationEmail = ({
       <Container style={container}>
         <div style={logoContainer}>
           <img 
-            src="https://heartlines.ai/heartlines-icon.png" 
+            src={LOGO_BASE64} 
             alt="heartlines logo" 
             style={logoImage}
           />

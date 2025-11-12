@@ -9,6 +9,7 @@ import {
   Text,
 } from 'npm:@react-email/components@0.0.22'
 import * as React from 'npm:react@18.3.1'
+import { LOGO_BASE64 } from '../../_shared/logo-base64.ts'
 
 interface PasswordResetEmailProps {
   supabase_url: string
@@ -35,8 +36,8 @@ export const PasswordResetEmail = ({
       <Container style={container}>
         <div style={logoContainer}>
           <img 
-            src="https://relqmhrzyqckoaebscgx.supabase.co/storage/v1/object/public/lovable-uploads/heartlines-logo.png"
-            alt="heartlines logo"
+            src={LOGO_BASE64} 
+            alt="heartlines logo" 
             style={logoImage}
           />
           <Heading style={brandName}>heartlines</Heading>
