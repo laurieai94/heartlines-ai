@@ -30,7 +30,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_60px_rgba(251,146,140,0.7),0_0_90px_rgba(251,146,140,0.5),0_0_120px_rgba(251,146,140,0.3),inset_0_1px_0_rgba(255,255,255,0.3)]
         hover:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_80px_rgba(251,146,140,0.9),0_0_140px_rgba(251,146,140,0.7),0_0_180px_rgba(255,182,193,0.5),inset_0_1px_0_rgba(255,255,255,0.4)]
         hover:scale-[1.08] active:scale-[1.02]
-        animate-pulse-glow
+        animate-pulse-glow animate-float
         before:absolute before:inset-0 before:rounded-full
         before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
         before:translate-x-[-200%] before:animate-shimmer
