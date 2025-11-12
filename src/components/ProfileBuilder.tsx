@@ -312,7 +312,7 @@ const ProfileBuilder = ({
           
           {/* Unlock Coaching Button - Only show when ready */}
           {canUnlockCoaching && <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-              <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-[0_0_30px_rgba(251,146,120,0.5)] hover:shadow-xl hover:scale-105 border border-white/20">
+              <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 backdrop-blur-xl bg-gradient-to-r from-coral-400/80 to-pink-500/80 hover:from-coral-300/90 hover:to-pink-400/90 shadow-[0_0_20px_rgba(251,146,120,0.6),0_0_40px_rgba(236,72,153,0.4),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(251,146,120,0.8),0_0_60px_rgba(236,72,153,0.6),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-[1.03] border border-white/30 ring-1 ring-white/10">
                 <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-pulse">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
