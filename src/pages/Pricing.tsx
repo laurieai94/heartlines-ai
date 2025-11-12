@@ -148,7 +148,7 @@ const Pricing = () => {
       <div className="relative z-10">
         <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
           {/* Header Section */}
-          <div className="text-center mb-8 md:mb-12">
+          <div className="text-center mb-6 md:mb-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-brand mb-4 text-white tracking-wider" style={{
               textShadow: '0 0 20px rgba(236, 72, 153, 0.8), 0 0 40px rgba(251, 146, 60, 0.6), 0 0 60px rgba(236, 72, 153, 0.4)'
             }}>
@@ -173,7 +173,11 @@ const Pricing = () => {
           </div>
 
           {/* Subscription Status Banner */}
-          {user && <SubscriptionStatusBanner />}
+          {user && (
+            <div className="mb-6 md:mb-8 mt-6 md:mt-8">
+              <SubscriptionStatusBanner />
+            </div>
+          )}
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12 items-stretch">
