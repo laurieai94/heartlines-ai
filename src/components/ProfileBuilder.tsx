@@ -304,7 +304,7 @@ const ProfileBuilder = ({
           <h1 
             className="text-3xl md:text-4xl lg:text-6xl font-brand bg-gradient-to-r from-orange-200 via-peach-200 to-pink-200 bg-clip-text text-transparent tracking-wide lg:whitespace-nowrap leading-relaxed"
             style={{
-              textShadow: '0 2px 10px rgba(251, 146, 120, 0.5), 0 4px 20px rgba(236, 72, 153, 0.4), 0 8px 40px rgba(251, 146, 120, 0.3)'
+              textShadow: '0 2px 10px rgba(251, 146, 120, 0.7), 0 4px 20px rgba(236, 72, 153, 0.6), 0 8px 40px rgba(251, 146, 120, 0.5)'
             }}
           >
             let's get to know your situationship
