@@ -109,7 +109,7 @@ const ProfileCard = ({
           ref={buttonRef}
           onClick={handleButtonClick}
           onTouchStart={isMobile ? handleButtonTouch : undefined}
-          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg glass-cta-gradient glass-sheen shadow-lg hover:shadow-2xl transition-all duration-400 group-hover:scale-[1.03] group-hover:shadow-[0_0_40px_rgba(255,107,157,0.4)] border-0 animate-soft-glow ${
+          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 hover:scale-[1.02] text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg glass-cta-gradient shadow-lg transition-all duration-400 border-0 ${
             isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95' : 'md:min-h-[48px] lg:min-h-[52px]'
           }`}
         >
