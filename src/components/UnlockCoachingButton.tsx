@@ -24,15 +24,13 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         ${isCompact ? 'w-full h-10 px-4' : 'w-auto h-12 px-6'} 
         rounded-full font-semibold text-white 
         transition-all duration-500 ease-out
-        bg-gradient-to-r from-burgundy-700/60 via-coral-600/50 to-burgundy-700/60 bg-[length:200%_100%]
-        hover:from-burgundy-600/70 hover:via-coral-500/60 hover:to-burgundy-600/70
-        animate-gradient-x
-        backdrop-blur-xl 
+        bg-burgundy-700/60 backdrop-blur-xl 
+        hover:bg-burgundy-600/70 
         border-[3px] border-white/50 hover:border-white/70
-        shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_60px_rgba(251,146,140,0.7),0_0_90px_rgba(251,146,140,0.5),0_0_120px_rgba(251,146,140,0.3),0_0_200px_rgba(251,146,140,0.4),inset_0_1px_0_rgba(255,255,255,0.3)]
-        hover:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_80px_rgba(251,146,140,0.9),0_0_140px_rgba(251,146,140,0.7),0_0_180px_rgba(255,182,193,0.5),0_0_250px_rgba(251,146,140,0.5),inset_0_1px_0_rgba(255,255,255,0.4)]
+        shadow-[0_4px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(251,146,140,0.4),0_0_60px_rgba(251,146,140,0.2),inset_0_1px_0_rgba(255,255,255,0.2)]
+        hover:shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_60px_rgba(251,146,140,0.6),0_0_100px_rgba(251,146,140,0.4),0_0_120px_rgba(255,182,193,0.3),inset_0_1px_0_rgba(255,255,255,0.3)]
         hover:scale-[1.08] active:scale-[1.02]
-        animate-pulse-glow animate-float
+        animate-pulse-glow
         before:absolute before:inset-0 before:rounded-full
         before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
         before:translate-x-[-200%] before:animate-shimmer
@@ -45,8 +43,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         ${isCompact ? 'w-6 h-6' : 'w-8 h-8'} 
         ring-[3px] ring-coral-400/60 group-hover/cta:ring-coral-300/80 
         shadow-[0_0_20px_rgba(251,146,140,0.4)] 
-        group-hover/cta:shadow-[0_0_40px_rgba(251,146,140,0.8)]
-        group-hover/cta:scale-110 group-hover/cta:rotate-2
+        group-hover/cta:shadow-[0_0_30px_rgba(251,146,140,0.6)]
         transition-all duration-500
       `}>
         <AvatarImage 
@@ -61,12 +58,10 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         </AvatarFallback>
       </Avatar>
       <span className="flex items-center gap-1 relative z-10">
-        <span className="bg-gradient-to-r from-white via-pink-100 to-white bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" style={{ textShadow: '0 0 20px rgba(255,255,255,0.6), 0 0 30px rgba(251,146,140,0.4)' }}>
-          {isCompact 
-            ? `chat with ${BRAND.coach.name}${profileType === 'partner' ? ' about partner' : ''}` 
-            : `unlock ${profileType === 'partner' ? 'partner ' : ''}coaching with ${BRAND.coach.name}`
-          }
-        </span>
+        {isCompact 
+          ? `chat with ${BRAND.coach.name}${profileType === 'partner' ? ' about partner' : ''}` 
+          : `unlock ${profileType === 'partner' ? 'partner ' : ''}coaching with ${BRAND.coach.name}`
+        }
         <MessageSquare className={`${isCompact ? 'w-3.5 h-3.5' : 'w-4 h-4'}`} />
       </span>
     </Button>
