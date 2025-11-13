@@ -24,6 +24,7 @@ import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
 import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
 import PremiumBackground from "./PremiumBackground";
+import VerticalSidebar from "./VerticalSidebar";
 
 // Clean StepCard Component - Mobile Style
 const StepCard = ({
@@ -290,6 +291,9 @@ const LandingPage = ({
             />
           </div>
         </div>
+
+      {/* Vertical Sidebar Navigation - Desktop only, when embedded */}
+      {!showMarketingTopBar && <VerticalSidebar />}
 
       {/* Navigation - Outside main container for proper fixed positioning */}
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`}>
