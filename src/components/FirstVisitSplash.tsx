@@ -35,8 +35,8 @@ const FirstVisitSplash: React.FC = () => {
   
   // Longer minimum display time to ensure everything loads
   const { isLoading: resourcesLoading } = useResourceLoader(CRITICAL_IMAGES, {
-    minDisplayTime: isMobile ? 2500 : 5000, // Increased: 2.5s mobile, 5s desktop
-    maxTimeout: isMobile ? 3500 : 8000      // Increased: 3.5s mobile, 8s desktop
+    minDisplayTime: isMobile ? 2500 : 3000, // Updated: 2.5s mobile, 3s desktop
+    maxTimeout: isMobile ? 3500 : 6000      // Updated: 3.5s mobile, 6s desktop
   });
 
   useEffect(() => {
@@ -128,7 +128,7 @@ const FirstVisitSplash: React.FC = () => {
       } catch (error) {
         console.warn('[FirstVisitSplash] Failed to set sessionStorage on emergency timeout:', error);
       }
-    }, isMobile ? 4000 : 9000); // 4s on mobile, 9s on desktop - longer to allow full loading
+    }, isMobile ? 4000 : 7000); // 4s on mobile, 7s on desktop - faster initial load
     
     return () => clearTimeout(emergencyTimeout);
   }, [showSplash, isMobile]);
