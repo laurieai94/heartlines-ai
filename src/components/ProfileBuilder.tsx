@@ -302,7 +302,7 @@ const ProfileBuilder = ({
         {/* Main Header - Responsive */}
         <div className="text-center space-y-10 md:space-y-12 lg:space-y-14 flex-shrink-0 px-2 md:px-4">
           <h1 
-            className="text-4xl md:text-5xl lg:text-7xl font-brand bg-gradient-to-r from-orange-200 via-peach-200 to-pink-200 bg-clip-text text-transparent tracking-wide leading-relaxed"
+            className="text-4xl md:text-7xl font-brand bg-gradient-to-r from-orange-200 via-peach-200 to-pink-200 bg-clip-text text-transparent tracking-wide leading-relaxed"
             style={{
               textShadow: '0 2px 10px rgba(251, 146, 120, 0.7), 0 4px 20px rgba(236, 72, 153, 0.6), 0 8px 40px rgba(251, 146, 120, 0.5)'
             }}
