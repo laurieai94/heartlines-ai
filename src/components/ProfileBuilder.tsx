@@ -307,7 +307,7 @@ const ProfileBuilder = ({
               textShadow: '0 2px 10px rgba(251, 146, 120, 0.7), 0 4px 20px rgba(236, 72, 153, 0.6), 0 8px 40px rgba(251, 146, 120, 0.5)'
             }}
           >
-            let's get to know<br className="md:hidden" /> your situationship
+            let's get to know your<br className="md:hidden" /> situationship
           </h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
