@@ -63,7 +63,8 @@ const ProfileCard = ({
       ref={cardRef}
       data-profile-card
       className={`questionnaire-card group p-3 md:p-4 lg:p-5 
-        min-h-[200px] md:min-h-[240px] lg:min-h-[260px] ${
+        min-h-[200px] md:min-h-[240px] lg:min-h-[260px] 
+        hover:scale-[1.02] transition-transform duration-300 ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
