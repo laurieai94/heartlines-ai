@@ -19,6 +19,10 @@ const PremiumBackground = ({ className = "" }: PremiumBackgroundProps) => {
           className="absolute top-2/3 left-1/3 w-64 h-64 bg-gradient-to-r from-coral-400/40 via-pink-400/30 to-orange-400/40 rounded-full blur-3xl animate-pulse" 
           style={{ animationDuration: '8s', animationDelay: '3s' }}
         />
+        <div 
+          className="absolute top-1/4 right-1/6 w-96 h-96 bg-gradient-to-l from-pink-500/50 via-coral-400/40 to-orange-500/50 rounded-full blur-3xl animate-pulse" 
+          style={{ animationDuration: '8.5s', animationDelay: '2s' }}
+        />
       </div>
 
     </>
