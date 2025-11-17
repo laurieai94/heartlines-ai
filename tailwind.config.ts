@@ -295,14 +295,14 @@ export default {
 						transform: 'translateY(-8px)'
 					}
 				},
-				'breathe': {
-					'0%, 100%': {
-						transform: 'scale(1)'
-					},
-					'50%': {
-						transform: 'scale(1.15)'
-					}
-				},
+        'breathe': {
+          '0%, 100%': {
+            transform: 'scale(1)'
+          },
+          '50%': {
+            transform: 'scale(1.08)'
+          }
+        },
 				'breathe-glow': {
 					'0%, 100%': {
 						filter: 'drop-shadow(0 0 15px rgba(251,146,140,0.3)) drop-shadow(0 0 30px rgba(255,182,193,0.2)) drop-shadow(0 0 50px rgba(255,255,255,0.1))'
