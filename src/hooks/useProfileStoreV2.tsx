@@ -359,7 +359,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           lastSaved: new Date().toISOString()
         };
         
-        batchedStorage.setItem(config.storageKey, JSON.stringify(metadata));
+        batchedStorage.setItem(userStorageKey, JSON.stringify(metadata));
         setLastSaved(new Date());
         
         // CRITICAL: Clear all caches immediately when saving to localStorage
