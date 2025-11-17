@@ -16,7 +16,7 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
   return (
     <FlameIconHalo intensity="medium" size="lg" animated={!reduceMotion}>
       <div className={cn(
-        "relative w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-22 lg:h-22 xl:w-24 xl:h-24",
+        "relative w-20 h-20 sm:w-22 sm:h-22 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32",
         "flex items-center justify-center",
         "transition-all duration-300 hover:scale-105",
         className
