@@ -244,10 +244,15 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     
     // Set up listener for close completion
     const handleCloseComplete = () => {
-      console.log('[Handler] Questionnaire close complete - closing modal');
-      modalStates.setShowQuestionnaireModal(false);
-      modalStates.setQuestionnaireOrigin(null);
-      window.removeEventListener('questionnaire:closeComplete', handleCloseComplete);
+      console.log('[Handler] Questionnaire close complete - waiting for data sync');
+      
+      // CRITICAL: Add delay to ensure hooks read fresh localStorage data
+      setTimeout(() => {
+        console.log('[Handler] Data sync complete - closing modal');
+        modalStates.setShowQuestionnaireModal(false);
+        modalStates.setQuestionnaireOrigin(null);
+        window.removeEventListener('questionnaire:closeComplete', handleCloseComplete);
+      }, 100); // 100ms delay for hooks to refresh
     };
     
     window.addEventListener('questionnaire:closeComplete', handleCloseComplete);
