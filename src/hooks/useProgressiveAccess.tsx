@@ -94,7 +94,26 @@ export const useProgressiveAccess = () => {
       };
     }
     
-    const profileData = personalStorage.profileData as ProfileData;
+    // CRITICAL FIX: Read directly from localStorage for freshest data
+    let profileData: ProfileData;
+    try {
+      if (!user?.id) {
+        profileData = personalStorage.profileData as ProfileData;
+      } else {
+        const userStorageKey = `personal_profile_v2_${user.id}`;
+        const stored = localStorage.getItem(userStorageKey);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          profileData = parsed.profile || personalStorage.profileData;
+        } else {
+          profileData = personalStorage.profileData as ProfileData;
+        }
+      }
+    } catch (e) {
+      console.error('[ProgressiveAccess] Error reading from localStorage:', e);
+      profileData = personalStorage.profileData as ProfileData;
+    }
+    
     if (!profileData || Object.keys(profileData).length === 0) {
       console.log('[ProgressiveAccess] No profile data found');
       return { 
