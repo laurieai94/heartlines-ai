@@ -41,9 +41,9 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
     >
       <Avatar className={`
         ${isCompact ? 'w-6 h-6' : 'w-8 h-8'} 
-        ring-[4px] ring-coral-300/80 group-hover/cta:ring-coral-200/90 
-        shadow-[0_0_20px_rgba(251,146,140,0.9),0_0_40px_rgba(251,146,140,0.7),0_0_60px_rgba(255,182,193,0.5),0_0_80px_rgba(255,255,255,0.3)]
-        group-hover/cta:shadow-[0_0_25px_rgba(251,146,140,1),0_0_50px_rgba(251,146,140,0.9),0_0_75px_rgba(255,182,193,0.7),0_0_100px_rgba(255,255,255,0.4)]
+        ring-[6px] ring-coral-300/95 group-hover/cta:ring-coral-200/100 
+        shadow-[0_0_25px_rgba(251,146,140,1),0_0_45px_rgba(251,146,140,0.8),0_0_65px_rgba(255,182,193,0.6),0_0_90px_rgba(255,182,193,0.5),0_0_110px_rgba(255,200,210,0.4),0_0_130px_rgba(255,255,255,0.3)]
+        group-hover/cta:shadow-[0_0_30px_rgba(251,146,140,1),0_0_55px_rgba(251,146,140,1),0_0_80px_rgba(255,182,193,0.8),0_0_105px_rgba(255,182,193,0.7),0_0_130px_rgba(255,200,210,0.5),0_0_155px_rgba(255,255,255,0.4)]
         transition-all duration-500
         animate-pulse-subtle
       `}>
