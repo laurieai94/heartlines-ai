@@ -42,8 +42,18 @@ export const useProgressiveAccess = () => {
       const isCompleting = sessionStorage.getItem('questionnaire-completing');
       if (isCompleting) return;
       
+      console.log('[ProgressiveAccess] Profile update event received - invalidating caches');
+      
+      // CRITICAL: Clear all validation caches before incrementing counter
+      if (typeof (window as any).__clearValidationCache === 'function') {
+        (window as any).__clearValidationCache();
+      }
+      
       // IMMEDIATE UPDATE: No throttle/debounce for instant responsiveness
-      setProfileUpdateCounter(prev => prev + 1);
+      setProfileUpdateCounter(prev => {
+        console.log('[ProgressiveAccess] Incrementing profileUpdateCounter:', prev + 1);
+        return prev + 1;
+      });
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
@@ -83,6 +93,8 @@ export const useProgressiveAccess = () => {
 
   // Memoized chat readiness computation
   const chatReadiness = useMemo(() => {
+    console.log('[ProgressiveAccess] Recalculating chatReadiness, profileUpdateCounter:', profileUpdateCounter);
+    
     // CRITICAL FIX: Wait for profile data to fully load before checking completion
     if (!personalStorage.isReady) {
       console.log('[ProgressiveAccess] Profile data not ready yet, returning incomplete status');
@@ -98,14 +110,24 @@ export const useProgressiveAccess = () => {
     let profileData: ProfileData;
     try {
       if (!user?.id) {
+        console.log('[ProgressiveAccess] No user ID, using hook data');
         profileData = personalStorage.profileData as ProfileData;
       } else {
         const userStorageKey = `personal_profile_v2_${user.id}`;
+        console.log('[ProgressiveAccess] Reading from localStorage key:', userStorageKey);
         const stored = localStorage.getItem(userStorageKey);
         if (stored) {
           const parsed = JSON.parse(stored);
           profileData = parsed.profile || personalStorage.profileData;
+          console.log('[ProgressiveAccess] Loaded profile from localStorage:', {
+            name: profileData.name,
+            pronouns: profileData.pronouns,
+            relationshipStatus: profileData.relationshipStatus,
+            loveLanguage: profileData.loveLanguage,
+            attachmentStyle: profileData.attachmentStyle
+          });
         } else {
+          console.log('[ProgressiveAccess] No localStorage data found, using hook data');
           profileData = personalStorage.profileData as ProfileData;
         }
       }
@@ -173,13 +195,20 @@ export const useProgressiveAccess = () => {
       missingFields.push('Complete required fields in "Your Foundation"');
     }
 
+    console.log('[ProgressiveAccess] Final chatReadiness result:', {
+      isComplete,
+      missingFieldsCount: missingFields.length,
+      incompleteSectionsCount: incompleteSections.length,
+      overallProgress
+    });
+    
     return { 
       isComplete, 
       missingFields, 
       incompleteSections,
       overallProgress
     };
-  }, [personalStorage.profileData, profileUpdateCounter, personalStorage.isReady]);
+  }, [user?.id, personalStorage.profileData, profileUpdateCounter, personalStorage.isReady]);
 
   const hasPersonalProfileForChat = chatReadiness.isComplete;
   const missingFieldsForChat = chatReadiness.missingFields;
