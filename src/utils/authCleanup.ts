@@ -10,11 +10,13 @@ export const cleanupAuthState = () => {
       key.startsWith('supabase.auth.') || 
       key.includes('sb-') ||
       
-      // Profile data V2
+      // Profile data V2 (both old non-user-specific and new user-specific keys)
       key === 'personal_profile_v2' ||
       key === 'partner_profile_v2' ||
       key === 'personal_profile_v2_migrated' ||
       key === 'partner_profile_v2_migrated' ||
+      key.startsWith('personal_profile_v2_') ||  // User-specific keys
+      key.startsWith('partner_profile_v2_') ||    // User-specific keys
       
       // Legacy profile keys
       key === 'personal_profile_questionnaire' ||
