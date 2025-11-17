@@ -154,14 +154,15 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
                 what should we call you? <span className="text-red-400">*</span>
               </Label>
             </div>
-            <Input
-              id="name"
-              type="text"
-              value={displayData.name || ''}
-              onChange={(e) => updateFieldImmediate('name', e.target.value.trim())}
-              placeholder="your name"
-              className="questionnaire-input-mobile font-medium w-full"
-            />
+              <Input
+                id="name"
+                type="text"
+                value={displayData.name || ''}
+                onChange={(e) => updateFieldImmediate('name', e.target.value.trim())}
+                placeholder="your name"
+                className="questionnaire-input-mobile font-medium w-full"
+                autoComplete="off"
+              />
           </div>
         </div>
 
@@ -195,6 +196,7 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
                 onChange={(e) => handleCustomPronounChange(e.target.value)}
                 placeholder="e.g., xe/xir, fae/faer, etc."
                 className="questionnaire-input-mobile"
+                autoComplete="off"
               />
             </div>
           )}
