@@ -294,6 +294,14 @@ export default {
 					'50%': {
 						transform: 'translateY(-8px)'
 					}
+				},
+				'breathe': {
+					'0%, 100%': {
+						transform: 'scale(1)'
+					},
+					'50%': {
+						transform: 'scale(1.08)'
+					}
 				}
 			},
 			animation: {
@@ -317,7 +325,8 @@ export default {
 				'soft-pulse-glow': 'soft-pulse-glow 4s ease-in-out infinite',
 				'emerald-soft-glow': 'emerald-soft-glow 6s ease-in-out infinite',
 				'shimmer': 'shimmer 3s ease-in-out infinite',
-				'float': 'float 3s ease-in-out infinite'
+				'float': 'float 3s ease-in-out infinite',
+				'breathe': 'breathe 3s ease-in-out infinite'
 			}
 		}
 	},

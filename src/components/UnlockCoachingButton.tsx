@@ -30,11 +30,6 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         shadow-[0_2px_12px_rgba(0,0,0,0.2),0_0_20px_rgba(251,146,140,0.15),inset_0_1px_0_rgba(255,255,255,0.1)]
         hover:shadow-[0_4px_20px_rgba(0,0,0,0.25),0_0_30px_rgba(251,146,140,0.25),0_0_50px_rgba(251,146,140,0.15),inset_0_1px_0_rgba(255,255,255,0.15)]
         hover:scale-[1.03] active:scale-[1.02]
-        before:absolute before:inset-0 before:rounded-full
-        before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent
-        before:translate-x-[-200%] before:animate-shimmer
-        before:transition-opacity before:duration-500
-        hover:before:opacity-60 before:opacity-40
         ${className}
       `}
     >
@@ -44,7 +39,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         shadow-[0_0_15px_rgba(251,146,140,0.3),0_0_30px_rgba(255,182,193,0.2),0_0_50px_rgba(255,255,255,0.1)]
         group-hover/cta:shadow-[0_0_20px_rgba(251,146,140,0.4),0_0_40px_rgba(255,182,193,0.3),0_0_60px_rgba(255,255,255,0.15)]
         transition-all duration-500
-        animate-float
+        animate-breathe
       `}>
         <AvatarImage 
           src={BRAND.coach.avatarSrc} 
