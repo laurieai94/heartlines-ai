@@ -18,9 +18,11 @@ import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import ProfileTips from "@/components/ProfileBuilder/ProfileTips";
 import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
+import { batchedStorage } from '@/utils/batchedStorage';
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
   initialProfiles?: {
@@ -47,6 +49,8 @@ const ProfileBuilder = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: ProfileBuilderProps) => {
+  const { user } = useAuth();
+  
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
@@ -156,24 +160,39 @@ const ProfileBuilder = ({
     profileUpdateCounter
   ]);
 
-  // Listen for required field updates - rely on hook data instead of manual localStorage reads
+  // Listen for required field updates - read fresh data directly from batchedStorage
   useEffect(() => {
     const handleRequiredFieldUpdate = () => {
-      console.log('[ProfileBuilder] Required field updated - extracting from hook data');
+      console.log('[ProfileBuilder] Required field updated - reading fresh data from batchedStorage');
       
-      // Use hook data directly - it already reads from the correct user-specific key
-      if (personalProfileData && Object.keys(personalProfileData).length > 0) {
-        const freshRequired = {
-          name: personalProfileData.name,
-          pronouns: personalProfileData.pronouns,
-          relationshipStatus: personalProfileData.relationshipStatus,
-          loveLanguage: personalProfileData.loveLanguage,
-          attachmentStyle: personalProfileData.attachmentStyle,
-          _timestamp: Date.now() // Force new object reference for React
-        };
-        
-        console.log('[ProfileBuilder] Fresh required fields from hook:', freshRequired);
-        setCachedRequiredFields(freshRequired);
+      if (!user?.id) {
+        console.log('[ProfileBuilder] No user ID, skipping update');
+        return;
+      }
+      
+      // Read directly from batchedStorage for absolute freshest data
+      const userStorageKey = `personal_profile_v2_${user.id}`;
+      const stored = batchedStorage.getItem(userStorageKey);
+      
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          const profileData = parsed.profile || parsed;
+          
+          const freshRequired = {
+            name: profileData.name,
+            pronouns: profileData.pronouns,
+            relationshipStatus: profileData.relationshipStatus,
+            loveLanguage: profileData.loveLanguage,
+            attachmentStyle: profileData.attachmentStyle,
+            _timestamp: Date.now()
+          };
+          
+          console.log('[ProfileBuilder] Fresh required fields from batchedStorage:', freshRequired);
+          setCachedRequiredFields(freshRequired);
+        } catch (e) {
+          console.error('[ProfileBuilder] Error parsing storage data:', e);
+        }
       }
       
       // Increment counter to trigger useMemo recalculation
@@ -182,13 +201,13 @@ const ProfileBuilder = ({
     
     window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
     
-    // Also update on mount and whenever personalProfileData changes
+    // Also update on mount
     handleRequiredFieldUpdate();
     
     return () => {
       window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
     };
-  }, [personalProfileData]); // Add dependency
+  }, [user?.id]); // Depend on user ID only
 
   // Get partner's first initial for icon
   const partnerInitial = getInitial(partnerName);
