@@ -300,7 +300,7 @@ export default {
 						transform: 'scale(1)'
 					},
 					'50%': {
-						transform: 'scale(1.08)'
+						transform: 'scale(1.15)'
 					}
 				},
 				'breathe-glow': {
