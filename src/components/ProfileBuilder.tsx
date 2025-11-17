@@ -156,50 +156,39 @@ const ProfileBuilder = ({
     profileUpdateCounter
   ]);
 
-  // Listen for required field updates and immediately read fresh data
+  // Listen for required field updates - rely on hook data instead of manual localStorage reads
   useEffect(() => {
     const handleRequiredFieldUpdate = () => {
-      console.log('[ProfileBuilder] Required field updated - reading fresh data from storage');
+      console.log('[ProfileBuilder] Required field updated - extracting from hook data');
       
-      // Immediately read fresh data from localStorage (bypass all hooks)
-      try {
-        const stored = localStorage.getItem('personal_profile_v2');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          const freshData = parsed.profile || {};
-          
-          // Extract only required fields for performance
-          const freshRequired = {
-            name: freshData.name,
-            pronouns: freshData.pronouns,
-            relationshipStatus: freshData.relationshipStatus,
-            loveLanguage: freshData.loveLanguage,
-            attachmentStyle: freshData.attachmentStyle,
-            _timestamp: Date.now() // Force new object reference
-          };
-          
-          console.log('[ProfileBuilder] Fresh required fields:', freshRequired);
-          
-          // Update cached state immediately
-          setCachedRequiredFields(freshRequired);
-        }
-      } catch (e) {
-        console.error('[ProfileBuilder] Error reading fresh data:', e);
+      // Use hook data directly - it already reads from the correct user-specific key
+      if (personalProfileData && Object.keys(personalProfileData).length > 0) {
+        const freshRequired = {
+          name: personalProfileData.name,
+          pronouns: personalProfileData.pronouns,
+          relationshipStatus: personalProfileData.relationshipStatus,
+          loveLanguage: personalProfileData.loveLanguage,
+          attachmentStyle: personalProfileData.attachmentStyle,
+          _timestamp: Date.now() // Force new object reference for React
+        };
+        
+        console.log('[ProfileBuilder] Fresh required fields from hook:', freshRequired);
+        setCachedRequiredFields(freshRequired);
       }
       
-      // Still increment counter as fallback
+      // Increment counter to trigger useMemo recalculation
       setProfileUpdateCounter(prev => prev + 1);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
     
-    // Also read initial data on mount
+    // Also update on mount and whenever personalProfileData changes
     handleRequiredFieldUpdate();
     
     return () => {
       window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
     };
-  }, []);
+  }, [personalProfileData]); // Add dependency
 
   // Get partner's first initial for icon
   const partnerInitial = getInitial(partnerName);
