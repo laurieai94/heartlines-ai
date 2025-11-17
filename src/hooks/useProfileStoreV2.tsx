@@ -112,6 +112,12 @@ const PERSONAL_LEGACY_MAPPINGS: Record<string, string> = {
   'goals': 'datingGoals'
 };
 
+// Helper function to get user-specific storage keys
+const getUserStorageKey = (baseKey: string, userId: string | undefined): string => {
+  if (!userId) return baseKey; // Fallback for when user isn't loaded yet
+  return `${baseKey}_${userId}`;
+};
+
 const STORAGE_CONFIG = {
   personal: {
     storageKey: 'personal_profile_v2',
@@ -214,12 +220,39 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
   // Optimized storage loading with migration optimization
   const loadFromStorage = useCallback((): PersonalProfileV2 | PartnerProfileV2 => {
+    // CRITICAL: If no user is authenticated, return default profile
+    // This prevents loading another user's data before authentication completes
+    if (!user) {
+      return defaultProfile;
+    }
+    
+    // Get user-specific storage key
+    const userStorageKey = getUserStorageKey(config.storageKey, user.id);
+    const userMigrationKey = getUserStorageKey(`${config.storageKey}_migrated`, user.id);
+    
     // Fast path: Check migration sentinel first to avoid unnecessary processing
-    const migrationSentinel = batchedStorage.getItem(`${config.storageKey}_migrated`);
+    const migrationSentinel = batchedStorage.getItem(userMigrationKey);
+    
+    // MIGRATION: Check for old non-user-specific data and migrate it
+    const oldNonUserKey = config.storageKey;
+    const oldData = batchedStorage.getItem(oldNonUserKey);
+    if (oldData && !batchedStorage.getItem(userStorageKey)) {
+      // Migrate old non-user-specific data to new user-specific key
+      try {
+        const parsed = JSON.parse(oldData);
+        if (parsed && Object.keys(parsed).length > 0) {
+          batchedStorage.setItem(userStorageKey, oldData);
+          batchedStorage.removeItem(oldNonUserKey); // Clean up old key
+          safeLog.info(`Migrated ${profileType} profile to user-specific storage`);
+        }
+      } catch (error) {
+        // Silent fail on migration error
+      }
+    }
     
     try {
       // Try new format first (with metadata)
-      const v2Data = batchedStorage.getItem(config.storageKey);
+      const v2Data = batchedStorage.getItem(userStorageKey);
       if (v2Data) {
         const parsed = JSON.parse(v2Data);
         
@@ -268,11 +301,11 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               version: '2.0' 
             };
             
-            // Save migrated data to V2 storage
-            batchedStorage.setItem(config.storageKey, JSON.stringify(fullProfile));
+            // Save migrated data to V2 storage (user-specific)
+            batchedStorage.setItem(userStorageKey, JSON.stringify(fullProfile));
             
-            // Create migration sentinel
-            batchedStorage.setItem(`${config.storageKey}_migrated`, JSON.stringify({
+            // Create migration sentinel (user-specific)
+            batchedStorage.setItem(userMigrationKey, JSON.stringify({
               from: key,
               at: now
             }));
@@ -304,11 +337,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     
     safeLog.info(`No existing ${profileType} data found, using defaults`);
     return defaultProfile;
-  }, [config, defaultProfile, migrateLegacyData, profileType]);
+  }, [config, defaultProfile, migrateLegacyData, profileType, user]);
 
   // Save to localStorage (immediate) + broadcast in-tab update
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
+      // Don't save if no user is authenticated
+      if (!user) {
+        return;
+      }
+      
       try {
+        const userStorageKey = getUserStorageKey(config.storageKey, user.id);
         const metadata = {
           profile: { 
             ...data, 
@@ -345,7 +384,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       } catch (error) {
         // Silently handle storage errors
       }
-  }, [config.storageKey, profileType]);
+  }, [config.storageKey, profileType, user]);
 
   // SIMPLIFIED: Direct sync to Supabase without timeout protection
   const syncToDatabase = useCallback(async (updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
@@ -533,6 +572,14 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   useEffect(() => {
     const initialize = async () => {
       try {
+        // CRITICAL: Only load data if user is authenticated
+        if (!user) {
+          setProfile(defaultProfile);
+          setIsReady(true);
+          setIsLoading(false);
+          return;
+        }
+        
         // INSTANT: Load from localStorage first and mark ready immediately
         const localProfile = loadFromStorage();
         setProfile(localProfile);
@@ -838,8 +885,15 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   // Clear profile data
   const clearProfile = useCallback(async () => {
     try {
+      // Clear from localStorage (user-specific key)
+      if (user) {
+        const userStorageKey = getUserStorageKey(config.storageKey, user.id);
+        const userMigrationKey = getUserStorageKey(`${config.storageKey}_migrated`, user.id);
+        localStorage.removeItem(userStorageKey);
+        localStorage.removeItem(userMigrationKey);
+      }
       
-      // Clear from localStorage
+      // Also clear old non-user-specific key (for cleanup)
       localStorage.removeItem(config.storageKey);
       
       // Clear from database if user is authenticated
