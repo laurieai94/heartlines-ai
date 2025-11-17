@@ -3,6 +3,7 @@ import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
 import { toast } from "@/hooks/use-toast";
 import { batchedStorage } from "@/utils/batchedStorage";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NewPersonalQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -12,6 +13,7 @@ interface NewPersonalQuestionnaireProps {
 
 const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewPersonalQuestionnaireProps) => {
   const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
+  const { user } = useAuth();
   
   const { profileData, updateField, handleMultiSelect, saveData } = usePersonalProfileData();
 
@@ -79,7 +81,10 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
       // STEP 3: ALWAYS read fresh data directly from localStorage (not from profileData prop)
       let freshData;
       try {
-        const stored = localStorage.getItem('personal_profile_v2');
+        // CRITICAL: Use user-specific localStorage key
+        const userStorageKey = user?.id ? `personal_profile_v2_${user.id}` : 'personal_profile_v2';
+        console.log('[Questionnaire] Reading from user-specific key:', userStorageKey);
+        const stored = localStorage.getItem(userStorageKey);
         if (!stored) {
           console.error('[Questionnaire] ERROR: No data in localStorage!');
           toast({
