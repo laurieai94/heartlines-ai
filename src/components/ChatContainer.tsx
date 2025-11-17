@@ -146,7 +146,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const mobileScrollStyle = useMemo(() => ({
     WebkitOverflowScrolling: 'touch' as const,
     overscrollBehaviorY: 'auto' as const,
-    paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 40}px`,
+    paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 16}px`,
     scrollbarWidth: 'none' as const,
     msOverflowStyle: 'none' as const,
     position: 'relative' as const
@@ -305,7 +305,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             
             {/* Content spacer instead of padding - prevents purple rectangle */}
             <div 
-              className="md:h-[160px] w-full bg-burgundy-800"
+              className="md:h-[80px] w-full bg-burgundy-800"
               style={desktopSpacerStyle}
               aria-hidden="true"
             />
