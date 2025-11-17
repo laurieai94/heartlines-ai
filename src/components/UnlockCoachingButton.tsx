@@ -1,4 +1,4 @@
-// Force rebuild
+// Force rebuild - avatar pulse only
 import { MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -37,7 +37,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
       <Avatar className={`
         ${isCompact ? 'w-6 h-6' : 'w-8 h-8'} 
         ring-[3px] ring-coral-300/40 group-hover/cta:ring-coral-200/60 
-        transition-all duration-500
+        transition-[ring-color] duration-500
         animate-breathe animate-breathe-glow
       `}>
         <AvatarImage 
