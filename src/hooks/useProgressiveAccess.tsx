@@ -7,6 +7,7 @@ import { calculateProgressOptimized, validateSectionOptimized } from "@/componen
 import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from "@/components/NewPersonalQuestionnaire/utils/requirements";
 import { getTotalPartnerRequiredFieldsCount, getCompletedPartnerRequiredFieldsCount, isPartnerProfileComplete } from "@/components/NewPartnerProfile/utils/partnerRequirements";
 import type { ProfileData } from "@/components/NewPersonalQuestionnaire/types";
+import { batchedStorage } from "@/utils/batchedStorage";
 
 export type AccessLevel = 'preview' | 'profile-required' | 'signup-required' | 'full-access';
 
@@ -114,8 +115,8 @@ export const useProgressiveAccess = () => {
         profileData = personalStorage.profileData as ProfileData;
       } else {
         const userStorageKey = `personal_profile_v2_${user.id}`;
-        console.log('[ProgressiveAccess] Reading from localStorage key:', userStorageKey);
-        const stored = localStorage.getItem(userStorageKey);
+        console.log('[ProgressiveAccess] Reading from batchedStorage key:', userStorageKey);
+        const stored = batchedStorage.getItem(userStorageKey);
         if (stored) {
           const parsed = JSON.parse(stored);
           profileData = parsed.profile || personalStorage.profileData;
