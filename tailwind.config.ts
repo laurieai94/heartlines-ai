@@ -326,7 +326,7 @@ export default {
 				'emerald-soft-glow': 'emerald-soft-glow 6s ease-in-out infinite',
 				'shimmer': 'shimmer 3s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
-				'breathe': 'breathe 3s ease-in-out infinite'
+				'breathe': 'breathe 5s ease-in-out infinite'
 			}
 		}
 	},
