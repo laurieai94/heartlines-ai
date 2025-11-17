@@ -27,8 +27,8 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         bg-burgundy-700/30 backdrop-blur-2xl 
         hover:bg-burgundy-600/40 
         border-2 border-white/20 hover:border-white/30
-        shadow-[0_2px_12px_rgba(0,0,0,0.2),0_0_20px_rgba(251,146,140,0.15),inset_0_1px_0_rgba(255,255,255,0.1)]
-        hover:shadow-[0_4px_20px_rgba(0,0,0,0.25),0_0_30px_rgba(251,146,140,0.25),0_0_50px_rgba(251,146,140,0.15),inset_0_1px_0_rgba(255,255,255,0.15)]
+        shadow-[0_2px_12px_rgba(0,0,0,0.2),0_0_25px_rgba(251,146,140,0.25),0_0_40px_rgba(251,146,140,0.15),inset_0_1px_0_rgba(255,255,255,0.1)]
+        hover:shadow-[0_4px_20px_rgba(0,0,0,0.25),0_0_35px_rgba(251,146,140,0.35),0_0_55px_rgba(251,146,140,0.25),inset_0_1px_0_rgba(255,255,255,0.15)]
         hover:scale-[1.03] active:scale-[1.02]
         ${className}
       `}
