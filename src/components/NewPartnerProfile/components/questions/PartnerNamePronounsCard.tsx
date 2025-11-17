@@ -163,14 +163,15 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
             <Label htmlFor="partnerName" className="text-sm font-semibold text-white mb-2 block">
               what should we call them? <span className="text-red-400">*</span>
             </Label>
-            <Input
-              id="partnerName"
-              type="text"
-              value={profileData.partnerName || ''}
-              onChange={(e) => updateField('partnerName', e.target.value)}
-              placeholder="their name"
-              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
-            />
+              <Input
+                id="partnerName"
+                type="text"
+                value={profileData.partnerName || ''}
+                onChange={(e) => updateField('partnerName', e.target.value)}
+                placeholder="their name"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
+                autoComplete="off"
+              />
           </div>
         </div>
 
@@ -201,6 +202,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
                 onBlur={handleCustomPronounBlur}
                 placeholder="enter their pronouns"
                 className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-auto font-medium"
+                autoComplete="off"
               />
             </div>
           )}
