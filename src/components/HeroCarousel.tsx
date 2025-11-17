@@ -84,13 +84,9 @@ const slides: Slide[] = [
 
 export const HeroCarousel: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const preloadedRef = useRef(false);
 
-  // Preload all carousel images immediately on mount
+  // Preload all carousel images on mount
   useEffect(() => {
-    if (preloadedRef.current) return;
-    preloadedRef.current = true;
-    
     const allImages = slides.map(slide => slide.image);
     preloadCriticalImages(allImages);
   }, []);
@@ -117,8 +113,8 @@ export const HeroCarousel: React.FC = () => {
             src={slide.image}
             alt={`Year ${slide.year}`}
             className="absolute inset-0 w-full h-full object-cover object-[center_70%] md:object-cover md:object-center bg-burgundy-800"
-            loading={index < 4 ? "eager" : "lazy"}
-            fetchPriority={index < 2 ? "high" : undefined}
+            loading={index < 8 ? "eager" : "lazy"}
+            fetchPriority={index < 4 ? "high" : undefined}
           />
 
           {/* Year Number - Bottom Left */}

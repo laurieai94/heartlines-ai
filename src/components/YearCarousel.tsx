@@ -99,14 +99,9 @@ export const YearCarousel = () => {
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const preloadTriggered = useRef(false);
 
-  // Preload all carousel images in parallel after mount
+  // Preload all carousel images on mount
   useEffect(() => {
-    if (preloadTriggered.current) return;
-    preloadTriggered.current = true;
-
-    // Preload all images in parallel
     const imageUrls = shuffledSlides.map(slide => slide.image);
     preloadCriticalImages(imageUrls);
   }, [shuffledSlides]);
