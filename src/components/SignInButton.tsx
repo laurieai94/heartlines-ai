@@ -39,11 +39,15 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
   };
 
   const getInitialFromProfile = () => {
-    // Only show initial if user has filled out their name in the profile
+    // Priority 1: Profile name from questionnaire
     if (profileData?.name && profileData.name.trim()) {
       return profileData.name.trim().charAt(0).toUpperCase();
     }
-    // No name = show heart placeholder only (no initial)
+    // Priority 2: Email (legacy fallback)
+    if (user?.email) {
+      return user.email.charAt(0).toUpperCase();
+    }
+    // Priority 3: No initial available
     return null;
   };
 
@@ -59,7 +63,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
         return (
           <Button
             variant="ghost"
-            className="h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+            className="h-8 w-8 sm:h-9 sm:w-9 md:h-11 md:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
           >
             <NavAvatar>{initial}</NavAvatar>
           </Button>
@@ -71,7 +75,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
           <DrawerTrigger asChild>
             <Button
               variant="ghost"
-              className="h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+              className="h-8 w-8 sm:h-9 sm:w-9 md:h-11 md:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
             >
               <NavAvatar>{initial}</NavAvatar>
             </Button>
@@ -140,7 +144,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
         <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          className="h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+          className="h-8 w-8 sm:h-9 sm:w-9 md:h-11 md:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
         >
           <NavAvatar>{initial}</NavAvatar>
         </Button>
