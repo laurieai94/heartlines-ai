@@ -39,15 +39,11 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile, disableMenuOnMobile 
   };
 
   const getInitialFromProfile = () => {
-    // Priority 1: Profile name from questionnaire
+    // Only show initial if user has filled out their name in the profile
     if (profileData?.name && profileData.name.trim()) {
       return profileData.name.trim().charAt(0).toUpperCase();
     }
-    // Priority 2: Email (legacy fallback)
-    if (user?.email) {
-      return user.email.charAt(0).toUpperCase();
-    }
-    // Priority 3: No initial available
+    // No name = show heart placeholder only (no initial)
     return null;
   };
 
