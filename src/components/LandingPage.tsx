@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock, LogOut } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { Link, useNavigate } from "react-router-dom";
@@ -123,26 +123,10 @@ const LandingPage = ({
     }
   };
   const [currentProfile, setCurrentProfile] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
     scrollY
   } = useScrollDirection();
 
-  // Ensure menu closes when user navigates away or clicks outside
-  useEffect(() => {
-    const closeMenu = () => setIsMenuOpen(false);
-
-    // Close menu on route changes
-    window.addEventListener('popstate', closeMenu);
-    return () => {
-      window.removeEventListener('popstate', closeMenu);
-    };
-  }, []);
-
-  // Use global resize manager to close menu on resize
-  useGlobalResize(() => {
-    setIsMenuOpen(false);
-  }, []);
   const isEmbedded = !showMarketingTopBar;
 
   // Glass card styling helper
@@ -295,48 +279,60 @@ const LandingPage = ({
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`}>
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent border-0 p-0 transition-all duration-200" aria-label="Open menu">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+                  >
                     <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                   </Button>
-                </SheetTrigger>
-                <SheetContent 
-                  side="left"
-                  hideClose={true}
-                  className="w-[260px] bg-gradient-to-br from-burgundy-900/75 to-burgundy-800/75 backdrop-blur-2xl border-r border-coral-400/10 shadow-2xl p-0"
+                </PopoverTrigger>
+                <PopoverContent 
+                  className="w-auto p-2 bg-burgundy-800/95 backdrop-blur-xl border-coral-400/20"
+                  align="start"
+                  side="bottom"
+                  sideOffset={8}
+                  collisionPadding={16}
+                  style={{
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                  }}
                 >
-                  <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
+                  <nav className="flex flex-col gap-1">
                     {navItems.map((item) => (
                       <Link
                         key={item.to}
                         to={item.to}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 group"
+                        className="flex items-center justify-center w-12 h-12 rounded-xl text-white/80 hover:text-white hover:bg-white/20 transition-all duration-200"
+                        style={{
+                          minWidth: '48px',
+                          minHeight: '48px'
+                        }}
                       >
-                        <item.icon className="w-5 h-5 text-coral-300 group-hover:text-coral-200 transition-colors" />
-                        <span className="text-sm font-medium">{item.label}</span>
+                        <item.icon className="w-6 h-6" strokeWidth={2} />
                       </Link>
                     ))}
                     
                     {user && (
                       <>
-                        <Separator className="my-2 bg-white/10" />
+                        <div className="h-px bg-white/10 my-1" />
                         <button
                           onClick={async () => {
                             await signOut();
-                            setIsMenuOpen(false);
                           }}
-                          className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 group w-full text-left"
+                          className="flex items-center justify-center w-12 h-12 rounded-xl text-rose-300 hover:text-white hover:bg-rose-500/20 transition-all duration-200"
+                          style={{
+                            minWidth: '48px',
+                            minHeight: '48px'
+                          }}
                         >
-                          <LogOut className="w-5 h-5 text-coral-300 group-hover:text-coral-200 transition-colors" />
-                          <span className="text-sm font-medium">sign out</span>
+                          <LogOut className="w-6 h-6" strokeWidth={2} />
                         </button>
                       </>
                     )}
                   </nav>
-                </SheetContent>
-              </Sheet>
+                </PopoverContent>
+              </Popover>
             </div>
             
             {/* Desktop Navigation CTAs */}
