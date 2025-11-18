@@ -642,13 +642,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
                                   (Array.isArray(localValue) && localValue.length === 0);
                   if (isEmpty) {
                     (finalProfile as any)[key] = localValue;
-                    
-                    // Clean up old deletion markers (if field has been empty for >30 seconds, we can trust it)
-                    const modTime = recentlyModifiedFields.current.get(key);
-                    if (modTime && (now - modTime) > 30000) {
-                      intentionallyDeletedFields.current.delete(key);
-                    }
-                    
                     return;
                   }
                 }
@@ -866,16 +859,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         const toSync = { ...pendingUpdates.current };
         pendingUpdates.current = {};
         syncToDatabase(toSync);
-        
-        // Clear old deletion markers after successful sync
-        const now = Date.now();
-        const recentThreshold = 5000; // 5 seconds
-        intentionallyDeletedFields.current.forEach(field => {
-          const modTime = recentlyModifiedFields.current.get(field);
-          if (!modTime || (now - modTime) > recentThreshold) {
-            intentionallyDeletedFields.current.delete(field);
-          }
-        });
       }
     }, 3000);
 
