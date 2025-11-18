@@ -300,16 +300,16 @@ export default {
             transform: 'scale(1)'
           },
           '50%': {
-            transform: 'scale(1.05)'
+            transform: 'scale(1.02)'
           }
         },
 				'breathe-glow': {
 					'0%, 100%': {
 						filter: 'drop-shadow(0 0 15px rgba(251,146,140,0.3)) drop-shadow(0 0 30px rgba(255,182,193,0.2)) drop-shadow(0 0 50px rgba(255,255,255,0.1))'
 					},
-					'50%': {
-						filter: 'drop-shadow(0 0 25px rgba(251,146,140,0.6)) drop-shadow(0 0 45px rgba(255,182,193,0.4)) drop-shadow(0 0 70px rgba(255,255,255,0.2))'
-					}
+				'50%': {
+					filter: 'drop-shadow(0 0 15px rgba(251,146,140,0.4)) drop-shadow(0 0 25px rgba(255,182,193,0.25)) drop-shadow(0 0 40px rgba(255,255,255,0.1))'
+				}
 				}
 			},
 			animation: {
