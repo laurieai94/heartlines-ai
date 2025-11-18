@@ -21,7 +21,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
       variant="glass"
       onClick={goToCoach}
       className={`
-        group/cta relative overflow-hidden
+        group/cta relative
         ${isCompact ? 'w-full h-10 px-4' : 'w-auto h-12 px-6'} 
         rounded-full font-semibold text-white 
         transition-all duration-500 ease-out
