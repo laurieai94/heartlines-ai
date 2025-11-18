@@ -4,11 +4,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Home, User as UserIcon, MessageSquare, CreditCard, Settings } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Home, User as UserIcon, MessageSquare, CreditCard, Settings, LogOut, X } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
 import SignInButton from "./SignInButton";
 import type { User } from '@supabase/supabase-js';
+import { useAuth } from "@/contexts/AuthContext";
+import { useState, useEffect } from "react";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 
 interface SimpleHeaderProps {
   user: User | null;
@@ -19,6 +27,27 @@ interface SimpleHeaderProps {
 
 const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false }: SimpleHeaderProps) => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
+  const { isMobile } = useOptimizedMobile();
+  const [navigationOpened, setNavigationOpened] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOut();
+    setNavigationOpened(false);
+  };
+
+  // Lock scroll when nav is open on mobile
+  useEffect(() => {
+    if (navigationOpened && isMobile) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+      };
+    }
+  }, [navigationOpened, isMobile]);
 
   const navigationItems = [
     { value: 'home', label: 'home', icon: Home },
@@ -40,12 +69,97 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
     else if (item.value === 'profile') navigate('/profile');
     else if (item.value === 'insights') navigate('/coach');
     else if (item.value === 'home') navigate('/');
+    setNavigationOpened(false);
   };
   
   return (
     <div className="w-full fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 backdrop-blur-xl mb-1 sm:mb-2" style={{ transform: 'none', isolation: 'isolate' }}>
       <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto pl-4 pr-5 sm:px-6 xl:px-8 py-3">
-        <div className="flex items-center justify-between">
+        
+        {/* Mobile Navigation */}
+        <div className="md:hidden flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Sheet open={navigationOpened} onOpenChange={setNavigationOpened}>
+              <SheetTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+                >
+                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent 
+                side="left"
+                className="w-[280px] sm:w-[320px] p-0 bg-burgundy-800/95 backdrop-blur-md border-coral-400/20"
+                style={{
+                  boxShadow: '0 0 60px rgba(0,0,0,0.5)',
+                }}
+              >
+                <div className="flex flex-col h-full p-6">
+                  <button
+                    onClick={() => setNavigationOpened(false)}
+                    className="self-end p-2 text-white/60 hover:text-white transition-colors duration-200 touch-manipulation"
+                    aria-label="Close navigation"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+
+                  <nav className="flex-1 flex flex-col gap-2 mt-4">
+                    {navigationItems.map((item) => {
+                      const IconComponent = item.icon;
+                      const isActive = activeTab === item.value;
+                      return (
+                        <button
+                          key={item.value}
+                          onClick={() => handleNavigation(item)}
+                          className={`flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 ${
+                            isActive 
+                              ? 'text-white bg-white/20 shadow-lg' 
+                              : 'text-white/80 hover:bg-white/10 hover:text-white'
+                          }`}
+                          style={{ 
+                            minHeight: '48px',
+                            WebkitTapHighlightColor: 'transparent',
+                            touchAction: 'manipulation'
+                          }}
+                        >
+                          <IconComponent className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
+                          <span className="text-base font-medium">{item.label}</span>
+                        </button>
+                      );
+                    })}
+                    
+                    {/* Separator before sign out */}
+                    <div className="h-px bg-white/10 my-1" />
+                    
+                    {/* Sign Out button */}
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer touch-manipulation transition-all duration-200 active:scale-98 text-rose-300 hover:text-white hover:bg-rose-500/20"
+                      style={{ 
+                        minHeight: '48px',
+                        WebkitTapHighlightColor: 'transparent',
+                        touchAction: 'manipulation'
+                      }}
+                    >
+                      <LogOut className="h-6 w-6 flex-shrink-0" strokeWidth={2} />
+                      <span className="text-base font-medium">sign out</span>
+                    </button>
+                  </nav>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+          
+          <div className="flex items-center">
+            {!hideSignInButton && (
+              <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={() => navigate('/profile')} />
+            )}
+          </div>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Popover>
               <PopoverTrigger asChild>
@@ -108,6 +222,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
             )}
           </div>
         </div>
+
       </div>
     </div>
   );
