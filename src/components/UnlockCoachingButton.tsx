@@ -41,7 +41,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         shadow-[0_0_20px_rgba(251,146,140,0.4)]
         group-hover/cta:shadow-[0_0_30px_rgba(251,146,140,0.6)]
         transition-all duration-500
-        animate-breathe
+        animate-breathe animate-breathe-glow
       `}>
         <AvatarImage 
           src={BRAND.coach.avatarSrc} 

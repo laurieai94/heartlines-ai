@@ -335,7 +335,7 @@ export default {
 				'shimmer': 'shimmer 3s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
 				'breathe': 'breathe 18s ease-in-out infinite',
-				'breathe-glow': 'breathe-glow 6s ease-in-out infinite'
+				'breathe-glow': 'breathe-glow 18s ease-in-out infinite'
 			}
 		}
 	},
