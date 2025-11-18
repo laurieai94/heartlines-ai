@@ -102,34 +102,36 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
                   touchAction: 'manipulation'
                 }}
               >
-                {navigationItems.map((item) => {
-                  const IconComponent = item.icon;
-                  const isActive = activeTab === item.value;
-                  return (
-                    <button
-                      key={item.value}
-                      onClick={() => handleNavigation(item)}
-                      title={item.label}
-                      className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
-                        isActive 
-                          ? 'text-white bg-white/20' 
-                          : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
-                      }`}
-                      style={{ 
-                        minHeight: '48px', 
-                        minWidth: '48px', 
-                        maxHeight: '48px', 
-                        maxWidth: '48px', 
-                        padding: '12px',
-                        WebkitTapHighlightColor: 'transparent',
-                        touchAction: 'manipulation',
-                        transform: 'translateZ(0)'
-                      }}
-                    >
-                      <IconComponent className="h-6 w-6" strokeWidth={2} />
-                    </button>
-                  );
-                })}
+                <nav className="flex flex-col gap-0.5">
+                  {navigationItems.map((item) => {
+                    const IconComponent = item.icon;
+                    const isActive = activeTab === item.value;
+                    return (
+                      <button
+                        key={item.value}
+                        onClick={() => handleNavigation(item)}
+                        title={item.label}
+                        className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
+                          isActive 
+                            ? 'text-white bg-white/20' 
+                            : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
+                        }`}
+                        style={{ 
+                          minHeight: '48px', 
+                          minWidth: '48px', 
+                          maxHeight: '48px', 
+                          maxWidth: '48px', 
+                          padding: '12px',
+                          WebkitTapHighlightColor: 'transparent',
+                          touchAction: 'manipulation',
+                          transform: 'translateZ(0)'
+                        }}
+                      >
+                        <IconComponent className="h-6 w-6" strokeWidth={2} />
+                      </button>
+                    );
+                  })}
+                </nav>
               </PopoverContent>
             </Popover>
           </div>
