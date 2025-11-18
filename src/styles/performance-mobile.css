@@ -37,7 +37,7 @@
 
 /* Reduce motion for better performance */
 @media (max-width: 768px) {
-  *:not(.animate-soft-glow):not(.animate-profile-glow):not(.animate-optional-glow):not(.animate-pulse-glow) {
+  *:not(.animate-soft-glow):not(.animate-profile-glow):not(.animate-optional-glow):not(.animate-pulse-glow):not(.animate-breathe) {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
   }
