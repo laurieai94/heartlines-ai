@@ -300,7 +300,7 @@ export default {
             transform: 'scale(1)'
           },
           '50%': {
-            transform: 'scale(1.08)'
+            transform: 'scale(1.05)'
           }
         },
 				'breathe-glow': {
@@ -334,7 +334,7 @@ export default {
 				'emerald-soft-glow': 'emerald-soft-glow 6s ease-in-out infinite',
 				'shimmer': 'shimmer 3s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
-				'breathe': 'breathe 12s ease-in-out infinite',
+				'breathe': 'breathe 18s ease-in-out infinite',
 				'breathe-glow': 'breathe-glow 6s ease-in-out infinite'
 			}
 		}
