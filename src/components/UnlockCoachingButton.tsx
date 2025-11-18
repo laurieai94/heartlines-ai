@@ -38,7 +38,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
         ${isCompact ? 'w-9 h-9' : 'w-11 h-11'} 
         ring-[3px] ring-coral-300/40 group-hover/cta:ring-coral-200/60
         transition-[ring-color] duration-500
-        animate-breathe
+        animate-breathe-glow
       `}>
         <AvatarImage 
           src={BRAND.coach.avatarSrc} 
