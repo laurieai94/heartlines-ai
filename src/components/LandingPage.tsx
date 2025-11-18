@@ -298,7 +298,7 @@ const LandingPage = ({
                     boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
                   }}
                 >
-                  <nav className="flex flex-col gap-1">
+                  <nav className="flex flex-col gap-0.5">
                     {navItems.map((item) => (
                       <Link
                         key={item.to}
@@ -315,7 +315,7 @@ const LandingPage = ({
                     
                     {user && (
                       <>
-                        <div className="h-px bg-white/10 my-1" />
+                        <div className="h-px bg-white/10 my-0.5" />
                         <button
                           onClick={async () => {
                             await signOut();
