@@ -62,14 +62,14 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`questionnaire-card group p-3 md:p-4 lg:p-5 
-        min-h-[200px] md:min-h-[240px] lg:min-h-[260px] 
+      className={`questionnaire-card group p-3 md:p-4 lg:p-7 
+        min-h-[200px] md:min-h-[240px] lg:min-h-[320px]
         hover:scale-[1.02] transition-transform duration-300 ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
     >
-      <div className="space-y-1 md:space-y-2 lg:space-y-2 h-full flex flex-col">
+      <div className="space-y-1 md:space-y-2 lg:space-y-4 h-full flex flex-col">
         <div className="flex items-center gap-3 md:gap-4">
           <CardAvatar>
             {iconElement}
@@ -93,8 +93,8 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="bg-white/10 rounded-lg p-2 md:p-2.5 lg:p-2.5 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
-          <ul className="space-y-1 md:space-y-1.5 lg:space-y-1.5 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
+        <div className="bg-white/10 rounded-lg p-2 md:p-2.5 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
+          <ul className="space-y-1 md:space-y-1.5 lg:space-y-2.5 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
             {benefits.map((benefit, index) => (
               <li key={`benefit-${index}`} className="flex items-start gap-2 md:gap-3">
                 <span className="mt-0.5 md:mt-1 flex-shrink-0">
