@@ -89,11 +89,11 @@ const Contact = () => {
         
         <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
           {/* Hero Section */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-fade-in">
             <h1
               className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider mb-4"
               style={{
-                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.6), 0 4px 20px rgba(251, 146, 60, 0.5), 0 8px 30px rgba(236, 72, 153, 0.3)'
               }}
             >
               let's connect
@@ -106,10 +106,10 @@ const Contact = () => {
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Form */}
-            <Card className="questionnaire-card p-6">
+            <Card className="glass-contact-card floating-card p-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-filter backdrop-blur-sm">
-                  <MessageSquare className="w-5 h-5 text-white" />
+                <div className="playful-icon-container w-12 h-12 rounded-full flex items-center justify-center">
+                  <MessageSquare className="w-6 h-6 text-white" />
                 </div>
                 <h2 className="text-2xl font-semibold questionnaire-text">send us a message</h2>
               </div>
@@ -126,7 +126,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
+                    className="glass-input-enhanced placeholder:text-[#ff6b9d]/80 text-white"
                     placeholder="what should we call you?"
                   />
                 </div>
@@ -142,7 +142,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
+                    className="glass-input-enhanced placeholder:text-[#ff6b9d]/80 text-white"
                     placeholder="your email"
                   />
                 </div>
@@ -158,7 +158,7 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
+                    className="glass-input-enhanced placeholder:text-[#ff6b9d]/80 text-white"
                     placeholder="what's up?"
                   />
                 </div>
@@ -173,7 +173,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input min-h-[150px] placeholder:text-[#ff6b9d]/80"
+                    className="glass-input-enhanced min-h-[150px] placeholder:text-[#ff6b9d]/80 text-white"
                     placeholder="spill the details..."
                   />
                 </div>
@@ -181,30 +181,37 @@ const Contact = () => {
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
+                  className="playful-send-button w-full text-white font-semibold flex items-center justify-center gap-2"
                 >
-                  {isSubmitting ? "sending..." : "send ✈️"}
+                  {isSubmitting ? (
+                    "sending..."
+                  ) : (
+                    <>
+                      send
+                      <Send className="w-4 h-4" />
+                    </>
+                  )}
                 </Button>
               </form>
             </Card>
 
             {/* Contact Info */}
             <div className="space-y-6">
-              <Card className="questionnaire-card p-6">
+              <Card className="glass-contact-card floating-card p-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
                 <h3 className="text-xl font-semibold questionnaire-text mb-4">support</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
                   need help? reach out here and we'll get back within 1–2 days.
                 </p>
               </Card>
 
-              <Card className="questionnaire-card p-6">
+              <Card className="glass-contact-card floating-card p-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
                 <h3 className="text-xl font-semibold questionnaire-text mb-4">feedback</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
                   we're always leveling up <span className="font-brand">heartlines</span>. share your thoughts and help us make it better for everyone.
                 </p>
               </Card>
 
-              <Card className="questionnaire-card p-6">
+              <Card className="glass-contact-card floating-card p-6 animate-fade-in" style={{ animationDelay: '0.4s' }}>
                 <h3 className="text-xl font-semibold questionnaire-text mb-4">partnerships</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
                   want to collab? pop "partnership" in the subject line and let's chat.
