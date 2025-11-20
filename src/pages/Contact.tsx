@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { BRAND } from "@/branding";
-import { Mail, MessageSquare, Send } from "lucide-react";
+import { Mail, MessageSquare, Send, Sparkles } from "lucide-react";
 import SimpleHeader from "@/components/SimpleHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
@@ -45,7 +45,9 @@ const Contact = () => {
 
       if (error) throw error;
 
-      toast.success("Message sent! We'll get back to you soon.");
+      toast.success("Message sent! We'll get back to you soon.", {
+        icon: <Sparkles className="w-5 h-5 text-coral-400" />
+      });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error: any) {
       console.error('Contact form error:', error);
