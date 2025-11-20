@@ -51,7 +51,6 @@ export const MagicLinkEmail = ({
         
         <Link
           href={`${supabase_url}/auth/v1/verify?token=${token_hash}&type=${email_action_type}&redirect_to=${redirect_to}`}
-          target="_blank"
           style={button}
         >
           Sign In to Heartlines
@@ -75,7 +74,6 @@ export const MagicLinkEmail = ({
           <br />
           <Link
             href="https://heartlines.ai"
-            target="_blank"
             style={{ ...link, color: '#898989' }}
           >
             Heartlines.ai

@@ -54,7 +54,6 @@ export const EmailConfirmationEmail = ({
         
         <Link
           href={`${supabase_url}/auth/v1/verify?token=${token_hash}&type=${email_action_type}&redirect_to=${redirect_to}`}
-          target="_blank"
           style={button}
         >
           Build Yr Profile →
@@ -90,7 +89,6 @@ export const EmailConfirmationEmail = ({
           <br />
           <Link
             href="https://heartlines.ai"
-            target="_blank"
             style={footerLink}
           >
             heartlines.ai
