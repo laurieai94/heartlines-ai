@@ -1651,9 +1651,11 @@
   }
 
   .playful-send-button:hover {
+    background: linear-gradient(135deg, hsl(var(--coral-400)), hsl(var(--pink-500)));
+    background-size: 200% 200%;
     box-shadow: 0 6px 25px rgba(251, 146, 140, 0.5);
     transform: scale(1.02);
-    filter: brightness(1.05);
+    filter: brightness(1.03);
   }
 
   @keyframes gradient-shift {
