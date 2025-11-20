@@ -1593,14 +1593,14 @@
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .glass-contact-card:hover {
-    transform: translateY(-4px) scale(1.01);
-    border-color: rgba(251, 146, 140, 0.4);
-    box-shadow: 
-      0 12px 48px rgba(0, 0, 0, 0.4),
-      0 0 40px rgba(251, 146, 140, 0.25),
-      inset 0 1px 1px rgba(255, 255, 255, 0.3);
-  }
+.glass-contact-card:hover {
+  transform: translateY(-2px) scale(1.005);
+  border-color: rgba(251, 146, 140, 0.3);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(251, 146, 140, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+}
 
   .playful-icon-container {
     background: linear-gradient(135deg, rgba(251, 146, 140, 0.3), rgba(236, 72, 153, 0.3));
@@ -1651,9 +1651,9 @@
 
   .playful-send-button:hover {
     background: linear-gradient(135deg, hsl(var(--coral-300)), hsl(var(--pink-400)));
-    box-shadow: 0 6px 30px rgba(251, 146, 140, 0.6);
+    box-shadow: 0 6px 25px rgba(251, 146, 140, 0.5);
     transform: scale(1.02);
-    animation: gradient-shift 1.5s ease infinite, pulse-glow 1.5s ease-in-out infinite;
+    animation: gradient-shift 2s ease infinite;
   }
 
   @keyframes gradient-shift {
