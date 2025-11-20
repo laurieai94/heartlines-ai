@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -178,10 +177,22 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isSubmitting}
-                  className="playful-send-button w-full text-white font-semibold flex items-center justify-center gap-2"
+                  className="
+                    playful-send-button
+                    w-full
+                    flex items-center justify-center gap-2
+                    rounded-xl
+                    py-3
+                    text-white font-semibold text-sm md:text-base
+                    disabled:opacity-50 disabled:cursor-not-allowed
+                    focus-visible:outline-none
+                    focus-visible:ring-2 focus-visible:ring-offset-0
+                    focus-visible:ring-[hsl(var(--coral-400))]
+                    transition-all duration-300
+                  "
                 >
                   {isSubmitting ? (
                     "sending..."
@@ -191,7 +202,7 @@ const Contact = () => {
                       <Send className="w-4 h-4" />
                     </>
                   )}
-                </Button>
+                </button>
               </form>
             </Card>
 
