@@ -29,6 +29,10 @@ const AuthCallback = () => {
             // User is authenticated, token was already used
             console.log('User already authenticated, redirecting to profile');
             
+            // Mark that email was just verified
+            sessionStorage.setItem(`first_email_verification_${session.user.id}`, 'true');
+            sessionStorage.setItem('email_just_verified', 'true');
+            
             // Get redirect destination from URL
             const hash = window.location.hash.substring(1);
             const hashParams = new URLSearchParams(hash);
@@ -51,6 +55,9 @@ const AuthCallback = () => {
           if (isPKCEError) {
             // PKCE error means the email was likely verified but code verifier is missing
             // (happens when clicking link in different browser/session)
+            // Mark that email was just verified (generic flag for fallback)
+            sessionStorage.setItem('email_just_verified', 'true');
+            
             // Redirect to verified sign-in flow without email (user knows which email they just verified)
             toast({
               title: "Email verified!",

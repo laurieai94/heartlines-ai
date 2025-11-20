@@ -75,15 +75,17 @@ const Dashboard = () => {
     // Check if this is a first-time email verification
     const firstTimeVerificationKey = `first_email_verification_${user.id}`;
     const hasFirstTimeVerification = sessionStorage.getItem(firstTimeVerificationKey);
+    const hasGenericVerification = sessionStorage.getItem('email_just_verified');
     const userWelcomeShownKey = `welcomeDialogShown_${user.id}`;
     const hasShownWelcome = localStorage.getItem(userWelcomeShownKey);
     
     // Only show welcome if:
-    // 1. Coming from email verification (sessionStorage flag exists)
+    // 1. Coming from email verification (either flag exists)
     // 2. Haven't shown welcome before (localStorage flag doesn't exist)
-    if (hasFirstTimeVerification && !hasShownWelcome) {
-      // Clear the verification flag (one-time use)
+    if ((hasFirstTimeVerification || hasGenericVerification) && !hasShownWelcome) {
+      // Clear both verification flags (one-time use)
       sessionStorage.removeItem(firstTimeVerificationKey);
+      sessionStorage.removeItem('email_just_verified');
       
       // Set permanent flag so it never shows again
       localStorage.setItem(userWelcomeShownKey, 'true');
