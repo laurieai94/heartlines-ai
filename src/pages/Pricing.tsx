@@ -150,8 +150,8 @@ const Pricing = () => {
       <div className="relative z-10">
         <div className="container mx-auto px-4 pt-24 pb-12 lg:pt-28">
           {/* Header Section */}
-          <div className="text-center mb-6 md:mb-8">
-            <h1 className="font-brand text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-6xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider mb-4" style={{
+          <div className="text-center mb-10 md:mb-14 lg:mb-16">
+            <h1 className="font-brand text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-6xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider mb-8 md:mb-10 lg:mb-12" style={{
               textShadow: '0 2px 10px rgba(236, 72, 153, 0.6), 0 4px 20px rgba(251, 146, 60, 0.5), 0 8px 30px rgba(236, 72, 153, 0.3)'
             }}>
               choose your growth plan
