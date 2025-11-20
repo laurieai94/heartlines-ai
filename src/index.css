@@ -1575,5 +1575,104 @@
       z-index: 50 !important;
     }
   }
+
+  /* ============================= */
+  /* Contact Page Glass Effects     */
+  /* ============================= */
+
+  .glass-contact-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      0 0 24px rgba(251, 146, 140, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-contact-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    border-color: rgba(251, 146, 140, 0.4);
+    box-shadow: 
+      0 12px 48px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(251, 146, 140, 0.25),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  }
+
+  .playful-icon-container {
+    background: linear-gradient(135deg, rgba(251, 146, 140, 0.3), rgba(236, 72, 153, 0.3));
+    animation: pulse-glow 3s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(251, 146, 140, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .playful-icon-container:hover {
+    animation: pulse-glow 1.5s ease-in-out infinite, rotate-subtle 0.6s ease;
+    box-shadow: 0 0 30px rgba(251, 146, 140, 0.6);
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(251, 146, 140, 0.4);
+      transform: scale(1);
+    }
+    50% { 
+      box-shadow: 0 0 30px rgba(251, 146, 140, 0.6);
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes rotate-subtle {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.1); }
+    75% { transform: rotate(5deg) scale(1.1); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+
+  .floating-card {
+    animation: float-subtle 6s ease-in-out infinite;
+  }
+
+  @keyframes float-subtle {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .playful-send-button {
+    background: linear-gradient(135deg, hsl(var(--coral-400)), hsl(var(--pink-500)));
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+    box-shadow: 0 4px 20px rgba(251, 146, 140, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .playful-send-button:hover {
+    background: linear-gradient(135deg, hsl(var(--coral-300)), hsl(var(--pink-400)));
+    box-shadow: 0 6px 30px rgba(251, 146, 140, 0.6);
+    transform: scale(1.02);
+    animation: gradient-shift 1.5s ease infinite, pulse-glow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .glass-input-enhanced {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .glass-input-enhanced:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(251, 146, 140, 0.5);
+    box-shadow: 0 0 20px rgba(251, 146, 140, 0.3);
+  }
 }
 
