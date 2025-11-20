@@ -158,17 +158,17 @@ const Pricing = () => {
             </h1>
             
             {/* Trust Badges - Inline */}
-            <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-white/90">
+            <div className="flex flex-wrap justify-center items-center gap-4 text-sm md:text-base lg:text-lg text-white/90 tracking-wide">
               <div className="flex items-center gap-1.5">
-                <Shield className="h-4 w-4" />
+                <Shield className="h-5 w-5 md:h-6 md:w-6" />
                 <span>your data, your rules</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Heart className="h-4 w-4" />
+                <Heart className="h-5 w-5 md:h-6 md:w-6" />
                 <span>break up anytime</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Users className="h-4 w-4" />
+                <Users className="h-5 w-5 md:h-6 md:w-6" />
                 <span>built for humans, not rom-coms</span>
               </div>
             </div>
