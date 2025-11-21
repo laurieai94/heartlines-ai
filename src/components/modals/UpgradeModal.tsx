@@ -90,7 +90,7 @@ export const UpgradeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-1 space-y-1.5 md:space-y-2 pb-2">
+        <div className="mt-1 space-y-4 md:space-y-5 lg:space-y-6 pb-2">
           {/* Current Usage */}
           <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-3 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
             <div className="flex items-center justify-between">
