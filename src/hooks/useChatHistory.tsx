@@ -7,7 +7,7 @@ import { logError, logInfo, logWarn } from '@/utils/productionLogger';
 import { batchedStorage } from "@/utils/batchedStorage";
 // Chat reliability queue removed logger import for performance
 
-const TWELVE_HOURS = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
+const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 export interface ChatConversation {
   id: string;
@@ -259,9 +259,9 @@ export const useChatHistory = () => {
       const mostRecent = conversations[0];
       const conversationAge = Date.now() - new Date(mostRecent.updated_at).getTime();
       
-      // If the most recent conversation is older than 12 hours, start fresh
-      if (conversationAge > TWELVE_HOURS) {
-        // Most recent conversation is older than 12 hours, starting fresh chat (logging removed for performance)
+      // If the most recent conversation is older than 24 hours, start fresh
+      if (conversationAge > TWENTY_FOUR_HOURS) {
+        // Most recent conversation is older than 24 hours, starting fresh chat (logging removed for performance)
         setCurrentConversationId(null);
         sessionStorage.removeItem('current_chat');
         return [];
