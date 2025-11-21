@@ -90,7 +90,7 @@ export const UpgradeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-1 space-y-1.5 md:space-y-2">
+        <div className="mt-1 space-y-1.5 md:space-y-2 pb-2">
           {/* Current Usage */}
           <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-3 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
             <div className="flex items-center justify-between">
@@ -129,9 +129,9 @@ export const UpgradeModal = ({
                   } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''}`}
                 >
                   {isPopular && (
-                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
-                      <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 sm:px-5 lg:px-6 py-0.5 rounded-full text-xs font-semibold border border-white/30 shadow-lg whitespace-nowrap">
-                        most popular
+                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10 animate-pulse">
+                      <span className="bg-gradient-to-r from-coral-400 via-pink-400 to-coral-400 text-white px-5 sm:px-6 lg:px-7 py-1 rounded-full text-sm font-bold border-2 border-white/50 shadow-[0_0_20px_rgba(251,146,140,0.6),0_0_40px_rgba(251,146,140,0.4)] whitespace-nowrap">
+                        ✨ most popular ✨
                       </span>
                     </div>
                   )}
@@ -204,15 +204,6 @@ export const UpgradeModal = ({
             })}
           </div>
 
-          <div className="text-center pt-0 pb-0 -mb-3">
-            <Button
-              variant="ghost"
-              onClick={() => onOpenChange(false)}
-              className="text-white/60 hover:text-white hover:bg-white/10 text-sm"
-            >
-              maybe later
-            </Button>
-          </div>
         </div>
       </DialogContent>
     </Dialog>
