@@ -83,11 +83,19 @@ export const UpgradeModal = ({
         className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-5xl max-h-[92vh] md:max-h-[90vh] lg:max-h-[88vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 box-border"
         style={{ '--dialog-max-width': '112rem' } as React.CSSProperties}
       >
-        <DialogHeader>
-          <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
-            <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
-            time to dive deeper?
+        <DialogHeader className="space-y-2">
+          <DialogTitle className="text-2xl sm:text-3xl font-medium flex items-center justify-center gap-2">
+            <Clock className="w-6 h-6 sm:w-7 sm:h-7 text-coral-400 animate-pulse" 
+              style={{ animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, wiggle 3s ease-in-out infinite' }} 
+            />
+            <span className="bg-gradient-to-r from-coral-400 via-pink-400 to-coral-400 bg-clip-text text-transparent" 
+              style={{ textShadow: '0 0 20px rgba(251, 146, 140, 0.4), 0 0 40px rgba(251, 146, 140, 0.2)' }}>
+              ✨ time to dive deeper? ✨
+            </span>
           </DialogTitle>
+          <p className="text-sm text-white/70 text-center font-light">
+            your growth awaits 💫
+          </p>
         </DialogHeader>
 
         <div className="mt-1 space-y-4 md:space-y-5 lg:space-y-6 pb-2">
