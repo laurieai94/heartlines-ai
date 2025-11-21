@@ -114,7 +114,7 @@ export const UpgradeModal = ({
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-2.5 lg:gap-3 w-full mx-auto items-stretch overflow-x-hidden mt-3 md:mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-2.5 lg:gap-3 w-full mx-auto items-stretch overflow-x-hidden mt-8 md:mt-9">
             {reorderedPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.id === currentTier;
