@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { pricingPlans } from "@/data/pricingPlans";
-import { Check, Clock, Zap } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import { useOptimizedSubscription } from "@/hooks/useOptimizedSubscription";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -74,9 +74,7 @@ export const UpgradeModal = ({
     } as React.CSSProperties}>
         <DialogHeader className="space-y-2">
           <DialogTitle className="text-2xl sm:text-3xl font-medium flex items-center justify-center gap-2">
-            <Clock className="w-6 h-6 sm:w-7 sm:h-7 text-coral-400 animate-pulse" style={{
-            animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, wiggle 3s ease-in-out infinite'
-          }} />
+            
             <span className="bg-gradient-to-r from-coral-400 via-pink-400 to-coral-400 bg-clip-text text-transparent" style={{
             textShadow: '0 0 20px rgba(251, 146, 140, 0.4), 0 0 40px rgba(251, 146, 140, 0.2)'
           }}>
