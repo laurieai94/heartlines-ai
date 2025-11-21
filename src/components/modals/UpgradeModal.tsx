@@ -80,7 +80,7 @@ export const UpgradeModal = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent 
-        className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-5xl max-h-[86vh] md:max-h-[82vh] lg:max-h-[78vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 box-border"
+        className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-5xl max-h-[92vh] md:max-h-[90vh] lg:max-h-[88vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 box-border"
         style={{ '--dialog-max-width': '112rem' } as React.CSSProperties}
       >
         <DialogHeader>
@@ -129,7 +129,7 @@ export const UpgradeModal = ({
                   } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''}`}
                 >
                   {isPopular && (
-                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10 animate-pulse">
+                    <div className="absolute top-3 md:top-3.5 left-1/2 -translate-x-1/2 z-20 animate-pulse">
                       <span className="bg-gradient-to-r from-coral-400 via-pink-400 to-coral-400 text-white px-5 sm:px-6 lg:px-7 py-1 rounded-full text-sm font-bold border-2 border-white/50 shadow-[0_0_20px_rgba(251,146,140,0.6),0_0_40px_rgba(251,146,140,0.4)] whitespace-nowrap">
                         ✨ most popular ✨
                       </span>
