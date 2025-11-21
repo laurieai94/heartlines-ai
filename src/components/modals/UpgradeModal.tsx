@@ -80,7 +80,7 @@ export const UpgradeModal = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent 
-        className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-7xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-4 sm:p-6 box-border"
+        className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-6xl max-h-[90vh] md:max-h-[96vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-4 sm:p-6 box-border"
         style={{ '--dialog-max-width': '112rem' } as React.CSSProperties}
       >
         <DialogHeader>
@@ -90,9 +90,9 @@ export const UpgradeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-3 md:mt-2 space-y-2 md:space-y-1.5">
+        <div className="mt-4 md:mt-3 lg:mt-4 space-y-2 md:space-y-1.5">
           {/* Current Usage */}
-          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-2 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
+          <Card className="backdrop-blur-xl rounded-2xl p-3 md:p-3 lg:p-3.5 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/80">current plan</p>
@@ -114,7 +114,7 @@ export const UpgradeModal = ({
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 w-full mx-auto items-stretch overflow-x-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-3 lg:gap-3.5 w-full mx-auto items-stretch overflow-x-hidden">
             {reorderedPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.id === currentTier;
@@ -136,7 +136,7 @@ export const UpgradeModal = ({
                     </div>
                   )}
                   
-                  <div className="p-3 md:p-3.5 lg:p-3 pb-5 md:pb-4 flex-1 flex flex-col">
+                  <div className="p-4 md:p-4 lg:p-5 pb-5 md:pb-4 flex-1 flex flex-col">
                     {/* Icon */}
                     <div className="mb-2 md:mb-2.5">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/40 to-pink-400/40 border border-white/40 shadow-md flex items-center justify-center">
@@ -164,7 +164,7 @@ export const UpgradeModal = ({
 
                     {/* Message Count Badge */}
                     <div className="mb-2 md:mb-2.5">
-                      <div className="bg-gradient-to-r from-coral-400/35 to-pink-400/35 rounded-lg border border-white/40 shadow-md p-2.5 sm:p-3 text-center">
+                      <div className="bg-gradient-to-r from-coral-400/35 to-pink-400/35 rounded-lg border border-white/40 shadow-md p-3 sm:p-3 lg:p-3.5 text-center">
                         <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
                         </div>
@@ -175,7 +175,7 @@ export const UpgradeModal = ({
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-1.5 mb-2 md:mb-2.5 flex-1">
+                    <ul className="space-y-2 mb-2 md:mb-2.5 flex-1">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-coral-400 flex-shrink-0 mt-0.5" />
