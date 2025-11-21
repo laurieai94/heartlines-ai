@@ -98,10 +98,10 @@ export const ChatInputSection = ({
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
-  const nearLimit = usagePercentage >= 85 && usagePercentage < 90 && !atLimit && !subscribed;
-  const criticalLimit = usagePercentage >= 90 && !atLimit && !subscribed;
-  const nextTier = subscription_tier?.toLowerCase() === 'glow' ? 'vibe' : 'glow';
   const messagesRemaining = message_limit - messages_used;
+  const nearLimit = usagePercentage >= 85 && usagePercentage < 90 && !atLimit && !subscribed;
+  const criticalLimit = messagesRemaining <= 3 && messagesRemaining > 0 && !atLimit && !subscribed;
+  const nextTier = subscription_tier?.toLowerCase() === 'glow' ? 'vibe' : 'glow';
 
   // Refocus the chat input after successful auth
   useEffect(() => {
