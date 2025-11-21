@@ -80,7 +80,7 @@ export const UpgradeModal = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent 
-        className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-6xl max-h-[92vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 box-border"
+        className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-5xl max-h-[86vh] md:max-h-[82vh] lg:max-h-[78vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 box-border"
         style={{ '--dialog-max-width': '112rem' } as React.CSSProperties}
       >
         <DialogHeader>
@@ -90,9 +90,9 @@ export const UpgradeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-1.5 space-y-2">
+        <div className="mt-1 space-y-1.5 md:space-y-2">
           {/* Current Usage */}
-          <Card className="backdrop-blur-xl rounded-2xl p-3 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
+          <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-3 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/80">current plan</p>
@@ -105,16 +105,16 @@ export const UpgradeModal = ({
                 </p>
               </div>
             </div>
-            <div className="mt-1.5 w-full bg-white/25 rounded-full h-2">
+            <div className="mt-1 w-full bg-white/25 rounded-full h-1.5">
               <div 
-                className="bg-gradient-to-r from-coral-400 to-pink-500 h-2 rounded-full transition-all"
+                className="bg-gradient-to-r from-coral-400 to-pink-500 h-1.5 rounded-full transition-all"
                 style={{ width: `${Math.min((messagesUsed / messageLimit) * 100, 100)}%` }}
               />
             </div>
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-2.5 lg:gap-3 w-full mx-auto items-stretch overflow-x-hidden mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-2.5 lg:gap-3 w-full mx-auto items-stretch overflow-x-hidden mt-3 md:mt-4">
             {reorderedPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.id === currentTier;
@@ -136,10 +136,10 @@ export const UpgradeModal = ({
                     </div>
                   )}
                   
-                  <div className="p-3.5 md:p-4 flex-1 flex flex-col">
+                  <div className="p-3 md:p-3.5 flex-1 flex flex-col">
                     {/* Icon */}
-                    <div className="mb-2">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/40 to-pink-400/40 border border-white/40 shadow-md flex items-center justify-center">
+                    <div className="mb-1.5">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 mx-auto rounded-full bg-gradient-to-r from-coral-400/40 to-pink-400/40 border border-white/40 shadow-md flex items-center justify-center">
                         <plan.icon className="w-4 h-4 sm:w-5 sm:h-5 text-coral-400" />
                       </div>
                     </div>
@@ -150,21 +150,21 @@ export const UpgradeModal = ({
                     </h3>
 
                     {/* Price */}
-                    <div className="mb-1 text-center">
+                    <div className="mb-0.5 text-center">
                       <span className="text-2xl font-thin text-white">{plan.price}</span>
                     </div>
-                    <p className="text-white/80 text-xs mb-2 text-center">
+                    <p className="text-white/80 text-xs mb-1.5 text-center">
                       per {plan.period}
                     </p>
 
                     {/* Description */}
-                    <p className="text-white/80 text-xs leading-tight mb-2.5 text-center">
+                    <p className="text-white/80 text-xs leading-tight mb-2 text-center">
                       {plan.description}
                     </p>
 
                     {/* Message Count Badge */}
-                    <div className="mb-2">
-                      <div className="bg-gradient-to-r from-coral-400/35 to-pink-400/35 rounded-lg border border-white/40 shadow-md p-2.5 text-center">
+                    <div className="mb-1.5">
+                      <div className="bg-gradient-to-r from-coral-400/35 to-pink-400/35 rounded-lg border border-white/40 shadow-md p-2 text-center">
                         <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
                         </div>
@@ -175,7 +175,7 @@ export const UpgradeModal = ({
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-1.5 mb-2 flex-1">
+                    <ul className="space-y-1 mb-1.5 flex-1">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-coral-400 flex-shrink-0 mt-0.5" />
