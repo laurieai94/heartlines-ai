@@ -90,7 +90,7 @@ export const UpgradeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-4 md:mt-3 lg:mt-4 space-y-2 md:space-y-1.5">
+        <div className="mt-3 md:mt-2 lg:mt-3 space-y-2 md:space-y-1.5">
           {/* Current Usage */}
           <Card className="backdrop-blur-xl rounded-2xl p-3 md:p-3 lg:p-3.5 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
             <div className="flex items-center justify-between">
@@ -114,7 +114,7 @@ export const UpgradeModal = ({
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-3 lg:gap-3.5 w-full mx-auto items-stretch overflow-x-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-3 lg:gap-3.5 w-full mx-auto items-stretch overflow-x-hidden mt-4 md:mt-5">
             {reorderedPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.id === currentTier;
@@ -204,7 +204,7 @@ export const UpgradeModal = ({
             })}
           </div>
 
-          <div className="text-center pt-2 md:pt-1">
+          <div className="text-center pt-1 pb-0">
             <Button
               variant="ghost"
               onClick={() => onOpenChange(false)}
