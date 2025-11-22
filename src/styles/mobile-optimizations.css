@@ -143,6 +143,22 @@ html, body, #root {
   }
 }
 
+/* Tablet-specific scroll fix for account page */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .account-page-scroll {
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+  
+  html:has(.account-page-scroll),
+  body:has(.account-page-scroll),
+  #root:has(.account-page-scroll) {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+  }
+}
+
 /* Mobile coach tab stretching */
 @media (max-width: 768px) {
   .mobile-coach-stretch {

@@ -62,7 +62,7 @@ const AccountLayout = () => {
   }, []);
 
   return (
-    <div className={`bg-burgundy-800 ${isMobile ? 'account-mobile' : ''}`}>
+    <div className={`h-auto min-h-screen bg-burgundy-800 ${isMobile ? 'account-mobile' : ''}`}>
       {/* Animated background elements - desktop only for performance */}
       {showBackgroundEffects && !isMobile && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -71,7 +71,7 @@ const AccountLayout = () => {
         </div>
       )}
 
-      <div className={`relative z-10 container mx-auto pb-40 ${
+      <div className={`relative z-10 container mx-auto pb-56 md:pb-64 ${
         isMobile ? 'px-4 pt-24' : 'px-4 pt-20 lg:pt-24'
       } ${isMobile ? 'max-w-3xl' : 'max-w-4xl'}`}>
 
