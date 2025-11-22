@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Crown, ExternalLink, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
@@ -162,44 +163,41 @@ const AccountSubscription = () => {
       <div className={isMobile ? 'mt-1' : ''}>
         <h3 className={`font-medium text-white px-1 ${isMobile ? 'text-sm mb-1.5' : 'text-base mb-1.5'}`}>available plans</h3>
         <div className={`grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-4 gap-2.5 md:items-start'}`}>
-          {plans.map(plan => <Card key={plan.name} className={`relative bg-white/10 backdrop-blur-sm border transition-all duration-300 ${plan.current ? 'border-pink-400/50 bg-white/15' : 'border-white/20 hover:border-white/30'} ${isMobile ? 'plan-card' : ''}`}>
-              {plan.popular && <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-                  <span className={`bg-gradient-to-r from-pink-500 to-coral-500 text-white rounded-full font-medium ${isMobile ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-[3px] text-xs'}`}>
-                    most popular
-                  </span>
-                </div>}
+          {plans.map(plan => {
+            const matchingPlan = pricingPlans.find(p => p.tier === (plan.tier || 'freemium'));
+            return <Card key={plan.name} className={`flex flex-col h-full questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.current ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''} ${isMobile ? 'plan-card' : ''}`}>
+              {plan.popular && <Badge className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-6 sm:px-6 lg:px-8 py-1 rounded-full border border-white/10 shadow-neon text-xs sm:text-sm font-medium whitespace-nowrap z-40">
+                  most popular
+                </Badge>}
               
-              <CardHeader className={`text-center ${isMobile ? 'p-2.5 pb-2' : 'p-2.5'}`}>
-                {plan.icon && <div className="mx-auto mb-1.5 p-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/10 w-fit">
-                    <plan.icon className={`questionnaire-text ${isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} />
+              <CardHeader className={`text-center pb-2 md:pb-3 ${isMobile ? 'p-3 md:p-4' : 'p-3 md:p-4'}`}>
+                {plan.icon && <div className="mx-auto mb-2 md:mb-3 p-2 md:p-2.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
+                    <plan.icon className={`questionnaire-text ${isMobile ? 'h-7 w-7 md:h-8 md:w-8' : 'h-7 w-7 md:h-8 md:w-8'}`} />
                   </div>}
-                <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
+                <CardTitle className={`text-xl font-light questionnaire-text mb-2`}>
                   {plan.name}
                 </CardTitle>
-                <div className={`font-bold text-white ${isMobile ? 'text-base' : 'text-xl'}`}>
-                  {plan.price}
-                  <span className={`font-normal text-white/60 ${isMobile ? 'text-sm' : 'text-sm'}`}>/month</span>
+                <div className="flex items-baseline justify-center gap-1 mb-1 md:mb-2">
+                  <span className="text-4xl font-thin questionnaire-text">{plan.price}</span>
+                  <span className="questionnaire-text-muted text-sm md:text-sm text-base">/month</span>
                 </div>
-                <CardDescription className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
+                <p className="questionnaire-text-muted text-sm md:text-xs leading-tight">
                   {plan.description}
-                </CardDescription>
+                </p>
               </CardHeader>
               
-              <CardContent className={`flex flex-col h-full ${isMobile ? 'p-2.5 pt-0 space-y-1.5' : 'p-2.5 pt-0 space-y-1.5'}`}>
-                {/* Prominent Message Count */}
-                <div className={`text-center ${isMobile ? 'py-2' : 'py-2'} border-y border-white/10`}>
-                  <p className={`font-bold text-pink-400 ${isMobile ? 'text-lg' : 'text-2xl'}`}>
-                    {plan.messages === 0 ? '∞' : plan.messages}
-                  </p>
-                  <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-xs'}`}>
-                    messages per month
-                  </p>
+              <CardContent className={`flex-1 flex flex-col space-y-3 md:space-y-4 ${isMobile ? 'p-3 md:p-4 pt-0' : 'p-3 md:p-4 pt-0'}`}>
+                <div className="text-center py-1.5 md:py-2 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-questionnaire-border/50">
+                  <div className="text-lg font-light questionnaire-text">
+                    {plan.messages === 0 ? '∞' : plan.messages} messages
+                  </div>
+                  <div className="text-xs questionnaire-text-muted">per month</div>
                 </div>
 
-                <ul className={`flex-grow ${isMobile ? 'space-y-1.5' : 'space-y-3'}`}>
-                  {plan.features.map((feature, index) => <li key={index} className={`flex items-start gap-1.5 text-white/80 ${isMobile ? 'text-xs leading-snug' : 'text-sm'}`}>
-                      <Check className={`text-green-400 ${isMobile ? 'h-3 w-3 flex-shrink-0 mt-0.5' : 'h-3 w-3'}`} />
-                      <span>{feature}</span>
+                <ul className="space-y-1.5 md:space-y-2 flex-1">
+                  {plan.features.map((feature, index) => <li key={index} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-coral-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm md:text-xs questionnaire-text-muted leading-relaxed">{feature}</span>
                     </li>)}
                 </ul>
                 
@@ -208,7 +206,7 @@ const AccountSubscription = () => {
                     variant="ghost" 
                     onClick={plan.tier ? () => handleUpgrade(plan.tier as 'glow' | 'vibe') : undefined} 
                     disabled={plan.current || upgrading === plan.tier || !plan.tier} 
-                    className={`w-full rounded-full touch-manipulation ${isMobile ? 'py-2.5 text-sm' : 'py-3 text-sm'} ${
+                    className={`w-full rounded-full py-2.5 md:py-3 text-sm ${
                       plan.current
                         ? 'opacity-50 cursor-not-allowed bg-white/5 text-white/40'
                         : plan.popular
@@ -220,13 +218,12 @@ const AccountSubscription = () => {
                       ? "loading..."
                       : plan.current
                       ? "current plan"
-                      : plan.tier
-                      ? `upgrade to ${plan.name}`
-                      : "current plan"}
+                      : matchingPlan?.buttonText || `upgrade to ${plan.name}`}
                   </Button>
                 </div>
               </CardContent>
-            </Card>)}
+            </Card>;
+          })}
         </div>
       </div>
 
