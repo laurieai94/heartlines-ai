@@ -203,26 +203,28 @@ const AccountSubscription = () => {
                     </li>)}
                 </ul>
                 
-                <Button 
-                  variant="ghost" 
-                  onClick={plan.tier ? () => handleUpgrade(plan.tier as 'glow' | 'vibe') : undefined} 
-                  disabled={plan.current || upgrading === plan.tier || !plan.tier} 
-                  className={`w-full rounded-full touch-manipulation mt-auto ${isMobile ? 'py-2.5 text-sm' : 'py-3 text-sm'} ${
-                    plan.current
-                      ? 'opacity-50 cursor-not-allowed bg-white/5 text-white/40'
-                      : plan.popular
-                      ? 'questionnaire-button-primary'
-                      : 'questionnaire-button-secondary'
-                  }`}
-                >
-                  {upgrading === plan.tier
-                    ? "loading..."
-                    : plan.current
-                    ? "current plan"
-                    : plan.tier
-                    ? `upgrade to ${plan.name}`
-                    : "current plan"}
-                </Button>
+                <div className="mt-auto">
+                  <Button 
+                    variant="ghost" 
+                    onClick={plan.tier ? () => handleUpgrade(plan.tier as 'glow' | 'vibe') : undefined} 
+                    disabled={plan.current || upgrading === plan.tier || !plan.tier} 
+                    className={`w-full rounded-full touch-manipulation ${isMobile ? 'py-2.5 text-sm' : 'py-3 text-sm'} ${
+                      plan.current
+                        ? 'opacity-50 cursor-not-allowed bg-white/5 text-white/40'
+                        : plan.popular
+                        ? 'questionnaire-button-primary'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {upgrading === plan.tier
+                      ? "loading..."
+                      : plan.current
+                      ? "current plan"
+                      : plan.tier
+                      ? `upgrade to ${plan.name}`
+                      : "current plan"}
+                  </Button>
+                </div>
               </CardContent>
             </Card>)}
         </div>
