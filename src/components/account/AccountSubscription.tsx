@@ -162,7 +162,7 @@ const AccountSubscription = () => {
       {/* Available Plans */}
       <div className={isMobile ? 'mt-1' : ''}>
         <h3 className={`font-medium text-white px-1 ${isMobile ? 'text-sm mb-1.5' : 'text-base mb-1.5'}`}>available plans</h3>
-        <div className={`grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-4 gap-2.5 md:items-start'}`}>
+        <div className={`grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:items-start'}`}>
           {plans.map(plan => {
             const matchingPlan = pricingPlans.find(p => p.tier === (plan.tier || 'freemium'));
             return <Card key={plan.name} className={`flex flex-col h-full questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.current ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''} ${isMobile ? 'plan-card' : ''}`}>
