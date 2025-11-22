@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Crown, RefreshCw, ExternalLink, Zap, Check } from 'lucide-react';
+import { Crown, ExternalLink, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -203,15 +203,26 @@ const AccountSubscription = () => {
                     </li>)}
                 </ul>
                 
-                {plan.current ? <Button disabled className={`w-full bg-green-500/20 text-green-400 border border-green-400/30 touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
-                    <Check className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
-                    current plan
-                   </Button> : plan.tier ? <Button onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe')} disabled={upgrading === plan.tier} className={`w-full questionnaire-button-primary touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
-                    <Zap className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
-                    {upgrading === plan.tier ? 'processing...' : `upgrade to ${plan.name}`}
-                  </Button> : <Button disabled variant="outline" className={`w-full bg-white/5 border-white/20 text-white/60 touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
-                    current plan
-                  </Button>}
+                <Button 
+                  variant="ghost" 
+                  onClick={plan.tier ? () => handleUpgrade(plan.tier as 'glow' | 'vibe') : undefined} 
+                  disabled={plan.current || upgrading === plan.tier || !plan.tier} 
+                  className={`w-full rounded-full touch-manipulation mt-auto ${isMobile ? 'py-2.5 text-sm' : 'py-3 text-sm'} ${
+                    plan.current
+                      ? 'opacity-50 cursor-not-allowed bg-white/5 text-white/40'
+                      : plan.popular
+                      ? 'questionnaire-button-primary'
+                      : 'questionnaire-button-secondary'
+                  }`}
+                >
+                  {upgrading === plan.tier
+                    ? "loading..."
+                    : plan.current
+                    ? "current plan"
+                    : plan.tier
+                    ? `upgrade to ${plan.name}`
+                    : "current plan"}
+                </Button>
               </CardContent>
             </Card>)}
         </div>
