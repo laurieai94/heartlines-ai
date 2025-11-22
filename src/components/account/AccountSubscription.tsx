@@ -187,7 +187,7 @@ const AccountSubscription = () => {
               
               <CardContent className={`flex flex-col h-full ${isMobile ? 'p-2.5 pt-0 space-y-1.5' : 'p-2.5 pt-0 space-y-1.5'}`}>
                 {/* Prominent Message Count */}
-                <div className={`text-center ${isMobile ? 'py-2' : 'py-2'}`}>
+                <div className={`text-center ${isMobile ? 'py-2' : 'py-2'} border-y border-white/10`}>
                   <p className={`font-bold text-pink-400 ${isMobile ? 'text-lg' : 'text-2xl'}`}>
                     {plan.messages === 0 ? '∞' : plan.messages}
                   </p>
