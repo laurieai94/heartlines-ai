@@ -1,7 +1,24 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+
+// Timeout wrapper for queries
+const withTimeout = <T,>(promise: Promise<T>, timeoutMs: number): Promise<T> => {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => 
+      setTimeout(() => reject(new Error('Query timeout')), timeoutMs)
+    )
+  ]);
+};
+
+// Detect mobile network
+const isMobileNetwork = (): boolean => {
+  if (!('connection' in navigator)) return false;
+  const conn = (navigator as any).connection;
+  return conn?.effectiveType === '2g' || conn?.effectiveType === '3g' || conn?.saveData;
+};
 
 interface SubscriptionData {
   subscribed: boolean;
@@ -14,6 +31,8 @@ interface SubscriptionData {
 export const useOptimizedSubscription = () => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  
+  const isMobile = useMemo(() => isMobileNetwork(), []);
 
   const getMessageLimit = (tier: string | null): number => {
     switch (tier?.toLowerCase()) {
@@ -43,66 +62,73 @@ export const useOptimizedSubscription = () => {
 
       const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
       
-      // Parallelize all Supabase queries for faster loading
-      const [subResult, overrideResult, usageResult] = await Promise.all([
-        // Subscription data (minimal select)
-        supabase
-          .from('subscribers')
-          .select('subscribed, subscription_tier, subscription_end')
-          .eq('user_id', user.id)
-          .maybeSingle(),
-        
-        // Account override check
-        supabase
-          .from('account_overrides')
-          .select('unlimited_messages')
-          .eq('email', user.email)
-          .eq('unlimited_messages', true)
-          .maybeSingle(),
-        
-        // Message usage (minimal select)
-        supabase
-          .from('user_message_usage')
-          .select('current_month_usage, subscription_tier')
-          .eq('user_id', user.id)
-          .eq('usage_month', currentMonth)
-          .maybeSingle()
-      ]);
+      try {
+        // Wrap query with timeout (5 seconds)
+        const queries = Promise.all([
+          supabase
+            .from('subscribers')
+            .select('subscribed, subscription_tier, subscription_end')
+            .eq('user_id', user.id)
+            .maybeSingle(),
+          
+          supabase
+            .from('account_overrides')
+            .select('unlimited_messages')
+            .eq('email', user.email)
+            .eq('unlimited_messages', true)
+            .maybeSingle(),
+          
+          supabase
+            .from('user_message_usage')
+            .select('current_month_usage, subscription_tier')
+            .eq('user_id', user.id)
+            .eq('usage_month', currentMonth)
+            .maybeSingle()
+        ]);
 
-      if (!import.meta.env.PROD) {
-        performance.mark('subscription-query-end');
+        const [subResult, overrideResult, usageResult] = await withTimeout(queries, 5000);
+
+        if (!import.meta.env.PROD) {
+          performance.mark('subscription-query-end');
+        }
+
+        const { data: subData } = subResult;
+        const { data: override } = overrideResult;
+        const { data: usageData } = usageResult;
+
+        const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
+        const messageLimit = override ? 0 : getMessageLimit(tier);
+        const messagesUsed = usageData?.current_month_usage || 0;
+
+        return {
+          subscribed: subData?.subscribed || false,
+          subscription_tier: tier,
+          subscription_end: subData?.subscription_end || null,
+          message_limit: messageLimit,
+          messages_used: messagesUsed
+        };
+      } catch (err) {
+        console.warn('Subscription query failed or timed out:', err);
+        // Return cached data if available
+        const cached = queryClient.getQueryData<SubscriptionData>(['subscription', user.id]);
+        if (cached) return cached;
+        
+        // Return default data
+        throw err;
       }
-
-      const { data: subData } = subResult;
-      const { data: override } = overrideResult;
-      const { data: usageData } = usageResult;
-
-      const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
-      // If user has unlimited override, set message limit to 0 (unlimited)
-      const messageLimit = override ? 0 : getMessageLimit(tier);
-      const messagesUsed = usageData?.current_month_usage || 0;
-
-      // Return cached data immediately
-      const cachedData: SubscriptionData = {
-        subscribed: subData?.subscribed || false,
-        subscription_tier: tier,
-        subscription_end: subData?.subscription_end || null,
-        message_limit: messageLimit,
-        messages_used: messagesUsed
-      };
-
-      return cachedData;
     },
     enabled: !!user,
-    staleTime: 2 * 60 * 1000, // 2 minutes - shorter for faster updates
-    gcTime: 10 * 60 * 1000, // 10 minutes
-    refetchOnWindowFocus: true, // Update when user returns to tab
-    refetchOnMount: true, // Update on component mount
+    staleTime: isMobile ? 5 * 60 * 1000 : 2 * 60 * 1000, // 5min mobile, 2min desktop
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: !isMobile, // Disable on mobile
+    refetchOnMount: !isMobile, // Disable on mobile
+    retry: 2,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 3000),
   });
 
-  // Subscribe to realtime updates on subscribers table and message usage
+  // Subscribe to realtime updates (skip on very slow networks)
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.id || isMobile) return;
     
     try {
       const channel = supabase
@@ -110,33 +136,30 @@ export const useOptimizedSubscription = () => {
         .on(
           'postgres_changes',
           {
-            event: '*', // Listen to all changes
+            event: '*',
             schema: 'public',
             table: 'subscribers',
             filter: `user_id=eq.${user.id}`
           },
           (payload) => {
             console.log('Subscription updated via realtime:', payload);
-            // Invalidate cache to trigger refetch
             queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
           }
         )
         .subscribe();
 
-      // Subscribe to message usage updates for real-time message count
       const usageChannel = supabase
         .channel(`usage-changes:${user.id}`)
         .on(
           'postgres_changes',
           {
-            event: 'UPDATE', // Listen to updates when message count increments
+            event: 'UPDATE',
             schema: 'public',
             table: 'user_message_usage',
             filter: `user_id=eq.${user.id}`
           },
           (payload) => {
             console.log('Message usage updated via realtime:', payload);
-            // Invalidate cache to trigger refetch with new message count
             queryClient.invalidateQueries({ queryKey: ['subscription', user.id] });
           }
         )
@@ -148,9 +171,8 @@ export const useOptimizedSubscription = () => {
       };
     } catch (error) {
       console.warn('Failed to set up realtime subscription:', error);
-      // Page continues to work without realtime updates
     }
-  }, [user?.id, queryClient]);
+  }, [user?.id, queryClient, isMobile]);
 
   const upgrade = async (tier: 'glow' | 'vibe' | 'unlimited', returnUrl?: string) => {
     if (!user) return;

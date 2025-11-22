@@ -3,6 +3,16 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
+// Timeout wrapper for queries
+const withTimeout = <T,>(promise: Promise<T>, timeoutMs: number): Promise<T> => {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => 
+      setTimeout(() => reject(new Error('Query timeout')), timeoutMs)
+    )
+  ]);
+};
+
 export interface UserProfile {
   id: string;
   user_id: string;
@@ -21,13 +31,13 @@ export const useUserProfile = () => {
   const [profile, setProfile] = useState<UserProfile | null>(cachedProfile);
   const [loading, setLoading] = useState(!cachedProfile);
 
-  const fetchProfile = async () => {
+  const fetchProfile = async (retries = 2) => {
     if (!user) {
       setLoading(false);
       return;
     }
 
-    // Return cached result if available
+    // Return cached result immediately if available
     if (cachedProfile) {
       setProfile(cachedProfile);
       setLoading(false);
@@ -36,19 +46,29 @@ export const useUserProfile = () => {
 
     // Return inflight promise if already fetching
     if (inflightPromise) {
-      const result = await inflightPromise;
-      setProfile(result);
+      try {
+        const result = await inflightPromise;
+        setProfile(result);
+      } catch (error) {
+        console.warn('Inflight promise failed:', error);
+      }
       setLoading(false);
       return;
     }
 
     try {
       inflightPromise = (async () => {
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .maybeSingle();
+        // Create the query and convert to proper Promise
+        const queryPromise = Promise.resolve(
+          supabase
+            .from('profiles')
+            .select('*')
+            .eq('user_id', user.id)
+            .maybeSingle()
+        );
+
+        // Wrap with 5-second timeout
+        const { data, error } = await withTimeout(queryPromise, 5000);
 
         if (error && error.code !== 'PGRST116') {
           throw error;
@@ -61,7 +81,19 @@ export const useUserProfile = () => {
       const result = await inflightPromise;
       setProfile(result);
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.warn('Error fetching profile:', error);
+      
+      // Retry with exponential backoff
+      if (retries > 0) {
+        const delay = (3 - retries) * 1000; // 1s, then 2s
+        setTimeout(() => fetchProfile(retries - 1), delay);
+        return;
+      }
+      
+      // Use cached data if available, even if stale
+      if (cachedProfile) {
+        setProfile(cachedProfile);
+      }
     } finally {
       inflightPromise = null;
       setLoading(false);

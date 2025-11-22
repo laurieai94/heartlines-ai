@@ -1,4 +1,4 @@
-import { useState, Suspense, useEffect, lazy, useCallback } from 'react';
+import { useState, Suspense, useEffect, lazy } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { User, CreditCard, Shield } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -6,10 +6,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import '@/styles/account-mobile.css';
 
-// Eagerly load account components for instant tab switching
-import AccountSubscription from './AccountSubscription';
-import AccountProfile from './AccountProfile';
-import AccountSecurity from './AccountSecurity';
+// Lazy load account components for progressive loading on mobile
+const AccountProfile = lazy(() => import('./AccountProfile'));
+const AccountSubscription = lazy(() => import('./AccountSubscription'));
+const AccountSecurity = lazy(() => import('./AccountSecurity'));
 
 const TabSkeleton = () => (
   <div className="space-y-6">
