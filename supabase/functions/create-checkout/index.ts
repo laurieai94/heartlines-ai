@@ -56,6 +56,40 @@ serve(async (req) => {
       logStep("Found existing customer", { customerId });
     }
 
+    // Check for existing active subscriptions to prevent duplicates
+    if (customerId) {
+      const subscriptions = await stripe.subscriptions.list({
+        customer: customerId,
+        status: 'active',
+        limit: 10
+      });
+      
+      logStep("Checking existing subscriptions", { 
+        count: subscriptions.data.length 
+      });
+      
+      // Check if user already has this exact tier
+      const requestedPriceId = priceIds[tier as keyof typeof priceIds];
+      
+      for (const sub of subscriptions.data) {
+        const existingPriceId = sub.items.data[0]?.price.id;
+        
+        if (existingPriceId === requestedPriceId) {
+          logStep("Duplicate subscription attempt blocked", { 
+            tier, 
+            existingSubscriptionId: sub.id,
+            priceId: existingPriceId
+          });
+          
+          throw new Error(`You're already subscribed to the ${tier} plan. To make changes, please manage your subscription from the account page.`);
+        }
+      }
+      
+      logStep("No duplicate subscription found, proceeding with checkout", { 
+        requestedTier: tier 
+      });
+    }
+
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
