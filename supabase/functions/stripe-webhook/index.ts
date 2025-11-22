@@ -11,11 +11,11 @@ const logStep = (step: string, details?: any) => {
   console.log(`[Stripe Webhook] ${step}`, details ? JSON.stringify(details, null, 2) : '');
 };
 
-// Price ID to tier mapping
+// Test mode Price ID to tier mapping
 const PRICE_TO_TIER: Record<string, string> = {
-  "price_1SPptv0Qbw5K8bv3ZSnhora7": "glow",
-  "price_1SPpwt0Qbw5K8bv3SylnAw9H": "vibe",
-  "price_1SPpxr0Qbw5K8bv32sY31kqe": "unlimited"
+  "price_1SWLv00FsQykOZHtnLSB7YTN": "glow",
+  "price_1SWLxA0FsQykOZHtli3ZwFbz": "vibe",
+  "price_1SWLyU0FsQykOZHtTVXvxy8N": "unlimited"
 };
 
 // Tier to message limit mapping
