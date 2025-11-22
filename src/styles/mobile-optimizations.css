@@ -124,6 +124,25 @@ html, body, #root {
   }
 }
 
+/* Desktop/tablet-specific account page scroll override */
+@media (min-width: 1024px) {
+  html:has(.account-page-scroll),
+  body:has(.account-page-scroll) {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+  
+  #root:has(.account-page-scroll) {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+}
+
 /* Mobile coach tab stretching */
 @media (max-width: 768px) {
   .mobile-coach-stretch {
