@@ -163,9 +163,14 @@ serve(async (req) => {
         
         logStep("Subscription created", { subscriptionId: subscription.id, tier });
 
+        // Fetch customer email from Stripe
+        const customer = await stripe.customers.retrieve(subscription.customer as string);
+        const customerEmail = (customer as Stripe.Customer).email;
+
         const { error } = await supabase
           .from("subscribers")
           .upsert({
+            email: customerEmail,
             stripe_customer_id: subscription.customer as string,
             subscribed: true,
             subscription_tier: tier,
@@ -192,9 +197,15 @@ serve(async (req) => {
           status: subscription.status 
         });
 
-        const { error } = await supabase
+        // Fetch customer email from Stripe
+        const customer = await stripe.customers.retrieve(subscription.customer as string);
+        const customerEmail = (customer as Stripe.Customer).email;
+
+        // First try to update existing record
+        const { error: updateError } = await supabase
           .from("subscribers")
           .update({
+            email: customerEmail,
             subscribed: subscription.status === "active",
             subscription_tier: tier,
             subscription_end: getSubscriptionEndDate(subscription.current_period_end),
@@ -202,8 +213,24 @@ serve(async (req) => {
           })
           .eq("stripe_customer_id", subscription.customer as string);
 
-        if (error) {
-          logStep("Error in subscription.updated", { error });
+        // If no rows updated, insert new record
+        if (updateError?.code === 'PGRST116') {
+          const { error: insertError } = await supabase
+            .from("subscribers")
+            .insert({
+              email: customerEmail,
+              stripe_customer_id: subscription.customer as string,
+              subscribed: subscription.status === "active",
+              subscription_tier: tier,
+              subscription_end: getSubscriptionEndDate(subscription.current_period_end),
+              updated_at: new Date().toISOString()
+            });
+
+          if (insertError) {
+            logStep("Error in subscription.updated (insert)", { error: insertError });
+          }
+        } else if (updateError) {
+          logStep("Error in subscription.updated", { error: updateError });
         }
         break;
       }
