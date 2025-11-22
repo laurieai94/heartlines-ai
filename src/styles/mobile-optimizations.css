@@ -125,7 +125,7 @@ html, body, #root {
 }
 
 /* Desktop/tablet-specific account page scroll override */
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   html:has(.account-page-scroll),
   body:has(.account-page-scroll) {
     overflow: visible !important;
