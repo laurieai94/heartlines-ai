@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useAuth } from '@/contexts/AuthContext';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
@@ -81,8 +82,28 @@ const AccountProfile = () => {
   };
   const hasChanges = formData.name !== (profile?.name || '');
   if (profileLoading) {
-    return <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+    return <div className={`${isMobile ? 'space-y-3' : 'space-y-2'}`}>
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardContent className={isMobile ? 'p-3' : 'pt-2 p-2'}>
+            <div className="flex items-center gap-3">
+              <Skeleton className="h-16 w-16 rounded-full bg-white/10" />
+              <div className="flex-1 space-y-2">
+                <Skeleton className="h-4 w-32 bg-white/10" />
+                <Skeleton className="h-3 w-48 bg-white/10" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2'}>
+            <Skeleton className="h-4 w-24 bg-white/10" />
+            <Skeleton className="h-3 w-full bg-white/10" />
+          </CardHeader>
+          <CardContent className={isMobile ? 'p-3 pt-0 space-y-3' : 'p-2 pt-0 space-y-3'}>
+            <Skeleton className="h-10 w-full bg-white/10" />
+            <Skeleton className="h-10 w-full bg-white/10" />
+          </CardContent>
+        </Card>
       </div>;
   }
   return <div className={`${isMobile ? 'space-y-3' : 'space-y-2'}`}>
