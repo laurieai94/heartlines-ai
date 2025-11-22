@@ -81,7 +81,7 @@ const Account = () => {
       goToPartner={handleGoToPartnerAccount}
     >
       <MobileHeaderVisibilityProvider>
-        <div className="h-auto min-h-screen min-h-dvh bg-burgundy-800 mobile-optimized account-page-scroll relative">
+        <div className="min-h-screen min-h-dvh bg-burgundy-800 relative">
           <PremiumBackground />
           <DashboardHeader
             accessLevel={accessLevel}

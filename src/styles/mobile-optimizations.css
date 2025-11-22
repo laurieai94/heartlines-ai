@@ -96,68 +96,6 @@ html, body, #root {
   }
 }
 
-/* Account pages need natural scroll behavior on mobile */
-.account-page-scroll {
-  -webkit-overflow-scrolling: touch !important;
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  position: relative !important;
-}
-
-/* Mobile-specific account page scroll override */
-@media (max-width: 1024px) {
-  html:has(.account-page-scroll),
-  body:has(.account-page-scroll) {
-    overflow: visible !important;
-    position: relative !important;
-    height: auto !important;
-    min-height: 100vh !important;
-  }
-  
-  #root:has(.account-page-scroll) {
-    overflow: visible !important;
-    overflow-y: auto !important;
-    height: auto !important;
-    min-height: 100vh !important;
-  }
-}
-
-/* Desktop/tablet-specific account page scroll override */
-@media (min-width: 768px) {
-  html:has(.account-page-scroll),
-  body:has(.account-page-scroll) {
-    overflow: visible !important;
-    overflow-y: auto !important;
-    position: relative !important;
-    height: auto !important;
-    min-height: 100vh !important;
-  }
-  
-  #root:has(.account-page-scroll) {
-    overflow: visible !important;
-    overflow-y: auto !important;
-    height: auto !important;
-    min-height: 100vh !important;
-  }
-}
-
-/* Tablet-specific scroll fix for account page */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .account-page-scroll {
-    height: auto !important;
-    overflow-y: auto !important;
-  }
-  
-  html:has(.account-page-scroll),
-  body:has(.account-page-scroll),
-  #root:has(.account-page-scroll) {
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow-y: auto !important;
-  }
-}
 
 /* Mobile coach tab stretching */
 @media (max-width: 768px) {
