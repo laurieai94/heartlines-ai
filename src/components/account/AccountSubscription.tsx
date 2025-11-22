@@ -214,11 +214,11 @@ const AccountSubscription = () => {
                         : 'questionnaire-button-secondary'
                     }`}
                   >
-                    {upgrading === plan.tier
-                      ? "loading..."
-                      : plan.current
-                      ? "current plan"
-                      : matchingPlan?.buttonText || `upgrade to ${plan.name}`}
+                {upgrading !== null && upgrading === plan.tier
+                  ? "loading..."
+                  : plan.current
+                  ? "current plan"
+                  : matchingPlan?.buttonText || `upgrade to ${plan.name}`}
                   </Button>
                 </div>
               </CardContent>
