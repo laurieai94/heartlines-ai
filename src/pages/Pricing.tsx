@@ -92,11 +92,7 @@ const Pricing = () => {
     }
     
     setLoading(plan.tier);
-    
-    // Show immediate feedback
-    toast.loading("creating checkout session...", {
-      id: 'checkout-loading'
-    });
+    console.log('[CHECKOUT] Starting checkout for plan:', plan.tier);
     
     try {
       const {
@@ -108,45 +104,40 @@ const Pricing = () => {
         }
       });
       
+      console.log('[CHECKOUT] Response:', { data, error });
+      
       if (error) throw error;
 
-      console.log('Checkout URL received:', data?.url);
-      
       if (data?.url) {
-        // Dismiss loading toast
-        toast.dismiss('checkout-loading');
+        console.log('[CHECKOUT] Opening checkout URL:', data.url);
         
-        // Show success and redirect
-        toast.success("redirecting to checkout...", {
-          description: "you'll be redirected to stripe in a moment",
-          duration: 2000
-        });
+        // Open in new tab (works in iframe and regular browser)
+        const checkoutWindow = window.open(data.url, '_blank');
         
-        // Use replace for more reliable redirect
-        setTimeout(() => {
-          window.location.replace(data.url);
-        }, 500);
-        
-        // Fallback: Reset loading and show manual button if redirect fails
-        setTimeout(() => {
-          setLoading(null);
-          toast.info("having trouble redirecting?", {
-            description: "click below to open checkout manually",
-            duration: 10000,
-            action: <ToastAction altText="Open checkout" onClick={() => window.location.replace(data.url)}>
+        if (checkoutWindow) {
+          toast.success("checkout opened!", {
+            description: "complete your purchase in the new tab to activate your plan"
+          });
+        } else {
+          // Popup blocked - show manual link
+          toast.info("checkout ready!", {
+            description: "click below to open checkout",
+            duration: 15000,
+            action: <ToastAction altText="Open checkout" onClick={() => window.open(data.url, '_blank')}>
               Open Checkout
             </ToastAction>
           });
-        }, 3000);
+        }
       } else {
         throw new Error('no checkout url returned');
       }
     } catch (error) {
-      console.error('Error creating checkout session:', error);
-      toast.dismiss('checkout-loading');
+      console.error('[CHECKOUT] Error:', error);
       toast.error("error", {
         description: "failed to create checkout session. please try again."
       });
+    } finally {
+      // Always reset loading state
       setLoading(null);
     }
   };
