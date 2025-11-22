@@ -161,7 +161,7 @@ const AccountSubscription = () => {
       {/* Available Plans */}
       <div className={isMobile ? 'mt-1' : ''}>
         <h3 className={`font-medium text-white px-1 ${isMobile ? 'text-sm mb-1.5' : 'text-base mb-1.5'}`}>available plans</h3>
-        <div className={`grid ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-1 md:grid-cols-4 gap-2.5 md:items-start'}`}>
+        <div className={`grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-4 gap-2.5 md:items-start'}`}>
           {plans.map(plan => <Card key={plan.name} className={`relative bg-white/10 backdrop-blur-sm border transition-all duration-300 ${plan.current ? 'border-pink-400/50 bg-white/15' : 'border-white/20 hover:border-white/30'} ${isMobile ? 'plan-card' : ''}`}>
               {plan.popular && <div className="absolute -top-2 left-1/2 -translate-x-1/2">
                   <span className={`bg-gradient-to-r from-pink-500 to-coral-500 text-white rounded-full font-medium ${isMobile ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-[3px] text-xs'}`}>
