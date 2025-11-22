@@ -90,7 +90,14 @@ const Pricing = () => {
       navigate("/coach");
       return;
     }
+    
     setLoading(plan.tier);
+    
+    // Show immediate feedback
+    toast.loading("creating checkout session...", {
+      id: 'checkout-loading'
+    });
+    
     try {
       const {
         data,
@@ -100,32 +107,46 @@ const Pricing = () => {
           tier: plan.tier
         }
       });
+      
       if (error) throw error;
 
       console.log('Checkout URL received:', data?.url);
       
       if (data?.url) {
-        // Try immediate redirect
-        window.location.href = data.url;
+        // Dismiss loading toast
+        toast.dismiss('checkout-loading');
         
-        // Fallback: Show link if redirect doesn't work within 1 second
+        // Show success and redirect
+        toast.success("redirecting to checkout...", {
+          description: "you'll be redirected to stripe in a moment",
+          duration: 2000
+        });
+        
+        // Use replace for more reliable redirect
         setTimeout(() => {
-          toast.info("Opening checkout...", {
-            description: "If the page doesn't redirect automatically, click here:",
-            action: <ToastAction altText="Open checkout" onClick={() => window.open(data.url, '_self')}>
+          window.location.replace(data.url);
+        }, 500);
+        
+        // Fallback: Reset loading and show manual button if redirect fails
+        setTimeout(() => {
+          setLoading(null);
+          toast.info("having trouble redirecting?", {
+            description: "click below to open checkout manually",
+            duration: 10000,
+            action: <ToastAction altText="Open checkout" onClick={() => window.location.replace(data.url)}>
               Open Checkout
             </ToastAction>
           });
-        }, 1000);
+        }, 3000);
       } else {
         throw new Error('no checkout url returned');
       }
     } catch (error) {
       console.error('Error creating checkout session:', error);
+      toast.dismiss('checkout-loading');
       toast.error("error", {
         description: "failed to create checkout session. please try again."
       });
-    } finally {
       setLoading(null);
     }
   };
