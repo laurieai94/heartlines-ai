@@ -36,11 +36,11 @@ serve(async (req) => {
     if (!tier || !["glow", "vibe", "unlimited"].includes(tier)) {
       throw new Error("Invalid subscription tier. Must be 'glow', 'vibe', or 'unlimited'");
     }
-    // Fixed Stripe Price IDs for each tier
+    // Test mode Stripe Price IDs for each tier
     const priceIds = {
-      glow: "price_1SPptv0Qbw5K8bv3ZSnhora7",
-      vibe: "price_1SPpwt0Qbw5K8bv3SylnAw9H",
-      unlimited: "price_1SPpxr0Qbw5K8bv32sY31kqe"
+      glow: "price_1SWLv00FsQykOZHtnLSB7YTN",
+      vibe: "price_1SWLxA0FsQykOZHtli3ZwFbz",
+      unlimited: "price_1SWLyU0FsQykOZHtTVXvxy8N"
     };
     
     logStep("Tier validated", { tier, priceId: priceIds[tier as keyof typeof priceIds] });
