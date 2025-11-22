@@ -232,6 +232,31 @@ serve(async (req) => {
         } else if (updateError) {
           logStep("Error in subscription.updated", { error: updateError });
         }
+
+        // Update tier in user_message_usage WITHOUT resetting usage (graceful grandfathering)
+        // Get user_id from email
+        const { data: authUser } = await supabase.auth.admin.listUsers();
+        const user = authUser?.users.find(u => u.email === customerEmail);
+
+        if (user) {
+          const currentMonth = new Date().toISOString().slice(0, 7) + '-01';
+          
+          // Only update the tier, keep current_month_usage unchanged
+          const { error: usageError } = await supabase
+            .from("user_message_usage")
+            .update({
+              subscription_tier: tier,
+              updated_at: new Date().toISOString()
+            })
+            .eq("user_id", user.id)
+            .eq("usage_month", currentMonth);
+
+          if (usageError) {
+            logStep("Error updating usage tier", { error: usageError });
+          } else {
+            logStep("Usage tier updated (usage preserved for graceful grandfathering)");
+          }
+        }
         break;
       }
 
