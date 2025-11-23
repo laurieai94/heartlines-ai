@@ -14,7 +14,7 @@ interface ResendEmailReceivedEvent {
   type: "email.received";
   created_at: string;
   data: {
-    to: string;
+    to: string[];
     from: string;
     subject: string;
     html: string;
@@ -85,10 +85,28 @@ const handler = async (req: Request): Promise<Response> => {
 
     const { to, from, subject, html, text, reply_to } = event.data;
 
-    // Determine which mailbox received this email (to is an array)
-    const mailbox = (to[0] || "").toLowerCase().includes("support") 
-      ? "support@heartlines.ai" 
-      : "partnerships@heartlines.ai";
+    // Extract the recipient address
+    const recipientAddress = (to[0] || "").toLowerCase();
+
+    // Only forward emails sent to support or partnerships
+    const FORWARDABLE_ADDRESSES = [
+      "support@heartlines.ai",
+      "partnerships@heartlines.ai"
+    ];
+
+    if (!FORWARDABLE_ADDRESSES.includes(recipientAddress)) {
+      console.log(`⏭️ Ignoring email to ${recipientAddress} (not a forwardable address)`);
+      return new Response(JSON.stringify({ 
+        message: "Email ignored - not a forwardable address",
+        recipient: recipientAddress
+      }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // Determine which mailbox received this email
+    const mailbox = recipientAddress;
 
     console.log(`📬 Forwarding email from ${mailbox} to personal addresses`);
 
