@@ -14,6 +14,10 @@ verify_jwt = false
 # Public contact form, no JWT needed
 verify_jwt = false
 
+[functions.forward-inbound-email]
+# Resend webhook for inbound email forwarding, no JWT needed
+verify_jwt = false
+
 
 [functions.anthropic-chat]
 # Require authentication for AI services
