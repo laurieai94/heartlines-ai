@@ -156,6 +156,18 @@ const Auth = () => {
   };
   const getErrorMessage = (error: any) => {
     const message = error.message || 'An error occurred';
+    
+    // Handle rate limiting
+    if (message.includes('For security purposes, you can only request this after')) {
+      const match = message.match(/after (\d+) seconds?/);
+      const seconds = match ? match[1] : '10';
+      return `Please wait ${seconds} seconds before requesting another email.`;
+    }
+    if (message.includes('over_email_send_rate_limit') || error.status === 429) {
+      return 'You just requested an email—please wait about 10 seconds and try again.';
+    }
+    
+    // Existing error messages
     if (message.includes('User already registered')) {
       return 'This email is already registered. Try signing in instead, or use a different email.';
     }
@@ -200,9 +212,15 @@ const Auth = () => {
           } = await supabase.auth.getSession();
           if (session) {
             // User is signed in immediately, redirect to profile
+            toast.success('Welcome to heartlines! 🎉', {
+              description: 'Your account has been created successfully.'
+            });
             navigate('/profile');
           } else {
             // No session, show email verification
+            toast.success('Verification email sent! ✨', {
+              description: `Check ${formData.email} for your confirmation link.`
+            });
             setShowEmailVerification(true);
           }
         }
@@ -260,6 +278,11 @@ const Auth = () => {
       } = await resendVerification(formData.email);
       if (error) throw error;
 
+      // Show success toast
+      toast.success('Email re-sent! ✨', {
+        description: 'It may take up to a minute to arrive. Check your spam folder if needed.'
+      });
+
       // Start cooldown
       setResendCooldown(60);
       const interval = setInterval(() => {
@@ -305,6 +328,11 @@ const Auth = () => {
         error
       } = await resetPassword(formData.email);
       if (error) throw error;
+      
+      // Show success toast
+      toast.success('Password reset email sent! 📧', {
+        description: `Check ${formData.email} for your reset link.`
+      });
       setResetEmailSent(true);
     } catch (error: any) {
       setFormErrors([getErrorMessage(error)]);

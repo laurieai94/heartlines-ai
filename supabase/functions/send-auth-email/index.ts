@@ -59,7 +59,7 @@ Deno.serve(async (req) => {
 
     const webhookVerified = performance.now()
     console.log(`⏱️ Webhook verified: ${(webhookVerified - webhookReceived).toFixed(2)}ms`)
-    console.log('Processing email type:', email_action_type, 'for user:', user.email)
+    console.log(`📨 [${email_action_type}] Processing email for: ${user.email}`)
 
     let html: string
     let subject: string
@@ -120,10 +120,10 @@ Deno.serve(async (req) => {
     const templateRendered = performance.now()
     console.log(`⏱️ Template rendered: ${(templateRendered - templateStartTime).toFixed(2)}ms`)
 
-    const resendStartTime = performance.now()
+     const resendStartTime = performance.now()
     console.log('📤 Sending email via Resend...')
     
-    const { error } = await resend.emails.send({
+    const emailResponse = await resend.emails.send({
       from: fromEmail,
       to: [user.email],
       subject,
@@ -133,13 +133,14 @@ Deno.serve(async (req) => {
     const resendCompleted = performance.now()
     console.log(`⏱️ Resend API call: ${(resendCompleted - resendStartTime).toFixed(2)}ms`)
 
-    if (error) {
-      console.error('Resend error:', error)
-      throw error
+    if (emailResponse.error) {
+      console.error('Resend error:', emailResponse.error)
+      throw emailResponse.error
     }
 
     const totalTime = performance.now() - startTime
     console.log(`✅ Successfully sent ${email_action_type} email to ${user.email}`)
+    console.log(`📬 Resend ID: ${emailResponse.data?.id || 'N/A'}`)
     console.log(`⏱️ TOTAL PROCESSING TIME: ${totalTime.toFixed(2)}ms`)
     console.log(`📊 Breakdown:
       - Webhook parsing: ${(webhookReceived - startTime).toFixed(2)}ms
