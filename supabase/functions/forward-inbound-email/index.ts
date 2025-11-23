@@ -85,8 +85,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     const { to, from, subject, html, text, reply_to } = event.data;
 
-    // Determine which mailbox received this email
-    const mailbox = to.toLowerCase().includes("support") 
+    // Determine which mailbox received this email (to is an array)
+    const mailbox = (to[0] || "").toLowerCase().includes("support") 
       ? "support@heartlines.ai" 
       : "partnerships@heartlines.ai";
 
