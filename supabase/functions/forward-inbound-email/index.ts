@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@4.0.0";
-import { Webhook } from "npm:svix@1.38.0";
+import { Webhook } from "https://esm.sh/standardwebhooks@1.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY") as string);
 const webhookSecret = Deno.env.get("RESEND_WEBHOOK_SECRET") as string;
@@ -35,35 +35,18 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const payload = await req.text();
+    const headers = Object.fromEntries(req.headers);
 
-    console.log("🔐 Verifying webhook signature using Svix");
-
-    // Extract Svix headers that Resend sends
-    const svixId = req.headers.get("svix-id");
-    const svixTimestamp = req.headers.get("svix-timestamp");
-    const svixSignature = req.headers.get("svix-signature");
-
-    if (!svixId || !svixTimestamp || !svixSignature) {
-      console.error("❌ Missing Svix headers", { svixId, svixTimestamp, svixSignature });
-      return new Response("Missing webhook headers", { status: 400 });
-    }
+    console.log("🔐 Verifying webhook signature");
 
     let event: ResendEmailReceivedEvent;
 
     try {
       const wh = new Webhook(webhookSecret);
-      
-      // Svix expects headers as an object
-      const verified = wh.verify(payload, {
-        "svix-id": svixId,
-        "svix-timestamp": svixTimestamp,
-        "svix-signature": svixSignature,
-      });
-
-      event = verified as ResendEmailReceivedEvent;
+      event = wh.verify(payload, headers) as ResendEmailReceivedEvent;
       console.log("✅ Webhook verified successfully");
     } catch (error) {
-      console.error("❌ Svix webhook verification failed:", error);
+      console.error("❌ Webhook verification failed:", error);
       return new Response("Webhook verification failed", { status: 401 });
     }
     console.log("📨 Email event:", {
