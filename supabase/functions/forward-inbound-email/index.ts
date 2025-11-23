@@ -35,15 +35,32 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const payload = await req.text();
-    const headers = Object.fromEntries(req.headers);
-
+    
     console.log("🔐 Verifying webhook signature");
+
+    // Extract Svix headers that Resend sends
+    const svixId = req.headers.get("svix-id");
+    const svixTimestamp = req.headers.get("svix-timestamp");
+    const svixSignature = req.headers.get("svix-signature");
+
+    if (!svixId || !svixTimestamp || !svixSignature) {
+      console.error("❌ Missing Svix headers");
+      return new Response("Missing webhook headers", { status: 400 });
+    }
 
     let event: ResendEmailReceivedEvent;
 
     try {
       const wh = new Webhook(webhookSecret);
-      event = wh.verify(payload, headers) as ResendEmailReceivedEvent;
+      
+      // Map Resend's Svix headers to standardwebhooks format
+      const mappedHeaders = {
+        "webhook-id": svixId,
+        "webhook-timestamp": svixTimestamp,
+        "webhook-signature": svixSignature,
+      };
+      
+      event = wh.verify(payload, mappedHeaders) as ResendEmailReceivedEvent;
       console.log("✅ Webhook verified successfully");
     } catch (error) {
       console.error("❌ Webhook verification failed:", error);
