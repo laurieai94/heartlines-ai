@@ -275,11 +275,6 @@ const Auth = () => {
       } = await resendVerification(formData.email);
       if (error) throw error;
 
-      // Show success toast
-      toast.success('Email re-sent! ✨', {
-        description: 'It may take up to a minute to arrive. Check your spam folder if needed.'
-      });
-
       // Start cooldown
       setResendCooldown(60);
       const interval = setInterval(() => {
