@@ -218,9 +218,6 @@ const Auth = () => {
             navigate('/profile');
           } else {
             // No session, show email verification
-            toast.success('Verification email sent! ✨', {
-              description: `Check ${formData.email} for your confirmation link.`
-            });
             setShowEmailVerification(true);
           }
         }
