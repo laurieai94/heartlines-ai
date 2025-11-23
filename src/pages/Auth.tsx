@@ -217,7 +217,10 @@ const Auth = () => {
             });
             navigate('/profile');
           } else {
-            // No session, show email verification
+            // No session, show email verification with clear feedback
+            toast.success('Verification email sent! ✨', {
+              description: `Check ${formData.email} for your verification link. It may take up to a minute to arrive.`
+            });
             setShowEmailVerification(true);
           }
         }
