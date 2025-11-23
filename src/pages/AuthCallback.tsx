@@ -100,9 +100,21 @@ const AuthCallback = () => {
         // Log successful login
         logEvent("login_success");
         
-        // Mark this as a first-time email verification
+        // MULTI-LAYER FLAG SYSTEM: Mark this as a first-time email verification
         if (userId) {
+          // Layer 1: User-specific sessionStorage (primary)
           sessionStorage.setItem(`first_email_verification_${userId}`, 'true');
+          
+          // Layer 2: Generic sessionStorage (fallback for race conditions)
+          sessionStorage.setItem('email_just_verified', 'true');
+          
+          // Layer 3: Timestamp for debugging
+          sessionStorage.setItem('verification_timestamp', Date.now().toString());
+          
+          // Layer 4: LocalStorage backup (survives navigation/tabs)
+          localStorage.setItem(`pending_welcome_${userId}`, 'true');
+          
+          console.log('[AuthCallback] Verification complete for new user:', userId);
         }
         
         // Check if this is a new tab/window (opened from email)
@@ -127,6 +139,20 @@ const AuthCallback = () => {
           return; // Don't navigate in this tab
         }
         
+        // FOR NEW USERS: Always force to /profile to ensure welcome dialog triggers
+        const userCreatedAt = session?.user?.created_at ? new Date(session.user.created_at) : null;
+        const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+        const isNewUser = userCreatedAt && userCreatedAt > fiveMinutesAgo;
+        
+        const finalRedirect = isNewUser ? '/profile' : redirectPath;
+        
+        console.log('[AuthCallback] Redirecting:', { 
+          isNewUser, 
+          userCreatedAt, 
+          finalRedirect,
+          originalRedirect: redirectPath 
+        });
+        
         // Original tab flow - show success message and navigate
         toast({
           title: "Email confirmed!",
@@ -134,7 +160,7 @@ const AuthCallback = () => {
         });
         
         // Redirect with a clean URL
-        navigate(redirectPath, { replace: true });
+        navigate(finalRedirect, { replace: true });
       } catch (error) {
         console.error('Callback processing error:', error);
         const urlParams = new URLSearchParams(window.location.search);

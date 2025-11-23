@@ -68,27 +68,50 @@ const Dashboard = () => {
     }
   }, [accessLevel, user]);
 
-  // Show welcome dialog only once after email verification
+  // ROBUST MULTI-LAYER WELCOME DIALOG DETECTION
   useEffect(() => {
     if (!user) return;
     
-    // Check if this is a first-time email verification
-    const firstTimeVerificationKey = `first_email_verification_${user.id}`;
-    const hasFirstTimeVerification = sessionStorage.getItem(firstTimeVerificationKey);
-    const hasGenericVerification = sessionStorage.getItem('email_just_verified');
     const userWelcomeShownKey = `welcomeDialogShown_${user.id}`;
     const hasShownWelcome = localStorage.getItem(userWelcomeShownKey);
     
-    // Only show welcome if:
-    // 1. Coming from email verification (either flag exists)
-    // 2. Haven't shown welcome before (localStorage flag doesn't exist)
-    if ((hasFirstTimeVerification || hasGenericVerification) && !hasShownWelcome) {
-      // Clear both verification flags (one-time use)
+    // PRIORITY 1: SessionStorage flags (most reliable for same-session)
+    const firstTimeVerificationKey = `first_email_verification_${user.id}`;
+    const hasFirstTimeVerification = sessionStorage.getItem(firstTimeVerificationKey);
+    const hasGenericVerification = sessionStorage.getItem('email_just_verified');
+    const hasSessionFlag = hasFirstTimeVerification || hasGenericVerification;
+    
+    // PRIORITY 2: LocalStorage pending flag (survives navigation/tabs)
+    const hasPendingWelcome = localStorage.getItem(`pending_welcome_${user.id}`);
+    
+    // PRIORITY 3: User age check (brand new user within 5 minutes)
+    const userCreatedAt = user.created_at ? new Date(user.created_at) : null;
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    const isBrandNewUser = userCreatedAt && userCreatedAt > fiveMinutesAgo;
+    
+    // Show welcome if ANY condition is met AND not already shown
+    const shouldShowWelcome = (hasSessionFlag || hasPendingWelcome || isBrandNewUser) && !hasShownWelcome;
+    
+    console.log('[Dashboard] Welcome check:', {
+      hasSessionFlag,
+      hasPendingWelcome,
+      isBrandNewUser,
+      hasShownWelcome,
+      shouldShow: shouldShowWelcome,
+      userCreatedAt: userCreatedAt?.toISOString()
+    });
+    
+    if (shouldShowWelcome) {
+      // Clear ALL flags (sessionStorage + localStorage)
       sessionStorage.removeItem(firstTimeVerificationKey);
       sessionStorage.removeItem('email_just_verified');
+      sessionStorage.removeItem('verification_timestamp');
+      localStorage.removeItem(`pending_welcome_${user.id}`);
       
-      // Set permanent flag so it never shows again
+      // Set permanent "shown" flag
       localStorage.setItem(userWelcomeShownKey, 'true');
+      
+      console.log('[Dashboard] Showing welcome dialog');
       
       // Show welcome dialog
       setTimeout(() => {
