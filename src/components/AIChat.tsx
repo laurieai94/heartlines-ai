@@ -124,12 +124,18 @@ const AIChat = ({
     
     // Detect keyboard visibility transition
     if (isKeyboardVisible && !prevKeyboardVisible.current) {
-      const offset = inputSectionHeight + 100;
-      chatContainerRef.current?.scrollToShowMessages?.(offset);
+      // Smart scroll: for sparse conversations, scroll to top to keep messages visible
+      // For longer conversations, scroll to show recent messages
+      if (chatHistory.length <= 5) {
+        chatContainerRef.current?.scrollToTop?.();
+      } else {
+        const offset = inputSectionHeight + 100;
+        chatContainerRef.current?.scrollToShowMessages?.(offset);
+      }
     }
     
     prevKeyboardVisible.current = isKeyboardVisible;
-  }, [isKeyboardVisible, isMobilePhone, inputSectionHeight]);
+  }, [isKeyboardVisible, isMobilePhone, inputSectionHeight, chatHistory.length]);
 
   // Phase 3: Listen for visualViewport resize events (optimized with debouncing)
   useEffect(() => {
@@ -145,8 +151,13 @@ const AIChat = ({
         
         // Keyboard appearing (viewport shrinking)
         if (currentHeight < lastHeight) {
-          const offset = inputSectionHeight + 100;
-          chatContainerRef.current?.scrollToShowMessages?.(offset);
+          // Smart scroll: for sparse conversations, scroll to top
+          if (chatHistory.length <= 5) {
+            chatContainerRef.current?.scrollToTop?.();
+          } else {
+            const offset = inputSectionHeight + 100;
+            chatContainerRef.current?.scrollToShowMessages?.(offset);
+          }
         }
         
         lastHeight = currentHeight;
@@ -159,7 +170,7 @@ const AIChat = ({
       clearTimeout(resizeTimer);
       window.visualViewport?.removeEventListener('resize', handleResize);
     };
-  }, [isMobilePhone, inputSectionHeight]);
+  }, [isMobilePhone, inputSectionHeight, chatHistory.length]);
 
   // Auto-scroll to latest message when navigating to /coach on mobile
   useEffect(() => {

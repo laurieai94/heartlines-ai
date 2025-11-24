@@ -15,6 +15,7 @@ export interface ChatContainerRef {
   scrollToBottom: (behavior?: 'auto' | 'smooth', offset?: number) => void;
   scrollToBottomIfScrolledUp: () => void;
   scrollToShowMessages: (offset?: number) => void;
+  scrollToTop: () => void;
 }
 
 interface ChatContainerProps {
@@ -82,6 +83,19 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     });
   }, []);
 
+  // Scroll to top - for sparse conversations when keyboard opens
+  const scrollToTop = useCallback(() => {
+    if (!viewportRef.current) return;
+    
+    const viewport = viewportRef.current;
+    requestAnimationFrame(() => {
+      viewport.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }, []);
+
   // Smart scroll to bottom only if user has scrolled up
   const scrollToBottomIfScrolledUp = useCallback(() => {
     if (!viewportRef.current) return;
@@ -105,8 +119,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   useImperativeHandle(ref, () => ({
     scrollToBottom,
     scrollToBottomIfScrolledUp,
-    scrollToShowMessages
-  }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages]);
+    scrollToShowMessages,
+    scrollToTop
+  }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages, scrollToTop]);
 
 
   // Optimized: Combined scroll effects to reduce effect overhead
