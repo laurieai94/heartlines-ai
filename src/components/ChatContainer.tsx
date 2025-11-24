@@ -143,23 +143,14 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     
     // Handle conversation switching
     if (currentConversationId && chatHistory.length > 0 && hasNewMessage) {
-      // For sparse conversations, don't force scroll to bottom
-      if (chatHistory.length > 5) {
-        setTimeout(() => scrollToBottom('auto'), 50);
-      }
+      setTimeout(() => scrollToBottom('auto'), 50);
       prevChatLengthRef.current = chatHistory.length;
       return;
     }
     
-    // Handle new messages
+    // Handle new messages - always scroll to show the newest message
     if (hasNewMessage) {
       requestAnimationFrame(() => {
-        // For sparse conversations on mobile, don't auto-scroll to bottom
-        // Messages naturally appear at top and should stay visible
-        if (chatHistory.length <= 5 && isMobile) {
-          // Don't scroll - keep messages at top visible
-          return;
-        }
         scrollToBottom(isUserMessage ? 'auto' : 'smooth');
       });
       prevChatLengthRef.current = chatHistory.length;
