@@ -3,10 +3,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Heart, Plus, Menu, Info, MoreVertical } from "lucide-react";
+import { Heart, Plus, Menu, Info } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
-import { useState } from "react";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -20,7 +19,6 @@ export const ChatHeader = ({
   onOpenSidebar
 }: ChatHeaderProps) => {
   const { isMobile } = useOptimizedMobile();
-  const [isActionsOpen, setIsActionsOpen] = useState(false);
 
   return (
     <div className="chat-header sticky top-0 z-50 md:z-[70] shrink-0 bg-burgundy-800 md:bg-burgundy-800/50 backdrop-blur-none md:backdrop-blur-md border-b border-pink-400/10 shadow-lg">
@@ -89,52 +87,30 @@ export const ChatHeader = ({
                 </div>
               </div>
 
-              {/* Actions Menu - Right */}
-              <Popover open={isActionsOpen} onOpenChange={setIsActionsOpen}>
-                <PopoverTrigger asChild>
+              {/* Actions - Right */}
+              <div className="flex items-center gap-1">
+                {/* New Conversation */}
+                <Button 
+                  variant="ghost"
+                  onClick={onNewConversation}
+                  className="text-white/60 hover:text-white hover:bg-white/10 active:scale-95 transition-all h-9 w-9 rounded-lg p-0"
+                  aria-label="new conversation"
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+                
+                {/* Chat History */}
+                {onOpenSidebar && (
                   <Button 
                     variant="ghost"
-                    className="text-white/70 hover:text-white hover:bg-white/10 active:scale-95 transition-all min-h-[44px] min-w-[44px] rounded-xl flex-shrink-0 touch-manipulation p-0"
-                    aria-label="open actions menu"
+                    onClick={onOpenSidebar}
+                    className="text-white/60 hover:text-white hover:bg-white/10 active:scale-95 transition-all h-9 w-9 rounded-lg p-0"
+                    aria-label="chat history"
                   >
-                    <MoreVertical className="w-5 h-5" />
+                    <Menu className="w-4 h-4" />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent 
-                  side="bottom" 
-                  align="end" 
-                  sideOffset={8}
-                  className="w-64 p-2 bg-burgundy-900/95 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-[100]"
-                >
-                  <div className="space-y-1">
-                    <Button
-                      variant="ghost"
-                      onClick={() => {
-                        onNewConversation();
-                        setIsActionsOpen(false);
-                      }}
-                      className="w-full h-14 justify-start gap-3 text-white hover:bg-white/10 active:scale-[0.98] transition-all touch-manipulation rounded-xl"
-                    >
-                      <Plus className="w-5 h-5 text-coral-400" />
-                      <span className="text-base font-medium">New Conversation</span>
-                    </Button>
-                    
-                    {onOpenSidebar && (
-                      <Button
-                        variant="ghost"
-                        onClick={() => {
-                          onOpenSidebar();
-                          setIsActionsOpen(false);
-                        }}
-                        className="w-full h-14 justify-start gap-3 text-white hover:bg-white/10 active:scale-[0.98] transition-all touch-manipulation rounded-xl"
-                      >
-                        <Menu className="w-5 h-5 text-coral-400" />
-                        <span className="text-base font-medium">Chat History</span>
-                      </Button>
-                    )}
-                  </div>
-                </PopoverContent>
-              </Popover>
+                )}
+              </div>
             </>
           ) : (
             /* Desktop/Tablet Layout (≥ 768px) - Keep Original */
