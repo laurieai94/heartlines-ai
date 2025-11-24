@@ -124,14 +124,8 @@ const AIChat = ({
     
     // Detect keyboard visibility transition
     if (isKeyboardVisible && !prevKeyboardVisible.current) {
-      // Smart scroll: for sparse conversations, scroll to top to keep messages visible
-      // For longer conversations, scroll to show recent messages
-      if (chatHistory.length <= 5) {
-        chatContainerRef.current?.scrollToTop?.();
-      } else {
-        const offset = inputSectionHeight + 100;
-        chatContainerRef.current?.scrollToShowMessages?.(offset);
-      }
+      // When keyboard appears, always scroll to show most recent message
+      chatContainerRef.current?.scrollToBottom?.('smooth');
     }
     
     prevKeyboardVisible.current = isKeyboardVisible;
@@ -151,13 +145,8 @@ const AIChat = ({
         
         // Keyboard appearing (viewport shrinking)
         if (currentHeight < lastHeight) {
-          // Smart scroll: for sparse conversations, scroll to top
-          if (chatHistory.length <= 5) {
-            chatContainerRef.current?.scrollToTop?.();
-          } else {
-            const offset = inputSectionHeight + 100;
-            chatContainerRef.current?.scrollToShowMessages?.(offset);
-          }
+          // When keyboard appears, always scroll to show most recent message
+          chatContainerRef.current?.scrollToBottom?.('smooth');
         }
         
         lastHeight = currentHeight;
