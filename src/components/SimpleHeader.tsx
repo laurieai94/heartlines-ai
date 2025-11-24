@@ -22,10 +22,9 @@ interface SimpleHeaderProps {
   user: User | null;
   activeTab: string;
   onSignInClick: () => void;
-  hideSignInButton?: boolean;
 }
 
-const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false }: SimpleHeaderProps) => {
+const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
   const { isMobile } = useOptimizedMobile();
@@ -131,15 +130,31 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
                       </button>
                     );
                   })}
+                  
+                  {/* Separator before sign out */}
+                  <div className="h-px bg-white/10 my-1" />
+                  
+                  {/* Sign Out button */}
+                  <button
+                    onClick={handleSignOut}
+                    title="sign out"
+                    className="flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 text-rose-300 hover:text-white hover:bg-rose-500/20"
+                    style={{ 
+                      minHeight: '48px', 
+                      minWidth: '48px', 
+                      maxHeight: '48px', 
+                      maxWidth: '48px', 
+                      padding: '12px',
+                      WebkitTapHighlightColor: 'transparent',
+                      touchAction: 'manipulation',
+                      transform: 'translateZ(0)'
+                    }}
+                  >
+                    <LogOut className="h-6 w-6" strokeWidth={2} />
+                  </button>
                 </nav>
               </PopoverContent>
             </Popover>
-          </div>
-          
-          <div className="flex items-center">
-            {!hideSignInButton && (
-              <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={() => navigate('/profile')} />
-            )}
           </div>
         </div>
 
