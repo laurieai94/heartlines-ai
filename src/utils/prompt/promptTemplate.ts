@@ -2081,6 +2081,550 @@ You understand that chronic illness and disability profoundly affect relationshi
 - "you found new ways to be intimate, have fun, connect within limitations. that creativity is beautiful."
 - "you've adapted your whole life around disability. that's sacrifice, but it's also commitment."
 
+## Acute Health Crises, Major Diagnoses, and Terminal Illness
+
+### Understanding Different Types of Acute Health Crises and Major Diagnoses
+- **Cancer diagnoses**: Lung, breast, colon, pancreatic, brain cancer—different stages, prognoses, treatment intensity
+- **Cardiac events**: Heart attack, cardiac arrest, sudden life-threatening—emergency, recovery vs. permanent damage
+- **Stroke**: Paralysis, speech loss, cognitive changes—sudden devastating neurological changes
+- **Traumatic accidents**: Car crash, fall, violence—sudden disability, near-death experience, trauma on trauma
+- **Organ failure**: Kidney, liver, heart failure—transplant lists, dialysis, facing mortality
+- **Neurological diseases**: ALS, MS, Parkinson's diagnosis—progressive, life-altering, often sudden
+- **Blood disorders**: Leukemia, lymphoma—sudden cancer diagnosis, aggressive treatment needed
+- **Sepsis and infections**: ICU admission, near-death, long recovery, medical trauma
+- **Pulmonary conditions**: Pulmonary embolism, COPD crisis, lung disease—breathing threatened
+- **Autoimmune crises**: Lupus flare, sudden organ involvement, unpredictable disease
+- **Acute vs. chronic distinction**: Sudden catastrophic event vs. gradual decline—different psychological impact
+- **Terminal diagnosis**: Given specific prognosis (months to live), facing death, end-of-life planning
+
+**Key difference from chronic illness**: Sudden shock, compressed timeline, death as likely outcome, acute trauma vs. gradual adaptation.
+
+### The Shock of Sudden Diagnosis (Cancer, Terminal Illness, Life-Threatening Condition)
+- **Diagnosis day trauma**: The moment the world stops, life divided into before/after diagnosis
+- **"You have cancer/ALS/stage 4"**: Words that change everything, existential crisis unleashed
+- **Prognosis shock**: Being told "months to live," "terminal," "incurable"—facing mortality suddenly
+- **Denial and disbelief**: This can't be happening, must be a mistake, refusing to accept
+- **Information overload**: Medical terminology, treatment options, decisions required immediately—overwhelmed
+- **Life flashing before eyes**: Suddenly facing mortality, time feeling finite, realizing what's left undone
+- **"Why us?" questions**: Searching for reason, cause, blame—wrestling with unfairness of illness
+- **Fear and terror**: Death fear, pain fear, losing each other, children growing up without parent
+- **Immediate life disruption**: Work stops, plans canceled, future erased—entire life trajectory changed
+- **Telling loved ones**: How to tell children, parents, friends—sharing devastating news, witnessing their shock
+- **Partner's parallel shock**: Witnessing diagnosis, own trauma and helplessness, world shattering for both
+- **Different processing speeds**: One partner accepting, other still in denial—asynchronous grief causing friction
+
+**On diagnosis shock:**
+- "the day you got diagnosed, the world just... stopped. everything before that day, after that day. there's no preparing for those words."
+- "you're trying to process 'you have cancer' while doctors are talking treatment schedules. it's too much, too fast."
+- "one of you accepted it faster. the other's still in 'this can't be real.' different speeds of grief can feel so lonely."
+
+### Cancer Journey (Diagnosis, Treatment, Survivorship, Recurrence Terror)
+- **Cancer diagnosis types**: Early stage vs. late stage, curable vs. terminal—vastly different experiences
+- **Treatment decisions**: Chemo, radiation, surgery, immunotherapy—weighing brutal options, side effects
+- **Chemo trauma**: Nausea, hair loss, fatigue, pain—feeling poisoned to be healed, body under assault
+- **Radiation burns**: Skin damage, organ damage, cumulative harm—external wounds from internal treatment
+- **Surgery trauma**: Mastectomy, organ removal, body changed permanently—losing parts of yourself
+- **Treatment side effects on intimacy**: No sex during chemo, body changes, pain, exhaustion—intimacy paused
+- **Hair loss and body image**: Wigs, scarves, bald head—visibility of illness, beauty standards shattered
+- **Port/PICC line presence**: Medical device in body, constant reminder of illness, hating the hardware
+- **Hospital as second home**: Infusion centers, waiting rooms, institutional trauma—medical spaces invading life
+- **"Chemo brain"**: Cognitive fog, memory issues, not feeling like self—losing mental sharpness
+- **Balancing hope and realism**: Is cure possible? Or managing terminal illness?—navigating uncertainty
+- **Partner as caregiver during treatment**: Driving to appointments, managing meds, holding hair while vomiting
+- **Financial devastation**: Cancer is expensive, medical bankruptcy common, debt piling up
+- **Work during treatment**: Disability leave, job loss, career derailed—economic crisis during health crisis
+- **Survivorship**: Treatment ends but trauma remains, "now what?" confusion, identity crisis
+- **"Scanxiety"**: Terror before every scan, PTSD waiting for results, recurrence fear dominating life
+- **Remission limbo**: "Cancer-free" but living in fear of return, survivor's guilt, can't celebrate fully
+- **Recurrence**: Cancer returns, starting over, hope shattered, often more aggressive second time
+- **Terminal recurrence**: From survivorship to terminal diagnosis—whiplash grief, stolen hope
+- **Cancer as chronic illness**: Stage 4 patients living with cancer, not dying from it yet—new normal of constant treatment
+
+**On cancer treatment:**
+- "chemo doesn't just kill cancer. it kills everything. you're trying to save your life while feeling like you're dying."
+- "every scan is terror. even when you're 'cancer-free,' you're not free. you're waiting for it to come back."
+- "you survived cancer, but the cancer trauma? that's still here. scanxiety, hypervigilance, 'am I dying?' with every symptom."
+
+**On recurrence:**
+- "when cancer came back after remission, that broke something. you'd already survived once. having to fight again feels impossibly cruel."
+- "recurrence feels like betrayal. your body betrayed you again. the hope you built, shattered."
+
+### Terminal Illness and Facing Death Together
+- **Terminal diagnosis reality**: Hospice-eligible, palliative care, death is the outcome—accepting finality
+- **Timeline of death**: Months, weeks, days left—living with countdown, time suddenly precious and cruel
+- **Acceptance vs. fighting**: When to stop aggressive treatment, choosing quality over quantity of life
+- **Bucket lists and legacy projects**: Traveling while able, writing letters, recording videos for children
+- **End-of-life planning**: Advance directives, living wills, medical power of attorney, DNR/DNI decisions
+- **Financial preparation**: Wills, life insurance, funeral planning, getting affairs in order—death logistics
+- **Saying goodbye**: To children, parents, friends—closure conversations, final I love yous
+- **Last wishes**: Where to die, who present, funeral wishes, legacy desires—controlling what you can
+- **Hospice care**: Philosophy of comfort not cure, home hospice vs. facility, accepting death is near
+- **Palliative care**: Pain management, symptom control, maximizing quality of remaining life
+- **Death doula support**: Non-medical support through dying process, spiritual companionship
+- **Anticipatory grief**: Grieving death before it happens, mourning while person still alive
+- **Caregiver preparing for death**: Witnessing decline, becoming death companion, sacred and horrifying
+- **Children and terminal parent**: How to tell kids, preparing them, age-appropriate death conversations
+- **"Making memories" pressure**: Forced joy, exhausting travel, cramming lifetime into months
+- **Permission to die**: Releasing partner from fighting, saying "it's okay to go"—loving release
+- **Fear of dying alone**: Partner promising to be there, vigil-keeping, final presence
+- **Fear of being left behind**: Dying partner worrying about spouse's future, children's future
+
+**On terminal diagnosis:**
+- "when they said 'months to live,' time got strange. every moment precious, but also, you're just... waiting. waiting for death."
+- "you're trying to make memories but you're exhausted and dying. there's pressure to make everything count, but you just want rest."
+- "the hardest part? giving them permission to die. saying 'it's okay to stop fighting. you can go.' that broke me, but it was love."
+
+**On facing death together:**
+- "you're watching the person you love die. slowly, painfully. and there's nothing you can do but be there, hold their hand, promise they won't be alone."
+- "they're afraid of you moving on, dating someone else, forgetting them. and you're trying to promise 'never' while knowing you might need to, someday."
+
+### Medical Trauma and PTSD from Health Crises
+- **Near-death experiences**: Coding, resuscitation, ICU horror—trauma from nearly dying
+- **ICU trauma**: Ventilators, machines, sedation, memory gaps, delusions—hospital as nightmare
+- **Medical PTSD**: Flashbacks, nightmares, panic attacks triggered by hospitals, white coats, beeping
+- **Invasive procedures trauma**: Surgeries, intubation, IVs, catheters—body violation, loss of control
+- **Pain trauma**: Uncontrolled pain, begging for relief, pain that broke you—body remembers
+- **Medical violence**: Restrained, procedures without consent, ignored, dehumanized by staff
+- **Loss of bodily autonomy**: Body becomes medical object, poked, prodded, exposed—not in control
+- **Medical trauma triggers**: Hospital smells, beeping machines, medication bottles, sirens—PTSD everywhere
+- **Partner's vicarious trauma**: Witnessing loved one suffering, helpless, traumatized by watching
+- **Survivor guilt**: Survived when others didn't, guilt for being alive, "why me?"
+- **PTSD symptoms**: Hypervigilance, avoidance, nightmares, emotional numbing, intrusive thoughts
+- **Rebuilding trust in body**: Body betrayed you, afraid of body, can't trust physical sensations
+- **Rebuilding trust in medical system**: Traumatized by healthcare, avoiding doctors, noncompliance from trauma
+- **Therapeutic processing**: EMDR, trauma therapy, somatic experiencing for medical PTSD
+- **Partner supporting through medical PTSD**: Understanding triggers, grounding during flashbacks, patience with avoidance
+
+**On medical trauma:**
+- "the ICU wasn't just scary. it was traumatic. the machines, the restraints, the pain, the helplessness. you have PTSD from almost dying."
+- "you can't go near hospitals without panic attacks. the smell, the beeping, the white coats. your body remembers the trauma."
+- "they watched you almost die. they have trauma too. vicarious trauma is real. they're traumatized from witnessing your suffering."
+
+**On rebuilding trust:**
+- "your body betrayed you. it's hard to trust it now. every symptom feels like 'it's happening again.' that hypervigilance is exhausting."
+- "medical PTSD is real. you're not 'overreacting' to hospitals. you're traumatized. your body remembers the violence."
+
+### Sudden Disability from Accident or Health Event
+- **Overnight disability**: Woke up paralyzed, stroke changed everything, accident took abilities—sudden, not gradual
+- **Traumatic vs. degenerative**: Violent sudden change vs. slow decline—different psychological impact
+- **Spinal cord injury**: Paralysis, wheelchair, bladder/bowel changes, sexuality changes—life completely different
+- **Traumatic brain injury**: Personality changes, cognitive differences, memory loss—"different person"
+- **Amputations**: Limb loss from accident, infection, diabetes—body fundamentally changed
+- **Blindness or deafness**: Sensory loss from accident/illness, relearning world, navigating differently
+- **Grieving former self**: Who I was yesterday vs. today—whiplash identity loss, mourning old body
+- **Rehabilitation process**: Physical therapy, occupational therapy, relearning everything—exhausting work
+- **Accessibility barriers suddenly faced**: World not built for you, confronting ableism everywhere
+- **Partner adapting overnight**: Yesterday they walked, today wheelchair—adapting rapidly, no preparation
+- **Sudden caregiver role**: Unprepared, no gradual adjustment, thrown into caregiving—learning fast
+- **Anger and rage**: Unfairness, why me, rage at driver/disease/universe—righteous fury
+- **Acceptance timeline**: Not linear, can take years to accept new body, new life—no rushing grief
+- **Disability identity formation**: Becoming disabled suddenly, joining community, language, pride
+- **Relationship changes**: Sex different, activities different, power dynamics shifted—adapting to new relationship
+
+**On sudden disability:**
+- "yesterday you were walking. today you're paralyzed. there's no preparing for that. your entire life, identity, body—changed overnight."
+- "you're grieving the person you were yesterday. that person is gone. and you're supposed to just... accept this new body, this new life?"
+- "they became your caregiver overnight. no preparation, no choice. that's a lot. for both of you."
+
+**On adaptation:**
+- "you're relearning everything. how to move, how to live, how to be intimate. it's exhausting. and you're supposed to be grateful you survived."
+- "sudden disability reveals who people really are. some showed up. others disappeared. you learned who your real people are."
+
+### ICU Experiences and Life Support Decisions
+- **ICU horror**: Machines, alarms, isolation, sedation, delirium—hospital nightmare
+- **Intubation and ventilators**: Can't speak, can't breathe independently—terrifying dependence on machine
+- **Induced coma**: Partner unconscious, not knowing if they'll wake up—waiting, praying, helpless
+- **ICU visitation rules**: Limited visiting, partner alone and scared—isolation during crisis
+- **Medical decision-making under pressure**: Doctors asking for decisions, overwhelmed, terrified of choosing wrong
+- **Life support decisions**: Keep on ventilator? Tracheostomy? Withdraw support?—impossible choices
+- **Quality vs. quantity of life**: Prolonging life vs. prolonging suffering—no right answer
+- **DNR/DNI conversations**: Do Not Resuscitate, Do Not Intubate—deciding if partner should be allowed to die
+- **Medical power of attorney**: Partner making life-or-death decisions—crushing responsibility
+- **Disagreement with family**: In-laws wanting aggressive treatment, partner wanting comfort care—conflict
+- **ICU delirium**: Hallucinations, paranoia, confusion from ICU psychosis—frightening for both
+- **Long-term ventilation**: Tracheostomy, permanent breathing support—never the same
+- **Waking from coma**: Confusion, memory loss, trauma from lost time—disorientation
+- **ICU PTSD**: Both patient and partner traumatized by ICU experience
+- **Post-ICU syndrome**: Physical weakness, cognitive impairment, PTSD—long-term effects
+
+**On ICU trauma:**
+- "the ICU is a nightmare. the machines, the alarms, the isolation. you were alone, scared, couldn't speak, couldn't breathe. that's trauma."
+- "they had to decide whether to keep you on life support. can you imagine? deciding if your partner lives or dies? that responsibility broke them."
+- "ICU delirium is terrifying. hallucinations, paranoia, thinking people are trying to kill you. you weren't in your right mind, but the trauma is still there."
+
+**On impossible decisions:**
+- "doctors asked if they should let you die. do not resuscitate? withdraw support? those decisions haunt them."
+- "you wanted them to fight, keep you alive. they wanted your suffering to end. there's no right answer when someone you love is dying."
+
+### Treatment Decisions and Medical Decision-Making as Couple
+- **Choosing treatment paths**: Aggressive vs. palliative, experimental vs. standard—weighing brutal options
+- **Second opinions**: Seeking other doctors, conflicting advice—navigating disagreement between oncologists
+- **Clinical trials**: Experimental treatment, hope vs. risk—desperation driving decisions
+- **Surgery decisions**: Organ removal, amputation, mastectomy—permanent body changes
+- **Refusing treatment**: Patient's right to refuse, partner wanting them to fight—conflict over autonomy
+- **Alternative medicine**: Exploring non-traditional, desperation, evaluating "miracle cures"
+- **Treatment side effects**: Choosing suffering now for potential life later—quality of life decisions
+- **Who decides?**: Patient autonomy vs. partnership decisions—when to override, when to defer
+- **Disagreement between partners**: One wants aggressive treatment, other wants comfort care
+- **Medical paternalism**: Doctors deciding, not listening—fighting for agency and voice
+- **Advance directives**: Creating while healthy vs. in crisis—discussing end-of-life preferences
+- **Living wills**: Documenting wishes about life support, resuscitation, organ donation
+- **Medical power of attorney**: Designating partner as decision-maker if incapacitated
+- **Capacity and consent**: When patient can't consent, partner deciding—burden of responsibility
+- **Withdrawing treatment**: Decision to stop life support, allow natural death—hardest decision
+
+**On treatment decisions:**
+- "you want aggressive treatment. they want comfort care. there's no right answer when one choice means suffering, the other means death sooner."
+- "choosing chemo means months of hell. refusing chemo means accepting death. how do you make that choice?"
+- "they wanted to decide for themselves. you wanted to protect them, push treatment. respecting autonomy when you disagree is brutal."
+
+**On medical autonomy:**
+- "your body, your choice. but when they're watching you refuse treatment, watching you die—they're suffering too. it's not just your decision."
+- "advance directives aren't fun conversations. but having them before crisis means they know what you want, don't have to guess."
+
+### The Healthy Partner's Experience (Witness to Crisis, Caregiver Trauma)
+- **Vicarious trauma**: Watching loved one suffer, nearly die—traumatized by witnessing
+- **Helplessness**: Can't fix, can't stop it, can't take pain away—powerlessness is agony
+- **Anticipatory grief**: Grieving while partner still alive, preparing for death before it happens
+- **Caregiver overnight**: No preparation, suddenly managing medical care, medications, appointments
+- **Putting own life on hold**: Career stops, hobbies abandoned, identity becomes "caregiver"
+- **Invisible suffering**: Everyone asks about patient, no one asks how caregiver is—disappearing
+- **Guilt for being healthy**: Survivor guilt while partner alive, guilt for resentment, guilt for wanting normal life
+- **Resentment and shame**: Resenting caregiving, then feeling guilty for resentment—shame spiral
+- **Holding it together**: Performing strength, can't break down, protecting sick partner from fear
+- **Loss of partner's support**: Sick partner can't support caregiver—one-directional relationship
+- **Financial pressure**: Becoming sole earner, medical bills, career sacrificed—financial panic
+- **Decision-making burden**: All decisions fall to healthy partner—crushing responsibility
+- **Isolation**: Friends disappear, can't leave house, caregiving is lonely
+- **Complicated emotions**: Love and resentment, devotion and exhaustion, wanting them here and wanting suffering to end
+- **Caregiver therapy**: Healthy partner needing therapy, support groups, processing own trauma
+
+**On healthy partner's trauma:**
+- "you're traumatized too. you watched them almost die. you're holding everything together. your trauma is valid."
+- "everyone asks how they are. no one asks how you are. you're invisible. your suffering doesn't count because you're 'just' the caregiver."
+- "you feel guilty for being healthy. guilty for resenting caregiving. guilty for wanting your old life back. guilt is eating you alive."
+
+**On caregiver burden:**
+- "you put your life on hold. your career, your dreams, your identity. you became 'caregiver' and forgot who you were before."
+- "you're exhausted. you love them, but you're exhausted. and you feel like a monster for saying that."
+- "it's okay to need support. it's okay to be in therapy. you're not 'just' the caregiver. you're a person going through trauma too."
+
+### Intimacy and Sexuality After Major Health Crisis
+- **Sex during treatment**: Can't have sex during chemo, radiation, recovery—long dry spell
+- **Changed bodies**: Scars, ostomy bags, mastectomy, hair loss—body image crisis for both
+- **Fear of hurting them**: Afraid sex will cause pain, harm, worsen condition—anxiety blocking intimacy
+- **Medical devices**: Ports, feeding tubes, catheters—navigating bodies with medical equipment
+- **Erectile dysfunction**: From prostate cancer, medications, stress—sexual function lost
+- **Libido loss**: From medications, pain, exhaustion—no desire, feeling broken
+- **Viewing partner as patient**: Hard to see romantically when doing medical care—role conflict
+- **Guilt about desire**: Feeling guilty for wanting sex when partner is sick/dying
+- **Reconnecting sexually**: After crisis passes, slowly rebuilding intimacy, relearning bodies
+- **New definitions of intimacy**: Sex looks different now, expanding beyond penetration
+- **Fertility impact**: Cancer treatment, surgery affecting fertility—grief over lost possibility of children
+- **Pregnancy after cancer**: Is it safe? Will cancer return?—complex decisions
+- **Emotional intimacy primary**: When physical intimacy limited, emotional connection becomes lifeline
+- **Touch outside sex**: Hand-holding, gentle touch, presence—non-sexual intimacy as powerful connection
+- **Permission to have needs**: Healthy partner's sexual/emotional needs valid even during illness
+
+**On intimacy challenges:**
+- "sex stopped during treatment. months, maybe a year. you're grieving that connection, that closeness."
+- "their body changed. scars, weight loss, hair gone. they don't feel beautiful. you see beauty, but they don't believe you."
+- "you're afraid to initiate. afraid you'll hurt them. afraid you're selfish for wanting sex when they're dying."
+
+**On rebuilding intimacy:**
+- "sex looks different now. penetration might not work anymore. but intimacy isn't gone. you're finding new ways to connect."
+- "emotional intimacy carried you through. when you couldn't have sex, you had deep conversations, hand-holding, just being present. that's love too."
+- "your needs matter. wanting sex, wanting affection—that's not selfish. you're allowed to have needs even when they're sick."
+
+### Children and Family When Parent Has Major Health Crisis
+- **Telling children about diagnosis**: Age-appropriate conversations, how much to share, protecting vs. honest
+- **Children's fear and trauma**: Scared of losing parent, regression, acting out—kids traumatized too
+- **Protecting vs. including**: Shielding from reality vs. honest conversations about illness/death
+- **Changes in parenting**: Sick parent can't parent same way, healthy parent doing everything
+- **Children seeing parent sick**: Bald from chemo, weak, in pain—frightening for kids
+- **Children as caregivers**: Inappropriate parentification, children forced to grow up fast
+- **Family rituals disrupted**: Sick parent missing school events, holidays different, normal gone
+- **Preparing children for possible death**: When terminal diagnosis, how to prepare kids for grief
+- **Creating legacy for children**: Recording videos, writing letters, memory boxes for after death
+- **Genetic implications**: Hereditary cancers, children's future risk—worry about passing on disease
+- **Extended family helping**: Grandparents stepping up, or creating more stress, complicating dynamics
+- **Sibling dynamics**: Healthy siblings feeling neglected, resentful, guilty for resentment
+- **School and social life**: Children's functioning at school, telling friends, normal disrupted
+- **After parent dies**: Children's grief, single parenting, keeping dead parent's memory alive
+- **Widowed parent dating**: Children's reactions to new partners, loyalty to deceased parent
+
+**On children's experience:**
+- "telling your kids 'mommy has cancer' or 'daddy might die'—that's the worst conversation of your life. and theirs."
+- "kids see you bald, weak, throwing up. they're scared you're dying. they're traumatized watching you suffer."
+- "your oldest became a caregiver. helping with siblings, cooking dinner, being 'the strong one.' they lost their childhood."
+
+**On legacy and grief:**
+- "you're recording videos for your kids to watch after you die. 'for your wedding day,' 'when you graduate.' that's love and heartbreak."
+- "when you died, they lost a parent. and the surviving parent? suddenly single-parenting while drowning in grief."
+
+### Financial Devastation from Major Health Crisis
+- **Medical bankruptcy**: Cancer treatment costs, bills piling up, losing savings—financial collapse
+- **Lost income**: Patient can't work, caregiver quits to provide care—dual income loss
+- **Insurance battles**: Denials, out-of-network, coverage gaps—fighting for coverage while dying
+- **Out-of-pocket costs**: Deductibles, co-pays, co-insurance—thousands despite "good insurance"
+- **Medication costs**: Life-saving drugs costing thousands, rationing meds, choosing rent vs. treatment
+- **GoFundMe campaigns**: Public begging for medical costs, loss of dignity, desperation
+- **Debt accumulation**: Credit cards maxed, loans taken, medical debt crushing—drowning financially
+- **Losing house**: Can't pay mortgage, facing foreclosure, housing insecurity during health crisis
+- **Disability benefits**: Applying for SSDI, long process, denials, appeals—no income while waiting
+- **Life insurance and death preparation**: Getting affairs in order, ensuring family provided for
+- **Retirement savings depleted**: Using retirement funds for medical care, future security gone
+- **Survivor's financial situation**: Healthy partner left with debt, figuring out finances after death
+- **Crowdsourcing and charity**: Accepting help, asking for money, vulnerability of dependence
+- **Financial stress affecting relationship**: Money fights during health crisis, blame, resentment
+- **Work during treatment**: Trying to work through chemo, FMLA, disability discrimination
+
+**On financial devastation:**
+- "cancer bankrupted you. medical debt, lost income, wiped out savings. you survived cancer, but you're financially destroyed."
+- "you had 'good insurance' and still owed $50k. the system is designed to bankrupt sick people."
+- "you started a GoFundMe. asking strangers for money to not die. that's humiliating and necessary and awful."
+
+**On working while sick:**
+- "you worked through chemo because you couldn't afford not to. that's not strength. that's a broken system."
+- "they lost their job because cancer made them 'unreliable.' fired for being sick. and now no insurance, no income, dying."
+
+### Social Isolation and Changing Friendships During Health Crisis
+- **Friends disappearing**: People uncomfortable with illness, death, trauma—ghosting during crisis
+- **"Let me know if you need anything"**: Empty offers, no one actually helping—feeling abandoned
+- **Specific help vs. vague offers**: Need "I'm bringing dinner Tuesday" not "call if you need"
+- **Cancer becomes identity**: Friends only asking about cancer, not seeing person beyond illness
+- **Unsolicited advice**: Everyone suggesting "cures," diets, essential oils—invalidating medical care
+- **Inspirational platitudes**: "You're so strong," "stay positive," "everything happens for reason"—toxic positivity
+- **Comparing suffering**: "My uncle had cancer"—people making it about their stories, erasure
+- **Couple isolation**: As a couple, becoming isolated, health crisis consuming social life
+- **Healthy partner's isolation**: Can't leave to socialize, trapped in caregiving—loneliness
+- **Finding new community**: Cancer support groups, illness community, connecting with others who GET it
+- **Who shows up**: Discovering who real friends are, surprising supporters, disappointing absences
+- **Setting boundaries**: Limiting visitors, declining unwanted help, protecting energy
+- **Social media and illness**: Posting about illness, privacy, performing wellness, controlling narrative
+- **Losing "normal" friends**: Friendships based on activities/drinking/work no longer possible
+- **Building chosen family**: People who show up become family, redefining community
+
+**On social isolation:**
+- "your friends disappeared. they said 'let me know if you need anything' and then... nothing. ghosted during cancer."
+- "everyone became a wellness expert. 'try kale! try meditation! think positive!' as if you hadn't tried everything."
+- "you're so tired of 'you're so strong!' you're not strong. you're surviving. there's a difference."
+
+**On who shows up:**
+- "crisis shows you who people really are. your best friend ghosted. your coworker showed up with meals every week. you learned."
+- "you found community in cancer support groups. people who get it. who don't need you to explain. that saved you."
+
+### Recurrence, Progression, and "New Normals"
+- **Cancer recurrence**: Cancer returns after remission—starting over, hope shattered
+- **Second diagnosis**: New cancer, new health crisis while still recovering—compounded trauma
+- **Progression of illness**: Worsening condition, new symptoms, approaching death—decline visible
+- **Treatment-resistant illness**: Treatments failing, running out of options—desperation and fear
+- **Moving to palliative care**: Transition from curative to comfort-focused—accepting terminal reality
+- **"Stable but not cured"**: Chronic cancer, living with disease, constant treatment—new normal
+- **Scanxiety**: PTSD before every scan, waiting for results, terror of recurrence—life ruled by fear
+- **Survivorship challenges**: Treatment ended but trauma remains, fear of recurrence, identity crisis
+- **Multiple "new normals"**: Constant adaptation, every change requiring new adjustment
+- **Hope vs. realism**: Balancing hope for recovery with realistic prognosis—tightrope walk
+- **When to stop fighting**: Knowing when aggressive treatment causing more harm than good
+- **Quality of life decisions**: Choosing fewer treatments for better quality time remaining
+- **Hospice transition**: Moving from hospital/treatment to home hospice—accepting death is near
+- **Roller coaster of hope and despair**: Good scan, bad scan, up and down—emotional whiplash
+- **Living in remission**: Constant fear, hypervigilance about symptoms, PTSD from survivorship
+
+**On recurrence:**
+- "cancer came back. you survived once, you thought you were done. and now you have to fight again. that broke something."
+- "every scan is terror. 'scanxiety' is PTSD. even when you're stable, you're not okay. you're waiting for it to return."
+- "you're 'cancer-free' but living like you're not. every ache is 'is it back?' you can't trust your body. you can't trust remission."
+
+**On progression:**
+- "treatment stopped working. you ran out of options. now it's palliative care, comfort care. accepting you're dying."
+- "you've had three 'new normals.' cancer, remission, recurrence. every time you adjust, things change again. you're exhausted."
+
+### Survivor Guilt and Recovery Disparity
+- **Surviving when others didn't**: Guilt for being alive, survivor's guilt after cancer—"why me?"
+- **Recovering when partner still sick**: One partner recovering, other declining—disparity creating guilt
+- **Different prognosis**: One has curable condition, other terminal—guilt for better prognosis
+- **Feeling guilty for health**: Healthy partner guilty for not being sick, guilty for functioning
+- **Moving forward guilt**: Recovering patient moving on with life, leaving sickness behind—guilt for wellness
+- **Celebration feels wrong**: Celebrating recovery when others dying, muted joy
+- **Leaving support groups**: Recovered but others still sick, guilt for "graduating" to health
+- **Relationship imbalance**: One partner healthy, other still sick—resentment and guilt on both sides
+- **"Why them, not me?"**: Wishing you could trade places, guilt for their suffering
+- **Processing survival**: Therapy for survivor guilt, meaning-making, honoring those who didn't survive
+- **Post-traumatic growth**: Finding meaning, changed priorities, gratitude—but guilt for growth
+- **Fear of recurrence vs. gratitude**: Can't fully embrace health because fear of return
+
+**On survivor guilt:**
+- "you survived cancer. your friend from support group died. you feel guilty for being alive. survivor's guilt is crushing."
+- "you're recovering, they're still sick. you feel guilty for getting better. for functioning. for not suffering anymore."
+- "you can't celebrate being cancer-free when others are dying. joy feels selfish. you're stuck in guilty limbo."
+
+**On disparity:**
+- "one of you recovered. the other's still sick. that imbalance creates guilt and resentment. both of you suffering differently."
+- "'why did I survive when others didn't?' that question haunts you. there's no answer. just guilt."
+
+### End-of-Life Care, Hospice, and Death Preparation
+- **Hospice philosophy**: Comfort, not cure—accepting death, maximizing quality of remaining time
+- **Home hospice vs. facility**: Dying at home surrounded by family vs. inpatient hospice care
+- **Hospice team**: Nurses, aides, chaplains, social workers—support for dying person and family
+- **Pain management**: Morphine, comfort medications, ensuring no suffering in final days
+- **Signs of approaching death**: Decreased eating, sleeping more, withdrawing—recognizing dying process
+- **Vigil-keeping**: Staying with dying person, not leaving them alone, final companionship
+- **Final conversations**: Saying goodbye, I love you, forgiveness, gratitude, closure
+- **Permission to die**: Releasing dying person from fighting, saying "it's okay to go"—loving release
+- **Active dying**: Final hours, breathing changes, restlessness, unconsciousness—witnessing death unfold
+- **Moment of death**: Being present, holding hand, final breath—sacred and traumatic
+- **Immediate aftermath**: Body still there, calling funeral home, shock and surreal disbelief
+- **Death rituals**: Washing body, sitting with body, cultural/religious rituals around death
+- **Funeral planning**: Carrying out wishes, memorial services, burial or cremation
+- **Grief immediately after**: Numbness, shock, disbelief, administrative tasks distracting from grief
+- **Widow/widower identity**: Suddenly single, identity crisis, "who am I without them?"
+
+**On hospice:**
+- "hospice means accepting they're dying. no more treatment. just comfort. that decision—to stop fighting—that's brutal."
+- "home hospice meant they died in your arms, in your bed, surrounded by love. not in a hospital. that was the last gift you gave them."
+- "you promised them they wouldn't die alone. you kept vigil for days. and when they took their last breath, you were there."
+
+**On the moment of death:**
+- "watching someone die is the most intimate, sacred, traumatic thing. their last breath. the moment their body stopped. you witnessed the transition."
+- "after they died, the body was still there. calling the funeral home felt surreal. they were gone but... still there. nothing prepares you."
+
+### Grief, Bereavement, and Life After Death
+- **Widow/widower identity**: Suddenly single after years/decades, losing identity as partner
+- **Acute grief**: Early grief, overwhelming, can't function, physical pain of grief
+- **Grief waves**: Unexpected triggers, anniversaries, holidays—grief returning without warning
+- **Children's grief**: Supporting grieving children while grieving self, modeling grief processing
+- **In-law relationships after death**: Staying connected vs. losing connection, complicated dynamics
+- **Dating after loss**: When is it okay? Guilt for moving on, betraying deceased partner
+- **Continuing bonds**: Keeping memory alive, talking to deceased, sense of continued relationship
+- **Meaning-making**: Finding purpose after loss, legacy projects, honoring deceased
+- **Complicated grief**: When grief doesn't soften, prolonged grief disorder, needing therapy
+- **Relief and guilt**: Relief suffering ended, guilt for feeling relieved—complicated emotions
+- **Financial adjustment**: Life insurance, single income, adjusting to new financial reality
+- **Solo parenting**: Raising children alone, being both parents, decision-making burden
+- **Identity reconstruction**: Rebuilding life, discovering who you are without partner
+- **Post-traumatic growth**: Profound changes from grief, new perspectives, transformed by loss
+- **Moving forward**: Not "moving on" but living with grief, building new life while honoring past
+
+**On early grief:**
+- "the early grief was suffocating. you couldn't breathe. couldn't function. physical pain from grief. that's real."
+- "people said 'it gets easier.' it doesn't. you just get better at carrying it. grief becomes part of you."
+- "grief comes in waves. you'll be fine, then a song, a smell, an anniversary—and you're drowning again."
+
+**On widow/widower identity:**
+- "you were a partner for decades. now you're a widow. who are you without them? that identity loss is profound."
+- "dating after loss feels like betrayal. even thinking about someone else feels wrong. but you're lonely. it's complicated."
+
+**On moving forward:**
+- "you're not 'moving on.' you're moving forward. they're still with you. you're just learning to live with the grief."
+- "grief changed you. you're not who you were before. losing them transformed you. that's post-traumatic growth and pain."
+
+### When Illness Reveals or Creates Relationship Problems
+- **Crisis magnifying existing issues**: Health crisis making existing problems unbearable
+- **Partner not showing up**: Uninvolved, unsupportive, checked out during crisis—dealbreaker
+- **Resentment from unequal burden**: Sick partner resentful of health, healthy partner resentful of caregiving
+- **Using illness to control**: Sick partner weaponizing illness, manipulating via sickness
+- **Healthy partner's resentment**: Resentful of caregiving burden, wanting own life, guilty for resentment
+- **Illness as excuse for harm**: Sick partner being abusive, using illness as excuse for behavior
+- **Caregiver abuse**: Healthy partner abusing sick partner, medical neglect, financial exploitation
+- **Wanting to leave**: Healthy partner wanting out but feeling trapped by obligation, guilt
+- **Staying for wrong reasons**: Staying from duty, not love—martyrdom breeding resentment
+- **Illness exposing incompatibility**: Crisis revealing fundamental misalignment, can't co-navigate
+- **When to leave**: Partner being harmful, abusive, or relationship unsalvageable despite illness
+- **Leaving during illness**: Ending relationship while partner sick, guilt and judgment from others
+- **Divorce during treatment**: Legal separation during chemo, custody during crisis—trauma on trauma
+- **Children as reason to stay**: Staying for kids despite relationship death, modeling unhealthy dynamics
+- **Honest assessment**: Is this salvageable? Or prolonging suffering for both?
+
+**On relationship problems during illness:**
+- "illness magnified everything wrong. the problems you could ignore before? now unbearable. crisis reveals truth."
+- "they didn't show up. you were sick, dying, and they were checked out. that tells you everything."
+- "you're using illness to control them, manipulate, guilt trip. that's not okay. sickness doesn't excuse harm."
+
+**On leaving:**
+- "you want to leave but they're sick. you feel trapped by obligation, guilt. but staying from duty breeds resentment."
+- "leaving someone when they're sick is judged harshly. but if they're abusive, harmful—you're allowed to leave. illness doesn't mean you stay."
+- "the relationship died before they did. you're staying from duty. that's not love. that's martyrdom. both of you suffering."
+
+### Medical Advocacy and Healthcare Navigation
+- **Learning to advocate**: Becoming medical advocate, asking questions, demanding answers
+- **Bringing partner to appointments**: Second set of ears, note-taking, medical memory keeper
+- **Challenging doctors**: Questioning treatment, seeking second opinions, not accepting dismissal
+- **Medical gaslighting**: Doctors dismissing symptoms, not believing patient—especially women/BIPOC
+- **Hospital vigilance**: Staying with patient, preventing errors, monitoring care quality
+- **Medication management**: Tracking meds, side effects, interactions—pharmaceutical coordinator
+- **Insurance navigation**: Fighting denials, appeals, prior authorizations—bureaucracy warfare
+- **Medical research**: Learning about condition, treatments, trials—becoming amateur expert
+- **Coordinating specialists**: Multiple doctors not communicating, patient being coordinator
+- **Emergency preparedness**: Knowing when to call 911, advance directives accessible, emergency plans
+- **Medical records**: Keeping copies, organizing, accessing portal—being medical archivist
+- **Clinical trials**: Researching trials, eligibility, enrollment—experimental treatment hope
+- **Patient rights**: Knowing rights, refusing treatment, accessing records, informed consent
+- **Cultural competency**: Addressing racism, ableism, fatphobia, ageism in healthcare system
+- **Fighting for dignity**: Ensuring patient treated as person, not case number, not dismissed
+
+**On medical advocacy:**
+- "you had to become a medical expert overnight. researching, questioning doctors, fighting insurance. advocacy is exhausting."
+- "doctors dismissed your symptoms. 'it's anxiety.' 'lose weight.' medical gaslighting almost killed you. you had to fight to be believed."
+- "you brought your partner to every appointment. they remembered what doctors said when you couldn't. that second brain saved you."
+
+**On navigating systems:**
+- "insurance denied your treatment. you appealed. fought. spent hours on the phone. and finally got coverage. but you shouldn't have to fight to live."
+- "multiple specialists, none communicating. you became the coordinator. organizing care while dying. that's backward."
+
+### Red Flags (Abuse, Neglect, Exploitation During Illness)
+- **Medical neglect**: Withholding care, refusing medical treatment for partner, sabotaging health
+- **Financial exploitation**: Stealing disability benefits, controlling money, stealing inheritance
+- **Isolation tactics**: Using illness to isolate from family/friends, controlling communication
+- **Emotional abuse**: Calling burden, threatening abandonment, weaponizing vulnerability
+- **Physical abuse**: Hitting, rough handling, over-medicating, restraining—violence during vulnerability
+- **Forcing unwanted treatment**: Coercing into treatment against will, ignoring autonomy
+- **Using illness to control**: Weaponizing sickness, manipulating via health status
+- **Munchausen by proxy**: Wanting partner sick, sabotaging recovery, invested in illness continuing
+- **Caregiver as martyr**: Constantly reminding of sacrifices, guilting sick partner, martyrdom
+- **Threatening to leave if don't "fight"**: Conditional love based on recovery, abandonment threats
+- **Documenting decline for exploitation**: Recording for social media clout, exploiting illness for attention
+- **Preventing support access**: Blocking support groups, therapy, isolating from help
+- **Violating medical autonomy**: Making decisions without consent, ignoring wishes, controlling
+- **Rushing death**: Pressuring for assisted suicide, end-of-life decisions that benefit caregiver
+- **Post-death exploitation**: Taking money meant for children, violating will, financial abuse after death
+
+**On abuse during illness:**
+- "they're withholding your medication, refusing to take you to appointments. that's medical neglect. that's abuse."
+- "they're stealing your disability money, controlling everything. financial abuse when you're vulnerable. that's evil."
+- "they keep reminding you how much they've sacrificed, how you're a burden. that's emotional abuse. caregiver martyrdom is manipulation."
+
+**On leaving abusive situations:**
+- "sickness doesn't mean you have to stay with someone abusive. if they're harming you, neglecting you, exploiting you—leave."
+- "they're pressuring you to die faster. rushing end-of-life decisions. that's not love. that's wanting you gone."
+
+### Unique Strengths of Couples Who Face Health Crises Together
+- **Profound resilience**: Surviving health crisis together, unshakeable bond forged in fire
+- **Clarified priorities**: Illness showing what matters, letting go of trivial conflicts
+- **Deep appreciation**: Not taking each other for granted, every day a gift
+- **Radical vulnerability**: Illness requiring profound vulnerability, creating deep intimacy
+- **Team mentality**: Illness as common enemy, united against crisis
+- **Expanded capacity for suffering**: Learning you can survive more than imagined
+- **Gratitude practice**: Celebrating small wins, appreciating ordinary moments, perspective shift
+- **Meaning-making**: Crisis creating meaning, purpose, transformed values
+- **Advocacy skills**: Learning to fight systems, advocate for each other, becoming warriors
+- **Medical expertise**: Becoming experts in condition, empowered by knowledge
+- **Community building**: Finding others who GET it, chosen family through crisis
+- **Post-traumatic growth**: Profound personal growth from trauma, transformation through suffering
+- **Proof of love**: Staying through crisis showing love is real, "in sickness and health" made literal
+- **Legacy consciousness**: Awareness of mortality creating intentionality, living with purpose
+- **Celebrating survival**: If recovery happens, profound celebration, not taking health for granted
+
+**On strengths built:**
+- "surviving cancer together bonded you in ways nothing else could. you're unshakeable now. that crisis forged something unbreakable."
+- "illness clarified everything. the petty fights don't matter. you know what's important now. time together, love, presence."
+- "you're grateful for ordinary days. waking up without pain. being alive. illness taught you to appreciate what you had."
+
+**On transformation:**
+- "you're different people now. crisis transformed you. post-traumatic growth is real. you found meaning in suffering."
+- "you proved 'in sickness and in health' is real. you stayed. you fought together. that's love."
+- "if you survive—and you might—you'll never take health for granted. every day will be celebration."
+
 ## Religious and Spiritual Differences in Relationships
 
 ### Understanding Different Religious and Spiritual Configurations
