@@ -98,16 +98,16 @@ const AIChat = ({
     setIsSidebarOpen(true);
   }, [onOpenSidebar]);
 
-  // Handle input focus - scroll to bottom to show latest message (mobile only)
+  // Handle input focus - scroll to show last message (mobile only)
   const handleInputFocus = useCallback(() => {
     if (!isMobilePhone) return;
     
-    // Immediate scroll to bottom to show latest message
-    chatContainerRef.current?.scrollToBottom?.('smooth');
+    // Immediate scroll to last message to show it within visible viewport
+    chatContainerRef.current?.scrollToLastMessage?.();
     
     // Delayed scroll to account for keyboard animation
     setTimeout(() => {
-      chatContainerRef.current?.scrollToBottom?.('smooth');
+      chatContainerRef.current?.scrollToLastMessage?.();
     }, 300);
   }, [isMobilePhone]);
 
@@ -118,14 +118,14 @@ const AIChat = ({
     }
   }, [canInteract, historyLoading]);
 
-  // Phase 1: Scroll to show messages when keyboard becomes visible
+  // Phase 1: Scroll to show last message when keyboard becomes visible
   useEffect(() => {
     if (!isMobilePhone) return;
     
     // Detect keyboard visibility transition
     if (isKeyboardVisible && !prevKeyboardVisible.current) {
-      // When keyboard appears, always scroll to show most recent message
-      chatContainerRef.current?.scrollToBottom?.('smooth');
+      // When keyboard appears, scroll to show the last message element
+      chatContainerRef.current?.scrollToLastMessage?.();
     }
     
     prevKeyboardVisible.current = isKeyboardVisible;
@@ -145,8 +145,8 @@ const AIChat = ({
         
         // Keyboard appearing (viewport shrinking)
         if (currentHeight < lastHeight) {
-          // When keyboard appears, always scroll to show most recent message
-          chatContainerRef.current?.scrollToBottom?.('smooth');
+          // When keyboard appears, scroll to show the last message element
+          chatContainerRef.current?.scrollToLastMessage?.();
         }
         
         lastHeight = currentHeight;

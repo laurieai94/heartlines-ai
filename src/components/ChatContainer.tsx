@@ -16,6 +16,7 @@ export interface ChatContainerRef {
   scrollToBottomIfScrolledUp: () => void;
   scrollToShowMessages: (offset?: number) => void;
   scrollToTop: () => void;
+  scrollToLastMessage: () => void;
 }
 
 interface ChatContainerProps {
@@ -115,13 +116,34 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     }
   }, [scrollToBottom]);
 
+  // Scroll to show the last message element (for mobile keyboard)
+  const scrollToLastMessage = useCallback(() => {
+    if (!viewportRef.current) return;
+    
+    const viewport = viewportRef.current;
+    const messageContainer = viewport.querySelector('[data-message-container]');
+    const messages = messageContainer?.querySelectorAll('[data-message-id]');
+    const lastMessage = messages?.[messages.length - 1];
+    
+    if (lastMessage) {
+      requestAnimationFrame(() => {
+        // Scroll the last message into view, positioned at the bottom of visible area
+        lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      });
+    } else {
+      // Fallback to scrollToBottom if no messages found
+      scrollToBottom('smooth');
+    }
+  }, [scrollToBottom]);
+
   // Expose methods via ref
   useImperativeHandle(ref, () => ({
     scrollToBottom,
     scrollToBottomIfScrolledUp,
     scrollToShowMessages,
-    scrollToTop
-  }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages, scrollToTop]);
+    scrollToTop,
+    scrollToLastMessage
+  }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages, scrollToTop, scrollToLastMessage]);
 
 
   // Optimized: Combined scroll effects to reduce effect overhead
