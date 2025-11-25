@@ -58,7 +58,7 @@ export class AIResponseCoordinator {
       // Only use fallbacks for actual technical errors
       if (error.message?.includes('500') || error.message?.includes('Internal server error')) {
         return `Hey ${userName}, the AI service is having a moment - give it a few seconds and try again. What were you wanting to talk about with ${partnerName}?`;
-      } else if (error.message?.includes('429') || error.message?.includes('rate limit')) {
+      } else if (error.message?.includes('429') || error.message?.toLowerCase().includes('rate limit')) {
         return `${userName}, we're getting a lot of traffic right now! Take a quick breather and try again in a moment.`;
       } else if (error.message?.includes('401') || error.message?.includes('unauthorized')) {
         return `${userName}, there's a technical hiccup on our end - the team is on it. Try refreshing or contact support if this keeps happening.`;
