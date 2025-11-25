@@ -278,6 +278,39 @@ export type Database = {
         }
         Relationships: []
       }
+      subscription_events: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          from_tier: string | null
+          id: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          to_tier: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          from_tier?: string | null
+          id?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          to_tier: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          from_tier?: string | null
+          id?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          to_tier?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_message_usage: {
         Row: {
           created_at: string
@@ -476,6 +509,25 @@ export type Database = {
           total_input_tokens: number | null
           total_output_tokens: number | null
           total_tokens: number | null
+        }
+        Relationships: []
+      }
+      subscription_analytics_summary: {
+        Row: {
+          annual_recurring_revenue: number | null
+          average_revenue_per_user: number | null
+          avg_days_to_first_subscription: number | null
+          cancellations_this_month: number | null
+          conversion_rate_percentage: number | null
+          downgrades_this_month: number | null
+          glow_subscribers: number | null
+          median_days_to_first_subscription: number | null
+          monthly_recurring_revenue: number | null
+          new_subscriptions_this_month: number | null
+          total_paid_subscribers: number | null
+          unlimited_subscribers: number | null
+          upgrades_this_month: number | null
+          vibe_subscribers: number | null
         }
         Relationships: []
       }
