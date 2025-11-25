@@ -24,6 +24,13 @@ export class AIService {
   ): Promise<string> {
     console.log('Making request to Supabase Edge Function...');
     
+    // Limit conversation history to last 20 messages to reduce token usage
+    const limitedHistory = conversationHistory.slice(-20);
+    
+    if (conversationHistory.length > 20) {
+      console.log(`Truncated history from ${conversationHistory.length} to 20 messages`);
+    }
+    
     // Import supabase client
     const { createClient } = await import('@supabase/supabase-js');
     const supabase = createClient(this.supabaseUrl, this.supabaseAnonKey);
@@ -33,7 +40,7 @@ export class AIService {
         body: {
           userMessage,
           systemPrompt,
-          conversationHistory: conversationHistory.map(msg => ({
+          conversationHistory: limitedHistory.map(msg => ({
             role: msg.role,
             content: msg.content
           }))
