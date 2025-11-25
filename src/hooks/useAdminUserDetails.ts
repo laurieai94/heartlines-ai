@@ -10,11 +10,12 @@ export const useAdminUserDetails = (userId: string | null) => {
     queryFn: async () => {
       if (!userId) return null;
 
-      const { data: summary } = await supabase
-        .from('user_analytics_summary')
-        .select('*')
-        .eq('user_id', userId)
-        .single();
+      // Call the RPC function to get all user analytics
+      const { data: allSummaries } = await supabase
+        .rpc('get_user_analytics_summary');
+      
+      // Filter to get the specific user's data
+      const summary = allSummaries?.find(u => u.user_id === userId) || null;
 
       const { data: conversations } = await supabase
         .from('chat_conversations')
