@@ -454,28 +454,13 @@ const Auth = () => {
                   </Button>
                 </form>}
             </> : <>
-          {!isSignUp && (
-            <>
-              {/* Mobile logo - simpler wordmark for small screens */}
-              <div className="sm:hidden text-center mb-3 flex-shrink-0">
-                <img 
-                  src={BRAND.wordmarkSrc}
-                  alt="heartlines logo"
-                  className="w-40 mx-auto max-w-full h-auto"
-                  loading="eager"
-                  fetchPriority="high"
-                />
-              </div>
-              {/* Tablet/Desktop - full phone lockup */}
-              <div className="hidden sm:block text-center mb-3 sm:mb-4 flex-shrink-0">
-                <PhoneLockup 
-                  size="lg"
-                  showTagline={true}
-                  className="mx-auto w-48 sm:w-64 md:w-72 lg:w-80 max-w-full"
-                />
-              </div>
-            </>
-          )}
+          {!isSignUp && <div className="hidden sm:block text-center mb-3 sm:mb-4 flex-shrink-0">
+            <PhoneLockup 
+              size="lg"
+              showTagline={true}
+              className="mx-auto w-48 sm:w-64 md:w-72 lg:w-80 max-w-full"
+            />
+          </div>}
 
           <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-3">
             <div className="space-y-1">
