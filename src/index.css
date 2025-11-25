@@ -1605,7 +1605,7 @@
 
   .playful-icon-container {
     background: linear-gradient(135deg, rgba(251, 146, 140, 0.3), rgba(236, 72, 153, 0.3));
-    animation: pulse-glow 3s ease-in-out infinite;
+    animation: none;
     box-shadow: 0 0 20px rgba(251, 146, 140, 0.4);
     transition: all 0.3s ease;
   }
