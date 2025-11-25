@@ -5,6 +5,80 @@ import { getCorsHeaders } from '../_shared/cors.ts'
 
 const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')
 
+// Message complexity classifier
+const COMPLEX_KEYWORDS = [
+  // Crisis indicators
+  'suicide', 'suicidal', 'kill myself', 'self-harm', 'abuse', 'abusive',
+  'violence', 'assault', 'crisis', 'emergency', 'harm',
+  
+  // Deep emotional topics
+  'trauma', 'ptsd', 'devastated', 'heartbroken', 'betrayed', 'shattered',
+  'depressed', 'depression', 'anxiety attack', 'panic attack', 'overwhelmed',
+  
+  // Complex relationship topics
+  'affair', 'cheating', 'infidelity', 'divorce', 'separation', 'custody',
+  'break up', 'breaking up', 'ending things', 'trust issues', 'attachment style',
+  'toxic', 'narcissist', 'gaslighting', 'manipulation', 'controlling',
+  
+  // Deep discussions
+  'childhood', 'family history', 'past trauma', 'therapy', 'therapist',
+  'sexual', 'intimacy issues', 'addiction', 'recovery', 'fertility',
+  'miscarriage', 'terminal', 'diagnosis', 'chronic illness'
+];
+
+const classifyMessageComplexity = (message: string): 'simple' | 'complex' => {
+  const lowercaseMsg = message.toLowerCase();
+  
+  // Check for complex keywords
+  for (const keyword of COMPLEX_KEYWORDS) {
+    if (lowercaseMsg.includes(keyword)) {
+      return 'complex';
+    }
+  }
+  
+  // Short messages (under 50 chars) are likely simple
+  if (message.trim().length < 50) {
+    return 'simple';
+  }
+  
+  // Very short simple greetings/acknowledgments
+  const simplePatterns = [
+    /^(hi|hey|hello|thanks|thank you|ok|okay|sure|yes|no|maybe|got it)$/i,
+    /^(good morning|good night|how are you|what's up|sup)/i
+  ];
+  
+  for (const pattern of simplePatterns) {
+    if (pattern.test(message.trim())) {
+      return 'simple';
+    }
+  }
+  
+  // Messages with multiple sentences or paragraphs → complex
+  const sentenceCount = (message.match(/[.!?]+/g) || []).length;
+  if (sentenceCount >= 3) {
+    return 'complex';
+  }
+  
+  // Default to simple for brevity
+  return 'simple';
+}
+
+const getModelForComplexity = (complexity: 'simple' | 'complex'): string => {
+  return complexity === 'complex' 
+    ? 'claude-sonnet-4-5-20250929'  // Premium model for complex topics
+    : 'claude-3-5-haiku-20241022';   // Fast, cheap model for simple messages
+}
+
+const calculateCost = (model: string, inputTokens: number, outputTokens: number): number => {
+  const pricing: Record<string, { input: number; output: number }> = {
+    'claude-sonnet-4-5-20250929': { input: 0.000003, output: 0.000015 },
+    'claude-3-5-haiku-20241022': { input: 0.0000008, output: 0.000004 }
+  };
+  
+  const modelPricing = pricing[model] || pricing['claude-sonnet-4-5-20250929'];
+  return (inputTokens * modelPricing.input) + (outputTokens * modelPricing.output);
+}
+
 serve(async (req) => {
   const origin = req.headers.get('origin');
   const corsHeaders = getCorsHeaders(origin);
@@ -128,7 +202,12 @@ serve(async (req) => {
       { role: 'user', content: userMessage }
     ]
 
-    console.log('Calling Anthropic API with Claude Sonnet 4.5...')
+    // Classify message complexity and select appropriate model
+    const complexity = classifyMessageComplexity(userMessage);
+    const selectedModel = getModelForComplexity(complexity);
+    
+    console.log(`Message classified as ${complexity}, using model: ${selectedModel}`);
+    
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -138,7 +217,7 @@ serve(async (req) => {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5-20250929',
+        model: selectedModel,
         max_tokens: 400,
         messages: messages,
         system: systemPrompt
@@ -164,20 +243,19 @@ serve(async (req) => {
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
-      // Log token usage
+      // Log token usage with correct model pricing
       try {
         const inputTokens = data.usage?.input_tokens || 0;
         const outputTokens = data.usage?.output_tokens || 0;
-        const model = 'claude-sonnet-4-5-20250929';
         
-        // Calculate cost (Claude Sonnet 4.5: $3/1M input, $15/1M output tokens)
-        const estimatedCost = (inputTokens * 0.000003) + (outputTokens * 0.000015);
+        // Calculate cost based on the model actually used
+        const estimatedCost = calculateCost(selectedModel, inputTokens, outputTokens);
         
         const { error: tokenError } = await supabaseService
           .from('user_token_usage')
           .insert({
             user_id: user.id,
-            model: model,
+            model: selectedModel,
             input_tokens: inputTokens,
             output_tokens: outputTokens,
             estimated_cost: estimatedCost
@@ -186,7 +264,7 @@ serve(async (req) => {
         if (tokenError) {
           console.error('Failed to log token usage:', tokenError);
         } else {
-          console.log(`Logged token usage: ${inputTokens} input, ${outputTokens} output, $${estimatedCost.toFixed(6)} cost`);
+          console.log(`Logged token usage: ${inputTokens} input, ${outputTokens} output, $${estimatedCost.toFixed(6)} cost (${selectedModel})`);
         }
       } catch (tokenErr) {
         console.error('Error logging token usage:', tokenErr);
@@ -223,7 +301,7 @@ serve(async (req) => {
             `${msg.role}: ${msg.content}`
           ).join('\n\n');
           
-          // Call Claude to generate summary
+          // Call Claude Haiku to generate summary (faster and cheaper for summaries)
           const summaryResponse = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
             headers: {
@@ -232,7 +310,7 @@ serve(async (req) => {
               'anthropic-version': '2023-06-01',
             },
             body: JSON.stringify({
-              model: 'claude-sonnet-4-5-20250929',
+              model: 'claude-3-5-haiku-20241022',
               max_tokens: 300,
               messages: [{
                 role: 'user',
