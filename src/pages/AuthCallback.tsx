@@ -15,9 +15,49 @@ const AuthCallback = () => {
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
-        // Exchange code for session - Supabase handles the URL parsing
-        const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
-        
+        const searchParams = new URLSearchParams(window.location.search);
+        const hashString = window.location.hash.substring(1);
+        const hashParams = new URLSearchParams(hashString);
+
+        // Determine where to send the user after auth
+        const redirectPath = searchParams.get('redirect') || hashParams.get('redirect') || '/profile';
+        const code = searchParams.get('code');
+
+        let error: any = null;
+
+        if (code) {
+          // PKCE / OAuth flow (e.g. Google sign-in)
+          const result = await supabase.auth.exchangeCodeForSession(window.location.href);
+          error = result.error;
+        } else {
+          // Magic link / implicit flow: tokens come back in the URL hash
+          const accessToken = hashParams.get('access_token');
+          const refreshToken = hashParams.get('refresh_token');
+
+          if (accessToken && refreshToken) {
+            const result = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            });
+            error = result.error;
+          } else {
+            // No tokens in URL – see if the user is already authenticated
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (!session?.user) {
+              toast({
+                title: "Verification link used or expired",
+                description:
+                  "Please sign in to continue. If you haven't confirmed your email yet, check your inbox for the verification link.",
+                variant: "destructive",
+              });
+
+              navigate(`/signin?expired=true&redirect=${encodeURIComponent(redirectPath)}` , { replace: true });
+              return;
+            }
+          }
+        }
+
         if (error) {
           console.error('Auth callback error:', error);
           setLoadingMessage("Verifying your email status...");
@@ -33,20 +73,9 @@ const AuthCallback = () => {
             sessionStorage.setItem(`first_email_verification_${session.user.id}`, 'true');
             sessionStorage.setItem('email_just_verified', 'true');
             
-            // Get redirect destination from URL
-            const hash = window.location.hash.substring(1);
-            const hashParams = new URLSearchParams(hash);
-            const redirectPath = hashParams.get('redirect') || '/profile';
-            
             navigate(redirectPath, { replace: true });
             return;
           }
-          
-          // Extract email from URL (it's often in the token_hash or access_token)
-          const urlParams = new URLSearchParams(window.location.search);
-          const hash = window.location.hash.substring(1);
-          const hashParams = new URLSearchParams(hash);
-          const redirectPath = hashParams.get('redirect') || urlParams.get('redirect') || '/profile';
           
           // Check if this is a PKCE error (code verifier missing)
           const isPKCEError = error.message?.includes('code verifier') || 
@@ -81,11 +110,6 @@ const AuthCallback = () => {
 
         setLoadingMessage("Setting up your account...");
         
-        // Get redirect destination from URL hash (more reliable than query params)
-        const hash = window.location.hash.substring(1); // Remove the '#'
-        const hashParams = new URLSearchParams(hash);
-        const redirectPath = hashParams.get('redirect') || '/profile';
-
         // Get current session to obtain user ID
         const { data: { session } } = await supabase.auth.getSession();
         const userId = session?.user?.id;
@@ -163,8 +187,8 @@ const AuthCallback = () => {
         navigate(finalRedirect, { replace: true });
       } catch (error) {
         console.error('Callback processing error:', error);
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectPath = urlParams.get('redirect') || '/profile';
+        const searchParams = new URLSearchParams(window.location.search);
+        const redirectPath = searchParams.get('redirect') || '/profile';
         navigate(redirectPath, { replace: true });
       }
     };
