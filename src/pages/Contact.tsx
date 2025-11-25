@@ -172,18 +172,18 @@ const Contact = () => {
               <Card className="glass-contact-card floating-card p-6 animate-fade-in" style={{
               animationDelay: '0.3s'
             }}>
-                <h3 className="text-xl font-semibold questionnaire-text mb-4">feedback</h3>
+                <h3 className="text-xl font-semibold questionnaire-text mb-4">partnerships</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  we're always leveling up <span className="font-brand">heartlines</span>. share your thoughts and help us make it better for everyone.
+                  want to collab? pop "partnership" in the subject line and let's chat.
                 </p>
               </Card>
 
               <Card className="glass-contact-card floating-card p-6 animate-fade-in" style={{
               animationDelay: '0.4s'
             }}>
-                <h3 className="text-xl font-semibold questionnaire-text mb-4">partnerships</h3>
+                <h3 className="text-xl font-semibold questionnaire-text mb-4">feedback</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  want to collab? pop "partnership" in the subject line and let's chat.
+                  we're always leveling up <span className="font-brand">heartlines</span>. share your thoughts and help us make it better for everyone.
                 </p>
               </Card>
             </div>
