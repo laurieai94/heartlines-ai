@@ -102,15 +102,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       }`}
       style={{ 
         transform: 'none', 
-        isolation: 'isolate',
-        paddingTop: isCoachMode ? 'max(0px, env(safe-area-inset-top))' : '0'
+        isolation: 'isolate'
       }}
     >
-      <div className={`max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative ${
-        isCoachMode 
-          ? 'pl-1 pr-3 py-2' // Compact padding with more right breathing room on coach page
-          : 'pl-4 pr-2 sm:pr-4 py-3' // Match homepage padding on mobile, balanced on larger screens
-      }`}>
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative pl-4 pr-2 sm:pr-4 py-3">
         
         {/* Mobile Navigation - Always visible */}
         <div className={`flex items-center justify-between md:hidden transition-all duration-150 ${
