@@ -65,6 +65,36 @@ export type Database = {
         }
         Relationships: []
       }
+      conversation_summaries: {
+        Row: {
+          conversation_count: number
+          created_at: string
+          id: string
+          key_topics: string[] | null
+          last_updated: string
+          summary_text: string
+          user_id: string
+        }
+        Insert: {
+          conversation_count?: number
+          created_at?: string
+          id?: string
+          key_topics?: string[] | null
+          last_updated?: string
+          summary_text: string
+          user_id: string
+        }
+        Update: {
+          conversation_count?: number
+          created_at?: string
+          id?: string
+          key_topics?: string[] | null
+          last_updated?: string
+          summary_text?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversation_topics: {
         Row: {
           frequency: number

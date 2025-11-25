@@ -36,7 +36,7 @@ export class AIResponseCoordinator {
       });
 
       // Use the conversational prompt instead of clinical
-      const conversationalPrompt = customPrompt || ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
+      const conversationalPrompt = customPrompt || await ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
 
       const response = await aiService.generateResponse(
         userMessage,
