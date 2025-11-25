@@ -267,7 +267,13 @@ serve(async (req) => {
     const complexity = classifyMessageComplexity(userMessage);
     const selectedModel = getModelForComplexity(complexity);
     
-    console.log(`Message classified as ${complexity}, using model: ${selectedModel}`);
+    // Detect pure greetings for ultra-short responses
+    const isGreeting = /^(hi|hey|hello|sup|yo|hiya|howdy)[\s!?.]*$/i.test(userMessage.trim());
+    
+    // Dynamic max_tokens based on message type
+    const maxTokens = isGreeting ? 80 : (complexity === 'complex' ? 400 : 150);
+    
+    console.log(`Message classified as ${complexity}, greeting=${isGreeting}, using model: ${selectedModel}, max_tokens: ${maxTokens}`);
     
     const response = await retryWithBackoff(() => fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -279,7 +285,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: selectedModel,
-        max_tokens: 400,
+        max_tokens: maxTokens,
         messages: messages,
         system: systemPrompt
       })
