@@ -22,6 +22,7 @@ import Pricing from "@/pages/Pricing";
 import BillingSuccess from "@/pages/BillingSuccess";
 import Account from "@/pages/Account";
 import Auth from "@/pages/Auth";
+import AuthConfirm from "@/pages/AuthConfirm";
 import Mission from "@/pages/Mission";
 import Terms from "@/pages/Terms";
 import Contact from "@/pages/Contact";
@@ -57,6 +58,7 @@ const AppContent = () => {
         <Route path="/plans" element={<Pricing />} />
         <Route path="/billing/success" element={<BillingSuccess />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/auth/confirm" element={<AuthConfirm />} />
         <Route path="/signin" element={<Auth />} />
         <Route path="/signup" element={<Auth />} />
         <Route path="/account" element={<Account />} />
