@@ -98,7 +98,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   return (
     <div 
       className={`w-full fixed top-0 left-0 right-0 z-50 ${isCoachMode ? 'bg-transparent backdrop-blur-sm' : 'bg-transparent'} ${
-        compact ? 'pt-0 md:pt-0 lg:pt-0' : 'pt-4 pb-4 md:pt-5 md:pb-4 lg:pt-6 lg:pb-5'
+        compact ? 'pt-3 pb-3 md:pt-4 md:pb-3 lg:pt-5 lg:pb-4' : 'pt-4 pb-4 md:pt-5 md:pb-4 lg:pt-6 lg:pb-5'
       }`}
       style={{ 
         transform: 'none', 
