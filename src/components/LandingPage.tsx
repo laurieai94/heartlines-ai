@@ -390,7 +390,7 @@ const LandingPage = ({
                   }} />
                       </div>
                       
-                      <span className="relative z-10 text-sm md:text-base font-medium">chat with kai</span>
+                      <span className="relative z-10 text-sm md:text-base font-medium">get started</span>
                     </Button>
                   </div>
                 </>}
