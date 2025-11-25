@@ -118,7 +118,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   variant="ghost" 
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
-                  <FlipPhoneIcon className="h-14 w-14 sm:h-16 sm:w-16" />
+                  <FlipPhoneIcon className="h-10 w-10 sm:h-12 sm:w-12" />
                 </Button>
               </SheetTrigger>
               <SheetContent 
