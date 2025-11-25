@@ -52,7 +52,7 @@ const PrivacySecurity = () => {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 backdrop-blur-xl shadow-lg">
         <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto px-4 sm:px-6 xl:px-8">
-          <div className="flex items-center justify-between h-16 pt-2 md:pt-3 lg:pt-4">
+          <div className="flex items-center justify-between h-16 pt-2 pb-2 md:pt-3 md:pb-3 lg:pt-4 lg:pb-3">
             {/* Left: Hamburger Menu */}
             <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <PopoverTrigger asChild>
