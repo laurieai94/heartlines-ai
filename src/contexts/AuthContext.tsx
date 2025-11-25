@@ -103,12 +103,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signUp = async (email: string, password: string, name?: string) => {
     const redirectUrl = `${window.location.origin}/auth/callback#redirect=/profile`;
     
-    // Use magic link (OTP) for seamless one-click authentication
-    const { error } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signUp({
       email,
+      password,
       options: {
         emailRedirectTo: redirectUrl,
-        shouldCreateUser: true,
         data: name ? { name } : {}
       }
     });
@@ -163,15 +162,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const resendVerification = async (email: string) => {
-    const redirectUrl = `${window.location.origin}/auth/callback#redirect=/profile`;
-    
-    // Resend magic link instead of verification email
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: redirectUrl,
-        shouldCreateUser: false // Don't create new user, just resend
-      }
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email
     });
     return { error };
   };

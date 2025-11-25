@@ -35,7 +35,6 @@ const Auth = () => {
     password: '',
     confirmPassword: ''
   });
-  const [isMagicLinkSent, setIsMagicLinkSent] = useState(false);
   const [formErrors, setFormErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
@@ -137,12 +136,20 @@ const Auth = () => {
     if (!formData.email || !formData.email.includes('@')) {
       errors.push('Please enter a valid email address');
     }
-    // For magic link signup, only email is required
-    if (!isSignUp) {
-      // Basic validation for sign-in with password
+    if (isSignUp) {
+      // Use strong password policy for sign-up
+      const passwordValidation = validatePasswordPolicy(formData.password);
+      if (!passwordValidation.isValid) {
+        errors.push(passwordValidation.message);
+      }
+    } else {
+      // Basic validation for sign-in
       if (!formData.password || formData.password.length < 6) {
         errors.push('Password must be at least 6 characters long');
       }
+    }
+    if (isSignUp && formData.password !== formData.confirmPassword) {
+      errors.push('Passwords do not match');
     }
     return errors;
   };
@@ -185,7 +192,7 @@ const Auth = () => {
         logEvent('auth_signup_started');
         const {
           error
-        } = await signUp(formData.email, ''); // Password not needed for magic link
+        } = await signUp(formData.email, formData.password);
         if (error) {
           if (error.message?.includes('User already registered')) {
             // Suggest switching to sign in
@@ -196,8 +203,22 @@ const Auth = () => {
           }
         } else {
           logEvent('auth_signup_completed');
-          // Magic link sent - show success message
-          setIsMagicLinkSent(true);
+          // Check if user is immediately signed in (no email verification required)
+          const {
+            data: {
+              session
+            }
+          } = await supabase.auth.getSession();
+          if (session) {
+            // User is signed in immediately, redirect to profile
+            toast.success('Welcome to heartlines! 🎉', {
+              description: 'Your account has been created successfully.'
+            });
+            navigate('/profile');
+          } else {
+            // No session, show email verification
+            setShowEmailVerification(true);
+          }
         }
       } else {
         logEvent('auth_signin_started');
@@ -364,16 +385,23 @@ const Auth = () => {
         <div className="w-full flex flex-col items-center flex-shrink-0">
           <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
             <div className="questionnaire-card p-3 sm:p-4 md:p-5 lg:p-6">
-          {isMagicLinkSent ? <div className="text-center space-y-2 sm:space-y-4">
+          {showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
               <div className="questionnaire-card p-4 sm:p-5 md:p-6">
                 <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-green-400 mx-auto mb-2 sm:mb-3" />
                 <h3 className="questionnaire-text font-semibold mb-1.5 sm:mb-2">check your email!</h3>
                 <p className="questionnaire-text-muted text-sm mb-3 sm:mb-4">
-                  we've sent you a magic link. click it to instantly sign in.
+                  we've sent you a verification link. click it to activate your account.
                 </p>
-                <p className="questionnaire-text-muted text-xs">
-                  the link will automatically log you in—no password needed.
-                </p>
+                
+                <Button 
+                  onClick={handleResendVerification} 
+                  disabled={isResendingVerification || resendCooldown > 0}
+                  variant="ghost"
+                  className="w-full bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-white/30 backdrop-blur-sm rounded-full transition-all duration-300"
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  {isResendingVerification ? 'sending...' : resendCooldown > 0 ? `resend in ${resendCooldown}s` : 'resend email'}
+                </Button>
               </div>
               <Button onClick={() => navigate('/')} variant="ghost" className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm py-1.5 h-auto mb-1">
                 <ArrowLeft className="h-4 w-4 mr-2" />
@@ -453,35 +481,41 @@ const Auth = () => {
               </div>
             </div>
 
-            {/* Password field - only for sign-in */}
-            {!isSignUp && (
-              <div className="space-y-1">
-                <Label htmlFor="password" className="text-white text-sm">
-                  password
-                </Label>
-                <div className="space-y-2">
-                  <div className="relative">
-                    <Input id="password" type={showPassword ? 'text' : 'password'} value={formData.password} onChange={e => handleInputChange('password', e.target.value)} placeholder="keep it secret" className={isPasswordValid() ? 'pr-20' : 'pr-12'} required />
-                    <Button type="button" variant="ghost" size="sm" onClick={() => setShowPassword(!showPassword)} className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent">
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </Button>
-                    {isPasswordValid() && <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />}
-                  </div>
+            <div className="space-y-1">
+              <Label htmlFor="password" className="text-white text-sm">
+                password
+              </Label>
+              <div className="space-y-2">
+                <div className="relative">
+                  <Input id="password" type={showPassword ? 'text' : 'password'} value={formData.password} onChange={e => handleInputChange('password', e.target.value)} placeholder="keep it secret" pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined} title={isSignUp ? getPasswordPolicyText() : undefined} className={isPasswordValid() ? 'pr-20' : 'pr-12'} required />
+                  <Button type="button" variant="ghost" size="sm" onClick={() => setShowPassword(!showPassword)} className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent">
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </Button>
+                  {isPasswordValid() && <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />}
                 </div>
-                <div className="text-left">
+                 {isSignUp && <p className="text-xs text-white/60 leading-tight">
+                     {getPasswordPolicyText()}
+                   </p>}
+               </div>
+               {!isSignUp && <div className="text-left">
                   <button type="button" onClick={() => setShowForgotPassword(true)} className="text-xs text-coral-400 hover:text-coral-300 underline">
                     locked out?
                   </button>
-                </div>
-              </div>
-            )}
+                 </div>}
+             </div>
 
-            {/* Magic link info for sign-up */}
-            {isSignUp && (
-              <p className="text-white/60 text-xs text-center">
-                we'll send you a magic link to sign in instantly—no password needed
-              </p>
-            )}
+            {isSignUp && validatePasswordPolicy(formData.password).isValid && <div className="space-y-1">
+                <Label htmlFor="confirmPassword" className="text-white text-sm">
+                  confirm password
+                </Label>
+                <div className="relative">
+                  <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} value={formData.confirmPassword} onChange={e => handleInputChange('confirmPassword', e.target.value)} placeholder="confirm your password" className={isConfirmPasswordValid() ? 'pr-20' : 'pr-12'} required />
+                  <Button type="button" variant="ghost" size="sm" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent">
+                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </Button>
+                  {isConfirmPasswordValid() && <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />}
+                </div>
+              </div>}
 
             {formErrors.length > 0 && <div className="p-3 rounded-lg bg-red-500/20 border border-red-400/30">
                 {formErrors.map((error, index) => <p key={index} className="text-red-300 text-xs">
@@ -490,7 +524,7 @@ const Auth = () => {
               </div>}
 
             <Button type="submit" disabled={isSubmitting} className="w-full questionnaire-button-primary py-2 text-sm -mb-3">
-              {isSubmitting ? 'processing...' : isVerifiedFlow ? 'continue to heartlines' : isSignUp ? 'send magic link' : 'sign in'}
+              {isSubmitting ? 'processing...' : isVerifiedFlow ? 'continue to heartlines' : isSignUp ? 'create account' : 'sign in'}
             </Button>
           </form>
 

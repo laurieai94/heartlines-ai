@@ -43,17 +43,17 @@ export const MagicLinkEmail = ({
           <Heading style={brandName}>heartlines</Heading>
         </div>
         
-        <Heading style={h1}>Tap into heartlines 💕</Heading>
+        <Heading style={h1}>Welcome Back!</Heading>
         
         <Text style={text}>
-          Click the button below to instantly sign in—no password needed.
+          Click the button below to securely log in to your Heartlines account.
         </Text>
         
         <Link
           href={`${supabase_url}/auth/v1/verify?token=${token_hash}&type=${email_action_type}&redirect_to=${redirect_to}`}
           style={button}
         >
-          Sign In Instantly →
+          Sign In to Heartlines
         </Link>
         
         <Text style={text}>
@@ -135,7 +135,7 @@ const text = {
 }
 
 const button = {
-  background: 'linear-gradient(135deg, #8B0000, #DC143C)',
+  backgroundColor: '#8B0000',
   borderRadius: '12px',
   color: '#ffffff',
   display: 'inline-block',

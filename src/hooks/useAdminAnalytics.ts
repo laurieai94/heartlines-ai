@@ -2,29 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useIsAdmin } from './useUserRole';
 
-export interface UserAnalyticsSummary {
-  user_id: string;
-  user_name: string | null;
-  email: string;
-  joined_at: string;
-  is_subscribed: boolean;
-  subscription_tier: string | null;
-  total_conversations: number;
-  last_activity: string | null;
-  messages_this_month: number;
-  avg_conversation_duration_minutes: number | null;
-  avg_messages_per_conversation: number | null;
-  total_conversation_time_minutes: number | null;
-  avg_session_duration_minutes: number | null;
-  total_tokens: number;
-  total_input_tokens: number;
-  total_output_tokens: number;
-  avg_input_tokens: number;
-  avg_output_tokens: number;
-  total_cost: number;
-  cost_last_30_days: number;
-}
-
 export const useAdminAnalytics = () => {
   const { isAdmin } = useIsAdmin();
 
@@ -32,7 +9,8 @@ export const useAdminAnalytics = () => {
     queryKey: ['admin-analytics'],
     queryFn: async () => {
       const { data: summary, error } = await supabase
-        .rpc('get_user_analytics_summary') as { data: UserAnalyticsSummary[] | null; error: any };
+        .from('user_analytics_summary')
+        .select('*');
 
       if (error) throw error;
 
