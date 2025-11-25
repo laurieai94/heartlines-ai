@@ -55,6 +55,7 @@ export const EmailConfirmationEmail = ({
         <Link
           href={`${site_url}/auth/confirm?token_hash=${token_hash}&type=${email_action_type}&next=${encodeURIComponent(redirect_to)}`}
           style={button}
+          target="_self"
         >
           Build Yr Profile →
         </Link>
