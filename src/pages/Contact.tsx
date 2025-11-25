@@ -82,7 +82,7 @@ const Contact = () => {
         <PremiumBackground />
         <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} />
         
-        <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
+        <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-12">
           {/* Hero Section */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="font-brand text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent leading-none tracking-wider mb-4" style={{
