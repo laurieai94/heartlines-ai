@@ -8,7 +8,11 @@ import { GoalsBuilder } from "./prompt/goalsBuilder";
 import { ProfileGoalsUtility } from "./profileGoals";
 
 export class ConversationalPromptBuilder {
-  static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
+  static async buildConversationalPrompt(
+    context: PersonContext, 
+    conversationHistory: any[] = [],
+    conversationMemory: string = ''
+  ): Promise<string> {
     const yourName = context.yourTraits?.name || '';
     const partnerName = context.partnerTraits?.name || '';
     
@@ -54,7 +58,8 @@ Respond conversationally, summarizing what you know about them and their relatio
       familyBackgroundInsights,
       dynamics,
       conversationHistory,
-      goalsInsights
+      goalsInsights,
+      conversationMemory
     );
   }
 

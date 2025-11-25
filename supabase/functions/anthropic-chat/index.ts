@@ -210,6 +210,87 @@ serve(async (req) => {
       } catch (usageErr) {
         console.error('Error incrementing message usage:', usageErr);
       }
+
+      // Generate conversation summary after 5+ messages
+      try {
+        const totalMessages = conversationHistory.length + 1; // +1 for current message
+        
+        if (totalMessages >= 5 && totalMessages % 5 === 0) { // Every 5 messages
+          console.log(`Generating conversation summary for user ${user.id} after ${totalMessages} messages`);
+          
+          // Build conversation text from history
+          const conversationText = messages.slice(-10).map(msg => 
+            `${msg.role}: ${msg.content}`
+          ).join('\n\n');
+          
+          // Call Claude to generate summary
+          const summaryResponse = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': anthropicApiKey,
+              'anthropic-version': '2023-06-01',
+            },
+            body: JSON.stringify({
+              model: 'claude-sonnet-4-5-20250929',
+              max_tokens: 300,
+              messages: [{
+                role: 'user',
+                content: `Summarize this relationship conversation in 2-3 concise sentences, focusing on key relationship insights, patterns, and emotional themes. Extract 3-5 key topics as an array.\n\nConversation:\n${conversationText}\n\nReturn JSON: {"summary": "...", "topics": ["topic1", "topic2"]}`
+              }],
+              system: 'You are a relationship conversation summarizer. Return only valid JSON with "summary" and "topics" fields.'
+            })
+          });
+          
+          if (summaryResponse.ok) {
+            const summaryData = await summaryResponse.json();
+            const summaryText = summaryData.content?.[0]?.text || '';
+            
+            // Parse JSON from response
+            const jsonMatch = summaryText.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+              const parsed = JSON.parse(jsonMatch[0]);
+              
+              // Check if summary already exists
+              const { data: existingSummary } = await supabaseService
+                .from('conversation_summaries')
+                .select('id, conversation_count')
+                .eq('user_id', user.id)
+                .maybeSingle();
+              
+              if (existingSummary) {
+                // Update existing summary
+                await supabaseService
+                  .from('conversation_summaries')
+                  .update({
+                    summary_text: parsed.summary,
+                    key_topics: parsed.topics || [],
+                    conversation_count: existingSummary.conversation_count + 1,
+                    last_updated: new Date().toISOString()
+                  })
+                  .eq('id', existingSummary.id);
+                
+                console.log('Updated conversation summary');
+              } else {
+                // Insert new summary
+                await supabaseService
+                  .from('conversation_summaries')
+                  .insert({
+                    user_id: user.id,
+                    summary_text: parsed.summary,
+                    key_topics: parsed.topics || [],
+                    conversation_count: 1
+                  });
+                
+                console.log('Created new conversation summary');
+              }
+            }
+          }
+        }
+      } catch (summaryErr) {
+        console.error('Error generating conversation summary:', summaryErr);
+        // Don't fail the request if summary generation fails
+      }
       
       return new Response(
         JSON.stringify({ response: data.content[0].text }),
