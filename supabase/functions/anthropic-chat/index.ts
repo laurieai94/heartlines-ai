@@ -79,6 +79,45 @@ const calculateCost = (model: string, inputTokens: number, outputTokens: number)
   return (inputTokens * modelPricing.input) + (outputTokens * modelPricing.output);
 }
 
+// Rough token estimation (chars / 4 ≈ tokens)
+const estimateTokens = (text: string): number => {
+  return Math.ceil(text.length / 4);
+}
+
+// Retry with exponential backoff for rate limits
+const retryWithBackoff = async (fn: () => Promise<Response>, maxRetries = 3): Promise<Response> => {
+  let lastError: Error | null = null;
+  
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await fn();
+      
+      if (response.status === 429) {
+        // Check Retry-After header
+        const retryAfter = response.headers.get('retry-after');
+        const waitTime = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, attempt) * 1000;
+        
+        if (attempt < maxRetries) {
+          console.log(`Rate limited. Retrying in ${waitTime}ms (attempt ${attempt + 1}/${maxRetries})`);
+          await new Promise(resolve => setTimeout(resolve, waitTime));
+          continue;
+        }
+        
+        throw new Error(`Rate limit exceeded. Please wait ${Math.ceil(waitTime / 1000)} seconds and try again.`);
+      }
+      
+      return response;
+    } catch (error) {
+      lastError = error;
+      if (attempt === maxRetries) {
+        throw error;
+      }
+    }
+  }
+  
+  throw lastError || new Error('Request failed');
+}
+
 serve(async (req) => {
   const origin = req.headers.get('origin');
   const corsHeaders = getCorsHeaders(origin);
@@ -130,6 +169,28 @@ serve(async (req) => {
     }
 
     console.log('Processing chat request...')
+    
+    // Limit conversation history to last 20 messages on server side
+    let limitedHistory = conversationHistory.slice(-20);
+    
+    // Estimate tokens for safety check
+    const systemTokens = estimateTokens(systemPrompt);
+    const historyTokens = limitedHistory.reduce((sum, msg) => sum + estimateTokens(msg.content), 0);
+    const userTokens = estimateTokens(userMessage);
+    const totalEstimatedTokens = systemTokens + historyTokens + userTokens;
+    
+    console.log(`Estimated tokens: system=${systemTokens}, history=${historyTokens}, user=${userTokens}, total=${totalEstimatedTokens}`);
+    
+    // If still too large, aggressively truncate history
+    if (totalEstimatedTokens > 80000) {
+      const targetHistoryTokens = 10000; // Keep history under 10k tokens
+      while (historyTokens > targetHistoryTokens && limitedHistory.length > 5) {
+        limitedHistory = limitedHistory.slice(1); // Remove oldest message
+      }
+      console.log(`Aggressively truncated history to ${limitedHistory.length} messages to stay under 80k token limit`);
+    } else if (totalEstimatedTokens > 50000) {
+      console.warn(`⚠️ High token usage detected: ~${totalEstimatedTokens} tokens. Consider compressing prompt further.`);
+    }
 
     // Check for account override first
     const { data: userWithEmail } = await supabaseService.auth.getUser(token);
@@ -198,7 +259,7 @@ serve(async (req) => {
     }
 
     const messages = [
-      ...conversationHistory,
+      ...limitedHistory,
       { role: 'user', content: userMessage }
     ]
 
@@ -208,7 +269,7 @@ serve(async (req) => {
     
     console.log(`Message classified as ${complexity}, using model: ${selectedModel}`);
     
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await retryWithBackoff(() => fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -222,7 +283,7 @@ serve(async (req) => {
         messages: messages,
         system: systemPrompt
       })
-    })
+    }));
 
     console.log('Anthropic API response status:', response.status)
 
@@ -289,19 +350,28 @@ serve(async (req) => {
         console.error('Error incrementing message usage:', usageErr);
       }
 
-      // Generate conversation summary after 5+ messages
+      // Generate incremental conversation summary after 5+ messages
       try {
-        const totalMessages = conversationHistory.length + 1; // +1 for current message
+        const totalMessages = limitedHistory.length + 1; // +1 for current message
         
         if (totalMessages >= 5 && totalMessages % 5 === 0) { // Every 5 messages
-          console.log(`Generating conversation summary for user ${user.id} after ${totalMessages} messages`);
+          console.log(`Generating incremental conversation summary for user ${user.id} after ${totalMessages} messages`);
           
-          // Build conversation text from history
-          const conversationText = messages.slice(-10).map(msg => 
+          // Get existing summary
+          const { data: existingSummary } = await supabaseService
+            .from('conversation_summaries')
+            .select('summary_text, key_topics, conversation_count')
+            .eq('user_id', user.id)
+            .maybeSingle();
+          
+          // Only use last 5 messages for incremental update
+          const recentMessages = messages.slice(-5).map(msg => 
             `${msg.role}: ${msg.content}`
           ).join('\n\n');
           
-          // Call Claude Haiku to generate summary (faster and cheaper for summaries)
+          const existingSummaryText = existingSummary?.summary_text || 'No previous summary.';
+          
+          // Call Claude Haiku to generate incremental summary update
           const summaryResponse = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
             headers: {
@@ -311,10 +381,10 @@ serve(async (req) => {
             },
             body: JSON.stringify({
               model: 'claude-3-5-haiku-20241022',
-              max_tokens: 300,
+              max_tokens: 150, // Reduced from 300 for tighter summaries
               messages: [{
                 role: 'user',
-                content: `Summarize this relationship conversation in 2-3 concise sentences, focusing on key relationship insights, patterns, and emotional themes. Extract 3-5 key topics as an array.\n\nConversation:\n${conversationText}\n\nReturn JSON: {"summary": "...", "topics": ["topic1", "topic2"]}`
+                content: `Previous summary: ${existingSummaryText}\n\nNew messages:\n${recentMessages}\n\nUpdate the summary in 2-3 sentences combining previous insights with new developments. Extract 3-5 key topics. Return JSON: {"summary": "...", "topics": ["topic1", "topic2"]}`
               }],
               system: 'You are a relationship conversation summarizer. Return only valid JSON with "summary" and "topics" fields.'
             })
@@ -329,15 +399,8 @@ serve(async (req) => {
             if (jsonMatch) {
               const parsed = JSON.parse(jsonMatch[0]);
               
-              // Check if summary already exists
-              const { data: existingSummary } = await supabaseService
-                .from('conversation_summaries')
-                .select('id, conversation_count')
-                .eq('user_id', user.id)
-                .maybeSingle();
-              
               if (existingSummary) {
-                // Update existing summary
+                // Update existing summary incrementally
                 await supabaseService
                   .from('conversation_summaries')
                   .update({
@@ -346,9 +409,9 @@ serve(async (req) => {
                     conversation_count: existingSummary.conversation_count + 1,
                     last_updated: new Date().toISOString()
                   })
-                  .eq('id', existingSummary.id);
+                  .eq('user_id', user.id);
                 
-                console.log('Updated conversation summary');
+                console.log('Updated conversation summary incrementally');
               } else {
                 // Insert new summary
                 await supabaseService
