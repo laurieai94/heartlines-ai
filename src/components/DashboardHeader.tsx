@@ -98,18 +98,18 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   return (
     <div 
       className={`w-full fixed top-0 left-0 right-0 z-50 ${isCoachMode ? 'bg-transparent backdrop-blur-sm' : 'bg-transparent'} ${
-        compact ? 'pt-3 pb-3 md:pt-4 md:pb-3 lg:pt-5 lg:pb-4' : 'pt-4 pb-4 md:pt-5 md:pb-4 lg:pt-6 lg:pb-5'
+        compact ? 'pt-2 pb-2 md:pt-4 md:pb-3 lg:pt-5 lg:pb-4' : 'pt-2 pb-2 md:pt-5 md:pb-4 lg:pt-6 lg:pb-5'
       }`}
       style={{ 
         transform: 'none', 
         isolation: 'isolate'
       }}
     >
-      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative pl-4 pr-2 sm:pr-4 py-3">
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative pl-4 pr-2 sm:pr-4 py-1 md:py-3">
         
         {/* Mobile Navigation - Always visible */}
         <div className={`flex items-center justify-between md:hidden transition-all duration-150 ${
-          isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
+          isCoachMode ? 'min-h-[36px]' : 'min-h-[44px]'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
             <Sheet open={navigationOpened} onOpenChange={setNavigationOpened}>
