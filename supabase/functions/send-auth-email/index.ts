@@ -100,12 +100,9 @@ Deno.serve(async (req) => {
 
       case 'signup':
       case 'confirmation':
-        // Extract site_url from redirect_to
-        const siteUrl = redirect_to.split('/auth/callback')[0] || redirect_to.split('#')[0]
-        
         html = await renderAsync(
           React.createElement(EmailConfirmationEmail, {
-            site_url: siteUrl,
+            supabase_url: Deno.env.get('SUPABASE_URL') ?? '',
             token,
             token_hash,
             redirect_to,

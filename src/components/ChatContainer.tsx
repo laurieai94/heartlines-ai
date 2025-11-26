@@ -15,8 +15,6 @@ export interface ChatContainerRef {
   scrollToBottom: (behavior?: 'auto' | 'smooth', offset?: number) => void;
   scrollToBottomIfScrolledUp: () => void;
   scrollToShowMessages: (offset?: number) => void;
-  scrollToTop: () => void;
-  scrollToLastMessage: () => void;
 }
 
 interface ChatContainerProps {
@@ -84,19 +82,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     });
   }, []);
 
-  // Scroll to top - for sparse conversations when keyboard opens
-  const scrollToTop = useCallback(() => {
-    if (!viewportRef.current) return;
-    
-    const viewport = viewportRef.current;
-    requestAnimationFrame(() => {
-      viewport.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }, []);
-
   // Smart scroll to bottom only if user has scrolled up
   const scrollToBottomIfScrolledUp = useCallback(() => {
     if (!viewportRef.current) return;
@@ -116,34 +101,12 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     }
   }, [scrollToBottom]);
 
-  // Scroll to show the last message element (for mobile keyboard)
-  const scrollToLastMessage = useCallback(() => {
-    if (!viewportRef.current) return;
-    
-    const viewport = viewportRef.current;
-    const messageContainer = viewport.querySelector('[data-message-container]');
-    const messages = messageContainer?.querySelectorAll('[data-message-id]');
-    const lastMessage = messages?.[messages.length - 1];
-    
-    if (lastMessage) {
-      requestAnimationFrame(() => {
-        // Scroll the last message into view, positioned at the bottom of visible area
-        lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      });
-    } else {
-      // Fallback to scrollToBottom if no messages found
-      scrollToBottom('smooth');
-    }
-  }, [scrollToBottom]);
-
   // Expose methods via ref
   useImperativeHandle(ref, () => ({
     scrollToBottom,
     scrollToBottomIfScrolledUp,
-    scrollToShowMessages,
-    scrollToTop,
-    scrollToLastMessage
-  }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages, scrollToTop, scrollToLastMessage]);
+    scrollToShowMessages
+  }), [scrollToBottom, scrollToBottomIfScrolledUp, scrollToShowMessages]);
 
 
   // Optimized: Combined scroll effects to reduce effect overhead
@@ -170,7 +133,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       return;
     }
     
-    // Handle new messages - always scroll to show the newest message
+    // Handle new messages
     if (hasNewMessage) {
       requestAnimationFrame(() => {
         scrollToBottom(isUserMessage ? 'auto' : 'smooth');
@@ -306,7 +269,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         <div
           id="chat-scroll"
           ref={viewportRef}
-          className="chat-scroll mobile-native-scroll absolute left-0 right-0 top-0 bottom-0 overflow-y-auto"
+          className="chat-scroll mobile-native-scroll absolute left-0 right-0 top-0 md:top-0 bottom-0 overflow-y-auto"
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
@@ -354,7 +317,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       {/* Fixed profile completion nudge - floats above scrolling messages */}
       {showProfileNudge && !loading && (
         <div 
-          className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          className="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-50 pointer-events-none"
         >
           <div className="pointer-events-auto">
             <OnboardingStepNudge 

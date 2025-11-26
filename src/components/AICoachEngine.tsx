@@ -13,19 +13,8 @@ export class AICoachEngine {
     return AIResponseCoordinator.initializeSupabase();
   }
 
-  static async buildConversationalPrompt(
-    context: PersonContext, 
-    conversationHistory: any[] = [],
-    userId?: string
-  ): Promise<string> {
-    // Fetch conversation memory if userId provided
-    let conversationMemory = '';
-    if (userId) {
-      const { ConversationMemory } = await import('@/utils/conversationMemory');
-      conversationMemory = await ConversationMemory.fetchConversationSummary(userId);
-    }
-    
-    return ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory, conversationMemory);
+  static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
+    return ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
   }
 
   static buildDebugPrompt(context: PersonContext, profiles: ProfileData, demographicsData: DemographicsData): string {

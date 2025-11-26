@@ -12,7 +12,7 @@ import * as React from 'npm:react@18.3.1'
 import { LOGO_BASE64 } from '../../_shared/logo-base64.ts'
 
 interface EmailConfirmationProps {
-  site_url: string
+  supabase_url: string
   email_action_type: string
   redirect_to: string
   token_hash: string
@@ -21,7 +21,7 @@ interface EmailConfirmationProps {
 
 export const EmailConfirmationEmail = ({
   token,
-  site_url,
+  supabase_url,
   email_action_type,
   redirect_to,
   token_hash,
@@ -53,9 +53,8 @@ export const EmailConfirmationEmail = ({
         </Text>
         
         <Link
-          href={`${site_url}/auth/confirm?token_hash=${token_hash}&type=${email_action_type}&next=${encodeURIComponent(redirect_to)}`}
+          href={`${supabase_url}/auth/v1/verify?token=${token_hash}&type=${email_action_type}&redirect_to=${redirect_to}`}
           style={button}
-          target="_self"
         >
           Build Yr Profile →
         </Link>

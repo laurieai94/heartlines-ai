@@ -60,14 +60,22 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0 overflow-visible">
         <div className={`relative overflow-visible ${isMobile ? 'w-[60px] h-[60px]' : 'w-[64px] h-[64px]'} md:w-[68px] md:h-[68px] ${isMobile && !isFirstInGroup ? 'invisible' : ''} flex items-center justify-center`}>
-          {/* Unified glow for both avatars */}
+          {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full ${
-            isMobile ? 'blur-[4px] opacity-20' : 'blur-sm opacity-25 drop-shadow-lg'
-          } bg-gradient-to-r from-coral-300 to-pink-400 ${
+            isMobile ? 'blur-[2px] opacity-15' : 'blur-sm opacity-25 drop-shadow-lg'
+          } ${
+            isUser 
+              ? isMobile 
+                ? 'bg-gradient-to-r from-coral-400 to-orange-400' 
+                : 'bg-gradient-to-r from-coral-300 to-orange-300'
+              : isMobile 
+                ? 'bg-gradient-to-r from-pink-400 to-coral-400' 
+                : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
+          } ${
             !isUser && isLoading ? 'animate-pulse' : ''
           }`}></div>
           
-          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] ring-2 ring-white/80 ${
+          <Avatar className={`relative z-10 shadow-lg drop-shadow-lg ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
               : 'bg-gradient-to-br from-coral-400 to-burgundy-500'

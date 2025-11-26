@@ -98,17 +98,17 @@ const AIChat = ({
     setIsSidebarOpen(true);
   }, [onOpenSidebar]);
 
-  // Handle input focus - scroll to show last message (mobile only)
+  // Handle input focus - scroll to bottom to show latest message (mobile only)
   const handleInputFocus = useCallback(() => {
     if (!isMobilePhone) return;
     
-    // Immediate scroll to last message to show it within visible viewport
-    chatContainerRef.current?.scrollToLastMessage?.();
+    // Immediate scroll to bottom to show latest message
+    chatContainerRef.current?.scrollToBottom?.('smooth');
     
-    // Delayed scroll to account for keyboard animation (~350ms for iOS)
+    // Delayed scroll to account for keyboard animation
     setTimeout(() => {
-      chatContainerRef.current?.scrollToLastMessage?.();
-    }, 350);
+      chatContainerRef.current?.scrollToBottom?.('smooth');
+    }, 300);
   }, [isMobilePhone]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
@@ -118,18 +118,18 @@ const AIChat = ({
     }
   }, [canInteract, historyLoading]);
 
-  // Phase 1: Scroll to show last message when keyboard becomes visible
+  // Phase 1: Scroll to show messages when keyboard becomes visible
   useEffect(() => {
     if (!isMobilePhone) return;
     
     // Detect keyboard visibility transition
     if (isKeyboardVisible && !prevKeyboardVisible.current) {
-      // When keyboard appears, scroll to show the last message element
-      chatContainerRef.current?.scrollToLastMessage?.();
+      const offset = inputSectionHeight + 100;
+      chatContainerRef.current?.scrollToShowMessages?.(offset);
     }
     
     prevKeyboardVisible.current = isKeyboardVisible;
-  }, [isKeyboardVisible, isMobilePhone, inputSectionHeight, chatHistory.length]);
+  }, [isKeyboardVisible, isMobilePhone, inputSectionHeight]);
 
   // Phase 3: Listen for visualViewport resize events (optimized with debouncing)
   useEffect(() => {
@@ -145,8 +145,8 @@ const AIChat = ({
         
         // Keyboard appearing (viewport shrinking)
         if (currentHeight < lastHeight) {
-          // When keyboard appears, scroll to show the last message element
-          chatContainerRef.current?.scrollToLastMessage?.();
+          const offset = inputSectionHeight + 100;
+          chatContainerRef.current?.scrollToShowMessages?.(offset);
         }
         
         lastHeight = currentHeight;
@@ -159,7 +159,7 @@ const AIChat = ({
       clearTimeout(resizeTimer);
       window.visualViewport?.removeEventListener('resize', handleResize);
     };
-  }, [isMobilePhone, inputSectionHeight, chatHistory.length]);
+  }, [isMobilePhone, inputSectionHeight]);
 
   // Auto-scroll to latest message when navigating to /coach on mobile
   useEffect(() => {
