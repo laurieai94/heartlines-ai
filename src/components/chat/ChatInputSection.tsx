@@ -59,7 +59,8 @@ export const ChatInputSection = ({
     showUpgradeModal, 
     upgradeReason, 
     openUpgradeModal, 
-    closeUpgradeModal 
+    closeUpgradeModal,
+    isProfileLoading
   } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
@@ -298,8 +299,8 @@ export const ChatInputSection = ({
             <AIChatInput
               onSendMessage={handleSend} 
               loading={loading}
-              disabled={(accessLevel === 'profile-required' && !!user) || atLimit}
-              readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
+              disabled={(accessLevel === 'profile-required' && !!user && !isProfileLoading) || atLimit}
+              readOnly={(accessLevel === 'profile-required' && !!user && !isProfileLoading) || atLimit}
               sendBlocked={!user || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
               showProfileGlow={false}
               atLimit={atLimit}
