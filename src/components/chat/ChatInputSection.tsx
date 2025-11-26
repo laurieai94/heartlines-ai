@@ -228,7 +228,7 @@ export const ChatInputSection = ({
   return (
     <div 
       ref={containerRef}
-      className="chat-footer sticky bottom-0 left-0 right-0 flex-shrink-0 z-40 md:relative md:bottom-auto md:left-auto md:right-auto md:mb-8"
+      className="chat-footer absolute bottom-0 left-0 right-0 flex-shrink-0 z-40 md:relative md:bottom-auto md:left-auto md:right-auto md:mb-8"
       style={{
         paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
       }}
