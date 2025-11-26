@@ -338,6 +338,13 @@ const LandingPage = ({
             {/* Desktop Navigation CTAs */}
             <div className="hidden md:flex items-center gap-3 mr-6">
               {user ? <>
+                  <Link to="/profile">
+                    <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
+                      <User className="h-5 w-5" style={{
+                  color: '#ffc0cb'
+                }} />
+                    </Button>
+                  </Link>
                   <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer">
                     {/* Glow effect */}
                     <div className="absolute -inset-1 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" style={{

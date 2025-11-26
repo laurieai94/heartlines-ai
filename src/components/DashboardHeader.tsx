@@ -181,6 +181,16 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             </Sheet>
             
           </div>
+          
+          {/* User avatar on the right side */}
+          <div className="hidden md:flex items-center">
+            <SignInButton
+              user={user} 
+              onSignInClick={onSignInClick} 
+              onOpenProfile={onOpenProfile}
+              disableMenuOnMobile={true}
+            />
+          </div>
         </div>
 
         {/* Desktop Navigation - Hidden on mobile */}
@@ -239,41 +249,22 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     </button>
                   );
                 })}
-                
-                {/* Separator before sign out */}
-                <div className="h-px bg-white/10 my-1" />
-                
-                {/* Sign Out button */}
-                <button
-                  onClick={handleSignOut}
-                  title="sign out"
-                  className="flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 text-rose-300 hover:text-white hover:bg-rose-500/20"
-                  style={{ 
-                    minHeight: '48px', 
-                    minWidth: '48px', 
-                    maxHeight: '48px', 
-                    maxWidth: '48px', 
-                    padding: '12px',
-                    WebkitTapHighlightColor: 'transparent',
-                    touchAction: 'manipulation',
-                    transform: 'translateZ(0)'
-                  }}
-                >
-                  <LogOut className="h-6 w-6" strokeWidth={2} />
-                </button>
               </PopoverContent>
             </Popover>
             
           </div>
           
-          {isAdmin && (
-            <Link 
-              to="/admin"
-              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-400/20 to-coral-400/20 hover:from-pink-400/30 hover:to-coral-400/30 border border-pink-400/30 text-white text-sm font-medium transition-all"
-            >
-              admin
-            </Link>
-          )}
+          <div className="flex items-center gap-3">
+            {isAdmin && (
+              <Link 
+                to="/admin"
+                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-400/20 to-coral-400/20 hover:from-pink-400/30 hover:to-coral-400/30 border border-pink-400/30 text-white text-sm font-medium transition-all"
+              >
+                admin
+              </Link>
+            )}
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} disableMenuOnMobile={activeTab === 'insights'} />
+          </div>
         </div>
       </div>
     </div>

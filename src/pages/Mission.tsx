@@ -29,7 +29,7 @@ const Mission = () => {
       <div className="landing-page-scroll min-h-screen bg-burgundy-800 flex flex-col relative overflow-hidden">
       <PremiumBackground />
       
-      <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} />
+      <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
         <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-12 md:space-y-16 overflow-x-hidden">
           {/* 1. Hero Section */}

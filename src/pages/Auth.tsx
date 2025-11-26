@@ -435,7 +435,7 @@ const Auth = () => {
                     <Label htmlFor="reset-email" className="text-white text-sm">
                       email
                     </Label>
-                    <Input id="reset-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="drop your email" required />
+                    <Input id="reset-email" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="drop your email" required />
                   </div>
 
                   {formErrors.length > 0 && <div className="p-3 rounded-lg bg-red-500/20 border border-red-400/30">
@@ -474,8 +474,6 @@ const Auth = () => {
                   <Input 
                     id="email" 
                     type="email" 
-                    name="email"
-                    autoComplete="email"
                     value={formData.email} 
                     onChange={e => handleInputChange('email', e.target.value)} 
                     placeholder="drop your email" 
@@ -492,7 +490,7 @@ const Auth = () => {
               </Label>
               <div className="space-y-2">
                 <div className="relative">
-                  <Input id="password" type={showPassword ? 'text' : 'password'} name={isSignUp ? 'new-password' : 'current-password'} autoComplete={isSignUp ? 'new-password' : 'current-password'} value={formData.password} onChange={e => handleInputChange('password', e.target.value)} placeholder="keep it secret" pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined} title={isSignUp ? getPasswordPolicyText() : undefined} className={isPasswordValid() ? 'pr-20' : 'pr-12'} required />
+                  <Input id="password" type={showPassword ? 'text' : 'password'} value={formData.password} onChange={e => handleInputChange('password', e.target.value)} placeholder="keep it secret" pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined} title={isSignUp ? getPasswordPolicyText() : undefined} className={isPasswordValid() ? 'pr-20' : 'pr-12'} required />
                   <Button type="button" variant="ghost" size="sm" onClick={() => setShowPassword(!showPassword)} className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent">
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
@@ -514,7 +512,7 @@ const Auth = () => {
                   confirm password
                 </Label>
                 <div className="relative">
-                  <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} name="new-password" autoComplete="new-password" value={formData.confirmPassword} onChange={e => handleInputChange('confirmPassword', e.target.value)} placeholder="confirm your password" className={isConfirmPasswordValid() ? 'pr-20' : 'pr-12'} required />
+                  <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} value={formData.confirmPassword} onChange={e => handleInputChange('confirmPassword', e.target.value)} placeholder="confirm your password" className={isConfirmPasswordValid() ? 'pr-20' : 'pr-12'} required />
                   <Button type="button" variant="ghost" size="sm" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent">
                     {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
