@@ -522,19 +522,18 @@ html {
   }
 
   /* Make chat route an opaque, isolated paint root on mobile */
+  /* DO NOT override position - Tailwind's absolute positioning is required for mobile layout */
   .chat-page .chat-root {
     background: var(--chat-surface);
     isolation: isolate;                /* blocks background/gradient bleed */
-    position: relative;
     overflow: clip;                    /* prevents backdrop peeking during URL bar/keyboard anims */
-    min-height: 100dvh;                /* dynamic viewport units for iOS/Android */
   }
 
   /* Ensure the scroll pane is the ONLY overflow container and is opaque */
+  /* DO NOT set min-height - absolute positioning controls height */
   .chat-page #chat-scroll {
     background: var(--chat-surface);
     overscroll-behavior: contain;
-    min-height: 100%;
   }
 
   /* Header on mobile - opaque, no blur */
@@ -570,9 +569,9 @@ html {
       filter: none !important; /* nukes filter: drop-shadow() glow artifacts */
     }
     
-    /* Ensure mobile scroll container has proper height */
+    /* Scroll container background for iOS */
+    /* DO NOT set min-height here - absolute positioning controls height */
     .chat-page #chat-scroll {
-      min-height: 100dvh;
       background: var(--chat-surface) !important;
     }
     
