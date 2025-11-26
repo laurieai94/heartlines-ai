@@ -454,7 +454,7 @@ const Auth = () => {
                   </Button>
                 </form>}
             </> : <>
-          {!isSignUp && <div className="hidden sm:block text-center mb-3 sm:mb-4 flex-shrink-0">
+          {!isSignUp && <div className="block text-center mb-3 sm:mb-4 flex-shrink-0">
             <PhoneLockup 
               size="lg"
               showTagline={true}

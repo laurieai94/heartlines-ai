@@ -52,12 +52,12 @@ const PrivacySecurity = () => {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 backdrop-blur-xl shadow-lg">
         <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto px-4 sm:px-6 xl:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between pt-4 pb-4 md:pt-5 md:pb-4 lg:pt-6 lg:pb-5">
             {/* Left: Hamburger Menu */}
             <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <PopoverTrigger asChild>
                 <Button variant="ghost" className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent border-0 p-0 transition-all duration-200" aria-label="open menu">
-                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
+                  <FlipPhoneIcon className="h-11 w-11 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 xl:h-16 xl:w-16" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent side="bottom" align="start" className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" onInteractOutside={() => setIsMenuOpen(false)} onEscapeKeyDown={() => setIsMenuOpen(false)}>
@@ -78,9 +78,25 @@ const PrivacySecurity = () => {
                 }} />
                 </Button>
               </Link>
-              <Link to="/signup">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                  get started
+              <Link to="/signup" className="relative group inline-block">
+                {/* Glow effect */}
+                <div className="absolute -inset-1 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" style={{
+                  background: 'linear-gradient(to right, #FF8A50, #EC4899)'
+                }} />
+                
+                <Button className="relative text-white px-4 py-2.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300" style={{
+                  background: 'linear-gradient(to right, #FF8A50, #EC4899)',
+                  boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+                }}>
+                  {/* Shimmer overlay */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 animate-shimmer" style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                      backgroundSize: '200% 100%'
+                    }} />
+                  </div>
+                  
+                  <span className="relative z-10 text-sm font-medium">get started</span>
                 </Button>
               </Link>
             </div>

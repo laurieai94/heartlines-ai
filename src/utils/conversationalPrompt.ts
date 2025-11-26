@@ -3,12 +3,16 @@ import { PersonContext, ProfileData, DemographicsData } from "@/types/AIInsights
 import { InsightBuilders } from "./prompt/insightBuilders";
 import { FamilyBackgroundBuilder } from "./prompt/familyBackgroundBuilder";
 import { DynamicsBuilder } from "./prompt/dynamicsBuilder";
-import { PromptTemplate } from "./prompt/promptTemplate";
+import { PromptTemplateCompressed } from "./prompt/promptTemplateCompressed";
 import { GoalsBuilder } from "./prompt/goalsBuilder";
 import { ProfileGoalsUtility } from "./profileGoals";
 
 export class ConversationalPromptBuilder {
-  static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
+  static async buildConversationalPrompt(
+    context: PersonContext, 
+    conversationHistory: any[] = [],
+    conversationMemory: string = ''
+  ): Promise<string> {
     const yourName = context.yourTraits?.name || '';
     const partnerName = context.partnerTraits?.name || '';
     
@@ -45,7 +49,7 @@ Respond conversationally, summarizing what you know about them and their relatio
     );
     
     // Build the complete prompt using the template
-    return PromptTemplate.buildMainPrompt(
+    return PromptTemplateCompressed.buildMainPrompt(
       yourName,
       partnerName,
       personalInsights,
@@ -54,11 +58,12 @@ Respond conversationally, summarizing what you know about them and their relatio
       familyBackgroundInsights,
       dynamics,
       conversationHistory,
-      goalsInsights
+      goalsInsights,
+      conversationMemory
     );
   }
 
   static buildDebugPrompt(context: PersonContext, profiles: ProfileData, demographicsData: DemographicsData): string {
-    return PromptTemplate.buildDebugPrompt(context, profiles, demographicsData);
+    return PromptTemplateCompressed.buildDebugPrompt(context, profiles, demographicsData);
   }
 }

@@ -5,6 +5,7 @@ import { UseProfileGoalsReturn } from '@/hooks/useProfileGoals';
 import { AICoachEngine } from '../AICoachEngine';
 import { useConversationTopics } from '@/hooks/useConversationTopics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ChatMessageHandlerProps {
   profiles: ProfileData;
@@ -29,6 +30,7 @@ export const useChatMessageHandler = ({
   const messageIdCounter = useRef(Date.now());
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
+  const { user } = useAuth();
 
   // Stable ID generation to prevent duplicate messages
   const generateMessageId = useCallback(() => {
@@ -76,7 +78,7 @@ export const useChatMessageHandler = ({
         // Use debug prompt that lists all available information
         conversationalPrompt = AICoachEngine.buildDebugPrompt(context, profiles, demographicsData);
       } else {
-        conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, historySnapshot);
+        conversationalPrompt = await AICoachEngine.buildConversationalPrompt(context, historySnapshot, user?.id);
         
         // Enhance with goals if available
         if (profileGoals?.hasGoals) {

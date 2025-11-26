@@ -98,23 +98,18 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   return (
     <div 
       className={`w-full fixed top-0 left-0 right-0 z-50 ${isCoachMode ? 'bg-transparent backdrop-blur-sm' : 'bg-transparent'} ${
-        compact ? 'pt-0 md:pt-0 lg:pt-0' : 'pt-0 md:pt-0 lg:pt-2'
+        compact ? 'pt-2 pb-2 md:pt-4 md:pb-3 lg:pt-5 lg:pb-4' : 'pt-2 pb-2 md:pt-5 md:pb-4 lg:pt-6 lg:pb-5'
       }`}
       style={{ 
         transform: 'none', 
-        isolation: 'isolate',
-        paddingTop: isCoachMode ? 'max(0px, env(safe-area-inset-top))' : '0'
+        isolation: 'isolate'
       }}
     >
-      <div className={`max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative ${
-        isCoachMode 
-          ? 'pl-1 pr-3 py-2' // Compact padding with more right breathing room on coach page
-          : 'pl-4 pr-2 sm:pr-4 py-3' // Match homepage padding on mobile, balanced on larger screens
-      }`}>
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative pl-4 pr-2 sm:pr-4 py-1 md:py-3">
         
         {/* Mobile Navigation - Always visible */}
         <div className={`flex items-center justify-between md:hidden transition-all duration-150 ${
-          isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
+          isCoachMode ? 'min-h-[36px]' : 'min-h-[44px]'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
             <Sheet open={navigationOpened} onOpenChange={setNavigationOpened}>
@@ -123,7 +118,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   variant="ghost" 
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
-                  <FlipPhoneIcon className="h-12 w-12 sm:h-14 sm:w-14" />
+                  <FlipPhoneIcon className="h-10 w-10 sm:h-12 sm:w-12" />
                 </Button>
               </SheetTrigger>
               <SheetContent 
@@ -193,7 +188,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   variant="ghost" 
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
-                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
+                  <FlipPhoneIcon className="h-11 w-11 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 xl:h-16 xl:w-16" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
