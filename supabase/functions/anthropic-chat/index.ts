@@ -439,8 +439,12 @@ serve(async (req) => {
         // Don't fail the request if summary generation fails
       }
       
+      // Apply lowercase texting style to response
+      const rawResponse = data.content[0].text;
+      const styledResponse = rawResponse.toLowerCase();
+      
       return new Response(
-        JSON.stringify({ response: data.content[0].text }),
+        JSON.stringify({ response: styledResponse }),
         { 
           headers: { 
             ...corsHeaders,
