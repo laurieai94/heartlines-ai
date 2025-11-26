@@ -298,8 +298,9 @@ export const ChatInputSection = ({
             <AIChatInput
               onSendMessage={handleSend} 
               loading={loading}
-              disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
+              disabled={(accessLevel === 'profile-required' && !!user) || atLimit}
               readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
+              sendBlocked={!user || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
               showProfileGlow={false}
               atLimit={atLimit}
                 placeholder={
