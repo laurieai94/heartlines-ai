@@ -140,7 +140,7 @@ const AIChatInput = ({
           onBlur={() => onInputBlur?.()}
           onClick={() => onInputFocus?.()}
           placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "What's up?" : ""))}
-          readOnly={readOnly || disabled}
+          readOnly={readOnly}
           aria-label={readOnly ? "Click to complete your profile to unlock AI chat" : undefined}
           inputMode="text"
           autoCapitalize="sentences"
