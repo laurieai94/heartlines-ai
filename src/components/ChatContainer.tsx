@@ -354,7 +354,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       {/* Fixed profile completion nudge - floats above scrolling messages */}
       {showProfileNudge && !loading && (
         <div 
-          className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          className="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-50 pointer-events-none"
         >
           <div className="pointer-events-auto">
             <OnboardingStepNudge 

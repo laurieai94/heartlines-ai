@@ -9,7 +9,6 @@ interface AIChatInputProps {
   loading: boolean;
   disabled?: boolean;
   readOnly?: boolean;
-  sendBlocked?: boolean;
   placeholder?: string;
   inputRef?: React.RefObject<HTMLTextAreaElement>;
   onInputFocus?: () => void;
@@ -26,7 +25,6 @@ const AIChatInput = ({
   loading, 
   disabled,
   readOnly,
-  sendBlocked,
   placeholder,
   inputRef,
   onInputFocus,
@@ -46,8 +44,8 @@ const AIChatInput = ({
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
     if (loading) return; // Don't send while AI is thinking
-    if (disabled || sendBlocked) {
-      // If disabled or sendBlocked, trigger onInputFocus to show auth/profile modal
+    if (disabled) {
+      // If disabled, trigger onInputFocus to show auth/profile modal
       onInputFocus?.();
       return;
     }
@@ -142,7 +140,7 @@ const AIChatInput = ({
           onBlur={() => onInputBlur?.()}
           onClick={() => onInputFocus?.()}
           placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "What's up?" : ""))}
-          readOnly={readOnly}
+          readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile to unlock AI chat" : undefined}
           inputMode="text"
           autoCapitalize="sentences"

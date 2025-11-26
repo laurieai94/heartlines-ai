@@ -9,7 +9,8 @@ export const useAdminAnalytics = () => {
     queryKey: ['admin-analytics'],
     queryFn: async () => {
       const { data: summary, error } = await supabase
-        .rpc('get_user_analytics_summary');
+        .from('user_analytics_summary')
+        .select('*');
 
       if (error) throw error;
 

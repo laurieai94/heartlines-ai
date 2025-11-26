@@ -73,7 +73,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
   
   return (
     <div className="w-full fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 backdrop-blur-xl mb-1 sm:mb-2" style={{ transform: 'none', isolation: 'isolate' }}>
-      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto pl-4 pr-5 sm:px-6 xl:px-8 pt-4 pb-4 md:pt-5 md:pb-4 lg:pt-6 lg:pb-5">
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto pl-4 pr-5 sm:px-6 xl:px-8 py-3">
         
         {/* Navigation - All Screens */}
         <div className="flex items-center justify-between">
@@ -84,7 +84,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
                   variant="ghost" 
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                 >
-                  <FlipPhoneIcon className="h-11 w-11 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 xl:h-16 xl:w-16" />
+                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
