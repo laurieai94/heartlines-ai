@@ -310,6 +310,7 @@ export const useProgressiveAccess = () => {
     showUpgradeModal,
     upgradeReason,
     openUpgradeModal,
-    closeUpgradeModal
+    closeUpgradeModal,
+    isProfileLoading: !personalStorage.isReady
   };
 };
