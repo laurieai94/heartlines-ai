@@ -65,6 +65,36 @@ export type Database = {
         }
         Relationships: []
       }
+      conversation_summaries: {
+        Row: {
+          conversation_count: number
+          created_at: string
+          id: string
+          key_topics: string[] | null
+          last_updated: string
+          summary_text: string
+          user_id: string
+        }
+        Insert: {
+          conversation_count?: number
+          created_at?: string
+          id?: string
+          key_topics?: string[] | null
+          last_updated?: string
+          summary_text: string
+          user_id: string
+        }
+        Update: {
+          conversation_count?: number
+          created_at?: string
+          id?: string
+          key_topics?: string[] | null
+          last_updated?: string
+          summary_text?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversation_topics: {
         Row: {
           frequency: number
@@ -278,6 +308,39 @@ export type Database = {
         }
         Relationships: []
       }
+      subscription_events: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          from_tier: string | null
+          id: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          to_tier: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          from_tier?: string | null
+          id?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          to_tier: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          from_tier?: string | null
+          id?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          to_tier?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_message_usage: {
         Row: {
           created_at: string
@@ -479,33 +542,52 @@ export type Database = {
         }
         Relationships: []
       }
-      user_analytics_summary: {
-        Row: {
-          avg_conversation_duration_minutes: number | null
-          avg_input_tokens: number | null
-          avg_messages_per_conversation: number | null
-          avg_output_tokens: number | null
-          avg_session_duration_minutes: number | null
-          cost_last_30_days: number | null
-          email: string | null
-          is_subscribed: boolean | null
-          joined_at: string | null
-          last_activity: string | null
-          messages_this_month: number | null
-          subscription_tier: string | null
-          total_conversation_time_minutes: number | null
-          total_conversations: number | null
-          total_cost: number | null
-          total_input_tokens: number | null
-          total_output_tokens: number | null
-          total_tokens: number | null
-          user_id: string | null
-          user_name: string | null
-        }
-        Relationships: []
-      }
     }
     Functions: {
+      get_subscription_analytics_summary: {
+        Args: never
+        Returns: {
+          annual_recurring_revenue: number
+          average_revenue_per_user: number
+          avg_days_to_first_subscription: number
+          cancellations_this_month: number
+          conversion_rate_percentage: number
+          downgrades_this_month: number
+          glow_subscribers: number
+          median_days_to_first_subscription: number
+          monthly_recurring_revenue: number
+          new_subscriptions_this_month: number
+          total_paid_subscribers: number
+          unlimited_subscribers: number
+          upgrades_this_month: number
+          vibe_subscribers: number
+        }[]
+      }
+      get_user_analytics_summary: {
+        Args: never
+        Returns: {
+          avg_conversation_duration_minutes: number
+          avg_input_tokens: number
+          avg_messages_per_conversation: number
+          avg_output_tokens: number
+          avg_session_duration_minutes: number
+          cost_last_30_days: number
+          email: string
+          is_subscribed: boolean
+          joined_at: string
+          last_activity: string
+          messages_this_month: number
+          subscription_tier: string
+          total_conversation_time_minutes: number
+          total_conversations: number
+          total_cost: number
+          total_input_tokens: number
+          total_output_tokens: number
+          total_tokens: number
+          user_id: string
+          user_name: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
