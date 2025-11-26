@@ -297,7 +297,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
   return (
     <div 
-      className="chat-root absolute inset-0 flex flex-col md:relative md:flex-1 md:min-h-0"
+      className="chat-root flex flex-col h-full md:relative md:flex-1 md:min-h-0"
       style={containerStyle}
     >
       {/* Conditional rendering: Native scroll on mobile, Radix ScrollArea on desktop */}
@@ -306,7 +306,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         <div
           id="chat-scroll"
           ref={viewportRef}
-          className="chat-scroll mobile-native-scroll absolute left-0 right-0 top-0 md:top-0 bottom-0 overflow-y-auto"
+          className="chat-scroll mobile-native-scroll flex-1 overflow-y-auto"
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
