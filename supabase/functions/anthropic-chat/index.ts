@@ -123,12 +123,73 @@ serve(async (req) => {
       }
     }
 
-    const messages = [
-      ...conversationHistory,
-      { role: 'user', content: userMessage }
-    ]
+    // Message complexity classification
+    const classifyMessageComplexity = (message: string): 'simple' | 'complex' => {
+      const lowerMessage = message.toLowerCase().trim();
+      
+      // Simple patterns (greetings, acknowledgments, very short)
+      const simplePatterns = [
+        /^(hi|hey|hello|thanks|thank you|ok|okay|yes|yeah|yep|no|nope|sure|got it|i see|go on|continue|tell me more)\.?$/i,
+        /^.{0,30}$/  // Very short messages (under 30 chars)
+      ];
+      
+      if (simplePatterns.some(p => p.test(lowerMessage))) {
+        return 'simple';
+      }
+      
+      // Complex keywords (crisis, emotional depth, relationship issues)
+      const complexKeywords = [
+        'suicide', 'kill', 'hurt', 'abuse', 'trauma', 'ptsd', 'crisis',
+        'cheating', 'affair', 'divorce', 'breakup', 'trust', 'betrayed',
+        'panic', 'anxiety', 'depressed', 'scared', 'terrified', 'hopeless',
+        'help', 'lost', 'alone', 'hate', 'angry', 'furious', 'devastated'
+      ];
+      
+      if (complexKeywords.some(kw => lowerMessage.includes(kw)) || message.length > 200) {
+        return 'complex';
+      }
+      
+      return 'simple';
+    };
 
-    console.log('Calling Anthropic API with Claude Sonnet 4.5...')
+    // Model selection based on complexity
+    const getModelConfig = (complexity: 'simple' | 'complex') => {
+      if (complexity === 'simple') {
+        return {
+          model: 'claude-3-5-haiku-20241022',
+          max_tokens: 150,
+          inputCostPer1M: 0.0000008,
+          outputCostPer1M: 0.000004
+        };
+      }
+      return {
+        model: 'claude-sonnet-4-5-20250929',
+        max_tokens: 400,
+        inputCostPer1M: 0.000003,
+        outputCostPer1M: 0.000015
+      };
+    };
+
+    // Truncate conversation history to last 15 messages
+    const truncateHistory = (history: any[], maxMessages: number = 15) => {
+      if (history.length <= maxMessages) return history;
+      return history.slice(-maxMessages);
+    };
+
+    // Classify message and select model
+    const complexity = classifyMessageComplexity(userMessage);
+    const modelConfig = getModelConfig(complexity);
+    
+    console.log(`Message complexity: ${complexity}, using model: ${modelConfig.model}`);
+
+    // Truncate history and build messages
+    const truncatedHistory = truncateHistory(conversationHistory);
+    const messages = [
+      ...truncatedHistory,
+      { role: 'user', content: userMessage }
+    ];
+
+    console.log(`Calling Anthropic API with ${modelConfig.model}...`);
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -138,8 +199,8 @@ serve(async (req) => {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5-20250929',
-        max_tokens: 400,
+        model: modelConfig.model,
+        max_tokens: modelConfig.max_tokens,
         messages: messages,
         system: systemPrompt
       })
@@ -168,10 +229,10 @@ serve(async (req) => {
       try {
         const inputTokens = data.usage?.input_tokens || 0;
         const outputTokens = data.usage?.output_tokens || 0;
-        const model = 'claude-sonnet-4-5-20250929';
+        const model = modelConfig.model;
         
-        // Calculate cost (Claude Sonnet 4.5: $3/1M input, $15/1M output tokens)
-        const estimatedCost = (inputTokens * 0.000003) + (outputTokens * 0.000015);
+        // Calculate cost based on actual model used
+        const estimatedCost = (inputTokens * modelConfig.inputCostPer1M) + (outputTokens * modelConfig.outputCostPer1M);
         
         const { error: tokenError } = await supabaseService
           .from('user_token_usage')
