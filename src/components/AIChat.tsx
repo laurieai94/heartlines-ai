@@ -105,10 +105,10 @@ const AIChat = ({
     // Immediate scroll to last message to show it within visible viewport
     chatContainerRef.current?.scrollToLastMessage?.();
     
-    // Delayed scroll to account for keyboard animation
+    // Delayed scroll to account for keyboard animation (~350ms for iOS)
     setTimeout(() => {
       chatContainerRef.current?.scrollToLastMessage?.();
-    }, 300);
+    }, 350);
   }, [isMobilePhone]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
