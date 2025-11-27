@@ -249,6 +249,7 @@ const SignUpModal = ({
                         <label htmlFor="reset-email" className="sr-only">Drop your email</label>
                         <input
                           id="reset-email"
+                          name="email"
                           type="email"
                           autoComplete="email"
                           inputMode="email"
@@ -285,6 +286,7 @@ const SignUpModal = ({
                       <label htmlFor="name" className="sr-only">What should we call you?</label>
                       <input
                         id="name"
+                        name="name"
                         type="text"
                         autoComplete="name"
                         value={name}
@@ -300,6 +302,7 @@ const SignUpModal = ({
                     <label htmlFor="email" className="sr-only">Drop your email</label>
                     <input
                       id="email"
+                      name="email"
                       type="email"
                       autoComplete="email"
                       inputMode="email"
@@ -317,6 +320,7 @@ const SignUpModal = ({
                         <label htmlFor="password" className="sr-only">Password</label>
                         <input
                           id="password"
+                          name={isSignUp ? "new-password" : "password"}
                           type={showPassword ? "text" : "password"}
                           autoComplete={isSignUp ? "new-password" : "current-password"}
                           value={password}
