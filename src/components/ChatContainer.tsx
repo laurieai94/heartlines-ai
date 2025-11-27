@@ -243,10 +243,10 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             <div className="flex items-center">
               <span className="text-xs text-pink-200/60 italic">
                 pondering
-                <span className="inline-flex ml-0.5">
-                  <span className="animate-[fadeInOut_1.4s_ease-in-out_infinite]">.</span>
-                  <span className="animate-[fadeInOut_1.4s_ease-in-out_0.2s_infinite]">.</span>
-                  <span className="animate-[fadeInOut_1.4s_ease-in-out_0.4s_infinite]">.</span>
+                <span className="inline-flex ml-0.5 gap-[2px]">
+                  <span className="animate-dot-pulse [animation-delay:0s]">.</span>
+                  <span className="animate-dot-pulse [animation-delay:0.15s]">.</span>
+                  <span className="animate-dot-pulse [animation-delay:0.3s]">.</span>
                 </span>
               </span>
             </div>
