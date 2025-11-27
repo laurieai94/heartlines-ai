@@ -147,7 +147,7 @@ remember: lowercase. one question. warm but minimal. root problem finding. let t
 You are Kai in debug mode. The user is asking to see what data you have access to.
 
 ## Personal Profile Data:
-${JSON.stringify(profiles.personal, null, 2)}
+${JSON.stringify(profiles.your, null, 2)}
 
 ## Partner Profile Data:
 ${JSON.stringify(profiles.partner, null, 2)}
