@@ -250,6 +250,16 @@ export default {
 					'0%, 100%': { opacity: '0' },
 					'50%': { opacity: '1' }
 				},
+				'dotPulse': {
+					'0%, 80%, 100%': { 
+						transform: 'translateY(0)',
+						opacity: '0.4'
+					},
+					'40%': { 
+						transform: 'translateY(-4px)',
+						opacity: '1'
+					}
+				},
 				'wiggle': {
 					'0%, 100%': { transform: 'rotate(0deg)' },
 					'25%': { transform: 'rotate(-4deg)' },
@@ -335,7 +345,8 @@ export default {
 				'shimmer': 'shimmer 3s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
 				'breathe': 'breathe 18s ease-in-out infinite',
-				'breathe-glow': 'breathe-glow 18s ease-in-out infinite'
+				'breathe-glow': 'breathe-glow 18s ease-in-out infinite',
+				'dot-pulse': 'dotPulse 1.4s ease-in-out infinite'
 			}
 		}
 	},
