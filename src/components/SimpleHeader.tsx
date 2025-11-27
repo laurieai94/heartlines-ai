@@ -79,61 +79,128 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
         {/* Navigation - All Screens */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+            {/* Mobile Sheet Drawer */}
+            <div className="md:hidden">
+              <Sheet open={navigationOpened} onOpenChange={setNavigationOpened}>
+                <SheetTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+                  >
+                    <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent 
+                  side="left" 
+                  hideClose={true}
+                  className="w-[260px] bg-gradient-to-br from-burgundy-900/75 to-burgundy-800/75 backdrop-blur-2xl border-r border-coral-400/10"
                 >
-                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent 
-                align="start"
-                sideOffset={8}
-                collisionPadding={0}
-                avoidCollisions={false}
-                className="w-16 p-2 z-[45] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
-                style={{ 
-                  contain: 'layout',
-                  transform: 'translateZ(0)',
-                  willChange: 'transform, opacity',
-                  WebkitTapHighlightColor: 'transparent',
-                  touchAction: 'manipulation'
-                }}
-              >
-                <nav className="flex flex-col gap-0.5">
-                  {navigationItems.map((item) => {
-                    const IconComponent = item.icon;
-                    const isActive = activeTab === item.value;
-                    return (
-                      <button
-                        key={item.value}
-                        onClick={() => handleNavigation(item)}
-                        title={item.label}
-                        className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
-                          isActive 
-                            ? 'text-white bg-white/20' 
-                            : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
-                        }`}
-                        style={{ 
-                          minHeight: '48px', 
-                          minWidth: '48px', 
-                          maxHeight: '48px', 
-                          maxWidth: '48px', 
-                          padding: '12px',
-                          WebkitTapHighlightColor: 'transparent',
-                          touchAction: 'manipulation',
-                          transform: 'translateZ(0)'
-                        }}
-                      >
-                        <IconComponent className="h-6 w-6" strokeWidth={2} />
-                      </button>
-                    );
-                  })}
-                </nav>
-              </PopoverContent>
-            </Popover>
+                  <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
+                    {navigationItems.map((item) => {
+                      const IconComponent = item.icon;
+                      const isActive = activeTab === item.value;
+                      return (
+                        <button
+                          key={item.value}
+                          onClick={() => handleNavigation(item)}
+                          className={`flex items-center gap-4 px-3 py-3 rounded-xl touch-manipulation transition-all duration-200 ${
+                            isActive 
+                              ? 'text-white bg-white/20' 
+                              : 'text-white/80 hover:bg-white/15 hover:text-white'
+                          }`}
+                          style={{ 
+                            minHeight: '48px',
+                            WebkitTapHighlightColor: 'transparent',
+                            touchAction: 'manipulation'
+                          }}
+                        >
+                          <IconComponent className="h-6 w-6" strokeWidth={2} />
+                          <span className="text-base font-medium">{item.label}</span>
+                        </button>
+                      );
+                    })}
+                    
+                    {/* Separator and Sign Out */}
+                    {user && (
+                      <>
+                        <div className="h-px bg-white/10 my-1" />
+                        <button
+                          onClick={handleSignOut}
+                          className="flex items-center gap-4 px-3 py-3 rounded-xl text-rose-300 hover:bg-rose-500/10 hover:text-rose-200 touch-manipulation transition-all duration-200"
+                          style={{ 
+                            minHeight: '48px',
+                            WebkitTapHighlightColor: 'transparent',
+                            touchAction: 'manipulation'
+                          }}
+                        >
+                          <LogOut className="h-6 w-6" strokeWidth={2} />
+                          <span className="text-base font-medium">sign out</span>
+                        </button>
+                      </>
+                    )}
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* Desktop Popover */}
+            <div className="hidden md:block">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+                  >
+                    <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent 
+                  align="start"
+                  sideOffset={8}
+                  collisionPadding={0}
+                  avoidCollisions={false}
+                  className="w-16 p-2 z-[45] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl"
+                  style={{ 
+                    contain: 'layout',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform, opacity',
+                    WebkitTapHighlightColor: 'transparent',
+                    touchAction: 'manipulation'
+                  }}
+                >
+                  <nav className="flex flex-col gap-0.5">
+                    {navigationItems.map((item) => {
+                      const IconComponent = item.icon;
+                      const isActive = activeTab === item.value;
+                      return (
+                        <button
+                          key={item.value}
+                          onClick={() => handleNavigation(item)}
+                          title={item.label}
+                          className={`flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 ${
+                            isActive 
+                              ? 'text-white bg-white/20' 
+                              : 'text-white/80 md:hover:bg-white/15 md:hover:text-white'
+                          }`}
+                          style={{ 
+                            minHeight: '48px', 
+                            minWidth: '48px', 
+                            maxHeight: '48px', 
+                            maxWidth: '48px', 
+                            padding: '12px',
+                            WebkitTapHighlightColor: 'transparent',
+                            touchAction: 'manipulation',
+                            transform: 'translateZ(0)'
+                          }}
+                        >
+                          <IconComponent className="h-6 w-6" strokeWidth={2} />
+                        </button>
+                      );
+                    })}
+                  </nav>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
           
           <div className="flex items-center">
