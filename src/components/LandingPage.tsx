@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock, LogOut } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { Link, useNavigate } from "react-router-dom";
@@ -115,6 +116,7 @@ const LandingPage = ({
   });
   const navigate = useNavigate();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleTalkToKai = () => {
     if (user) {
       navigate('/coach');
@@ -279,13 +281,67 @@ const LandingPage = ({
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`}>
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <Popover>
-                <PopoverTrigger asChild>
+              {/* Mobile Navigation Drawer */}
+              <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <SheetTrigger asChild className="md:hidden">
                   <Button 
                     variant="ghost" 
                     className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                   >
-                    <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
+                    <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent 
+                  side="left" 
+                  hideClose={true}
+                  className="w-20 bg-burgundy-800/95 backdrop-blur-xl border-r border-coral-400/20 rounded-r-3xl p-0"
+                >
+                  <nav className="flex flex-col items-center gap-2 py-6 h-full">
+                    {/* Flip Phone Icon at Top */}
+                    <div className="mb-4">
+                      <FlipPhoneIcon className="h-10 w-10 text-white" />
+                    </div>
+                    
+                    <div className="h-px w-12 bg-white/10 mb-2" />
+                    
+                    {/* Navigation Icons */}
+                    {navItems.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        onClick={() => setIsDrawerOpen(false)}
+                        className="flex items-center justify-center w-12 h-12 rounded-xl text-white/80 hover:text-white hover:bg-white/20 transition-all duration-200"
+                      >
+                        <item.icon className="w-6 h-6" strokeWidth={2} />
+                      </Link>
+                    ))}
+                    
+                    {user && (
+                      <>
+                        <div className="h-px w-12 bg-white/10 my-2 mt-auto" />
+                        <button
+                          onClick={async () => {
+                            setIsDrawerOpen(false);
+                            await signOut();
+                          }}
+                          className="flex items-center justify-center w-12 h-12 rounded-xl text-rose-300 hover:text-white hover:bg-rose-500/20 transition-all duration-200"
+                        >
+                          <LogOut className="w-6 h-6" strokeWidth={2} />
+                        </button>
+                      </>
+                    )}
+                  </nav>
+                </SheetContent>
+              </Sheet>
+
+              {/* Desktop Navigation Popover */}
+              <Popover>
+                <PopoverTrigger asChild className="hidden md:block">
+                  <Button 
+                    variant="ghost" 
+                    className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+                  >
+                    <FlipPhoneIcon className="h-12 w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent 
