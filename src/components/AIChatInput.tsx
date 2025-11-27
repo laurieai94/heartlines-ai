@@ -148,13 +148,11 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className={`w-full bg-transparent border-0 px-3 ${readOnly ? 'py-2' : 'py-1'} md:px-4 md:py-[8px] text-sm resize-none ${readOnly ? 'min-h-[44px]' : 'min-h-[36px]'} md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none mobile-chat-input`}
+          className={`w-full bg-transparent border-0 px-3 py-2 md:px-4 md:py-[8px] text-sm resize-none ${readOnly ? 'min-h-[44px]' : 'min-h-[36px]'} md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none mobile-chat-input`}
           style={{ 
             WebkitTapHighlightColor: 'transparent', 
             WebkitAppearance: 'none',
             textAlign: 'left',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
             caretColor: '#ffffff !important',
             WebkitTextFillColor: 'white !important',
             color: 'white !important',
