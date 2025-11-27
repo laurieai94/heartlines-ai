@@ -434,7 +434,8 @@ const Auth = () => {
                       email
                     </Label>
                     <Input 
-                      id="reset-email" 
+                      id="reset-email"
+                      name="email"
                       type="email" 
                       autoComplete="email"
                       inputMode="email"
@@ -472,14 +473,15 @@ const Auth = () => {
             />
           </div>}
 
-          <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-3">
+          <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-3" autoComplete="on">
             <div className="space-y-1">
               <Label htmlFor="email" className="text-white text-sm">
                 email
               </Label>
               <div className="relative">
                   <Input 
-                    id="email" 
+                    id="email"
+                    name="email"
                     type="email" 
                     autoComplete="email"
                     inputMode="email"
@@ -500,7 +502,8 @@ const Auth = () => {
               <div className="space-y-2">
                 <div className="relative">
                   <Input 
-                    id="password" 
+                    id="password"
+                    name={isSignUp ? "new-password" : "password"}
                     type={showPassword ? 'text' : 'password'} 
                     autoComplete={isSignUp ? "new-password" : "current-password"}
                     value={formData.password} 
@@ -533,7 +536,8 @@ const Auth = () => {
                 </Label>
                 <div className="relative">
                   <Input 
-                    id="confirmPassword" 
+                    id="confirmPassword"
+                    name="confirm-password"
                     type={showConfirmPassword ? 'text' : 'password'} 
                     autoComplete="new-password"
                     value={formData.confirmPassword} 
