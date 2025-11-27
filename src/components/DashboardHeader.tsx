@@ -241,6 +241,26 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     </button>
                   );
                 })}
+                
+                <div className="h-px bg-white/10 my-0.5" />
+                
+                <button
+                  onClick={handleSignOut}
+                  title="sign out"
+                  className="flex items-center justify-center rounded-xl cursor-pointer touch-manipulation md:transition-all md:duration-200 md:shadow-lg md:hover:shadow-xl active:scale-95 text-rose-300 hover:text-white hover:bg-rose-500/20"
+                  style={{ 
+                    minHeight: '48px', 
+                    minWidth: '48px', 
+                    maxHeight: '48px', 
+                    maxWidth: '48px', 
+                    padding: '12px',
+                    WebkitTapHighlightColor: 'transparent',
+                    touchAction: 'manipulation',
+                    transform: 'translateZ(0)'
+                  }}
+                >
+                  <LogOut className="h-6 w-6" strokeWidth={2} />
+                </button>
               </PopoverContent>
             </Popover>
             
