@@ -1,7 +1,4 @@
-interface AIServiceConfig {
-  supabaseUrl: string;
-  supabaseAnonKey: string;
-}
+import { supabase } from '@/integrations/supabase/client';
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
@@ -9,12 +6,8 @@ interface ChatMessage {
 }
 
 export class AIService {
-  private supabaseUrl: string;
-  private supabaseAnonKey: string;
-  
-  constructor(config: AIServiceConfig) {
-    this.supabaseUrl = config.supabaseUrl;
-    this.supabaseAnonKey = config.supabaseAnonKey;
+  constructor() {
+    // Using shared authenticated Supabase client
   }
 
   async generateResponse(
@@ -23,10 +16,6 @@ export class AIService {
     conversationHistory: ChatMessage[] = []
   ): Promise<string> {
     console.log('Making request to Supabase Edge Function...');
-    
-    // Import supabase client
-    const { createClient } = await import('@supabase/supabase-js');
-    const supabase = createClient(this.supabaseUrl, this.supabaseAnonKey);
     
     try {
       const { data, error } = await supabase.functions.invoke('anthropic-chat', {

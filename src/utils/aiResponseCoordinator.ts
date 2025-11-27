@@ -22,18 +22,8 @@ export class AIResponseCoordinator {
     conversationHistory: any[] = [],
     customPrompt?: string
   ): Promise<string> {
-    const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
-    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
-
-    if (!supabaseUrl || !supabaseAnonKey) {
-      throw new Error('🔧 **Configuration Required**\n\nPlease configure your Supabase settings to enable AI chat functionality.');
-    }
-
     try {
-      const aiService = new AIService({
-        supabaseUrl: supabaseUrl!,
-        supabaseAnonKey: supabaseAnonKey!
-      });
+      const aiService = new AIService();
 
       // Use the conversational prompt instead of clinical
       const conversationalPrompt = customPrompt || ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
