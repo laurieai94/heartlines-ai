@@ -15,7 +15,7 @@ import PhoneLockup from '@/components/Brand/PhoneLockup';
 import { listenForAuthSuccess } from '@/utils/authChannel';
 import { toast } from '@/components/ui/sonner';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
-import PremiumBackground from '@/components/PremiumBackground';
+
 const Auth = () => {
   const {
     user,
@@ -333,8 +333,6 @@ const Auth = () => {
     }
   };
   return <div className="min-h-screen bg-burgundy-800 auth-page-scroll relative">
-      <PremiumBackground />
-
       <div className="relative z-10 h-screen max-h-screen flex flex-col items-center justify-center px-4 overflow-y-auto">
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
