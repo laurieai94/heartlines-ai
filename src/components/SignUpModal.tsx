@@ -302,9 +302,9 @@ const SignUpModal = ({
                     <label htmlFor="email" className="sr-only">Drop your email</label>
                     <input
                       id="email"
-                      name="email"
+                      name={isSignUp ? "email" : "username"}
                       type="email"
-                      autoComplete="email"
+                      autoComplete={isSignUp ? "email" : "username"}
                       inputMode="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}

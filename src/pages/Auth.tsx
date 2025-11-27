@@ -473,7 +473,7 @@ const Auth = () => {
             />
           </div>}
 
-          <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-3" autoComplete="on">
+          <form onSubmit={handleSubmit} method="post" className="space-y-1.5 sm:space-y-3" autoComplete="on">
             <div className="space-y-1">
               <Label htmlFor="email" className="text-white text-sm">
                 email
@@ -481,9 +481,9 @@ const Auth = () => {
               <div className="relative">
                   <Input 
                     id="email"
-                    name="email"
+                    name={isSignUp ? "email" : "username"}
                     type="email" 
-                    autoComplete="email"
+                    autoComplete={isSignUp ? "email" : "username"}
                     inputMode="email"
                     value={formData.email} 
                     onChange={e => handleInputChange('email', e.target.value)} 
