@@ -93,48 +93,42 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
                 <SheetContent 
                   side="left" 
                   hideClose={true}
-                  className="w-[260px] bg-gradient-to-br from-burgundy-900/75 to-burgundy-800/75 backdrop-blur-2xl border-r border-coral-400/10"
+                  className="w-20 bg-burgundy-800/95 backdrop-blur-xl border-r border-coral-400/20 rounded-r-3xl p-0"
                 >
-                  <nav className="flex flex-col gap-0.5 pt-3 px-3 pb-3">
+                  <nav className="flex flex-col items-center gap-2 py-6 h-full">
+                    {/* Flip Phone Icon at Top */}
+                    <div className="mb-4">
+                      <FlipPhoneIcon className="h-10 w-10 text-white" />
+                    </div>
+                    <div className="h-px w-12 bg-white/10 mb-2" />
+
                     {navigationItems.map((item) => {
                       const IconComponent = item.icon;
                       const isActive = activeTab === item.value;
+                      
                       return (
                         <button
                           key={item.value}
                           onClick={() => handleNavigation(item)}
-                          className={`flex items-center gap-4 px-3 py-3 rounded-xl touch-manipulation transition-all duration-200 ${
+                          className={`flex items-center justify-center w-12 h-12 rounded-xl transition-all duration-200 ${
                             isActive 
                               ? 'text-white bg-white/20' 
-                              : 'text-white/80 hover:bg-white/15 hover:text-white'
+                              : 'text-white/80 hover:text-white hover:bg-white/20'
                           }`}
-                          style={{ 
-                            minHeight: '48px',
-                            WebkitTapHighlightColor: 'transparent',
-                            touchAction: 'manipulation'
-                          }}
                         >
-                          <IconComponent className="h-6 w-6" strokeWidth={2} />
-                          <span className="text-base font-medium">{item.label}</span>
+                          <IconComponent className="w-6 h-6" strokeWidth={2} />
                         </button>
                       );
                     })}
-                    
-                    {/* Separator and Sign Out */}
+
                     {user && (
                       <>
-                        <div className="h-px bg-white/10 my-1" />
+                        <div className="h-px w-12 bg-white/10 my-2 mt-auto" />
                         <button
                           onClick={handleSignOut}
-                          className="flex items-center gap-4 px-3 py-3 rounded-xl text-rose-300 hover:bg-rose-500/10 hover:text-rose-200 touch-manipulation transition-all duration-200"
-                          style={{ 
-                            minHeight: '48px',
-                            WebkitTapHighlightColor: 'transparent',
-                            touchAction: 'manipulation'
-                          }}
+                          className="flex items-center justify-center w-12 h-12 rounded-xl text-rose-300 hover:text-white hover:bg-rose-500/20 transition-all duration-200"
                         >
-                          <LogOut className="h-6 w-6" strokeWidth={2} />
-                          <span className="text-base font-medium">sign out</span>
+                          <LogOut className="w-6 h-6" strokeWidth={2} />
                         </button>
                       </>
                     )}
