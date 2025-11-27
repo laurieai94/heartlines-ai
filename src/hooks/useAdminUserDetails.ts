@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useIsAdmin } from './useUserRole';
+import { UserAnalyticsSummary } from '@/types/admin';
 
 export const useAdminUserDetails = (userId: string | null) => {
   const { isAdmin } = useIsAdmin();
@@ -10,11 +11,14 @@ export const useAdminUserDetails = (userId: string | null) => {
     queryFn: async () => {
       if (!userId) return null;
 
-      const { data: summary } = await supabase
-        .from('user_analytics_summary')
-        .select('*')
-        .eq('user_id', userId)
-        .single();
+      // Get all user analytics
+      const { data: allSummaries, error: summaryError } = await supabase
+        .rpc('get_user_analytics_summary') as { data: UserAnalyticsSummary[] | null; error: any };
+
+      if (summaryError) throw summaryError;
+
+      // Find the specific user's summary
+      const summary = allSummaries?.find(s => s.user_id === userId) || null;
 
       const { data: conversations } = await supabase
         .from('chat_conversations')

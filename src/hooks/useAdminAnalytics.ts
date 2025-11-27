@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useIsAdmin } from './useUserRole';
+import { UserAnalyticsSummary, DailyCostSummary } from '@/types/admin';
 
 export const useAdminAnalytics = () => {
   const { isAdmin } = useIsAdmin();
@@ -9,8 +10,7 @@ export const useAdminAnalytics = () => {
     queryKey: ['admin-analytics'],
     queryFn: async () => {
       const { data: summary, error } = await supabase
-        .from('user_analytics_summary')
-        .select('*');
+        .rpc('get_user_analytics_summary') as { data: UserAnalyticsSummary[] | null; error: any };
 
       if (error) throw error;
 
@@ -90,7 +90,7 @@ export const useAdminCostAnalytics = () => {
         .limit(30);
 
       if (error) throw error;
-      return data || [];
+      return (data || []) as DailyCostSummary[];
     },
     enabled: isAdmin,
     staleTime: 60000,
