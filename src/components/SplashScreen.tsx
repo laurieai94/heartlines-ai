@@ -32,7 +32,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     <div className="min-h-screen bg-burgundy-800 flex items-center justify-center">
       <div className="relative flex items-center space-x-4 sm:space-x-8 md:space-x-12">
         {/* Left line */}
-        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-left animate-line-left-sequence motion-reduce:hidden" />}
+        {showWordmark && <div className="hidden sm:block w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-left animate-line-left-sequence motion-reduce:hidden" />}
         
         {/* Phone Lockup or Text */}
         <div className="text-center">
@@ -58,7 +58,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
         </div>
         
         {/* Right line */}
-        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-right animate-line-right-sequence motion-reduce:hidden" />}
+        {showWordmark && <div className="hidden sm:block w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-right animate-line-right-sequence motion-reduce:hidden" />}
       </div>
     </div>
   );
