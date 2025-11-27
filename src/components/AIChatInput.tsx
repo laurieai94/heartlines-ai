@@ -119,17 +119,31 @@ const AIChatInput = ({
 
   return (
     <div className={`flex gap-1.5 md:gap-3 items-center px-1 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
-      <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
-        readOnly 
-          ? `border-2 ${
-              atLimit 
-                ? 'border-coral-400/30 shadow-[0_0_12px_rgba(251,146,60,0.25),0_0_24px_rgba(236,72,153,0.2),0_0_36px_rgba(251,113,133,0.15)] animate-pulse-glow' 
-                : 'border-pink-400/30'
-            }` 
-          : isMobile
-            ? 'border-2 border-pink-400/30 focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
-            : 'border-2 border-pink-400/30 ring-2 ring-pink-400/10 focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
-      }`}>
+      <div 
+        className={`flex-1 relative isolate rounded-2xl overflow-hidden cursor-text ${
+          readOnly 
+            ? `border-2 ${
+                atLimit 
+                  ? 'border-coral-400/30 shadow-[0_0_12px_rgba(251,146,60,0.25),0_0_24px_rgba(236,72,153,0.2),0_0_36px_rgba(251,113,133,0.15)] animate-pulse-glow' 
+                  : 'border-pink-400/30'
+              }` 
+            : isMobile
+              ? 'border-2 border-pink-400/30 focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
+              : 'border-2 border-pink-400/30 ring-2 ring-pink-400/10 focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
+        }`}
+        onClick={() => {
+          if (textareaRef.current && !readOnly && !disabled) {
+            textareaRef.current.focus();
+          }
+        }}
+        onTouchEnd={() => {
+          if (textareaRef.current && !readOnly && !disabled) {
+            requestAnimationFrame(() => {
+              textareaRef.current?.focus();
+            });
+          }
+        }}
+      >
         <Textarea
           unstyled
           ref={textareaRef}
