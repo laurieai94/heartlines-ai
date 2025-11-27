@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { MessageSquare, Settings, User, Home, CreditCard } from 'lucide-react';
-import FlipPhoneIcon from '@/components/icons/FlipPhoneIcon';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SiteFooter from '@/components/SiteFooter';
 import { SecurityDeepDive } from '@/components/privacy/SecurityDeepDive';
 import { DataFlowCards } from '@/components/privacy/DataFlowCards';
 import PremiumBackground from '@/components/PremiumBackground';
+import SimpleHeader from '@/components/SimpleHeader';
+import { useAuth } from '@/contexts/AuthContext';
 const PrivacySecurity = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
   useEffect(() => {
     document.title = 'privacy & security - realtalk | your data, your control';
 
@@ -24,69 +24,21 @@ const PrivacySecurity = () => {
       document.head.appendChild(meta);
     }
   }, []);
-  const navItems = [{
-    to: '/',
-    label: 'home',
-    icon: Home
-  }, {
-    to: '/profile',
-    label: 'profile',
-    icon: User
-  }, {
-    to: '/coach',
-    label: 'coach',
-    icon: MessageSquare
-  }, {
-    to: '/account',
-    label: 'my account',
-    icon: Settings
-  }, {
-    to: '/plans',
-    label: 'plans',
-    icon: CreditCard
-  }];
+
+  const handleSignInClick = () => {
+    navigate('/signin');
+  };
   return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
       {/* Background effects */}
       <PremiumBackground />
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-burgundy-800 border-b border-coral-400/20 backdrop-blur-xl shadow-lg">
-        <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto px-4 sm:px-6 xl:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Left: Hamburger Menu */}
-            <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <PopoverTrigger asChild>
-                <Button variant="ghost" className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent border-0 p-0 transition-all duration-200" aria-label="open menu">
-                  <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent side="bottom" align="start" className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" onInteractOutside={() => setIsMenuOpen(false)} onEscapeKeyDown={() => setIsMenuOpen(false)}>
-                <div className="flex flex-col">
-                  {navItems.map(item => <Link key={item.to} to={item.to} title={item.label} className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 p-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30 flex items-center justify-center" onClick={() => setIsMenuOpen(false)}>
-                      <item.icon className="w-5 h-5" />
-                    </Link>)}
-                </div>
-              </PopoverContent>
-            </Popover>
-
-            {/* Right: Sign In & Get Started */}
-            <div className="flex items-center gap-3">
-              <Link to="/signin">
-                <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
-                  <User className="h-5 w-5" style={{
-                  color: '#ffc0cb'
-                }} />
-                </Button>
-              </Link>
-              <Link to="/signup">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                  get started
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <SimpleHeader 
+        user={user}
+        activeTab=""
+        onSignInClick={handleSignInClick}
+        hideSignInButton={false}
+      />
 
       {/* Spacer for fixed nav */}
       <div className="h-16"></div>
