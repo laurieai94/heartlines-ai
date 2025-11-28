@@ -228,8 +228,9 @@ export const useProgressiveAccess = () => {
     
     // CRITICAL FIX: Wait for profile data to fully load before checking completion
     // This prevents false "profile incomplete" lockouts during data loading
-    if (!personalStorage.isReady) {
-      console.log('[ProgressiveAccess] Profile data still loading, returning last known access level');
+    // Check both isReady AND isLoading - if actively loading, wait
+    if (!personalStorage.isReady || personalStorage.isLoading) {
+      console.log('[ProgressiveAccess] Profile data loading, returning last known access level');
       // Return last known access level to prevent flickering during load
       return lastAccessLevelRef.current;
     }
@@ -241,7 +242,7 @@ export const useProgressiveAccess = () => {
     
     lastAccessLevelRef.current = 'full-access';
     return 'full-access';
-  }, [user, hasPersonalProfileForChat, missingFieldsForChat, personalStorage.profileData, personalStorage.isReady]);
+  }, [user, hasPersonalProfileForChat, missingFieldsForChat, personalStorage.profileData, personalStorage.isReady, personalStorage.isLoading]);
 
   // Memoized permission checker
   const checkInteractionPermission = useCallback((action: string): boolean => {

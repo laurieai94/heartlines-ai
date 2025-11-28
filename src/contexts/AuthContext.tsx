@@ -68,6 +68,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             localStorage.setItem('force_new_chat_after_signin', 'true');
           }
           
+          // Force profile reload from database on sign-in
+          // Use setTimeout to ensure user state is set first
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('profile:forceReload', {
+              detail: { profileType: 'all', source: 'signin' }
+            }));
+          }, 100);
+          
           clearTimeout(timeoutId);
           setLoading(false);
         } else if (event === 'SIGNED_OUT') {
