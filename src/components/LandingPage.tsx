@@ -286,7 +286,7 @@ const LandingPage = ({
                 <SheetTrigger asChild className="md:hidden">
                   <Button 
                     variant="ghost" 
-                    className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+                    className="h-auto text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                   >
                     <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11" />
                   </Button>
@@ -339,7 +339,7 @@ const LandingPage = ({
                 <PopoverTrigger asChild className="hidden md:block">
                   <Button 
                     variant="ghost" 
-                    className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
+                    className="h-auto text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white [&_svg]:drop-shadow-lg [&_svg]:hover:drop-shadow-xl"
                   >
                     <FlipPhoneIcon className="h-12 w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
                   </Button>
