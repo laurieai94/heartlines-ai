@@ -2,6 +2,10 @@ project_id = "relqmhrzyqckoaebscgx"
 
 [functions]
 
+[functions.cache-alert-email]
+# Cron job for cache monitoring, no JWT needed
+verify_jwt = false
+
 [functions.stripe-webhook]
 # Public webhook endpoint, no JWT needed
 verify_jwt = false
