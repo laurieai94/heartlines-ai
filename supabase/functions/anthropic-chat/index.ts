@@ -202,7 +202,13 @@ serve(async (req) => {
         model: modelConfig.model,
         max_tokens: modelConfig.max_tokens,
         messages: messages,
-        system: systemPrompt
+        system: [
+          {
+            type: "text",
+            text: systemPrompt,
+            cache_control: { type: "ephemeral" }
+          }
+        ]
       })
     })
 
@@ -225,21 +231,38 @@ serve(async (req) => {
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
-      // Log token usage
+      // Log token usage with cache metrics
       try {
         const inputTokens = data.usage?.input_tokens || 0;
         const outputTokens = data.usage?.output_tokens || 0;
+        const cacheCreationTokens = data.usage?.cache_creation_input_tokens || 0;
+        const cacheReadTokens = data.usage?.cache_read_input_tokens || 0;
         const model = modelConfig.model;
         
-        // Calculate cost based on actual model used
-        const estimatedCost = (inputTokens * modelConfig.inputCostPer1M) + (outputTokens * modelConfig.outputCostPer1M);
+        // Calculate cost with cache pricing
+        // Cache writes: 25% more expensive than base input
+        // Cache reads: 90% cheaper than base input (only 10% cost)
+        const baseInputCost = inputTokens * modelConfig.inputCostPer1M;
+        const cacheWriteCost = cacheCreationTokens * modelConfig.inputCostPer1M * 1.25;
+        const cacheReadCost = cacheReadTokens * modelConfig.inputCostPer1M * 0.10;
+        const outputCost = outputTokens * modelConfig.outputCostPer1M;
+        
+        const estimatedCost = baseInputCost + cacheWriteCost + cacheReadCost + outputCost;
+        
+        // Log cache performance
+        const totalInputTokens = inputTokens + cacheCreationTokens + cacheReadTokens;
+        console.log(`Cache stats: ${cacheCreationTokens} created, ${cacheReadTokens} read out of ${totalInputTokens} total input tokens`);
+        if (cacheReadTokens > 0) {
+          const savingsPercent = ((cacheReadTokens * 0.9) / totalInputTokens * 100).toFixed(1);
+          console.log(`Cache savings: ~${savingsPercent}% on input tokens`);
+        }
         
         const { error: tokenError } = await supabaseService
           .from('user_token_usage')
           .insert({
             user_id: user.id,
             model: model,
-            input_tokens: inputTokens,
+            input_tokens: totalInputTokens,
             output_tokens: outputTokens,
             estimated_cost: estimatedCost
           });
@@ -247,7 +270,7 @@ serve(async (req) => {
         if (tokenError) {
           console.error('Failed to log token usage:', tokenError);
         } else {
-          console.log(`Logged token usage: ${inputTokens} input, ${outputTokens} output, $${estimatedCost.toFixed(6)} cost`);
+          console.log(`Logged token usage: ${totalInputTokens} input (${cacheReadTokens} cached), ${outputTokens} output, $${estimatedCost.toFixed(6)} cost`);
         }
       } catch (tokenErr) {
         console.error('Error logging token usage:', tokenErr);
