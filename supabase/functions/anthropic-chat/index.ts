@@ -217,6 +217,20 @@ serve(async (req) => {
           }
         ];
 
+    // DIAGNOSTIC: Hash the static prompt to verify consistency across requests
+    if (staticPrompt) {
+      try {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(staticPrompt);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.slice(0, 8).map(b => b.toString(16).padStart(2, '0')).join('');
+        console.log(`[CACHE DEBUG] Static prompt hash: ${hashHex}, length: ${staticPrompt.length} chars, ${data.length} bytes`);
+      } catch (hashError) {
+        console.error('[CACHE DEBUG] Failed to hash static prompt:', hashError);
+      }
+    }
+
     console.log(`Calling Anthropic API with ${modelConfig.model}...`);
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
