@@ -13,7 +13,8 @@ export class AIService {
   async generateResponse(
     userMessage: string,
     systemPrompt: string,
-    conversationHistory: ChatMessage[] = []
+    conversationHistory: ChatMessage[] = [],
+    personSummary?: string
   ): Promise<string> {
     console.log('Making request to Supabase Edge Function...');
     
@@ -25,7 +26,8 @@ export class AIService {
           conversationHistory: conversationHistory.map(msg => ({
             role: msg.role,
             content: msg.content
-          }))
+          })),
+          personSummary
         }
       });
 
