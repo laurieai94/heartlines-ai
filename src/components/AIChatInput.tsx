@@ -116,7 +116,7 @@ const AIChatInput = ({
   }, []);
 
   return (
-    <div className={`flex gap-1.5 md:gap-3 items-center px-1 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
+    <div className={`flex gap-1.5 md:gap-3 items-center px-1 md:px-0 pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div 
         className={`flex-1 relative isolate rounded-2xl overflow-hidden cursor-text ${
           readOnly 
@@ -129,17 +129,6 @@ const AIChatInput = ({
               ? 'border-2 border-pink-400/30 focus-within:border-coral-400/70 focus-within:ring-2 focus-within:ring-coral-400/30 focus-within:shadow-lg transition-all duration-150'
               : 'border-2 border-pink-400/30 ring-2 ring-pink-400/10 focus-within:border-coral-400/40 focus-within:ring-4 focus-within:ring-coral-400/20 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_12px_rgba(236,72,153,0.6),0_0_24px_rgba(251,113,133,0.4),0_0_40px_rgba(251,146,60,0.3)] transition-all duration-300'
         }`}
-        onClick={() => {
-          if (textareaRef.current && !readOnly && !disabled) {
-            textareaRef.current.focus();
-          }
-        }}
-        onTouchEnd={(e) => {
-          if (textareaRef.current && !readOnly && !disabled) {
-            // Focus directly - iOS requires .focus() to be called synchronously within user gesture
-            textareaRef.current.focus();
-          }
-        }}
       >
         <Textarea
           unstyled
@@ -149,7 +138,19 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={handleFocus}
           onBlur={() => onInputBlur?.()}
-          onClick={() => onInputFocus?.()}
+          onTouchStart={(e) => {
+            if (textareaRef.current && !readOnly && !disabled) {
+              // iOS needs focus called during touchstart for reliable keyboard opening
+              textareaRef.current.focus();
+            }
+          }}
+          onClick={(e) => {
+            // Ensure focus for click-on-textarea scenarios
+            if (textareaRef.current && !readOnly && !disabled) {
+              textareaRef.current.focus();
+            }
+            onInputFocus?.();
+          }}
           placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "What's up?" : ""))}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile to unlock AI chat" : undefined}
