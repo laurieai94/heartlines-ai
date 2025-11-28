@@ -3,6 +3,7 @@ import { PersonContext, ProfileData, DemographicsData } from "@/types/AIInsights
 import { InsightBuilders } from "./prompt/insightBuilders";
 import { FamilyBackgroundBuilder } from "./prompt/familyBackgroundBuilder";
 import { DynamicsBuilder } from "./prompt/dynamicsBuilder";
+import { RelationshipMapper } from "./prompt/relationshipMapper";
 import { PromptTemplate } from "./prompt/promptTemplate";
 import { GoalsBuilder } from "./prompt/goalsBuilder";
 import { ProfileGoalsUtility } from "./profileGoals";
@@ -30,10 +31,15 @@ ${comprehensiveData}
 Respond conversationally, summarizing what you know about them and their relationship in a friendly, natural way. Don't just list the data - weave it into insights about their relationship patterns and what you understand about them as individuals and as a couple.`;
     }
     
-    // Build insights using the new modular structure
+    // Build relationship portrait using new integrated format
+    const relationshipPortrait = RelationshipMapper.buildRelationshipPortrait(context);
+    const partnerPortrait = RelationshipMapper.buildPartnerPortrait(context);
+    const frictionPoints = RelationshipMapper.buildFrictionPoints(context);
+    const familyBackgroundInsights = FamilyBackgroundBuilder.buildFamilyBackgroundInsights(context);
+    
+    // Keep legacy insights for backward compatibility
     const personalInsights = InsightBuilders.buildPersonalInsights(context);
     const partnerInsights = InsightBuilders.buildPartnerInsights(context);
-    const familyBackgroundInsights = FamilyBackgroundBuilder.buildFamilyBackgroundInsights(context);
     const dynamics = DynamicsBuilder.buildDynamics(context);
     
     // Build goals insights from profile data
@@ -44,7 +50,7 @@ Respond conversationally, summarizing what you know about them and their relatio
       [] // priorityChallenges - empty array as fallback
     );
     
-    // Build the complete prompt using the template
+    // Build the complete prompt using the template with new relationship portrait
     return PromptTemplate.buildMainPrompt(
       yourName,
       partnerName,
@@ -54,7 +60,10 @@ Respond conversationally, summarizing what you know about them and their relatio
       familyBackgroundInsights,
       dynamics,
       conversationHistory,
-      goalsInsights
+      goalsInsights,
+      relationshipPortrait,
+      partnerPortrait,
+      frictionPoints
     );
   }
 
