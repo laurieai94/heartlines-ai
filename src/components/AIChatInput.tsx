@@ -53,12 +53,10 @@ const AIChatInput = ({
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
     
-    // Let iOS handle keyboard naturally - don't force refocus
-    requestAnimationFrame(() => {
+      // Refocus directly to keep keyboard open
       if (textareaRef.current) {
         textareaRef.current.focus();
       }
-    });
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -136,11 +134,12 @@ const AIChatInput = ({
             textareaRef.current.focus();
           }
         }}
-        onTouchEnd={() => {
+        onTouchEnd={(e) => {
           if (textareaRef.current && !readOnly && !disabled) {
-            requestAnimationFrame(() => {
-              textareaRef.current?.focus();
-            });
+            // Focus directly - iOS requires .focus() to be called synchronously within user gesture
+            textareaRef.current.focus();
+            // Prevent the subsequent click event from firing (avoid double-focus)
+            e.preventDefault();
           }
         }}
       >
