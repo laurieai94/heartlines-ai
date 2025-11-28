@@ -14,8 +14,8 @@ import CacheAlertBanner from "@/components/admin/CacheAlertBanner";
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { isAdmin, isLoading: isLoadingAdmin } = useIsAdmin();
-  const { data: analytics, isLoading: isLoadingAnalytics } = useAdminAnalytics();
-  const { data: costData } = useAdminCostAnalytics();
+  const { data: analytics, isLoading: isLoadingAnalytics, error: analyticsError } = useAdminAnalytics();
+  const { data: costData, error: costError } = useAdminCostAnalytics();
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   // Redirect if not admin
@@ -70,41 +70,45 @@ const AdminDashboard = () => {
         {/* Cache Alert Banner */}
         <CacheAlertBanner />
 
-        {/* Overview Cards */}
-        {analytics && (
-          <AdminOverviewCards
-            totalUsers={analytics.totalUsers}
-            activeUsers={analytics.activeUsers}
-            totalMessages={analytics.totalMessages}
-            totalCost={analytics.totalCost}
-            avgCostPerUser={analytics.avgCostPerUser}
-            subscribersByPlan={analytics.subscribersByPlan}
-            avgInputTokens={analytics.avgInputTokens}
-            avgOutputTokens={analytics.avgOutputTokens}
-            avgMessagesPerConversation={analytics.avgMessagesPerConversation}
-            avgConversationDuration={analytics.avgConversationDuration}
-            avgSessionDuration={analytics.avgSessionDuration}
-          />
+        {/* Error Display */}
+        {(analyticsError || costError) && (
+          <div className="bg-red-500/10 border border-red-400/30 rounded-lg p-4">
+            <p className="text-red-200 text-sm">
+              {analyticsError && `Analytics Error: ${analyticsError.message}`}
+              {costError && `Cost Data Error: ${costError.message}`}
+            </p>
+          </div>
         )}
 
-        {/* Cost Chart */}
-        {costData && costData.length > 0 && (
-          <AdminCostChart data={costData} />
-        )}
+        {/* Overview Cards - Always show, even with empty data */}
+        <AdminOverviewCards
+          totalUsers={analytics?.totalUsers || 0}
+          activeUsers={analytics?.activeUsers || 0}
+          totalMessages={analytics?.totalMessages || 0}
+          totalCost={analytics?.totalCost || 0}
+          avgCostPerUser={analytics?.avgCostPerUser || 0}
+          subscribersByPlan={analytics?.subscribersByPlan || {}}
+          avgInputTokens={analytics?.avgInputTokens || 0}
+          avgOutputTokens={analytics?.avgOutputTokens || 0}
+          avgMessagesPerConversation={analytics?.avgMessagesPerConversation || 0}
+          avgConversationDuration={analytics?.avgConversationDuration || 0}
+          avgSessionDuration={analytics?.avgSessionDuration || 0}
+        />
+
+        {/* Cost Chart - Always show, even with empty data */}
+        <AdminCostChart data={costData || []} />
 
         {/* Cache Metrics Chart */}
         <AdminCacheMetricsChart />
 
-        {/* Users Table */}
-        {analytics && (
-          <div className="bg-gradient-to-br from-burgundy-800/40 to-burgundy-900/30 backdrop-blur-lg border border-pink-400/20 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-white mb-4">All Users</h2>
-            <AdminUsersTable 
-              users={analytics.users}
-              onUserClick={(userId) => setSelectedUserId(userId)}
-            />
-          </div>
-        )}
+        {/* Users Table - Always show, even with empty data */}
+        <div className="bg-gradient-to-br from-burgundy-800/40 to-burgundy-900/30 backdrop-blur-lg border border-pink-400/20 rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-white mb-4">All Users</h2>
+          <AdminUsersTable 
+            users={analytics?.users || []}
+            onUserClick={(userId) => setSelectedUserId(userId)}
+          />
+        </div>
 
         {/* User Details Modal */}
         <AdminUserDetailsModal 

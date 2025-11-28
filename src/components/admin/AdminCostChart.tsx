@@ -32,12 +32,22 @@ const AdminCostChart = ({ data }: AdminCostChartProps) => {
   }, [] as { date: string; cost: number; messages: number; formattedDate: string }[])
   .reverse();
 
+  const isEmpty = !data || data.length === 0;
+
   return (
     <Card className="bg-gradient-to-br from-burgundy-800/40 to-burgundy-900/30 backdrop-blur-lg border-pink-400/20">
       <CardHeader>
         <CardTitle className="text-white">Daily Cost Trend (Last 30 Days)</CardTitle>
       </CardHeader>
       <CardContent>
+        {isEmpty ? (
+          <div className="h-[300px] flex items-center justify-center">
+            <div className="text-center space-y-2">
+              <p className="text-white/60 text-sm">No cost data available yet</p>
+              <p className="text-white/40 text-xs">Cost tracking will appear after messages are sent</p>
+            </div>
+          </div>
+        ) : (
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(251, 146, 60, 0.1)" />
@@ -76,6 +86,7 @@ const AdminCostChart = ({ data }: AdminCostChartProps) => {
             />
           </LineChart>
         </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   );

@@ -94,29 +94,44 @@ const AdminUsersTable = ({ users, onUserClick }: AdminUsersTableProps) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredUsers.map((user) => (
-              <TableRow 
-                key={user.user_id}
-                onClick={() => onUserClick(user.user_id)}
-                className="border-pink-400/10 hover:bg-burgundy-800/40 cursor-pointer transition-colors"
-              >
-                <TableCell className="text-white">{user.email || "—"}</TableCell>
-                <TableCell className="text-white/90">{user.user_name || "—"}</TableCell>
-                <TableCell>
-                  <span className="px-2 py-1 rounded-full text-xs bg-gradient-to-r from-pink-500/20 to-coral-500/20 text-pink-200 border border-pink-400/20">
-                    {user.subscription_tier}
-                  </span>
-                </TableCell>
-                <TableCell className="text-white text-right">{user.messages_this_month}</TableCell>
-                <TableCell className="text-white text-right">${user.cost_last_30_days.toFixed(4)}</TableCell>
-                <TableCell className="text-white/80 text-sm">
-                  {user.last_activity 
-                    ? formatDistanceToNow(new Date(user.last_activity), { addSuffix: true })
-                    : "Never"
-                  }
+            {filteredUsers.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-8">
+                  <div className="space-y-2">
+                    <p className="text-white/60 text-sm">
+                      {users.length === 0 ? 'No users yet' : 'No users match your search'}
+                    </p>
+                    {users.length === 0 && (
+                      <p className="text-white/40 text-xs">User data will appear after signups</p>
+                    )}
+                  </div>
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              filteredUsers.map((user) => (
+                <TableRow 
+                  key={user.user_id}
+                  onClick={() => onUserClick(user.user_id)}
+                  className="border-pink-400/10 hover:bg-burgundy-800/40 cursor-pointer transition-colors"
+                >
+                  <TableCell className="text-white">{user.email || "—"}</TableCell>
+                  <TableCell className="text-white/90">{user.user_name || "—"}</TableCell>
+                  <TableCell>
+                    <span className="px-2 py-1 rounded-full text-xs bg-gradient-to-r from-pink-500/20 to-coral-500/20 text-pink-200 border border-pink-400/20">
+                      {user.subscription_tier || "free"}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-white text-right">{user.messages_this_month}</TableCell>
+                  <TableCell className="text-white text-right">${user.cost_last_30_days.toFixed(4)}</TableCell>
+                  <TableCell className="text-white/80 text-sm">
+                    {user.last_activity 
+                      ? formatDistanceToNow(new Date(user.last_activity), { addSuffix: true })
+                      : "Never"
+                    }
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
