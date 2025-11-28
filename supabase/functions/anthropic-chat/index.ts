@@ -309,6 +309,27 @@ serve(async (req) => {
         } else {
           console.log(`Logged token usage: ${totalInputTokens} input (${cacheReadTokens} cached), ${outputTokens} output, $${estimatedCost.toFixed(6)} cost`);
         }
+
+        // Log cache metrics for admin monitoring
+        if (cacheCreationTokens > 0 || cacheReadTokens > 0) {
+          // Calculate cost savings from cache reads (90% cheaper than base input)
+          const cacheSavings = cacheReadTokens * modelConfig.inputCostPer1M * 0.9;
+          
+          const { error: cacheError } = await supabaseService
+            .from('cache_metrics')
+            .insert({
+              user_id: user.id,
+              model: model,
+              cache_creation_tokens: cacheCreationTokens,
+              cache_read_tokens: cacheReadTokens,
+              total_input_tokens: totalInputTokens,
+              estimated_cost_savings: cacheSavings
+            });
+          
+          if (cacheError) {
+            console.error('Failed to log cache metrics:', cacheError);
+          }
+        }
       } catch (tokenErr) {
         console.error('Error logging token usage:', tokenErr);
       }

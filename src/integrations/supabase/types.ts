@@ -38,6 +38,42 @@ export type Database = {
         }
         Relationships: []
       }
+      cache_metrics: {
+        Row: {
+          cache_creation_tokens: number
+          cache_hit_rate: number | null
+          cache_read_tokens: number
+          created_at: string
+          estimated_cost_savings: number
+          id: string
+          model: string
+          total_input_tokens: number
+          user_id: string
+        }
+        Insert: {
+          cache_creation_tokens?: number
+          cache_hit_rate?: number | null
+          cache_read_tokens?: number
+          created_at?: string
+          estimated_cost_savings?: number
+          id?: string
+          model: string
+          total_input_tokens?: number
+          user_id: string
+        }
+        Update: {
+          cache_creation_tokens?: number
+          cache_hit_rate?: number | null
+          cache_read_tokens?: number
+          created_at?: string
+          estimated_cost_savings?: number
+          id?: string
+          model?: string
+          total_input_tokens?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_conversations: {
         Row: {
           created_at: string
@@ -526,6 +562,19 @@ export type Database = {
       }
     }
     Views: {
+      daily_cache_summary: {
+        Row: {
+          cache_hit_rate_percent: number | null
+          date: string | null
+          model: string | null
+          request_count: number | null
+          total_cache_creation_tokens: number | null
+          total_cache_read_tokens: number | null
+          total_cost_savings: number | null
+          total_input_tokens: number | null
+        }
+        Relationships: []
+      }
       daily_cost_summary: {
         Row: {
           avg_cost_per_message: number | null
