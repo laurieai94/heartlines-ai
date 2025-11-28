@@ -48,7 +48,6 @@ serve(async (req) => {
       throw new Error('ANTHROPIC_API_KEY not found in environment variables')
     }
 
-  try {
     // Parse request body - support both legacy (systemPrompt) and new (staticPrompt + userContext) formats
     const body = await req.json();
     const { 
