@@ -580,14 +580,28 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           return;
         }
         
-        // INSTANT: Load from localStorage first and mark ready immediately
+        // Load from localStorage first
         const localProfile = loadFromStorage();
-        setProfile(localProfile);
-        setIsReady(true); // Mark ready instantly for UI
-        setIsLoading(false); // Remove loading state immediately
         
-        // Background sync to database (non-blocking)
-        if (user) {
+        // Check if local profile has meaningful data (any required field filled)
+        const hasLocalData = profileType === 'personal' 
+          ? (localProfile as any).name || 
+            (localProfile as any).pronouns || 
+            (localProfile as any).relationshipStatus ||
+            ((localProfile as any).loveLanguage && (localProfile as any).loveLanguage.length > 0) ||
+            (localProfile as any).attachmentStyle
+          : (localProfile as any).partnerName || 
+            (localProfile as any).partnerPronouns ||
+            ((localProfile as any).partnerLoveLanguage && (localProfile as any).partnerLoveLanguage.length > 0) ||
+            (localProfile as any).partnerAttachmentStyle;
+        
+        if (hasLocalData) {
+          // Fast path: localStorage has data, mark ready immediately
+          setProfile(localProfile);
+          setIsReady(true);
+          setIsLoading(false);
+          
+          // Background sync to database (non-blocking)
           // Use requestIdleCallback to defer database operations to idle time
           const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
             
@@ -710,6 +724,38 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               setIsSyncing(false);
             }
           });
+        } else {
+          // Slow path: localStorage empty, WAIT for database
+          setProfile(localProfile); // Show default for now
+          setIsLoading(true);
+          
+          try {
+            const dbProfile = await loadFromDatabase();
+            
+            // Check if DB has data
+            const hasDbData = profileType === 'personal'
+              ? (dbProfile as any).name || 
+                (dbProfile as any).pronouns || 
+                (dbProfile as any).relationshipStatus ||
+                ((dbProfile as any).loveLanguage && (dbProfile as any).loveLanguage.length > 0) ||
+                (dbProfile as any).attachmentStyle
+              : (dbProfile as any).partnerName || 
+                (dbProfile as any).partnerPronouns ||
+                ((dbProfile as any).partnerLoveLanguage && (dbProfile as any).partnerLoveLanguage.length > 0) ||
+                (dbProfile as any).partnerAttachmentStyle;
+            
+            if (hasDbData) {
+              setProfile(dbProfile);
+              saveToStorage(dbProfile); // Cache to localStorage for next time
+            }
+            
+            setIsReady(true);
+            setIsLoading(false);
+          } catch (dbError) {
+            // DB failed, still mark ready with empty profile
+            setIsReady(true);
+            setIsLoading(false);
+          }
         }
       } catch (error) {
         safeLog.error(`Initialization error for ${profileType}:`, error);
