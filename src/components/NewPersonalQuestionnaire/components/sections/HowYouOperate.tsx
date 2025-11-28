@@ -4,7 +4,6 @@ import { ProfileData } from "../../types";
 import OptionalGroup from "../shared/OptionalGroup";
 import LoveLanguageQuestion from "./HowYouOperate/LoveLanguageQuestion";
 import ConflictStyleQuestion from "./HowYouOperate/ConflictStyleQuestion";
-import StressResponseQuestion from "./HowYouOperate/StressResponseQuestion";
 
 interface HowYouOperateProps {
   profileData: ProfileData;
@@ -35,11 +34,6 @@ const HowYouOperate = ({
 
       {/* Optional Fields */}
       <OptionalGroup>
-        <StressResponseQuestion
-          profileData={profileData}
-          handleMultiSelect={handleMultiSelect}
-        />
-        
         <ConflictStyleQuestion
           profileData={profileData}
           handleMultiSelect={handleMultiSelect}
