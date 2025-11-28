@@ -165,12 +165,9 @@ const AIChat = ({
   useEffect(() => {
     if (!isMobilePhone) return;
     
-    // Only auto-scroll if there are many messages
-    const shouldAutoScroll = chatHistory.length > 5;
-    
     // Detect when user navigates to this page/tab
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && chatHistory.length > 0 && shouldAutoScroll) {
+      if (document.visibilityState === 'visible' && chatHistory.length > 0) {
         // Small delay to ensure component is fully rendered
         setTimeout(() => {
           chatContainerRef.current?.scrollToBottom?.('smooth');
@@ -180,7 +177,7 @@ const AIChat = ({
     
     // Also handle when component becomes visible via tab change
     const handleTabChange = (event: CustomEvent) => {
-      if (event.detail?.tab === 'insights' && chatHistory.length > 0 && shouldAutoScroll) {
+      if (event.detail?.tab === 'insights' && chatHistory.length > 0) {
         setTimeout(() => {
           chatContainerRef.current?.scrollToBottom?.('smooth');
         }, 150);
@@ -190,8 +187,8 @@ const AIChat = ({
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('dashboard:tabChange', handleTabChange as EventListener);
     
-    // Conditional initial scroll on mount
-    if (shouldAutoScroll) {
+    // Always scroll on mount if there are messages
+    if (chatHistory.length > 0) {
       setTimeout(() => {
         chatContainerRef.current?.scrollToBottom?.('smooth');
       }, 200);

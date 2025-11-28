@@ -116,12 +116,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     const isUserMessage = lastMessage?.type === 'user';
     
     // Handle initial scroll when history loads
-    if (isHistoryLoaded && prevChatLengthRef.current === 0) {
-      // Only auto-scroll if there are many messages (overflow scenario)
-      // For sparse conversations, let them naturally sit at top
-      if (chatHistory.length > 5) {
-        scrollToBottom('auto');
-      }
+    if (isHistoryLoaded && prevChatLengthRef.current === 0 && chatHistory.length > 0) {
+      scrollToBottom('auto');
       prevChatLengthRef.current = chatHistory.length;
       return;
     }
@@ -141,6 +137,17 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       prevChatLengthRef.current = chatHistory.length;
     }
   }, [chatHistory.length, isHistoryLoaded, currentConversationId, scrollToBottom]);
+
+  // Scroll to bottom during streaming (when loading is true)
+  useEffect(() => {
+    if (loading && chatHistory.length > 0) {
+      const interval = setInterval(() => {
+        scrollToBottom('auto');
+      }, 100); // Scroll every 100ms while streaming
+      
+      return () => clearInterval(interval);
+    }
+  }, [loading, scrollToBottom, chatHistory.length]);
 
   // Memoized style objects to prevent recreation on every render
   const mobileScrollStyle = useMemo(() => ({
