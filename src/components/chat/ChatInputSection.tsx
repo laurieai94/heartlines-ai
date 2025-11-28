@@ -237,7 +237,22 @@ export const ChatInputSection = ({
         {/* Critical 90% usage warning banner */}
         {criticalLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
-            <Alert className="bg-coral-500/20 border-pink-400/60 backdrop-blur-sm ring-1 ring-pink-400/30">
+            {/* Mobile: Compact single-line banner */}
+            <div className="flex md:hidden items-center justify-between px-3 py-2 bg-coral-500/20 border border-pink-400/60 backdrop-blur-sm rounded-lg">
+              <span className="text-sm font-medium questionnaire-text">
+                💌 {messagesRemaining} left
+              </span>
+              <Button
+                size="sm"
+                onClick={() => openUpgradeModal('near-limit')}
+                className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white text-xs px-3 py-1 h-7"
+              >
+                upgrade
+              </Button>
+            </div>
+
+            {/* Desktop: Full banner with description */}
+            <Alert className="hidden md:block bg-coral-500/20 border-pink-400/60 backdrop-blur-sm ring-1 ring-pink-400/30">
               <AlertDescription className="flex items-center justify-between gap-4">
                 <div className="flex-1">
                   <span className="font-semibold questionnaire-text">💌 you're almost out of messages!</span>
