@@ -264,7 +264,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         </div>
       )}
 
-      <div className="h-2 md:h-4" />
+      <div className="h-6 md:h-4" />
     </>
   );
 
