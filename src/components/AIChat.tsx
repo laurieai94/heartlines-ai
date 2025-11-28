@@ -71,6 +71,7 @@ const AIChat = ({
   const chatContainerRef = useRef<ChatContainerRef>(null);
   const isKeyboardVisible = useKeyboardDetection();
   const prevKeyboardVisible = useRef(isKeyboardVisible);
+  const prevInputHeightRef = useRef(inputSectionHeight);
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -160,6 +161,22 @@ const AIChat = ({
       window.visualViewport?.removeEventListener('resize', handleResize);
     };
   }, [isMobilePhone, inputSectionHeight]);
+
+  // Scroll to keep messages visible when input section grows (banner appears)
+  useEffect(() => {
+    if (!isMobilePhone) return;
+    
+    const heightDiff = inputSectionHeight - prevInputHeightRef.current;
+    
+    // If height increased by more than 50px (banner appeared), scroll to show latest message
+    if (heightDiff > 50) {
+      setTimeout(() => {
+        chatContainerRef.current?.scrollToBottom?.('smooth');
+      }, 100);
+    }
+    
+    prevInputHeightRef.current = inputSectionHeight;
+  }, [inputSectionHeight, isMobilePhone]);
 
   // Auto-scroll to latest message when navigating to /coach on mobile
   useEffect(() => {
