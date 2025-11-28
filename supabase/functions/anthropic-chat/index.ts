@@ -48,14 +48,20 @@ serve(async (req) => {
       throw new Error('ANTHROPIC_API_KEY not found in environment variables')
     }
 
-    console.log('API key found, parsing request body...')
-    const { userMessage, systemPrompt, conversationHistory = [] } = await req.json()
+  try {
+    // Parse request body - support both legacy (systemPrompt) and new (staticPrompt + userContext) formats
+    const body = await req.json();
+    const { 
+      userMessage, 
+      systemPrompt,
+      staticPrompt,
+      userContext,
+      conversationHistory = []
+    } = body;
 
-    if (!userMessage || !systemPrompt) {
-      throw new Error('userMessage and systemPrompt are required')
+    if (!userMessage || (!systemPrompt && !staticPrompt)) {
+      throw new Error('userMessage and system prompt are required');
     }
-
-    console.log('Processing chat request...')
 
     // Check for account override first
     const { data: userWithEmail } = await supabaseService.auth.getUser(token);
@@ -189,6 +195,29 @@ serve(async (req) => {
       { role: 'user', content: userMessage }
     ];
 
+    // Determine system prompt format
+    const systemBlocks = staticPrompt && userContext
+      ? [
+          // New format: static prompt (cached) + dynamic user context (not cached)
+          {
+            type: "text",
+            text: staticPrompt,
+            cache_control: { type: "ephemeral" }
+          },
+          {
+            type: "text",
+            text: userContext
+          }
+        ]
+      : [
+          // Legacy format: single combined prompt (cached)
+          {
+            type: "text",
+            text: systemPrompt,
+            cache_control: { type: "ephemeral" }
+          }
+        ];
+
     console.log(`Calling Anthropic API with ${modelConfig.model}...`);
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -203,13 +232,7 @@ serve(async (req) => {
         model: modelConfig.model,
         max_tokens: modelConfig.max_tokens,
         messages: messages,
-        system: [
-          {
-            type: "text",
-            text: systemPrompt,
-            cache_control: { type: "ephemeral" }
-          }
-        ]
+        system: systemBlocks
       })
     })
 

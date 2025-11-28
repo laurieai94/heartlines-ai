@@ -12,21 +12,34 @@ export class AIService {
 
   async generateResponse(
     userMessage: string,
-    systemPrompt: string,
+    systemPrompt: string | { staticPrompt: string; userContext: string },
     conversationHistory: ChatMessage[] = []
   ): Promise<string> {
     console.log('Making request to Supabase Edge Function...');
     
     try {
+      // Support both legacy (single string) and new (split prompts) formats
+      const body = typeof systemPrompt === 'string' 
+        ? {
+            userMessage,
+            systemPrompt,
+            conversationHistory: conversationHistory.map(msg => ({
+              role: msg.role,
+              content: msg.content
+            }))
+          }
+        : {
+            userMessage,
+            staticPrompt: systemPrompt.staticPrompt,
+            userContext: systemPrompt.userContext,
+            conversationHistory: conversationHistory.map(msg => ({
+              role: msg.role,
+              content: msg.content
+            }))
+          };
+      
       const { data, error } = await supabase.functions.invoke('anthropic-chat', {
-        body: {
-          userMessage,
-          systemPrompt,
-          conversationHistory: conversationHistory.map(msg => ({
-            role: msg.role,
-            content: msg.content
-          }))
-        }
+        body
       });
 
       if (error) {

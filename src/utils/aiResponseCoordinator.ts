@@ -20,17 +20,27 @@ export class AIResponseCoordinator {
     userMessage: string, 
     context: PersonContext, 
     conversationHistory: any[] = [],
-    customPrompt?: string
+    customPrompt?: string,
+    useSplitPrompt: boolean = true
   ): Promise<string> {
     try {
+      // Build the conversational prompt
+      let promptInput: string | { staticPrompt: string; userContext: string };
+      
+      if (customPrompt) {
+        promptInput = customPrompt;
+      } else if (useSplitPrompt) {
+        // Use split prompts for caching
+        promptInput = ConversationalPromptBuilder.buildPromptParts(context, conversationHistory);
+      } else {
+        // Legacy single prompt
+        promptInput = ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
+      }
+      
       const aiService = new AIService();
-
-      // Use the conversational prompt instead of clinical
-      const conversationalPrompt = customPrompt || ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
-
       const response = await aiService.generateResponse(
         userMessage,
-        conversationalPrompt,
+        promptInput,
         conversationHistory.map(msg => ({
           role: msg.type === 'user' ? 'user' : 'assistant',
           content: msg.content
