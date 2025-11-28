@@ -71,27 +71,12 @@ export const useChatMessageHandler = ({
       // Check if this is a debug request
       const isDebugRequest = /what do you know|what information|profile data|what have you learned|debug/i.test(userMessage);
       
-      let conversationalPrompt;
-      if (isDebugRequest) {
-        // Use debug prompt that lists all available information
-        conversationalPrompt = AICoachEngine.buildDebugPrompt(context, profiles, demographicsData);
-      } else {
-        conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, historySnapshot);
-        
-        // Enhance with goals if available
-        if (profileGoals?.hasGoals) {
-          const { GoalsBuilder } = await import('@/utils/prompt/goalsBuilder');
-          const goalsInsights = GoalsBuilder.buildGoalsInsights(
-            profileGoals.derivedGoals,
-            profileGoals.partnerGoals,
-            profileGoals.goalsSummary,
-            profileGoals.priorityChallenges
-          );
-          conversationalPrompt += goalsInsights;
-        }
-      }
+      // Use custom prompt for debug requests, otherwise let coordinator handle split prompts for caching
+      const customPrompt = isDebugRequest 
+        ? AICoachEngine.buildDebugPrompt(context, profiles, demographicsData)
+        : undefined;
       
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, conversationalPrompt);
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, customPrompt);
       
       const aiTopics = extractTopicsFromMessage(aiResponse);
       aiTopics.forEach(topic => addOrUpdateTopic(topic));
