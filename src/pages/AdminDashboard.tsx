@@ -9,6 +9,7 @@ import AdminUsersTable from "@/components/admin/AdminUsersTable";
 import AdminCostChart from "@/components/admin/AdminCostChart";
 import AdminCacheMetricsChart from "@/components/admin/AdminCacheMetricsChart";
 import AdminUserDetailsModal from "@/components/admin/AdminUserDetailsModal";
+import CacheAlertBanner from "@/components/admin/CacheAlertBanner";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -65,6 +66,9 @@ const AdminDashboard = () => {
             Back to App
           </Button>
         </div>
+
+        {/* Cache Alert Banner */}
+        <CacheAlertBanner />
 
         {/* Overview Cards */}
         {analytics && (
