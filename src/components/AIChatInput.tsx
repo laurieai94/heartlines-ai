@@ -171,7 +171,9 @@ const AIChatInput = ({
             caretColor: '#ffffff !important',
             WebkitTextFillColor: 'white !important',
             color: 'white !important',
-            fontSize: window.innerWidth < 768 ? '14px' : '16px'
+            fontSize: window.innerWidth < 768 ? '14px' : '16px',
+            WebkitUserSelect: 'text',
+            userSelect: 'text',
           }}
           rows={1}
         />
