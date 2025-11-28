@@ -38,6 +38,30 @@ export type Database = {
         }
         Relationships: []
       }
+      cache_alert_state: {
+        Row: {
+          alert_type: string
+          created_at: string | null
+          id: string
+          last_sent_at: string | null
+          last_value: number | null
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string | null
+          id?: string
+          last_sent_at?: string | null
+          last_value?: number | null
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string | null
+          id?: string
+          last_sent_at?: string | null
+          last_value?: number | null
+        }
+        Relationships: []
+      }
       cache_metrics: {
         Row: {
           cache_creation_tokens: number
