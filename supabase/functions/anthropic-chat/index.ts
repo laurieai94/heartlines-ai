@@ -2,7 +2,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
 import { getCorsHeaders } from '../_shared/cors.ts'
-import { LIGHT_PROMPT } from './lightPrompt.ts'
 
 const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')
 
@@ -50,7 +49,7 @@ serve(async (req) => {
     }
 
     console.log('API key found, parsing request body...')
-    const { userMessage, systemPrompt, conversationHistory = [], personSummary } = await req.json()
+    const { userMessage, systemPrompt, conversationHistory = [] } = await req.json()
 
     if (!userMessage || !systemPrompt) {
       throw new Error('userMessage and systemPrompt are required')
@@ -124,11 +123,21 @@ serve(async (req) => {
       }
     }
 
-    // Message complexity classification (tuned for better Haiku usage)
+    // Message complexity classification
     const classifyMessageComplexity = (message: string): 'simple' | 'complex' => {
       const lowerMessage = message.toLowerCase().trim();
       
-      // Complex keywords (crisis, emotional depth, relationship issues) - check first
+      // Simple patterns (greetings, acknowledgments, very short)
+      const simplePatterns = [
+        /^(hi|hey|hello|thanks|thank you|ok|okay|yes|yeah|yep|no|nope|sure|got it|i see|go on|continue|tell me more)\.?$/i,
+        /^.{0,30}$/  // Very short messages (under 30 chars)
+      ];
+      
+      if (simplePatterns.some(p => p.test(lowerMessage))) {
+        return 'simple';
+      }
+      
+      // Complex keywords (crisis, emotional depth, relationship issues)
       const complexKeywords = [
         'suicide', 'kill', 'hurt', 'abuse', 'trauma', 'ptsd', 'crisis',
         'cheating', 'affair', 'divorce', 'breakup', 'trust', 'betrayed',
@@ -136,27 +145,11 @@ serve(async (req) => {
         'help', 'lost', 'alone', 'hate', 'angry', 'furious', 'devastated'
       ];
       
-      // If contains complex keywords or very long, definitely complex
       if (complexKeywords.some(kw => lowerMessage.includes(kw)) || message.length > 200) {
         return 'complex';
       }
       
-      // Simple patterns (greetings, acknowledgments, short messages)
-      const simplePatterns = [
-        /^(hi|hey|hello|thanks|thank you|ok|okay|yes|yeah|yep|no|nope|sure|got it|i see|go on|continue|tell me more)\.?$/i,
-      ];
-      
-      if (simplePatterns.some(p => p.test(lowerMessage))) {
-        return 'simple';
-      }
-      
-      // Medium-length messages without emotional keywords = simple
-      // Increased threshold from 30 to 150 chars to route more to Haiku
-      if (message.length <= 150) {
-        return 'simple';
-      }
-      
-      return 'complex';
+      return 'simple';
     };
 
     // Model selection based on complexity
@@ -166,16 +159,14 @@ serve(async (req) => {
           model: 'claude-3-5-haiku-20241022',
           max_tokens: 150,
           inputCostPer1M: 0.0000008,
-          outputCostPer1M: 0.000004,
-          useLight: true // Use light prompt for simple messages
+          outputCostPer1M: 0.000004
         };
       }
       return {
         model: 'claude-sonnet-4-5-20250929',
         max_tokens: 400,
         inputCostPer1M: 0.000003,
-        outputCostPer1M: 0.000015,
-        useLight: false // Use full prompt for complex messages
+        outputCostPer1M: 0.000015
       };
     };
 
@@ -198,13 +189,7 @@ serve(async (req) => {
       { role: 'user', content: userMessage }
     ];
 
-    // Use light prompt for simple messages to reduce token usage
-    // Append person summary to light prompt for personalization
-    const finalSystemPrompt = modelConfig.useLight 
-      ? `${LIGHT_PROMPT}\n\n${personSummary || ''}`
-      : systemPrompt;
-    
-    console.log(`Calling Anthropic API with ${modelConfig.model} (${modelConfig.useLight ? 'light prompt' : 'full prompt'})...`);
+    console.log(`Calling Anthropic API with ${modelConfig.model}...`);
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -217,7 +202,7 @@ serve(async (req) => {
         model: modelConfig.model,
         max_tokens: modelConfig.max_tokens,
         messages: messages,
-        system: finalSystemPrompt
+        system: systemPrompt
       })
     })
 
@@ -240,9 +225,6 @@ serve(async (req) => {
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
-      // Enforce lowercase for Kai's texting-style voice
-      const responseText = data.content[0].text.toLowerCase();
-      
       // Log token usage
       try {
         const inputTokens = data.usage?.input_tokens || 0;
@@ -291,7 +273,7 @@ serve(async (req) => {
       }
       
       return new Response(
-        JSON.stringify({ response: responseText }),
+        JSON.stringify({ response: data.content[0].text }),
         { 
           headers: { 
             ...corsHeaders,

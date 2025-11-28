@@ -28,17 +28,13 @@ export class AIResponseCoordinator {
       // Use the conversational prompt instead of clinical
       const conversationalPrompt = customPrompt || ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
 
-      // Create condensed person summary for light prompt personalization
-      const personSummary = this.createPersonSummary(context);
-
       const response = await aiService.generateResponse(
         userMessage,
         conversationalPrompt,
         conversationHistory.map(msg => ({
           role: msg.type === 'user' ? 'user' : 'assistant',
           content: msg.content
-        })),
-        personSummary
+        }))
       );
 
       // Post-process response to ensure brevity
@@ -60,45 +56,6 @@ export class AIResponseCoordinator {
         return `${userName}, something went wonky - try that again? I'm here to help you figure out what's going on with ${partnerName}.`;
       }
     }
-  }
-
-  private static createPersonSummary(context: PersonContext): string {
-    const parts: string[] = [];
-    
-    // User info
-    const userName = context.yourTraits.name || 'User';
-    const userPronouns = context.yourTraits.pronouns || '';
-    const userAge = context.yourTraits.age || '';
-    parts.push(`## WHO YOU'RE TALKING TO`);
-    parts.push(`User: ${userName}${userPronouns ? ` (${userPronouns})` : ''}${userAge ? `, ${userAge}` : ''}`);
-    
-    // Partner info if exists
-    const partnerName = context.partnerTraits.name || '';
-    if (partnerName) {
-      const partnerAge = context.partnerTraits.age || '';
-      parts.push(`Partner: ${partnerName}${partnerAge ? `, ${partnerAge}` : ''}`);
-    }
-    
-    // Relationship status
-    const relLength = context.relationship.length || context.yourTraits.relationshipLength || '';
-    const relStage = context.relationship.stage || '';
-    if (relLength || relStage) {
-      parts.push(`Relationship: ${relStage ? relStage + ', ' : ''}${relLength}`);
-    }
-    
-    // Key challenges
-    const challenges = context.yourTraits.relationshipChallenges || [];
-    if (challenges.length > 0) {
-      parts.push(`Challenges: ${challenges.slice(0, 3).join(', ')}`);
-    }
-    
-    // Key traits
-    const loveLanguages = context.yourTraits.loveLanguages || [];
-    const attachmentStyle = context.yourTraits.attachmentStyle || '';
-    if (loveLanguages.length > 0) parts.push(`User's love language: ${loveLanguages[0]}`);
-    if (attachmentStyle) parts.push(`User's attachment style: ${attachmentStyle}`);
-    
-    return parts.join('\n');
   }
 
   private static enforceResponseBrevity(response: string): string {

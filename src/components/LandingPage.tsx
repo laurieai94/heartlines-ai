@@ -298,11 +298,11 @@ const LandingPage = ({
                 >
                   <nav className="flex flex-col items-center gap-2 py-6 h-full">
                     {/* Flip Phone Icon at Top */}
-                    <div className="mb-6">
+                    <div className="mb-4">
                       <FlipPhoneIcon className="h-10 w-10 text-white" />
                     </div>
                     
-                    <div className="h-px w-12 bg-white/10 mb-4" />
+                    <div className="h-px w-12 bg-white/10 mb-2" />
                     
                     {/* Navigation Icons */}
                     {navItems.map((item) => (
