@@ -138,17 +138,7 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={handleFocus}
           onBlur={() => onInputBlur?.()}
-          onTouchStart={(e) => {
-            if (textareaRef.current && !readOnly && !disabled) {
-              // iOS needs focus called during touchstart for reliable keyboard opening
-              textareaRef.current.focus();
-            }
-          }}
           onClick={(e) => {
-            // Ensure focus for click-on-textarea scenarios
-            if (textareaRef.current && !readOnly && !disabled) {
-              textareaRef.current.focus();
-            }
             onInputFocus?.();
           }}
           placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "What's up?" : ""))}

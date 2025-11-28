@@ -30,6 +30,12 @@
   -webkit-touch-callout: default !important;
 }
 
+/* Override touch-action for chat input - Chrome requires auto for proper keyboard focus */
+.mobile-optimized textarea.mobile-chat-input,
+textarea.mobile-chat-input {
+  touch-action: auto !important;
+}
+
 /* Fast CSS-only button feedback */
 .mobile-optimized button:active,
 .mobile-optimized [role="button"]:active {
