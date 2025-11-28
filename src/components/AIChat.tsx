@@ -3,6 +3,7 @@ import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { UseProfileGoalsReturn } from "@/hooks/useProfileGoals";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import { useOptimizedSubscription } from "@/hooks/useOptimizedSubscription";
 import { useChatEffects } from "./chat/ChatEffects";
 import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
@@ -75,6 +76,11 @@ const AIChat = ({
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
+
+  // Get subscription data to determine if limit banner should show
+  const { message_limit, messages_used, subscribed } = useOptimizedSubscription();
+  const messagesRemaining = (message_limit || 0) - (messages_used || 0);
+  const hasLimitBanner = messagesRemaining <= 3 && !subscribed;
 
   const { loading, sendMessage } = useChatMessageHandler({
     profiles,
@@ -286,6 +292,7 @@ useChatEffects({
           })()}
           inputSectionHeight={inputSectionHeight}
           currentConversationId={currentConversationId}
+          hasLimitBanner={hasLimitBanner}
         />
 
         <MemoizedChatInputSection
