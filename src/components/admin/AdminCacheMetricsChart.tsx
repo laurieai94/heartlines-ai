@@ -1,10 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Activity, TrendingUp, Zap } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { Activity, TrendingUp, Zap, AlertTriangle, CheckCircle } from "lucide-react";
 import { useAdminCacheMetrics } from "@/hooks/useAdminCacheMetrics";
+import { useCacheAlerts } from "@/hooks/useCacheAlerts";
 
 const AdminCacheMetricsChart = () => {
   const { data: cacheData, isLoading } = useAdminCacheMetrics();
+  const { alert } = useCacheAlerts();
 
   if (isLoading) {
     return (
@@ -63,13 +65,39 @@ const AdminCacheMetricsChart = () => {
   return (
     <Card className="bg-gradient-to-br from-burgundy-800/40 to-burgundy-900/30 backdrop-blur-lg border border-pink-400/20">
       <CardHeader>
-        <CardTitle className="text-white flex items-center gap-2">
-          <Activity className="w-5 h-5 text-coral-400" />
-          Prompt Cache Performance
-        </CardTitle>
-        <CardDescription className="text-white/60">
-          Last 30 days of caching efficiency and cost savings
-        </CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="text-white flex items-center gap-2">
+              <Activity className="w-5 h-5 text-coral-400" />
+              Prompt Cache Performance
+            </CardTitle>
+            <CardDescription className="text-white/60">
+              Last 30 days of caching efficiency and cost savings
+            </CardDescription>
+          </div>
+          {alert && (
+            <div className="flex items-center gap-2">
+              {alert.level === 'critical' && (
+                <div className="flex items-center gap-2 text-red-400 animate-pulse">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span className="text-xs font-medium">Critical</span>
+                </div>
+              )}
+              {alert.level === 'warning' && (
+                <div className="flex items-center gap-2 text-yellow-400">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span className="text-xs font-medium">Warning</span>
+                </div>
+              )}
+              {alert.level === 'healthy' && (
+                <div className="flex items-center gap-2 text-green-400">
+                  <CheckCircle className="w-4 h-4" />
+                  <span className="text-xs font-medium">Healthy</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </CardHeader>
       <CardContent>
         {/* Summary Cards */}
@@ -146,12 +174,32 @@ const AdminCacheMetricsChart = () => {
                 return value;
               }}
             />
+            
+            {/* Warning threshold line at 70% */}
+            <ReferenceLine 
+              y={70} 
+              stroke="#eab308" 
+              strokeDasharray="3 3"
+              label={{ 
+                value: 'Warning (70%)', 
+                position: 'insideTopLeft',
+                fill: '#eab308',
+                fontSize: 11
+              }}
+            />
+            
             <Line 
               type="monotone" 
               dataKey="hitRate" 
               stroke="#ff6b9d" 
               strokeWidth={2}
-              dot={{ fill: '#ff6b9d', r: 4 }}
+              dot={(props: any) => {
+                const value = props.payload?.hitRate || 0;
+                const color = value < 50 ? '#ef4444' : 
+                             value < 70 ? '#eab308' : 
+                             '#22c55e';
+                return <circle {...props} fill={color} r={4} />;
+              }}
               activeDot={{ r: 6 }}
             />
             <Line 
