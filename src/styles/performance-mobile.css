@@ -22,6 +22,14 @@
   user-select: none;
 }
 
+/* Allow text selection specifically for chat input textarea on mobile */
+.mobile-optimized textarea.mobile-chat-input,
+.mobile-optimized .mobile-chat-input {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+}
+
 /* Fast CSS-only button feedback */
 .mobile-optimized button:active,
 .mobile-optimized [role="button"]:active {
