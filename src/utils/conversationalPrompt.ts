@@ -9,6 +9,53 @@ import { GoalsBuilder } from "./prompt/goalsBuilder";
 import { ProfileGoalsUtility } from "./profileGoals";
 
 export class ConversationalPromptBuilder {
+  /**
+   * Build separate static and dynamic prompts for caching
+   */
+  static buildPromptParts(context: PersonContext, conversationHistory: any[] = []): {
+    staticPrompt: string;
+    userContext: string;
+  } {
+    const yourName = context.yourTraits?.name || '';
+    const partnerName = context.partnerTraits?.name || '';
+    
+    // Build relationship portrait using new integrated format
+    const relationshipPortrait = RelationshipMapper.buildRelationshipPortrait(context);
+    const partnerPortrait = RelationshipMapper.buildPartnerPortrait(context);
+    const frictionPoints = RelationshipMapper.buildFrictionPoints(context);
+    const familyBackgroundInsights = FamilyBackgroundBuilder.buildFamilyBackgroundInsights(context);
+    
+    // Keep legacy insights for backward compatibility
+    const dynamics = DynamicsBuilder.buildDynamics(context);
+    
+    // Build goals insights from profile data
+    const goalsInsights = GoalsBuilder.buildGoalsInsights(
+      null,
+      null,
+      [],
+      []
+    );
+    
+    const staticPrompt = PromptTemplate.buildStaticSystemPrompt();
+    const userContext = PromptTemplate.buildUserContext(
+      yourName,
+      partnerName,
+      context,
+      conversationHistory,
+      relationshipPortrait,
+      partnerPortrait,
+      frictionPoints,
+      familyBackgroundInsights,
+      dynamics,
+      goalsInsights
+    );
+    
+    return { staticPrompt, userContext };
+  }
+
+  /**
+   * Legacy method - returns combined prompt for backward compatibility
+   */
   static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
     const yourName = context.yourTraits?.name || '';
     const partnerName = context.partnerTraits?.name || '';
@@ -50,21 +97,8 @@ Respond conversationally, summarizing what you know about them and their relatio
       [] // priorityChallenges - empty array as fallback
     );
     
-    // Build the complete prompt using the template with new relationship portrait
-    return PromptTemplate.buildMainPrompt(
-      yourName,
-      partnerName,
-      personalInsights,
-      partnerInsights,
-      context,
-      familyBackgroundInsights,
-      dynamics,
-      conversationHistory,
-      goalsInsights,
-      relationshipPortrait,
-      partnerPortrait,
-      frictionPoints
-    );
+    const { staticPrompt, userContext } = this.buildPromptParts(context, conversationHistory);
+    return `${staticPrompt}\n\n${userContext}`;
   }
 
   static buildDebugPrompt(context: PersonContext, profiles: ProfileData, demographicsData: DemographicsData): string {
