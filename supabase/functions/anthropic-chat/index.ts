@@ -50,7 +50,7 @@ serve(async (req) => {
     }
 
     console.log('API key found, parsing request body...')
-    const { userMessage, systemPrompt, conversationHistory = [] } = await req.json()
+    const { userMessage, systemPrompt, conversationHistory = [], personSummary } = await req.json()
 
     if (!userMessage || !systemPrompt) {
       throw new Error('userMessage and systemPrompt are required')
@@ -199,7 +199,10 @@ serve(async (req) => {
     ];
 
     // Use light prompt for simple messages to reduce token usage
-    const finalSystemPrompt = modelConfig.useLight ? LIGHT_PROMPT : systemPrompt;
+    // Append person summary to light prompt for personalization
+    const finalSystemPrompt = modelConfig.useLight 
+      ? `${LIGHT_PROMPT}\n\n${personSummary || ''}`
+      : systemPrompt;
     
     console.log(`Calling Anthropic API with ${modelConfig.model} (${modelConfig.useLight ? 'light prompt' : 'full prompt'})...`);
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -237,6 +240,9 @@ serve(async (req) => {
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
+      // Enforce lowercase for Kai's texting-style voice
+      const responseText = data.content[0].text.toLowerCase();
+      
       // Log token usage
       try {
         const inputTokens = data.usage?.input_tokens || 0;
@@ -285,7 +291,7 @@ serve(async (req) => {
       }
       
       return new Response(
-        JSON.stringify({ response: data.content[0].text }),
+        JSON.stringify({ response: responseText }),
         { 
           headers: { 
             ...corsHeaders,
