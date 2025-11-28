@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import AdminOverviewCards from "@/components/admin/AdminOverviewCards";
 import AdminUsersTable from "@/components/admin/AdminUsersTable";
 import AdminCostChart from "@/components/admin/AdminCostChart";
+import AdminCacheMetricsChart from "@/components/admin/AdminCacheMetricsChart";
 import AdminUserDetailsModal from "@/components/admin/AdminUserDetailsModal";
 
 const AdminDashboard = () => {
@@ -86,6 +87,9 @@ const AdminDashboard = () => {
         {costData && costData.length > 0 && (
           <AdminCostChart data={costData} />
         )}
+
+        {/* Cache Metrics Chart */}
+        <AdminCacheMetricsChart />
 
         {/* Users Table */}
         {analytics && (
