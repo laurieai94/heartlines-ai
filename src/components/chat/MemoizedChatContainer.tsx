@@ -16,6 +16,7 @@ interface MemoizedChatContainerProps {
   showProfileNudge?: boolean;
   inputSectionHeight?: number;
   currentConversationId?: string | null;
+  hasLimitBanner?: boolean;
 }
 
 // Memoize ChatContainer with optimized comparison
@@ -43,7 +44,8 @@ export const MemoizedChatContainer = React.memo(
       prevProps.isConfigured === nextProps.isConfigured &&
       prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
       prevProps.inputSectionHeight === nextProps.inputSectionHeight &&
-      prevProps.currentConversationId === nextProps.currentConversationId
+      prevProps.currentConversationId === nextProps.currentConversationId &&
+      prevProps.hasLimitBanner === nextProps.hasLimitBanner
     );
   }
 );

@@ -31,6 +31,7 @@ interface ChatContainerProps {
   showProfileNudge?: boolean;
   inputSectionHeight?: number;
   currentConversationId?: string | null;
+  hasLimitBanner?: boolean;
 }
 
 const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({ 
@@ -46,7 +47,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   onCompleteProfile,
   showProfileNudge = false,
   inputSectionHeight,
-  currentConversationId
+  currentConversationId,
+  hasLimitBanner = false
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useOptimizedMobile();
@@ -153,11 +155,11 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const mobileScrollStyle = useMemo(() => ({
     WebkitOverflowScrolling: 'touch' as const,
     overscrollBehaviorY: 'auto' as const,
-    paddingBottom: `${Math.max(inputSectionHeight || 0, 150) + 16}px`,
+    paddingBottom: `${Math.max(inputSectionHeight || 0, 120) + (hasLimitBanner ? 60 : 16)}px`,
     scrollbarWidth: 'none' as const,
     msOverflowStyle: 'none' as const,
     position: 'relative' as const
-  }), [inputSectionHeight]);
+  }), [inputSectionHeight, hasLimitBanner]);
 
   const contentPaddingStyle = useMemo(() => ({
     paddingLeft: isMobile ? 'max(8px, env(safe-area-inset-left))' : 'max(4px, env(safe-area-inset-left))',
