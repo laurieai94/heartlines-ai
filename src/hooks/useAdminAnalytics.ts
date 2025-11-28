@@ -9,10 +9,17 @@ export const useAdminAnalytics = () => {
   return useQuery({
     queryKey: ['admin-analytics'],
     queryFn: async () => {
+      console.log('[AdminAnalytics] Fetching analytics data...');
+      
       const { data: summary, error } = await supabase
         .rpc('get_user_analytics_summary') as { data: UserAnalyticsSummary[] | null; error: any };
 
-      if (error) throw error;
+      if (error) {
+        console.error('[AdminAnalytics] Error fetching analytics:', error);
+        throw error;
+      }
+
+      console.log('[AdminAnalytics] Raw data:', summary?.length || 0, 'users');
 
       const totalUsers = summary?.length || 0;
       const activeUsers = summary?.filter(u => 
@@ -20,6 +27,8 @@ export const useAdminAnalytics = () => {
       ).length || 0;
       const totalMessages = summary?.reduce((sum, u) => sum + (u.messages_this_month || 0), 0) || 0;
       const totalCost = summary?.reduce((sum, u) => sum + (u.cost_last_30_days || 0), 0) || 0;
+      
+      console.log('[AdminAnalytics] Metrics:', { totalUsers, activeUsers, totalMessages, totalCost });
       
       // Calculate average cost per user
       const avgCostPerUser = totalUsers > 0 ? totalCost / totalUsers : 0;
@@ -57,7 +66,7 @@ export const useAdminAnalytics = () => {
         ? usersWithConversations.reduce((sum, u) => sum + (u.avg_session_duration_minutes || 0), 0) / usersWithConversations.length
         : 0;
 
-      return {
+      const result = {
         totalUsers,
         activeUsers,
         totalMessages,
@@ -71,9 +80,13 @@ export const useAdminAnalytics = () => {
         avgSessionDuration,
         users: summary || []
       };
+      
+      console.log('[AdminAnalytics] Returning result:', result);
+      return result;
     },
     enabled: isAdmin,
     staleTime: 60000,
+    retry: 1,
   });
 };
 
@@ -83,16 +96,24 @@ export const useAdminCostAnalytics = () => {
   return useQuery({
     queryKey: ['admin-cost-analytics'],
     queryFn: async () => {
+      console.log('[AdminCostAnalytics] Fetching cost data...');
+      
       const { data, error } = await supabase
         .from('daily_cost_summary')
         .select('*')
         .order('date', { ascending: false })
         .limit(30);
 
-      if (error) throw error;
+      if (error) {
+        console.error('[AdminCostAnalytics] Error fetching cost data:', error);
+        throw error;
+      }
+      
+      console.log('[AdminCostAnalytics] Fetched', data?.length || 0, 'records');
       return (data || []) as DailyCostSummary[];
     },
     enabled: isAdmin,
     staleTime: 60000,
+    retry: 1,
   });
 };
