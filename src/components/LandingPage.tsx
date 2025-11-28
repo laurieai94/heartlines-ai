@@ -742,7 +742,7 @@ const LandingPage = ({
                   
                   {/* Avatar container */}
                   <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
-                    <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover scale-125 object-[center_20%]" />
+                    <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover scale-125 object-[center_20%]" loading="eager" fetchPriority="high" decoding="async" />
                   </div>
                   
                   {/* CTA Button */}
