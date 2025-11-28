@@ -157,14 +157,14 @@ serve(async (req) => {
       if (complexity === 'simple') {
         return {
           model: 'claude-3-5-haiku-20241022',
-          max_tokens: 150,
+          max_tokens: 100,
           inputCostPer1M: 0.0000008,
           outputCostPer1M: 0.000004
         };
       }
       return {
         model: 'claude-sonnet-4-5-20250929',
-        max_tokens: 400,
+        max_tokens: 200,
         inputCostPer1M: 0.000003,
         outputCostPer1M: 0.000015
       };
