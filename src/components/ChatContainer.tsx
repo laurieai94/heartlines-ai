@@ -315,7 +315,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             
             {/* Content spacer instead of padding - prevents purple rectangle */}
             <div 
-              className="md:h-[80px] w-full bg-burgundy-800"
+              className="md:h-[32px] w-full bg-burgundy-800"
               style={desktopSpacerStyle}
               aria-hidden="true"
             />
