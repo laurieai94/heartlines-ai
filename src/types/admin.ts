@@ -53,6 +53,8 @@ export interface SubscriptionAnalyticsSummary {
   avg_days_to_first_subscription: number;
   median_days_to_first_subscription: number;
   avg_cost_per_trial_user: number;
+  total_trial_users: number;
+  cac_per_conversion: number;
 }
 
 export interface MonthlyRevenueSnapshot {

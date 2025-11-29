@@ -666,6 +666,7 @@ export type Database = {
           average_revenue_per_user: number
           avg_cost_per_trial_user: number
           avg_days_to_first_subscription: number
+          cac_per_conversion: number
           cancellations_this_month: number
           conversion_rate_percentage: number
           downgrades_this_month: number
@@ -674,6 +675,7 @@ export type Database = {
           monthly_recurring_revenue: number
           new_subscriptions_this_month: number
           total_paid_subscribers: number
+          total_trial_users: number
           unlimited_subscribers: number
           upgrades_this_month: number
           vibe_subscribers: number
