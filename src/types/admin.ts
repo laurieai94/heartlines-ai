@@ -36,3 +36,34 @@ export interface DailyCostSummary {
   total_cost: number | null;
   avg_cost_per_message: number | null;
 }
+
+export interface SubscriptionAnalyticsSummary {
+  monthly_recurring_revenue: number;
+  annual_recurring_revenue: number;
+  average_revenue_per_user: number;
+  conversion_rate_percentage: number;
+  glow_subscribers: number;
+  vibe_subscribers: number;
+  unlimited_subscribers: number;
+  total_paid_subscribers: number;
+  new_subscriptions_this_month: number;
+  upgrades_this_month: number;
+  downgrades_this_month: number;
+  cancellations_this_month: number;
+  avg_days_to_first_subscription: number;
+  median_days_to_first_subscription: number;
+}
+
+export interface MonthlyRevenueSnapshot {
+  id: string;
+  snapshot_month: string;
+  mrr: number;
+  arr: number;
+  total_subscribers: number;
+  glow_count: number;
+  vibe_count: number;
+  unlimited_count: number;
+  new_subscriptions: number;
+  cancellations: number;
+  created_at: string;
+}
