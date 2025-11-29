@@ -128,70 +128,12 @@ serve(async (req) => {
       }
     }
 
-    // Message complexity classification
-    const classifyMessageComplexity = (message: string): 'simple' | 'complex' => {
-      const lowerMessage = message.toLowerCase().trim();
-      
-      // Simple patterns (greetings, acknowledgments, very short)
-      const simplePatterns = [
-        /^(hi|hey|hello|thanks|thank you|ok|okay|yes|yeah|yep|no|nope|sure|got it|i see|go on|continue|tell me more)\.?$/i,
-        /^.{0,30}$/  // Very short messages (under 30 chars)
-      ];
-      
-      if (simplePatterns.some(p => p.test(lowerMessage))) {
-        return 'simple';
-      }
-      
-      // Advice-seeking patterns (need comprehension, not crisis response)
-      const advicePatterns = [
-        /how do i/i,
-        /how can i/i,
-        /what should i/i,
-        /should i/i,
-        /how to/i,
-        /figure out/i,
-        /tell if/i,
-        /know if/i,
-        /\badvice\b/i,
-        /what do you think/i,
-        /help me understand/i
-      ];
-      
-      if (advicePatterns.some(p => p.test(lowerMessage))) {
-        return 'complex'; // Route to Sonnet for better comprehension
-      }
-      
-      // Complex keywords (crisis, emotional depth, relationship issues)
-      const complexKeywords = [
-        'suicide', 'kill', 'hurt', 'abuse', 'trauma', 'ptsd', 'crisis',
-        'cheating', 'affair', 'divorce', 'breakup', 'trust', 'betrayed',
-        'panic', 'anxiety', 'depressed', 'scared', 'terrified', 'hopeless',
-        'help', 'lost', 'alone', 'hate', 'angry', 'furious', 'devastated'
-      ];
-      
-      if (complexKeywords.some(kw => lowerMessage.includes(kw)) || message.length > 200) {
-        return 'complex';
-      }
-      
-      return 'simple';
-    };
-
-    // Model selection based on complexity
-    const getModelConfig = (complexity: 'simple' | 'complex') => {
-      if (complexity === 'simple') {
-        return {
-          model: 'claude-3-5-haiku-20241022',
-          max_tokens: 150,
-          inputCostPer1M: 0.0000008,
-          outputCostPer1M: 0.000004
-        };
-      }
-      return {
-        model: 'claude-sonnet-4-5-20250929',
-        max_tokens: 300,
-        inputCostPer1M: 0.000003,
-        outputCostPer1M: 0.000015
-      };
+    // Always use Claude Sonnet for optimal coaching quality
+    const modelConfig = {
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 300,
+      inputCostPer1M: 0.000003,
+      outputCostPer1M: 0.000015
     };
 
     // Truncate conversation history to last 15 messages
@@ -200,11 +142,7 @@ serve(async (req) => {
       return history.slice(-maxMessages);
     };
 
-    // Classify message and select model
-    const complexity = classifyMessageComplexity(userMessage);
-    const modelConfig = getModelConfig(complexity);
-    
-    console.log(`Message complexity: ${complexity}, using model: ${modelConfig.model}`);
+    console.log(`Using model: ${modelConfig.model}`);
 
     // Truncate history and build messages
     const truncatedHistory = truncateHistory(conversationHistory);
