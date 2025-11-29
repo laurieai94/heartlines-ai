@@ -64,6 +64,18 @@ export const AdminRevenueCards = ({ data, isLoading, error }: AdminRevenueCardsP
       icon: DollarSign,
       loading: isLoading,
     },
+    {
+      title: 'Total Trial Users',
+      value: data?.total_trial_users?.toString() || '0',
+      icon: Users,
+      loading: isLoading,
+    },
+    {
+      title: 'CAC (Cost/Conversion)',
+      value: data ? `$${data.cac_per_conversion.toFixed(4)}` : '$0.0000',
+      icon: DollarSign,
+      loading: isLoading,
+    },
   ];
 
   return (
