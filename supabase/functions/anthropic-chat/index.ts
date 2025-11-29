@@ -142,6 +142,25 @@ serve(async (req) => {
         return 'simple';
       }
       
+      // Advice-seeking patterns (need comprehension, not crisis response)
+      const advicePatterns = [
+        /how do i/i,
+        /how can i/i,
+        /what should i/i,
+        /should i/i,
+        /how to/i,
+        /figure out/i,
+        /tell if/i,
+        /know if/i,
+        /\badvice\b/i,
+        /what do you think/i,
+        /help me understand/i
+      ];
+      
+      if (advicePatterns.some(p => p.test(lowerMessage))) {
+        return 'complex'; // Route to Sonnet for better comprehension
+      }
+      
       // Complex keywords (crisis, emotional depth, relationship issues)
       const complexKeywords = [
         'suicide', 'kill', 'hurt', 'abuse', 'trauma', 'ptsd', 'crisis',
