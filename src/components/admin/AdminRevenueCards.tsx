@@ -83,11 +83,11 @@ export const AdminRevenueCards = ({ data, isLoading, error }: AdminRevenueCardsP
       {cards.map((card) => (
         <Card key={card.title}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{card.title}</CardTitle>
-            <card.icon className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-white">{card.title}</CardTitle>
+            <card.icon className="h-4 w-4 text-white/60" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-white">
               {card.loading ? '...' : card.value}
             </div>
           </CardContent>
