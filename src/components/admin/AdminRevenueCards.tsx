@@ -58,6 +58,12 @@ export const AdminRevenueCards = ({ data, isLoading, error }: AdminRevenueCardsP
       icon: TrendingUp,
       loading: isLoading,
     },
+    {
+      title: 'Avg Cost Per Trial',
+      value: data ? `$${data.avg_cost_per_trial_user.toFixed(4)}` : '$0.0000',
+      icon: DollarSign,
+      loading: isLoading,
+    },
   ];
 
   return (
