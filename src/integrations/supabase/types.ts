@@ -664,6 +664,7 @@ export type Database = {
         Returns: {
           annual_recurring_revenue: number
           average_revenue_per_user: number
+          avg_cost_per_trial_user: number
           avg_days_to_first_subscription: number
           cancellations_this_month: number
           conversion_rate_percentage: number

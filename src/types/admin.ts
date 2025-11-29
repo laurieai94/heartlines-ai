@@ -52,6 +52,7 @@ export interface SubscriptionAnalyticsSummary {
   cancellations_this_month: number;
   avg_days_to_first_subscription: number;
   median_days_to_first_subscription: number;
+  avg_cost_per_trial_user: number;
 }
 
 export interface MonthlyRevenueSnapshot {
