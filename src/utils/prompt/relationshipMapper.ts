@@ -11,6 +11,10 @@ export class RelationshipMapper {
     
     const sections = [];
     
+    // Relationship context (stage, duration, status) - appears first
+    const relationshipContext = this.buildRelationshipContext(context, userName, partnerName);
+    if (relationshipContext) sections.push(relationshipContext);
+    
     // User's core pattern
     const userPattern = this.buildPersonPattern(context.yourTraits, userName, true);
     if (userPattern) sections.push(userPattern);
@@ -28,6 +32,49 @@ export class RelationshipMapper {
     if (expectations) sections.push(expectations);
     
     return sections.length > 0 ? sections.join('\n\n') : '';
+  }
+  
+  /**
+   * Build relationship context - stage, duration, and current challenges
+   */
+  private static buildRelationshipContext(context: PersonContext, userName: string, partnerName: string): string {
+    const parts = [];
+    
+    // Relationship status (talking stage, in a relationship, etc.)
+    const status = context.yourTraits?.datingContext || context.relationship?.length;
+    if (status) {
+      parts.push(`relationship status: ${status}`);
+    }
+    
+    // Duration - check both talkingDuration and relationshipLength
+    const talkingDuration = context.yourTraits?.talkingDuration;
+    const relationshipLength = context.yourTraits?.relationshipLength;
+    
+    if (talkingDuration) {
+      parts.push(`they've been talking for: ${talkingDuration}`);
+    } else if (relationshipLength) {
+      parts.push(`together for: ${relationshipLength}`);
+    }
+    
+    // Talking stage description (if applicable)
+    const talkingDesc = context.yourTraits?.talkingDescription;
+    if (Array.isArray(talkingDesc) && talkingDesc.length > 0) {
+      parts.push(`the vibe: ${talkingDesc.join(', ')}`);
+    }
+    
+    // Current challenges
+    const talkingChallenges = context.yourTraits?.talkingChallenges;
+    const relationshipChallenges = context.yourTraits?.relationshipChallenges;
+    
+    if (Array.isArray(talkingChallenges) && talkingChallenges.length > 0) {
+      parts.push(`what's on their mind: ${talkingChallenges.join(', ')}`);
+    } else if (Array.isArray(relationshipChallenges) && relationshipChallenges.length > 0) {
+      parts.push(`current challenges: ${relationshipChallenges.join(', ')}`);
+    }
+    
+    if (parts.length === 0) return '';
+    
+    return `**relationship context:**\n- ${parts.join('\n- ')}`;
   }
   
   /**

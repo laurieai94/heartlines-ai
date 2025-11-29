@@ -67,6 +67,7 @@ export interface PersonContext {
     datingGoals?: string[];
     datingContext?: string;
     // New relationship-specific fields
+    talkingDuration?: string;
     talkingDescription?: string[];
     talkingChallenges?: string[];
     relationshipChallenges?: string[];
