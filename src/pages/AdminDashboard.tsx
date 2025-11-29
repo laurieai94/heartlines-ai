@@ -2,9 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIsAdmin } from "@/hooks/useUserRole";
 import { useAdminAnalytics, useAdminCostAnalytics } from "@/hooks/useAdminAnalytics";
+import { useSubscriptionAnalytics, useRevenueSnapshots } from "@/hooks/useSubscriptionAnalytics";
 import { Loader2, ArrowLeft, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AdminOverviewCards from "@/components/admin/AdminOverviewCards";
+import { AdminRevenueCards } from "@/components/admin/AdminRevenueCards";
+import { AdminSubscriptionBreakdown } from "@/components/admin/AdminSubscriptionBreakdown";
+import { AdminRevenueChart } from "@/components/admin/AdminRevenueChart";
 import AdminUsersTable from "@/components/admin/AdminUsersTable";
 import AdminCostChart from "@/components/admin/AdminCostChart";
 import AdminCacheMetricsChart from "@/components/admin/AdminCacheMetricsChart";
@@ -16,6 +20,8 @@ const AdminDashboard = () => {
   const { isAdmin, isLoading: isLoadingAdmin } = useIsAdmin();
   const { data: analytics, isLoading: isLoadingAnalytics, error: analyticsError } = useAdminAnalytics();
   const { data: costData, error: costError } = useAdminCostAnalytics();
+  const { data: subscriptionData, isLoading: subscriptionLoading, error: subscriptionError } = useSubscriptionAnalytics();
+  const { data: revenueSnapshots, isLoading: revenueSnapshotsLoading, error: revenueSnapshotsError } = useRevenueSnapshots();
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   // Redirect if not admin
@@ -71,11 +77,13 @@ const AdminDashboard = () => {
         <CacheAlertBanner />
 
         {/* Error Display */}
-        {(analyticsError || costError) && (
+        {(analyticsError || costError || subscriptionError || revenueSnapshotsError) && (
           <div className="bg-red-500/10 border border-red-400/30 rounded-lg p-4">
             <p className="text-red-200 text-sm">
               {analyticsError && `Analytics Error: ${analyticsError.message}`}
               {costError && `Cost Data Error: ${costError.message}`}
+              {subscriptionError && `Subscription Error: ${subscriptionError.message}`}
+              {revenueSnapshotsError && `Revenue Snapshots Error: ${revenueSnapshotsError.message}`}
             </p>
           </div>
         )}
@@ -94,6 +102,31 @@ const AdminDashboard = () => {
           avgConversationDuration={analytics?.avgConversationDuration || 0}
           avgSessionDuration={analytics?.avgSessionDuration || 0}
         />
+
+        {/* Revenue & Subscriptions Section */}
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-200 via-coral-200 to-orange-200 bg-clip-text text-transparent">
+            Revenue & Subscriptions
+          </h2>
+          
+          <AdminRevenueCards
+            data={subscriptionData}
+            isLoading={subscriptionLoading}
+            error={subscriptionError}
+          />
+
+          <AdminSubscriptionBreakdown
+            data={subscriptionData}
+            isLoading={subscriptionLoading}
+            error={subscriptionError}
+          />
+
+          <AdminRevenueChart
+            data={revenueSnapshots || []}
+            isLoading={revenueSnapshotsLoading}
+            error={revenueSnapshotsError}
+          />
+        </div>
 
         {/* Cost Chart - Always show, even with empty data */}
         <AdminCostChart data={costData || []} />

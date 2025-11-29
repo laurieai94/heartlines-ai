@@ -248,6 +248,48 @@ export type Database = {
         }
         Relationships: []
       }
+      monthly_revenue_snapshots: {
+        Row: {
+          arr: number
+          cancellations: number | null
+          created_at: string | null
+          glow_count: number | null
+          id: string
+          mrr: number
+          new_subscriptions: number | null
+          snapshot_month: string
+          total_subscribers: number
+          unlimited_count: number | null
+          vibe_count: number | null
+        }
+        Insert: {
+          arr?: number
+          cancellations?: number | null
+          created_at?: string | null
+          glow_count?: number | null
+          id?: string
+          mrr?: number
+          new_subscriptions?: number | null
+          snapshot_month: string
+          total_subscribers?: number
+          unlimited_count?: number | null
+          vibe_count?: number | null
+        }
+        Update: {
+          arr?: number
+          cancellations?: number | null
+          created_at?: string | null
+          glow_count?: number | null
+          id?: string
+          mrr?: number
+          new_subscriptions?: number | null
+          snapshot_month?: string
+          total_subscribers?: number
+          unlimited_count?: number | null
+          vibe_count?: number | null
+        }
+        Relationships: []
+      }
       onboarding_status: {
         Row: {
           created_at: string
