@@ -72,6 +72,40 @@ export class RelationshipMapper {
       parts.push(`current challenges: ${relationshipChallenges.join(', ')}`);
     }
     
+    // What's working well (strengths)
+    const relationshipWorking = context.yourTraits?.relationshipWorking;
+    if (Array.isArray(relationshipWorking) && relationshipWorking.length > 0) {
+      parts.push(`what's working: ${relationshipWorking.join(', ')}`);
+    }
+    
+    // Dating-specific challenges
+    const datingChallenges = context.yourTraits?.datingChallenges;
+    if (Array.isArray(datingChallenges) && datingChallenges.length > 0) {
+      parts.push(`dating challenges: ${datingChallenges.join(', ')}`);
+    }
+    
+    // Separated/Divorced context
+    const separationSituation = context.yourTraits?.separationSituation;
+    if (Array.isArray(separationSituation) && separationSituation.length > 0) {
+      parts.push(`separation context: ${separationSituation.join(', ')}`);
+    }
+    
+    const datingReadiness = context.yourTraits?.datingReadiness;
+    if (Array.isArray(datingReadiness) && datingReadiness.length > 0) {
+      parts.push(`readiness to date: ${datingReadiness.join(', ')}`);
+    }
+    
+    // Widowed context
+    const timeSinceLoss = context.yourTraits?.timeSinceLoss;
+    if (timeSinceLoss) {
+      parts.push(`time since loss: ${timeSinceLoss}`);
+    }
+    
+    const grievingProcess = context.yourTraits?.grievingProcess;
+    if (Array.isArray(grievingProcess) && grievingProcess.length > 0) {
+      parts.push(`grieving process: ${grievingProcess.join(', ')}`);
+    }
+    
     if (parts.length === 0) return '';
     
     return `**relationship context:**\n- ${parts.join('\n- ')}`;
@@ -84,6 +118,26 @@ export class RelationshipMapper {
     if (!traits || Object.keys(traits).length === 0) return '';
     
     const parts = [];
+    
+    // Basic identity context (age, pronouns)
+    const basicInfo = [];
+    if (traits.age) basicInfo.push(`${traits.age}`);
+    if (traits.pronouns) basicInfo.push(`uses ${traits.pronouns}`);
+    if (basicInfo.length > 0) {
+      parts.push(basicInfo.join(', '));
+    }
+    
+    // Gender and orientation (for user)
+    if (isUser) {
+      const gender = Array.isArray(traits.genderIdentity) ? traits.genderIdentity : (Array.isArray(traits.gender) ? traits.gender : []);
+      const orientation = Array.isArray(traits.sexualOrientation) ? traits.sexualOrientation : (Array.isArray(traits.orientation) ? traits.orientation : []);
+      if (gender.length > 0 || orientation.length > 0) {
+        const identity = [...gender, ...orientation].filter(Boolean);
+        if (identity.length > 0) {
+          parts.push(`identifies as ${identity.join(', ')}`);
+        }
+      }
+    }
     
     // Attachment style
     if (traits.attachmentStyle) {
@@ -133,6 +187,14 @@ export class RelationshipMapper {
       }
     }
     
+    // Family structure (for user)
+    if (isUser) {
+      const familyStructure = Array.isArray(traits.familyStructure) ? traits.familyStructure : [];
+      if (familyStructure.length > 0) {
+        parts.push(`family background: ${familyStructure.join(', ')}`);
+      }
+    }
+    
     // Past wounds
     const heartbreak = Array.isArray(traits.heartbreakBetrayal) ? traits.heartbreakBetrayal : [];
     if (heartbreak.length > 0) {
@@ -145,17 +207,48 @@ export class RelationshipMapper {
     
     // Partner-specific notes
     if (!isUser) {
-      // Sexual orientation context
-      const orientation = Array.isArray(traits.sexualOrientation) ? traits.sexualOrientation : [];
-      if (orientation.some(o => o.toLowerCase().includes('bi'))) {
-        parts.push(`they're bi—which ${name === 'their partner' ? 'their partner' : 'the user'} sometimes worries about`);
+      // Basic partner identity
+      if (traits.age) parts.push(`${traits.age} years old`);
+      if (traits.pronouns) parts.push(`uses ${traits.pronouns}`);
+      
+      // Partner's gender
+      const partnerGender = Array.isArray(traits.genderIdentity) ? traits.genderIdentity : (Array.isArray(traits.gender) ? traits.gender : []);
+      if (partnerGender.length > 0) {
+        parts.push(`identifies as ${partnerGender.join(', ')}`);
       }
       
-      // Communication style
+      // Full orientation (not just bi)
+      const orientation = Array.isArray(traits.sexualOrientation) ? traits.sexualOrientation : (Array.isArray(traits.orientation) ? traits.orientation : []);
+      if (orientation.length > 0) {
+        if (orientation.some(o => o.toLowerCase().includes('bi'))) {
+          parts.push(`they're bi—which ${name === 'their partner' ? 'their partner' : 'the user'} sometimes worries about`);
+        } else {
+          parts.push(`${orientation.join(', ')}`);
+        }
+      }
+      
+      // Communication response (how they respond to communication)
+      const commResponse = Array.isArray(traits.communicationResponse) ? traits.communicationResponse : [];
+      if (commResponse.length > 0) {
+        parts.push(`when communicating: ${commResponse.join(', ')}`);
+      }
+      
+      // Self-awareness level
+      if (traits.selfAwareness) {
+        parts.push(`self-awareness: ${traits.selfAwareness}`);
+      }
+      
+      // Communication style (legacy field)
       if (traits.communicationStyle === 'direct') {
         parts.push(`they're straightforward but not always great at emotional check-ins`);
       } else if (traits.communicationStyle === 'indirect') {
         parts.push(`they hint rather than stating needs directly`);
+      }
+      
+      // Partner's family structure
+      const partnerFamily = Array.isArray(traits.familyStructure) ? traits.familyStructure : [];
+      if (partnerFamily.length > 0) {
+        parts.push(`grew up: ${partnerFamily.join(', ')}`);
       }
       
       // How they show love
