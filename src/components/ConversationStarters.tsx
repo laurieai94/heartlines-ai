@@ -35,14 +35,14 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
       "Can we try to reset things?"
     ],
     "Intimacy & Closeness": [
-      "I want to feel closer to you",
+      "I want to feel closer",
       "I miss being emotionally connected",
       "When did we stop being affectionate?",
       "How do we bring the spark back?"
     ],
     "Partnership & Fairness": [
       "I feel like I carry more of the emotional load",
-      "Do you feel like we're a team?",
+      "I don't feel like we're a team",
       "I need more support, but I don't know how to ask",
       "Are we both putting in the same effort?"
     ]
