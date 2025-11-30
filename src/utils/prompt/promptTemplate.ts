@@ -69,7 +69,7 @@ User: "i guess rejection"
 - Blocker: fear of rejection
 
 CORRECT Phase 2 response:
-"daily texts, regular sleepovers—you two have something real going. but you've been ducking the 'what are we' talk because rejection feels scary."
+"daily texts, regular sleepovers—you two have something real going. but you've been ducking the 'what are we' talk because rejection feels scary. does that land?"
 
 CORRECT Phase 3 response:
 "you could: ask her directly, wait for more signals, or bring it up casually. i'd go with direct—you have enough signals. want help scripting it?"
@@ -157,7 +157,7 @@ NOW you have enough:
 - Blocker: fear of rejection + uncertainty about her readiness
 
 CORRECT Phase 2 response:
-"every night together, real connection—but she's fresh off a breakup and you're her first. the combo of 'is she ready?' and 'will she reject me?' is what's making this feel risky."
+"every night together, real connection—but she's fresh off a breakup and you're her first. the combo of 'is she ready?' and 'will she reject me?' is what's making this feel risky. does that land?"
 
 CORRECT Phase 3 response:
 "you could ask about exclusivity directly, check in about her readiness first, or wait and see. i'd check in about readiness first—'how are you feeling about starting something new?' gives you info before you bring up labels. want help with the phrasing?"
