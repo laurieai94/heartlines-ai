@@ -136,6 +136,12 @@ serve(async (req) => {
       outputCostPer1M: 0.000015
     };
 
+    // Track metrics for API health monitoring
+    const requestStartTime = Date.now();
+    let retryCount = 0;
+    let lastErrorType: string | null = null;
+    let lastErrorCode: number | null = null;
+
     // Helper: Call Anthropic with retry logic and exponential backoff
     const callAnthropicWithRetry = async (
       modelConfig: { model: string; max_tokens: number },
@@ -144,6 +150,7 @@ serve(async (req) => {
       maxRetries: number = 3
     ) => {
       for (let attempt = 0; attempt < maxRetries; attempt++) {
+        if (attempt > 0) retryCount++;
         try {
           const controller = new AbortController();
           const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
@@ -177,6 +184,10 @@ serve(async (req) => {
             const waitTime = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
             console.log(`Retryable error ${response.status} on ${modelConfig.model}, attempt ${attempt + 1}/${maxRetries}, waiting ${waitTime}ms`);
             
+            // Track error type for metrics
+            lastErrorType = response.status === 429 ? 'rate_limit' : response.status === 529 ? 'overload' : 'service_error';
+            lastErrorCode = response.status;
+            
             if (attempt < maxRetries - 1) {
               await new Promise(resolve => setTimeout(resolve, waitTime));
               continue;
@@ -186,12 +197,18 @@ serve(async (req) => {
           // Non-retryable errors or final retry failed
           const errorText = await response.text();
           console.error(`API error ${response.status} on ${modelConfig.model}:`, errorText);
+          
+          lastErrorType = 'api_error';
+          lastErrorCode = response.status;
           throw new Error(`API_ERROR_${response.status}`);
 
         } catch (err) {
           // Handle timeout
           if (err.name === 'AbortError') {
             console.error(`Request timeout on ${modelConfig.model}, attempt ${attempt + 1}/${maxRetries}`);
+            lastErrorType = 'timeout';
+            lastErrorCode = null;
+            
             if (attempt < maxRetries - 1) {
               await new Promise(resolve => setTimeout(resolve, 2000));
               continue;
@@ -201,6 +218,7 @@ serve(async (req) => {
           
           // Last attempt or non-retryable error
           if (attempt === maxRetries - 1) {
+            lastErrorType = 'other';
             throw err;
           }
         }
@@ -263,7 +281,10 @@ serve(async (req) => {
     console.log(`Calling Anthropic API with model: ${modelConfig.model}...`);
     const data = await callAnthropicWithRetry(modelConfig, messages, systemBlocks, 5);
     console.log(`Model ${modelConfig.model} succeeded`);
-    console.log('Anthropic API response received successfully')
+    console.log('Anthropic API response received successfully');
+    
+    // Calculate response time
+    const responseTimeMs = Date.now() - requestStartTime;
     
     if (data.content && data.content[0] && data.content[0].text) {
       // Log token usage with cache metrics
@@ -328,6 +349,25 @@ serve(async (req) => {
             console.error('Failed to log cache metrics:', cacheError);
           }
         }
+
+        // Log API request metrics for reliability monitoring
+        const { error: metricsError } = await supabaseService
+          .from('api_request_metrics')
+          .insert({
+            user_id: user.id,
+            model: model,
+            response_time_ms: responseTimeMs,
+            retry_count: retryCount,
+            success: true,
+            input_tokens: totalInputTokens,
+            output_tokens: outputTokens
+          });
+        
+        if (metricsError) {
+          console.error('Failed to log API metrics:', metricsError);
+        } else {
+          console.log(`Logged API metrics: ${responseTimeMs}ms response time, ${retryCount} retries`);
+        }
       } catch (tokenErr) {
         console.error('Error logging token usage:', tokenErr);
       }
@@ -367,6 +407,40 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Edge Function Error:', error.message)
+    
+    // Log failed API request metrics
+    try {
+      const responseTimeMs = Date.now() - requestStartTime;
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+      const supabaseService = createClient(supabaseUrl, supabaseServiceKey, {
+        auth: { persistSession: false }
+      });
+      
+      // Get user from token (may fail if auth error)
+      const authHeader = req.headers.get('authorization');
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.replace('Bearer ', '');
+        const { data: { user } } = await supabaseService.auth.getUser(token);
+        
+        if (user) {
+          await supabaseService
+            .from('api_request_metrics')
+            .insert({
+              user_id: user.id,
+              model: 'claude-sonnet-4-5',
+              response_time_ms: responseTimeMs,
+              retry_count: retryCount,
+              success: false,
+              error_type: lastErrorType,
+              error_code: lastErrorCode
+            });
+          console.log(`Logged failed API metrics: ${responseTimeMs}ms, ${retryCount} retries, ${lastErrorType}`);
+        }
+      }
+    } catch (metricsErr) {
+      console.error('Failed to log error metrics:', metricsErr);
+    }
     
     // User-friendly error messages
     let sanitizedError: string;

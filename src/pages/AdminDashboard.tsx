@@ -12,6 +12,7 @@ import { AdminRevenueChart } from "@/components/admin/AdminRevenueChart";
 import AdminUsersTable from "@/components/admin/AdminUsersTable";
 import AdminCostChart from "@/components/admin/AdminCostChart";
 import AdminCacheMetricsChart from "@/components/admin/AdminCacheMetricsChart";
+import AdminApiHealthChart from "@/components/admin/AdminApiHealthChart";
 import AdminUserDetailsModal from "@/components/admin/AdminUserDetailsModal";
 import CacheAlertBanner from "@/components/admin/CacheAlertBanner";
 
@@ -127,6 +128,9 @@ const AdminDashboard = () => {
             error={revenueSnapshotsError}
           />
         </div>
+
+        {/* API Health & Reliability */}
+        <AdminApiHealthChart />
 
         {/* Cost Chart - Always show, even with empty data */}
         <AdminCostChart data={costData || []} />
