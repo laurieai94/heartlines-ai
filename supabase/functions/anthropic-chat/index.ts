@@ -130,7 +130,7 @@ serve(async (req) => {
 
     // Always use Claude Sonnet for optimal coaching quality
     const modelConfig = {
-      model: 'claude-sonnet-4-5-20250929',
+      model: 'claude-sonnet-4-5',
       max_tokens: 300,
       inputCostPer1M: 0.000003,
       outputCostPer1M: 0.000015
