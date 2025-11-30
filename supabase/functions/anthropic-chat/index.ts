@@ -128,12 +128,93 @@ serve(async (req) => {
       }
     }
 
-    // Always use Claude Sonnet for optimal coaching quality
-    const modelConfig = {
-      model: 'claude-sonnet-4-5',
-      max_tokens: 300,
-      inputCostPer1M: 0.000003,
-      outputCostPer1M: 0.000015
+    // Model configurations: primary (Sonnet) and fallback (Haiku)
+    const models = [
+      {
+        model: 'claude-sonnet-4-5',
+        max_tokens: 300,
+        inputCostPer1M: 0.000003,
+        outputCostPer1M: 0.000015
+      },
+      {
+        model: 'claude-3-5-haiku-20241022',
+        max_tokens: 300,
+        inputCostPer1M: 0.0000008,
+        outputCostPer1M: 0.000004
+      }
+    ];
+
+    // Helper: Call Anthropic with retry logic and exponential backoff
+    const callAnthropicWithRetry = async (
+      modelConfig: { model: string; max_tokens: number },
+      messages: any[],
+      systemBlocks: any[],
+      maxRetries: number = 3
+    ) => {
+      for (let attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+          const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': anthropicApiKey,
+              'anthropic-version': '2023-06-01',
+              'anthropic-beta': 'prompt-caching-2024-07-31',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              model: modelConfig.model,
+              max_tokens: modelConfig.max_tokens,
+              messages: messages,
+              system: systemBlocks
+            }),
+            signal: controller.signal
+          });
+
+          clearTimeout(timeoutId);
+
+          if (response.ok) {
+            return await response.json();
+          }
+
+          // Handle retryable errors with exponential backoff
+          if (response.status === 429 || response.status === 529 || response.status === 503) {
+            const waitTime = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+            console.log(`Retryable error ${response.status} on ${modelConfig.model}, attempt ${attempt + 1}/${maxRetries}, waiting ${waitTime}ms`);
+            
+            if (attempt < maxRetries - 1) {
+              await new Promise(resolve => setTimeout(resolve, waitTime));
+              continue;
+            }
+          }
+
+          // Non-retryable errors or final retry failed
+          const errorText = await response.text();
+          console.error(`API error ${response.status} on ${modelConfig.model}:`, errorText);
+          throw new Error(`API_ERROR_${response.status}`);
+
+        } catch (err) {
+          // Handle timeout
+          if (err.name === 'AbortError') {
+            console.error(`Request timeout on ${modelConfig.model}, attempt ${attempt + 1}/${maxRetries}`);
+            if (attempt < maxRetries - 1) {
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              continue;
+            }
+            throw new Error('REQUEST_TIMEOUT');
+          }
+          
+          // Last attempt or non-retryable error
+          if (attempt === maxRetries - 1) {
+            throw err;
+          }
+        }
+      }
+      
+      throw new Error('MAX_RETRIES_EXCEEDED');
     };
 
     // Truncate conversation history to last 15 messages
@@ -141,8 +222,6 @@ serve(async (req) => {
       if (history.length <= maxMessages) return history;
       return history.slice(-maxMessages);
     };
-
-    console.log(`Using model: ${modelConfig.model}`);
 
     // Truncate history and build messages
     const truncatedHistory = truncateHistory(conversationHistory);
@@ -188,40 +267,39 @@ serve(async (req) => {
       }
     }
 
-    console.log(`Calling Anthropic API with ${modelConfig.model}...`);
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': anthropicApiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-beta': 'prompt-caching-2024-07-31',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        model: modelConfig.model,
-        max_tokens: modelConfig.max_tokens,
-        messages: messages,
-        system: systemBlocks
-      })
-    })
-
-    console.log('Anthropic API response status:', response.status)
-
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('Anthropic API Error:', response.status)
+    // Try primary model (Sonnet), then fallback to Haiku if needed
+    let data;
+    let modelConfig = models[0]; // Start with Sonnet
+    
+    try {
+      console.log(`Calling Anthropic API with primary model: ${modelConfig.model}...`);
+      data = await callAnthropicWithRetry(modelConfig, messages, systemBlocks, 3);
+      console.log(`Primary model ${modelConfig.model} succeeded`);
+    } catch (primaryError) {
+      console.error(`Primary model ${modelConfig.model} failed after retries:`, primaryError.message);
       
-      if (response.status === 401) {
-        throw new Error('Authentication failed')
-      } else if (response.status === 429) {
-        throw new Error('Rate limit exceeded. Please wait a moment and try again.')
-      } else {
-        throw new Error(`API request failed with status: ${response.status}`)
+      // Try fallback model (Haiku)
+      modelConfig = models[1];
+      console.log(`Attempting fallback model: ${modelConfig.model}...`);
+      
+      try {
+        data = await callAnthropicWithRetry(modelConfig, messages, systemBlocks, 2);
+        console.log(`Fallback model ${modelConfig.model} succeeded`);
+      } catch (fallbackError) {
+        console.error(`Fallback model ${modelConfig.model} also failed:`, fallbackError.message);
+        
+        // Both models failed - throw user-friendly error
+        if (primaryError.message.includes('429') || fallbackError.message.includes('429')) {
+          throw new Error('RATE_LIMIT');
+        } else if (primaryError.message.includes('529') || fallbackError.message.includes('529')) {
+          throw new Error('SERVICE_OVERLOAD');
+        } else if (primaryError.message === 'REQUEST_TIMEOUT') {
+          throw new Error('REQUEST_TIMEOUT');
+        } else {
+          throw new Error('ALL_MODELS_FAILED');
+        }
       }
     }
-
-    const data = await response.json()
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
@@ -327,17 +405,35 @@ serve(async (req) => {
   } catch (error) {
     console.error('Edge Function Error:', error.message)
     
-    // Sanitize error message for security
-    const sanitizedError = error.message?.includes('Authentication') ? 'Authentication failed' :
-                          error.message?.includes('Rate limit') ? 'Rate limit exceeded' :
-                          'Service temporarily unavailable';
+    // User-friendly error messages
+    let sanitizedError: string;
+    let statusCode = 500;
+    
+    if (error.message === 'RATE_LIMIT') {
+      sanitizedError = 'kai is busy right now—try again in a few seconds';
+      statusCode = 429;
+    } else if (error.message === 'SERVICE_OVERLOAD') {
+      sanitizedError = 'kai is taking a moment... please try again';
+      statusCode = 503;
+    } else if (error.message === 'REQUEST_TIMEOUT') {
+      sanitizedError = 'request took too long—please try again';
+      statusCode = 504;
+    } else if (error.message?.includes('Authentication') || error.message?.includes('Invalid authentication')) {
+      sanitizedError = 'Authentication failed';
+      statusCode = 401;
+    } else if (error.message === 'ALL_MODELS_FAILED') {
+      sanitizedError = 'kai is temporarily unavailable—please try again in a moment';
+      statusCode = 503;
+    } else {
+      sanitizedError = 'something went wrong—please try again';
+    }
     
     return new Response(
       JSON.stringify({ 
         error: sanitizedError
       }),
       { 
-        status: 500,
+        status: statusCode,
         headers: { 
           ...corsHeaders,
           'Content-Type': 'application/json',
