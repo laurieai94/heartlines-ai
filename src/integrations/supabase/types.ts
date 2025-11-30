@@ -38,6 +38,48 @@ export type Database = {
         }
         Relationships: []
       }
+      api_request_metrics: {
+        Row: {
+          created_at: string
+          error_code: number | null
+          error_type: string | null
+          id: string
+          input_tokens: number | null
+          model: string
+          output_tokens: number | null
+          response_time_ms: number
+          retry_count: number
+          success: boolean
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          error_code?: number | null
+          error_type?: string | null
+          id?: string
+          input_tokens?: number | null
+          model: string
+          output_tokens?: number | null
+          response_time_ms: number
+          retry_count?: number
+          success: boolean
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          error_code?: number | null
+          error_type?: string | null
+          id?: string
+          input_tokens?: number | null
+          model?: string
+          output_tokens?: number | null
+          response_time_ms?: number
+          retry_count?: number
+          success?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
       cache_alert_state: {
         Row: {
           alert_type: string
@@ -628,6 +670,27 @@ export type Database = {
       }
     }
     Views: {
+      daily_api_health_summary: {
+        Row: {
+          auth_errors: number | null
+          avg_response_time_ms: number | null
+          avg_retries: number | null
+          date: string | null
+          model: string | null
+          overload_errors: number | null
+          p50_response_time_ms: number | null
+          p95_response_time_ms: number | null
+          p99_response_time_ms: number | null
+          rate_limit_errors: number | null
+          requests_with_retries: number | null
+          success_rate_percent: number | null
+          successful_requests: number | null
+          timeout_errors: number | null
+          total_requests: number | null
+          total_retries: number | null
+        }
+        Relationships: []
+      }
       daily_cache_summary: {
         Row: {
           cache_hit_rate_percent: number | null
