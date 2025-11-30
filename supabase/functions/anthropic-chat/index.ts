@@ -128,21 +128,13 @@ serve(async (req) => {
       }
     }
 
-    // Model configurations: primary (Sonnet) and fallback (Haiku)
-    const models = [
-      {
-        model: 'claude-sonnet-4-5',
-        max_tokens: 300,
-        inputCostPer1M: 0.000003,
-        outputCostPer1M: 0.000015
-      },
-      {
-        model: 'claude-3-5-haiku-20241022',
-        max_tokens: 300,
-        inputCostPer1M: 0.0000008,
-        outputCostPer1M: 0.000004
-      }
-    ];
+    // Sonnet-only model configuration (no fallback - quality is non-negotiable)
+    const modelConfig = {
+      model: 'claude-sonnet-4-5',
+      max_tokens: 300,
+      inputCostPer1M: 0.000003,
+      outputCostPer1M: 0.000015
+    };
 
     // Helper: Call Anthropic with retry logic and exponential backoff
     const callAnthropicWithRetry = async (
@@ -267,39 +259,10 @@ serve(async (req) => {
       }
     }
 
-    // Try primary model (Sonnet), then fallback to Haiku if needed
-    let data;
-    let modelConfig = models[0]; // Start with Sonnet
-    
-    try {
-      console.log(`Calling Anthropic API with primary model: ${modelConfig.model}...`);
-      data = await callAnthropicWithRetry(modelConfig, messages, systemBlocks, 3);
-      console.log(`Primary model ${modelConfig.model} succeeded`);
-    } catch (primaryError) {
-      console.error(`Primary model ${modelConfig.model} failed after retries:`, primaryError.message);
-      
-      // Try fallback model (Haiku)
-      modelConfig = models[1];
-      console.log(`Attempting fallback model: ${modelConfig.model}...`);
-      
-      try {
-        data = await callAnthropicWithRetry(modelConfig, messages, systemBlocks, 2);
-        console.log(`Fallback model ${modelConfig.model} succeeded`);
-      } catch (fallbackError) {
-        console.error(`Fallback model ${modelConfig.model} also failed:`, fallbackError.message);
-        
-        // Both models failed - throw user-friendly error
-        if (primaryError.message.includes('429') || fallbackError.message.includes('429')) {
-          throw new Error('RATE_LIMIT');
-        } else if (primaryError.message.includes('529') || fallbackError.message.includes('529')) {
-          throw new Error('SERVICE_OVERLOAD');
-        } else if (primaryError.message === 'REQUEST_TIMEOUT') {
-          throw new Error('REQUEST_TIMEOUT');
-        } else {
-          throw new Error('ALL_MODELS_FAILED');
-        }
-      }
-    }
+    // Call Sonnet with retries (no Haiku fallback - quality is non-negotiable)
+    console.log(`Calling Anthropic API with model: ${modelConfig.model}...`);
+    const data = await callAnthropicWithRetry(modelConfig, messages, systemBlocks, 5);
+    console.log(`Model ${modelConfig.model} succeeded`);
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
@@ -421,11 +384,8 @@ serve(async (req) => {
     } else if (error.message?.includes('Authentication') || error.message?.includes('Invalid authentication')) {
       sanitizedError = 'Authentication failed';
       statusCode = 401;
-    } else if (error.message === 'ALL_MODELS_FAILED') {
-      sanitizedError = 'kai is temporarily unavailable—please try again in a moment';
-      statusCode = 503;
     } else {
-      sanitizedError = 'something went wrong—please try again';
+      sanitizedError = 'kai is temporarily unavailable—please try again in a moment';
     }
     
     return new Response(
