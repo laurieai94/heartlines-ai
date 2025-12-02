@@ -25,8 +25,9 @@ export class AICoachEngine {
     userMessage: string, 
     context: PersonContext, 
     conversationHistory: any[] = [],
-    customPrompt?: string
+    customPrompt?: string,
+    crossSessionMemory?: string
   ): Promise<string> {
-    return AIResponseCoordinator.getAIResponse(userMessage, context, conversationHistory, customPrompt);
+    return AIResponseCoordinator.getAIResponse(userMessage, context, conversationHistory, customPrompt, true, crossSessionMemory);
   }
 }

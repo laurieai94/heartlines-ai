@@ -12,7 +12,7 @@ export class ConversationalPromptBuilder {
   /**
    * Build separate static and dynamic prompts for caching
    */
-  static buildPromptParts(context: PersonContext, conversationHistory: any[] = []): {
+  static buildPromptParts(context: PersonContext, conversationHistory: any[] = [], crossSessionMemory: string = ''): {
     staticPrompt: string;
     userContext: string;
   } {
@@ -47,7 +47,8 @@ export class ConversationalPromptBuilder {
       frictionPoints,
       familyBackgroundInsights,
       dynamics,
-      goalsInsights
+      goalsInsights,
+      crossSessionMemory
     );
     
     return { staticPrompt, userContext };

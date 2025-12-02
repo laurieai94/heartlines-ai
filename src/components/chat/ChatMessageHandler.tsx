@@ -5,6 +5,9 @@ import { UseProfileGoalsReturn } from '@/hooks/useProfileGoals';
 import { AICoachEngine } from '../AICoachEngine';
 import { useConversationTopics } from '@/hooks/useConversationTopics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
+import { useRelationshipPatterns } from '@/hooks/useRelationshipPatterns';
+import { detectPatterns, generateConversationSummary } from '@/services/patternDetectionService';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ChatMessageHandlerProps {
   profiles: ProfileData;
@@ -29,6 +32,8 @@ export const useChatMessageHandler = ({
   const messageIdCounter = useRef(Date.now());
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
+  const { formatCrossSessionMemory } = useRelationshipPatterns();
+  const { user } = useAuth();
 
   // Stable ID generation to prevent duplicate messages
   const generateMessageId = useCallback(() => {
@@ -76,7 +81,10 @@ export const useChatMessageHandler = ({
         ? AICoachEngine.buildDebugPrompt(context, profiles, demographicsData)
         : undefined;
       
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, customPrompt);
+      // Get cross-session memory
+      const crossSessionMemory = formatCrossSessionMemory();
+      
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, customPrompt, crossSessionMemory);
       
       const aiTopics = extractTopicsFromMessage(aiResponse);
       aiTopics.forEach(topic => addOrUpdateTopic(topic));
@@ -90,6 +98,25 @@ export const useChatMessageHandler = ({
 
       // Single batched update with deduplication
       setChatHistory(prev => deduplicateMessages([...prev, aiMessage]));
+
+      // Detect patterns and generate summaries in the background
+      if (user?.id) {
+        const allMessages = [...historySnapshot, aiMessage];
+        if (allMessages.length >= 5) {
+          const conversationId = allMessages[0]?.id?.toString() || crypto.randomUUID();
+          // Map messages to the format expected by pattern detection
+          const mappedMessages = allMessages.map(msg => ({
+            role: msg.type === 'user' ? 'user' as const : 'assistant' as const,
+            content: msg.content
+          }));
+          detectPatterns(conversationId, mappedMessages, user.id).catch(error =>
+            console.error('Failed to detect patterns:', error)
+          );
+          generateConversationSummary(conversationId, mappedMessages, user.id).catch(error =>
+            console.error('Failed to generate summary:', error)
+          );
+        }
+      }
 
       // Refresh subscription data to update usage count
       try {
