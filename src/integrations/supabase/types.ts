@@ -392,6 +392,51 @@ export type Database = {
         }
         Relationships: []
       }
+      relationship_patterns: {
+        Row: {
+          context_snippets: string[] | null
+          conversation_ids: string[] | null
+          created_at: string | null
+          first_seen: string | null
+          frequency: number | null
+          id: string
+          is_resolved: boolean | null
+          last_seen: string | null
+          pattern_description: string | null
+          pattern_type: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          context_snippets?: string[] | null
+          conversation_ids?: string[] | null
+          created_at?: string | null
+          first_seen?: string | null
+          frequency?: number | null
+          id?: string
+          is_resolved?: boolean | null
+          last_seen?: string | null
+          pattern_description?: string | null
+          pattern_type: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          context_snippets?: string[] | null
+          conversation_ids?: string[] | null
+          created_at?: string | null
+          first_seen?: string | null
+          frequency?: number | null
+          id?: string
+          is_resolved?: boolean | null
+          last_seen?: string | null
+          pattern_description?: string | null
+          pattern_type?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       signup_cap: {
         Row: {
           created_at: string | null

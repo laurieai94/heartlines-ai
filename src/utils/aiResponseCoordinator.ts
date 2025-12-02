@@ -19,9 +19,10 @@ export class AIResponseCoordinator {
   static async getAIResponse(
     userMessage: string, 
     context: PersonContext, 
-    conversationHistory: any[] = [],
+    conversationHistory: any[] = [], 
     customPrompt?: string,
-    useSplitPrompt: boolean = true
+    useSplitPrompt: boolean = true,
+    crossSessionMemory: string = ''
   ): Promise<string> {
     try {
       // Build the conversational prompt
@@ -31,7 +32,7 @@ export class AIResponseCoordinator {
         promptInput = customPrompt;
       } else if (useSplitPrompt) {
         // Use split prompts for caching
-        promptInput = ConversationalPromptBuilder.buildPromptParts(context, conversationHistory);
+        promptInput = ConversationalPromptBuilder.buildPromptParts(context, conversationHistory, crossSessionMemory);
       } else {
         // Legacy single prompt
         promptInput = ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
