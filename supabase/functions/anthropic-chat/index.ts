@@ -18,6 +18,12 @@ serve(async (req) => {
   }
 
   try {
+    // Track metrics for API health monitoring (declared early for error handlers)
+    const requestStartTime = Date.now();
+    let retryCount = 0;
+    let lastErrorType: string | null = null;
+    let lastErrorCode: number | null = null;
+
     // Verify JWT token
     const authHeader = req.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -135,12 +141,6 @@ serve(async (req) => {
       inputCostPer1M: 0.000003,
       outputCostPer1M: 0.000015
     };
-
-    // Track metrics for API health monitoring
-    const requestStartTime = Date.now();
-    let retryCount = 0;
-    let lastErrorType: string | null = null;
-    let lastErrorCode: number | null = null;
 
     // Helper: Call Anthropic with retry logic and exponential backoff
     const callAnthropicWithRetry = async (
