@@ -51,18 +51,14 @@ export const generateConversationSummary = async (
     // Call Anthropic to generate summary
     const { data, error } = await supabase.functions.invoke('anthropic-chat', {
       body: {
-        messages: [
-          {
-            role: 'user',
-            content: `Summarize this relationship coaching conversation in 50-100 words. Focus on the main issue discussed, any patterns identified, and the outcome or decision made. Be concise and specific.
+        userMessage: `Summarize this relationship coaching conversation in 50-100 words. Focus on the main issue discussed, any patterns identified, and the outcome or decision made. Be concise and specific.
 
 Conversation:
 ${conversationText}
 
-Return only the summary text, no additional formatting.`
-          }
-        ],
+Return only the summary text, no additional formatting.`,
         systemPrompt: 'You are a conversation summarizer. Create brief, focused summaries.',
+        conversationHistory: [],
       },
     });
 
