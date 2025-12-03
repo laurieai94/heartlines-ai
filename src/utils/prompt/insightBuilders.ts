@@ -3,6 +3,114 @@ import { PersonContext } from "@/types/AIInsights";
 
 export class InsightBuilders {
   /**
+   * Build comprehensive profile data dump - ALWAYS includes all non-empty profile fields
+   * This ensures Kai has access to ALL profile data regardless of conditional portrait logic
+   */
+  static buildProfileDataDump(context: PersonContext): string {
+    const sections: string[] = [];
+    
+    // User profile - always include all non-empty fields
+    if (context.yourTraits) {
+      const t = context.yourTraits;
+      const userData: string[] = [];
+      
+      // Identity basics
+      if (t.name) userData.push(`name: ${t.name}`);
+      if (t.age) userData.push(`age: ${t.age}`);
+      if (t.pronouns) userData.push(`pronouns: ${t.pronouns}`);
+      if (t.genderIdentity?.length) userData.push(`gender: ${t.genderIdentity.join(', ')}`);
+      if (t.sexualOrientation?.length) userData.push(`orientation: ${t.sexualOrientation.join(', ')}`);
+      
+      // Relationship patterns
+      if (t.attachmentStyle) userData.push(`attachment: ${t.attachmentStyle}`);
+      if (t.loveLanguages?.length) userData.push(`love languages: ${t.loveLanguages.join(', ')}`);
+      if (t.conflictStyle) userData.push(`conflict style: ${t.conflictStyle}`);
+      if (t.communicationStyle) userData.push(`communication: ${t.communicationStyle}`);
+      if (t.stressResponse?.length) userData.push(`when stressed: ${t.stressResponse.join(', ')}`);
+      
+      // Past wounds & family
+      if (t.heartbreakBetrayal?.length) userData.push(`past wounds: ${t.heartbreakBetrayal.join(', ')}`);
+      if (t.familyStructure?.length) userData.push(`family background: ${t.familyStructure.join(', ')}`);
+      if (t.parentConflictStyle?.length) userData.push(`parents' conflict: ${t.parentConflictStyle.join(', ')}`);
+      if (t.loveMessages?.length) userData.push(`childhood love messages: ${t.loveMessages.join(', ')}`);
+      
+      // Relationship context
+      if (t.datingContext) userData.push(`relationship status: ${t.datingContext}`);
+      if (t.relationshipLength) userData.push(`together: ${t.relationshipLength}`);
+      if (t.talkingDuration) userData.push(`talking for: ${t.talkingDuration}`);
+      
+      // Current situation
+      if (t.relationshipChallenges?.length) userData.push(`challenges: ${t.relationshipChallenges.join(', ')}`);
+      if (t.relationshipWorking?.length) userData.push(`what's working: ${t.relationshipWorking.join(', ')}`);
+      if (t.talkingChallenges?.length) userData.push(`talking stage challenges: ${t.talkingChallenges.join(', ')}`);
+      if (t.datingChallenges?.length) userData.push(`dating challenges: ${t.datingChallenges.join(', ')}`);
+      
+      // Goals & hopes
+      if (t.hopingFor?.length) userData.push(`hoping for: ${t.hopingFor.join(', ')}`);
+      if (t.datingGoals?.length) userData.push(`dating goals: ${t.datingGoals.join(', ')}`);
+      if (t.whyRealTalk?.length) userData.push(`why here: ${t.whyRealTalk.join(', ')}`);
+      
+      // Special situations
+      if (t.separationSituation?.length) userData.push(`separation: ${t.separationSituation.join(', ')}`);
+      if (t.datingReadiness?.length) userData.push(`dating readiness: ${t.datingReadiness.join(', ')}`);
+      if (t.timeSinceLoss) userData.push(`time since loss: ${t.timeSinceLoss}`);
+      if (t.grievingProcess?.length) userData.push(`grieving: ${t.grievingProcess.join(', ')}`);
+      
+      if (userData.length > 0) {
+        sections.push(`**${t.name || 'USER'}**: ${userData.join(' | ')}`);
+      }
+    }
+    
+    // Partner profile - same comprehensive approach
+    if (context.partnerTraits && context.partnerTraits.name) {
+      const p = context.partnerTraits;
+      const partnerData: string[] = [];
+      
+      // Identity basics
+      if (p.name) partnerData.push(`name: ${p.name}`);
+      if (p.age) partnerData.push(`age: ${p.age}`);
+      if (p.pronouns) partnerData.push(`pronouns: ${p.pronouns}`);
+      if (p.genderIdentity?.length) partnerData.push(`gender: ${p.genderIdentity.join(', ')}`);
+      if (p.sexualOrientation?.length) partnerData.push(`orientation: ${p.sexualOrientation.join(', ')}`);
+      
+      // Relationship patterns
+      if (p.attachmentStyle) partnerData.push(`attachment: ${p.attachmentStyle}`);
+      if (p.loveLanguages?.length) partnerData.push(`love languages: ${p.loveLanguages.join(', ')}`);
+      if (p.conflictStyle) partnerData.push(`conflict style: ${p.conflictStyle}`);
+      if (p.communicationStyle) partnerData.push(`communication: ${p.communicationStyle}`);
+      if (p.communicationResponse?.length) partnerData.push(`in conversations: ${p.communicationResponse.join(', ')}`);
+      if (p.stressResponse?.length) partnerData.push(`when stressed: ${p.stressResponse.join(', ')}`);
+      if (p.selfAwareness) partnerData.push(`self-awareness: ${p.selfAwareness}`);
+      
+      // Past wounds & family
+      if (p.heartbreakBetrayal?.length) partnerData.push(`past wounds: ${p.heartbreakBetrayal.join(', ')}`);
+      if (p.familyStructure?.length) partnerData.push(`family background: ${p.familyStructure.join(', ')}`);
+      
+      if (partnerData.length > 0) {
+        sections.push(`**${p.name}**: ${partnerData.join(' | ')}`);
+      }
+    }
+    
+    // Relationship dynamics
+    if (context.relationship) {
+      const r = context.relationship;
+      const relData: string[] = [];
+      
+      if (r.length) relData.push(`duration: ${r.length}`);
+      if (r.stage) relData.push(`stage: ${r.stage}`);
+      if (r.livingArrangement) relData.push(`living: ${r.livingArrangement}`);
+      if (r.emotionalConnection) relData.push(`connection: ${r.emotionalConnection}`);
+      
+      if (relData.length > 0) {
+        sections.push(`**RELATIONSHIP**: ${relData.join(' | ')}`);
+      }
+    }
+    
+    return sections.length > 0 
+      ? `## PROFILE SNAPSHOT (use this data invisibly - never cite it)\n\n${sections.join('\n\n')}`
+      : '';
+  }
+  /**
    * DEPRECATED: Use RelationshipMapper.buildRelationshipPortrait instead
    * Kept for backward compatibility only
    */
