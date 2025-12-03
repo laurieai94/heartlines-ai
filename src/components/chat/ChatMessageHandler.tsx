@@ -8,6 +8,8 @@ import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useRelationshipPatterns } from '@/hooks/useRelationshipPatterns';
 import { detectPatterns, generateConversationSummary } from '@/services/patternDetectionService';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
+import { MessageLimitError } from '@/services/aiService';
 
 interface ChatMessageHandlerProps {
   profiles: ProfileData;
@@ -34,6 +36,7 @@ export const useChatMessageHandler = ({
   const { refresh: refreshSubscription } = useOptimizedSubscription();
   const { formatCrossSessionMemory } = useRelationshipPatterns();
   const { user } = useAuth();
+  const { openUpgradeModal } = useProgressiveAccess();
 
   // Stable ID generation to prevent duplicate messages
   const generateMessageId = useCallback(() => {
@@ -131,6 +134,15 @@ export const useChatMessageHandler = ({
       
     } catch (error) {
       console.error('Error generating AI response:', error);
+      
+      // Check if this is a message limit error
+      if (error instanceof MessageLimitError) {
+        // Refresh subscription to get latest count and open upgrade modal
+        await refreshSubscription();
+        openUpgradeModal('limit-reached');
+        return; // Don't add an error message to chat
+      }
+      
       const errorMessage: ChatMessage = {
         id: generateMessageId(),
         type: 'ai',
