@@ -989,7 +989,7 @@ When cross-session memory shows recurring patterns:
     const historyText = this.summarizeHistory(conversationHistory);
     
     // Import InsightBuilders dynamically to avoid circular imports
-    const { InsightBuilders } = require('./prompt/insightBuilders');
+    const { InsightBuilders } = require('./insightBuilders');
     const profileDataDump = InsightBuilders.buildProfileDataDump(context);
     
     return `## WHO YOU'RE COACHING: ${yourName}${partnerName ? ` + ${partnerName}` : ''}
