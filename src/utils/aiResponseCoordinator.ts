@@ -1,5 +1,5 @@
 
-import { AIService } from "@/services/aiService";
+import { AIService, MessageLimitError } from "@/services/aiService";
 import { PersonContext } from "@/types/AIInsights";
 import { ConversationalPromptBuilder } from "./conversationalPrompt";
 
@@ -52,6 +52,11 @@ export class AIResponseCoordinator {
       return this.enforceResponseBrevity(response);
     } catch (error) {
       console.error('Error in getAIResponse:', error);
+      
+      // Re-throw MessageLimitError so it can be handled by the caller
+      if (error instanceof MessageLimitError) {
+        throw error;
+      }
       
       const userName = context.yourTraits.name || 'you';
       const partnerName = context.partnerTraits.name || context.yourTraits.name ? 'your partner' : 'they';

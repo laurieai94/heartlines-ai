@@ -1,5 +1,18 @@
 import { supabase } from '@/integrations/supabase/client';
 
+// Custom error for message limit reached
+export class MessageLimitError extends Error {
+  currentUsage: number;
+  messageLimit: number;
+  
+  constructor(message: string, currentUsage: number, messageLimit: number) {
+    super(message);
+    this.name = 'MessageLimitError';
+    this.currentUsage = currentUsage;
+    this.messageLimit = messageLimit;
+  }
+}
+
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
@@ -41,6 +54,16 @@ export class AIService {
       const { data, error } = await supabase.functions.invoke('anthropic-chat', {
         body
       });
+
+      // Check for limit_reached error in the response data (402 returns data, not error)
+      if (data?.error === 'limit_reached') {
+        console.log('Message limit reached:', data);
+        throw new MessageLimitError(
+          data.message || 'Monthly message limit reached',
+          data.current_usage || 0,
+          data.message_limit || 25
+        );
+      }
 
       if (error) {
         console.error('Edge Function Error:', error);
