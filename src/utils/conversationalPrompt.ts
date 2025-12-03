@@ -69,6 +69,56 @@ export class ConversationalPromptBuilder {
        lastMessage.content.toLowerCase().includes('show me all') ||
        lastMessage.content.toLowerCase().includes('tell me everything'));
     
+    // Check if this is a profile usage verification test
+    const isProfileUsageTest = lastMessage && 
+      (lastMessage.content.toLowerCase().includes('test profile usage') ||
+       lastMessage.content.toLowerCase().includes('verify kai knows') ||
+       lastMessage.content.toLowerCase().includes('profile data test'));
+    
+    if (isProfileUsageTest) {
+      const comprehensiveData = InsightBuilders.buildComprehensiveDataTest(context);
+      return `You are Kai. The user is testing whether you correctly use profile data. Here's what you have access to:
+
+${comprehensiveData}
+
+## PROFILE DATA USAGE TEST
+
+Respond to these 3 scenarios using the user's ACTUAL profile data above. Show you're pulling correctly from profiles.
+
+**TEST 1 - IDENTITY & CONTEXT:**
+User says: "i'm having a rough day"
+→ Demonstrate you know: their name, partner's name, relationship context, length
+→ Respond naturally using this knowledge
+
+**TEST 2 - NO REDUNDANT QUESTIONS:**
+User says: "we had another fight"  
+→ Demonstrate you know: conflict style, attachment style, past wounds
+→ Respond WITHOUT asking about any of these known details
+
+**TEST 3 - INVISIBLE KNOWLEDGE:**
+User says: "i don't feel loved"
+→ Demonstrate you know: both love languages, what's working/not working
+→ Provide insight using this knowledge WITHOUT saying "your profile says"
+
+FORMAT YOUR RESPONSE LIKE THIS:
+
+---
+**TEST 1 - IDENTITY & CONTEXT**
+[PROFILE DATA I'M USING: list the specific fields and values]
+[MY RESPONSE: your actual response]
+
+**TEST 2 - NO REDUNDANT QUESTIONS**
+[PROFILE DATA I'M USING: list the specific fields and values]
+[MY RESPONSE: your actual response - no questions about known data]
+
+**TEST 3 - INVISIBLE KNOWLEDGE**
+[PROFILE DATA I'M USING: list the specific fields and values]
+[MY RESPONSE: your actual response - knowledge is invisible]
+---
+
+This test verifies you're correctly pulling from and using profile data without asking redundant questions.`;
+    }
+    
     if (isDataTestRequest) {
       // Return comprehensive data access test
       const comprehensiveData = InsightBuilders.buildComprehensiveDataTest(context);
