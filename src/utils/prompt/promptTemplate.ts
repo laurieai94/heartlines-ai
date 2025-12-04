@@ -1,5 +1,6 @@
 
 import { PersonContext, ProfileData, DemographicsData } from "@/types/AIInsights";
+import { InsightBuilders } from "./insightBuilders";
 
 export class PromptTemplate {
   /**
@@ -988,8 +989,6 @@ When cross-session memory shows recurring patterns:
   ): string {
     const historyText = this.summarizeHistory(conversationHistory);
     
-    // Import InsightBuilders dynamically to avoid circular imports
-    const { InsightBuilders } = require('./insightBuilders');
     const profileDataDump = InsightBuilders.buildProfileDataDump(context);
     
     return `## WHO YOU'RE COACHING: ${yourName}${partnerName ? ` + ${partnerName}` : ''}
