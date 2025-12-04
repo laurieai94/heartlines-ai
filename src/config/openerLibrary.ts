@@ -36,7 +36,7 @@ export const openerLibrary: Record<string, OpenerCategory> = {
     openers: [
       "thanks for saying it straight.",
       "glad you said it plainly.",
-      "okay. we can work with this.",
+      "we can work with this.",
       "i appreciate you naming that.",
       "that takes guts to say out loud.",
     ],
@@ -44,9 +44,9 @@ export const openerLibrary: Record<string, OpenerCategory> = {
   grounding: {
     name: "Grounding",
     openers: [
-      "okay—let's slow this down.",
+      "let's slow this down.",
       "one beat. we'll keep this simple.",
-      "alright. let's get the shape of what happened.",
+      "let's get the shape of what happened.",
       "deep breath. we'll take this piece by piece.",
       "let's zoom in on one moment.",
     ],
@@ -54,8 +54,8 @@ export const openerLibrary: Record<string, OpenerCategory> = {
   direct: {
     name: "Direct",
     openers: [
-      "got it. walk me through the moment it flipped.",
-      "okay—what happened right before they disappeared?",
+      "walk me through the moment it flipped.",
+      "what happened right before they disappeared?",
       "what was the spark this time?",
       "when did it tip?",
       "what kicked it off?",
