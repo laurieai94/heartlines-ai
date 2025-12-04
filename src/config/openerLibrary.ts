@@ -84,6 +84,10 @@ export const bannedPhrases = [
   "that's a lot",
   "that's heavy",
   "i hear that",
+  "that makes sense",
+  "okay. so",
+  "so you're saying",
+  "so they're saying",
 ];
 
 // Check if text contains any banned phrases
