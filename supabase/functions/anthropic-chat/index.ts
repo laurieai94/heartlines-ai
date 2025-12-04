@@ -135,7 +135,64 @@ serve(async (req) => {
     }
 
     // ============ OPENER ROTATOR SYSTEM ============
-    // Fetch user's recent openers to avoid repetition
+    
+    // Scenario detection: analyze first message to pick appropriate opener category
+    const detectScenario = (message: string): string => {
+      const lowerMsg = message.toLowerCase();
+      
+      // Conflict/fight patterns
+      if (/\b(fight|fighting|argument|argue|argued|blowup|blow up|yelled|yelling|screaming|screamed)\b/.test(lowerMsg)) {
+        return 'conflict';
+      }
+      // Shutdown/stonewalling patterns
+      if (/\b(won't talk|wont talk|silent treatment|shut down|shutdown|stonewalling|disappeared|ignoring me|not responding|ghosted|ghosting)\b/.test(lowerMsg)) {
+        return 'shutdown';
+      }
+      // Spiral/anxiety patterns
+      if (/\b(spiraling|spiral|can't stop thinking|cant stop thinking|anxious|anxiety|obsessing|overthinking|panic)\b/.test(lowerMsg)) {
+        return 'spiral';
+      }
+      // Betrayal patterns
+      if (/\b(cheated|cheating|affair|lied|lying|found out|betrayed|betrayal|trust broken|unfaithful)\b/.test(lowerMsg)) {
+        return 'betrayal';
+      }
+      // Jealousy patterns
+      if (/\b(jealous|jealousy|insecure|threatened|suspicious|ex girlfriend|ex boyfriend|ex wife|ex husband)\b/.test(lowerMsg)) {
+        return 'jealousy';
+      }
+      // Intimacy/sexuality/identity patterns
+      if (/\b(sex|intimacy|physical|transition|transitioning|surgery|non-binary|nonbinary|gender|attraction|attracted|desire|libido)\b/.test(lowerMsg)) {
+        return 'intimacy';
+      }
+      // Family patterns
+      if (/\b(parents|family|in-laws|inlaws|mother|father|mom|dad|his family|her family|their family)\b/.test(lowerMsg)) {
+        return 'family';
+      }
+      
+      return 'default';
+    };
+
+    // Scenario to category mapping for intelligent selection
+    const scenarioCategoryMapping: Record<string, string[]> = {
+      conflict: ['impact', 'normalize', 'direct'],
+      shutdown: ['impact', 'normalize', 'grounding'],
+      spiral: ['grounding', 'impact', 'appreciation'],
+      betrayal: ['impact', 'appreciation', 'grounding'],
+      jealousy: ['impact', 'normalize', 'direct'],
+      intimacy: ['appreciation', 'normalize', 'grounding'],
+      family: ['impact', 'appreciation', 'direct'],
+      default: ['direct', 'appreciation', 'grounding'],
+    };
+
+    // Banned phrases that should never appear in responses
+    const bannedPhrases = [
+      "oh wow", "that's really hard", "does that land", "you got this",
+      "that's a lot", "that's heavy", "i hear that", "that makes sense",
+      "that makes total sense", "okay. so", "got it. so", "so you're saying",
+      "so they're saying"
+    ];
+
+    // Updated opener library - removed conflicting "okay/got it" starters
     const openerLibrary = {
       impact: [
         "that's a lonely place to be mid-fight.",
@@ -154,20 +211,20 @@ serve(async (req) => {
       appreciation: [
         "thanks for saying it straight.",
         "glad you said it plainly.",
-        "okay. we can work with this.",
+        "we can work with this.",
         "i appreciate you naming that.",
         "that takes guts to say out loud.",
       ],
       grounding: [
-        "okay—let's slow this down.",
+        "let's slow this down.",
         "one beat. we'll keep this simple.",
-        "alright. let's get the shape of what happened.",
+        "let's get the shape of what happened.",
         "deep breath. we'll take this piece by piece.",
         "let's zoom in on one moment.",
       ],
       direct: [
-        "got it. walk me through the moment it flipped.",
-        "okay—what happened right before they disappeared?",
+        "walk me through the moment it flipped.",
+        "what happened right before they disappeared?",
         "what was the spark this time?",
         "when did it tip?",
         "what kicked it off?",
@@ -184,9 +241,13 @@ serve(async (req) => {
 
     const recentOpenerTexts = recentOpeners?.map(r => r.opener_text) || [];
 
-    // Select opener from a random category, avoiding recent ones
-    const categories = Object.keys(openerLibrary);
-    const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+    // Detect scenario from user's message
+    const detectedScenario = detectScenario(userMessage);
+    console.log(`[OPENER] Detected scenario: ${detectedScenario}`);
+
+    // Select category based on scenario mapping (not random!)
+    const appropriateCategories = scenarioCategoryMapping[detectedScenario];
+    const selectedCategory = appropriateCategories[Math.floor(Math.random() * appropriateCategories.length)];
     const categoryOpeners = openerLibrary[selectedCategory as keyof typeof openerLibrary];
     
     // Filter out recently used openers
@@ -195,13 +256,13 @@ serve(async (req) => {
       ? availableOpeners[Math.floor(Math.random() * availableOpeners.length)]
       : categoryOpeners[Math.floor(Math.random() * categoryOpeners.length)]; // fallback if all used
 
-    console.log(`[OPENER] Selected: "${selectedOpener}" from category: ${selectedCategory}`);
+    console.log(`[OPENER] Selected: "${selectedOpener}" from category: ${selectedCategory} (scenario: ${detectedScenario})`);
 
     // Inject opener instruction into userContext if using new format
     let enhancedUserContext = userContext;
     if (userContext && conversationHistory.length === 0) {
-      // Only inject opener for first message in conversation
-      enhancedUserContext = `${userContext}\n\n**OPENER INSTRUCTION**: Start your first response with this exact opener: "${selectedOpener}" Then continue naturally with your question.`;
+      // Only inject opener for first message in conversation - STRONGER instruction
+      enhancedUserContext = `${userContext}\n\n**CRITICAL OPENER INSTRUCTION**: Your FIRST SENTENCE MUST BE EXACTLY: "${selectedOpener}" — do not modify, rephrase, or add to this opener. Start with this exact phrase, then continue naturally with your question.`;
     }
 
     // Sonnet-only model configuration (no fallback - quality is non-negotiable)
@@ -466,16 +527,44 @@ serve(async (req) => {
               user_id: user.id,
               opener_category: selectedCategory,
               opener_text: selectedOpener,
-              scenario_type: 'chat'
+              scenario_type: detectedScenario
             });
-          console.log(`[OPENER] Logged: "${selectedOpener}"`);
+          console.log(`[OPENER] Logged: "${selectedOpener}" (scenario: ${detectedScenario})`);
         }
       } catch (usageErr) {
         console.error('Error incrementing message usage:', usageErr);
       }
       
+      // Get the response text
+      let responseText = data.content[0].text;
+      
+      // RESPONSE ENFORCEMENT: For first messages, check if opener was used
+      if (conversationHistory.length === 0 && selectedOpener) {
+        const lowerResponse = responseText.toLowerCase();
+        const lowerOpener = selectedOpener.toLowerCase();
+        
+        // Check if response starts with the opener (allow some flexibility)
+        const startsWithOpener = lowerResponse.startsWith(lowerOpener) || 
+                                 lowerResponse.startsWith(lowerOpener.replace(/[.,!?]$/, ''));
+        
+        if (!startsWithOpener) {
+          console.log(`[OPENER] Model ignored opener instruction, prepending: "${selectedOpener}"`);
+          // Prepend the opener to the response
+          responseText = selectedOpener + " " + responseText;
+        }
+        
+        // Check for banned phrases and log warning (don't block, just monitor)
+        const hasBannedPhrase = bannedPhrases.some(phrase => lowerResponse.includes(phrase.toLowerCase()));
+        if (hasBannedPhrase) {
+          console.warn(`[OPENER WARNING] Response contains banned phrase. Original: "${responseText.substring(0, 100)}..."`);
+        }
+      }
+      
+      // Enforce lowercase (existing behavior preserved)
+      responseText = responseText.toLowerCase();
+      
       return new Response(
-        JSON.stringify({ response: data.content[0].text }),
+        JSON.stringify({ response: responseText }),
         { 
           headers: { 
             ...corsHeaders,
