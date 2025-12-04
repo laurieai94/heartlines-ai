@@ -137,7 +137,7 @@ serve(async (req) => {
     // Sonnet-only model configuration (no fallback - quality is non-negotiable)
     const modelConfig = {
       model: 'claude-sonnet-4-5',
-      max_tokens: 300,
+      max_tokens: 500,
       inputCostPer1M: 0.000003,
       outputCostPer1M: 0.000015
     };
