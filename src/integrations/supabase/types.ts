@@ -290,6 +290,33 @@ export type Database = {
         }
         Relationships: []
       }
+      kai_opener_history: {
+        Row: {
+          created_at: string
+          id: string
+          opener_category: string
+          opener_text: string
+          scenario_type: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          opener_category: string
+          opener_text: string
+          scenario_type?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          opener_category?: string
+          opener_text?: string
+          scenario_type?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       monthly_revenue_snapshots: {
         Row: {
           arr: number
@@ -762,6 +789,16 @@ export type Database = {
           total_input_tokens: number | null
           total_output_tokens: number | null
           total_tokens: number | null
+        }
+        Relationships: []
+      }
+      kai_opener_analytics: {
+        Row: {
+          last_used: string | null
+          opener_category: string | null
+          opener_text: string | null
+          usage_count: number | null
+          usage_percent: number | null
         }
         Relationships: []
       }
