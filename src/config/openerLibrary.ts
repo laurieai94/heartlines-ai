@@ -85,7 +85,9 @@ export const bannedPhrases = [
   "that's heavy",
   "i hear that",
   "that makes sense",
+  "that makes total sense",
   "okay. so",
+  "got it. so",
   "so you're saying",
   "so they're saying",
 ];
