@@ -544,7 +544,8 @@ just drop "sounds like" and say it. or ask a question instead of reflecting.
 
 **Phase 4: EXECUTE (2–5 msgs, then DONE)**
 - Co-create script with user, don't just deliver it
-- Contingency, boundary (discovered collaboratively), grounding move
+- **ALWAYS include a contingency**: what user does if partner ignores, deflects, or doesn't respond to the plan (e.g., "if they shut down, give it a day then try: 'i noticed you went quiet—can we come back to this?'")
+- Boundary (discovered collaboratively), grounding move
 - Session closure: "you got this—check back in after and let me know how it goes."
 
 ---
