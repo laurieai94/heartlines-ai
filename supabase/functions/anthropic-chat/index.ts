@@ -134,6 +134,76 @@ serve(async (req) => {
       }
     }
 
+    // ============ OPENER ROTATOR SYSTEM ============
+    // Fetch user's recent openers to avoid repetition
+    const openerLibrary = {
+      impact: [
+        "that's a lonely place to be mid-fight.",
+        "getting left mid-conflict hurts—full stop.",
+        "being left hanging like that is brutal.",
+        "that disconnect is exhausting.",
+        "that silence cuts deep.",
+      ],
+      normalize: [
+        "a lot of couples get stuck in this loop.",
+        "this shutdown pattern is common—and workable.",
+        "you're describing a cycle, not a one-off.",
+        "this dynamic shows up everywhere.",
+        "classic escalate-vanish pattern.",
+      ],
+      appreciation: [
+        "thanks for saying it straight.",
+        "glad you said it plainly.",
+        "okay. we can work with this.",
+        "i appreciate you naming that.",
+        "that takes guts to say out loud.",
+      ],
+      grounding: [
+        "okay—let's slow this down.",
+        "one beat. we'll keep this simple.",
+        "alright. let's get the shape of what happened.",
+        "deep breath. we'll take this piece by piece.",
+        "let's zoom in on one moment.",
+      ],
+      direct: [
+        "got it. walk me through the moment it flipped.",
+        "okay—what happened right before they disappeared?",
+        "what was the spark this time?",
+        "when did it tip?",
+        "what kicked it off?",
+      ],
+    };
+
+    // Get user's recent openers (last 10 sessions)
+    const { data: recentOpeners } = await supabaseService
+      .from('kai_opener_history')
+      .select('opener_text')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(10);
+
+    const recentOpenerTexts = recentOpeners?.map(r => r.opener_text) || [];
+
+    // Select opener from a random category, avoiding recent ones
+    const categories = Object.keys(openerLibrary);
+    const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+    const categoryOpeners = openerLibrary[selectedCategory as keyof typeof openerLibrary];
+    
+    // Filter out recently used openers
+    const availableOpeners = categoryOpeners.filter(o => !recentOpenerTexts.includes(o));
+    const selectedOpener = availableOpeners.length > 0 
+      ? availableOpeners[Math.floor(Math.random() * availableOpeners.length)]
+      : categoryOpeners[Math.floor(Math.random() * categoryOpeners.length)]; // fallback if all used
+
+    console.log(`[OPENER] Selected: "${selectedOpener}" from category: ${selectedCategory}`);
+
+    // Inject opener instruction into userContext if using new format
+    let enhancedUserContext = userContext;
+    if (userContext && conversationHistory.length === 0) {
+      // Only inject opener for first message in conversation
+      enhancedUserContext = `${userContext}\n\n**OPENER INSTRUCTION**: Start your first response with this exact opener: "${selectedOpener}" Then continue naturally with your question.`;
+    }
+
     // Sonnet-only model configuration (no fallback - quality is non-negotiable)
     const modelConfig = {
       model: 'claude-sonnet-4-5',
@@ -241,7 +311,7 @@ serve(async (req) => {
     ];
 
     // Determine system prompt format
-    const systemBlocks = staticPrompt && userContext
+    const systemBlocks = staticPrompt && enhancedUserContext
       ? [
           // New format: static prompt (cached) + dynamic user context (not cached)
           {
@@ -251,7 +321,7 @@ serve(async (req) => {
           },
           {
             type: "text",
-            text: userContext
+            text: enhancedUserContext
           }
         ]
       : [
@@ -386,6 +456,19 @@ serve(async (req) => {
           console.error('Failed to increment message usage:', usageError);
         } else {
           console.log('Message usage incremented successfully');
+        }
+
+        // Log opener usage for variety tracking (only for first message)
+        if (conversationHistory.length === 0 && selectedOpener) {
+          await supabaseService
+            .from('kai_opener_history')
+            .insert({
+              user_id: user.id,
+              opener_category: selectedCategory,
+              opener_text: selectedOpener,
+              scenario_type: 'chat'
+            });
+          console.log(`[OPENER] Logged: "${selectedOpener}"`);
         }
       } catch (usageErr) {
         console.error('Error incrementing message usage:', usageErr);
