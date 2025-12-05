@@ -185,8 +185,9 @@ serve(async (req) => {
     };
 
     // Banned phrases that should never appear in responses
+    // Note: "does that land" is ALLOWED in Phase 2 reflections only, not banned globally
     const bannedPhrases = [
-      "oh wow", "that's really hard", "does that land", "you got this",
+      "oh wow", "that's really hard", "you got this",
       "that's a lot", "that's heavy", "i hear that", "that makes sense",
       "that makes total sense", "okay. so", "got it. so", "so you're saying",
       "so they're saying"
