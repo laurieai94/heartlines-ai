@@ -18,6 +18,7 @@ interface ChatMessageHandlerProps {
   chatHistory: ChatMessage[];
   setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   canInteract: boolean;
+  isStartingNewConversation?: boolean;
 }
 
 export const useChatMessageHandler = ({
@@ -26,7 +27,8 @@ export const useChatMessageHandler = ({
   profileGoals,
   chatHistory,
   setChatHistory,
-  canInteract
+  canInteract,
+  isStartingNewConversation = false
 }: ChatMessageHandlerProps) => {
   const [pendingCount, setPendingCount] = useState(0);
   const loading = pendingCount > 0;
@@ -67,8 +69,12 @@ export const useChatMessageHandler = ({
     setPendingCount(c => c + 1);
     setChatHistory(prev => deduplicateMessages([...prev, newUserMessage]));
 
-    // Create history snapshot including the new user message for this request
-    const historySnapshot = [...chatHistory, newUserMessage];
+    // Use empty history if starting new conversation to prevent context bleed
+    const effectiveHistory = isStartingNewConversation ? [] : chatHistory;
+    const historySnapshot = [...effectiveHistory, newUserMessage];
+    
+    // Determine if this is the first message (for context gating)
+    const isFirstMessage = effectiveHistory.length === 0;
 
     const topics = extractTopicsFromMessage(userMessage);
     topics.forEach(topic => addOrUpdateTopic(topic));
@@ -84,10 +90,13 @@ export const useChatMessageHandler = ({
         ? AICoachEngine.buildDebugPrompt(context, profiles, demographicsData)
         : undefined;
       
-      // Get cross-session memory
+      // Get cross-session memory with isFirstMessage flag for context gating
       const crossSessionMemory = formatCrossSessionMemory();
+      const memoryWithFlag = isFirstMessage 
+        ? `${crossSessionMemory}\n\n**THIS IS THE FIRST MESSAGE OF A NEW CONVERSATION. Treat as fresh topic. Do NOT assume this relates to past conversations unless user explicitly says so.**`
+        : crossSessionMemory;
       
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, customPrompt, crossSessionMemory);
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, customPrompt, memoryWithFlag);
       
       const aiTopics = extractTopicsFromMessage(aiResponse);
       aiTopics.forEach(topic => addOrUpdateTopic(topic));

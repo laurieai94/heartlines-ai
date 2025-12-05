@@ -49,6 +49,8 @@ export const useChatEffects = ({
 
   // Persist chat history changes with debounced persistence
   useEffect(() => {
+    // Skip persistence during new conversation transition to prevent context bleed
+    if (isStartingNewConversation) return;
     if (!isHistoryLoaded || chatHistory.length === 0) return;
     
     // Save to sessionStorage immediately for quick recovery
@@ -64,7 +66,7 @@ export const useChatEffects = ({
     
     // Use debounced persistence for database/storage operations
     debouncedPersist(chatHistory);
-  }, [chatHistory, isHistoryLoaded, currentConversationId, debouncedPersist]);
+  }, [chatHistory, isHistoryLoaded, currentConversationId, debouncedPersist, isStartingNewConversation]);
 
   // Save conversation when page visibility changes or before unload
   useEffect(() => {

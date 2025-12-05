@@ -88,7 +88,8 @@ const AIChat = ({
     profileGoals,
     chatHistory,
     setChatHistory,
-    canInteract
+    canInteract,
+    isStartingNewConversation
   });
 
   // Handle new conversation
