@@ -79,7 +79,6 @@ export const scenarioCategoryMapping: Record<string, string[]> = {
 export const bannedPhrases = [
   "oh wow",
   "that's really hard",
-  "does that land",
   "you got this",
   "that's a lot",
   "that's heavy",
@@ -91,6 +90,8 @@ export const bannedPhrases = [
   "so you're saying",
   "so they're saying",
 ];
+
+// Note: "does that land" is ALLOWED in Phase 2 reflections only
 
 // Check if text contains any banned phrases
 export const containsBannedPhrase = (text: string): boolean => {
