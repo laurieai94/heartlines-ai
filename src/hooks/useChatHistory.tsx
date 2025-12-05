@@ -166,6 +166,22 @@ export const useChatHistory = () => {
           setCurrentConversationId(conversationId);
         }
         pendingConversationIdRef.current = null;
+        
+        // Update local conversations state immediately for sidebar sync
+        const conversationForState: ChatConversation = {
+          id: conversationId,
+          user_id: user.id,
+          title: conversationTitle,
+          messages: messages,
+          created_at: conversationData.created_at,
+          updated_at: conversationData.updated_at
+        };
+        setConversations(prev => {
+          const without = prev.filter(c => c.id !== conversationId);
+          return [conversationForState, ...without].sort(
+            (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+          );
+        });
       }
 
       // Always save to localStorage as backup
