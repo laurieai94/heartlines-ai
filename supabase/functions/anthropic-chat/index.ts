@@ -258,9 +258,13 @@ serve(async (req) => {
 
     console.log(`[OPENER] Selected: "${selectedOpener}" from category: ${selectedCategory} (scenario: ${detectedScenario})`);
 
+    // Check if this is the first AI response (no assistant messages in history yet)
+    // Note: Client includes the user's current message in history, so we check for assistant messages, not empty array
+    const isFirstResponse = conversationHistory.filter((msg: any) => msg.role === 'assistant').length === 0;
+    
     // Inject opener instruction into userContext if using new format
     let enhancedUserContext = userContext;
-    if (userContext && conversationHistory.length === 0) {
+    if (userContext && isFirstResponse) {
       // Only inject opener for first message in conversation - STRONGER instruction
       enhancedUserContext = `${userContext}\n\n**CRITICAL OPENER INSTRUCTION**: Your FIRST SENTENCE MUST BE EXACTLY: "${selectedOpener}" — do not modify, rephrase, or add to this opener. Start with this exact phrase, then continue naturally with your question.`;
     }
@@ -520,7 +524,7 @@ serve(async (req) => {
         }
 
         // Log opener usage for variety tracking (only for first message)
-        if (conversationHistory.length === 0 && selectedOpener) {
+        if (isFirstResponse && selectedOpener) {
           await supabaseService
             .from('kai_opener_history')
             .insert({
@@ -539,7 +543,7 @@ serve(async (req) => {
       let responseText = data.content[0].text;
       
       // RESPONSE ENFORCEMENT: For first messages, check if opener was used
-      if (conversationHistory.length === 0 && selectedOpener) {
+      if (isFirstResponse && selectedOpener) {
         const lowerResponse = responseText.toLowerCase();
         const lowerOpener = selectedOpener.toLowerCase();
         
