@@ -97,13 +97,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   // Handle new conversation
   const handleNewConversation = () => {
+    // Clear sessionStorage FIRST to prevent race condition / context bleed
+    sessionStorage.removeItem('current_chat');
+    
     setIsStartingNewConversation(true);
     const messages = startNewConversation();
     setChatHistory(messages);
     setConversationStarter('');
     setShowStarters(true); // Show starters when starting new conversation
-    // Reset the flag after a brief delay
-    setTimeout(() => setIsStartingNewConversation(false), 100);
+    // Reset the flag after a brief delay to allow first message to use empty history
+    setTimeout(() => setIsStartingNewConversation(false), 500);
   };
 
   const handleCloseStarters = () => {

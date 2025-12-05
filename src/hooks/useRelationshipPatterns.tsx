@@ -21,6 +21,15 @@ export interface ConversationSummary {
   conversation_count: number;
 }
 
+export interface CrossSessionMemory {
+  stableFacts: string;
+  pastSituations: Array<{
+    date: string;
+    topics: string[];
+    summary: string;
+  }>;
+}
+
 export const useRelationshipPatterns = () => {
   const { user } = useAuth();
 
@@ -63,6 +72,10 @@ export const useRelationshipPatterns = () => {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
+  /**
+   * Format cross-session memory into STABLE FACTS (always available) 
+   * and PAST SITUATIONS (gated, only used when relevant)
+   */
   const formatCrossSessionMemory = (): string => {
     if (patterns.length === 0 && summaries.length === 0) {
       return '';
@@ -70,43 +83,79 @@ export const useRelationshipPatterns = () => {
 
     let memory = '\n## CROSS-SESSION MEMORY\n\n';
 
-    // Add recurring patterns
+    // STABLE FACTS: Abstract patterns without specific event details
+    // These can be used freely in any conversation
     if (patterns.length > 0) {
-      memory += '### RECURRING PATTERNS (from past conversations):\n';
+      memory += '### STABLE FACTS (learned from past conversations - use freely):\n';
       patterns.forEach(pattern => {
-        const firstSeenDate = new Date(pattern.first_seen).toLocaleDateString('en-US', { 
-          month: 'short', 
-          day: 'numeric' 
-        });
-        const lastSeenDate = new Date(pattern.last_seen).toLocaleDateString('en-US', { 
-          month: 'short', 
-          day: 'numeric' 
-        });
-        const latestContext = pattern.context_snippets?.[pattern.context_snippets.length - 1] || '';
-        
-        memory += `- **${pattern.pattern_type}** (${pattern.frequency} occurrence${pattern.frequency > 1 ? 's' : ''} since ${firstSeenDate}): ${pattern.pattern_description}. Last discussed ${lastSeenDate}`;
-        if (latestContext) {
-          memory += `: "${latestContext.substring(0, 80)}${latestContext.length > 80 ? '...' : ''}"`;
-        }
-        memory += '\n';
+        // Abstract pattern only - no specific event details or quotes
+        memory += `- **${pattern.pattern_type}**: ${pattern.pattern_description} (recurring ${pattern.frequency} time${pattern.frequency > 1 ? 's' : ''})\n`;
       });
       memory += '\n';
     }
 
-    // Add recent conversation summaries
+    // PAST SITUATIONS: Specific conversations with topic tags
+    // These are GATED - only use when explicitly relevant
     if (summaries.length > 0) {
-      memory += '### RECENT CONVERSATION SUMMARIES:\n';
+      memory += '### PAST SITUATIONS (GATED - see rules below):\n';
       summaries.forEach(summary => {
         const date = new Date(summary.last_updated).toLocaleDateString('en-US', { 
           month: 'short', 
           day: 'numeric' 
         });
-        memory += `- **${date}**: ${summary.summary_text}\n`;
+        const topicTags = summary.key_topics?.length > 0 
+          ? `[${summary.key_topics.join(', ')}]` 
+          : '[general]';
+        memory += `- ${topicTags} ${date}: "${summary.summary_text.substring(0, 120)}${summary.summary_text.length > 120 ? '...' : ''}"\n`;
       });
       memory += '\n';
     }
 
+    // Add context gating rules
+    memory += `### CROSS-SESSION MEMORY RULES (CRITICAL):
+
+**STABLE FACTS (use freely):**
+- Recurring patterns, relationship dynamics, communication styles
+- Use these invisibly like a friend who remembers
+
+**PAST SITUATIONS (GATED - use ONLY when):**
+1. User explicitly references it: "remember when we talked about..."
+2. User's current message CLEARLY relates: Same topic, same people, same dynamic
+3. You ask first: "is this connected to what happened with [past situation]?"
+
+**NEVER:**
+- Assume a new conversation is about the same topic as last time
+- Reference specific past events unless user brings them up
+- Apply past situation context to unrelated topics
+- Say "last time we talked about X" unless they mention it first
+
+**CONTEXT CHECK (do this silently before each response):**
+1. Is this the FIRST message of the conversation?
+   → YES: Treat as fresh topic. Use stable facts only.
+2. Does user's message explicitly connect to past?
+   → YES: Reference that specific past situation.
+3. Does current topic MATCH a past situation's topic tags?
+   → MAYBE: Ask "is this related to [past topic]?" before assuming
+4. Unrelated topic?
+   → Use stable facts only. Fresh response.
+
+`;
+
     return memory;
+  };
+
+  /**
+   * Get structured memory for more granular control
+   */
+  const getStructuredMemory = (): CrossSessionMemory => {
+    return {
+      stableFacts: patterns.map(p => `${p.pattern_type}: ${p.pattern_description}`).join('\n'),
+      pastSituations: summaries.map(s => ({
+        date: new Date(s.last_updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        topics: s.key_topics || [],
+        summary: s.summary_text
+      }))
+    };
   };
 
   return {
@@ -114,5 +163,6 @@ export const useRelationshipPatterns = () => {
     summaries,
     isLoading: patternsLoading || summariesLoading,
     formatCrossSessionMemory,
+    getStructuredMemory,
   };
 };
