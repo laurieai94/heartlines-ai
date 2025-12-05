@@ -1,11 +1,11 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
 import { chatReliabilityQueue } from "@/utils/chatQueue";
 import { logError, logInfo, logWarn } from '@/utils/productionLogger';
 import { batchedStorage } from "@/utils/batchedStorage";
-// Chat reliability queue removed logger import for performance
+import { RealtimeChannel } from "@supabase/supabase-js";
 
 const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -54,6 +54,9 @@ export const useChatHistory = () => {
   const [conversations, setConversations] = useState<ChatConversation[]>([]);
   const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  
+  // Track pending conversation ID to prevent race conditions
+  const pendingConversationIdRef = useRef<string | null>(null);
 
   const fetchConversations = async () => {
     try {
@@ -110,11 +113,21 @@ export const useChatHistory = () => {
         messages.find(m => m.type === 'user')?.content.substring(0, 50) + '...' || 
         'New Conversation';
 
+      // Use existing ID, pending ID, or generate new one (prevents race condition)
+      const conversationId = currentConversationId || 
+        pendingConversationIdRef.current || 
+        crypto.randomUUID();
+      
+      // Track pending ID if this is a new conversation
+      if (!currentConversationId && !pendingConversationIdRef.current) {
+        pendingConversationIdRef.current = conversationId;
+      }
+
       // Prepare messages for storage
       const messagesForDB = JSON.stringify(messages);
 
       const conversationData = {
-        id: currentConversationId || crypto.randomUUID(),
+        id: conversationId,
         user_id: user.id,
         title: conversationTitle,
         messages: messagesForDB,
@@ -138,53 +151,45 @@ export const useChatHistory = () => {
         });
 
       if (dbError) {
-        // Database save failed, adding to reliability queue (logging removed for performance)
-        // Add to reliability queue for later retry
+        // Database save failed, adding to reliability queue
         chatReliabilityQueue.enqueue({
           id: conversationData.id,
           user_id: conversationData.user_id,
           title: conversationData.title,
-          messages: messages, // Use original messages, not encrypted version
+          messages: messages,
           created_at: conversationData.created_at,
           updated_at: conversationData.updated_at
         });
       } else {
-        // Chat conversation saved to database successfully (logging removed for performance)
+        // Success - update state and clear pending
+        if (!currentConversationId) {
+          setCurrentConversationId(conversationId);
+        }
+        pendingConversationIdRef.current = null;
       }
 
       // Always save to localStorage as backup
       const stored = batchedStorage.getItem('chat_conversations') || '[]';
-      const conversations = JSON.parse(stored);
+      const localConversations = JSON.parse(stored);
       
       const conversationForStorage = {
         ...conversationData,
         messages: messages
       };
 
-      if (currentConversationId) {
-        const index = conversations.findIndex((c: any) => c.id === currentConversationId);
-        if (index >= 0) {
-          conversations[index] = conversationForStorage;
-        } else {
-          conversations.push(conversationForStorage);
-        }
+      const existingIndex = localConversations.findIndex((c: any) => c.id === conversationId);
+      if (existingIndex >= 0) {
+        localConversations[existingIndex] = conversationForStorage;
       } else {
-        conversations.push(conversationForStorage);
-        setCurrentConversationId(conversationData.id);
+        localConversations.unshift(conversationForStorage);
       }
 
-      batchedStorage.setItem('chat_conversations', JSON.stringify(conversations));
-
-      // Optimistically update in-memory state so sidebar reflects immediately
-      setConversations((prev) => {
-        const without = prev.filter((c) => c.id !== conversationData.id);
-        return [{ ...conversationForStorage }, ...without];
-      });
+      batchedStorage.setItem('chat_conversations', JSON.stringify(localConversations));
 
       // Always save plaintext to sessionStorage for immediate recovery
       sessionStorage.setItem('current_chat', JSON.stringify({
         conversationId: conversationData.id,
-        messages: messages, // Always plaintext in session
+        messages: messages,
         timestamp: Date.now()
       }));
 
@@ -196,9 +201,9 @@ export const useChatHistory = () => {
         if (!user) return;
         
         const stored = batchedStorage.getItem('chat_conversations') || '[]';
-        const conversations = JSON.parse(stored);
+        const localConversations = JSON.parse(stored);
         const conversationData = {
-          id: currentConversationId || crypto.randomUUID(),
+          id: currentConversationId || pendingConversationIdRef.current || crypto.randomUUID(),
           user_id: user.id,
           title: title || 'New Conversation',
           messages,
@@ -206,11 +211,12 @@ export const useChatHistory = () => {
           updated_at: new Date().toISOString()
         };
         
-        conversations.push(conversationData);
-        batchedStorage.setItem('chat_conversations', JSON.stringify(conversations));
+        localConversations.unshift(conversationData);
+        batchedStorage.setItem('chat_conversations', JSON.stringify(localConversations));
         
         if (!currentConversationId) {
           setCurrentConversationId(conversationData.id);
+          pendingConversationIdRef.current = null;
         }
       } catch (fallbackError) {
         logError('Even localStorage save failed', fallbackError);
@@ -222,6 +228,7 @@ export const useChatHistory = () => {
     const conversation = conversations.find(c => c.id === conversationId);
     if (conversation) {
       setCurrentConversationId(conversationId);
+      pendingConversationIdRef.current = null; // Clear pending when loading existing
       
       // Load and convert messages
       const messages = convertToMessages(conversation.messages);
@@ -261,8 +268,8 @@ export const useChatHistory = () => {
       
       // If the most recent conversation is older than 24 hours, start fresh
       if (conversationAge > TWENTY_FOUR_HOURS) {
-        // Most recent conversation is older than 24 hours, starting fresh chat (logging removed for performance)
         setCurrentConversationId(null);
+        pendingConversationIdRef.current = null;
         sessionStorage.removeItem('current_chat');
         return [];
       }
@@ -276,6 +283,7 @@ export const useChatHistory = () => {
 
   const startNewConversation = () => {
     setCurrentConversationId(null);
+    pendingConversationIdRef.current = null; // Clear pending ID
     sessionStorage.removeItem('current_chat');
     return [];
   };
@@ -284,6 +292,9 @@ export const useChatHistory = () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
+
+      // Optimistically remove from state immediately
+      setConversations(prev => prev.filter(c => c.id !== conversationId));
 
       // Delete from database
       const { error } = await supabase
@@ -294,28 +305,89 @@ export const useChatHistory = () => {
 
       if (error) {
         console.error('Database delete error:', error);
+        // Refetch to restore state if delete failed
+        await fetchConversations();
       }
 
       // Delete from localStorage
       const stored = batchedStorage.getItem('chat_conversations') || '[]';
-      const conversations = JSON.parse(stored);
-      const filtered = conversations.filter((c: any) => c.id !== conversationId);
+      const localConversations = JSON.parse(stored);
+      const filtered = localConversations.filter((c: any) => c.id !== conversationId);
       batchedStorage.setItem('chat_conversations', JSON.stringify(filtered));
       
       // Clear session if it's the current conversation
       if (currentConversationId === conversationId) {
         setCurrentConversationId(null);
+        pendingConversationIdRef.current = null;
         sessionStorage.removeItem('current_chat');
       }
-      
-      await fetchConversations();
     } catch (error) {
       console.error('Error deleting conversation:', error);
     }
   };
 
+  // Initial fetch
   useEffect(() => {
     fetchConversations();
+  }, []);
+
+  // Real-time subscription for live updates
+  useEffect(() => {
+    let channel: RealtimeChannel | null = null;
+    
+    const setupSubscription = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      
+      channel = supabase
+        .channel('chat_conversations_realtime')
+        .on('postgres_changes', 
+          { 
+            event: '*', 
+            schema: 'public', 
+            table: 'chat_conversations',
+            filter: `user_id=eq.${user.id}`
+          }, 
+          (payload) => {
+            if (payload.eventType === 'INSERT') {
+              const newConv = payload.new as any;
+              setConversations(prev => {
+                // Don't add if already exists
+                if (prev.some(c => c.id === newConv.id)) return prev;
+                const formatted: ChatConversation = {
+                  ...newConv,
+                  messages: convertToMessages(newConv.messages)
+                };
+                return [formatted, ...prev];
+              });
+            } else if (payload.eventType === 'UPDATE') {
+              const updatedConv = payload.new as any;
+              setConversations(prev => {
+                const formatted: ChatConversation = {
+                  ...updatedConv,
+                  messages: convertToMessages(updatedConv.messages)
+                };
+                const without = prev.filter(c => c.id !== updatedConv.id);
+                return [formatted, ...without].sort(
+                  (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+                );
+              });
+            } else if (payload.eventType === 'DELETE') {
+              const deletedId = (payload.old as any).id;
+              setConversations(prev => prev.filter(c => c.id !== deletedId));
+            }
+          }
+        )
+        .subscribe();
+    };
+    
+    setupSubscription();
+    
+    return () => {
+      if (channel) {
+        supabase.removeChannel(channel);
+      }
+    };
   }, []);
 
   // Listen for global refresh events
