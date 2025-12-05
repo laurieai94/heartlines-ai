@@ -96,10 +96,15 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   }, []);
 
   // Handle new conversation
-  const handleNewConversation = () => {
-    // Clear sessionStorage FIRST to prevent race condition / context bleed
-    sessionStorage.removeItem('current_chat');
+  const handleNewConversation = async () => {
+    // PERSIST CURRENT CONVERSATION FIRST via event
+    window.dispatchEvent(new CustomEvent('chat:beforeNewConversation'));
     
+    // Give time for persistence to complete
+    await new Promise(resolve => setTimeout(resolve, 150));
+    
+    // Now safe to clear
+    sessionStorage.removeItem('current_chat');
     setIsStartingNewConversation(true);
     const messages = startNewConversation();
     setChatHistory(messages);

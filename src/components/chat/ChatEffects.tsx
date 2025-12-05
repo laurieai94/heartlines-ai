@@ -49,8 +49,8 @@ export const useChatEffects = ({
 
   // Persist chat history changes with debounced persistence
   useEffect(() => {
-    // Skip persistence during new conversation transition to prevent context bleed
-    if (isStartingNewConversation) return;
+    // Skip persistence only if starting new AND history is empty (prevents throwing away pending data)
+    if (isStartingNewConversation && chatHistory.length === 0) return;
     if (!isHistoryLoaded || chatHistory.length === 0) return;
     
     // Save to sessionStorage immediately for quick recovery
@@ -82,12 +82,21 @@ export const useChatEffects = ({
       }
     };
 
+    // Persist before starting a new conversation
+    const handleBeforeNewConversation = () => {
+      if (chatHistory.length > 0) {
+        persistImmediately();
+      }
+    };
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('chat:beforeNewConversation', handleBeforeNewConversation);
     
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('chat:beforeNewConversation', handleBeforeNewConversation);
       cleanup(); // Clean up debounced persistence
     };
   }, [chatHistory, persistImmediately, cleanup]);
