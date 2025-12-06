@@ -66,12 +66,12 @@ const main = {
 };
 
 const container = {
-  backgroundColor: "#1a0a0a",
+  backgroundColor: "#4a000d",
   borderRadius: "16px",
   padding: "40px",
   maxWidth: "500px",
   margin: "0 auto",
-  border: "1px solid rgba(255, 255, 255, 0.1)",
+  border: "1px solid rgba(255, 255, 255, 0.15)",
 };
 
 const logo = {
