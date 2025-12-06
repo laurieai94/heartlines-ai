@@ -113,7 +113,17 @@ export const UpgradeModal = ({
             const isCurrent = plan.id === currentTier;
             const canUpgrade = canUpgradeTo(plan.tier || '');
             const isPopular = plan.tier === 'vibe';
-            return <Card key={plan.id} className={`backdrop-blur-xl bg-gradient-to-br from-white/35 via-white/30 to-white/25 relative rounded-3xl shadow-2xl border border-white/50 transition-all duration-300 will-change-transform md:hover:-translate-y-2 flex flex-col w-full box-border ${isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''} ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''}`}>
+            
+            // Order classes: begin first on desktop/tablet, last on mobile
+            const getOrderClass = () => {
+              if (plan.id === 'begin') return 'order-last md:order-first';
+              if (plan.id === 'glow') return 'md:order-2';
+              if (plan.id === 'vibe') return 'md:order-3';
+              if (plan.id === 'unlimited') return 'md:order-4';
+              return '';
+            };
+            
+            return <Card key={plan.id} className={`backdrop-blur-xl bg-gradient-to-br from-white/35 via-white/30 to-white/25 relative rounded-3xl shadow-2xl border border-white/50 transition-all duration-300 will-change-transform md:hover:-translate-y-2 flex flex-col w-full box-border ${getOrderClass()} ${isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''} ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/60 border-coral-400/40' : ''}`}>
                   {isPopular && <div className="absolute top-3 md:top-3.5 left-1/2 -translate-x-1/2 z-20 animate-pulse">
                       <span className="bg-gradient-to-r from-coral-400 via-pink-400 to-coral-400 text-white px-5 sm:px-6 lg:px-7 py-1 rounded-full text-sm font-bold border-2 border-white/50 shadow-[0_0_20px_rgba(251,146,140,0.6),0_0_40px_rgba(251,146,140,0.4)] whitespace-nowrap">
                         ✨ most popular ✨
