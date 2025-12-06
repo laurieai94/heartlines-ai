@@ -554,9 +554,15 @@ serve(async (req) => {
   } catch (error) {
     console.error('Edge Function Error:', error.message)
     
+    // Initialize variables for error handling (may not be defined if error occurs early)
+    const errorRequestStartTime = typeof requestStartTime !== 'undefined' ? requestStartTime : Date.now();
+    const errorRetryCount = typeof retryCount !== 'undefined' ? retryCount : 0;
+    const errorLastErrorType = typeof lastErrorType !== 'undefined' ? lastErrorType : null;
+    const errorLastErrorCode = typeof lastErrorCode !== 'undefined' ? lastErrorCode : null;
+    
     // Log failed API request metrics
     try {
-      const responseTimeMs = Date.now() - requestStartTime;
+      const responseTimeMs = Date.now() - errorRequestStartTime;
       const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
       const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
       const supabaseService = createClient(supabaseUrl, supabaseServiceKey, {
@@ -576,13 +582,44 @@ serve(async (req) => {
               user_id: user.id,
               model: 'claude-sonnet-4-5',
               response_time_ms: responseTimeMs,
-              retry_count: retryCount,
+              retry_count: errorRetryCount,
               success: false,
-              error_type: lastErrorType,
-              error_code: lastErrorCode
+              error_type: errorLastErrorType,
+              error_code: errorLastErrorCode
             });
-          console.log(`Logged failed API metrics: ${responseTimeMs}ms, ${retryCount} retries, ${lastErrorType}`);
+          console.log(`Logged failed API metrics: ${responseTimeMs}ms, ${errorRetryCount} retries, ${errorLastErrorType}`);
         }
+      }
+      
+      // TRIGGER ALERT FOR CRITICAL ERRORS
+      const errorMessage = error.message || '';
+      const shouldAlert = 
+        errorMessage.includes('credit balance') ||
+        errorMessage.includes('API_ERROR_400') ||
+        errorMessage.includes('API_ERROR_429') ||
+        errorMessage.includes('API_ERROR_529') ||
+        errorMessage.includes('MAX_RETRIES_EXCEEDED');
+      
+      if (shouldAlert) {
+        console.log('🚨 Triggering error alert...');
+        
+        let alertType = 'api_error';
+        if (errorMessage.includes('credit balance') || errorMessage.includes('API_ERROR_400')) {
+          alertType = 'credit_exhausted';
+        } else if (errorMessage.includes('API_ERROR_429')) {
+          alertType = 'rate_limit';
+        }
+        
+        // Fire and forget - don't await to avoid blocking response
+        supabaseService.functions.invoke('api-error-alert', {
+          body: {
+            error_type: alertType,
+            error_code: errorLastErrorCode,
+            error_message: errorMessage,
+          }
+        }).catch(alertErr => {
+          console.error('Failed to send alert:', alertErr);
+        });
       }
     } catch (metricsErr) {
       console.error('Failed to log error metrics:', metricsErr);

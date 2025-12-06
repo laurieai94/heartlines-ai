@@ -6,6 +6,14 @@ project_id = "relqmhrzyqckoaebscgx"
 # Cron job for cache monitoring, no JWT needed
 verify_jwt = false
 
+[functions.api-error-alert]
+# Internal alert system, no JWT needed (called by other functions)
+verify_jwt = false
+
+[functions.health-check]
+# Cron job for health monitoring, no JWT needed
+verify_jwt = false
+
 [functions.stripe-webhook]
 # Public webhook endpoint, no JWT needed
 verify_jwt = false
