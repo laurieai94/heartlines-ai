@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { CheckCircle, Armchair } from 'lucide-react';
-import { toast } from '@/components/ui/sonner';
 
 interface WaitlistFormProps {
   email?: string;
@@ -48,10 +47,6 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
       }
 
       setIsSubmitted(true);
-      toast.success("spot saved ✨", {
-        description: "we'll hit you up the second there's room."
-      });
-
     } catch (err: any) {
       console.error('Waitlist error:', err);
       setError(err.message || 'Something went wrong. Please try again.');
