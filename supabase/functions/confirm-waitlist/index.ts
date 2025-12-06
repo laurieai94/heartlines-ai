@@ -36,7 +36,7 @@ serve(async (req: Request): Promise<Response> => {
     );
 
     const { error } = await resend.emails.send({
-      from: "Heartlines <noreply@heartlines.ai>",
+      from: "heartlines <noreply@heartlines.ai>",
       to: [email],
       subject: "you're on the list ✨",
       html,
