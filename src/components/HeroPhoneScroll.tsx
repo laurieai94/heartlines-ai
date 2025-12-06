@@ -243,7 +243,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                     fetchPriority="high"
                     decoding="async" 
                   />
-                  <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
+                  <AvatarFallback delayMs={Infinity} className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
                     <Heart className="w-4 h-4" />
                   </AvatarFallback>
                 </Avatar>
@@ -268,10 +268,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                        <AvatarImage 
                          src={BRAND.coach.avatarSrc} 
                          alt={BRAND.coach.name} 
-                         loading="lazy" 
+                         loading="eager" 
+                         fetchPriority="high"
                          decoding="async" 
                        />
-                       <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
+                       <AvatarFallback delayMs={Infinity} className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                          <Heart className="w-3 h-3" />
                        </AvatarFallback>
                      </Avatar>
@@ -307,10 +308,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                      <AvatarImage 
                        src={BRAND.coach.avatarSrc} 
                        alt={BRAND.coach.name} 
-                       loading="lazy" 
+                       loading="eager" 
+                       fetchPriority="high"
                        decoding="async" 
                      />
-                     <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
+                     <AvatarFallback delayMs={Infinity} className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                        <Heart className="w-3 h-3" />
                      </AvatarFallback>
                    </Avatar>
@@ -339,6 +341,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                        src={getUserAvatar()} 
                        alt={currentConversation.userName || 'You'} 
                        loading="eager"
+                       fetchPriority="high"
                        decoding="async"
                      />
                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">

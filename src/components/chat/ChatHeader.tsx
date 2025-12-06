@@ -35,7 +35,7 @@ export const ChatHeader = ({
                   <div className="absolute inset-0 bg-gradient-to-r from-coral-400/20 to-burgundy-400/20 rounded-full blur-md animate-pulse"></div>
                   <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[44px] h-[44px] border-2 border-white/20">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
-                    <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
+                    <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
                       <Heart className="w-5 h-5" />
                     </AvatarFallback>
                   </Avatar>
@@ -121,7 +121,7 @@ export const ChatHeader = ({
                 <div className="absolute inset-0 bg-gradient-to-r from-coral-400/20 to-burgundy-400/20 rounded-full blur-md animate-pulse"></div>
                 <Avatar className="bg-gradient-to-br from-coral-400 to-burgundy-500 shadow-lg relative z-10 w-[56px] h-[56px] border-3 border-white/20">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
-                  <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
+                  <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white">
                     <Heart className="w-7 h-7" />
                   </AvatarFallback>
                 </Avatar>
