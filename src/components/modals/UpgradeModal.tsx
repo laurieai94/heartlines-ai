@@ -72,7 +72,7 @@ export const UpgradeModal = ({
       <DialogContent className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-5xl max-h-[92vh] md:max-h-[90vh] lg:max-h-[88vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 box-border" style={{
       '--dialog-max-width': '112rem'
     } as React.CSSProperties}>
-        <DialogHeader className="space-y-2 pr-10">
+        <DialogHeader className="flex items-center justify-center pr-10">
           <DialogTitle className="text-2xl sm:text-3xl font-medium flex items-center justify-center gap-2">
             
             <span className="bg-gradient-to-r from-coral-400 via-pink-400 to-coral-400 bg-clip-text text-transparent" style={{
