@@ -1,0 +1,1 @@
+UPDATE launch_limits SET waitlist_active = true, updated_at = now();
