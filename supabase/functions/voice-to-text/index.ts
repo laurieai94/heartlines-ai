@@ -86,11 +86,24 @@ serve(async (req) => {
     // Process audio in chunks to avoid memory issues
     const binaryAudio = processBase64Chunks(cleanBase64)
     
-    // Validate audio size
+    // Validate audio size - minimum and maximum
+    const MAX_AUDIO_SIZE = 5 * 1024 * 1024; // 5MB for voice messages (OpenAI limit is 25MB)
+    
     if (binaryAudio.length < 100) {
       console.warn(`Audio too short: ${binaryAudio.length} bytes`)
       return new Response(
         JSON.stringify({ error: 'No audio or recording too short' }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      )
+    }
+    
+    if (binaryAudio.length > MAX_AUDIO_SIZE) {
+      console.warn(`Audio too large: ${binaryAudio.length} bytes (max: ${MAX_AUDIO_SIZE})`)
+      return new Response(
+        JSON.stringify({ error: 'Recording too long. Maximum size is 5MB.' }),
         {
           status: 400,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
