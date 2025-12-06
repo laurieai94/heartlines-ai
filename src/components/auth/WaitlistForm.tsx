@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
-import { CheckCircle, Sparkles } from 'lucide-react';
+import { CheckCircle, Armchair } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 
 interface WaitlistFormProps {
@@ -91,12 +91,12 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
     <div className="space-y-4 p-4">
       <div className="text-center space-y-2">
         <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-coral-400/20 to-pink-500/20 flex items-center justify-center mb-3">
-          <Sparkles className="w-6 h-6 text-coral-400" />
+          <Armchair className="w-6 h-6 text-coral-400" />
         </div>
         
         <h3 className="text-lg font-semibold text-white">kai's couch is full rn 😭</h3>
         <p className="text-white/70 text-sm">
-          {message || "we're letting people in waves so kai can actually give good advice. drop your info and we'll invite you the second there's space."}
+          we're letting people in waves so kai can actually give good advice. drop your info and we'll invite you the second there's space.
         </p>
       </div>
 
