@@ -31,14 +31,14 @@ export const openerLibrary: Record<string, OpenerCategory> = {
       "classic escalate-vanish pattern.",
     ],
   },
-  appreciation: {
-    name: "Appreciation",
+  acknowledge: {
+    name: "Acknowledge",
     openers: [
-      "thanks for saying it straight.",
-      "glad you said it plainly.",
-      "we can work with this.",
-      "i appreciate you naming that.",
-      "that takes guts to say out loud.",
+      "mm.",
+      "yeah.",
+      "right.",
+      "okay so—",
+      "yeah that tracks.",
     ],
   },
   grounding: {
@@ -67,12 +67,12 @@ export const openerLibrary: Record<string, OpenerCategory> = {
 export const scenarioCategoryMapping: Record<string, string[]> = {
   conflict: ["impact", "normalize", "direct"],
   shutdown: ["impact", "normalize", "grounding"],
-  spiral: ["grounding", "impact", "appreciation"],
-  betrayal: ["impact", "appreciation", "grounding"],
+  spiral: ["grounding", "impact", "acknowledge"],
+  betrayal: ["impact", "acknowledge", "grounding"],
   jealousy: ["impact", "normalize", "direct"],
-  intimacy: ["appreciation", "normalize", "grounding"],
-  family: ["impact", "appreciation", "direct"],
-  default: ["direct", "appreciation", "grounding"],
+  intimacy: ["acknowledge", "normalize", "grounding"],
+  family: ["impact", "acknowledge", "direct"],
+  default: ["direct", "acknowledge", "grounding"],
 };
 
 // Hard-banned phrases that should never appear
@@ -92,6 +92,11 @@ export const bannedPhrases = [
   "deep breath",
   "piece by piece",
   "take this piece by piece",
+  "thanks for saying it straight",
+  "glad you said it plainly",
+  "i appreciate you naming that",
+  "that takes guts to say out loud",
+  "that takes guts",
 ];
 
 // Note: "does that land" is ALLOWED in Phase 2 reflections only
