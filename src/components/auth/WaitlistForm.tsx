@@ -96,7 +96,7 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
         
         <h3 className="text-lg font-semibold text-white">kai's couch is full rn 😭</h3>
         <p className="text-white/70 text-sm">
-          we're letting people in waves so kai can actually give good advice. drop your info and we'll invite you the second there's space.
+          we're letting people in waves so kai can stay actually helpful. drop your info and we'll ping you as soon as there's space.
         </p>
       </div>
 
