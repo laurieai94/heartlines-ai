@@ -172,16 +172,16 @@ serve(async (req) => {
       return 'default';
     };
 
-    // Scenario to category mapping for intelligent selection
+    // Scenario to category mapping - ALWAYS use direct questions only
     const scenarioCategoryMapping: Record<string, string[]> = {
-      conflict: ['impact', 'normalize', 'direct'],
-      shutdown: ['impact', 'normalize', 'grounding'],
-      spiral: ['grounding', 'impact', 'appreciation'],
-      betrayal: ['impact', 'appreciation', 'grounding'],
-      jealousy: ['impact', 'normalize', 'direct'],
-      intimacy: ['appreciation', 'normalize', 'grounding'],
-      family: ['impact', 'appreciation', 'direct'],
-      default: ['direct', 'appreciation', 'grounding'],
+      conflict: ['direct'],
+      shutdown: ['direct'],
+      spiral: ['direct'],
+      betrayal: ['direct'],
+      jealousy: ['direct'],
+      intimacy: ['direct'],
+      family: ['direct'],
+      default: ['direct'],
     };
 
     // Banned phrases that should never appear in responses
@@ -193,42 +193,19 @@ serve(async (req) => {
       "so they're saying"
     ];
 
-    // Updated opener library - removed conflicting "okay/got it" starters
+    // DIRECT question-only openers - no validation, no preamble
     const openerLibrary = {
-      impact: [
-        "that's a lonely place to be mid-fight.",
-        "getting left mid-conflict hurts—full stop.",
-        "being left hanging like that is brutal.",
-        "that disconnect is exhausting.",
-        "that silence cuts deep.",
-      ],
-      normalize: [
-        "a lot of couples get stuck in this loop.",
-        "this shutdown pattern is common—and workable.",
-        "you're describing a cycle, not a one-off.",
-        "this dynamic shows up everywhere.",
-        "classic escalate-vanish pattern.",
-      ],
-      appreciation: [
-        "thanks for saying it straight.",
-        "glad you said it plainly.",
-        "we can work with this.",
-        "i appreciate you naming that.",
-        "that takes guts to say out loud.",
-      ],
-      grounding: [
-        "let's slow this down.",
-        "one beat. we'll keep this simple.",
-        "let's get the shape of what happened.",
-        "deep breath. we'll take this piece by piece.",
-        "let's zoom in on one moment.",
-      ],
       direct: [
-        "walk me through the moment it flipped.",
-        "what happened right before they disappeared?",
-        "what was the spark this time?",
         "when did it tip?",
-        "what kicked it off?",
+        "what was the spark?",
+        "what happened right after?",
+        "what went through your body in that moment?",
+        "was this the first time this pattern showed up?",
+        "what did you do next?",
+        "how did they respond when you called it out?",
+        "did it feel intentional or careless?",
+        "when they said that—did it feel like deflection or taking responsibility?",
+        "did they say this in front of others or just to you?",
       ],
     };
 
@@ -266,8 +243,8 @@ serve(async (req) => {
     // Inject opener instruction into userContext if using new format
     let enhancedUserContext = userContext;
     if (userContext && isFirstResponse) {
-      // Only inject opener for first message in conversation - STRONGER instruction
-      enhancedUserContext = `${userContext}\n\n**CRITICAL OPENER INSTRUCTION**: Your FIRST SENTENCE MUST BE EXACTLY: "${selectedOpener}" — do not modify, rephrase, or add to this opener. Start with this exact phrase, then continue naturally with your question.`;
+      // Suggest a question but allow adaptation - NO validation allowed
+      enhancedUserContext = `${userContext}\n\n**FIRST MESSAGE RULE**: Start DIRECTLY with a question. Suggested: "${selectedOpener}" — but adapt it to what they just told you. NO validation phrases ("that's brutal", "that cuts deep", "glad you said it plainly"). NO preamble. Just ask your question.`;
     }
 
     // Sonnet-only model configuration (no fallback - quality is non-negotiable)
@@ -543,26 +520,18 @@ serve(async (req) => {
       // Get the response text
       let responseText = data.content[0].text;
       
-      // RESPONSE ENFORCEMENT: For first messages, check if opener was used
-      if (isFirstResponse && selectedOpener) {
+      // RESPONSE MONITORING: Log if banned phrases appear (don't force openers anymore)
+      if (isFirstResponse) {
         const lowerResponse = responseText.toLowerCase();
-        const lowerOpener = selectedOpener.toLowerCase();
         
-        // Check if response starts with the opener (allow some flexibility)
-        const startsWithOpener = lowerResponse.startsWith(lowerOpener) || 
-                                 lowerResponse.startsWith(lowerOpener.replace(/[.,!?]$/, ''));
-        
-        if (!startsWithOpener) {
-          console.log(`[OPENER] Model ignored opener instruction, prepending: "${selectedOpener}"`);
-          // Prepend the opener to the response
-          responseText = selectedOpener + " " + responseText;
-        }
-        
-        // Check for banned phrases and log warning (don't block, just monitor)
+        // Check for banned phrases and log warning
         const hasBannedPhrase = bannedPhrases.some(phrase => lowerResponse.includes(phrase.toLowerCase()));
         if (hasBannedPhrase) {
-          console.warn(`[OPENER WARNING] Response contains banned phrase. Original: "${responseText.substring(0, 100)}..."`);
+          console.warn(`[OPENER WARNING] First response contains banned phrase. Original: "${responseText.substring(0, 100)}..."`);
         }
+        
+        // Log the opener category that was suggested
+        console.log(`[OPENER] Suggested: "${selectedOpener}", Response starts with: "${responseText.substring(0, 50)}..."`);
       }
       
       // Enforce lowercase (existing behavior preserved)
