@@ -16,6 +16,7 @@ import { listenForAuthSuccess } from '@/utils/authChannel';
 import { toast } from '@/components/ui/sonner';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
 import WaitlistForm from '@/components/auth/WaitlistForm';
+import { useWaitlistStatus } from '@/hooks/useWaitlistStatus';
 
 const Auth = () => {
   const {
@@ -48,6 +49,15 @@ const Auth = () => {
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [waitlistMessage, setWaitlistMessage] = useState<string | undefined>();
   const isKeyboardVisible = useKeyboardDetection();
+  const { waitlistActive, waitlistMessage: initialWaitlistMessage, loading: waitlistLoading, checkWaitlistStatus } = useWaitlistStatus();
+
+  // Show waitlist immediately if active on page load
+  useEffect(() => {
+    if (!waitlistLoading && waitlistActive && isSignUp) {
+      setWaitlistMessage(initialWaitlistMessage || undefined);
+      setShowWaitlist(true);
+    }
+  }, [waitlistLoading, waitlistActive, initialWaitlistMessage, isSignUp]);
 
   // Check for mode parameter and route path on mount
   useEffect(() => {
@@ -202,6 +212,15 @@ const Auth = () => {
     setFormErrors([]);
     try {
       if (isSignUp) {
+        // Pre-flight waitlist check before attempting signup
+        const waitlistStatus = await checkWaitlistStatus();
+        if (waitlistStatus.waitlistActive) {
+          setWaitlistMessage(waitlistStatus.waitlistMessage || undefined);
+          setShowWaitlist(true);
+          setIsSubmitting(false);
+          return;
+        }
+
         logEvent('auth_signup_started');
         const {
           error
