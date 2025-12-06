@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
-import { CheckCircle, Clock, Sparkles } from 'lucide-react';
+import { CheckCircle, Sparkles } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 
 interface WaitlistFormProps {
@@ -48,8 +48,8 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
       }
 
       setIsSubmitted(true);
-      toast.success("You're on the list!", {
-        description: "We'll email you when there's space."
+      toast.success("spot saved ✨", {
+        description: "we'll hit you up the second there's room."
       });
 
     } catch (err: any) {
@@ -68,15 +68,10 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
         </div>
         
         <div>
-          <h3 className="text-xl font-semibold text-white mb-2">you're on the list!</h3>
+          <h3 className="text-xl font-semibold text-white mb-2">spot saved ✨</h3>
           <p className="text-white/70 text-sm">
-            we'll send you an email with a priority signup link as soon as there's space.
+            we'll hit you up the second there's room.
           </p>
-        </div>
-
-        <div className="flex items-center justify-center gap-2 text-white/50 text-xs">
-          <Clock className="w-3 h-3" />
-          <span>usually within 24-48 hours</span>
         </div>
 
         {onBack && (
@@ -99,9 +94,9 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
           <Sparkles className="w-6 h-6 text-coral-400" />
         </div>
         
-        <h3 className="text-lg font-semibold text-white">we're at capacity</h3>
+        <h3 className="text-lg font-semibold text-white">kai's couch is full rn 😭</h3>
         <p className="text-white/70 text-sm">
-          {message || "join the waitlist and we'll email you when there's space."}
+          {message || "we're letting people in waves so kai can actually give good advice. drop your info and we'll invite you the second there's space."}
         </p>
       </div>
 
@@ -115,7 +110,7 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="what should we call you?"
+            placeholder="name or nickname (both are welcome)"
             className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
           />
         </div>
@@ -129,7 +124,7 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="your email"
+            placeholder="where should we send your invite?"
             required
             className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
           />
@@ -146,7 +141,7 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
           disabled={isSubmitting}
           className="w-full questionnaire-button-primary py-2 text-sm"
         >
-          {isSubmitting ? 'joining...' : 'join the waitlist'}
+          {isSubmitting ? 'saving...' : 'save my spot'}
         </Button>
       </form>
 
