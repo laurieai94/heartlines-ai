@@ -69,7 +69,7 @@ export const UpgradeModal = ({
     return planIndex > currentTierIndex;
   };
   return <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-5xl max-h-[92vh] md:max-h-[90vh] lg:max-h-[88vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 box-border" style={{
+      <DialogContent className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-3xl lg:max-w-5xl max-h-[92vh] md:max-h-[90vh] lg:max-h-[88vh] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-burgundy-600/90 via-burgundy-700/85 to-burgundy-800/90 backdrop-blur-xl border-white/25 rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 box-border" style={{
       '--dialog-max-width': '112rem'
     } as React.CSSProperties}>
         <DialogHeader className="flex items-center justify-center pr-10">
@@ -84,7 +84,7 @@ export const UpgradeModal = ({
           
         </DialogHeader>
 
-        <div className="mt-1 space-y-4 md:space-y-5 lg:space-y-6 pb-2">
+        <div className="mt-1 space-y-4 md:space-y-5 lg:space-y-6 pb-2 md:pb-4 lg:pb-6">
           {/* Current Usage */}
           <Card className="backdrop-blur-xl rounded-2xl p-2.5 md:p-3 bg-gradient-to-br from-white/35 via-white/30 to-white/25 border border-white/50 shadow-xl w-full box-border">
             <div className="flex items-center justify-between">
