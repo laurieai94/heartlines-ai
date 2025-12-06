@@ -44,11 +44,11 @@ export const openerLibrary: Record<string, OpenerCategory> = {
   grounding: {
     name: "Grounding",
     openers: [
-      "let's slow this down.",
-      "one beat. we'll keep this simple.",
-      "let's get the shape of what happened.",
-      "deep breath. we'll take this piece by piece.",
+      "okay, one thing at a time.",
       "let's zoom in on one moment.",
+      "let's get the shape of what happened.",
+      "let's slow this down a sec.",
+      "one beat—what happened first?",
     ],
   },
   direct: {
@@ -89,6 +89,9 @@ export const bannedPhrases = [
   "got it. so",
   "so you're saying",
   "so they're saying",
+  "deep breath",
+  "piece by piece",
+  "take this piece by piece",
 ];
 
 // Note: "does that land" is ALLOWED in Phase 2 reflections only
