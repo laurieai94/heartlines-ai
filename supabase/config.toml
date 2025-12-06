@@ -30,6 +30,13 @@ verify_jwt = false
 # Resend webhook for inbound email forwarding, no JWT needed
 verify_jwt = false
 
+[functions.check-launch-budget]
+# Budget monitoring, called by cron or internal systems
+verify_jwt = false
+
+[functions.notify-waitlist]
+# Admin function to notify waitlist users, called internally
+verify_jwt = false
 
 [functions.anthropic-chat]
 # Require authentication for AI services

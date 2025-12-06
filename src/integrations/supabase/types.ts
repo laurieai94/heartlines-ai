@@ -317,6 +317,42 @@ export type Database = {
         }
         Relationships: []
       }
+      launch_limits: {
+        Row: {
+          auto_throttle_enabled: boolean
+          created_at: string | null
+          id: string
+          max_concurrent_users: number
+          max_daily_ai_spend: number
+          spend_check_window_hours: number
+          updated_at: string | null
+          waitlist_active: boolean
+          waitlist_message: string | null
+        }
+        Insert: {
+          auto_throttle_enabled?: boolean
+          created_at?: string | null
+          id?: string
+          max_concurrent_users?: number
+          max_daily_ai_spend?: number
+          spend_check_window_hours?: number
+          updated_at?: string | null
+          waitlist_active?: boolean
+          waitlist_message?: string | null
+        }
+        Update: {
+          auto_throttle_enabled?: boolean
+          created_at?: string | null
+          id?: string
+          max_concurrent_users?: number
+          max_daily_ai_spend?: number
+          spend_check_window_hours?: number
+          updated_at?: string | null
+          waitlist_active?: boolean
+          waitlist_message?: string | null
+        }
+        Relationships: []
+      }
       monthly_revenue_snapshots: {
         Row: {
           arr: number
@@ -723,6 +759,8 @@ export type Database = {
           id: string
           name: string | null
           notified: boolean | null
+          priority_code: string | null
+          priority_expires_at: string | null
         }
         Insert: {
           created_at?: string | null
@@ -730,6 +768,8 @@ export type Database = {
           id?: string
           name?: string | null
           notified?: boolean | null
+          priority_code?: string | null
+          priority_expires_at?: string | null
         }
         Update: {
           created_at?: string | null
@@ -737,11 +777,22 @@ export type Database = {
           id?: string
           name?: string | null
           notified?: boolean | null
+          priority_code?: string | null
+          priority_expires_at?: string | null
         }
         Relationships: []
       }
     }
     Views: {
+      daily_ai_spend_summary: {
+        Row: {
+          request_count: number | null
+          spend_date: string | null
+          total_cost: number | null
+          unique_users: number | null
+        }
+        Relationships: []
+      }
       daily_api_health_summary: {
         Row: {
           auth_errors: number | null
@@ -792,6 +843,14 @@ export type Database = {
         }
         Relationships: []
       }
+      hourly_ai_spend: {
+        Row: {
+          hour: string | null
+          hourly_cost: number | null
+          request_count: number | null
+        }
+        Relationships: []
+      }
       kai_opener_analytics: {
         Row: {
           last_used: string | null
@@ -804,6 +863,7 @@ export type Database = {
       }
     }
     Functions: {
+      generate_priority_code: { Args: never; Returns: string }
       get_subscription_analytics_summary: {
         Args: never
         Returns: {

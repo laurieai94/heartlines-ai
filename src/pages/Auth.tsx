@@ -15,6 +15,7 @@ import PhoneLockup from '@/components/Brand/PhoneLockup';
 import { listenForAuthSuccess } from '@/utils/authChannel';
 import { toast } from '@/components/ui/sonner';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
+import WaitlistForm from '@/components/auth/WaitlistForm';
 
 const Auth = () => {
   const {
@@ -44,6 +45,8 @@ const Auth = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [isVerifiedFlow, setIsVerifiedFlow] = useState(false);
+  const [showWaitlist, setShowWaitlist] = useState(false);
+  const [waitlistMessage, setWaitlistMessage] = useState<string | undefined>();
   const isKeyboardVisible = useKeyboardDetection();
 
   // Check for mode parameter and route path on mount
@@ -157,6 +160,15 @@ const Auth = () => {
   const getErrorMessage = (error: any) => {
     const message = error.message || 'An error occurred';
     
+    // Handle waitlist/capacity errors
+    if (message.includes('WAITLIST_ACTIVE:') || message.includes('SIGNUP_CAP_REACHED:')) {
+      // Extract the custom message after the prefix
+      const customMessage = message.replace(/^(WAITLIST_ACTIVE:|SIGNUP_CAP_REACHED:)\s*/, '');
+      setWaitlistMessage(customMessage);
+      setShowWaitlist(true);
+      return null; // Don't show error, show waitlist form instead
+    }
+    
     // Handle rate limiting
     if (message.includes('For security purposes, you can only request this after')) {
       const match = message.match(/after (\d+) seconds?/);
@@ -261,7 +273,10 @@ const Auth = () => {
         navigate(returnTo);
       }
     } catch (error: any) {
-      setFormErrors([getErrorMessage(error)]);
+      const errorMsg = getErrorMessage(error);
+      if (errorMsg) {
+        setFormErrors([errorMsg]);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -386,7 +401,17 @@ const Auth = () => {
         <div className="w-full flex flex-col items-center flex-shrink-0">
           <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
             <div className="questionnaire-card p-3 sm:p-4 md:p-5 lg:p-6">
-          {showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
+          {showWaitlist ? (
+            <WaitlistForm 
+              email={formData.email}
+              message={waitlistMessage}
+              onBack={() => {
+                setShowWaitlist(false);
+                setWaitlistMessage(undefined);
+                navigate('/');
+              }}
+            />
+          ) : showEmailVerification ? <div className="text-center space-y-2 sm:space-y-4">
               <div className="questionnaire-card p-4 sm:p-5 md:p-6">
                 <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-green-400 mx-auto mb-2 sm:mb-3" />
                 <h3 className="questionnaire-text font-semibold mb-1.5 sm:mb-2">check your email!</h3>
