@@ -47,6 +47,12 @@ const WaitlistForm = ({ email: initialEmail = '', message, onBack }: WaitlistFor
       }
 
       setIsSubmitted(true);
+
+      // Send confirmation email (fire and forget - don't block on this)
+      supabase.functions.invoke('confirm-waitlist', {
+        body: { email: email.toLowerCase().trim(), name: name.trim() || undefined }
+      }).catch(err => console.error('Confirmation email error:', err));
+
     } catch (err: any) {
       console.error('Waitlist error:', err);
       setError(err.message || 'Something went wrong. Please try again.');

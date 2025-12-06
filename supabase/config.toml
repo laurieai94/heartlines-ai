@@ -38,6 +38,10 @@ verify_jwt = false
 # Admin function to notify waitlist users, called internally
 verify_jwt = false
 
+[functions.confirm-waitlist]
+# Public waitlist confirmation email, no JWT needed
+verify_jwt = false
+
 [functions.anthropic-chat]
 # Require authentication for AI services
 verify_jwt = true
