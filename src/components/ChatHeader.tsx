@@ -38,10 +38,10 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
               alt={BRAND.coach.name} 
               className="object-cover"
               loading="eager" 
-              decoding="async" 
-              
+              decoding="async"
+              fetchPriority="high"
             />
-            <AvatarFallback className={`text-white border-0 ${isMobile ? 'text-sm' : 'text-lg'}`}>
+            <AvatarFallback delayMs={Infinity} className={`text-white border-0 ${isMobile ? 'text-sm' : 'text-lg'}`}>
               <Heart className={isMobile ? 'w-5 h-5' : 'w-8 h-8'} />
             </AvatarFallback>
           </Avatar>
