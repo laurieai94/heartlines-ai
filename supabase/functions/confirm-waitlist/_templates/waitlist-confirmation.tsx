@@ -25,7 +25,7 @@ export const WaitlistConfirmationEmail = ({ name }: WaitlistConfirmationProps) =
       <Container style={container}>
         <Img
           src="https://relqmhrzyqckoaebscgx.supabase.co/storage/v1/object/public/logo%20logo/Copy%20of%20Heartlines.png"
-          width="140"
+          width="220"
           height="auto"
           alt="heartlines"
           style={logo}
