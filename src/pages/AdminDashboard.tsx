@@ -15,6 +15,7 @@ import AdminCacheMetricsChart from "@/components/admin/AdminCacheMetricsChart";
 import AdminApiHealthChart from "@/components/admin/AdminApiHealthChart";
 import AdminUserDetailsModal from "@/components/admin/AdminUserDetailsModal";
 import CacheAlertBanner from "@/components/admin/CacheAlertBanner";
+import AdminBudgetMonitor from "@/components/admin/AdminBudgetMonitor";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -73,6 +74,9 @@ const AdminDashboard = () => {
             Back to App
           </Button>
         </div>
+
+        {/* Budget Monitor - Top Priority */}
+        <AdminBudgetMonitor />
 
         {/* Cache Alert Banner */}
         <CacheAlertBanner />
