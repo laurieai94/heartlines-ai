@@ -17,6 +17,15 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet"></noscript>
     <link href="https://fonts.cdnfonts.com/css/glacial-indifference-2" rel="stylesheet">
     
+    <!-- Google Analytics - Replace G-XXXXXXXXXX with your GA4 Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
     <!-- Critical resource preconnections -->
     <link rel="preconnect" href="https://relqmhrzyqckoaebscgx.supabase.co" crossorigin>
     <link rel="preconnect" href="https://api.stripe.com" crossorigin>
@@ -31,7 +40,7 @@
     <link rel="preload" as="image" href="/lovable-uploads/heartlines-signup-logo-new.png" fetchpriority="high" />
     <link rel="preload" as="image" href="/lovable-uploads/kai-avatar-new.png" fetchpriority="high" />
     <meta name="description" content="Your relationship intelligence companion">
-    <meta name="author" content="Lovable" />
+    <meta name="author" content="Heartlines" />
     <!-- Favicon for all browsers -->
     <link rel="icon" type="image/png" sizes="32x32" href="/heartlines-icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/heartlines-icon.png">
@@ -46,7 +55,6 @@
     <meta property="og:image" content="https://heartlines.ai/heartlines-social-share.png">
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:title" content="heartlines" />
     <meta name="twitter:description" content="Your relationship intelligence companion" />
     <meta name="twitter:image" content="https://heartlines.ai/heartlines-social-share.png">

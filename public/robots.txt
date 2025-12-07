@@ -1,2 +1,13 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+# Block private/authenticated routes
+Disallow: /profile
+Disallow: /coach
+Disallow: /account
+Disallow: /admin
+Disallow: /billing/
+Disallow: /auth/
+
+# Sitemap location
+Sitemap: https://heartlines.ai/sitemap.xml
