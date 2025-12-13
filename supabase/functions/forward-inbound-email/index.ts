@@ -85,27 +85,6 @@ const handler = async (req: Request): Promise<Response> => {
 
     const { to, from, subject, html, text, reply_to } = event.data;
 
-    // Filter out automated/system emails
-    const IGNORED_SENDERS = [
-      "workspace-noreply@google.com",
-      "noreply@google.com",
-      "no-reply@",
-      "mailer-daemon@",
-      "postmaster@"
-    ];
-
-    const isAutomatedEmail = IGNORED_SENDERS.some(sender => 
-      from.toLowerCase().includes(sender.toLowerCase())
-    );
-
-    if (isAutomatedEmail) {
-      console.log(`⏭️ Ignoring automated email from ${from}`);
-      return new Response(JSON.stringify({ 
-        message: "Automated email ignored",
-        from: from
-      }), { status: 200, headers: { "Content-Type": "application/json" } });
-    }
-
     // Extract the recipient address
     const recipientAddress = (to[0] || "").toLowerCase();
 
