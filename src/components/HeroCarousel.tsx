@@ -84,6 +84,7 @@ const slides: Slide[] = [
 
 export const HeroCarousel: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Preload all carousel images on mount
   useEffect(() => {
@@ -92,11 +93,23 @@ export const HeroCarousel: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
+    // Check if splash screen has already completed
+    const splashComplete = sessionStorage.getItem('homepage_visited') === 'true' ||
+                           sessionStorage.getItem('resources_loaded') === 'true';
+    
+    // Delay timer start if splash is still showing
+    const startDelay = splashComplete ? 0 : 3500;
+    
+    const startTimer = setTimeout(() => {
+      intervalRef.current = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 4000);
+    }, startDelay);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(startTimer);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, []);
 
   return (
