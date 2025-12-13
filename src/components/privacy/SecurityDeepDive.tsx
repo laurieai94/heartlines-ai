@@ -12,9 +12,9 @@ interface SecurityFeature {
 const securityFeatures: SecurityFeature[] = [
   {
     icon: Clock,
-    name: "user-controlled retention & file security",
-    technical: "configurable retention policies (30, 90, 365 days or forever), with automated cleanup jobs. supabase storage protected by rls so files are accessible only when user_id = auth.uid().",
-    meaning: "you decide how long we keep your conversations. your uploaded files, like profile pictures, stay locked to your account alone."
+    name: "user-controlled retention & data export",
+    technical: "configurable retention policies (30, 90, 365 days or forever). full data export available anytime in json format. supabase storage protected by rls so files are accessible only when user_id = auth.uid().",
+    meaning: "you decide how long we keep your conversations. export all your data anytime. your uploaded files, like profile pictures, stay locked to your account alone."
   },
   {
     icon: Eye,

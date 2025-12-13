@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Clock, BarChart3, Key, Trash2 } from 'lucide-react';
+import { Mail, Clock, BarChart3, Key, Trash2, Download } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -33,6 +33,9 @@ const AccountSecurity = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState('');
   const [deletePassword, setDeletePassword] = useState('');
   const [deletingAccount, setDeletingAccount] = useState(false);
+  
+  // Data export state
+  const [exporting, setExporting] = useState(false);
   
   const handleSettingChange = (key: string, value: any) => {
     const newSettings = {
@@ -119,6 +122,85 @@ const AccountSecurity = () => {
       });
     } finally {
       setChangingPassword(false);
+    }
+  };
+  
+  const handleDataExport = async () => {
+    setExporting(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('No user found');
+
+      // Fetch all user data in parallel
+      const [
+        profileResult,
+        personalProfileResult,
+        partnerProfileResult,
+        conversationsResult,
+        remindersResult,
+        onboardingResult
+      ] = await Promise.all([
+        supabase.from('profiles').select('*').eq('user_id', user.id).maybeSingle(),
+        supabase.from('user_profiles').select('*').eq('user_id', user.id).eq('profile_type', 'your').maybeSingle(),
+        supabase.from('user_profiles').select('*').eq('user_id', user.id).eq('profile_type', 'partner').maybeSingle(),
+        supabase.from('chat_conversations').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
+        supabase.from('user_reminders').select('*').eq('user_id', user.id),
+        supabase.from('onboarding_status').select('*').eq('user_id', user.id).maybeSingle()
+      ]);
+
+      const exportData = {
+        exportedAt: new Date().toISOString(),
+        user: {
+          email: user.email
+        },
+        profile: profileResult.data ? {
+          name: profileResult.data.name,
+          avatar_url: profileResult.data.avatar_url,
+          phone_number: profileResult.data.phone_number,
+          created_at: profileResult.data.created_at
+        } : null,
+        personalProfile: personalProfileResult.data ? {
+          demographics: personalProfileResult.data.demographics_data,
+          questionnaire: personalProfileResult.data.profile_data
+        } : null,
+        partnerProfile: partnerProfileResult.data ? {
+          demographics: partnerProfileResult.data.demographics_data,
+          questionnaire: partnerProfileResult.data.profile_data
+        } : null,
+        conversations: conversationsResult.data?.map(conv => ({
+          id: conv.id,
+          title: conv.title,
+          messages: conv.messages,
+          created_at: conv.created_at,
+          updated_at: conv.updated_at
+        })) || [],
+        reminders: remindersResult.data || [],
+        onboardingStatus: onboardingResult.data || null
+      };
+
+      // Create and download JSON file
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `heartlines-data-export-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      toast({
+        title: "data exported",
+        description: "your data has been downloaded as a json file"
+      });
+    } catch (error: any) {
+      toast({
+        title: "export failed",
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setExporting(false);
     }
   };
   
@@ -255,6 +337,33 @@ const AccountSecurity = () => {
                 </SelectContent>
               </Select>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Data Export */}
+        <Card className={`${isMobile ? 'rounded-lg' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
+          <CardHeader className={isMobile ? 'p-2.5 pb-1.5' : 'p-2'}>
+            <div className="flex items-center gap-2">
+              <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2' : 'p-2'}`}>
+                <Download className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
+              </div>
+              <div>
+                <CardTitle className={`${isMobile ? 'text-base font-medium' : 'text-base font-medium'} text-white`}>export your data</CardTitle>
+                <CardDescription className={`${isMobile ? 'text-sm leading-snug' : 'text-sm'} text-white/60`}>
+                  download all your personal data in json format
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className={isMobile ? 'p-2.5 pt-0' : 'p-2 pt-0'}>
+            <Button 
+              onClick={handleDataExport}
+              disabled={exporting}
+              variant="outline"
+              className={`w-full bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}
+            >
+              {exporting ? 'exporting...' : 'export my data'}
+            </Button>
           </CardContent>
         </Card>
 
