@@ -9,12 +9,16 @@ import { BRAND } from "@/branding";
 import ProfileForm from "@/components/ProfileForm";
 import Demographics from "@/components/Demographics";
 import MemoizedProfileCard from "@/components/ProfileBuilder/MemoizedProfileCard";
+import PartnerProfileManager from "@/components/profile/PartnerProfileManager";
+import { UpgradeModal } from "@/components/modals/UpgradeModal";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileCompletion';
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
+import { usePartnerProfiles } from '@/hooks/usePartnerProfiles';
+import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
@@ -55,6 +59,11 @@ const ProfileBuilder = ({
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  
+  // Partner profiles management
+  const { limits: partnerLimits } = usePartnerProfiles();
+  const subscription = useOptimizedSubscription();
   
   // Profile update counter for real-time button state updates
   const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
@@ -347,14 +356,18 @@ const ProfileBuilder = ({
                   first step: 5 qs
                 </span> : undefined} motivationText="the realer you, the smarter kai" />
 
-          {/* Partner Profile Card */}
-        <MemoizedProfileCard title="your person" subheader="see your story from both povs" completion={partnerProfileCompletion} description="" benefits={[{
-            icon: <Star className="w-3 h-3 text-pink-300" />,
-            text: "dual pov magic"
-          }, {
-            icon: <Star className="w-3 h-3 text-pink-300" />,
-            text: "hacks unlocked"
-          }]} onStartProfile={handleStartPartnerProfile} buttonText="add player 2" iconElement={partnerInitial ? <span className="text-white font-bold text-2xl sm:text-3xl leading-none">{partnerInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-pink-300" benefitColor="text-pink-300" optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">optional</span>} motivationText="bring your +1 for hotter takes" />
+          {/* Partner Profiles Manager */}
+          <div className="md:col-span-1">
+            <PartnerProfileManager 
+              onEditProfile={(partnerProfileId) => {
+                // Open the partner questionnaire
+                if (onOpenPartnerQuestionnaire) {
+                  onOpenPartnerQuestionnaire();
+                }
+              }}
+              onUpgrade={() => setShowUpgradeModal(true)}
+            />
+          </div>
         </div>
 
 
@@ -415,6 +428,18 @@ const ProfileBuilder = ({
           initialDemographics={temporaryDemographics} 
         />
       )}
+
+      {/* Upgrade Modal for Partner Profile Limits */}
+      <UpgradeModal
+        open={showUpgradeModal}
+        onOpenChange={setShowUpgradeModal}
+        currentTier={subscription.subscription_tier || 'begin'}
+        messagesUsed={subscription.messages_used}
+        messageLimit={subscription.message_limit}
+        reason="partner-profiles"
+        partnerProfileCount={partnerLimits.current}
+        partnerProfileLimit={partnerLimits.limit}
+      />
 
       </div>
     </div>;

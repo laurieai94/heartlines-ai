@@ -628,6 +628,8 @@ export type Database = {
           created_at: string
           demographics_data: Json
           id: string
+          partner_profile_id: string | null
+          partner_profile_name: string | null
           profile_data: Json
           profile_type: string
           updated_at: string
@@ -637,6 +639,8 @@ export type Database = {
           created_at?: string
           demographics_data?: Json
           id?: string
+          partner_profile_id?: string | null
+          partner_profile_name?: string | null
           profile_data?: Json
           profile_type: string
           updated_at?: string
@@ -646,6 +650,8 @@ export type Database = {
           created_at?: string
           demographics_data?: Json
           id?: string
+          partner_profile_id?: string | null
+          partner_profile_name?: string | null
           profile_data?: Json
           profile_type?: string
           updated_at?: string
@@ -864,6 +870,14 @@ export type Database = {
     }
     Functions: {
       generate_priority_code: { Args: never; Returns: string }
+      get_partner_profile_count: {
+        Args: { user_id_input: string }
+        Returns: number
+      }
+      get_partner_profile_limit: {
+        Args: { user_id_input: string }
+        Returns: number
+      }
       get_subscription_analytics_summary: {
         Args: never
         Returns: {
@@ -922,10 +936,16 @@ export type Database = {
         Args: { p_delta?: number; p_usage_month?: string; p_user_id: string }
         Returns: undefined
       }
-      upsert_user_profile_patch: {
-        Args: { p_patch: Json; p_profile_type: string }
-        Returns: Json
-      }
+      upsert_user_profile_patch:
+        | { Args: { p_patch: Json; p_profile_type: string }; Returns: Json }
+        | {
+            Args: {
+              p_partner_profile_id?: string
+              p_patch: Json
+              p_profile_type: string
+            }
+            Returns: Json
+          }
     }
     Enums: {
       app_role: "admin" | "user"
