@@ -12,7 +12,9 @@ interface UpgradeModalProps {
   currentTier?: string;
   messagesUsed?: number;
   messageLimit?: number;
-  reason?: 'limit-reached' | 'near-limit' | 'upgrade';
+  reason?: 'limit-reached' | 'near-limit' | 'upgrade' | 'partner-profiles';
+  partnerProfileCount?: number;
+  partnerProfileLimit?: number;
 }
 export const UpgradeModal = ({
   open,
@@ -20,7 +22,9 @@ export const UpgradeModal = ({
   currentTier = 'begin',
   messagesUsed = 0,
   messageLimit = 50,
-  reason = 'upgrade'
+  reason = 'upgrade',
+  partnerProfileCount = 0,
+  partnerProfileLimit = 1
 }: UpgradeModalProps) => {
   const {
     upgrade
@@ -51,6 +55,8 @@ export const UpgradeModal = ({
         return "your free messages are done, but your story's just getting started.";
       case 'near-limit':
         return `you're using ${messagesUsed} of ${messageLimit} messages. upgrade to keep the conversation flowing.`;
+      case 'partner-profiles':
+        return `you've used all ${partnerProfileLimit} partner profile${partnerProfileLimit > 1 ? 's' : ''} on the ${currentTier} plan. upgrade for more.`;
       default:
         return "choose the plan that matches your relationship goals.";
     }
