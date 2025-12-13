@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, Clock, BarChart3, Key, Trash2, Download } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -36,6 +36,19 @@ const AccountSecurity = () => {
   
   // Data export state
   const [exporting, setExporting] = useState(false);
+  
+  // User email state
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const getUserEmail = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.email) {
+        setUserEmail(user.email);
+      }
+    };
+    getUserEmail();
+  }, []);
   
   const handleSettingChange = (key: string, value: any) => {
     const newSettings = {
@@ -272,6 +285,19 @@ const AccountSecurity = () => {
   
   return <>
       <div className={`${isMobile ? 'account-mobile' : ''} ${isMobile ? 'space-y-2' : 'space-y-1.5'}`}>
+        {/* Account Email */}
+        <div className={`flex items-center gap-3 ${isMobile ? 'p-3' : 'p-2'} bg-white/5 rounded-lg border border-white/10`}>
+          <div className="rounded-lg bg-primary/10 p-2">
+            <Mail className="text-pink-400 w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-white/60 text-xs">signed in as</p>
+            <p className="text-white text-sm font-medium">
+              {userEmail || 'loading...'}
+            </p>
+          </div>
+        </div>
+
         {/* Communication Preferences */}
         <Card className={`${isMobile ? 'rounded-lg' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
           <CardHeader className={isMobile ? 'p-2.5 pb-1.5' : 'p-2'}>
