@@ -85,6 +85,27 @@ const handler = async (req: Request): Promise<Response> => {
 
     const { to, from, subject, html, text, reply_to } = event.data;
 
+    // Filter out automated/system emails
+    const IGNORED_SENDERS = [
+      "workspace-noreply@google.com",
+      "noreply@google.com",
+      "no-reply@",
+      "mailer-daemon@",
+      "postmaster@"
+    ];
+
+    const isAutomatedEmail = IGNORED_SENDERS.some(sender => 
+      from.toLowerCase().includes(sender.toLowerCase())
+    );
+
+    if (isAutomatedEmail) {
+      console.log(`⏭️ Ignoring automated email from ${from}`);
+      return new Response(JSON.stringify({ 
+        message: "Automated email ignored",
+        from: from
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+
     // Extract the recipient address
     const recipientAddress = (to[0] || "").toLowerCase();
 
@@ -124,7 +145,7 @@ const handler = async (req: Request): Promise<Response> => {
               <p style="margin: 4px 0;"><strong>Subject:</strong> ${subject}</p>
             </div>
             <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
-            ${html || `<pre style="white-space: pre-wrap; font-family: sans-serif;">${text}</pre>`}
+            ${html || (text ? `<pre style="white-space: pre-wrap; font-family: sans-serif;">${text}</pre>` : '<p style="color: #999; font-style: italic;">[No email body content available]</p>')}
           `,
           reply_to: reply_to || from,
         });
