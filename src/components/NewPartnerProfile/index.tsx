@@ -7,10 +7,12 @@ interface NewPartnerProfileProps {
   onComplete: (profileData: any, skipPopup?: boolean) => void;
   onClose: () => void;
   isModal?: boolean;
+  targetProfileId?: string | null;
 }
 
-const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerProfileProps) => {
-  const { profileData, updateField, handleMultiSelect, saveProfile } = usePartnerProfileData();
+const NewPartnerProfile = ({ onComplete, onClose, isModal = false, targetProfileId }: NewPartnerProfileProps) => {
+  // Pass explicit profile ID to prevent race conditions with async activeProfileId state
+  const { profileData, updateField, handleMultiSelect, saveProfile } = usePartnerProfileData(undefined, targetProfileId);
 
   // Flush pending updates on unmount
   useEffect(() => {

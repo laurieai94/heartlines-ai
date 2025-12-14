@@ -41,6 +41,7 @@ const Account = () => {
     handlePersonalStartChatting,
     handlePartnerStartChatting,
     handlePartnerContinueEditing,
+    targetPartnerProfileId
   } = useDashboardModals();
 
   // Navigation handlers for account page
@@ -108,6 +109,7 @@ const Account = () => {
             onQuestionnaireClose={handleQuestionnaireClose}
             onQuestionnaireOpen={handleOpenQuestionnaire}
             onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
+            targetPartnerProfileId={targetPartnerProfileId}
             onPersonalCompletionClose={handlePersonalCompletionClose}
             onPartnerCompletionClose={handlePartnerCompletionClose}
             onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
