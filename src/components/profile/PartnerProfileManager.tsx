@@ -193,14 +193,6 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
           )}
         </div>
 
-        {/* Limit indicator */}
-        {!limits.canAdd && limits.limit !== 9999 && (
-          <div className="mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-            <p className="text-sm text-amber-400 text-center">
-              upgrade to {limits.tierName === 'begin' ? 'glow' : limits.tierName === 'glow' ? 'vibe' : 'unlimited'} for more partner profiles
-            </p>
-          </div>
-        )}
       </Card>
 
       {/* Delete Confirmation Dialog */}
