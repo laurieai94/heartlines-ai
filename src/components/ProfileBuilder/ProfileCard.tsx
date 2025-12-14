@@ -62,7 +62,7 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`questionnaire-card group p-4 md:p-5 lg:p-6 
+      className={`questionnaire-card group p-4 md:p-5 lg:p-6 pb-3 md:pb-4 lg:pb-4 h-full
         hover:scale-[1.02] transition-transform duration-300 ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
