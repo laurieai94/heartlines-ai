@@ -3,7 +3,7 @@ import { usePartnerProfiles, PartnerProfile } from '@/hooks/usePartnerProfiles';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Users, Plus, Check, Crown, Loader2, ArrowRight, Pencil } from 'lucide-react';
+import { Users, Plus, Check, Crown, Loader2, Pencil, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import CardAvatar from '@/components/ProfileBuilder/CardAvatar';
 
@@ -167,10 +167,8 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
             
             {/* Scroll indicator - below cards, only show when 3+ profiles */}
             {profiles.length >= 3 && (
-              <div className="flex justify-end pr-2 mt-1" aria-hidden="true">
-                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                  <span className="text-white/40 text-xs">↓</span>
-                </div>
+              <div className="flex justify-center mt-1" aria-hidden="true">
+                <ChevronDown className="w-4 h-4 text-white/20" />
               </div>
             )}
           </>
