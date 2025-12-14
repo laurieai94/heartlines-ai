@@ -122,7 +122,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         ) : (
           <>
             <div className="relative">
-              <ScrollArea className="h-[100px] lg:h-[120px] pr-2">
+              <ScrollArea className="h-[130px] lg:h-[150px] pr-2">
                 <div className="space-y-2 lg:space-y-3">
                   {profiles.map((profile) => (
                     <div
@@ -182,7 +182,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={handleCreateProfile}
           disabled={isCreating}
-          className="w-full mt-0 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg glass-cta-gradient min-h-[44px] md:min-h-[48px] lg:min-h-[52px]"
+          className="w-full mt-0 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-1.5 md:py-2 lg:py-2.5 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg glass-cta-gradient min-h-[40px] md:min-h-[44px] lg:min-h-[48px]"
         >
           {isCreating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
           add partner
@@ -195,7 +195,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={onUpgrade}
           variant="ghost"
-          className="w-full mt-3 py-2 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
+          className="w-full mt-1 py-1 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
         >
           <Crown className="w-4 h-4 mr-2 text-amber-400/60" />
           upgrade for more
