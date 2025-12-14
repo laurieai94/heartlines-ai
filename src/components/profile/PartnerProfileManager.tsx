@@ -94,7 +94,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
     <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300 h-full flex flex-col">
       {/* Header */}
       <div className="flex items-start justify-between mb-3 lg:mb-3">
-        <div className="flex items-center gap-3">
+          <div className="flex items-start gap-3 md:gap-4">
           <CardAvatar>
             <Users className="w-5 h-5 text-white" />
           </CardAvatar>
