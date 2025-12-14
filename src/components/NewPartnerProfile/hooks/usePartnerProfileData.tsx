@@ -26,12 +26,15 @@ const defaultPartnerProfileData: PartnerProfileData = {
   partnerAttachmentStyle: ''
 };
 
-export const usePartnerProfileData = (onAutoComplete?: () => void) => {
+export const usePartnerProfileData = (onAutoComplete?: () => void, explicitProfileId?: string | null) => {
   // Get active partner profile ID and virgin status to ensure data isolation
   const { activeProfileId, isVirginProfile, clearVirginStatus } = usePartnerProfiles();
   
+  // Use explicit ID if provided (prevents race conditions), otherwise fall back to activeProfileId
+  const effectiveProfileId = explicitProfileId || activeProfileId;
+  
   // Check if current profile is virgin (brand new)
-  const isVirgin = activeProfileId ? isVirginProfile(activeProfileId) : false;
+  const isVirgin = effectiveProfileId ? isVirginProfile(effectiveProfileId) : false;
   
   const {
     profileData,
@@ -42,7 +45,7 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     updateFieldImmediate: rawUpdateFieldImmediate,
     handleMultiSelect: rawHandleMultiSelect,
     saveData
-  } = useProfileStoreV2('partner', activeProfileId || undefined, isVirgin);
+  } = useProfileStoreV2('partner', effectiveProfileId || undefined, isVirgin);
 
   // Auto-completion logic
   useEffect(() => {
@@ -61,9 +64,9 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
   // Normalize data types at write time
   const normalizedUpdateField = (field: keyof PartnerProfileData, value: any) => {
     // CRITICAL: Clear virgin status on first edit
-    if (activeProfileId && isVirgin) {
-      console.log('[VirginProfile] First edit - clearing virgin status:', activeProfileId);
-      clearVirginStatus(activeProfileId);
+    if (effectiveProfileId && isVirgin) {
+      console.log('[VirginProfile] First edit - clearing virgin status:', effectiveProfileId);
+      clearVirginStatus(effectiveProfileId);
     }
     
     let normalizedValue = value;

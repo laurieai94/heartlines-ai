@@ -63,6 +63,7 @@ interface DashboardModalsProps {
   showPartnerQuestionnaireModal: boolean;
   onPartnerQuestionnaireComplete: (data: any, skipPopup?: boolean) => void;
   onPartnerQuestionnaireClose: () => void;
+  targetPartnerProfileId?: string | null;
   showPersonalCompletionOptions: boolean;
   onPersonalAddPartnerProfile: () => void;
   onPersonalStartChatting: () => void;
@@ -89,6 +90,7 @@ const DashboardModals = ({
   showPartnerQuestionnaireModal,
   onPartnerQuestionnaireComplete,
   onPartnerQuestionnaireClose,
+  targetPartnerProfileId,
   showPersonalCompletionOptions,
   onPersonalAddPartnerProfile,
   onPersonalStartChatting,
@@ -168,7 +170,8 @@ const DashboardModals = ({
             <NewPartnerProfile 
               onComplete={onPartnerQuestionnaireComplete} 
               onClose={onPartnerQuestionnaireClose} 
-              isModal={true} 
+              isModal={true}
+              targetProfileId={targetPartnerProfileId}
             />
           </div>
         </div>
