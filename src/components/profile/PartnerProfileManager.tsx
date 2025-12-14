@@ -180,7 +180,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={onUpgrade}
           variant="ghost"
-          className="w-full mt-2 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
+          className="w-full mt-4 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
         >
           <Crown className="w-4 h-4 mr-2 text-amber-400/60" />
           upgrade for more
