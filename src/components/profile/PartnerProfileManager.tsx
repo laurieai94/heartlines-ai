@@ -167,9 +167,9 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
             
             {/* Scroll indicator - below cards, only show when 3+ profiles */}
             {profiles.length >= 3 && (
-              <div className="flex justify-center mt-2" aria-hidden="true">
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                  <span className="text-white/50 text-xs">↓</span>
+              <div className="flex justify-end pr-2 mt-1" aria-hidden="true">
+                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+                  <span className="text-white/40 text-xs">↓</span>
                 </div>
               </div>
             )}
