@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { usePartnerProfiles, PartnerProfile } from '@/hooks/usePartnerProfiles';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   AlertDialog,
   AlertDialogAction,
@@ -12,7 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Users, Plus, Trash2, Check, Crown, Loader2, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { Users, Plus, Trash2, Check, Crown, Loader2, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import CardAvatar from '@/components/ProfileBuilder/CardAvatar';
 
@@ -35,11 +36,6 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   const [isCreating, setIsCreating] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<PartnerProfile | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  // Show only first 3 profiles when collapsed, all when expanded
-  const visibleProfiles = isExpanded ? profiles : profiles.slice(0, 3);
-  const hasMoreProfiles = profiles.length > 3;
 
   const handleCreateProfile = async () => {
     if (!limits.canAdd) {
@@ -103,80 +99,62 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         </div>
 
         {/* Profiles List */}
-        <div className="space-y-3">
-          {profiles.length === 0 ? (
-            <div className="text-center py-8 text-white/60">
-              <Users className="w-12 h-12 mx-auto mb-3 opacity-40" />
-              <p>no partner profiles yet</p>
-              <p className="text-sm mt-1">add a partner to get personalized coaching</p>
-            </div>
-          ) : (
-            visibleProfiles.map((profile) => (
-              <div
-                key={profile.partner_profile_id}
-                className={cn(
-                  "flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.01]",
-                  activeProfileId === profile.partner_profile_id
-                    ? "bg-white/15 border-white/30 ring-1 ring-white/20 shadow-inner"
-                    : "bg-white/10 border-white/20 ring-1 ring-white/10 shadow-inner hover:bg-white/15 hover:border-white/25"
-                )}
-                onClick={() => handleProfileClick(profile)}
-              >
-                <div className="flex items-center gap-3">
-                  {activeProfileId === profile.partner_profile_id && (
-                    <div className="p-1 rounded-full bg-green-500/20">
-                      <Check className="w-3 h-3 text-green-400" />
-                    </div>
+        {profiles.length === 0 ? (
+          <div className="text-center py-8 text-white/60">
+            <Users className="w-12 h-12 mx-auto mb-3 opacity-40" />
+            <p>no partner profiles yet</p>
+            <p className="text-sm mt-1">add a partner to get personalized coaching</p>
+          </div>
+        ) : (
+          <ScrollArea className="max-h-[200px] pr-2">
+            <div className="space-y-3">
+              {profiles.map((profile) => (
+                <div
+                  key={profile.partner_profile_id}
+                  className={cn(
+                    "flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.01]",
+                    activeProfileId === profile.partner_profile_id
+                      ? "bg-white/15 border-white/30 ring-1 ring-white/20 shadow-inner"
+                      : "bg-white/10 border-white/20 ring-1 ring-white/10 shadow-inner hover:bg-white/15 hover:border-white/25"
                   )}
-                  <div>
-                    <p className="text-white font-medium">
-                      {profile.partner_profile_name}
-                    </p>
-                    <p className="text-xs text-white/50">
-                      {profile.profile_data?.partnerAttachmentStyle 
-                        ? `${profile.profile_data.partnerAttachmentStyle} attachment`
-                        : 'tap to complete profile'}
-                    </p>
+                  onClick={() => handleProfileClick(profile)}
+                >
+                  <div className="flex items-center gap-3">
+                    {activeProfileId === profile.partner_profile_id && (
+                      <div className="p-1 rounded-full bg-green-500/20">
+                        <Check className="w-3 h-3 text-green-400" />
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-white font-medium">
+                        {profile.partner_profile_name}
+                      </p>
+                      <p className="text-xs text-white/50">
+                        {profile.profile_data?.partnerAttachmentStyle 
+                          ? `${profile.profile_data.partnerAttachmentStyle} attachment`
+                          : 'tap to complete profile'}
+                      </p>
+                    </div>
                   </div>
+
+                  {profiles.length > 1 && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-white/40 hover:text-red-400 hover:bg-red-500/10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeleteTarget(profile);
+                      }}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  )}
                 </div>
-
-                {profiles.length > 1 && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-white/40 hover:text-red-400 hover:bg-red-500/10"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDeleteTarget(profile);
-                    }}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                )}
-              </div>
-            ))
-          )}
-
-          {/* Expand/Collapse button */}
-          {hasMoreProfiles && (
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="w-full mt-3 py-2 flex items-center justify-center gap-2 text-white/60 hover:text-white/80 transition-colors rounded-lg hover:bg-white/5"
-            >
-              {isExpanded ? (
-                <>
-                  <ChevronUp className="w-4 h-4" />
-                  <span className="text-sm">show less</span>
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="w-4 h-4" />
-                  <span className="text-sm">show {profiles.length - 3} more</span>
-                </>
-              )}
-            </button>
-          )}
-        </div>
+              ))}
+            </div>
+          </ScrollArea>
+        )}
 
         {/* Add Partner CTA */}
         <Button
