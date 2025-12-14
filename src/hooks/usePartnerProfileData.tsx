@@ -1,5 +1,6 @@
 
 import { useProfileStoreV2 } from './useProfileStoreV2';
+import { usePartnerProfiles } from './usePartnerProfiles';
 import { safeLog } from '@/utils/safeLogging';
 
 export interface PartnerProfileData {
@@ -43,6 +44,9 @@ const defaultPartnerProfileData: PartnerProfileData = {
 };
 
 export const usePartnerProfileData = () => {
+  // Get active partner profile ID to ensure data isolation
+  const { activeProfileId } = usePartnerProfiles();
+  
   const {
     profileData,
     isLoading,
@@ -50,7 +54,7 @@ export const usePartnerProfileData = () => {
     updateField: rawUpdateField,
     handleMultiSelect: rawHandleMultiSelect,
     saveData
-  } = useProfileStoreV2('partner');
+  } = useProfileStoreV2('partner', activeProfileId || undefined);
 
   // Normalize data types at write time
   const normalizedUpdateField = (field: keyof PartnerProfileData, value: any) => {

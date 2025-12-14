@@ -135,7 +135,7 @@ const DEBOUNCE_MS = 300; // Reduced for faster data persistence
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 const RECENT_MODIFICATION_THRESHOLD = 10000; // 10 seconds
 
-export const useProfileStoreV2 = (profileType: ProfileType) => {
+export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: string) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
@@ -226,8 +226,11 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       return defaultProfile;
     }
     
-    // Get user-specific storage key
-    const userStorageKey = getUserStorageKey(config.storageKey, user.id);
+    // Get user-specific storage key (partner-profile-aware)
+    const baseKey = getUserStorageKey(config.storageKey, user.id);
+    const userStorageKey = profileType === 'partner' && partnerProfileId 
+      ? `${baseKey}_${partnerProfileId}` 
+      : baseKey;
     const userMigrationKey = getUserStorageKey(`${config.storageKey}_migrated`, user.id);
     
     // Fast path: Check migration sentinel first to avoid unnecessary processing
@@ -337,7 +340,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     
     safeLog.info(`No existing ${profileType} data found, using defaults`);
     return defaultProfile;
-  }, [config, defaultProfile, migrateLegacyData, profileType, user]);
+  }, [config, defaultProfile, migrateLegacyData, profileType, user, partnerProfileId]);
 
   // Save to localStorage (immediate) + broadcast in-tab update
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
@@ -347,7 +350,11 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
       
       try {
-        const userStorageKey = getUserStorageKey(config.storageKey, user.id);
+        // Get user-specific storage key (partner-profile-aware)
+        const baseKey = getUserStorageKey(config.storageKey, user.id);
+        const userStorageKey = profileType === 'partner' && partnerProfileId 
+          ? `${baseKey}_${partnerProfileId}` 
+          : baseKey;
         const metadata = {
           profile: { 
             ...data, 
@@ -384,7 +391,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       } catch (error) {
         // Silently handle storage errors
       }
-  }, [config.storageKey, profileType, user]);
+  }, [config.storageKey, profileType, user, partnerProfileId]);
 
   // SIMPLIFIED: Direct sync to Supabase without timeout protection
   const syncToDatabase = useCallback(async (updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
@@ -392,10 +399,22 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     
     try {
       
-      const { data, error } = await supabase.rpc('upsert_user_profile_patch', {
-        p_profile_type: config.dbType,
-        p_patch: updates
-      });
+      // Build RPC params - include partner_profile_id for partner profiles
+      let rpcResult;
+      if (profileType === 'partner' && partnerProfileId) {
+        rpcResult = await supabase.rpc('upsert_user_profile_patch', {
+          p_profile_type: config.dbType,
+          p_patch: updates,
+          p_partner_profile_id: partnerProfileId
+        });
+      } else {
+        rpcResult = await supabase.rpc('upsert_user_profile_patch', {
+          p_profile_type: config.dbType,
+          p_patch: updates
+        });
+      }
+
+      const { data, error } = rpcResult;
 
       if (error) {
         // Only log error message, not full object
@@ -531,14 +550,20 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
 
     try {
-      const { data, error } = await supabase
+      // Fetch from database - filter by partner_profile_id for partner profiles
+      let query = supabase
         .from('user_profiles')
         .select('profile_data, demographics_data')
         .eq('user_id', user.id)
-        .eq('profile_type', config.dbType)
-        .single();
+        .eq('profile_type', config.dbType);
+      
+      if (profileType === 'partner' && partnerProfileId) {
+        query = query.eq('partner_profile_id', partnerProfileId);
+      }
+      
+      const { data, error } = await query.maybeSingle();
 
-      if (error && error.code !== 'PGRST116') throw error;
+      if (error) throw error;
 
       let result = defaultProfile;
       if (data) {
@@ -566,9 +591,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
 
     return defaultProfile;
-  }, [user, config.dbType, defaultProfile, migrateLegacyData, profileType]);
+  }, [user, config.dbType, defaultProfile, migrateLegacyData, profileType, partnerProfileId]);
 
   // Initialize and load data with instant local-first approach
+  // Re-runs when partnerProfileId changes to load correct partner profile data
   useEffect(() => {
     const initialize = async () => {
       try {
@@ -577,6 +603,15 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           setProfile(defaultProfile);
           setIsReady(true);
           setIsLoading(false);
+          return;
+        }
+        
+        // For partner profiles, require a valid partnerProfileId to proceed
+        if (profileType === 'partner' && !partnerProfileId) {
+          // Don't load any profile data yet - wait for partner profile ID
+          setProfile(defaultProfile);
+          setIsReady(false);
+          setIsLoading(true);
           return;
         }
         
@@ -789,7 +824,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return () => {
       clearTimeout(safetyTimeout);
     };
-  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType, isReady]);
+  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType, isReady, partnerProfileId]);
 
   // Listen for in-tab and cross-tab profile updates to keep instances in sync
   useEffect(() => {
