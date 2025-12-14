@@ -122,7 +122,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         ) : (
           <>
             <div className="relative">
-              <ScrollArea className="h-[130px] lg:h-[150px] pr-2">
+              <ScrollArea className="h-[150px] lg:h-[170px] pr-2">
                 <div className="space-y-2 lg:space-y-3">
                   {profiles.map((profile) => (
                     <div
@@ -195,7 +195,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={onUpgrade}
           variant="ghost"
-          className="w-full mt-1 py-1 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
+          className="w-full mt-0 py-0.5 text-white/50 hover:text-white/70 hover:bg-white/5 text-xs font-medium"
         >
           <Crown className="w-4 h-4 mr-2 text-amber-400/60" />
           upgrade for more
