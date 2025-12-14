@@ -93,14 +93,14 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   return (
     <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300 flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between mb-3 lg:mb-4">
+      <div className="flex items-center justify-between mb-3 lg:mb-3">
         <div className="flex items-center gap-3">
           <CardAvatar>
             <Users className="w-5 h-5 text-white" />
           </CardAvatar>
           <div>
             <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white">partner profiles</h3>
-        <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-3 leading-tight">
+        <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-2 leading-tight">
           help kai understand them
         </p>
           </div>
@@ -123,7 +123,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
           <>
             <div className="relative">
               <ScrollArea className="h-[150px] lg:h-[170px] pr-2">
-                <div className="space-y-2 lg:space-y-3">
+                <div className="space-y-2 lg:space-y-2">
                   {profiles.map((profile) => (
                     <div
                       key={profile.partner_profile_id}
