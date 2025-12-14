@@ -70,7 +70,7 @@ const ProfileCard = ({
       onTouchStart={isMobile ? handleCardTouch : undefined}
     >
       <div className="space-y-2 md:space-y-2.5 lg:space-y-3 h-full flex flex-col">
-        <div className="flex items-center gap-3 md:gap-4">
+        <div className="flex items-start gap-3 md:gap-4">
           <CardAvatar>
             {iconElement}
           </CardAvatar>
