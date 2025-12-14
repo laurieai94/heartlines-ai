@@ -135,7 +135,7 @@ const DEBOUNCE_MS = 300; // Reduced for faster data persistence
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 const RECENT_MODIFICATION_THRESHOLD = 10000; // 10 seconds
 
-export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: string) => {
+export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: string, isVirginProfile?: boolean) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
@@ -661,6 +661,30 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
           return;
         }
         
+        // CRITICAL: Virgin profiles bypass ALL localStorage/cache completely
+        // This is the nuclear option to prevent data carryover
+        if (profileType === 'partner' && partnerProfileId && isVirginProfile) {
+          console.log('[VirginProfile] Loading virgin profile - bypassing all cache:', partnerProfileId);
+          
+          // Force-clear ALL potential contamination sources
+          const baseKey = getUserStorageKey(config.storageKey, user.id);
+          const userStorageKey = `${baseKey}_${partnerProfileId}`;
+          batchedStorage.removeItem(userStorageKey);
+          localStorage.removeItem(userStorageKey);
+          
+          const cacheKey = `${user.id}-${config.dbType}-${partnerProfileId}`;
+          DB_CACHE.delete(cacheKey);
+          
+          // Load ONLY from database (which has correct minimal data)
+          const dbProfile = await loadFromDatabase();
+          console.log('[VirginProfile] Loaded from DB:', dbProfile);
+          
+          setProfile(dbProfile);
+          setIsReady(true);
+          setIsLoading(false);
+          return;
+        }
+        
         // Clear DB cache for this specific partner profile to ensure fresh data
         if (profileType === 'partner' && partnerProfileId) {
           const cacheKey = `${user.id}-${config.dbType}-${partnerProfileId}`;
@@ -876,7 +900,7 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
     return () => {
       clearTimeout(safetyTimeout);
     };
-  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType, isReady, partnerProfileId]);
+  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType, isReady, partnerProfileId, isVirginProfile, config.storageKey, config.dbType]);
 
   // Listen for in-tab and cross-tab profile updates to keep instances in sync
   useEffect(() => {

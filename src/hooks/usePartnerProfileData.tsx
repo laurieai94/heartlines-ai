@@ -44,8 +44,11 @@ const defaultPartnerProfileData: PartnerProfileData = {
 };
 
 export const usePartnerProfileData = () => {
-  // Get active partner profile ID to ensure data isolation
-  const { activeProfileId } = usePartnerProfiles();
+  // Get active partner profile ID and virgin status to ensure data isolation
+  const { activeProfileId, isVirginProfile, clearVirginStatus } = usePartnerProfiles();
+  
+  // Check if current profile is virgin (brand new)
+  const isVirgin = activeProfileId ? isVirginProfile(activeProfileId) : false;
   
   const {
     profileData,
@@ -54,10 +57,16 @@ export const usePartnerProfileData = () => {
     updateField: rawUpdateField,
     handleMultiSelect: rawHandleMultiSelect,
     saveData
-  } = useProfileStoreV2('partner', activeProfileId || undefined);
+  } = useProfileStoreV2('partner', activeProfileId || undefined, isVirgin);
 
   // Normalize data types at write time
   const normalizedUpdateField = (field: keyof PartnerProfileData, value: any) => {
+    // CRITICAL: Clear virgin status on first edit
+    if (activeProfileId && isVirgin) {
+      console.log('[VirginProfile] First edit - clearing virgin status:', activeProfileId);
+      clearVirginStatus(activeProfileId);
+    }
+    
     let normalizedValue = value;
     
     // Ensure correct data types for specific fields
