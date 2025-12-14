@@ -60,10 +60,13 @@ export const usePartnerProfiles = () => {
   // Merge pending name updates into profiles for immediate display
   const profilesWithPendingNames = useMemo(() => {
     if (pendingNameUpdates.size === 0) return profiles;
-    return profiles.map(profile => ({
-      ...profile,
-      partner_profile_name: pendingNameUpdates.get(profile.partner_profile_id) || profile.partner_profile_name
-    }));
+    return profiles.map(profile => {
+      const pendingName = pendingNameUpdates.get(profile.partner_profile_id);
+      return {
+        ...profile,
+        partner_profile_name: pendingName !== undefined ? (pendingName || 'New Partner') : profile.partner_profile_name
+      };
+    });
   }, [profiles, pendingNameUpdates]);
 
   // Clear pending update when DB confirms the change
