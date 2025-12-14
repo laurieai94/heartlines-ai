@@ -542,8 +542,10 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
   const loadFromDatabase = useCallback(async (): Promise<PersonalProfileV2 | PartnerProfileV2> => {
     if (!user) return defaultProfile;
 
-    // Check cache first
-    const cacheKey = `${user.id}-${config.dbType}`;
+    // Check cache first - include partnerProfileId for partner profiles
+    const cacheKey = profileType === 'partner' && partnerProfileId
+      ? `${user.id}-${config.dbType}-${partnerProfileId}`
+      : `${user.id}-${config.dbType}`;
     const cached = DB_CACHE.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < cached.ttl) {
       return cached.data;
@@ -578,8 +580,11 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
         result = { ...defaultProfile, ...migrated, version: '2.0' };
       }
 
-      // Cache the result
-      DB_CACHE.set(cacheKey, {
+      // Cache the result with partner-specific key
+      const storeCacheKey = profileType === 'partner' && partnerProfileId
+        ? `${user.id}-${config.dbType}-${partnerProfileId}`
+        : `${user.id}-${config.dbType}`;
+      DB_CACHE.set(storeCacheKey, {
         data: result,
         timestamp: Date.now(),
         ttl: CACHE_TTL
@@ -613,6 +618,12 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
           setIsReady(false);
           setIsLoading(true);
           return;
+        }
+        
+        // Clear DB cache for this specific partner profile to ensure fresh data
+        if (profileType === 'partner' && partnerProfileId) {
+          const cacheKey = `${user.id}-${config.dbType}-${partnerProfileId}`;
+          DB_CACHE.delete(cacheKey);
         }
         
         // Load from localStorage first
