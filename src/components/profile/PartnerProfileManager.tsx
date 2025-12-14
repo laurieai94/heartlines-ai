@@ -93,12 +93,12 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   return (
     <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300 h-full flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between mb-3 lg:mb-3">
+      <div className="flex items-start justify-between mb-3 lg:mb-3">
         <div className="flex items-center gap-3">
           <CardAvatar>
             <Users className="w-5 h-5 text-white" />
           </CardAvatar>
-          <div>
+          <div className="flex-1">
             <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white">partner profiles</h3>
         <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-2 leading-tight">
           help kai understand them
