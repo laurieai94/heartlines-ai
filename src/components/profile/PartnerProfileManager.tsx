@@ -182,11 +182,10 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={handleCreateProfile}
           disabled={isCreating}
-          className="w-full mt-0 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-1.5 md:py-2 lg:py-2.5 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg glass-cta-gradient min-h-[40px] md:min-h-[44px] lg:min-h-[48px]"
+          className="w-full mt-0 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 hover:scale-[1.02] text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg glass-cta-gradient min-h-[44px] md:min-h-[48px] lg:min-h-[52px] transition-all duration-400 border-0"
         >
           {isCreating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
           add partner
-          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
         </Button>
       )}
 
