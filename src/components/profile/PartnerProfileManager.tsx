@@ -100,9 +100,9 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
           </CardAvatar>
           <div>
             <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white">partner profiles</h3>
-            <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 leading-tight">
-              help kai understand them
-            </p>
+        <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-3 leading-tight">
+          help kai understand them
+        </p>
           </div>
         </div>
         
