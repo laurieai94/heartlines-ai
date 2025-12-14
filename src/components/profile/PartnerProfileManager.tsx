@@ -114,7 +114,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
       {/* Profiles List */}
       <div className="flex flex-col">
         {profiles.length === 0 ? (
-          <div className="h-[176px] flex flex-col items-center justify-center text-white/60">
+          <div className="h-[176px] lg:h-[200px] flex flex-col items-center justify-center text-white/60">
             <Users className="w-12 h-12 mb-3 opacity-40" />
             <p>no partner profiles yet</p>
             <p className="text-sm mt-1">add a partner to get personalized coaching</p>
@@ -122,13 +122,13 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         ) : (
           <>
             <div className="relative">
-              <ScrollArea className="h-[176px] pr-2">
-                <div className="space-y-3">
+              <ScrollArea className="h-[176px] lg:h-[200px] pr-2">
+                <div className="space-y-2 lg:space-y-3">
                   {profiles.map((profile) => (
                     <div
                       key={profile.partner_profile_id}
                       className={cn(
-                        "flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.01]",
+                        "flex items-center justify-between p-3 lg:p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.01]",
                         activeProfileId === profile.partner_profile_id
                           ? "bg-white/15 border-white/30 ring-1 ring-white/20 shadow-inner"
                           : "bg-white/10 border-white/20 ring-1 ring-white/10 shadow-inner hover:bg-white/15 hover:border-white/25"
