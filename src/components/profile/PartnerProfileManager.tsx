@@ -3,7 +3,7 @@ import { usePartnerProfiles, PartnerProfile } from '@/hooks/usePartnerProfiles';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Users, Plus, Check, Crown, Loader2, ArrowRight } from 'lucide-react';
+import { Users, Plus, Check, Crown, Loader2, ArrowRight, Pencil } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import CardAvatar from '@/components/ProfileBuilder/CardAvatar';
 
@@ -69,8 +69,14 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
     }
   };
 
-  const handleProfileClick = (profile: PartnerProfile) => {
+  // Just select the profile for Kai conversations
+  const handleSelectProfile = (profile: PartnerProfile) => {
     switchProfile(profile.partner_profile_id);
+  };
+
+  // Open the profile editor (separate action)
+  const handleEditProfile = (e: React.MouseEvent, profile: PartnerProfile) => {
+    e.stopPropagation();
     onEditProfile(profile.partner_profile_id);
   };
 
@@ -124,7 +130,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
                     ? "bg-white/15 border-white/30 ring-1 ring-white/20 shadow-inner"
                     : "bg-white/10 border-white/20 ring-1 ring-white/10 shadow-inner hover:bg-white/15 hover:border-white/25"
                 )}
-                onClick={() => handleProfileClick(profile)}
+                onClick={() => handleSelectProfile(profile)}
               >
                 <div className="flex items-center gap-3">
                   {activeProfileId === profile.partner_profile_id && (
@@ -141,6 +147,15 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
                     </p>
                   </div>
                 </div>
+                
+                {/* Edit button - separate from selection */}
+                <button
+                  onClick={(e) => handleEditProfile(e, profile)}
+                  className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                  aria-label={`Edit ${profile.partner_profile_name}'s profile`}
+                >
+                  <Pencil className="w-4 h-4 text-white/70" />
+                </button>
               </div>
             ))}
           </div>
