@@ -91,7 +91,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   }
 
   return (
-    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300 flex flex-col">
+    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300 h-full flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between mb-3 lg:mb-3">
         <div className="flex items-center gap-3">
@@ -112,7 +112,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
       </div>
 
       {/* Profiles List */}
-      <div className="flex flex-col">
+      <div className="flex flex-col flex-1">
         {profiles.length === 0 ? (
           <div className="h-[100px] lg:h-[120px] flex flex-col items-center justify-center text-white/60">
             <Users className="w-12 h-12 mb-3 opacity-40" />
