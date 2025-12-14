@@ -343,7 +343,7 @@ const ProfileBuilder = ({
             <OnboardingStepNudge completion={Math.round(completedRequiredFields / totalRequiredFields * 100)} onStartProfile={handleStartPersonalProfile} />
           </div>}
         {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 mt-0 md:mt-2 lg:mt-4 [&>*]:transition-all [&>*]:duration-300" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 items-start max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 mt-0 md:mt-2 lg:mt-4 [&>*]:transition-all [&>*]:duration-300" data-profile-cards-container>
           {/* Your Profile Card */}
           <MemoizedProfileCard title="your profile" subheader="the real you → real advice" completion={yourProfileCompletion} description="just 5 required questions" benefits={[{
             icon: <Star className="w-3 h-3 text-orange-300" />,
