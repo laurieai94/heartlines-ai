@@ -82,7 +82,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
 
   if (isLoading) {
     return (
-      <Card className="questionnaire-card p-4 md:p-5 lg:p-6 min-h-[240px] md:min-h-[260px] lg:min-h-[280px]">
+      <Card className="questionnaire-card p-4 md:p-5 lg:p-6">
         <div className="flex items-center justify-center py-8">
           <Loader2 className="w-6 h-6 animate-spin text-white/60" />
         </div>
@@ -91,7 +91,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   }
 
   return (
-    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 min-h-[240px] md:min-h-[260px] lg:min-h-[280px] hover:scale-[1.02] transition-transform duration-300">
+    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 hover:scale-[1.02] transition-transform duration-300">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
@@ -119,7 +119,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
           <p className="text-sm mt-1">add a partner to get personalized coaching</p>
         </div>
       ) : (
-        <ScrollArea className="max-h-[164px] pr-2">
+        <ScrollArea className="max-h-[18vh] min-h-[70px] pr-2">
           <div className="space-y-3">
             {profiles.map((profile) => (
               <div

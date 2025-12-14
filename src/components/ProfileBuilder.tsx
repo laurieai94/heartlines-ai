@@ -314,11 +314,11 @@ const ProfileBuilder = ({
       {/* Mobile optimization disabled for performance */}
       {/* Pull-to-refresh indicator removed - was causing freezing */}
       
-      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-10 md:pt-14 lg:pt-16" style={{
+      <div className="space-y-4 md:space-y-5 lg:space-y-8 pb-6 md:pb-12 lg:pb-16 pb-safe pt-6 md:pt-10 lg:pt-14" style={{
       paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined
     }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-10 md:space-y-12 lg:space-y-14 flex-shrink-0 px-2 md:px-4">
+        <div className="text-center space-y-6 md:space-y-8 lg:space-y-12 flex-shrink-0 px-2 md:px-4">
           <h1 
             className="text-3xl md:text-5xl lg:text-[3.5rem] font-brand bg-gradient-to-r from-orange-200 via-peach-200 to-pink-200 bg-clip-text text-transparent tracking-wide leading-relaxed"
             style={{
@@ -330,7 +330,7 @@ const ProfileBuilder = ({
           
           {/* Unlock Coaching Button - Only show when ready */}
           {canUnlockCoaching && (
-            <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+            <div className="my-6 md:mt-10 md:mb-6 lg:mt-14 lg:mb-8 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
               <UnlockCoachingButton />
             </div>
           )}
@@ -343,7 +343,7 @@ const ProfileBuilder = ({
             <OnboardingStepNudge completion={Math.round(completedRequiredFields / totalRequiredFields * 100)} onStartProfile={handleStartPersonalProfile} />
           </div>}
         {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-3 lg:py-4 -mt-4 md:mt-4 lg:mt-6 [&>*]:transition-all [&>*]:duration-300" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 mt-0 md:mt-2 lg:mt-4 [&>*]:transition-all [&>*]:duration-300" data-profile-cards-container>
           {/* Your Profile Card */}
           <MemoizedProfileCard title="your profile" subheader="the real you → real advice" completion={yourProfileCompletion} description="just 5 required questions" benefits={[{
             icon: <Star className="w-3 h-3 text-orange-300" />,
