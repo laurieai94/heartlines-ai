@@ -20,6 +20,23 @@ interface PartnerProfileLimits {
   tierName: string;
 }
 
+// Global virgin profiles tracker - survives component remounts
+const VIRGIN_PROFILES = new Set<string>();
+
+// Helper to get virgin profiles from localStorage
+const getVirginProfilesFromStorage = (userId: string): string[] => {
+  try {
+    return JSON.parse(localStorage.getItem(`virgin_profiles_${userId}`) || '[]');
+  } catch {
+    return [];
+  }
+};
+
+// Helper to save virgin profiles to localStorage
+const saveVirginProfilesToStorage = (userId: string, profiles: string[]) => {
+  localStorage.setItem(`virgin_profiles_${userId}`, JSON.stringify(profiles));
+};
+
 export const usePartnerProfiles = () => {
   const { user } = useAuth();
   const subscriptionData = useOptimizedSubscription();
@@ -27,6 +44,29 @@ export const usePartnerProfiles = () => {
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Check if a profile is virgin (brand new, never edited)
+  const isVirginProfile = useCallback((profileId: string): boolean => {
+    if (!profileId) return false;
+    // Check in-memory set first
+    if (VIRGIN_PROFILES.has(profileId)) return true;
+    // Check localStorage backup
+    if (user) {
+      const stored = getVirginProfilesFromStorage(user.id);
+      return stored.includes(profileId);
+    }
+    return false;
+  }, [user]);
+
+  // Clear virgin status after first edit
+  const clearVirginStatus = useCallback((profileId: string) => {
+    VIRGIN_PROFILES.delete(profileId);
+    if (user) {
+      const stored = getVirginProfilesFromStorage(user.id);
+      const updated = stored.filter(id => id !== profileId);
+      saveVirginProfilesToStorage(user.id, updated);
+    }
+  }, [user]);
 
   // Calculate limits based on subscription tier
   const getLimits = useCallback((): PartnerProfileLimits => {
@@ -129,6 +169,13 @@ export const usePartnerProfiles = () => {
       const newProfileId = crypto.randomUUID();
       const profileName = name || 'New Partner';
 
+      // CRITICAL: Mark as virgin BEFORE any other operations
+      VIRGIN_PROFILES.add(newProfileId);
+      const virginList = getVirginProfilesFromStorage(user.id);
+      virginList.push(newProfileId);
+      saveVirginProfilesToStorage(user.id, virginList);
+      console.log('[VirginProfile] Marked new profile as virgin:', newProfileId);
+
       const { data, error: createError } = await supabase.rpc('upsert_user_profile_patch', {
         p_profile_type: 'partner',
         p_patch: { partnerName: profileName },
@@ -136,7 +183,11 @@ export const usePartnerProfiles = () => {
       });
 
       if (createError) {
-        // Check if it's a limit error
+        // Rollback virgin status on error
+        VIRGIN_PROFILES.delete(newProfileId);
+        const rollbackList = getVirginProfilesFromStorage(user.id).filter(id => id !== newProfileId);
+        saveVirginProfilesToStorage(user.id, rollbackList);
+        
         if (createError.message.includes('Partner profile limit reached')) {
           toast.error('Partner profile limit reached. Upgrade your plan for more profiles.');
           return null;
@@ -144,7 +195,7 @@ export const usePartnerProfiles = () => {
         throw createError;
       }
 
-      // Clear any stale localStorage for this new profile to ensure it starts blank
+      // Clear ALL potential stale data for this new profile
       localStorage.removeItem(`partner_profile_v2_${user.id}_${newProfileId}`);
       
       // Refresh profiles list
@@ -284,6 +335,8 @@ export const usePartnerProfiles = () => {
     createProfile,
     deleteProfile,
     switchProfile,
-    setActiveProfileId
+    setActiveProfileId,
+    isVirginProfile,
+    clearVirginStatus
   };
 };
