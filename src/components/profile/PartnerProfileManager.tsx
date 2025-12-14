@@ -12,7 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Users, Plus, Trash2, Check, Crown, Loader2 } from 'lucide-react';
+import { Users, Plus, Trash2, Check, Crown, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PartnerProfileManagerProps {
@@ -34,6 +34,11 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   const [isCreating, setIsCreating] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<PartnerProfile | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Show only first 3 profiles when collapsed, all when expanded
+  const visibleProfiles = isExpanded ? profiles : profiles.slice(0, 3);
+  const hasMoreProfiles = profiles.length > 3;
 
   const handleCreateProfile = async () => {
     if (!limits.canAdd) {
@@ -121,7 +126,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
               <p className="text-sm mt-1">add a partner to get personalized coaching</p>
             </div>
           ) : (
-            profiles.map((profile) => (
+            visibleProfiles.map((profile) => (
               <div
                 key={profile.partner_profile_id}
                 className={cn(
@@ -165,6 +170,26 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
                 )}
               </div>
             ))
+          )}
+
+          {/* Expand/Collapse button */}
+          {hasMoreProfiles && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="w-full mt-3 py-2 flex items-center justify-center gap-2 text-white/60 hover:text-white/80 transition-colors rounded-lg hover:bg-white/5"
+            >
+              {isExpanded ? (
+                <>
+                  <ChevronUp className="w-4 h-4" />
+                  <span className="text-sm">show less</span>
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="w-4 h-4" />
+                  <span className="text-sm">show {profiles.length - 3} more</span>
+                </>
+              )}
+            </button>
           )}
         </div>
 
