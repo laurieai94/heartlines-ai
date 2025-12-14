@@ -92,30 +92,32 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="bg-white/10 rounded-lg p-3 md:p-3.5 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner">
-          <ul className="space-y-1.5 md:space-y-2 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
-            {benefits.map((benefit, index) => (
-              <li key={`benefit-${index}`} className="flex items-start gap-2 md:gap-3">
-                <span className="mt-0.5 md:mt-1 flex-shrink-0">
-                  {benefit.icon || <Star className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 text-pink-200/80" />}
-                </span>
-                <span>{benefit.text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className="mt-auto space-y-2 md:space-y-2.5 lg:space-y-3">
+          <div className="bg-white/10 rounded-lg p-3 md:p-3.5 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner">
+            <ul className="space-y-1.5 md:space-y-2 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
+              {benefits.map((benefit, index) => (
+                <li key={`benefit-${index}`} className="flex items-start gap-2 md:gap-3">
+                  <span className="mt-0.5 md:mt-1 flex-shrink-0">
+                    {benefit.icon || <Star className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 text-pink-200/80" />}
+                  </span>
+                  <span>{benefit.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <Button 
-          ref={buttonRef}
-          onClick={handleButtonClick}
-          onTouchStart={isMobile ? handleButtonTouch : undefined}
-          className={`w-full mt-auto bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 hover:scale-[1.02] text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg glass-cta-gradient shadow-lg transition-all duration-400 border-0 ${
-            isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95' : 'md:min-h-[48px] lg:min-h-[52px]'
-          }`}
-        >
-          {buttonText}
-          <ArrowRight className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 ml-1.5" />
-        </Button>
+          <Button 
+            ref={buttonRef}
+            onClick={handleButtonClick}
+            onTouchStart={isMobile ? handleButtonTouch : undefined}
+            className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 hover:scale-[1.02] text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg glass-cta-gradient shadow-lg transition-all duration-400 border-0 ${
+              isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95' : 'md:min-h-[48px] lg:min-h-[52px]'
+            }`}
+          >
+            {buttonText}
+            <ArrowRight className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 ml-1.5" />
+          </Button>
+        </div>
       </div>
     </Card>
   );
