@@ -146,10 +146,19 @@ export const useChatMessageHandler = ({
       
       // Check if this is a message limit error
       if (error instanceof MessageLimitError) {
+        // Add a friendly "Kai overwhelmed" message to chat
+        const limitMessage: ChatMessage = {
+          id: generateMessageId(),
+          type: 'ai',
+          content: "hey, i've been loving our chats, but i've hit my message limit for now. 💕 upgrade to keep the conversation going—i've got more to share with you.",
+          timestamp: new Date().toISOString()
+        };
+        setChatHistory(prev => deduplicateMessages([...prev, limitMessage]));
+        
         // Refresh subscription to get latest count and open upgrade modal
         await refreshSubscription();
         openUpgradeModal('limit-reached');
-        return; // Don't add an error message to chat
+        return;
       }
       
       const errorMessage: ChatMessage = {
