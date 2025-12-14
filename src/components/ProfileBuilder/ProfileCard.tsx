@@ -92,7 +92,7 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="mt-auto space-y-2 md:space-y-2.5 lg:space-y-3">
+        <div className="mt-auto pt-2 md:pt-3 lg:pt-4 space-y-3 md:space-y-3.5 lg:space-y-4">
           <div className="bg-white/10 rounded-lg p-3 md:p-3.5 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner">
             <ul className="space-y-1.5 md:space-y-2 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
               {benefits.map((benefit, index) => (
