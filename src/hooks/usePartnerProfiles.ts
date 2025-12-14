@@ -144,7 +144,8 @@ export const usePartnerProfiles = () => {
         throw createError;
       }
 
-      // Profile created silently - no toast notification
+      // Clear any stale localStorage for this new profile to ensure it starts blank
+      localStorage.removeItem(`partner_profile_v2_${user.id}_${newProfileId}`);
       
       // Refresh profiles list
       await fetchProfiles();
@@ -233,6 +234,34 @@ export const usePartnerProfiles = () => {
       }
       fetchProfiles();
     }
+  }, [user, fetchProfiles]);
+
+  // Real-time subscription for partner profile changes
+  useEffect(() => {
+    if (!user) return;
+
+    const channel = supabase
+      .channel('partner-profiles-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'user_profiles',
+          filter: `user_id=eq.${user.id}`
+        },
+        (payload: any) => {
+          // Only refetch if it's a partner profile change
+          if (payload.new?.profile_type === 'partner' || payload.old?.profile_type === 'partner') {
+            fetchProfiles();
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [user, fetchProfiles]);
 
   return {
