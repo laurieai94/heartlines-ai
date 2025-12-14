@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useOptimizedSubscription } from './useOptimizedSubscription';
@@ -236,12 +236,18 @@ export const usePartnerProfiles = () => {
     }
   }, [user, fetchProfiles]);
 
+  // Ref for fetchProfiles to avoid stale closure in realtime subscription
+  const fetchProfilesRef = useRef(fetchProfiles);
+  useEffect(() => {
+    fetchProfilesRef.current = fetchProfiles;
+  }, [fetchProfiles]);
+
   // Real-time subscription for partner profile changes
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
 
     const channel = supabase
-      .channel('partner-profiles-changes')
+      .channel(`partner-profiles-${user.id}`)
       .on(
         'postgres_changes',
         {
@@ -253,7 +259,7 @@ export const usePartnerProfiles = () => {
         (payload: any) => {
           // Only refetch if it's a partner profile change
           if (payload.new?.profile_type === 'partner' || payload.old?.profile_type === 'partner') {
-            fetchProfiles();
+            fetchProfilesRef.current();
           }
         }
       )
@@ -262,7 +268,7 @@ export const usePartnerProfiles = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [user, fetchProfiles]);
+  }, [user?.id]);
 
   return {
     profiles,
