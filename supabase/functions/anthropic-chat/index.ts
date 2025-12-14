@@ -632,8 +632,9 @@ serve(async (req) => {
     if (error.message === 'RATE_LIMIT') {
       sanitizedError = 'kai is busy right now—try again in a few seconds';
       statusCode = 429;
-    } else if (error.message === 'SERVICE_OVERLOAD') {
-      sanitizedError = 'kai is taking a moment... please try again';
+    } else if (error.message === 'SERVICE_OVERLOAD' || error.message === 'API_ERROR_529') {
+      // Gen Z fun message for Anthropic 529 overload
+      sanitizedError = "ok so claude's servers are having a moment rn 😅 literally everyone is trying to talk to AI at once and they can't keep up. try again in like 30 secs, it usually clears up fast! no cap, this is on their end not ours 💅";
       statusCode = 503;
     } else if (error.message === 'REQUEST_TIMEOUT') {
       sanitizedError = 'request took too long—please try again';
