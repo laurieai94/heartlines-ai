@@ -160,12 +160,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={handleCreateProfile}
           disabled={isCreating}
-          className={cn(
-            "w-full mt-6 relative overflow-hidden",
-            !limits.canAdd 
-              ? "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white shadow-lg"
-              : "bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-300 hover:to-pink-400 text-white shadow-lg"
-          )}
+          className="w-full mt-6 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white shadow-lg glass-cta-gradient"
         >
           {isCreating ? (
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
