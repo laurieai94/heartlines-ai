@@ -242,12 +242,15 @@ export const usePartnerProfiles = () => {
     fetchProfilesRef.current = fetchProfiles;
   }, [fetchProfiles]);
 
+  // Unique instance ID for this hook instance to prevent duplicate channel names
+  const instanceId = useRef(crypto.randomUUID()).current;
+
   // Real-time subscription for partner profile changes
   useEffect(() => {
     if (!user?.id) return;
 
     const channel = supabase
-      .channel(`partner-profiles-${user.id}`)
+      .channel(`partner-profiles-${user.id}-${instanceId}`)
       .on(
         'postgres_changes',
         {
