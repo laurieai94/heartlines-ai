@@ -114,13 +114,13 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
       {/* Profiles List */}
       <div className="flex flex-col">
         {profiles.length === 0 ? (
-          <div className="h-[156px] flex flex-col items-center justify-center text-white/60">
+          <div className="h-[176px] flex flex-col items-center justify-center text-white/60">
             <Users className="w-12 h-12 mb-3 opacity-40" />
             <p>no partner profiles yet</p>
             <p className="text-sm mt-1">add a partner to get personalized coaching</p>
           </div>
         ) : (
-          <ScrollArea className="h-[156px] pr-2">
+          <ScrollArea className="h-[176px] pr-2">
           <div className="space-y-3">
             {profiles.map((profile) => (
               <div
