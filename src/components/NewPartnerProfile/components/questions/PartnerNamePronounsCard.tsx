@@ -17,6 +17,15 @@ interface PartnerNamePronounsCardProps {
 const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false }: PartnerNamePronounsCardProps) => {
   const { goToNext } = usePartnerFlow();
   const [customPronoun, setCustomPronoun] = useState("");
+  const [hasCleared, setHasCleared] = useState(false);
+
+  // Clear default placeholder text on first focus
+  const handleNameFocus = () => {
+    if (!hasCleared && profileData.partnerName === 'their name') {
+      updateField('partnerName', '');
+      setHasCleared(true);
+    }
+  };
 
   // Initialize custom pronoun from saved data
   useEffect(() => {
@@ -168,6 +177,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
                 type="text"
                 value={profileData.partnerName || ''}
                 onChange={(e) => updateField('partnerName', e.target.value)}
+                onFocus={handleNameFocus}
                 placeholder="their name"
                 className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
                 autoComplete="off"

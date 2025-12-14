@@ -203,7 +203,7 @@ export const usePartnerProfiles = () => {
 
     try {
       const newProfileId = crypto.randomUUID();
-      const profileName = name || 'New Partner';
+      const profileName = name || 'their name';
 
       // CRITICAL: Mark as virgin BEFORE any other operations
       VIRGIN_PROFILES.add(newProfileId);
