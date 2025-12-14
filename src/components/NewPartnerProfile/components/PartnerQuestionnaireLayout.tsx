@@ -16,6 +16,8 @@ interface PartnerQuestionnaireLayoutProps {
   onClose: () => void;
   isModal?: boolean;
   onAutoComplete?: () => void;
+  onDelete?: () => void;
+  canDelete?: boolean;
 }
 const PartnerQuestionnaireLayout = ({
   profileData,
@@ -24,7 +26,9 @@ const PartnerQuestionnaireLayout = ({
   onComplete,
   onClose,
   isModal = false,
-  onAutoComplete
+  onAutoComplete,
+  onDelete,
+  canDelete
 }: PartnerQuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -117,8 +121,8 @@ const PartnerQuestionnaireLayout = ({
            
            <div ref={scrollContainerRef} data-scroll-container className="flex-1 min-h-0 overflow-y-auto overscroll-contain no-scrollbar touch-pan-y" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}>
              {/* Sticky header and navigation - always visible, responsive design */}
-             <div ref={stickyHeaderRef} data-sticky-header className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
-               <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
+              <div ref={stickyHeaderRef} data-sticky-header className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
+                <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} onDelete={onDelete} canDelete={canDelete} />
 
                <div className="hidden md:block bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
                  <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/15 to-transparent"></div>

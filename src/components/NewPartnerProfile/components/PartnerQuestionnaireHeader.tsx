@@ -1,14 +1,26 @@
-import { Button } from "@/components/ui/button";
-import { X, User, Heart, Lock, RotateCcw } from "lucide-react";
+import { X, RotateCcw, Trash2 } from "lucide-react";
 import { PartnerProfileData } from "../types";
 import { refreshPartnerProfile } from "@/utils/globalRefresh";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface PartnerQuestionnaireHeaderProps {
   overallProgress: number;
   onClose: () => void;
   profileData: PartnerProfileData;
+  onDelete?: () => void;
+  canDelete?: boolean;
 }
 
 const getInitial = (profileData: PartnerProfileData): string | null => {
@@ -18,9 +30,10 @@ const getInitial = (profileData: PartnerProfileData): string | null => {
   return null;
 };
 
-const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: PartnerQuestionnaireHeaderProps) => {
+const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData, onDelete, canDelete = true }: PartnerQuestionnaireHeaderProps) => {
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   
   const hasName = profileData.partnerName && profileData.partnerName.trim();
   
@@ -61,6 +74,38 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
         
         <div className="flex items-center gap-2 sm:gap-2 flex-shrink-0">
           <span className="text-sm sm:text-sm text-white/60 font-medium">{overallProgress}%</span>
+          
+          {/* Delete button with confirmation dialog */}
+          {onDelete && canDelete && (
+            <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+              <AlertDialogTrigger asChild>
+                <button
+                  className="text-white/60 hover:text-red-400 w-6 h-6 sm:w-6 sm:h-6 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors duration-200 touch-manipulation"
+                  aria-label="Delete profile"
+                >
+                  <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="bg-burgundy-800 border-white/20">
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-white">Delete this partner profile?</AlertDialogTitle>
+                  <AlertDialogDescription className="text-white/70">
+                    This action cannot be undone. All data for this partner profile will be permanently deleted.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="bg-white/10 text-white border-white/20 hover:bg-white/20">Cancel</AlertDialogCancel>
+                  <AlertDialogAction 
+                    onClick={onDelete}
+                    className="bg-red-600 text-white hover:bg-red-700"
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+          
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}

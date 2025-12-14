@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
 import { PartnerFlowProvider } from "./context/FlowContext";
+import { usePartnerProfiles } from "@/hooks/usePartnerProfiles";
 
 interface NewPartnerProfileProps {
   onComplete: (profileData: any, skipPopup?: boolean) => void;
@@ -13,6 +14,18 @@ interface NewPartnerProfileProps {
 const NewPartnerProfile = ({ onComplete, onClose, isModal = false, targetProfileId }: NewPartnerProfileProps) => {
   // Pass explicit profile ID to prevent race conditions with async activeProfileId state
   const { profileData, updateField, handleMultiSelect, saveProfile } = usePartnerProfileData(undefined, targetProfileId);
+  const { profiles, deleteProfile } = usePartnerProfiles();
+  
+  const canDelete = profiles.length > 1;
+  
+  const handleDelete = async () => {
+    if (targetProfileId && canDelete) {
+      const success = await deleteProfile(targetProfileId);
+      if (success) {
+        onClose();
+      }
+    }
+  };
 
   // Flush pending updates on unmount
   useEffect(() => {
@@ -59,6 +72,8 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false, targetProfile
         onComplete={handleComplete}
         onClose={onClose}
         isModal={isModal}
+        onDelete={handleDelete}
+        canDelete={canDelete}
       />
     </PartnerFlowProvider>
   );
