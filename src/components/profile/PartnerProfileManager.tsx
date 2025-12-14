@@ -112,8 +112,8 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <CardAvatar size="sm">
-              <Users className="w-4 h-4 text-white" />
+            <CardAvatar>
+              <Users className="w-5 h-5 text-white" />
             </CardAvatar>
             <div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white">partner profiles</h3>
