@@ -167,7 +167,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={handleCreateProfile}
           disabled={isCreating}
-          className="w-full mt-1 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg glass-cta-gradient min-h-[44px] md:min-h-[48px] lg:min-h-[52px]"
+          className="w-full mt-0 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg glass-cta-gradient min-h-[44px] md:min-h-[48px] lg:min-h-[52px]"
         >
           {isCreating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
           add partner
@@ -180,7 +180,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={onUpgrade}
           variant="ghost"
-          className="w-full mt-1 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
+          className="w-full mt-2 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
         >
           <Crown className="w-4 h-4 mr-2 text-amber-400/60" />
           upgrade for more
