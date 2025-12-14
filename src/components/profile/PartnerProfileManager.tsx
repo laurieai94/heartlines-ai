@@ -12,8 +12,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Users, Plus, Trash2, Check, Crown, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Users, Plus, Trash2, Check, Crown, Loader2, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import CardAvatar from '@/components/ProfileBuilder/CardAvatar';
 
 interface PartnerProfileManagerProps {
   onEditProfile: (partnerProfileId: string) => void;
@@ -71,7 +72,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
 
   if (isLoading) {
     return (
-      <Card className="p-6 bg-white/5 border-white/10">
+      <Card className="questionnaire-card p-4 md:p-5 lg:p-6 min-h-[240px] md:min-h-[260px] lg:min-h-[280px]">
         <div className="flex items-center justify-center py-8">
           <Loader2 className="w-6 h-6 animate-spin text-white/60" />
         </div>
@@ -81,40 +82,24 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
 
   return (
     <>
-      <Card className="p-6 bg-white/5 border-white/10">
+      <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 min-h-[240px] md:min-h-[260px] lg:min-h-[280px] hover:scale-[1.02] transition-transform duration-300">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-white/10">
-              <Users className="w-5 h-5 text-white/80" />
-            </div>
+            <CardAvatar size="sm">
+              <Users className="w-4 h-4 text-white" />
+            </CardAvatar>
             <div>
               <h3 className="text-lg font-medium text-white">partner profiles</h3>
               <p className="text-sm text-white/60">
-                {limits.current} of {limits.limit === 9999 ? '∞' : limits.limit} profiles used
+                help kai understand them
               </p>
             </div>
           </div>
           
-          <Button
-            onClick={handleCreateProfile}
-            disabled={isCreating}
-            variant="outline"
-            size="sm"
-            className={cn(
-              "border-white/20 text-white hover:bg-white/10",
-              !limits.canAdd && "border-amber-500/50 text-amber-400 hover:bg-amber-500/10"
-            )}
-          >
-            {isCreating ? (
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            ) : !limits.canAdd ? (
-              <Crown className="w-4 h-4 mr-2" />
-            ) : (
-              <Plus className="w-4 h-4 mr-2" />
-            )}
-            {!limits.canAdd ? 'upgrade for more' : 'add partner'}
-          </Button>
+          <div className="text-xs text-white/40 bg-white/5 px-2 py-1 rounded-full">
+            {limits.current}/{limits.limit === 9999 ? '∞' : limits.limit}
+          </div>
         </div>
 
         {/* Profiles List */}
@@ -130,10 +115,10 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
               <div
                 key={profile.partner_profile_id}
                 className={cn(
-                  "flex items-center justify-between p-4 rounded-xl border transition-all cursor-pointer",
+                  "flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.01]",
                   activeProfileId === profile.partner_profile_id
-                    ? "bg-white/10 border-white/30"
-                    : "bg-white/5 border-white/10 hover:bg-white/8 hover:border-white/20"
+                    ? "bg-white/15 border-white/30 ring-1 ring-white/20 shadow-inner"
+                    : "bg-white/10 border-white/20 ring-1 ring-white/10 shadow-inner hover:bg-white/15 hover:border-white/25"
                 )}
                 onClick={() => handleProfileClick(profile)}
               >
@@ -193,6 +178,27 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
           )}
         </div>
 
+        {/* Add Partner CTA */}
+        <Button
+          onClick={handleCreateProfile}
+          disabled={isCreating}
+          className={cn(
+            "w-full mt-6 relative overflow-hidden",
+            !limits.canAdd 
+              ? "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white shadow-lg"
+              : "bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-300 hover:to-pink-400 text-white shadow-lg"
+          )}
+        >
+          {isCreating ? (
+            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+          ) : !limits.canAdd ? (
+            <Crown className="w-4 h-4 mr-2" />
+          ) : (
+            <Plus className="w-4 h-4 mr-2" />
+          )}
+          {!limits.canAdd ? 'upgrade for more' : 'add partner'}
+          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+        </Button>
       </Card>
 
       {/* Delete Confirmation Dialog */}
