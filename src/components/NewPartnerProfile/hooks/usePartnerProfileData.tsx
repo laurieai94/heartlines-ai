@@ -91,7 +91,7 @@ export const usePartnerProfileData = (onAutoComplete?: () => void, explicitProfi
     // Optimistic UI update for partner name - immediate display in profile list
     if (field === 'partnerName' && effectiveProfileId) {
       window.dispatchEvent(new CustomEvent('partner:nameUpdate', {
-        detail: { profileId: effectiveProfileId, name: normalizedValue || 'their name' }
+        detail: { profileId: effectiveProfileId, name: normalizedValue }
       }));
     }
     
