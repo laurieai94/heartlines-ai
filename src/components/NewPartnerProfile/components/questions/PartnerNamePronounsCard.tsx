@@ -175,7 +175,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
               <Input
                 id="partnerName"
                 type="text"
-                value={profileData.partnerName || ''}
+                value={profileData.partnerName === 'their name' ? '' : (profileData.partnerName || '')}
                 onChange={(e) => updateField('partnerName', e.target.value)}
                 onFocus={handleNameFocus}
                 placeholder="their name"
