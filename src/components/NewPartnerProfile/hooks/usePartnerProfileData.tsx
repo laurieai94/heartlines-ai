@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { PartnerProfileData } from '../types';
 import { calculatePartnerProgress } from '../utils/partnerValidation';
 import { useProfileStoreV2 } from '@/hooks/useProfileStoreV2';
+import { usePartnerProfiles } from '@/hooks/usePartnerProfiles';
 import { safeLog, inspectObject } from '@/utils/safeLogging';
 import { profileCompletionCache } from '@/utils/calculationCache';
 
@@ -26,6 +27,9 @@ const defaultPartnerProfileData: PartnerProfileData = {
 };
 
 export const usePartnerProfileData = (onAutoComplete?: () => void) => {
+  // Get active partner profile ID to ensure data isolation
+  const { activeProfileId } = usePartnerProfiles();
+  
   const {
     profileData,
     isLoading,
@@ -35,7 +39,7 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     updateFieldImmediate: rawUpdateFieldImmediate,
     handleMultiSelect: rawHandleMultiSelect,
     saveData
-  } = useProfileStoreV2('partner');
+  } = useProfileStoreV2('partner', activeProfileId || undefined);
 
   // Auto-completion logic
   useEffect(() => {

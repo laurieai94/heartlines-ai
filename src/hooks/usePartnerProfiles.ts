@@ -144,7 +144,7 @@ export const usePartnerProfiles = () => {
         throw createError;
       }
 
-      toast.success(`Created partner profile for ${profileName}`);
+      // Profile created silently - no toast notification
       
       // Refresh profiles list
       await fetchProfiles();
