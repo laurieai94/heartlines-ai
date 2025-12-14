@@ -24,7 +24,7 @@ interface DashboardContentProps {
   temporaryDemographics: any;
   onProfileUpdate: (newProfiles: any, newDemographics: any) => void;
   onOpenQuestionnaire: () => void;
-  onOpenPartnerQuestionnaire: () => void;
+  onOpenPartnerQuestionnaire: (profileId?: string) => void;
 }
 
 const DashboardContent = ({

@@ -1,5 +1,7 @@
+import { useState, useCallback } from 'react';
 import { useTemporaryProfile } from './useTemporaryProfile';
 import { toast } from 'sonner';
+import { usePartnerProfiles } from './usePartnerProfiles';
 
 interface ModalStates {
   setActiveTab: (tab: string) => void;
@@ -17,6 +19,10 @@ interface ModalStates {
 
 export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+  const { switchProfile } = usePartnerProfiles();
+  
+  // Track the target partner profile ID to open
+  const [targetPartnerProfileId, setTargetPartnerProfileId] = useState<string | null>(null);
 
   const handleGoToProfile = (origin: 'header' | 'chat' = 'header') => {
     console.log('Opening profile questionnaire from:', origin);
@@ -44,10 +50,17 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setShowQuestionnaireModal(true);
   };
 
-  const handleOpenPartnerQuestionnaire = () => {
-    console.log('handleOpenPartnerQuestionnaire called - setting showPartnerQuestionnaireModal to true');
+  const handleOpenPartnerQuestionnaire = useCallback((profileId?: string) => {
+    console.log('handleOpenPartnerQuestionnaire called with profileId:', profileId);
+    
+    if (profileId) {
+      // Store the target ID and switch to it
+      setTargetPartnerProfileId(profileId);
+      switchProfile(profileId);
+    }
+    
     modalStates.setShowPartnerQuestionnaireModal(true);
-  };
+  }, [switchProfile]);
 
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('[Handler] Personal questionnaire completed with data:', questionnaireData);
@@ -267,6 +280,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const handlePartnerQuestionnaireClose = () => {
     console.log('Closing partner questionnaire modal');
     modalStates.setShowPartnerQuestionnaireModal(false);
+    setTargetPartnerProfileId(null); // Clear target on close
   };
 
   const handlePersonalCompletionClose = () => {
@@ -309,6 +323,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     temporaryProfiles,
     temporaryDemographics,
     updateTemporaryProfile,
+    targetPartnerProfileId,
     handleGoToProfile,
     handleGoToCoach,
     handleOpenQuestionnaire,
