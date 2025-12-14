@@ -117,9 +117,14 @@ serve(async (req) => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     logStep("ERROR in create-checkout", { message: errorMessage });
+    
+    // Return 400 for client errors (duplicate subscription, invalid tier, etc.)
+    const isClientError = errorMessage.includes("already subscribed") || 
+                          errorMessage.includes("Invalid subscription tier");
+    
     return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 500,
+      status: isClientError ? 400 : 500,
     });
   }
 });
