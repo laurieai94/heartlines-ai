@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useOptimizedSubscription } from './useOptimizedSubscription';
@@ -44,7 +44,43 @@ export const usePartnerProfiles = () => {
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [pendingNameUpdates, setPendingNameUpdates] = useState<Map<string, string>>(new Map());
 
+  // Listen for optimistic name updates from questionnaire
+  useEffect(() => {
+    const handleNameUpdate = (e: CustomEvent<{ profileId: string; name: string }>) => {
+      const { profileId, name } = e.detail;
+      setPendingNameUpdates(prev => new Map(prev).set(profileId, name));
+    };
+    
+    window.addEventListener('partner:nameUpdate', handleNameUpdate as EventListener);
+    return () => window.removeEventListener('partner:nameUpdate', handleNameUpdate as EventListener);
+  }, []);
+
+  // Merge pending name updates into profiles for immediate display
+  const profilesWithPendingNames = useMemo(() => {
+    if (pendingNameUpdates.size === 0) return profiles;
+    return profiles.map(profile => ({
+      ...profile,
+      partner_profile_name: pendingNameUpdates.get(profile.partner_profile_id) || profile.partner_profile_name
+    }));
+  }, [profiles, pendingNameUpdates]);
+
+  // Clear pending update when DB confirms the change
+  useEffect(() => {
+    if (pendingNameUpdates.size === 0) return;
+    
+    pendingNameUpdates.forEach((pendingName, profileId) => {
+      const dbProfile = profiles.find(p => p.partner_profile_id === profileId);
+      if (dbProfile && dbProfile.partner_profile_name === pendingName) {
+        setPendingNameUpdates(prev => {
+          const next = new Map(prev);
+          next.delete(profileId);
+          return next;
+        });
+      }
+    });
+  }, [profiles, pendingNameUpdates]);
   // Check if a profile is virgin (brand new, never edited)
   const isVirginProfile = useCallback((profileId: string): boolean => {
     if (!profileId) return false;
@@ -325,7 +361,7 @@ export const usePartnerProfiles = () => {
   }, [user?.id]);
 
   return {
-    profiles,
+    profiles: profilesWithPendingNames,
     activeProfileId,
     activeProfile: getActiveProfile(),
     isLoading,

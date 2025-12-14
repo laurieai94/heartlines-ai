@@ -88,6 +88,13 @@ export const usePartnerProfileData = (onAutoComplete?: () => void, explicitProfi
       normalizedValue = Array.isArray(value) ? (value[0] || '') : (value || '');
     }
     
+    // Optimistic UI update for partner name - immediate display in profile list
+    if (field === 'partnerName' && effectiveProfileId) {
+      window.dispatchEvent(new CustomEvent('partner:nameUpdate', {
+        detail: { profileId: effectiveProfileId, name: normalizedValue || 'New Partner' }
+      }));
+    }
+    
     // Clear validation cache when required fields change
     const requiredFields: (keyof PartnerProfileData)[] = [
       'partnerName', 'partnerPronouns', 'partnerLoveLanguage', 'partnerAttachmentStyle'
