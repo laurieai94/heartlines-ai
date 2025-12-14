@@ -62,13 +62,13 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`questionnaire-card group p-4 md:p-5 lg:p-6 pb-3 md:pb-4 lg:pb-4
+      className={`questionnaire-card group p-4 md:p-5 lg:p-6 pb-3 md:pb-4 lg:pb-4 h-full flex flex-col
         hover:scale-[1.02] transition-transform duration-300 ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
     >
-      <div className="space-y-2 md:space-y-2.5 lg:space-y-3">
+      <div className="space-y-2 md:space-y-2.5 lg:space-y-3 flex-1 flex flex-col">
         <div className="flex items-start gap-3 md:gap-4">
           <CardAvatar>
             {iconElement}
@@ -92,8 +92,8 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="pt-2 md:pt-3 lg:pt-4 space-y-3 md:space-y-3.5 lg:space-y-4">
-          <div className="bg-white/10 rounded-lg p-3 md:p-3.5 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner">
+        <div className="pt-2 md:pt-3 lg:pt-4 space-y-3 md:space-y-3.5 lg:space-y-4 flex-1 flex flex-col">
+          <div className="bg-white/10 rounded-lg p-3 md:p-3.5 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
             <ul className="space-y-1.5 md:space-y-2 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
               {benefits.map((benefit, index) => (
                 <li key={`benefit-${index}`} className="flex items-start gap-2 md:gap-3">
