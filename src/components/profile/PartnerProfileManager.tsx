@@ -91,7 +91,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   }
 
   return (
-    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300">
+    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300 h-full flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
@@ -112,14 +112,15 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
       </div>
 
       {/* Profiles List */}
-      {profiles.length === 0 ? (
-        <div className="text-center py-8 text-white/60">
-          <Users className="w-12 h-12 mx-auto mb-3 opacity-40" />
-          <p>no partner profiles yet</p>
-          <p className="text-sm mt-1">add a partner to get personalized coaching</p>
-        </div>
-      ) : (
-        <ScrollArea className="max-h-[18vh] min-h-[70px] pr-2">
+      <div className="flex-1 flex flex-col">
+        {profiles.length === 0 ? (
+          <div className="flex-1 flex flex-col items-center justify-center text-white/60">
+            <Users className="w-12 h-12 mb-3 opacity-40" />
+            <p>no partner profiles yet</p>
+            <p className="text-sm mt-1">add a partner to get personalized coaching</p>
+          </div>
+        ) : (
+          <ScrollArea className="flex-1 min-h-[70px] pr-2">
           <div className="space-y-3">
             {profiles.map((profile) => (
               <div
@@ -160,7 +161,8 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
             ))}
           </div>
         </ScrollArea>
-      )}
+        )}
+      </div>
 
       {/* Add Partner CTA - only show when user can add */}
       {limits.canAdd && (
