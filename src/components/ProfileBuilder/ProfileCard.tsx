@@ -68,7 +68,7 @@ const ProfileCard = ({
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
     >
-      <div className="space-y-2 md:space-y-2.5 lg:space-y-3 flex-1 flex flex-col">
+      <div className="space-y-2 md:space-y-2.5 lg:space-y-2 flex-1 flex flex-col">
         <div className="flex items-start gap-3 md:gap-4">
           <CardAvatar>
             {iconElement}
@@ -78,10 +78,10 @@ const ProfileCard = ({
               {title}
               {optionalPillImage && optionalPillImage}
             </h3>
-            <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-3 leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+            <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-2 leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
               {motivationText}
             </p>
-            <div className="flex items-center gap-2 mt-1 md:mt-2 lg:mt-3">
+            <div className="flex items-center gap-2 mt-1 md:mt-2 lg:mt-2">
               <div className="flex-1">
                 <Progress value={completion} className="h-2 md:h-3 lg:h-4 bg-black/40" />
               </div>
@@ -92,7 +92,7 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="pt-2 md:pt-3 lg:pt-4 space-y-3 md:space-y-3.5 lg:space-y-4 flex-1 flex flex-col">
+        <div className="pt-2 md:pt-3 lg:pt-3 space-y-3 md:space-y-3.5 lg:space-y-3 flex-1 flex flex-col">
           <div className="bg-white/10 rounded-lg p-3 md:p-3.5 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
             <ul className="space-y-1.5 md:space-y-2 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
               {benefits.map((benefit, index) => (
