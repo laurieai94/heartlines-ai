@@ -303,6 +303,11 @@ export const usePartnerProfiles = () => {
       if (user) {
         localStorage.setItem(`active_partner_profile_${user.id}`, partnerProfileId);
       }
+      // Dispatch event to notify other components (like AIInsights) of profile switch
+      window.dispatchEvent(new CustomEvent('partner:profileSwitch', { 
+        detail: { newProfileId: partnerProfileId, profileName: profile.partner_profile_name } 
+      }));
+      console.log('[PartnerProfiles] Switched active profile to:', partnerProfileId);
     }
   }, [profiles, user]);
 
