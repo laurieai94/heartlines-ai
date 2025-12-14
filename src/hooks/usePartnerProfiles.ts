@@ -276,8 +276,6 @@ export const usePartnerProfiles = () => {
         throw deleteError;
       }
 
-      toast.success('Partner profile deleted');
-      
       // If we deleted the active profile, switch to another one
       if (activeProfileId === partnerProfileId) {
         const remainingProfiles = profiles.filter(p => p.partner_profile_id !== partnerProfileId);
