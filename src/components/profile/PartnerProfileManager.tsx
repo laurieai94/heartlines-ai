@@ -136,7 +136,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
             <p className="text-sm mt-1">add a partner to get personalized coaching</p>
           </div>
         ) : (
-          <ScrollArea className="max-h-[200px] pr-2">
+          <ScrollArea className="max-h-[164px] pr-2">
             <div className="space-y-3">
               {profiles.map((profile) => (
                 <div
