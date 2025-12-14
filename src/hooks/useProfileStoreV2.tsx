@@ -153,6 +153,47 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
   // Track recently modified fields to protect them during merge
   const recentlyModifiedFields = useRef<Map<string, number>>(new Map());
   const intentionallyDeletedFields = useRef<Set<string>>(new Set());
+  
+  // CRITICAL: Track profile switching to block updates during transition
+  const isSwitchingProfile = useRef(false);
+  const currentPartnerProfileId = useRef<string | undefined>(partnerProfileId);
+  
+  // CRITICAL: Immediately reset state when partner profile ID changes
+  // This prevents stale data from the previous profile from being persisted
+  useEffect(() => {
+    if (profileType === 'partner' && partnerProfileId !== currentPartnerProfileId.current) {
+      isSwitchingProfile.current = true;
+      currentPartnerProfileId.current = partnerProfileId;
+      
+      // Immediately reset to default to prevent any carryover
+      setProfile(defaultProfile);
+      setIsReady(false);
+      setIsLoading(true);
+      
+      // Clear pending updates from previous profile
+      pendingUpdates.current = {};
+      recentlyModifiedFields.current.clear();
+      intentionallyDeletedFields.current.clear();
+      
+      // Clear localStorage for this new profile to ensure fresh start
+      if (user && partnerProfileId) {
+        const baseKey = getUserStorageKey(config.storageKey, user.id);
+        const userStorageKey = `${baseKey}_${partnerProfileId}`;
+        // Only clear if this is a brand new profile (no existing data)
+        const existingData = batchedStorage.getItem(userStorageKey);
+        if (!existingData) {
+          // This is a new profile - ensure no cached data contaminates it
+          const cacheKey = `${user.id}-${config.dbType}-${partnerProfileId}`;
+          DB_CACHE.delete(cacheKey);
+        }
+      }
+      
+      // Allow updates after a brief delay to ensure state is reset
+      requestAnimationFrame(() => {
+        isSwitchingProfile.current = false;
+      });
+    }
+  }, [partnerProfileId, profileType, defaultProfile, user, config.storageKey, config.dbType]);
 
   // SIMPLIFIED: Removed complex instance tracking for performance
 
@@ -1045,6 +1086,12 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
 
   // Update profile data
   const updateProfile = useCallback((updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
+    // CRITICAL: Block updates during profile switching to prevent data carryover
+    if (isSwitchingProfile.current) {
+      safeLog.info('Blocked updateProfile during profile switch');
+      return;
+    }
+    
     const clonedUpdates = cloneProfile(updates);
     
     // Track intentional deletions
@@ -1113,6 +1160,12 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
 
   // Update single field
   const updateField = useCallback((field: string, value: any) => {
+    // CRITICAL: Block updates during profile switching to prevent data carryover
+    if (isSwitchingProfile.current) {
+      safeLog.info(`Blocked update to ${field} during profile switch`);
+      return;
+    }
+    
     // FIRST: Clear caches immediately for required fields
     const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
     if (requiredFields.includes(field)) {
@@ -1148,6 +1201,12 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
 
   // Update single field with immediate database sync (for blur events)
   const updateFieldImmediate = useCallback((field: string, value: any) => {
+    // CRITICAL: Block updates during profile switching to prevent data carryover
+    if (isSwitchingProfile.current) {
+      safeLog.info(`Blocked immediate update to ${field} during profile switch`);
+      return;
+    }
+    
     // FIRST: Clear caches immediately for required fields
     const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
     if (requiredFields.includes(field)) {
