@@ -17,6 +17,7 @@ interface MemoizedChatContainerProps {
   inputSectionHeight?: number;
   currentConversationId?: string | null;
   hasLimitBanner?: boolean;
+  onRetry?: (errorMessageId: number, originalMessage: string) => void;
 }
 
 // Memoize ChatContainer with optimized comparison
@@ -45,7 +46,8 @@ export const MemoizedChatContainer = React.memo(
       prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
       prevProps.inputSectionHeight === nextProps.inputSectionHeight &&
       prevProps.currentConversationId === nextProps.currentConversationId &&
-      prevProps.hasLimitBanner === nextProps.hasLimitBanner
+      prevProps.hasLimitBanner === nextProps.hasLimitBanner &&
+      prevProps.onRetry === nextProps.onRetry
     );
   }
 );

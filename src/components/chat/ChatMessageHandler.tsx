@@ -156,13 +156,23 @@ export const useChatMessageHandler = ({
         id: generateMessageId(),
         type: 'ai',
         content: error.message || "An unexpected error occurred. Please try again.",
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        isError: true,
+        originalUserMessage: userMessage
       };
       setChatHistory(prev => deduplicateMessages([...prev, errorMessage]));
     } finally {
       setPendingCount(c => Math.max(0, c - 1));
     }
   }, [canInteract, loading, generateMessageId, deduplicateMessages, chatHistory, extractTopicsFromMessage, addOrUpdateTopic, profiles, demographicsData, profileGoals, refreshSubscription]);
+
+  // Retry failed message - removes error message and resends
+  const retryMessage = useCallback((errorMessageId: number, originalMessage: string) => {
+    // Remove the error message from chat history
+    setChatHistory(prev => prev.filter(msg => msg.id !== errorMessageId));
+    // Resend the original message
+    sendMessage(originalMessage);
+  }, [setChatHistory, sendMessage]);
 
   const handleSpeakResponse = (speakFunction: (text: string) => void) => {
     speakResponseRef.current = speakFunction;
@@ -171,6 +181,7 @@ export const useChatMessageHandler = ({
   return {
     loading,
     sendMessage,
+    retryMessage,
     handleSpeakResponse
   };
 };
