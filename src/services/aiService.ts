@@ -93,6 +93,11 @@ export class AIService {
     } catch (error) {
       console.error('AI Service Error:', error);
       
+      // Re-throw MessageLimitError as-is so it can be caught properly upstream
+      if (error instanceof MessageLimitError) {
+        throw error;
+      }
+      
       if (error.message.includes('Invalid Anthropic API key')) {
         throw new Error('🔑 **Invalid API Key**\n\nThe Anthropic API key is invalid. Please check your API key in the Supabase Edge Function Secrets.');
       }
