@@ -314,7 +314,7 @@ const ProfileBuilder = ({
       {/* Mobile optimization disabled for performance */}
       {/* Pull-to-refresh indicator removed - was causing freezing */}
       
-      <div className="space-y-4 md:space-y-5 lg:space-y-8 pb-6 md:pb-12 lg:pb-16 pb-safe pt-6 md:pt-10 lg:pt-14" style={{
+      <div className="space-y-4 md:space-y-5 lg:space-y-8 pb-6 md:pb-12 lg:pb-16 pb-safe pt-6 md:pt-10 lg:pt-8" style={{
       paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined
     }}>
         {/* Main Header - Responsive */}
