@@ -5,6 +5,7 @@ import { useChatHistory } from '@/hooks/useChatHistory';
 import { useTemporaryProfile } from '@/hooks/useTemporaryProfile';
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
+import { usePartnerProfiles } from '@/hooks/usePartnerProfiles';
 import { useProfileGoals } from '@/hooks/useProfileGoals';
 import AIChat from './AIChat';
 import ProgressiveAccessWrapper from './ProgressiveAccessWrapper';
@@ -26,8 +27,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
-  // const { profileData: personalProfilePersistence, isReady: persistenceReady } = usePersonalProfilePersistence();
-  const { profileData: partnerProfileData, isLoading: partnerDataLoading } = usePartnerProfileData();
+  const { profileData: partnerProfileData, isLoading: partnerDataLoading, isReady: partnerDataReady } = usePartnerProfileData();
+  const { activeProfileId: activePartnerProfileId, activeProfile } = usePartnerProfiles();
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
   const { 
@@ -56,7 +57,9 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     performanceMonitor.measure('insights-chunk-load');
   }, []);
 
-  // Optimized: Combined profile merging effect with early returns
+  // Optimized: Combined profile merging effect with CORRECT partner profile data
+  // CRITICAL: partnerProfileData comes from usePartnerProfileData which already uses activeProfileId
+  // No need to merge with temporaryProfiles.partner - that's stale single-partner data
   useEffect(() => {
     if (!personalDataReady || partnerDataLoading) return;
 
@@ -65,11 +68,9 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       ...personalProfileData
     };
 
-    const mergedPartnerData = {
-      ...temporaryDemographics.partner,
-      ...temporaryProfiles.partner[0],
-      ...partnerProfileData
-    };
+    // Use partnerProfileData DIRECTLY - it already contains the correct active partner's data
+    // Don't merge with temporaryProfiles.partner which may contain stale data from another profile
+    const mergedPartnerData = { ...partnerProfileData };
 
     const hasPersonalData = Object.keys(mergedPersonalData).length > 0;
     const hasPartnerData = Object.keys(mergedPartnerData).length > 0;
@@ -77,17 +78,21 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     // Only update if there's actual data changes
     const newUnifiedProfiles = {
       your: hasPersonalData ? [mergedPersonalData] : temporaryProfiles.your,
-      partner: hasPartnerData ? [mergedPartnerData] : temporaryProfiles.partner
+      partner: hasPartnerData ? [mergedPartnerData] : []
     };
 
     const newUnifiedDemographics = {
       your: hasPersonalData ? mergedPersonalData : temporaryDemographics.your,
-      partner: hasPartnerData ? mergedPartnerData : temporaryDemographics.partner
+      partner: hasPartnerData ? mergedPartnerData : null
     };
+
+    console.log('[AIInsights] Partner data updated for profile:', activePartnerProfileId, 
+      'Partner name:', mergedPartnerData?.partnerName || 'unknown');
 
     setUnifiedProfiles(newUnifiedProfiles);
     setUnifiedDemographics(newUnifiedDemographics);
-  }, [personalProfileData, partnerProfileData, personalDataReady, partnerDataLoading, temporaryProfiles, temporaryDemographics]);
+  }, [personalProfileData, partnerProfileData, personalDataReady, partnerDataLoading, 
+      temporaryProfiles.your, temporaryDemographics.your, activePartnerProfileId]);
 
   // Initialize Supabase immediately for faster startup
   useEffect(() => {
