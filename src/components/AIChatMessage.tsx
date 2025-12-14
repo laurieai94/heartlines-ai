@@ -1,7 +1,8 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useState, useCallback } from "react";
 import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bot, User, Heart } from "lucide-react";
+import { Bot, User, Heart, RefreshCw, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 import { BRAND } from "@/branding";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
@@ -13,11 +14,17 @@ interface AIChatMessageProps {
   isFirstInGroup?: boolean;
   isLastInGroup?: boolean;
   isLoading?: boolean;
+  onRetry?: () => void;
 }
 
-const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true, isLoading = false }: AIChatMessageProps) => {
+const AUTO_RETRY_SECONDS = 30;
+
+const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true, isLoading = false, onRetry }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
+  const isError = message.isError;
   const { isMobile } = useOptimizedMobile();
+  const [countdown, setCountdown] = useState(AUTO_RETRY_SECONDS);
+  const [autoRetryEnabled, setAutoRetryEnabled] = useState(true);
   
   // Format time to show only hours and minutes
   const formatTime = (timestamp: string) => {
@@ -28,6 +35,35 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       hour12: true 
     });
   };
+
+  // Auto-retry countdown effect
+  useEffect(() => {
+    if (!isError || !onRetry || !autoRetryEnabled) return;
+    
+    const timer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          onRetry();
+          return AUTO_RETRY_SECONDS;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [isError, onRetry, autoRetryEnabled]);
+
+  // Handle manual retry
+  const handleRetry = useCallback(() => {
+    setAutoRetryEnabled(false);
+    onRetry?.();
+  }, [onRetry]);
+
+  // Cancel auto-retry
+  const cancelAutoRetry = useCallback(() => {
+    setAutoRetryEnabled(false);
+  }, []);
 
   // Performance monitoring - development only
   useEffect(() => {
@@ -68,9 +104,11 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
               ? isMobile 
                 ? 'bg-gradient-to-r from-coral-400 to-orange-400' 
                 : 'bg-gradient-to-r from-coral-300 to-orange-300'
-              : isMobile 
-                ? 'bg-gradient-to-r from-pink-400 to-coral-400' 
-                : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
+              : isError
+                ? 'bg-gradient-to-r from-amber-400 to-orange-400'
+                : isMobile 
+                  ? 'bg-gradient-to-r from-pink-400 to-coral-400' 
+                  : 'bg-gradient-to-r from-coral-300 to-burgundy-400'
           } ${
             !isUser && isLoading ? 'animate-pulse' : ''
           }`}></div>
@@ -78,7 +116,9 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           <Avatar className={`relative z-10 shadow-lg drop-shadow-lg ${isMobile ? 'w-[36px] h-[36px] avatar-mobile' : 'w-[40px] h-[40px]'} md:w-[44px] md:h-[44px] md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-coral-400 to-orange-400' 
-              : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
+              : isError
+                ? 'bg-gradient-to-br from-amber-400 to-orange-500'
+                : 'bg-gradient-to-br from-coral-400 to-burgundy-500'
           } ${
             !isUser && isLoading ? 'ring-4 ring-pink-400/40 animate-pulse' : ''
           }`}>
@@ -92,6 +132,10 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
                 }}
               >
                 {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
+              </AvatarFallback>
+            ) : isError ? (
+              <AvatarFallback className="bg-gradient-to-br from-amber-400 to-orange-500 text-white">
+                <AlertCircle className="w-4 h-4 md:w-4 md:h-4" />
               </AvatarFallback>
             ) : (
               <>
@@ -123,7 +167,9 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl
           ${isUser
             ? 'text-white rounded-br-lg border-2 border-coral-400/70 ring-1 ring-coral-400/30 bg-white/5 backdrop-blur-md md:shadow-[0_8px_32px_rgba(0,0,0,0.3),0_4px_16px_rgba(251,146,60,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]'
-            : 'text-white rounded-bl-lg border-2 border-pink-400/70 ring-1 ring-pink-400/30 bg-white/5 backdrop-blur-md md:shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.08)]'
+            : isError
+              ? 'text-white rounded-bl-lg border-2 border-amber-400/70 ring-1 ring-amber-400/30 bg-amber-900/20 backdrop-blur-md'
+              : 'text-white rounded-bl-lg border-2 border-pink-400/70 ring-1 ring-pink-400/30 bg-white/5 backdrop-blur-md md:shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.08)]'
           }
           transition-all duration-300 md:group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)] group-hover:scale-[1.01]
         `}
@@ -131,6 +177,36 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           <div className="text-sm md:text-[15px] leading-relaxed whitespace-pre-wrap font-light lowercase drop-shadow-sm message-text">
             {message.content}
           </div>
+          
+          {/* Retry UI for error messages */}
+          {isError && onRetry && (
+            <div className="mt-3 pt-3 border-t border-amber-400/30">
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleRetry}
+                  size="sm"
+                  className="bg-amber-500 hover:bg-amber-600 text-white gap-2 h-8"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  retry now
+                </Button>
+                
+                {autoRetryEnabled && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-amber-200/70">
+                      auto-retry in {countdown}s
+                    </span>
+                    <button
+                      onClick={cancelAutoRetry}
+                      className="text-xs text-amber-300/60 hover:text-amber-200 underline"
+                    >
+                      cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
         
         {/* Timestamp - Only show for last message in group */}

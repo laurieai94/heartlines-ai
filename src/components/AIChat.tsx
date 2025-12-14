@@ -82,7 +82,7 @@ const AIChat = ({
   const messagesRemaining = (message_limit || 0) - (messages_used || 0);
   const hasLimitBanner = messagesRemaining <= 3 && !subscribed;
 
-  const { loading, sendMessage } = useChatMessageHandler({
+  const { loading, sendMessage, retryMessage } = useChatMessageHandler({
     profiles,
     demographicsData,
     profileGoals,
@@ -276,6 +276,7 @@ useChatEffects({
           onOpenSidebar={onOpenSidebar}
           profileCompletion={profileCompletion}
           onCompleteProfile={() => goToProfile('chat')}
+          onRetry={retryMessage}
           showProfileNudge={(() => {
             const isCompleting = sessionStorage.getItem('questionnaire-completing');
             if (isCompleting) {

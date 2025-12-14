@@ -32,6 +32,7 @@ interface ChatContainerProps {
   inputSectionHeight?: number;
   currentConversationId?: string | null;
   hasLimitBanner?: boolean;
+  onRetry?: (errorMessageId: number, originalMessage: string) => void;
 }
 
 const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({ 
@@ -48,7 +49,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   showProfileNudge = false,
   inputSectionHeight,
   currentConversationId,
-  hasLimitBanner = false
+  hasLimitBanner = false,
+  onRetry
 }, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useOptimizedMobile();
@@ -215,6 +217,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               isFirstInGroup={isFirstInGroup}
               isLastInGroup={isLastInGroup}
               isLoading={loading && index === chatHistory.length - 1 && message.type === 'ai'}
+              onRetry={message.isError && message.originalUserMessage && onRetry 
+                ? () => onRetry(message.id, message.originalUserMessage!) 
+                : undefined}
             />
           </div>
         );

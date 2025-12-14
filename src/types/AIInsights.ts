@@ -120,4 +120,6 @@ export interface ChatMessage {
   type: 'user' | 'ai';
   content: string;
   timestamp: string;
+  isError?: boolean;
+  originalUserMessage?: string; // For retry functionality
 }
