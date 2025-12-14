@@ -38,7 +38,7 @@ interface ProfileBuilderProps {
     partner: any;
   };
   onOpenQuestionnaire?: () => void;
-  onOpenPartnerQuestionnaire?: () => void;
+  onOpenPartnerQuestionnaire?: (profileId?: string) => void;
 }
 const ProfileBuilder = ({
   onProfileUpdate,
@@ -360,9 +360,9 @@ const ProfileBuilder = ({
           <div className="md:col-span-1">
             <PartnerProfileManager 
               onEditProfile={(partnerProfileId) => {
-                // Open the partner questionnaire
+                // Open the partner questionnaire with the specific profile ID
                 if (onOpenPartnerQuestionnaire) {
-                  onOpenPartnerQuestionnaire();
+                  onOpenPartnerQuestionnaire(partnerProfileId);
                 }
               }}
               onUpgrade={() => setShowUpgradeModal(true)}
