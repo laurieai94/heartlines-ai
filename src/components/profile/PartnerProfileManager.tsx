@@ -116,8 +116,8 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
               <Users className="w-4 h-4 text-white" />
             </CardAvatar>
             <div>
-              <h3 className="text-lg font-medium text-white">partner profiles</h3>
-              <p className="text-sm text-white/60">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white">partner profiles</h3>
+              <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 leading-tight">
                 help kai understand them
               </p>
             </div>
@@ -184,22 +184,30 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
           </ScrollArea>
         )}
 
-        {/* Add Partner CTA */}
-        <Button
-          onClick={handleCreateProfile}
-          disabled={isCreating}
-          className="w-full mt-6 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white shadow-lg glass-cta-gradient"
-        >
-          {isCreating ? (
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-          ) : !limits.canAdd ? (
-            <Crown className="w-4 h-4 mr-2" />
-          ) : (
-            <Plus className="w-4 h-4 mr-2" />
-          )}
-          {!limits.canAdd ? 'upgrade for more' : 'add partner'}
-          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-        </Button>
+        {/* Add Partner CTA - only show when user can add */}
+        {limits.canAdd && (
+          <Button
+            onClick={handleCreateProfile}
+            disabled={isCreating}
+            className="w-full mt-6 relative overflow-hidden bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg glass-cta-gradient min-h-[44px] md:min-h-[48px] lg:min-h-[52px]"
+          >
+            {isCreating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
+            add partner
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        )}
+
+        {/* Subtle upgrade CTA - only when at subscription limit */}
+        {!limits.canAdd && (
+          <Button
+            onClick={onUpgrade}
+            variant="ghost"
+            className="w-full mt-6 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
+          >
+            <Crown className="w-4 h-4 mr-2 text-amber-400/60" />
+            upgrade for more
+          </Button>
+        )}
       </Card>
 
       {/* Delete Confirmation Dialog */}
