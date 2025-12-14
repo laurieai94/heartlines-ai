@@ -91,7 +91,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
   }
 
   return (
-    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 hover:scale-[1.02] transition-transform duration-300 h-full flex flex-col">
+    <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-3 md:pb-4 lg:pb-4 hover:scale-[1.02] transition-transform duration-300 h-full flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
       {/* Profiles List */}
       <div className="flex flex-col">
         {profiles.length === 0 ? (
-          <div className="h-[176px] lg:h-[200px] flex flex-col items-center justify-center text-white/60">
+          <div className="h-[160px] lg:h-[180px] flex flex-col items-center justify-center text-white/60">
             <Users className="w-12 h-12 mb-3 opacity-40" />
             <p>no partner profiles yet</p>
             <p className="text-sm mt-1">add a partner to get personalized coaching</p>
@@ -122,7 +122,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         ) : (
           <>
             <div className="relative">
-              <ScrollArea className="h-[176px] lg:h-[200px] pr-2">
+              <ScrollArea className="h-[160px] lg:h-[180px] pr-2">
                 <div className="space-y-2 lg:space-y-3">
                   {profiles.map((profile) => (
                     <div
@@ -195,7 +195,7 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
         <Button
           onClick={onUpgrade}
           variant="ghost"
-          className="w-full mt-2 py-1.5 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
+          className="w-full mt-3 py-2 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm font-medium"
         >
           <Crown className="w-4 h-4 mr-2 text-amber-400/60" />
           upgrade for more
