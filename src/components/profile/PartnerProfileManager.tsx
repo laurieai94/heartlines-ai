@@ -120,61 +120,60 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
             <p className="text-sm mt-1">add a partner to get personalized coaching</p>
           </div>
         ) : (
-          <div className="relative">
-            <ScrollArea className="h-[176px] pr-2">
-              <div className="space-y-3">
-                {profiles.map((profile) => (
-                  <div
-                    key={profile.partner_profile_id}
-                    className={cn(
-                      "flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.01]",
-                      activeProfileId === profile.partner_profile_id
-                        ? "bg-white/15 border-white/30 ring-1 ring-white/20 shadow-inner"
-                        : "bg-white/10 border-white/20 ring-1 ring-white/10 shadow-inner hover:bg-white/15 hover:border-white/25"
-                    )}
-                    onClick={() => handleSelectProfile(profile)}
-                  >
-                    <div className="flex items-center gap-3">
-                      {activeProfileId === profile.partner_profile_id && (
-                        <div className="p-1 rounded-full bg-green-500/20">
-                          <Check className="w-3 h-3 text-green-400" />
-                        </div>
+          <>
+            <div className="relative">
+              <ScrollArea className="h-[176px] pr-2">
+                <div className="space-y-3">
+                  {profiles.map((profile) => (
+                    <div
+                      key={profile.partner_profile_id}
+                      className={cn(
+                        "flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.01]",
+                        activeProfileId === profile.partner_profile_id
+                          ? "bg-white/15 border-white/30 ring-1 ring-white/20 shadow-inner"
+                          : "bg-white/10 border-white/20 ring-1 ring-white/10 shadow-inner hover:bg-white/15 hover:border-white/25"
                       )}
-                      <div>
-                        <p className="text-white font-medium">
-                          {profile.partner_profile_name}
-                        </p>
-                        <p className="text-xs text-white/50 line-clamp-1">
-                          {getProfileDescription(profile.profile_data)}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Edit button - separate from selection */}
-                    <button
-                      onClick={(e) => handleEditProfile(e, profile)}
-                      className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-                      aria-label={`Edit ${profile.partner_profile_name}'s profile`}
+                      onClick={() => handleSelectProfile(profile)}
                     >
-                      <Pencil className="w-4 h-4 text-white/70" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
+                      <div className="flex items-center gap-3">
+                        {activeProfileId === profile.partner_profile_id && (
+                          <div className="p-1 rounded-full bg-green-500/20">
+                            <Check className="w-3 h-3 text-green-400" />
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-white font-medium">
+                            {profile.partner_profile_name}
+                          </p>
+                          <p className="text-xs text-white/50 line-clamp-1">
+                            {getProfileDescription(profile.profile_data)}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Edit button - separate from selection */}
+                      <button
+                        onClick={(e) => handleEditProfile(e, profile)}
+                        className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                        aria-label={`Edit ${profile.partner_profile_name}'s profile`}
+                      >
+                        <Pencil className="w-4 h-4 text-white/70" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+            </div>
             
-            {/* Scroll indicator - only show when 3+ profiles */}
+            {/* Scroll indicator - below cards, only show when 3+ profiles */}
             {profiles.length >= 3 && (
-              <div 
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 mb-1 pointer-events-none"
-                aria-hidden="true"
-              >
+              <div className="flex justify-center mt-2" aria-hidden="true">
                 <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                   <span className="text-white/50 text-xs">↓</span>
                 </div>
               </div>
             )}
-          </div>
+          </>
         )}
       </div>
 
