@@ -163,12 +163,16 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
               </div>
             </ScrollArea>
             
-            {/* Fade gradient - only show when 3+ profiles */}
+            {/* Scroll indicator - only show when 3+ profiles */}
             {profiles.length >= 3 && (
               <div 
-                className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none bg-gradient-to-t from-[#1a0a0a]/90 to-transparent rounded-b-xl"
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 mb-1 pointer-events-none"
                 aria-hidden="true"
-              />
+              >
+                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+                  <span className="text-white/50 text-xs">↓</span>
+                </div>
+              </div>
             )}
           </div>
         )}
