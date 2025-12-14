@@ -347,10 +347,16 @@ const ProfileBuilder = ({
           {/* Your Profile Card */}
           <MemoizedProfileCard title="your profile" subheader="the real you → real advice" completion={yourProfileCompletion} description="just 5 required questions" benefits={[{
             icon: <Star className="w-3 h-3 text-orange-300" />,
-            text: "5 qs, big feels"
+            text: "5 quick qs, big feels"
           }, {
             icon: <Search className="w-3 h-3 text-orange-300" />,
-            text: "deep dive if you're down"
+            text: "deep dive if it feels right"
+          }, {
+            icon: <Sparkles className="w-3 h-3 text-orange-300" />,
+            text: "unlocks advice that fits your actual dynamic"
+          }, {
+            icon: <Lock className="w-3 h-3 text-orange-300" />,
+            text: "private by design"
           }]} onStartProfile={handleStartPersonalProfile} buttonText="keep it real" iconElement={userInitial ? <span className="text-white font-bold text-2xl sm:text-3xl leading-none">{userInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-orange-300" benefitColor="text-orange-300" optionalPillImage={!canUnlockCoaching ? <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
                   first step: 5 qs
