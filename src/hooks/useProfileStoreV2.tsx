@@ -526,7 +526,7 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
       // Restore pending updates on failure
       Object.assign(pendingUpdates.current, updates);
     }
-  }, [user, config.dbType, defaultProfile, saveToStorage, profileType]);
+  }, [user, config.dbType, defaultProfile, saveToStorage, profileType, partnerProfileId]);
 
   // Add flush method to syncToDatabase for immediate execution
   (syncToDatabase as any).flush = () => {
