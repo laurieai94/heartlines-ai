@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, MessageSquare, Lock, Clock } from "lucide-react";
+import { User, MessageSquare, Lock } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
@@ -189,21 +189,6 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
                     </TooltipTrigger>
                     <TooltipContent side="top" className="bg-background/95 border-white/10">
                       <p className="text-xs">name is locked to prevent profile gaming</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
-              {isInGracePeriod && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-1 text-xs text-amber-300/80">
-                        <Clock className="w-3 h-3" />
-                        <span>{formattedTime}</span>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="bg-background/95 border-white/10">
-                      <p className="text-xs">you can edit the name for {formattedTime} more</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
