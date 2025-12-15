@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, MessageSquare } from "lucide-react";
+import { User, MessageSquare, Lock, Clock } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
 import { usePartnerFlow } from "../../context/FlowContext";
+import { usePartnerProfiles } from "@/hooks/usePartnerProfiles";
+import { usePartnerNameLock } from "@/hooks/usePartnerNameLock";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface PartnerNamePronounsCardProps {
   profileData: PartnerProfileData;
@@ -16,8 +19,13 @@ interface PartnerNamePronounsCardProps {
 
 const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false }: PartnerNamePronounsCardProps) => {
   const { goToNext } = usePartnerFlow();
+  const { profiles, activeProfileId } = usePartnerProfiles();
   const [customPronoun, setCustomPronoun] = useState("");
   const [hasCleared, setHasCleared] = useState(false);
+
+  // Get lock status for current profile
+  const activeProfile = profiles.find(p => p.partner_profile_id === activeProfileId);
+  const { isLocked, formattedTime, isInGracePeriod } = usePartnerNameLock(activeProfile?.partner_name_locked_at);
 
   // Clear default placeholder text on first focus
   const handleNameFocus = () => {
@@ -169,9 +177,43 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
             {generateAvatar(profileData.partnerName || '')}
           </div>
           <div className="flex-1 min-w-0">
-            <Label htmlFor="partnerName" className="text-sm font-semibold text-white mb-2 block">
-              what should we call them? <span className="text-red-400">*</span>
-            </Label>
+            <div className="flex items-center gap-2 mb-2">
+              <Label htmlFor="partnerName" className="text-sm font-semibold text-white">
+                what should we call them? <span className="text-red-400">*</span>
+              </Label>
+              {isLocked && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Lock className="w-3.5 h-3.5 text-white/50" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="bg-background/95 border-white/10">
+                      <p className="text-xs">name is locked to prevent profile gaming</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+              {isInGracePeriod && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center gap-1 text-xs text-amber-300/80">
+                        <Clock className="w-3 h-3" />
+                        <span>{formattedTime}</span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="bg-background/95 border-white/10">
+                      <p className="text-xs">you can edit the name for {formattedTime} more</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </div>
+            {isLocked ? (
+              <div className="questionnaire-button-secondary border-0 text-white/70 text-sm p-3 h-auto font-medium w-full flex items-center gap-2 cursor-not-allowed">
+                <span>{profileData.partnerName}</span>
+              </div>
+            ) : (
               <Input
                 id="partnerName"
                 type="text"
@@ -182,6 +224,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
                 className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
                 autoComplete="off"
               />
+            )}
           </div>
         </div>
 
