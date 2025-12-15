@@ -628,6 +628,7 @@ export type Database = {
           created_at: string
           demographics_data: Json
           id: string
+          partner_name_locked_at: string | null
           partner_profile_id: string | null
           partner_profile_name: string | null
           profile_data: Json
@@ -639,6 +640,7 @@ export type Database = {
           created_at?: string
           demographics_data?: Json
           id?: string
+          partner_name_locked_at?: string | null
           partner_profile_id?: string | null
           partner_profile_name?: string | null
           profile_data?: Json
@@ -650,6 +652,7 @@ export type Database = {
           created_at?: string
           demographics_data?: Json
           id?: string
+          partner_name_locked_at?: string | null
           partner_profile_id?: string | null
           partner_profile_name?: string | null
           profile_data?: Json

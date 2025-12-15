@@ -8,6 +8,7 @@ export interface PartnerProfile {
   id: string;
   partner_profile_id: string;
   partner_profile_name: string;
+  partner_name_locked_at: string | null;
   profile_data: Record<string, any>;
   created_at: string;
   updated_at: string;
@@ -171,6 +172,7 @@ export const usePartnerProfiles = () => {
           id: row.id,
           partner_profile_id: row.partner_profile_id || '',
           partner_profile_name: row.partner_profile_name || (profileData as any)?.partnerName || 'Partner',
+          partner_name_locked_at: (row as any).partner_name_locked_at || null,
           profile_data: profileData,
           created_at: row.created_at,
           updated_at: row.updated_at
