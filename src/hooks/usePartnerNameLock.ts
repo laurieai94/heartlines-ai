@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const GRACE_PERIOD_MS = 3 * 60 * 1000; // 3 minutes in milliseconds
+const GRACE_PERIOD_MS = 30 * 1000; // 30 seconds in milliseconds
 
 interface NameLockState {
   isLocked: boolean;
@@ -22,7 +22,7 @@ export const usePartnerNameLock = (lockedAt: string | null | undefined): NameLoc
       return {
         isLocked: false,
         remainingMs: GRACE_PERIOD_MS,
-        formattedTime: '3:00',
+        formattedTime: '0:30',
         isInGracePeriod: false
       };
     }
