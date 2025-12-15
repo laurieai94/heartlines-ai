@@ -949,14 +949,6 @@ export type Database = {
             }
             Returns: Json
           }
-        | {
-            Args: {
-              p_partner_profile_id?: string
-              p_patch: Json
-              p_profile_type: string
-            }
-            Returns: Json
-          }
     }
     Enums: {
       app_role: "admin" | "user"
