@@ -13,7 +13,7 @@ interface PartnerProfileManagerProps {
 }
 
 const getProfileDescription = (profileData: Record<string, any> | null): string => {
-  if (!profileData) return 'tap to complete profile';
+  if (!profileData) return 'tap ✏️ to complete';
   
   const parts: string[] = [];
   
@@ -37,7 +37,7 @@ const getProfileDescription = (profileData: Record<string, any> | null): string 
     parts.push(shortConflict);
   }
   
-  if (parts.length === 0) return 'tap to complete profile';
+  if (parts.length === 0) return 'tap ✏️ to complete';
   
   return parts.join(' • ');
 };
