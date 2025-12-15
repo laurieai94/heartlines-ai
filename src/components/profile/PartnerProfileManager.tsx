@@ -82,9 +82,37 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
 
   if (isLoading) {
     return (
-      <Card className="questionnaire-card p-4 md:p-5 lg:p-6">
-        <div className="flex items-center justify-center py-8">
-          <Loader2 className="w-6 h-6 animate-spin text-white/60" />
+      <Card className="group questionnaire-card p-4 md:p-5 lg:p-6 pb-2 md:pb-3 lg:pb-3 h-full flex flex-col">
+        {/* Header - always show immediately */}
+        <div className="flex items-start justify-between mb-3 lg:mb-3">
+          <div className="flex items-start gap-3 md:gap-4">
+            <CardAvatar>
+              <Users className="w-5 h-5 text-white" />
+            </CardAvatar>
+            <div className="flex-1">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white">partner profiles</h3>
+              <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-2 leading-tight">
+                help kai understand them
+              </p>
+            </div>
+          </div>
+          <div className="w-10 h-6 bg-white/10 rounded-full animate-pulse" />
+        </div>
+        
+        {/* Skeleton profile cards */}
+        <div className="flex-1 space-y-2 lg:space-y-2">
+          <div className="p-3 lg:p-4 rounded-xl border border-white/20 bg-white/10 animate-pulse">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-white/20" />
+                <div className="space-y-2">
+                  <div className="w-24 h-4 bg-white/20 rounded" />
+                  <div className="w-32 h-3 bg-white/10 rounded" />
+                </div>
+              </div>
+              <div className="w-8 h-8 bg-white/10 rounded-lg" />
+            </div>
+          </div>
         </div>
       </Card>
     );
