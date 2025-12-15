@@ -38,12 +38,60 @@ const saveVirginProfilesToStorage = (userId: string, profiles: string[]) => {
   localStorage.setItem(`virgin_profiles_${userId}`, JSON.stringify(profiles));
 };
 
+// localStorage cache helpers
+const CACHE_KEY = (userId: string) => `partner_profiles_cache_${userId}`;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+const getCachedProfiles = (userId: string): PartnerProfile[] | null => {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY(userId));
+    if (!cached) return null;
+    const { data, timestamp } = JSON.parse(cached);
+    // Return cached data if not expired
+    if (Date.now() - timestamp < CACHE_TTL) {
+      return data;
+    }
+    return data; // Still return stale data for instant display
+  } catch {
+    return null;
+  }
+};
+
+const setCachedProfiles = (userId: string, profiles: PartnerProfile[]) => {
+  try {
+    localStorage.setItem(CACHE_KEY(userId), JSON.stringify({
+      data: profiles,
+      timestamp: Date.now()
+    }));
+  } catch {
+    // Ignore storage errors
+  }
+};
+
 export const usePartnerProfiles = () => {
   const { user } = useAuth();
   const subscriptionData = useOptimizedSubscription();
-  const [profiles, setProfiles] = useState<PartnerProfile[]>([]);
+  
+  // Initialize with cached data for instant display
+  const [profiles, setProfiles] = useState<PartnerProfile[]>(() => {
+    if (typeof window !== 'undefined') {
+      // Try to get user ID from auth state or localStorage
+      const cachedUserId = localStorage.getItem('sb-relqmhrzyqckoaebscgx-auth-token');
+      if (cachedUserId) {
+        try {
+          const parsed = JSON.parse(cachedUserId);
+          const userId = parsed?.user?.id;
+          if (userId) {
+            return getCachedProfiles(userId) || [];
+          }
+        } catch {}
+      }
+    }
+    return [];
+  });
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasFetched, setHasFetched] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pendingNameUpdates, setPendingNameUpdates] = useState<Map<string, string>>(new Map());
 
@@ -145,11 +193,15 @@ export const usePartnerProfiles = () => {
     if (!user) {
       setProfiles([]);
       setIsLoading(false);
+      setHasFetched(true);
       return;
     }
 
     try {
-      setIsLoading(true);
+      // Only show loading if we have no cached data
+      if (profiles.length === 0) {
+        setIsLoading(true);
+      }
       setError(null);
 
       const { data, error: fetchError } = await supabase
@@ -180,6 +232,9 @@ export const usePartnerProfiles = () => {
       });
 
       setProfiles(formattedProfiles);
+      
+      // Cache the fresh data
+      setCachedProfiles(user.id, formattedProfiles);
 
       // Set active profile to first one if not set
       if (formattedProfiles.length > 0 && !activeProfileId) {
@@ -190,8 +245,9 @@ export const usePartnerProfiles = () => {
       setError(err.message || 'Failed to fetch partner profiles');
     } finally {
       setIsLoading(false);
+      setHasFetched(true);
     }
-  }, [user, activeProfileId]);
+  }, [user, activeProfileId, profiles.length]);
 
   // Create a new partner profile
   const createProfile = useCallback(async (name?: string): Promise<string | null> => {
@@ -319,7 +375,7 @@ export const usePartnerProfiles = () => {
     return profiles.find(p => p.partner_profile_id === activeProfileId) || null;
   }, [profiles, activeProfileId]);
 
-  // Initial fetch
+  // Initial fetch - also load from cache immediately
   useEffect(() => {
     if (user) {
       // Try to restore active profile from localStorage
@@ -327,9 +383,21 @@ export const usePartnerProfiles = () => {
       if (savedActiveId) {
         setActiveProfileId(savedActiveId);
       }
+      
+      // Load cached profiles immediately for instant display
+      const cached = getCachedProfiles(user.id);
+      if (cached && cached.length > 0 && profiles.length === 0) {
+        setProfiles(cached);
+        setIsLoading(false); // Show cached data immediately
+        if (!savedActiveId && cached.length > 0) {
+          setActiveProfileId(cached[0].partner_profile_id);
+        }
+      }
+      
+      // Fetch fresh data in background
       fetchProfiles();
     }
-  }, [user, fetchProfiles]);
+  }, [user]);
 
   // Ref for fetchProfiles to avoid stale closure in realtime subscription
   const fetchProfilesRef = useRef(fetchProfiles);
@@ -368,11 +436,14 @@ export const usePartnerProfiles = () => {
     };
   }, [user?.id]);
 
+  // Only show loading if no cached data and haven't fetched yet
+  const showLoading = isLoading && profiles.length === 0 && !hasFetched;
+
   return {
     profiles: profilesWithPendingNames,
     activeProfileId,
     activeProfile: getActiveProfile(),
-    isLoading,
+    isLoading: showLoading,
     error,
     limits: getLimits(),
     fetchProfiles,
