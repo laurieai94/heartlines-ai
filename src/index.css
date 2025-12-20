@@ -1668,3 +1668,81 @@
   }
 }
 
+/* Print Styles for Brand Guidelines PDF */
+@media print {
+  /* Reset page for print */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  /* Hide non-printable elements */
+  .print\\:hidden,
+  header,
+  nav,
+  footer,
+  button,
+  [role="button"] {
+    display: none !important;
+  }
+
+  /* Reset background for print */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  /* Ensure content is visible */
+  .print\\:break-before-page {
+    page-break-before: always;
+  }
+
+  .print\\:break-inside-avoid {
+    page-break-inside: avoid;
+  }
+
+  .print\\:page-break-after {
+    page-break-after: always;
+  }
+
+  /* High contrast text */
+  h1, h2, h3, h4, h5, h6 {
+    color: #1a1a1a !important;
+  }
+
+  p, li, span {
+    color: #333 !important;
+  }
+
+  /* Ensure color swatches print properly */
+  .brand-section {
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  /* Border fallbacks for print */
+  .print\\:border {
+    border: 1px solid #ccc !important;
+  }
+
+  /* Adjust image printing */
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+
+  /* Link styling for print */
+  a {
+    color: #333 !important;
+    text-decoration: none !important;
+  }
+
+  /* Ensure backgrounds print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
