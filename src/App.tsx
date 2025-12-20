@@ -26,6 +26,7 @@ import Mission from "@/pages/Mission";
 import Terms from "@/pages/Terms";
 import Contact from "@/pages/Contact";
 import AdminDashboard from "@/pages/AdminDashboard";
+import BrandGuidelines from "@/pages/BrandGuidelines";
 
 const AppContent = () => {
   // Removed disabled performance functions to eliminate unnecessary calls
@@ -63,6 +64,7 @@ const AppContent = () => {
         <Route path="/terms" element={<Terms />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/brand-guidelines" element={<BrandGuidelines />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
