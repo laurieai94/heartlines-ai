@@ -613,9 +613,10 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
         const profileData = (data.profile_data && typeof data.profile_data === 'object') ? data.profile_data : {};
         const demographicsData = (data.demographics_data && typeof data.demographics_data === 'object') ? data.demographics_data : {};
         
+        // IMPORTANT: profile_data takes precedence over demographics_data (legacy column)
         const merged = { 
-          ...(profileData as any), 
-          ...(demographicsData as any) 
+          ...(demographicsData as any),  // Old/legacy data first
+          ...(profileData as any)        // Current data overwrites
         };
         const migrated = migrateLegacyData(merged);
         result = { ...defaultProfile, ...migrated, version: '2.0' };
