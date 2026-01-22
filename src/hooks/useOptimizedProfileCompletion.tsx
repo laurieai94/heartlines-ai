@@ -16,11 +16,16 @@ const roundToMilestone = (progress: number): number => {
 
 // Streamlined hook for instant completion calculations
 export const useOptimizedProfileCompletion = () => {
-  const { profileData: personalData } = usePersonalProfileData();
-  const { profileData: partnerData } = usePartnerProfileData();
+  const { profileData: personalData, isReady: personalReady } = usePersonalProfileData();
+  const { profileData: partnerData, isReady: partnerReady } = usePartnerProfileData();
 
   // Memoized calculations - only recalculate when data changes
   const calculateYourCompletion = useCallback(() => {
+    // Return 0 if data hasn't loaded yet (prevents stale memoization)
+    if (!personalReady) {
+      return 0;
+    }
+    
     if (!personalData || Object.keys(personalData).length === 0) {
       return 0;
     }
@@ -47,9 +52,14 @@ export const useOptimizedProfileCompletion = () => {
       return calculateProgress(personalData as any);
     });
     return roundToMilestone(actualProgress);
-  }, [personalData]);
+  }, [personalData, personalReady]);
 
   const calculatePartnerCompletion = useCallback(() => {
+    // Return 0 if data hasn't loaded yet (prevents stale memoization)
+    if (!partnerReady) {
+      return 0;
+    }
+    
     if (!partnerData || Object.keys(partnerData).length === 0) {
       return 0;
     }
@@ -59,7 +69,7 @@ export const useOptimizedProfileCompletion = () => {
       return calculatePartnerProgress(partnerData as any);
     });
     return roundToMilestone(actualProgress);
-  }, [partnerData]);
+  }, [partnerData, partnerReady]);
 
   return {
     calculateYourCompletion,
