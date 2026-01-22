@@ -340,7 +340,7 @@ export default {
 				'fadeInOut': 'fadeInOut 1.4s ease-in-out infinite',
 				'wiggle': 'wiggle 6s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-				'soft-pulse-glow': 'soft-pulse-glow 4s ease-in-out infinite',
+				'soft-pulse-glow': 'soft-pulse-glow 8s ease-in-out infinite',
 				'emerald-soft-glow': 'emerald-soft-glow 6s ease-in-out infinite',
 				'shimmer': 'shimmer 3s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
