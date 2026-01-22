@@ -40,16 +40,16 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'other') {
-      updateField('pronouns', 'other');
+      updateFieldImmediate('pronouns', 'other');
       return;
     }
-    updateField('pronouns', pronoun);
+    updateFieldImmediate('pronouns', pronoun);
   };
 
   const handleCustomPronounChange = (value: string) => {
     setCustomPronoun(value);
     if (value.trim()) {
-      updateField('pronouns', value.trim());
+      updateFieldImmediate('pronouns', value.trim());
     }
   };
 
