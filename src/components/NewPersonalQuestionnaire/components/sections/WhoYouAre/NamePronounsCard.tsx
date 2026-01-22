@@ -4,7 +4,6 @@ import { User, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
-import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import { useState, useEffect } from "react";
 
 interface NamePronounsCardProps {
@@ -13,23 +12,15 @@ interface NamePronounsCardProps {
   isComplete: boolean;
 }
 
-const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: NamePronounsCardProps) => {
+const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronounsCardProps) => {
   const [customPronoun, setCustomPronoun] = useState('');
-  const { profileData: localData, isSyncing, lastSaved, updateFieldImmediate, flush } = usePersonalProfileData();
   
-  // Use local hook data for display (always most up-to-date)
-  const displayData = localData;
+  // Use prop data passed from parent - single source of truth
+  const displayData = profileData;
 
   const primaryPronounOptions = [
     'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'
   ];
-
-  // Flush on unmount
-  useEffect(() => {
-    return () => {
-      if (flush) flush();
-    };
-  }, [flush]);
 
   // Initialize custom pronoun if it exists and isn't a standard option
   useEffect(() => {
@@ -40,16 +31,16 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'other') {
-      updateFieldImmediate('pronouns', 'other');
+      updateField('pronouns', 'other');
       return;
     }
-    updateFieldImmediate('pronouns', pronoun);
+    updateField('pronouns', pronoun);
   };
 
   const handleCustomPronounChange = (value: string) => {
     setCustomPronoun(value);
     if (value.trim()) {
-      updateFieldImmediate('pronouns', value.trim());
+      updateField('pronouns', value.trim());
     }
   };
 
@@ -158,7 +149,7 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
                 id="name"
                 type="text"
                 value={displayData.name || ''}
-                onChange={(e) => updateFieldImmediate('name', e.target.value.trim())}
+                onChange={(e) => updateField('name', e.target.value.trim())}
                 placeholder="your name"
                 className="questionnaire-input-mobile font-medium w-full"
                 autoComplete="off"
