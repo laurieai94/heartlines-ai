@@ -70,7 +70,7 @@ const StepCard = ({
         </div>
         
         {/* Content */}
-        <div className="relative z-10 space-y-4">
+        <div className="relative z-10 space-y-4 flex-1">
           {/* Simple Icon */}
           <div className="inline-flex group-hover:scale-110 transition-all duration-300">
             <div className="w-8 h-8 flex items-center justify-center text-transparent bg-clip-text bg-gradient-to-br from-pink-300 via-orange-300 to-pink-400">
