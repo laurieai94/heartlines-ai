@@ -87,13 +87,13 @@ const StepCard = ({
         </div>
         
         {/* Description */}
-        <div className="relative z-10">
-          <p className="text-pink-50/95 text-base md:text-lg leading-loose mt-4 font-light tracking-wide
+        <div className="relative z-10 flex flex-col flex-1">
+          <p className="text-pink-50/95 text-base md:text-lg leading-loose mt-4 font-light tracking-wide flex-1
             drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
             group-hover:text-white transition-colors duration-300">
             {description}
           </p>
-          {secondaryText && <p className="text-pink-100/70 text-sm md:text-base leading-loose mt-2 font-light italic tracking-wide
+          {secondaryText && <p className="text-pink-100/70 text-sm md:text-base leading-loose mt-auto font-light italic tracking-wide
               drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
               group-hover:text-white/80 transition-colors duration-300">
               {secondaryText}
