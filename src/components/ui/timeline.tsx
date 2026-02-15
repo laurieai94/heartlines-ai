@@ -166,9 +166,13 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 ${isAccent ? 'p-4 md:p-5' : isLarge ? 'p-5 md:p-6' : 'p-4 md:p-5'}
                 ${isTall ? 'flex flex-col justify-center' : ''}
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+                ${isVisible ? 'md:animate-float' : ''}
                 relative overflow-hidden
               `}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{
+                transitionDelay: `${index * 100}ms`,
+                animationDelay: isVisible ? `${index * 1.2}s` : undefined,
+              }}
             >
               {/* Inner glow / light sweep */}
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(255,132,80,0.15)_0%,_transparent_60%)] rounded-2xl pointer-events-none" />
