@@ -106,6 +106,15 @@ const gridPlacements = [
   'md:col-span-3 md:row-span-1',
 ];
 
+// Per-card gradient variations
+const cardGradients = [
+  'bg-gradient-to-br from-burgundy-800/95 via-burgundy-700/85 to-pink-900/75',
+  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-coral-600/10',
+  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70',
+  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-pink-900/70',
+  'bg-gradient-to-r from-burgundy-800/90 via-burgundy-700/80 to-orange-900/30',
+];
+
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
@@ -147,44 +156,54 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
               data-index={index}
               className={`
                 ${gridPlacements[index] || ''}
-                bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70
+                ${cardGradients[index] || cardGradients[2]}
                 backdrop-blur-xl rounded-2xl
                 border border-pink-400/30
                 hover:border-orange-400/50
                 group hover:-translate-y-1
                 transition-all duration-700 ease-out
-                hover:shadow-2xl hover:shadow-pink-400/30
+                hover:shadow-[0_8px_32px_rgba(255,132,80,0.2),0_0_60px_rgba(236,72,153,0.15)]
                 ${isAccent ? 'p-4 md:p-5' : isLarge ? 'p-5 md:p-6' : 'p-4 md:p-5'}
                 ${isTall ? 'flex flex-col justify-center' : ''}
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+                relative overflow-hidden
               `}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* Icon */}
-              <div className={`flex ${isAccent ? 'justify-start' : 'justify-center'} mb-3 group-hover:scale-105 transition-transform duration-300`}>
-                <div className={`
-                  ${isLarge ? 'p-3.5' : 'p-2.5'}
-                  bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25
-                  rounded-2xl backdrop-blur-sm
-                  group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300
-                `}>
-                  {stop.icon}
+              {/* Inner glow / light sweep */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(255,132,80,0.15)_0%,_transparent_60%)] rounded-2xl pointer-events-none" />
+
+              {/* Content layer */}
+              <div className="relative z-10">
+                {/* Icon */}
+                <div className={`flex ${isAccent ? 'justify-start' : 'justify-center'} mb-3 group-hover:scale-105 transition-transform duration-300`}>
+                  <div className={`
+                    ${isLarge ? 'p-3.5 scale-125' : 'p-2.5'}
+                    bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25
+                    rounded-2xl backdrop-blur-sm
+                    group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300
+                  `}>
+                    {stop.icon}
+                  </div>
                 </div>
-              </div>
 
-              {/* Title */}
-              <h3 className={`
-                text-white font-bold leading-tight mb-1.5
-                ${isAccent ? 'text-lg md:text-xl text-left' : isLarge ? 'text-xl md:text-2xl text-center' : 'text-lg md:text-xl text-center'}
-              `}>
-                {stop.title}
-              </h3>
+                {/* Accent line */}
+                <div className={`${isAccent ? '' : 'mx-auto'} w-10 h-0.5 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full mb-3 opacity-60 group-hover:opacity-100 group-hover:w-14 transition-all duration-300`} />
 
-              {/* Subtitle — only the parenthetical quip */}
-              <div className={isAccent ? 'text-left' : 'text-center'}>
-                <p className="text-pink-100/60 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300">
-                  {stop.subtitle}
-                </p>
+                {/* Title */}
+                <h3 className={`
+                  text-white font-bold leading-tight mb-1.5 font-playfair
+                  ${isAccent ? 'text-lg md:text-xl text-left' : isLarge ? 'text-xl md:text-2xl text-center' : 'text-lg md:text-xl text-center'}
+                `}>
+                  {stop.title}
+                </h3>
+
+                {/* Subtitle */}
+                <div className={isAccent ? 'text-left' : 'text-center'}>
+                  <p className="text-pink-100/60 text-sm md:text-base font-light italic tracking-wide group-hover:text-white/70 transition-colors duration-300">
+                    {stop.subtitle}
+                  </p>
+                </div>
               </div>
             </div>
           );
