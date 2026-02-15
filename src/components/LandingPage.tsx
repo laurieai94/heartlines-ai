@@ -659,7 +659,7 @@ const LandingPage = ({
               }, {
                 step: "02",
                 title: "add your person",
-                description: "spill it, vent it, practice it. then get advice that actually slaps.",
+                description: "bring them in too, so kai sees the full picture.",
                 secondaryText: "(every story has two (+) main characters)",
                 icon: <Heart className="w-5 h-5" />,
                 iconName: "heart"
