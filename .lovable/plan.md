@@ -1,25 +1,23 @@
 
 
-## Replace Descriptions with Parenthesized Copy
+## Align Card Titles and Descriptions Horizontally Across Cards
 
-**File: `src/components/LandingPage.tsx`**
+**File: `src/components/LandingPage.tsx` (StepCard component, lines 51-97)**
 
-### Card Data Changes (lines 652-679)
+### Problem
+The icon and title share a `flex-1` container, so cards with longer titles push the description block down unevenly. Titles and descriptions don't line up across the row.
 
-Swap descriptions to use the current secondary text content (without parentheses), then remove `secondaryText` fields:
+### Solution
+Restructure the card's internal layout so the icon has a fixed height, the title has a fixed height allocation, and the description always starts at the same vertical position.
 
-| Card | New Description |
-|------|----------------|
-| 01 | "no fake bios here" |
-| 02 | "every story has two (+) main characters" |
-| 03 | "less textbook therapy, more real talk" |
-| 04 | "because the magic happens offline" |
+### Changes
 
-### Remove Secondary Text Rendering (lines 96-100)
+1. **Remove `flex-1` from the top content div** (line 73): change `space-y-4 flex-1` to just `space-y-4` so the icon+title section takes only its natural height rather than stretching
 
-Delete the `{secondaryText && ...}` conditional block from the `StepCard` component since it's no longer needed.
+2. **Give the icon a fixed height** (line 75): add `h-8` to the icon wrapper so it's consistent
 
-### Result
+3. **Give the title a minimum height** (line 82): add `min-h-[3.5rem] md:min-h-[4rem] flex items-end` to the title `h3` so all titles occupy the same vertical space regardless of wrapping, and text aligns to the bottom
 
-Each card gets a short, punchy one-liner instead of two competing text blocks -- cleaner and more visually appealing.
+4. **Keep `flex-1` on the description div** (line 90): this already has `flex-1` which will push the description to fill remaining space consistently
 
+This ensures across all four cards: icons align, titles align at their baseline, and descriptions start at the same vertical position.
