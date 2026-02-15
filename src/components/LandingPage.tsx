@@ -70,9 +70,9 @@ const StepCard = ({
         </div>
         
         {/* Content */}
-        <div className="relative z-10 space-y-4 flex-1">
+        <div className="relative z-10 space-y-4">
           {/* Simple Icon */}
-          <div className="inline-flex group-hover:scale-110 transition-all duration-300">
+          <div className="inline-flex h-8 group-hover:scale-110 transition-all duration-300">
             <div className="w-8 h-8 flex items-center justify-center text-transparent bg-clip-text bg-gradient-to-br from-pink-300 via-orange-300 to-pink-400">
               {icon}
             </div>
@@ -80,6 +80,7 @@ const StepCard = ({
           
           {/* Clean Title */}
           <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light tracking-wide
+            min-h-[3.5rem] md:min-h-[4rem] flex items-end
             drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]
             group-hover:text-pink-100 transition-colors duration-300">
             {title}
