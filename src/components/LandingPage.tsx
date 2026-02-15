@@ -93,7 +93,7 @@ const StepCard = ({
             group-hover:text-white transition-colors duration-300">
             {description}
           </p>
-          {secondaryText && <p className="text-pink-100/70 text-sm md:text-base leading-loose mt-auto font-light italic tracking-wide
+          {secondaryText && <p className="text-pink-100/70 text-sm md:text-base leading-loose mt-2 mt-auto font-light italic tracking-wide
               drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
               group-hover:text-white/80 transition-colors duration-300">
               {secondaryText}
