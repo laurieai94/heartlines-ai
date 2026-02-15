@@ -1,12 +1,12 @@
 
 
-## Remove "unlocks advice that fits your actual dynamic" Text
+## Remove Subtitle Text Under Partner Profile Names
 
 ### Change
 
-**File: `src/components/ProfileBuilder.tsx`** (lines 354-357)
+**File: `src/components/profile/PartnerProfileManager.tsx`** (around line 155)
 
-Remove the array entry containing `"unlocks advice that fits your actual dynamic"` from the benefits/features list. This means deleting the object `{ icon: <Sparkles ...>, text: "unlocks advice that fits your actual dynamic" }` and its surrounding comma.
+Remove the `<p>` element that displays `getProfileDescription(profile.profile_data)` beneath each partner's name. This is the line showing text like "secure - thoughtful gifts that show you 'get' them".
 
-No other files are affected.
+The `getProfileDescription` helper function at the top of the file can also be removed since it will no longer be used.
 
