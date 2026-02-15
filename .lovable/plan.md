@@ -1,50 +1,33 @@
 
 
-## Enhance Bento Grid Cards + Remove Trailing Periods
+## Add Subtle Idle Movements to Bento Cards (Desktop)
 
-Two changes: visually elevate the cards while staying within the brand, and strip the periods from subtitle text.
+Add gentle, continuous micro-animations to the bento grid cards on desktop to make the section feel alive and dynamic.
 
-### 1. Remove trailing periods from subtitles
-**File: `src/components/LandingPage.tsx`** (lines 873-889)
+### Approach
 
-Remove the `.` at the end of all five subtitle strings:
-- `"\"good vibes only\" never fixed a fight."`  -->  `"\"good vibes only\" never fixed a fight"`
-- `"every identity, every story, no binaries."`  -->  `"every identity, every story, no binaries"`
-- `"your relationship won't wait for your cal to clear."`  -->  `"your relationship won't wait for your cal to clear"`
-- `"healthy tension > silent scrolling."`  -->  `"healthy tension > silent scrolling"`
-- `"encrypted, never sold—your heartbreak isn't a dataset."`  -->  `"encrypted, never sold—your heartbreak isn't a dataset"`
+Apply CSS `@keyframes` animations that create a slow, floating/breathing effect on each card. Each card gets a slightly different animation delay and subtle variation so they don't all move in sync -- this creates an organic, living feel.
 
-### 2. Visual enhancements to bento cards
+### Animations
+
+- **Gentle float**: Cards slowly drift up/down by ~3-4px on a long cycle (6-8 seconds)
+- **Staggered timing**: Each card gets a different `animation-delay` based on its index so the movement feels natural, not robotic
+- **Desktop only**: Wrap in `md:` responsive prefix or use a media query check -- no movement on mobile to avoid jank on touch devices
+
+### Technical Details
+
 **File: `src/components/ui/timeline.tsx`**
 
-Layer several subtle effects to make the cards feel richer without breaking the brand:
+1. Add a `float` keyframe animation via inline styles or Tailwind arbitrary values:
+   - `@keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }`
+   - Duration: ~6s per card, with `ease-in-out` for smoothness
+   - Each card gets `animation-delay: ${index * 1.2}s` for stagger
 
-**a) Add a subtle inner glow / light sweep**
-- Add a `::before` pseudo-element (via an inner div) with a radial gradient highlight in the top-left corner (`bg-[radial-gradient(ellipse_at_top_left,_rgba(255,132,80,0.15)_0%,_transparent_60%)]`). This gives each card a warm "lit from above" feel.
+2. Apply the animation only on `md:` breakpoint using a wrapper class or media query check
 
-**b) Increase icon size on hero/wide cards**
-- Scale up icons on the larger cards (index 0, 3) from 32x32 to 40x40 by wrapping them in a `scale-125` container, making the hierarchy more pronounced.
+3. Ensure hover transforms (`hover:-translate-y-1`) still layer properly on top of the float by using separate transform properties or combining them
 
-**c) Add a subtle decorative accent line**
-- Place a small horizontal gradient bar (coral-to-pink, ~40px wide, 2px tall) between the icon and title on each card. This adds visual rhythm and ties into the brand gradient.
+### Result
 
-**d) Improve card backgrounds with variation**
-- Give each card a slightly unique gradient angle or tint so they don't all look identical:
-  - Hero card (index 0): `from-burgundy-800/95 via-burgundy-700/85 to-pink-900/75` (slightly brighter)
-  - Tall card (index 1): add a subtle coral tint `to-coral-600/10`
-  - Accent strip (index 4): use a more horizontal gradient with a hint of orange
-
-**e) Enhance hover state**
-- Add `hover:shadow-[0_8px_32px_rgba(255,132,80,0.2),0_0_60px_rgba(236,72,153,0.15)]` for a multi-layer warm glow on hover instead of the single pink shadow.
-
-**f) Typography refinement**
-- Make titles use `font-playfair` (Playfair Display) for a more editorial, premium feel that matches the brand's "Modern Nostalgia" language.
-- Bump subtitle `tracking-wide` for better readability.
-
-### Technical summary
-
-| File | Changes |
-|------|---------|
-| `src/components/LandingPage.tsx` | Remove trailing `.` from 5 subtitle strings |
-| `src/components/ui/timeline.tsx` | Add inner glow div, accent line, font refinement, enhanced hover shadows, icon scaling, slight gradient variation per card |
+Cards will gently bob in place like they're floating, each slightly out of phase with the others -- creating a premium, polished feel without being distracting.
 
