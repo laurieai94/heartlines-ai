@@ -12,6 +12,35 @@ interface PartnerProfileManagerProps {
   onUpgrade: () => void;
 }
 
+const getProfileDescription = (profileData: Record<string, any> | null): string => {
+  if (!profileData) return 'tap ✏️ to complete';
+  
+  const parts: string[] = [];
+  
+  // Attachment style - just the key word
+  if (profileData.partnerAttachmentStyle) {
+    const attachmentKey = profileData.partnerAttachmentStyle.split(' - ')[0];
+    parts.push(attachmentKey);
+  }
+  
+  // Love language - first one, shortened
+  if (profileData.partnerLoveLanguage?.length > 0) {
+    const firstLove = profileData.partnerLoveLanguage[0];
+    const shortLove = firstLove.split(' - ')[0] || firstLove.substring(0, 25);
+    parts.push(shortLove);
+  }
+  
+  // Conflict style - just the key phrase
+  if (profileData.partnerConflictStyle?.length > 0) {
+    const firstConflict = profileData.partnerConflictStyle[0];
+    const shortConflict = firstConflict.split(' — ')[0];
+    parts.push(shortConflict);
+  }
+  
+  if (parts.length === 0) return 'tap ✏️ to complete';
+  
+  return parts.join(' • ');
+};
 
 const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManagerProps) => {
   const {
@@ -143,6 +172,9 @@ const PartnerProfileManager = ({ onEditProfile, onUpgrade }: PartnerProfileManag
                         <div>
                           <p className="text-white font-medium">
                             {profile.partner_profile_name}
+                          </p>
+                          <p className="text-xs text-white/50 line-clamp-1">
+                            {getProfileDescription(profile.profile_data)}
                           </p>
                         </div>
                       </div>
