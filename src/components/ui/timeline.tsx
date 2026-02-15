@@ -196,7 +196,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
 
                 {/* Title */}
                 <h3 className={`
-                  text-white font-bold leading-tight mb-1.5 font-playfair
+                  text-white font-light tracking-wide leading-tight mb-1.5 font-playfair drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]
                   ${isAccent ? 'text-lg md:text-xl text-left' : isLarge ? 'text-xl md:text-2xl text-center' : 'text-lg md:text-xl text-center'}
                 `}>
                   {stop.title}
@@ -204,7 +204,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
 
                 {/* Subtitle */}
                 <div className={isAccent ? 'text-left' : 'text-center'}>
-                  <p className="text-pink-100/60 text-sm md:text-base font-light italic tracking-wide group-hover:text-white/70 transition-colors duration-300">
+                  <p className="text-pink-50/95 text-sm md:text-base font-light tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] group-hover:text-white transition-colors duration-300">
                     {stop.subtitle}
                   </p>
                 </div>
