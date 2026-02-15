@@ -100,13 +100,18 @@ export const CommunityIcon = () => (
         <stop offset="100%" stopColor="#ff6b9d" />
       </linearGradient>
     </defs>
-    <path d="M16 6v8" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M12 10c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <path d="M10 18c0 0 2-2 6-2s6 2 6 2" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <circle cx="10" cy="22" r="3" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
-    <circle cx="22" cy="22" r="3" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
-    <circle cx="16" cy="26" r="2.5" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
-    <path d="M13 26h-1M19 26h1" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Left hand */}
+    <path d="M6 26c1-3 3-5 6-7" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <path d="M6 26c-1-1 0-3 2-3" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <path d="M9 21l1-2M11 20l1-2M12 19l1-1" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Right hand */}
+    <path d="M26 26c-1-3-3-5-6-7" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <path d="M26 26c1-1 0-3-2-3" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <path d="M23 21l-1-2M21 20l-1-2M20 19l-1-1" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Seedling */}
+    <path d="M16 18v-6" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M16 14c-2-2-4-1-4 1 1 2 3 1 4-1z" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    <path d="M16 11c2-2 4-1 4 1-1 2-3 1-4-1z" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
   </svg>
 );
 
