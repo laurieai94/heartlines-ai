@@ -1,33 +1,22 @@
 
 
-## Add Subtle Idle Movements to Bento Cards (Desktop)
+## Update Bento Card Titles and Subtitles
 
-Add gentle, continuous micro-animations to the bento grid cards on desktop to make the section feel alive and dynamic.
+Simple text update to the five bento grid cards in `src/components/LandingPage.tsx` (around lines 871-890).
 
-### Approach
+### Changes
 
-Apply CSS `@keyframes` animations that create a slow, floating/breathing effect on each card. Each card gets a slightly different animation delay and subtle variation so they don't all move in sync -- this creates an organic, living feel.
+| Current Title | New Title | Subtitle (unchanged) |
+|---|---|---|
+| real talk only | no fake positivity | "good vibes only" never fixed a fight |
+| queer- and trauma-informed | for actual humans | every identity, every story, no binaries |
+| built for busy | made for right now | your relationship won't wait for your calendar to clear |
+| tough talks welcome | conflict-ready | healthy tension > silent scrolling |
+| private by design | private, always | encrypted, never sold—your heartbreak isn't a dataset |
 
-### Animations
+Note: The subtitle for "made for right now" also changes slightly -- "cal" becomes "calendar".
 
-- **Gentle float**: Cards slowly drift up/down by ~3-4px on a long cycle (6-8 seconds)
-- **Staggered timing**: Each card gets a different `animation-delay` based on its index so the movement feels natural, not robotic
-- **Desktop only**: Wrap in `md:` responsive prefix or use a media query check -- no movement on mobile to avoid jank on touch devices
+### Technical detail
 
-### Technical Details
-
-**File: `src/components/ui/timeline.tsx`**
-
-1. Add a `float` keyframe animation via inline styles or Tailwind arbitrary values:
-   - `@keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }`
-   - Duration: ~6s per card, with `ease-in-out` for smoothness
-   - Each card gets `animation-delay: ${index * 1.2}s` for stagger
-
-2. Apply the animation only on `md:` breakpoint using a wrapper class or media query check
-
-3. Ensure hover transforms (`hover:-translate-y-1`) still layer properly on top of the float by using separate transform properties or combining them
-
-### Result
-
-Cards will gently bob in place like they're floating, each slightly out of phase with the others -- creating a premium, polished feel without being distracting.
+Single file edit in `src/components/LandingPage.tsx`, updating the `title` property on all five `stops` objects and the `subtitle` on the third card. The pill badges above the section (lines ~810-830) that reference "private by design" will also be updated to "private, always" for consistency.
 
