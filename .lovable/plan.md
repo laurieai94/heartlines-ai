@@ -1,55 +1,46 @@
 
 
-## Update Bento Grid: New Card Text + Two New Cards
+## Redesign Bento Grid Custom SVG Icons
 
-### Overview
-Update all five existing card texts and add two new cards ("context-aware" and "built to give back") to the bento grid, expanding from 5 to 7 cards. The grid layout needs to be adjusted to accommodate the extra cards.
+Make the 7 bento card icons larger, bolder, and more visually distinct from each other while keeping the hand-drawn gradient line-art style.
 
-### Changes
+### Current Issues
+- All icons are 32x32 -- too small to make an impact in the card layout
+- Stroke width of 1.5 makes them feel wispy against the dark background
+- Several icons look similar at a glance (PersonalIcon and CommunityIcon both use circles/people shapes)
+- The gradient is identical across all 7 icons, reducing visual variety
 
-#### 1. `src/components/LandingPage.tsx` -- Update stops array
+### Proposed Improvements
 
-Update existing 5 cards and add 2 new entries:
+| Card | Icon | Redesign Direction |
+|---|---|---|
+| no fake positivity | HeartSupportIcon (heart + plus) | Broken speech bubble with a crossed-out smiley -- "no toxic positivity" feel |
+| for actual humans | InclusiveIcon (venn diagram) | Spectrum/rainbow arc with diverse abstract figures -- more recognizably "inclusive" |
+| made for right now | ClockIcon (clock face) | Lightning bolt through a clock -- urgency and immediacy |
+| conflict-ready | ConversationIcon (chat bubble) | Two speech bubbles colliding with a spark -- constructive tension |
+| private, always | ShieldIcon (shield + check) | Lock with a heart keyhole -- privacy meets intimacy |
+| context-aware | PersonalIcon (person + check) | Brain with connecting threads -- "knows the lore" |
+| built to give back | CommunityIcon (circles) | Hands cupping a seedling/sprout -- growth and giving |
 
-| # | Title | Subtitle | Icon |
-|---|---|---|---|
-| 1 | no fake positivity | "good vibes only" never fixed a fight. | HeartSupportIcon |
-| 2 | for actual humans | every identity, every story, no binaries. | InclusiveIcon |
-| 3 | made for right now | your relationship won't wait for your calendar to clear. | ClockIcon |
-| 4 | conflict-ready | healthy tension > silent scrolling. | ConversationIcon |
-| 5 | private, always | encrypted, never sold -- your heartbreak isn't a dataset. | ShieldIcon |
-| 6 (new) | context-aware | advice that knows the lore, no recaps needed. | PersonalIcon |
-| 7 (new) | built to give back | revenue funds community tools, not investor decks. | New icon (e.g. a simple community/give-back SVG) |
+### Technical Changes
 
-Will need to import or create an icon for card 7. PersonalIcon is already exported and fits "context-aware" well.
+**File: `src/components/ui/timeline.tsx`**
 
-#### 2. `src/components/ui/timeline.tsx` -- Expand grid config
+1. **Increase canvas size**: 32x32 to 48x48 for sharper detail at card scale
+2. **Increase stroke width**: 1.5 to 2 for bolder presence
+3. **Per-icon gradient hues**: Shift each icon's gradient slightly so they aren't all identical orange-to-pink. For example:
+   - Card 1: warm coral to rose
+   - Card 2: violet to pink
+   - Card 3: amber to orange
+   - Card 4: coral to red
+   - Card 5: teal-pink to lavender
+   - Card 6: gold to coral
+   - Card 7: green-teal to warm gold
+4. **Redraw all 7 SVG paths** with more distinctive, recognizable shapes
+5. **Update icon container padding** in the Timeline component to accommodate the larger 48px icons (adjust the `p-2.5` / `p-3.5` classes)
 
-**gridPlacements** -- add 2 more entries for a balanced 7-card bento on a 3-column grid:
+**File: `src/components/LandingPage.tsx`** -- no changes needed (icons are referenced by component name, which stays the same)
 
-```text
-Current (5 cards):        New (7 cards):
-[  2-col  ] [ tall ]      [  2-col  ] [ tall ]
-[ 1-col  ] [ tall ]      [ 1-col  ] [ tall ]
-[   2-col wide   ]       [   2-col wide   ]
-[    3-col full    ]      [ 1-col ] [  2-col  ]
-                          [    3-col full    ]
-```
-
-New placements:
-- Card 6: `md:col-span-1 md:row-span-1` (standard)
-- Card 7: `md:col-span-2 md:row-span-1` (wide)
-- Move the full-width "private, always" card to position 7 (last) as the accent strip, or keep order as-is and assign new cards at the end
-
-**cardGradients** -- add 2 more gradient entries for visual variety
-
-**Card logic** -- the `isAccent` check (`index === stops.length - 1`) already targets the last card dynamically, so the full-width accent strip will automatically apply to "built to give back" as card 7
-
-#### 3. New icon for "built to give back"
-
-Create a simple community/giving SVG icon (e.g. hands or a sprout) in the same gradient line-art style as the existing icons, exported from `timeline.tsx`.
-
-### Files Modified
-- `src/components/ui/timeline.tsx` -- new icon, expanded gridPlacements and cardGradients arrays
-- `src/components/LandingPage.tsx` -- two new entries in the stops array
+### Result
+Each card gets a unique, immediately recognizable icon that feels bold and editorial, with subtle color variation that adds visual richness while staying within the warm brand palette.
 
