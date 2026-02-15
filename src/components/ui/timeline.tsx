@@ -10,103 +10,151 @@ interface TimelineProps {
   stops: TimelineStop[];
 }
 
-// Custom Heartlines-style icons with minimal line art and gradients
-export const PersonalIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="personal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff8450" />
-        <stop offset="100%" stopColor="#ff6b9d" />
-      </linearGradient>
-    </defs>
-    <circle cx="16" cy="10" r="5" stroke="url(#personal-gradient)" strokeWidth="1.5" fill="none"/>
-    <path d="M8 24c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="url(#personal-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <path d="M12 22l2 2 4-4" stroke="url(#personal-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+// Custom Heartlines-style icons — 48x48, stroke-width 2, per-icon gradient hues
 
-export const InclusiveIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="inclusive-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff8450" />
-        <stop offset="100%" stopColor="#ff6b9d" />
-      </linearGradient>
-    </defs>
-    <circle cx="12" cy="16" r="6" stroke="url(#inclusive-gradient)" strokeWidth="1.5" fill="none"/>
-    <circle cx="20" cy="16" r="6" stroke="url(#inclusive-gradient)" strokeWidth="1.5" fill="none"/>
-    <path d="M16 13l-2 2 2 2 2-2-2-2z" stroke="url(#inclusive-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-  </svg>
-);
-
-export const ShieldIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff8450" />
-        <stop offset="100%" stopColor="#ff6b9d" />
-      </linearGradient>
-    </defs>
-    <path d="M16 4l-8 3v7c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V7l-8-3z" stroke="url(#shield-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-    <path d="M11 15l3 3 6-6" stroke="url(#shield-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
+// Card 1: "no fake positivity" — broken speech bubble with crossed-out smiley
 export const HeartSupportIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff8450" />
-        <stop offset="100%" stopColor="#ff6b9d" />
+        <stop offset="0%" stopColor="#ff7b6b" />
+        <stop offset="100%" stopColor="#e84393" />
       </linearGradient>
     </defs>
-    <path d="M16 26s-8-5-8-12c0-3 2-5 5-5 2 0 3 1 3 3 0-2 1-3 3-3 3 0 5 2 5 5 0 7-8 12-8 12z" stroke="url(#heart-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-    <path d="M14 16h4M16 14v4" stroke="url(#heart-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Speech bubble outline with gap/break */}
+    <path d="M10 14c0-3 2.5-5 6-5h16c3.5 0 6 2 6 5v12c0 3-2.5 5-6 5H22l-6 5v-5h-6V14z" stroke="url(#heart-gradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" strokeDasharray="4 2"/>
+    {/* Smiley face */}
+    <circle cx="20" cy="19" r="1.5" fill="url(#heart-gradient)"/>
+    <circle cx="28" cy="19" r="1.5" fill="url(#heart-gradient)"/>
+    <path d="M19 24c1.5 2 5.5 2 7 0" stroke="url(#heart-gradient)" strokeWidth="2" strokeLinecap="round"/>
+    {/* Cross-out slash */}
+    <path d="M14 10l20 22" stroke="url(#heart-gradient)" strokeWidth="2.5" strokeLinecap="round" opacity="0.9"/>
   </svg>
 );
 
+// Card 2: "for actual humans" — rainbow arc with abstract diverse figures
+export const InclusiveIcon = () => (
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="inclusive-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#a855f7" />
+        <stop offset="100%" stopColor="#ec4899" />
+      </linearGradient>
+    </defs>
+    {/* Rainbow arc */}
+    <path d="M8 34c0-8.837 7.163-16 16-16s16 7.163 16 34" stroke="url(#inclusive-gradient)" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.4"/>
+    <path d="M12 34c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="url(#inclusive-gradient)" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.7"/>
+    <path d="M16 34c0-4.418 3.582-8 8-8s8 3.582 8 34" stroke="url(#inclusive-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    {/* Three diverse abstract figures */}
+    <circle cx="16" cy="38" r="2.5" stroke="url(#inclusive-gradient)" strokeWidth="2" fill="none"/>
+    <circle cx="24" cy="36" r="2.5" stroke="url(#inclusive-gradient)" strokeWidth="2" fill="none"/>
+    <circle cx="32" cy="38" r="2.5" stroke="url(#inclusive-gradient)" strokeWidth="2" fill="none"/>
+    <path d="M16 41v3M24 39v5M32 41v3" stroke="url(#inclusive-gradient)" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+// Card 3: "made for right now" — lightning bolt through a clock
 export const ClockIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="clock-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff8450" />
-        <stop offset="100%" stopColor="#ff6b9d" />
+        <stop offset="0%" stopColor="#f59e0b" />
+        <stop offset="100%" stopColor="#ff6b35" />
       </linearGradient>
     </defs>
-    <circle cx="16" cy="16" r="10" stroke="url(#clock-gradient)" strokeWidth="1.5" fill="none"/>
-    <path d="M16 8v8l4 4" stroke="url(#clock-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M22 6l2 2M8 6L6 8" stroke="url(#clock-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Clock circle */}
+    <circle cx="24" cy="24" r="14" stroke="url(#clock-gradient)" strokeWidth="2" fill="none"/>
+    {/* Clock hands */}
+    <path d="M24 14v10l5 5" stroke="url(#clock-gradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    {/* Lightning bolt overlay */}
+    <path d="M26 6l-6 16h8l-6 18" stroke="url(#clock-gradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.85"/>
   </svg>
 );
 
+// Card 4: "conflict-ready" — two speech bubbles colliding with a spark
 export const ConversationIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="conversation-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff8450" />
-        <stop offset="100%" stopColor="#ff6b9d" />
+        <stop offset="0%" stopColor="#ff7b6b" />
+        <stop offset="100%" stopColor="#dc2626" />
       </linearGradient>
     </defs>
-    <path d="M6 10c0-2 1.5-4 4-4h12c2.5 0 4 2 4 4v8c0 2-1.5 4-4 4h-8l-4 4v-4h-4v-12z" stroke="url(#conversation-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-    <path d="M12 14h8M12 18h5" stroke="url(#conversation-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Left speech bubble */}
+    <path d="M6 12c0-2.5 2-4 4.5-4h10c2.5 0 4.5 1.5 4.5 4v7c0 2.5-2 4-4.5 4h-4l-4 4v-4H10.5c-2.5 0-4.5-1.5-4.5-4v-7z" stroke="url(#conversation-gradient)" strokeWidth="2" strokeLinejoin="round" fill="none"/>
+    {/* Right speech bubble */}
+    <path d="M23 20c0-2.5 2-4 4.5-4h10c2.5 0 4.5 1.5 4.5 4v7c0 2.5-2 4-4.5 4H34l-4 4v-4h-2.5c-2.5 0-4.5-1.5-4.5-4v-7z" stroke="url(#conversation-gradient)" strokeWidth="2" strokeLinejoin="round" fill="none"/>
+    {/* Spark / collision */}
+    <path d="M22 18l2-3M24 22l3-1M22 24l1 3" stroke="url(#conversation-gradient)" strokeWidth="2.5" strokeLinecap="round"/>
   </svg>
 );
 
-export const CommunityIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+// Card 5: "private, always" — lock with heart-shaped keyhole
+export const ShieldIcon = () => (
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="community-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff8450" />
-        <stop offset="100%" stopColor="#ff6b9d" />
+      <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#ec4899" />
+        <stop offset="100%" stopColor="#a78bfa" />
       </linearGradient>
     </defs>
-    <path d="M16 6v8" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M12 10c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <path d="M10 18c0 0 2-2 6-2s6 2 6 2" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <circle cx="10" cy="22" r="3" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
-    <circle cx="22" cy="22" r="3" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
-    <circle cx="16" cy="26" r="2.5" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
-    <path d="M13 26h-1M19 26h1" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Lock body */}
+    <rect x="12" y="20" width="24" height="18" rx="4" stroke="url(#shield-gradient)" strokeWidth="2" fill="none"/>
+    {/* Lock shackle */}
+    <path d="M16 20v-5c0-4.418 3.582-8 8-8s8 3.582 8 8v5" stroke="url(#shield-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    {/* Heart keyhole */}
+    <path d="M24 27c-1-1-3-1-3 1s2 3 3 4c1-1 3-2 3-4s-2-2-3-1z" stroke="url(#shield-gradient)" strokeWidth="2" fill="none" strokeLinejoin="round"/>
+    <path d="M24 32v3" stroke="url(#shield-gradient)" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+// Card 6: "context-aware" — brain with connecting threads
+export const PersonalIcon = () => (
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="personal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#ff7b6b" />
+      </linearGradient>
+    </defs>
+    {/* Brain outline — left hemisphere */}
+    <path d="M24 8c-5 0-10 3-10 9 0 3 1 5 3 7s2 5 2 8h5" stroke="url(#personal-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    {/* Brain outline — right hemisphere */}
+    <path d="M24 8c5 0 10 3 10 9 0 3-1 5-3 7s-2 5-2 8h-5" stroke="url(#personal-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    {/* Brain center line */}
+    <path d="M24 8v24" stroke="url(#personal-gradient)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+    {/* Brain folds */}
+    <path d="M18 16c2 1 4 0 6-1M24 15c2 1 4 2 6 1" stroke="url(#personal-gradient)" strokeWidth="2" strokeLinecap="round"/>
+    {/* Connecting threads / nodes */}
+    <circle cx="10" cy="14" r="2" stroke="url(#personal-gradient)" strokeWidth="2" fill="none"/>
+    <circle cx="38" cy="14" r="2" stroke="url(#personal-gradient)" strokeWidth="2" fill="none"/>
+    <circle cx="10" cy="28" r="2" stroke="url(#personal-gradient)" strokeWidth="2" fill="none"/>
+    <circle cx="38" cy="28" r="2" stroke="url(#personal-gradient)" strokeWidth="2" fill="none"/>
+    <path d="M12 14l2 2M36 14l-2 2M12 28l3-2M36 28l-3-2" stroke="url(#personal-gradient)" strokeWidth="1.5" strokeLinecap="round" opacity="0.6"/>
+  </svg>
+);
+
+// Card 7: "built to give back" — hands cupping a seedling
+export const CommunityIcon = () => (
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="community-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#34d399" />
+        <stop offset="100%" stopColor="#d4a574" />
+      </linearGradient>
+    </defs>
+    {/* Seedling stem */}
+    <path d="M24 22v14" stroke="url(#community-gradient)" strokeWidth="2" strokeLinecap="round"/>
+    {/* Left leaf */}
+    <path d="M24 22c-6-2-8-8-6-12 4 0 7 4 6 12z" stroke="url(#community-gradient)" strokeWidth="2" strokeLinejoin="round" fill="none"/>
+    {/* Right leaf */}
+    <path d="M24 26c6-1 9-6 8-10-4 0-8 3-8 10z" stroke="url(#community-gradient)" strokeWidth="2" strokeLinejoin="round" fill="none"/>
+    {/* Left cupping hand */}
+    <path d="M8 34c0-3 3-5 7-6l3-1c2 0 3 1 3 3" stroke="url(#community-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    <path d="M8 34c-1 2-1 4 0 6l4 2" stroke="url(#community-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    {/* Right cupping hand */}
+    <path d="M40 34c0-3-3-5-7-6l-3-1c-2 0-3 1-3 3" stroke="url(#community-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    <path d="M40 34c1 2 1 4 0 6l-4 2" stroke="url(#community-gradient)" strokeWidth="2" strokeLinecap="round" fill="none"/>
   </svg>
 );
 
@@ -199,7 +247,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 {/* Icon */}
                 <div className={`flex ${isAccent ? 'justify-start' : 'justify-center'} mb-3 group-hover:scale-105 transition-transform duration-300`}>
                   <div className={`
-                    ${isLarge ? 'p-3.5 scale-125' : 'p-2.5'}
+                    ${isLarge ? 'p-4 scale-110' : 'p-3'}
                     bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25
                     rounded-2xl backdrop-blur-sm
                     group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300
