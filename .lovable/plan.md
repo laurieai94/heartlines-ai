@@ -1,50 +1,19 @@
 
 
-## Two Changes: Remove Periods from Subtitles + Add 3D Glow to Section Headers
+## Fix Number Badge and Card Colors to Match Heartlines Brand
 
-### 1. Remove Periods from Bento Grid Subtitles
+### Problem
+The "How It Works" step number badges use `from-pink-500 via-orange-500 to-pink-600` -- that bright `orange-500` middle stop looks too orange and clashes with the heartlines warm burgundy/coral palette. The cards and numbers should feel cohesive with the bento grid cards further down the page, which use burgundy/pink tones.
 
-**File: `src/components/LandingPage.tsx`** (lines 871-899)
+### Changes
 
-Remove the trailing period from all 7 subtitle strings:
+**File: `src/components/LandingPage.tsx`**
 
-| Current | Updated |
-|---|---|
-| "healthy tension > silent scrolling." | "healthy tension > silent scrolling" |
-| "every identity, every story, no binaries." | "every identity, every story, no binaries" |
-| "encrypted, never sold--your heartbreak isn't a dataset." | "encrypted, never sold--your heartbreak isn't a dataset" |
-| "your relationship won't wait for your calendar to clear." | "your relationship won't wait for your calendar to clear" |
-| "\"good vibes only\" never fixed a fight." | "\"good vibes only\" never fixed a fight" |
-| "advice that knows the lore, no recaps needed." | "advice that knows the lore, no recaps needed" |
-| "revenue funds community tools, not investor decks." | "revenue funds community tools, not investor decks" |
+1. **Number badges (line 63)**: Replace `from-pink-500 via-orange-500 to-pink-600` with `from-pink-500 via-coral-500 to-rose-600` -- shifting from bright orange to a warm coral that matches the brand
+2. **Badge shadow (line 64)**: Keep `shadow-pink-500/40` as-is (already on-brand)
 
-### 2. Add Subtle 3D Glow Effect to Section Headers
+This one-line gradient swap brings the number circles in line with the warm coral/pink/burgundy tones used in the bento grid cards, the CTA buttons, and the rest of the heartlines visual identity. No other files need changes.
 
-The reference images show a soft glossy/embossed look -- lighter pink highlight on top fading to a slightly deeper tone, with a warm diffused glow underneath. The current headers use `bg-clip-text text-transparent` which makes `textShadow` invisible since the text itself is transparent.
-
-**Fix approach**: Wrap each header text in a `<span>` structure that layers:
-- The gradient text (existing `bg-clip-text` technique) as the visible layer
-- A duplicate behind it using `absolute` positioning with a soft pink `textShadow` to create the glow/depth effect
-
-**File: `src/components/LandingPage.tsx`** -- Update all 3 section headers ("how it works", "meet kai", "why we're different"):
-
-For each `h2`, replace the inline `style={{ textShadow }}` approach with a wrapper pattern:
-
-```text
-<h2 className="relative ...existing classes minus style...">
-  {/* Glow layer behind */}
-  <span className="absolute inset-0 text-pink-200/40 blur-[2px]"
-    style={{ textShadow: '0 2px 12px rgba(236,72,153,0.5), 0 6px 20px rgba(251,146,60,0.3)' }}>
-    how it works
-  </span>
-  {/* Gradient text on top */}
-  <span className="relative bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent">
-    how it works
-  </span>
-</h2>
-```
-
-This creates the subtle 3D depth: a soft diffused glow sits behind the crisp gradient text, giving the embossed/glossy look from the reference images without being too bold.
-
-All 3 headers get the same treatment with their respective text content.
+### Result
+The number badges shift from a jarring bright orange to a warm coral-to-rose gradient that blends naturally with the card backgrounds and the bento grid further down the page.
 
