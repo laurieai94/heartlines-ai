@@ -1,19 +1,25 @@
 
+## Two Changes: Globe Icon + Match "How It Works" Card Colors
 
-## Fix Number Badge and Card Colors to Match Heartlines Brand
+### 1. Replace CommunityIcon with a Globe/World Icon
 
-### Problem
-The "How It Works" step number badges use `from-pink-500 via-orange-500 to-pink-600` -- that bright `orange-500` middle stop looks too orange and clashes with the heartlines warm burgundy/coral palette. The cards and numbers should feel cohesive with the bento grid cards further down the page, which use burgundy/pink tones.
+**File: `src/components/ui/timeline.tsx`** (lines 95-116)
 
-### Changes
+Replace the current hands/seedling SVG paths in `CommunityIcon` with a simple globe design:
+- A circle for the earth outline
+- Horizontal curved latitude lines
+- A vertical ellipse for the longitude meridian
+- Same 32x32 viewBox, same `community-gradient`, same stroke style
 
-**File: `src/components/LandingPage.tsx`**
+### 2. Match "How It Works" Card Backgrounds to Bento Grid
 
-1. **Number badges (line 63)**: Replace `from-pink-500 via-orange-500 to-pink-600` with `from-pink-500 via-coral-500 to-rose-600` -- shifting from bright orange to a warm coral that matches the brand
-2. **Badge shadow (line 64)**: Keep `shadow-pink-500/40` as-is (already on-brand)
+**File: `src/components/LandingPage.tsx`** (lines 51-56)
 
-This one-line gradient swap brings the number circles in line with the warm coral/pink/burgundy tones used in the bento grid cards, the CTA buttons, and the rest of the heartlines visual identity. No other files need changes.
+The "How It Works" cards currently use `from-white/20 via-white/15 to-white/10` -- a light glassmorphic style. The bento grid ("why we're different") cards use rich burgundy gradients like `from-burgundy-800/90 via-burgundy-700/85 to-pink-900/70`.
 
-### Result
-The number badges shift from a jarring bright orange to a warm coral-to-rose gradient that blends naturally with the card backgrounds and the bento grid further down the page.
+Update the card background gradient to match:
+- Change `from-white/20 via-white/15 to-white/10` to `from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70`
+- Update the hover gradient similarly: `from-burgundy-800/95 via-burgundy-700/85 to-pink-900/75`
+- Keep the existing border, shadow, and transition classes
 
+This makes both card sections visually cohesive with the same warm burgundy tone.
