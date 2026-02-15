@@ -112,22 +112,22 @@ export const CommunityIcon = () => (
 
 // Grid placement config for the bento layout
 const gridPlacements = [
-  'md:col-span-2 md:row-span-1',
-  'md:col-span-1 md:row-span-2',
-  'md:col-span-1 md:row-span-1',
-  'md:col-span-2 md:row-span-1',
-  'md:col-span-1 md:row-span-1',
-  'md:col-span-2 md:row-span-1',
-  'md:col-span-3 md:row-span-1',
+  'md:col-span-1',
+  'md:col-span-2',
+  'md:col-span-2',
+  'md:col-span-1',
+  'md:col-span-1',
+  'md:col-span-2',
+  'md:col-span-3',
 ];
 
 // Per-card gradient variations
 const cardGradients = [
-  'bg-gradient-to-br from-burgundy-800/95 via-burgundy-700/85 to-pink-900/75',
-  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-coral-600/10',
-  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-pink-900/70',
+  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-coral-600/10',
   'bg-gradient-to-r from-burgundy-800/90 via-burgundy-700/80 to-orange-900/30',
+  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70',
+  'bg-gradient-to-br from-burgundy-800/95 via-burgundy-700/85 to-pink-900/75',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-coral-600/15',
   'bg-gradient-to-r from-burgundy-800/95 via-burgundy-700/85 to-pink-900/60',
 ];
@@ -163,8 +163,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
         {stops.map((stop, index) => {
           const isVisible = visibleItems.has(index);
           const isAccent = index === stops.length - 1;
-          const isLarge = index === 0 || index === 3;
-          const isTall = index === 1;
+          const isLarge = index === 1 || index === 2 || index === 5;
 
           return (
             <div
@@ -181,7 +180,6 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 transition-all duration-700 ease-out
                 hover:shadow-[0_8px_32px_rgba(255,132,80,0.2),0_0_60px_rgba(236,72,153,0.15)]
                 ${isAccent ? 'p-4 md:p-5' : isLarge ? 'p-5 md:p-6' : 'p-4 md:p-5'}
-                ${isTall ? 'flex flex-col justify-center' : ''}
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
                 ${isVisible ? 'md:animate-float' : ''}
                 relative overflow-hidden

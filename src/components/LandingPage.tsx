@@ -869,25 +869,25 @@ const LandingPage = ({
           
           {/* Bento Grid */}
           <Timeline stops={[{
-            title: "no fake positivity",
-            subtitle: "\"good vibes only\" never fixed a fight.",
-            icon: <HeartSupportIcon />
+            title: "conflict-ready",
+            subtitle: "healthy tension > silent scrolling.",
+            icon: <ConversationIcon />
           }, {
             title: "for actual humans",
             subtitle: "every identity, every story, no binaries.",
             icon: <InclusiveIcon />
           }, {
+            title: "private, always",
+            subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
+            icon: <ShieldIcon />
+          }, {
             title: "made for right now",
             subtitle: "your relationship won't wait for your calendar to clear.",
             icon: <ClockIcon />
           }, {
-            title: "conflict-ready",
-            subtitle: "healthy tension > silent scrolling.",
-            icon: <ConversationIcon />
-          }, {
-            title: "private, always",
-            subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
-            icon: <ShieldIcon />
+            title: "no fake positivity",
+            subtitle: "\"good vibes only\" never fixed a fight.",
+            icon: <HeartSupportIcon />
           }, {
             title: "context-aware",
             subtitle: "advice that knows the lore, no recaps needed.",
