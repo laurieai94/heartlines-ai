@@ -870,23 +870,23 @@ const LandingPage = ({
           {/* Bento Grid */}
           <Timeline stops={[{
             title: "real talk only",
-            subtitle: "real talk for real struggles—support without the sugarcoat. (because \"good vibes only\" is a lie)",
+            subtitle: "\"good vibes only\" never fixed a fight.",
             icon: <HeartSupportIcon />
           }, {
             title: "queer- and trauma-informed",
-            subtitle: "for every identity and story—no binaries, no filters. (built for how real people love)",
+            subtitle: "every identity, every story, no binaries.",
             icon: <InclusiveIcon />
           }, {
             title: "built for busy",
-            subtitle: "quick moves that actually shift your relationship, even on a slammed day. (zero fluff, just action)",
+            subtitle: "your relationship won't wait for your cal to clear.",
             icon: <ClockIcon />
           }, {
             title: "tough talks welcome",
-            subtitle: "we don't erase conflict—we show you how to use it to grow stronger. (healthy fights > silent scrolling)",
+            subtitle: "healthy tension > silent scrolling.",
             icon: <ConversationIcon />
           }, {
             title: "private by design",
-            subtitle: "your convos stay yours—always encrypted, never sold. (kai listens, big tech doesn't)",
+            subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
             icon: <ShieldIcon />
           }]} />
 
