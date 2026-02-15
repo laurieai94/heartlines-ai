@@ -93,11 +93,6 @@ const StepCard = ({
             group-hover:text-white transition-colors duration-300">
             {description}
           </p>
-          {secondaryText && <p className="text-pink-100/70 text-sm leading-relaxed mt-4 mt-auto font-light italic tracking-wide
-              drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
-              group-hover:text-white/80 transition-colors duration-300">
-              {secondaryText}
-            </p>}
         </div>
       </div>
     </article>;
@@ -652,32 +647,28 @@ const LandingPage = ({
               {[{
                 step: "01",
                 title: "build your profile",
-                description: "show how you really vibe: calm, stressed, or full chaos.",
-                secondaryText: "(no fake bios here)",
+                description: "no fake bios here",
                 icon: <UserPlus className="w-5 h-5" />,
                 iconName: "user-plus"
               }, {
                 step: "02",
                 title: "add your person",
-                description: "bring them in too, so kai sees the full picture.",
-                secondaryText: "(every story has two (+) main characters)",
+                description: "every story has two (+) main characters",
                 icon: <Heart className="w-5 h-5" />,
                 iconName: "heart"
               }, {
                 step: "03",
                 title: "chat with kai",
-                description: "spill it, vent it, practice it. then get advice that actually slaps.",
-                secondaryText: "(less textbook therapy, more real talk)",
+                description: "less textbook therapy, more real talk",
                 icon: <MessageCircleHeart className="w-5 h-5" />,
                 iconName: "message-heart"
               }, {
                 step: "04",
                 title: "try it irl",
-                description: "test it out in the wild: less fights, more feels.",
-                secondaryText: "(because the magic happens offline)",
+                description: "because the magic happens offline",
                 icon: <Sparkles className="w-5 h-5" />,
                 iconName: "sparkles"
-              }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
+              }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
             </div>
 
             {/* Get Started CTA */}
