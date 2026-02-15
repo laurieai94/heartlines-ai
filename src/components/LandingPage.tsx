@@ -652,28 +652,28 @@ const LandingPage = ({
               {[{
                 step: "01",
                 title: "build your profile",
-                description: "show how you really vibe—calm, stressed, or full chaos.",
-                secondaryText: "(no fake bios here.)",
+                description: "show how you really vibe: calm, stressed, or full chaos.",
+                secondaryText: "(no fake bios here)",
                 icon: <UserPlus className="w-5 h-5" />,
                 iconName: "user-plus"
               }, {
                 step: "02",
                 title: "add your person",
-                description: "bring them in too, so kai sees the full picture.",
+                description: "spill it, vent it, practice it. then get advice that actually slaps.",
                 secondaryText: "(every story has two (+) main characters)",
                 icon: <Heart className="w-5 h-5" />,
                 iconName: "heart"
               }, {
                 step: "03",
                 title: "chat with kai",
-                description: "show how you really vibe: calm, stressed, or full chaos.",
+                description: "spill it, vent it, practice it. then get advice that actually slaps.",
                 secondaryText: "(less textbook therapy, more real talk)",
                 icon: <MessageCircleHeart className="w-5 h-5" />,
                 iconName: "message-heart"
               }, {
                 step: "04",
                 title: "try it irl",
-                description: "test it out in the wild—less fights, more feels.",
+                description: "test it out in the wild: less fights, more feels.",
                 secondaryText: "(because the magic happens offline)",
                 icon: <Sparkles className="w-5 h-5" />,
                 iconName: "sparkles"
