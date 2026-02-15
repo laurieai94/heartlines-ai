@@ -49,10 +49,10 @@ const StepCard = ({
   }} tabIndex={0} role="article" aria-label={title}>
       {/* Clean Card with Enhanced Glassmorphism */}
       <div className="relative z-10 backdrop-blur-xl rounded-3xl p-6 md:p-7 h-full flex flex-col justify-between 
-        bg-gradient-to-br from-white/20 via-white/15 to-white/10
-        border border-pink-400/15
+        bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70
+        border border-pink-400/30
         hover:-translate-y-2 hover:scale-105 hover:rotate-1
-        hover:bg-gradient-to-br hover:from-white/25 hover:via-white/20 hover:to-white/15
+        hover:bg-gradient-to-br hover:from-burgundy-800/95 hover:via-burgundy-700/85 hover:to-pink-900/75
         hover:shadow-2xl hover:shadow-pink-500/20
         transition-all duration-500 ease-out
       ">
