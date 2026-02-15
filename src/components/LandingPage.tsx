@@ -20,7 +20,7 @@ import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import HeroCarousel from "./HeroCarousel";
-import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
+import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon, CommunityIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
 import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
@@ -888,6 +888,14 @@ const LandingPage = ({
             title: "private, always",
             subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
             icon: <ShieldIcon />
+          }, {
+            title: "context-aware",
+            subtitle: "advice that knows the lore, no recaps needed.",
+            icon: <PersonalIcon />
+          }, {
+            title: "built to give back",
+            subtitle: "revenue funds community tools, not investor decks.",
+            icon: <CommunityIcon />
           }]} />
 
           {/* Closer Starts Here CTA */}

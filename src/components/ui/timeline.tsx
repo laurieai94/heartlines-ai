@@ -92,17 +92,32 @@ export const ConversationIcon = () => (
   </svg>
 );
 
+export const CommunityIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="community-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#ff8450" />
+        <stop offset="100%" stopColor="#ff6b9d" />
+      </linearGradient>
+    </defs>
+    <path d="M16 6v8" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M12 10c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <path d="M10 18c0 0 2-2 6-2s6 2 6 2" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <circle cx="10" cy="22" r="3" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
+    <circle cx="22" cy="22" r="3" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
+    <circle cx="16" cy="26" r="2.5" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
+    <path d="M13 26h-1M19 26h1" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
 // Grid placement config for the bento layout
 const gridPlacements = [
-  // "real talk only" — hero card, spans 2 cols
   'md:col-span-2 md:row-span-1',
-  // "queer- and trauma-informed" — tall card, spans 2 rows
   'md:col-span-1 md:row-span-2',
-  // "built for busy" — standard
   'md:col-span-1 md:row-span-1',
-  // "tough talks welcome" — wide card
   'md:col-span-2 md:row-span-1',
-  // "private by design" — full-width accent strip
+  'md:col-span-1 md:row-span-1',
+  'md:col-span-2 md:row-span-1',
   'md:col-span-3 md:row-span-1',
 ];
 
@@ -113,6 +128,8 @@ const cardGradients = [
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-pink-900/70',
   'bg-gradient-to-r from-burgundy-800/90 via-burgundy-700/80 to-orange-900/30',
+  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-coral-600/15',
+  'bg-gradient-to-r from-burgundy-800/95 via-burgundy-700/85 to-pink-900/60',
 ];
 
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
