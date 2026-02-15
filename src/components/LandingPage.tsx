@@ -60,7 +60,7 @@ const StepCard = ({
         {/* Simple Step Indicator */}
         <div className="absolute top-4 right-4">
           <div className="flex items-center justify-center w-8 h-8 rounded-full 
-            bg-gradient-to-br from-pink-500 via-orange-500 to-pink-600
+            bg-gradient-to-br from-pink-500 via-coral-500 to-rose-600
             shadow-lg shadow-pink-500/40
             group-hover:scale-110 group-hover:rotate-12
             transition-all duration-300
