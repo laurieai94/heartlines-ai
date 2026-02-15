@@ -636,10 +636,9 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-3 md:mb-8">
-            <h2 className="relative text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 tracking-wider md:whitespace-nowrap">
-              <span className="absolute inset-0 text-pink-200/40 blur-[2px]" style={{ textShadow: '0 2px 12px rgba(236,72,153,0.5), 0 6px 20px rgba(251,146,60,0.3)' }}>how it works</span>
-              <span className="relative bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent">how it works</span>
-            </h2>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap" style={{
+              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+            }}>how it works</h2>
             
           </div>
           
@@ -711,9 +710,11 @@ const LandingPage = ({
               
               {/* Left Column: Kai's Avatar */}
               <div className="relative flex flex-col items-center justify-start order-1">
-                <h2 className="relative text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 tracking-wider animate-fade-in text-center" style={{ animationDelay: '0.3s' }}>
-                  <span className="absolute inset-0 text-pink-200/40 blur-[2px]" style={{ textShadow: '0 2px 12px rgba(236,72,153,0.5), 0 6px 20px rgba(251,146,60,0.3)' }}>meet kai</span>
-                  <span className="relative bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent">meet kai</span>
+                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in text-center" style={{
+                  animationDelay: '0.3s',
+                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                }}>
+                  meet kai
                 </h2>
                 
                 <h3 className="text-xl md:text-2xl text-white/95 font-light mb-8 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in text-center" style={{
@@ -856,9 +857,10 @@ const LandingPage = ({
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
           <div className="text-center mb-4 md:mb-6">
-            <h2 className="relative text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 tracking-wider">
-              <span className="absolute inset-0 text-pink-200/40 blur-[2px]" style={{ textShadow: '0 2px 12px rgba(236,72,153,0.5), 0 6px 20px rgba(251,146,60,0.3)' }}>why we're different</span>
-              <span className="relative bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent">why we're different</span>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider" style={{
+              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+            }}>
+              why we're different
             </h2>
             <p className="text-lg md:text-xl text-white/95 font-light tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
               
@@ -868,31 +870,31 @@ const LandingPage = ({
           {/* Bento Grid */}
           <Timeline stops={[{
             title: "conflict-ready",
-            subtitle: "healthy tension > silent scrolling",
+            subtitle: "healthy tension > silent scrolling.",
             icon: <ConversationIcon />
           }, {
             title: "for actual humans",
-            subtitle: "every identity, every story, no binaries",
+            subtitle: "every identity, every story, no binaries.",
             icon: <InclusiveIcon />
           }, {
             title: "private, always",
-            subtitle: "encrypted, never sold—your heartbreak isn't a dataset",
+            subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
             icon: <ShieldIcon />
           }, {
             title: "made for right now",
-            subtitle: "your relationship won't wait for your calendar to clear",
+            subtitle: "your relationship won't wait for your calendar to clear.",
             icon: <ClockIcon />
           }, {
             title: "no fake positivity",
-            subtitle: "\"good vibes only\" never fixed a fight",
+            subtitle: "\"good vibes only\" never fixed a fight.",
             icon: <HeartSupportIcon />
           }, {
             title: "context-aware",
-            subtitle: "advice that knows the lore, no recaps needed",
+            subtitle: "advice that knows the lore, no recaps needed.",
             icon: <PersonalIcon />
           }, {
             title: "built to give back",
-            subtitle: "revenue funds community tools, not investor decks",
+            subtitle: "revenue funds community tools, not investor decks.",
             icon: <CommunityIcon />
           }]} />
 
