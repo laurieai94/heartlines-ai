@@ -666,7 +666,7 @@ const LandingPage = ({
               }, {
                 step: "03",
                 title: "chat with kai",
-                description: "spill it, vent it, practice it—then get advice that actually slaps.",
+                description: "show how you really vibe: calm, stressed, or full chaos.",
                 secondaryText: "(less textbook therapy, more real talk)",
                 icon: <MessageCircleHeart className="w-5 h-5" />,
                 iconName: "message-heart"
