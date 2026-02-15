@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface TimelineStop {
   title: string;
@@ -93,74 +93,145 @@ export const ConversationIcon = () => (
 );
 
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
+  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = Number(entry.target.getAttribute('data-index'));
+          if (entry.isIntersecting && !isNaN(index)) {
+            setVisibleItems((prev) => new Set(prev).add(index));
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [stops.length]);
+
   return (
-    <div className="relative w-full max-w-4xl mx-auto px-4 py-4">
-      {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-2 -translate-x-1/2 overflow-hidden -z-10">
-        <div 
-          className="absolute inset-0 bg-gradient-to-b from-pink-400 via-coral-400 via-orange-400 to-pink-400 rounded-full opacity-40"
+    <div className="relative w-full max-w-5xl mx-auto px-4 py-4">
+      {/* Vertical Timeline Line - desktop only */}
+      <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 -z-10">
+        <div
+          className="absolute inset-0 rounded-full bg-gradient-to-b from-pink-400 via-coral-400 to-orange-400 opacity-40"
           style={{
-            boxShadow: '0 0 8px hsl(var(--pink-400) / 0.3), 0 0 15px hsl(var(--coral-400) / 0.2), 0 0 25px hsl(var(--orange-400) / 0.15)'
+            boxShadow: '0 0 12px rgba(255,132,80,0.3), 0 0 24px rgba(255,107,157,0.2)',
           }}
         />
       </div>
 
       {/* Timeline Stops */}
-      <div className="space-y-6 md:space-y-8">
-        {stops.map((stop, index) => (
-          <div 
-            key={index}
-            className="relative animate-fade-in"
-            style={{
-              animationDelay: `${index * 0.15}s`
-            }}
-          >
-            {/* Center Dot - Hidden */}
-            <div className="hidden absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
-              style={{
-                boxShadow: '0 0 15px hsl(var(--pink-400) / 0.6), 0 0 30px hsl(var(--coral-400) / 0.4), 0 0 45px hsl(var(--orange-400) / 0.2)'
-              }}
-            />
+      <div className="space-y-6 md:space-y-0">
+        {stops.map((stop, index) => {
+          const isLeft = index % 2 === 0;
+          const isVisible = visibleItems.has(index);
 
-            {/* Card with Enhanced Hover Effects */}
-            <div className={`
-              relative mx-auto max-w-md z-10
-              bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70
-              backdrop-blur-xl rounded-2xl p-3.5 md:p-4
-              border border-pink-400/30
-              hover:border-orange-400/50
-              group hover:-translate-y-1 hover:translate-x-0.5
-              transition-all duration-300 ease-out
-              hover:shadow-2xl hover:shadow-pink-400/30
-              before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-300
-            `}>
-              {/* Icon with Pink-Orange Gradient Background */}
-              <div className="flex justify-center mb-4 group-hover:scale-105 transition-transform duration-300">
-                <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
-                  {stop.icon}
-                </div>
-              </div>
-
-              {/* Title */}
-              <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-2 leading-tight">
-                {stop.title}
-              </h3>
-
-              {/* Subtitle */}
-              <div className="text-center">
-                <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
-                  {stop.subtitle.split('(')[0].trim()}
-                </p>
-                {stop.subtitle.includes('(') && (
-                  <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
-                    ({stop.subtitle.split('(')[1]}
-                  </p>
+          return (
+            <div
+              key={index}
+              ref={(el) => { cardRefs.current[index] = el; }}
+              data-index={index}
+              className={`
+                relative
+                md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6 md:items-center md:py-6
+              `}
+            >
+              {/* Left cell */}
+              <div className={`hidden md:flex ${isLeft ? 'justify-end' : ''}`}>
+                {isLeft && (
+                  <TimelineCard
+                    stop={stop}
+                    isVisible={isVisible}
+                    translateFrom="translate-x-8"
+                  />
                 )}
               </div>
+
+              {/* Center dot - desktop only */}
+              <div className="hidden md:flex items-center justify-center">
+                <div
+                  className="w-4 h-4 rounded-full bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 border-[3px] border-burgundy-900 z-10"
+                  style={{
+                    boxShadow: '0 0 10px rgba(255,132,80,0.5), 0 0 20px rgba(255,107,157,0.3)',
+                  }}
+                />
+              </div>
+
+              {/* Right cell */}
+              <div className={`hidden md:flex ${!isLeft ? 'justify-start' : ''}`}>
+                {!isLeft && (
+                  <TimelineCard
+                    stop={stop}
+                    isVisible={isVisible}
+                    translateFrom="-translate-x-8"
+                  />
+                )}
+              </div>
+
+              {/* Mobile: centered card */}
+              <div className="md:hidden">
+                <TimelineCard
+                  stop={stop}
+                  isVisible={isVisible}
+                  translateFrom="translate-y-8"
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 };
+
+const TimelineCard: React.FC<{
+  stop: { title: string; subtitle: string; icon: React.ReactNode };
+  isVisible: boolean;
+  translateFrom: string;
+}> = ({ stop, isVisible, translateFrom }) => (
+  <div
+    className={`
+      max-w-sm w-full
+      bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70
+      backdrop-blur-xl rounded-2xl p-3.5 md:p-4
+      border border-pink-400/30
+      hover:border-orange-400/50
+      group hover:-translate-y-1
+      transition-all duration-700 ease-out
+      hover:shadow-2xl hover:shadow-pink-400/30
+      ${isVisible ? 'opacity-100 translate-x-0 translate-y-0' : `opacity-0 ${translateFrom}`}
+    `}
+  >
+    {/* Icon */}
+    <div className="flex justify-center mb-4 group-hover:scale-105 transition-transform duration-300">
+      <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
+        {stop.icon}
+      </div>
+    </div>
+
+    {/* Title */}
+    <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-2 leading-tight">
+      {stop.title}
+    </h3>
+
+    {/* Subtitle */}
+    <div className="text-center">
+      <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
+        {stop.subtitle.split('(')[0].trim()}
+      </p>
+      {stop.subtitle.includes('(') && (
+        <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
+          ({stop.subtitle.split('(')[1]}
+        </p>
+      )}
+    </div>
+  </div>
+);
