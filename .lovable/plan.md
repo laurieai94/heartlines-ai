@@ -1,45 +1,69 @@
 
 
-## Alternating Timeline Layout with Scroll Animations
+## Bento Grid for "Why We're Different"
 
-**File: `src/components/ui/timeline.tsx`** -- Full rewrite of the `Timeline` component
+Replace the vertical Timeline with a compact bento grid layout that shows all 5 differentiators in a visually interesting, space-efficient grid.
 
-### Layout Changes
+### Layout Design
 
-**Desktop (md+): Alternating left/right cards**
-- Timeline line stays centered vertically
-- Even-indexed cards (0, 2, 4) appear on the left side, odd-indexed (1, 3) on the right
-- Each row uses a grid: `grid-cols-[1fr_auto_1fr]` where the middle column holds the timeline dot
-- Cards on the left are right-aligned, cards on the right are left-aligned
-- The opposite side of each card is empty space
+**Desktop (md+): 3-column bento grid**
 
-**Mobile: Centered stack**
-- Falls back to current centered layout (single column, cards stacked)
-- Timeline line hidden on mobile for cleanliness
+```text
++---------------------------+  +--------------+
+|                           |  |              |
+|   real talk only (large)  |  | queer- and   |
+|                           |  | trauma-      |
++---------------------------+  | informed     |
+                               |              |
++--------------+  +------------+--------------+
+|              |  |                           |
+| built for    |  |  tough talks welcome      |
+| busy         |  |  (large)                  |
+|              |  |                           |
++--------------+  +---------------------------+
 
-**Glowing connector dots**
-- Unhide the center dot (currently has `hidden` class) and show it in the middle column at each stop
-- Gradient dot with glow effect connecting the vertical line to each card
+         +---------------------------+
+         |   private by design       |
+         |   (full-width accent)     |
+         +---------------------------+
+```
 
-### Scroll Animations
+- Row 1: "real talk only" spans 2 columns (hero card), "queer- and trauma-informed" spans 1 column but 2 rows tall
+- Row 2: "built for busy" spans 1 column, "tough talks welcome" spans 2 columns
+- Row 3: "private by design" spans full width as a compact accent strip
 
-**Replace CSS `animate-fade-in` with Intersection Observer-driven animations**
-- Each card starts with `opacity-0` and a horizontal translate (`translate-x-8` for left cards, `-translate-x-8` for right cards)
-- When the card enters the viewport (threshold ~0.15), add classes for `opacity-100 translate-x-0` with a CSS transition
-- Stagger naturally since cards enter the viewport at different scroll positions
-- On mobile, use `translate-y-8` instead of horizontal translate
+**Mobile: Single-column stack**
+- All cards stack vertically as equal-sized compact cards
+- Clean and scannable
+
+### Visual Style
+
+- Glass cards matching existing brand: `bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70` with `backdrop-blur-xl`
+- `border border-pink-400/30` with `hover:border-orange-400/50`
+- Large cards get more padding and bigger icon treatment
+- Hover: subtle lift (`hover:-translate-y-1`) and glow (`hover:shadow-pink-400/30`)
+- Scroll-triggered fade-in using Intersection Observer (staggered by index with 100ms delay increments)
+
+### Card Content
+
+Each card keeps: icon, bold title, single-line subtitle (the parenthetical quip). The main descriptive text before the parenthetical gets dropped to keep things punchy and scannable.
 
 ### Technical Details
 
-- Add a `useEffect` with `IntersectionObserver` inside the `Timeline` component using `useRef` on each card
-- Each card ref stored in a `useRef<(HTMLDivElement | null)[]>([])` array
-- Observer callback adds a `is-visible` class or sets state per-index
-- Transition classes: `transition-all duration-700 ease-out`
-- Cards use conditional classes based on visibility state
+**File: `src/components/ui/timeline.tsx`**
+- Rename/repurpose the file or create a new `BentoGrid` component
+- Keep the existing icon components (PersonalIcon, InclusiveIcon, etc.) -- they're reused
+- New component accepts the same `stops` prop interface so LandingPage.tsx needs no data changes
+- Use CSS Grid with `grid-template-columns` and `grid-row` / `grid-column` span utilities
+- Intersection Observer with staggered delays: each card gets `transition-delay: ${index * 100}ms`
 
-### Card Width
-- Increase from `max-w-md` to `max-w-sm` within each grid cell (the grid itself handles spacing), giving cards room to breathe while not stretching too wide
+**File: `src/components/LandingPage.tsx`**
+- Swap `<Timeline stops={...} />` for the new bento grid component (same prop shape)
+- No data changes needed
 
-### No changes needed in `LandingPage.tsx`
-The Timeline component interface (`stops` prop) stays the same -- all changes are internal to `timeline.tsx`.
+### Animations
+- Cards start `opacity-0 translate-y-6`
+- On viewport entry: transition to `opacity-100 translate-y-0`
+- Staggered via `transition-delay` per card index
+- `transition-all duration-700 ease-out`
 
