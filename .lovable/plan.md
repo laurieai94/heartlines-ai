@@ -1,12 +1,14 @@
 
 
-## Add Spacing Between Description and Parenthesized Text
+## Update Card 02 Description Text
 
-**Change in `src/components/LandingPage.tsx` (line 96):**
+**File: `src/components/LandingPage.tsx` (line 662)**
 
-Add `mt-2` to the secondary text `<p>` element (the parenthesized italic text) so there's a small gap between the description copy and the parenthesized line. Currently it only has `mt-auto` which pins it to the bottom but doesn't guarantee visible spacing from the description above.
+Change card 02's description from:
+- `"spill it, vent it, practice it. then get advice that actually slaps."`
 
-- Line 96: Add `mt-2` before `mt-auto` on the secondary text className, resulting in spacing of `0.5rem` (8px) between the two text blocks.
+To:
+- `"bring them in too, so kai sees the full picture."`
 
-This is a single className change on one element.
+Single string replacement on one line. No other cards or secondary text affected.
 
