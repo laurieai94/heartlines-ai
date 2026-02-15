@@ -867,7 +867,7 @@ const LandingPage = ({
             </p>
           </div>
           
-          {/* Timeline */}
+          {/* Bento Grid */}
           <Timeline stops={[{
             title: "real talk only",
             subtitle: "real talk for real struggles—support without the sugarcoat. (because \"good vibes only\" is a lie)",
