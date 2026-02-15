@@ -818,7 +818,7 @@ const LandingPage = ({
                   <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
                     transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
                     shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">🔒 private by design</span>
+                    <span className="text-sm font-medium tracking-wide text-white">🔒 private, always</span>
                   </div>
                   <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
                     transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
@@ -869,24 +869,24 @@ const LandingPage = ({
           
           {/* Bento Grid */}
           <Timeline stops={[{
-            title: "real talk only",
-            subtitle: "\"good vibes only\" never fixed a fight",
+            title: "no fake positivity",
+            subtitle: "\"good vibes only\" never fixed a fight.",
             icon: <HeartSupportIcon />
           }, {
-            title: "queer- and trauma-informed",
-            subtitle: "every identity, every story, no binaries",
+            title: "for actual humans",
+            subtitle: "every identity, every story, no binaries.",
             icon: <InclusiveIcon />
           }, {
-            title: "built for busy",
-            subtitle: "your relationship won't wait for your cal to clear",
+            title: "made for right now",
+            subtitle: "your relationship won't wait for your calendar to clear.",
             icon: <ClockIcon />
           }, {
-            title: "tough talks welcome",
-            subtitle: "healthy tension > silent scrolling",
+            title: "conflict-ready",
+            subtitle: "healthy tension > silent scrolling.",
             icon: <ConversationIcon />
           }, {
-            title: "private by design",
-            subtitle: "encrypted, never sold—your heartbreak isn't a dataset",
+            title: "private, always",
+            subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
             icon: <ShieldIcon />
           }]} />
 
