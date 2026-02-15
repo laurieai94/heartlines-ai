@@ -182,11 +182,9 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
 
               {/* Subtitle — only the parenthetical quip */}
               <div className={isAccent ? 'text-left' : 'text-center'}>
-                {stop.subtitle.includes('(') && (
-                  <p className="text-pink-100/60 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300">
-                    ({stop.subtitle.split('(')[1]}
-                  </p>
-                )}
+                <p className="text-pink-100/60 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300">
+                  {stop.subtitle}
+                </p>
               </div>
             </div>
           );
