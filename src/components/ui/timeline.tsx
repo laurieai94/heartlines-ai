@@ -100,18 +100,15 @@ export const CommunityIcon = () => (
         <stop offset="100%" stopColor="#ff6b9d" />
       </linearGradient>
     </defs>
-    {/* Left hand */}
-    <path d="M6 26c1-3 3-5 6-7" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <path d="M6 26c-1-1 0-3 2-3" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <path d="M9 21l1-2M11 20l1-2M12 19l1-1" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
-    {/* Right hand */}
-    <path d="M26 26c-1-3-3-5-6-7" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <path d="M26 26c1-1 0-3-2-3" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    <path d="M23 21l-1-2M21 20l-1-2M20 19l-1-1" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
-    {/* Seedling */}
-    <path d="M16 18v-6" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M16 14c-2-2-4-1-4 1 1 2 3 1 4-1z" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-    <path d="M16 11c2-2 4-1 4 1-1 2-3 1-4-1z" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    {/* Globe outline */}
+    <circle cx="16" cy="16" r="10" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
+    {/* Vertical meridian */}
+    <ellipse cx="16" cy="16" rx="4" ry="10" stroke="url(#community-gradient)" strokeWidth="1.5" fill="none"/>
+    {/* Horizontal latitude lines */}
+    <path d="M6 12h20" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M6 20h20" stroke="url(#community-gradient)" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Equator */}
+    <path d="M6 16h20" stroke="url(#community-gradient)" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
   </svg>
 );
 
