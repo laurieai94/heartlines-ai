@@ -648,7 +648,7 @@ const LandingPage = ({
               {[{
                 step: "01",
                 title: "build your profile",
-                description: "no fake bios here",
+                description: "no fake bios, come as you are",
                 icon: <UserPlus className="w-5 h-5" />,
                 iconName: "user-plus"
               }, {
