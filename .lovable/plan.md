@@ -1,27 +1,55 @@
 
 
-## Match Bento Card Typography to "How It Works" Section
+## Update Bento Grid: New Card Text + Two New Cards
 
-Align the bento grid card fonts and text styles with the StepCard component used in the "How it works" section so the two sections feel cohesive.
+### Overview
+Update all five existing card texts and add two new cards ("context-aware" and "built to give back") to the bento grid, expanding from 5 to 7 cards. The grid layout needs to be adjusted to accommodate the extra cards.
 
-### Current vs Target
+### Changes
 
-| Element | Bento Cards (now) | How It Works Cards | Change |
+#### 1. `src/components/LandingPage.tsx` -- Update stops array
+
+Update existing 5 cards and add 2 new entries:
+
+| # | Title | Subtitle | Icon |
 |---|---|---|---|
-| Title weight | `font-bold` | `font-light` | Switch to `font-light` |
-| Title color | `text-white` | `text-white` | No change |
-| Title shadow | none | `drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]` | Add drop shadow |
-| Subtitle color | `text-pink-100/60` | `text-pink-50/95` | Brighter, more legible |
-| Subtitle style | `italic` | not italic, `font-light` | Remove italic, keep font-light |
-| Subtitle shadow | none | `drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]` | Add subtle shadow |
-| Hover text | subtitle becomes `text-white/70` | text becomes `text-white` | Match to full white |
+| 1 | no fake positivity | "good vibes only" never fixed a fight. | HeartSupportIcon |
+| 2 | for actual humans | every identity, every story, no binaries. | InclusiveIcon |
+| 3 | made for right now | your relationship won't wait for your calendar to clear. | ClockIcon |
+| 4 | conflict-ready | healthy tension > silent scrolling. | ConversationIcon |
+| 5 | private, always | encrypted, never sold -- your heartbreak isn't a dataset. | ShieldIcon |
+| 6 (new) | context-aware | advice that knows the lore, no recaps needed. | PersonalIcon |
+| 7 (new) | built to give back | revenue funds community tools, not investor decks. | New icon (e.g. a simple community/give-back SVG) |
 
-### Technical Detail
+Will need to import or create an icon for card 7. PersonalIcon is already exported and fits "context-aware" well.
 
-**File: `src/components/ui/timeline.tsx`**
+#### 2. `src/components/ui/timeline.tsx` -- Expand grid config
 
-1. Title `<h3>` -- change `font-bold` to `font-light tracking-wide` and add `drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]`
-2. Subtitle `<p>` -- change `text-pink-100/60` to `text-pink-50/95`, remove `italic`, add `drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]`, update hover state from `group-hover:text-white/70` to `group-hover:text-white`
+**gridPlacements** -- add 2 more entries for a balanced 7-card bento on a 3-column grid:
 
-Single file, two class string updates.
+```text
+Current (5 cards):        New (7 cards):
+[  2-col  ] [ tall ]      [  2-col  ] [ tall ]
+[ 1-col  ] [ tall ]      [ 1-col  ] [ tall ]
+[   2-col wide   ]       [   2-col wide   ]
+[    3-col full    ]      [ 1-col ] [  2-col  ]
+                          [    3-col full    ]
+```
+
+New placements:
+- Card 6: `md:col-span-1 md:row-span-1` (standard)
+- Card 7: `md:col-span-2 md:row-span-1` (wide)
+- Move the full-width "private, always" card to position 7 (last) as the accent strip, or keep order as-is and assign new cards at the end
+
+**cardGradients** -- add 2 more gradient entries for visual variety
+
+**Card logic** -- the `isAccent` check (`index === stops.length - 1`) already targets the last card dynamically, so the full-width accent strip will automatically apply to "built to give back" as card 7
+
+#### 3. New icon for "built to give back"
+
+Create a simple community/giving SVG icon (e.g. hands or a sprout) in the same gradient line-art style as the existing icons, exported from `timeline.tsx`.
+
+### Files Modified
+- `src/components/ui/timeline.tsx` -- new icon, expanded gridPlacements and cardGradients arrays
+- `src/components/LandingPage.tsx` -- two new entries in the stops array
 
