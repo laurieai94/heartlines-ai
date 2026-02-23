@@ -25,6 +25,7 @@ import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
 import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
 import PremiumBackground from "./PremiumBackground";
+import ScrollReveal from "./ScrollReveal";
 
 // Clean StepCard Component - Mobile Style
 const StepCard = ({
@@ -635,67 +636,69 @@ const LandingPage = ({
       <section id="how-it-works" className="pt-6 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-3 md:mb-8">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap" style={{
-              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-            }}>how it works</h2>
-            
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-3 md:mb-8">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap" style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              }}>how it works</h2>
+              
+            </div>
+          </ScrollReveal>
           
           {/* 4-Step Cards */}
           <div className="relative max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-              {[{
-                step: "01",
-                title: "build your profile",
-                description: "no fake bios, come as you are",
-                icon: <UserPlus className="w-5 h-5" />,
-                iconName: "user-plus"
-              }, {
-                step: "02",
-                title: "add your person",
-                description: "every story has two (+) main characters",
-                icon: <Heart className="w-5 h-5" />,
-                iconName: "heart"
-              }, {
-                step: "03",
-                title: "chat with kai",
-                description: "less textbook therapy, more real talk",
-                icon: <MessageCircleHeart className="w-5 h-5" />,
-                iconName: "message-heart"
-              }, {
-                step: "04",
-                title: "try it irl",
-                description: "because the magic happens offline",
-                icon: <Sparkles className="w-5 h-5" />,
-                iconName: "sparkles"
-              }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
-            </div>
+            <ScrollReveal delay={150}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+                {[{
+                  step: "01",
+                  title: "build your profile",
+                  description: "no fake bios, come as you are",
+                  icon: <UserPlus className="w-5 h-5" />,
+                  iconName: "user-plus"
+                }, {
+                  step: "02",
+                  title: "add your person",
+                  description: "every story has two (+) main characters",
+                  icon: <Heart className="w-5 h-5" />,
+                  iconName: "heart"
+                }, {
+                  step: "03",
+                  title: "chat with kai",
+                  description: "less textbook therapy, more real talk",
+                  icon: <MessageCircleHeart className="w-5 h-5" />,
+                  iconName: "message-heart"
+                }, {
+                  step: "04",
+                  title: "try it irl",
+                  description: "because the magic happens offline",
+                  icon: <Sparkles className="w-5 h-5" />,
+                  iconName: "sparkles"
+                }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
+              </div>
+            </ScrollReveal>
 
             {/* Get Started CTA */}
-            <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
-              <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                {/* Glow effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                
-                <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
-                  boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                }}>
-                  {/* Shimmer overlay */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 animate-shimmer" style={{
-                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                      backgroundSize: '200% 100%'
-                    }} />
-                  </div>
-                  
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
-                    get started
-                  </span>
-                </Button>
+            <ScrollReveal delay={300}>
+              <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
+                <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                  <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
+                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  }}>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 animate-shimmer" style={{
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                        backgroundSize: '200% 100%'
+                      }} />
+                    </div>
+                    <span className="relative z-10 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
+                      get started
+                    </span>
+                  </Button>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
 
         </div>
@@ -708,144 +711,107 @@ const LandingPage = ({
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-start">
               
-              {/* Left Column: Kai's Avatar */}
-              <div className="relative flex flex-col items-center justify-start order-1">
-                <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-fade-in text-center" style={{
-                  animationDelay: '0.3s',
-                  textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-                }}>
-                  meet kai
-                </h2>
-                
-                <h3 className="text-xl md:text-2xl text-white/95 font-light mb-8 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] animate-fade-in text-center" style={{
-                  animationDelay: '0.5s'
-                }}>
-                  your ai relationship coach
-                </h3>
-                
-                <div className="relative">
-                  {/* Outer glow */}
-                  <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/25 via-coral-400/15 to-orange-400/25 rounded-full blur-[80px] animate-pulse" style={{
-                    animationDuration: '3s'
-                  }}></div>
+              <ScrollReveal>
+                <div className="relative flex flex-col items-center justify-start order-1">
+                  <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider text-center" style={{
+                    textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                  }}>
+                    meet kai
+                  </h2>
                   
-                  {/* Inner glow */}
-                  <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
+                  <h3 className="text-xl md:text-2xl text-white/95 font-light mb-8 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] text-center">
+                    your ai relationship coach
+                  </h3>
                   
-                  {/* Avatar container */}
-                  <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20 animate-fade-in">
-                    <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover scale-125 object-[center_20%]" loading="eager" fetchPriority="high" decoding="async" />
+                  <div className="relative">
+                    <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/25 via-coral-400/15 to-orange-400/25 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '3s' }}></div>
+                    <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
+                    <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20">
+                      <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover scale-125 object-[center_20%]" loading="eager" fetchPriority="high" decoding="async" />
+                    </div>
+                    
+                    <div className="hidden md:flex md:justify-center md:mt-6">
+                      <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                        <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base" style={{
+                          boxShadow: '0 0 40px rgba(236, 72, 153, 0.4), 0 8px 32px rgba(251, 146, 60, 0.5)'
+                        }}>
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="absolute inset-0" style={{
+                              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                              backgroundSize: '200% 100%',
+                              animation: 'shimmer 2s infinite'
+                            }} />
+                          </div>
+                          <span className="relative z-10 flex items-center gap-2">
+                            <MessageCircle className="w-5 h-5" />
+                            chat now
+                          </span>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+
+
+              <ScrollReveal delay={200}>
+                <div className="order-2 text-center md:text-left flex flex-col">
+                  <div className="space-y-6 mb-10 max-w-xl mx-auto md:mx-0">
+                    <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                      built for the way we love:<br />
+                      voice notes, time zones,<br />
+                      shared playlists, hard truths,<br />
+                      screenshots sent for advice,<br />
+                      and the quiet bravery to keep trying.
+                    </p>
+                    <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                      rooted in research. powered by empathy.<br />
+                      made for the real.
+                    </p>
+                    <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                      kai helps you understand yourself<br />
+                      and show up with heart<br />
+                      for the people who matter<br />
+                      and the moments that can't wait.
+                    </p>
+                    <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+                      love is work.<br />
+                      kai helps you do it well.<br />
+                      one honest chat at a time.
+                    </p>
                   </div>
                   
-                  {/* CTA Button */}
-                  <div className="hidden md:flex md:justify-center md:mt-6 animate-fade-in" style={{
-                    animationDelay: '1s'
-                  }}>
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2.5 md:gap-3 mb-8">
+                    <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                      <span className="text-sm font-medium tracking-wide text-white">🌈 inclusive for all</span>
+                    </div>
+                    <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                      <span className="text-sm font-medium tracking-wide text-white">🧠 evidence-based care</span>
+                    </div>
+                    <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                      <span className="text-sm font-medium tracking-wide text-white">🔒 private, always</span>
+                    </div>
+                    <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                      <span className="text-sm font-medium tracking-wide text-white">💗 trauma-aware</span>
+                    </div>
+                    <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                      <span className="text-sm font-medium tracking-wide text-white">⏱ instant support</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex md:hidden justify-center">
                     <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                      {/* Glow effect */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-base" style={{
-                        boxShadow: '0 0 40px rgba(236, 72, 153, 0.4), 0 8px 32px rgba(251, 146, 60, 0.5)'
-                      }}>
-                        {/* Shimmer overlay */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="absolute inset-0" style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                            backgroundSize: '200% 100%',
-                            animation: 'shimmer 2s infinite'
-                          }} />
-                        </div>
-                        
-                        <span className="relative z-10 flex items-center gap-2">
-                          <MessageCircle className="w-5 h-5" />
-                          chat now
-                        </span>
+                      <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm font-light text-base">
+                        <MessageCircle className="w-5 h-5 mr-2" />
+                        chat now
                       </Button>
                     </div>
                   </div>
                 </div>
-              </div>
-
-
-
-              {/* Right Column: Content */}
-              <div className="order-2 text-center md:text-left flex flex-col">
-                <div className="space-y-6 mb-10 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{
-                  animationDelay: '0.7s'
-                }}>
-                  <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                    built for the way we love:<br />
-                    voice notes, time zones,<br />
-                    shared playlists, hard truths,<br />
-                    screenshots sent for advice,<br />
-                    and the quiet bravery to keep trying.
-                  </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    rooted in research. powered by empathy.<br />
-                    made for the real.
-                  </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-pink-50/95 leading-relaxed tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-                    kai helps you understand yourself<br />
-                    and show up with heart<br />
-                    for the people who matter<br />
-                    and the moments that can't wait.
-                  </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-white/95 font-medium leading-relaxed tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-                    love is work.<br />
-                    kai helps you do it well.<br />
-                    one honest chat at a time.
-                  </p>
-                </div>
-                
-                {/* Feature pills */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-2.5 md:gap-3 mb-8 animate-fade-in" style={{
-                  animationDelay: '0.9s'
-                }}>
-                  <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-orange-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">🌈 inclusive for all</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">🧠 evidence-based care</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">🔒 private, always</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">💗 trauma-aware</span>
-                  </div>
-                  <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm 
-                    transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                    <span className="text-sm font-medium tracking-wide text-white">⏱ instant support</span>
-                  </div>
-                </div>
-                
-                {/* Mobile CTA Button */}
-                <div className="flex md:hidden justify-center animate-fade-in" style={{
-                  animationDelay: '1s'
-                }}>
-                  <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm font-light text-base">
-                      <MessageCircle className="w-5 h-5 mr-2" />
-                      chat now
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -855,48 +821,50 @@ const LandingPage = ({
       <section className="py-3 md:py-5 relative overflow-hidden">
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Headline with Gradient */}
-          <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider" style={{
-              textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-            }}>
-              why we're different
-            </h2>
-            <p className="text-lg md:text-xl text-white/95 font-light tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
-              
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-4 md:mb-6">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider" style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              }}>
+                why we're different
+              </h2>
+              <p className="text-lg md:text-xl text-white/95 font-light tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                
+              </p>
+            </div>
+          </ScrollReveal>
           
-          {/* Bento Grid */}
-          <Timeline stops={[{
-            title: "conflict-ready",
-            subtitle: "healthy tension > silent scrolling.",
-            icon: <ConversationIcon />
-          }, {
-            title: "for actual humans",
-            subtitle: "every identity, every story, no binaries.",
-            icon: <InclusiveIcon />
-          }, {
-            title: "private, always",
-            subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
-            icon: <ShieldIcon />
-          }, {
-            title: "made for right now",
-            subtitle: "your relationship won't wait for your calendar to clear.",
-            icon: <ClockIcon />
-          }, {
-            title: "no fake positivity",
-            subtitle: "\"good vibes only\" never fixed a fight.",
-            icon: <HeartSupportIcon />
-          }, {
-            title: "context-aware",
-            subtitle: "advice that knows the lore, no recaps needed.",
-            icon: <PersonalIcon />
-          }, {
-            title: "built to give back",
-            subtitle: "revenue funds community tools, not investor decks.",
-            icon: <CommunityIcon />
-          }]} />
+          <ScrollReveal delay={150}>
+            <Timeline stops={[{
+              title: "conflict-ready",
+              subtitle: "healthy tension > silent scrolling.",
+              icon: <ConversationIcon />
+            }, {
+              title: "for actual humans",
+              subtitle: "every identity, every story, no binaries.",
+              icon: <InclusiveIcon />
+            }, {
+              title: "private, always",
+              subtitle: "encrypted, never sold—your heartbreak isn't a dataset.",
+              icon: <ShieldIcon />
+            }, {
+              title: "made for right now",
+              subtitle: "your relationship won't wait for your calendar to clear.",
+              icon: <ClockIcon />
+            }, {
+              title: "no fake positivity",
+              subtitle: "\"good vibes only\" never fixed a fight.",
+              icon: <HeartSupportIcon />
+            }, {
+              title: "context-aware",
+              subtitle: "advice that knows the lore, no recaps needed.",
+              icon: <PersonalIcon />
+            }, {
+              title: "built to give back",
+              subtitle: "revenue funds community tools, not investor decks.",
+              icon: <CommunityIcon />
+            }]} />
+          </ScrollReveal>
 
           {/* Closer Starts Here CTA */}
           <div className="mt-12 md:mt-16 text-center">
@@ -930,7 +898,9 @@ const LandingPage = ({
       {/* HowItWorksSwipe Section - Standalone */}
       <section className="pt-4 pb-3 md:pt-8 md:pb-6 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
-          <HowItWorksSwipe />
+          <ScrollReveal>
+            <HowItWorksSwipe />
+          </ScrollReveal>
         </div>
       </section>
 
