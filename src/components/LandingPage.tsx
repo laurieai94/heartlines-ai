@@ -262,6 +262,16 @@ const LandingPage = ({
   }, []);
 
   return <>
+      <Helmet>
+        <title>heartlines — ai relationship coaching for modern love</title>
+        <meta name="description" content="heartlines uses ai-powered coaching to help you navigate relationships, improve communication, and build deeper connections. talk to kai, your personal relationship coach." />
+        <meta name="keywords" content="ai relationship coach, couples coaching, communication skills, relationship help, heartlines" />
+        <meta property="og:title" content="heartlines — ai relationship coaching for modern love" />
+        <meta property="og:description" content="talk to kai, your ai relationship coach. improve communication, navigate conflict, and build deeper connections." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://heartlines-ai.lovable.app" />
+        <link rel="canonical" href="https://heartlines-ai.lovable.app" />
+      </Helmet>
       {/* Persistent Heartlines Logo - Top Right */}
       <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none will-change-auto">
           <div className="relative">

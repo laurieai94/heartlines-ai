@@ -16,6 +16,12 @@ const PrivacySecurity = () => {
     navigate('/signin');
   };
   return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
+      <Helmet>
+        <title>privacy & security - heartlines | your data, your control</title>
+        <meta name="description" content="learn how heartlines protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private." />
+        <meta property="og:title" content="privacy & security - heartlines" />
+        <meta property="og:description" content="your conversations are private. learn how heartlines keeps your data safe." />
+      </Helmet>
       {/* Background effects */}
       <PremiumBackground />
 
