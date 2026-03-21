@@ -1,41 +1,39 @@
 
 
-## Add Scroll-Triggered Reveal Animations to the Landing Page
+## Health Check & Cleanup — Safe Incremental Plan
 
-### Approach
+Each stage is independent. We verify nothing breaks before moving to the next.
 
-Create a lightweight `ScrollReveal` wrapper component that uses IntersectionObserver to fade+slide elements in as they enter the viewport. Then wrap each major section of the landing page with it.
+### Stage 1: Remove unused dependencies
+- Remove `@anthropic-ai/sdk` from `package.json` (it's never imported client-side — all AI calls go through edge functions)
+- Verify the app builds and runs
 
-### New Component
+### Stage 2: Remove dead code files
+- Delete `src/components/ProductionApp.tsx` (unused — `App.tsx` is the real router)
+- Delete `src/main-production.tsx` (unused — `main.tsx` is the entry point)
+- Delete `src/components/ProductionDashboard.tsx` (unused — `Dashboard.tsx` is the real one)
+- Verify no imports reference these files before deleting
 
-**File: `src/components/ScrollReveal.tsx`**
+### Stage 3: Simplify no-op wrappers
+- `PerformanceOptimizedApp.tsx` just renders `{children}` — inline it out of `main.tsx`
+- Remove the file
+- Verify app renders
 
-A simple wrapper that starts elements as invisible (opacity-0, translated down ~20px) and transitions them to visible when they scroll into view. Props:
-- `delay` (optional) -- stagger delay in ms
-- `direction` -- fade from bottom (default), left, or right
-- `className` -- pass-through
+### Stage 4: Fix Supabase function search_path warnings
+- Add `SET search_path = public` to `generate_priority_code()` and `check_signup_cap()` via migrations
+- These are backend-only, no frontend impact
 
-Uses IntersectionObserver with `threshold: 0.15` and `rootMargin: '0px 0px -50px 0px'` so elements animate just before they're fully in view. Once triggered, it stays visible (no re-hiding).
+### Stage 5: Sanitize voice function error messages
+- In `voice-to-text` and `text-to-speech` edge functions, replace raw API error text with generic user-friendly messages
+- Backend-only change, deployed automatically
 
-### Landing Page Updates
+### Stage 6: Add SEO meta tags
+- Add `react-helmet-async` usage to public pages (landing, mission, pricing, privacy, terms, contact) with proper `<title>` and `<meta>` tags
+- Additive only — no existing code modified
 
-**File: `src/components/LandingPage.tsx`**
-
-Wrap these sections with `<ScrollReveal>`:
-
-1. **"How It Works" section header** (line ~638-643) -- fade up the "how it works" heading
-2. **"How It Works" step cards grid** (line ~646-673) -- fade up with slight stagger per card (handled by existing `animationDelay` on StepCard, so just wrap the grid)
-3. **"Get Started" CTA button** (line ~676-698) -- fade up
-4. **"Meet Kai" section** (line ~705-852) -- fade up the left column (avatar) and right column (copy) separately with a slight stagger
-5. **"Why We're Different" section header + timeline** (line ~855-927) -- fade up heading, then timeline
-6. **HowItWorksSwipe section** (line ~931-935) -- fade up
-
-### Technical Details
-
-- CSS transition approach (not keyframe): `transition: opacity 0.6s ease-out, transform 0.6s ease-out`
-- Initial state: `opacity: 0; transform: translateY(24px)`
-- Revealed state: `opacity: 1; transform: translateY(0)`
-- `once: true` -- observer disconnects after first trigger to avoid re-animations
-- No external dependencies needed
-- Keeps existing `animate-fade-in` classes on elements that already have them (those fire on mount for above-fold content, which is correct)
+### Approach to safety
+- Each stage is a separate implementation step
+- I'll search for all imports/references before deleting any file
+- Backend changes (stages 4-5) deploy independently from frontend
+- Stage 6 is purely additive
 
