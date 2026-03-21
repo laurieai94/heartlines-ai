@@ -156,7 +156,7 @@ serve(async (req) => {
       
       return new Response(
         JSON.stringify({ 
-          error: `OpenAI transcription failed: ${errorText}`
+          error: 'Unable to transcribe audio. Please try again.'
         }),
         {
           status: 502,
