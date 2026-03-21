@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -142,6 +143,12 @@ const Pricing = () => {
     }
   };
   return <MobileHeaderVisibilityProvider>
+    <Helmet>
+      <title>plans & pricing - heartlines | ai relationship coaching</title>
+      <meta name="description" content="choose the heartlines plan that fits your journey. free to start, with premium tiers for deeper coaching, more conversations, and unlimited access." />
+      <meta property="og:title" content="plans & pricing - heartlines" />
+      <meta property="og:description" content="affordable ai relationship coaching. free to start, upgrade anytime." />
+    </Helmet>
     <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
       <PremiumBackground />
 

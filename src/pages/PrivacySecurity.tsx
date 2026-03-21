@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import SiteFooter from '@/components/SiteFooter';
 import { SecurityDeepDive } from '@/components/privacy/SecurityDeepDive';
 import { DataFlowCards } from '@/components/privacy/DataFlowCards';
@@ -10,25 +11,17 @@ const PrivacySecurity = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  useEffect(() => {
-    document.title = 'privacy & security - realtalk | your data, your control';
-
-    // Set meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'learn how realtalk protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private.');
-    } else {
-      const meta = document.createElement('meta');
-      meta.name = 'description';
-      meta.content = 'learn how realtalk protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private.';
-      document.head.appendChild(meta);
-    }
-  }, []);
 
   const handleSignInClick = () => {
     navigate('/signin');
   };
   return <div className="min-h-screen bg-burgundy-800 landing-page-scroll">
+      <Helmet>
+        <title>privacy & security - heartlines | your data, your control</title>
+        <meta name="description" content="learn how heartlines protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private." />
+        <meta property="og:title" content="privacy & security - heartlines" />
+        <meta property="og:description" content="your conversations are private. learn how heartlines keeps your data safe." />
+      </Helmet>
       {/* Background effects */}
       <PremiumBackground />
 
