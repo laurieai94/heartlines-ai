@@ -9,7 +9,6 @@ import { ViewportProvider } from "@/contexts/ViewportContext"
 import { useProductionOptimizations } from "@/hooks/useProductionOptimizations"
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
-import { PerformanceOptimizedApp } from '@/components/PerformanceOptimizedApp'
 
 // React Profiler callback for development only
 const onRenderCallback = (
@@ -69,15 +68,13 @@ const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
 const AppWithBoundary = () => {
   const content = (
     <MobileErrorBoundary>
-      <PerformanceOptimizedApp>
-        <ProductionWrapper>
-          <MobileProvider>
-            <ViewportProvider>
-              <App />
-            </ViewportProvider>
-          </MobileProvider>
-        </ProductionWrapper>
-      </PerformanceOptimizedApp>
+      <ProductionWrapper>
+        <MobileProvider>
+          <ViewportProvider>
+            <App />
+          </ViewportProvider>
+        </MobileProvider>
+      </ProductionWrapper>
     </MobileErrorBoundary>
   );
 
