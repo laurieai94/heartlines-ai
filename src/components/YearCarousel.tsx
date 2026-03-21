@@ -137,7 +137,7 @@ export const YearCarousel = () => {
           containScroll: 'trimSnaps',
           slidesToScroll: 1
         }}
-        plugins={[autoplay]}
+        plugins={[autoplay as any]}
         className="w-full [&_.overflow-hidden]:pointer-events-none [&_.overflow-hidden]:touch-none"
       >
         <CarouselContent className="!ml-0">
