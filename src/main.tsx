@@ -68,15 +68,13 @@ const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
 const AppWithBoundary = () => {
   const content = (
     <MobileErrorBoundary>
-      <PerformanceOptimizedApp>
-        <ProductionWrapper>
-          <MobileProvider>
-            <ViewportProvider>
-              <App />
-            </ViewportProvider>
-          </MobileProvider>
-        </ProductionWrapper>
-      </PerformanceOptimizedApp>
+      <ProductionWrapper>
+        <MobileProvider>
+          <ViewportProvider>
+            <App />
+          </ViewportProvider>
+        </MobileProvider>
+      </ProductionWrapper>
     </MobileErrorBoundary>
   );
 
