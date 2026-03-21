@@ -11,20 +11,6 @@ const PrivacySecurity = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  useEffect(() => {
-    document.title = 'privacy & security - realtalk | your data, your control';
-
-    // Set meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'learn how realtalk protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private.');
-    } else {
-      const meta = document.createElement('meta');
-      meta.name = 'description';
-      meta.content = 'learn how realtalk protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private.';
-      document.head.appendChild(meta);
-    }
-  }, []);
 
   const handleSignInClick = () => {
     navigate('/signin');
