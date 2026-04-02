@@ -1,10 +1,11 @@
 import { AbsoluteFill, useCurrentFrame, interpolate } from "remotion";
-import { loadFont } from "@remotion/google-fonts/InstrumentSans";
+import { loadFont } from "@remotion/google-fonts/CrimsonText";
 
 const { fontFamily } = loadFont("normal", { weights: ["400"], subsets: ["latin"] });
 
-const TEXT_DARK = "#281419";
-const CORAL = "#E8735A";
+const BURGUNDY = "#33000D";
+const CREAM = "#FAF5F5";
+const GOLD = "#D4A574";
 
 const lines = [
   "advice that knows the lore.",
@@ -16,7 +17,7 @@ export const Scene4Lines = () => {
   const frame = useCurrentFrame();
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#F5F0EB", fontFamily, justifyContent: "center", padding: "0 80px" }}>
+    <AbsoluteFill style={{ backgroundColor: BURGUNDY, fontFamily, justifyContent: "center", padding: "0 80px" }}>
       {lines.map((line, i) => {
         const enterStart = i * 22;
         const opacity = interpolate(frame, [enterStart, enterStart + 15], [0, 1], { extrapolateRight: "clamp" });
@@ -24,11 +25,11 @@ export const Scene4Lines = () => {
 
         return (
           <div key={i} style={{ opacity, transform: `translateX(${x}px)`, marginBottom: 40 }}>
-            <p style={{ fontSize: 38, color: TEXT_DARK, margin: 0, lineHeight: 1.4, letterSpacing: 0.5 }}>
+            <p style={{ fontSize: 38, color: CREAM, margin: 0, lineHeight: 1.4, letterSpacing: 0.5 }}>
               {line}
             </p>
             {i < lines.length - 1 && (
-              <div style={{ width: 40, height: 1, backgroundColor: CORAL, marginTop: 20, opacity: 0.6 }} />
+              <div style={{ width: 40, height: 1, backgroundColor: GOLD, marginTop: 20, opacity: 0.6 }} />
             )}
           </div>
         );

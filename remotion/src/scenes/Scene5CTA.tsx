@@ -1,11 +1,13 @@
 import { AbsoluteFill, useCurrentFrame, interpolate } from "remotion";
-import { loadFont } from "@remotion/google-fonts/InstrumentSans";
+import { loadFont } from "@remotion/google-fonts/Shrikhand";
 
-const { fontFamily } = loadFont("normal", { weights: ["400", "600"], subsets: ["latin"] });
+const { fontFamily } = loadFont("normal", { weights: ["400"], subsets: ["latin"] });
 
 const BURGUNDY = "#33000D";
+const BURGUNDY_DEEP = "#1A0007";
 const CORAL = "#E8735A";
 const CREAM = "#FAF5F5";
+const GOLD = "#D4A574";
 
 export const Scene5CTA = () => {
   const frame = useCurrentFrame();
@@ -18,25 +20,21 @@ export const Scene5CTA = () => {
   const subOpacity = interpolate(frame, [55, 70], [0, 1], { extrapolateRight: "clamp" });
 
   return (
-    <AbsoluteFill style={{ backgroundColor: BURGUNDY, fontFamily, alignItems: "center", justifyContent: "center", opacity: bgOpacity }}>
-      {/* Wordmark */}
+    <AbsoluteFill style={{ backgroundColor: BURGUNDY_DEEP, fontFamily, alignItems: "center", justifyContent: "center", opacity: bgOpacity }}>
       <div style={{ opacity: wordmarkOpacity, transform: `translateY(${wordmarkY}px)` }}>
         <p style={{ fontSize: 64, color: CREAM, margin: 0, letterSpacing: 2 }}>heartlines</p>
       </div>
 
-      {/* Accent line */}
-      <div style={{ width: lineWidth, height: 1, backgroundColor: CORAL, marginTop: 24, marginBottom: 24 }} />
+      <div style={{ width: lineWidth, height: 1, backgroundColor: GOLD, marginTop: 24, marginBottom: 24 }} />
 
-      {/* Tagline */}
       <div style={{ opacity: taglineOpacity }}>
-        <p style={{ fontSize: 28, color: "rgba(250,245,245,0.8)", margin: 0, letterSpacing: 1 }}>
+        <p style={{ fontSize: 28, color: "rgba(250,245,245,0.8)", margin: 0, letterSpacing: 1, fontFamily: "sans-serif" }}>
           stronger relationships start here
         </p>
       </div>
 
-      {/* Powered by */}
       <div style={{ opacity: subOpacity, position: "absolute", bottom: 120 }}>
-        <p style={{ fontSize: 18, color: "rgba(250,245,245,0.5)", margin: 0, letterSpacing: 1 }}>
+        <p style={{ fontSize: 18, color: "rgba(212,165,116,0.7)", margin: 0, letterSpacing: 1, fontFamily: "sans-serif" }}>
           powered by laurie ai
         </p>
       </div>
