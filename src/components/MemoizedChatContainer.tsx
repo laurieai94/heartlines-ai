@@ -23,11 +23,11 @@ const MemoizedChatContainer = React.memo(ChatContainer, (prevProps, nextProps) =
     prevProps.conversationStarter === nextProps.conversationStarter &&
     prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
     prevProps.chatHistory.length === nextProps.chatHistory.length &&
-    // Deep check chat history content changes
-    prevProps.chatHistory.every((msg, index) => {
-      const nextMsg = nextProps.chatHistory[index];
-      return nextMsg && msg.id === nextMsg.id && msg.content === nextMsg.content;
-    })
+    // Only check last message (earlier messages are immutable once complete)
+    (prevProps.chatHistory.length === 0 || (
+      prevProps.chatHistory[prevProps.chatHistory.length - 1].id === nextProps.chatHistory[nextProps.chatHistory.length - 1].id &&
+      prevProps.chatHistory[prevProps.chatHistory.length - 1].content === nextProps.chatHistory[nextProps.chatHistory.length - 1].content
+    ))
   );
 });
 

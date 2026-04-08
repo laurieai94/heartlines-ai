@@ -218,7 +218,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               isLastInGroup={isLastInGroup}
               isLoading={loading && index === chatHistory.length - 1 && message.type === 'ai'}
               onRetry={message.isError && message.originalUserMessage && onRetry 
-                ? () => onRetry(message.id, message.originalUserMessage!) 
+                ? handleRetryForMessage(message.id, message.originalUserMessage!)
                 : undefined}
             />
           </div>
