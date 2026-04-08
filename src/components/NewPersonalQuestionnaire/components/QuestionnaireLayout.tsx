@@ -106,6 +106,13 @@ const QuestionnaireLayout = ({
   // Auto-advance handled by flow context now
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  // Scroll to top when section changes
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [currentSection]);
+
   // Component renders normally
 
   return <MobileProfileBoundary>

@@ -104,7 +104,12 @@ const PartnerQuestionnaireLayout = ({
   };
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    // Component renders normally
+    // Scroll to top when section changes
+    useEffect(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+      }
+    }, [currentSection]);
 
      return <MobileProfileBoundary>
        <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-start sm:items-center justify-center p-0 sm:p-4'}`}>
