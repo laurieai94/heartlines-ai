@@ -284,7 +284,7 @@ useChatEffects({
             }
             
             // Never show nudge mid-conversation — if user has sent messages, they've passed the gate
-            const hasUserMessages = chatHistory.some(msg => msg.role === 'user');
+            const hasUserMessages = chatHistory.some(msg => msg.type === 'user');
             if (hasUserMessages) {
               return false;
             }
