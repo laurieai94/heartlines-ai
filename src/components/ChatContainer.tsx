@@ -56,6 +56,10 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const { isMobile } = useOptimizedMobile();
   const prevChatLengthRef = useRef(chatHistory.length);
 
+  // Stable retry callback to avoid breaking AIChatMessage memo
+  const handleRetryForMessage = useCallback((messageId: number, originalMessage: string) => {
+    return () => onRetry?.(messageId, originalMessage);
+  }, [onRetry]);
 
   // Enhanced scroll to bottom with buffer and optional offset
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth', offset: number = 0) => {
