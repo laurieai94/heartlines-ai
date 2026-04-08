@@ -56,6 +56,10 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const { isMobile } = useOptimizedMobile();
   const prevChatLengthRef = useRef(chatHistory.length);
 
+  // Stable retry callback to avoid breaking AIChatMessage memo
+  const handleRetryForMessage = useCallback((messageId: number, originalMessage: string) => {
+    return () => onRetry?.(messageId, originalMessage);
+  }, [onRetry]);
 
   // Enhanced scroll to bottom with buffer and optional offset
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth', offset: number = 0) => {
@@ -218,7 +222,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
               isLastInGroup={isLastInGroup}
               isLoading={loading && index === chatHistory.length - 1 && message.type === 'ai'}
               onRetry={message.isError && message.originalUserMessage && onRetry 
-                ? () => onRetry(message.id, message.originalUserMessage!) 
+                ? handleRetryForMessage(message.id, message.originalUserMessage!)
                 : undefined}
             />
           </div>
@@ -247,7 +251,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
                     fetchPriority="high"
                     decoding="async" 
                   />
-                  <AvatarFallback className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-sm md:text-xs font-medium">
+                  <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-sm md:text-xs font-medium">
                     <Heart className="w-4 h-4 md:w-4 md:h-4" />
                   </AvatarFallback>
                 </Avatar>
