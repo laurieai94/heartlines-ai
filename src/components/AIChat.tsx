@@ -280,16 +280,16 @@ useChatEffects({
           showProfileNudge={(() => {
             const isCompleting = sessionStorage.getItem('questionnaire-completing');
             if (isCompleting) {
-              if (!import.meta.env.PROD) {
-                console.log('[AIChat] Questionnaire completing - hiding nudge');
-              }
+              return false;
+            }
+            
+            // Never show nudge mid-conversation — if user has sent messages, they've passed the gate
+            const hasUserMessages = chatHistory.some(msg => msg.type === 'user');
+            if (hasUserMessages) {
               return false;
             }
             
             const shouldShowNudge = accessLevel === 'profile-required' && !!user && profileCompletion < 100;
-            if (!import.meta.env.PROD) {
-              console.log('[AIChat] Nudge logic:', { accessLevel, hasUser: !!user, profileCompletion, shouldShowNudge, isCompleting });
-            }
             return shouldShowNudge;
           })()}
           inputSectionHeight={inputSectionHeight}

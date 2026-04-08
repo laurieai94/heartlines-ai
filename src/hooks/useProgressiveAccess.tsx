@@ -218,6 +218,12 @@ export const useProgressiveAccess = () => {
   
   // Track last known access level to prevent flickering
   const lastAccessLevelRef = useRef<AccessLevel>('signup-required');
+  const loadStartRef = useRef<number>(Date.now());
+  
+  // Reset load timer when user changes
+  useEffect(() => {
+    loadStartRef.current = Date.now();
+  }, [user?.id]);
   
   // Memoized access level calculation
   const accessLevel = useMemo((): AccessLevel => {
@@ -226,12 +232,16 @@ export const useProgressiveAccess = () => {
       return 'signup-required';
     }
     
-    // CRITICAL FIX: Wait for profile data to fully load before checking completion
-    // This prevents false "profile incomplete" lockouts during data loading
-    // Check both isReady AND isLoading - if actively loading, wait
+    // Wait for profile data to load, but add a 5-second timeout
+    // to prevent permanent lockout from stuck loading state
     if (!personalStorage.isReady || personalStorage.isLoading) {
-      console.log('[ProgressiveAccess] Profile data loading, returning last known access level');
-      // Return last known access level to prevent flickering during load
+      const elapsed = Date.now() - loadStartRef.current;
+      if (elapsed > 5000) {
+        // Stuck loading — fall through to full-access rather than blocking
+        console.log('[ProgressiveAccess] Loading timeout exceeded, granting full-access');
+        lastAccessLevelRef.current = 'full-access';
+        return 'full-access';
+      }
       return lastAccessLevelRef.current;
     }
     
