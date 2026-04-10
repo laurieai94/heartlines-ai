@@ -132,12 +132,11 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                   <div className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                     {message.type === 'assistant' && (
                       <FlameIconHalo intensity="subtle" size="sm" animated={false}>
-                        <Avatar className="w-6 h-6 flex-shrink-0">
-                          <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
-                          <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
-                            <Heart className="w-3 h-3" />
-                          </AvatarFallback>
-                        </Avatar>
+                        <img
+                          src={BRAND.coach.avatarSrc}
+                          alt={BRAND.coach.name}
+                          className="w-6 h-6 rounded-full object-cover flex-shrink-0 ring-2 ring-white shadow-md"
+                        />
                       </FlameIconHalo>
                     )}
                     <ChatBubble
@@ -148,11 +147,9 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                       {message.content}
                     </ChatBubble>
                     {message.type === 'user' && (
-                      <Avatar className="w-6 h-6 flex-shrink-0">
-                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                          {currentConversation.userName?.[0] || 'M'}
-                        </AvatarFallback>
-                      </Avatar>
+                      <div className="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-coral-400 to-pink-500 flex items-center justify-center text-white text-xs font-bold ring-2 ring-white shadow-md">
+                        {currentConversation.userName?.[0] || 'M'}
+                      </div>
                     )}
                   </div>
                   <div className={`text-xs text-white/40 mt-1 ${message.type === 'user' ? 'text-right mr-8' : 'text-left ml-8'}`}>
@@ -164,12 +161,11 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
               {/* Typing Indicator */}
               {isTyping && (
                 <div className="flex gap-2 items-end animate-fade-in">
-                  <Avatar className="w-6 h-6 flex-shrink-0">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
-                    <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
-                      <Heart className="w-3 h-3" />
-                    </AvatarFallback>
-                  </Avatar>
+                  <img
+                    src={BRAND.coach.avatarSrc}
+                    alt={BRAND.coach.name}
+                    className="w-6 h-6 rounded-full object-cover flex-shrink-0 ring-2 ring-white shadow-md"
+                  />
                   <div className="bg-purple-600/90 backdrop-blur-sm px-4 py-3 rounded-2xl border border-purple-500/30 shadow-lg shadow-purple-900/20">
                     <div className="flex gap-1">
                       <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce"></div>
