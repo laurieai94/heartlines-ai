@@ -1,32 +1,31 @@
 
 
-## Fix: Kai is Broken — Extended Thinking Header Rejected
+## Safe Codebase Cleanup — Phase 1
 
-### Problem
+Zero-risk changes only. No moving files, no renaming folders, no import rewiring. Just deleting confirmed dead code and removing dev artifacts.
 
-Kai is returning "something went wonky" for every message. The edge function logs show:
+### What we'll do
 
-```
-API error 400: Unexpected value(s) `extended-thinking-2025-01-24` for the `anthropic-beta` header
-```
+**1. Delete unused files (3 files)**
+These files have zero imports anywhere in the codebase:
+- `src/components/MemoizedDashboardContent.tsx` — dead wrapper, never imported
+- `src/components/MemoizedProfileBuilder.tsx` — dead wrapper, never imported  
+- `PHASE_4_SUMMARY.md` — development artifact, doesn't belong in repo
 
-The `extended-thinking-2025-01-24` beta header and `thinking` parameter we added in the previous change are not supported for `claude-sonnet-4-5` via this API configuration. Every API call fails, retries 5 times, then returns an error to the user.
+**2. Merge duplicate `Brand/` and `brand/` folders**
+There are two brand component folders with different casing — confusing and a potential issue on case-sensitive file systems:
+- `src/components/Brand/` (HeartlinesWordmark, PhoneLockup) — used by 4 files
+- `src/components/brand/` (BrandColorSwatch, BrandSection) — used by 1 file
 
-### Fix
+We'll move everything into `src/components/brand/` (lowercase, consistent with other folders like `chat/`, `auth/`, `sidebar/`) and update the 5 import paths.
 
-**File: `supabase/functions/anthropic-chat/index.ts`**
+### What we won't touch
+- No folder reorganization of the 70+ loose component files (risky)
+- No hook consolidation (behavioral risk)
+- No credential changes (needs testing)
+- No renaming of any actively-used files
 
-1. **Remove** `extended-thinking-2025-01-24` from the `anthropic-beta` header (keep `prompt-caching-2024-07-31`)
-2. **Remove** the `thinking` block (`type: 'enabled'`, `budget_tokens: 1024`)
-3. **Remove** the `+ 1024` extra max_tokens budget added for thinking
-4. **Keep** `temperature: 0.75` (that part is valid and useful)
-5. **Simplify** the response parsing back — the `textBlock` finder still works fine (it finds `type: 'text'` which is the normal response format too), so no change needed there
-
-After editing, redeploy the edge function.
-
-### What stays
-- `temperature: 0.75`
-- Prompt caching header
-- All prompt template changes from the previous update
-- Response parsing (already handles normal text blocks correctly)
+### Risk level: Minimal
+- Deleting unused files: zero risk (confirmed no imports)
+- Brand folder merge: very low risk (only 5 import paths to update, easy to verify)
 
