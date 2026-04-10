@@ -11,7 +11,7 @@ import { logEvent } from '@/utils/analytics';
 import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
 import { BRAND } from '@/branding';
 import { preloadCriticalImages } from '@/utils/imageOptimizer';
-import PhoneLockup from '@/components/Brand/PhoneLockup';
+import PhoneLockup from '@/components/brand/PhoneLockup';
 import { listenForAuthSuccess } from '@/utils/authChannel';
 import { toast } from '@/components/ui/sonner';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';

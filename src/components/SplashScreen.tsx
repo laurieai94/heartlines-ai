@@ -1,5 +1,5 @@
 import React from "react";
-import PhoneLockup from "@/components/Brand/PhoneLockup";
+import PhoneLockup from "@/components/brand/PhoneLockup";
 
 interface SplashScreenProps {
   message?: string;

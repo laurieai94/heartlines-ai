@@ -1,6 +1,6 @@
 import BrandMark from "./BrandMark";
 import SignInButton from "./SignInButton";
-import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
+import HeartlinesWordmark from "./brand/HeartlinesWordmark";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
