@@ -404,7 +404,10 @@ serve(async (req) => {
     // Calculate response time
     const responseTimeMs = Date.now() - requestStartTime;
     
-    if (data.content && data.content[0] && data.content[0].text) {
+    // With extended thinking, response has multiple content blocks (thinking + text)
+    // Find the text block specifically
+    const textBlock = data.content?.find((block: any) => block.type === 'text');
+    if (textBlock && textBlock.text) {
       // Log token usage with cache metrics
       try {
         const inputTokens = data.usage?.input_tokens || 0;
@@ -523,7 +526,7 @@ serve(async (req) => {
       }
       
       // Get the response text
-      let responseText = data.content[0].text;
+      let responseText = textBlock.text;
       
       // RESPONSE MONITORING: Log if banned phrases appear (don't force openers anymore)
       if (isFirstResponse) {
