@@ -1,73 +1,91 @@
-# Welcome to your Lovable project
+# 💕 Heartlines AI
 
-## Project info
+**An AI-powered relationship coach that helps couples communicate better, resolve conflicts, and deepen their connection.**
 
-**URL**: https://lovable.dev/projects/6bfa0ccd-e6de-49bb-94be-d8dd10145eb2
+🔗 **Live App:** [heartlines-ai.lovable.app](https://heartlines-ai.lovable.app)
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ✨ Features
 
-**Use Lovable**
+- **AI Relationship Coach (Kai)** — Conversational AI trained in relationship psychology, offering personalized guidance through voice or text
+- **Voice-to-Text & Text-to-Speech** — Talk naturally with Kai using real-time voice transcription and spoken responses
+- **Relationship Pattern Detection** — Identifies recurring communication patterns and provides actionable insights
+- **Partner Profiles** — Build detailed profiles for context-aware coaching tailored to your unique relationship
+- **Conversation Memory** — Kai remembers past conversations, topics, and progress over time
+- **Smart Reminders** — Personalized check-ins and relationship exercises delivered on your schedule
+- **Usage Analytics Dashboard** — Track engagement, token usage, and cost metrics (admin)
+- **Subscription Management** — Tiered plans (Glow, Vibe, Unlimited) with Stripe integration
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6bfa0ccd-e6de-49bb-94be-d8dd10145eb2) and start prompting.
+## 🛠 Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | React 18, TypeScript 5, Vite 5 |
+| **Styling** | Tailwind CSS 3, Radix UI (shadcn/ui), CSS custom properties |
+| **State Management** | TanStack React Query, React Context |
+| **Backend** | Supabase Edge Functions (Deno) |
+| **Database** | PostgreSQL via Supabase (RLS-secured) |
+| **Auth** | Supabase Auth (email/password, magic link) |
+| **AI** | Anthropic Claude API (server-side only) |
+| **Payments** | Stripe (subscriptions + webhooks) |
+| **Hosting** | Lovable Cloud |
 
-**Use your preferred IDE**
+## 🏗 Architecture Highlights
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Server-side AI processing** — All LLM calls run through Supabase Edge Functions; no API keys are exposed client-side
+- **Row-Level Security (RLS)** — Every database table is secured with RLS policies; users can only access their own data
+- **Role-based access control** — Admin roles stored in a dedicated `user_roles` table with `SECURITY DEFINER` functions to prevent privilege escalation
+- **Prompt caching** — Token-level cache metrics tracked for cost optimization
+- **Crisis detection** — Real-time monitoring for user safety with severity-based logging
+- **Modular component architecture** — 60+ components organized by feature domain
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📁 Project Structure
 
-Follow these steps:
+```
+src/
+├── components/       # UI components organized by feature
+├── hooks/            # Custom React hooks (auth, chat, profiles, usage)
+├── integrations/     # Supabase client & auto-generated types
+├── pages/            # Route-level page components
+├── contexts/         # React context providers
+└── utils/            # Shared utilities and helpers
+
+supabase/
+├── functions/        # Edge Functions (AI chat, voice, payments, etc.)
+└── migrations/       # Database schema migrations
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ and npm
+- A [Supabase](https://supabase.com) project (for backend services)
+
+### Setup
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone https://github.com/laurieai94/heartlines-ai.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to the project directory
+cd heartlines-ai
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Copy environment variables
+cp .env.example .env
+# Fill in your Supabase project URL and anon key
+
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 🔐 Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+See [`.env.example`](.env.example) for required variables. All keys used client-side are **publishable/anon keys only** — private keys are stored as Supabase Edge Function secrets and never appear in the codebase.
 
-**Use GitHub Codespaces**
+## 📄 License
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6bfa0ccd-e6de-49bb-94be-d8dd10145eb2) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT License — see [LICENSE](LICENSE) for details.
