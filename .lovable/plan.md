@@ -1,26 +1,43 @@
 
 
-## Make Your GitHub Repo Job-Application Ready
+## README Rewrite — Job-Ready, No Emojis, With Demo + Status Badge
 
-### 1. Rewrite README.md
-Replace the Lovable boilerplate with a professional project README:
-- **Hero section**: Project name, one-line description, link to live site (heartlines-ai.lovable.app)
-- **Screenshot/demo**: Add a screenshot of the landing page or dashboard
-- **Features list**: AI relationship coach, voice-to-text, real-time insights, Supabase backend
-- **Tech stack section**: React 18, TypeScript, Vite, Tailwind CSS, Supabase (Auth, Edge Functions, Database), Radix UI
-- **Architecture highlights**: Server-side AI processing via Edge Functions, RLS-secured database, PWA support
-- **Getting started**: Keep the setup instructions but with actual repo name
+### What changes
 
-### 2. Fix package.json name
-Change `"name": "vite_react_shadcn_ts"` to `"name": "heartlines-ai"`
+Full rewrite of `README.md` incorporating your new copy, removing all emojis, adding a status badge, a "Why I Built This" section, and a placeholder for a demo GIF/screenshot.
 
-### 3. Add .env.example, sanitize .env
-- Create `.env.example` with placeholder values (no real keys)
-- Add `.env` to `.gitignore` (it may already be there — but the file is already committed, so we need to note that the keys are public/anon-only in the README or remove the file from git tracking)
+### Structure (top to bottom)
 
-### 4. Add LICENSE file
-MIT license with your name, unless you prefer keeping it proprietary (in which case, add a note in the README saying "All rights reserved")
+1. **Title + tagline** — "Heartlines AI" with your one-liner about messy, modern love
+2. **Status badge** — Active/deployed shield badge via shields.io
+3. **The hook** — Your three lines (the text you rewrite, the "we're good", the screenshot)
+4. **For engineers** — The technical one-liner about profile-based context injection
+5. **Live app link** — `https://heartlines.ai`
+6. **Demo** — Placeholder image reference (`./docs/demo.png`) — we'll take a screenshot of the landing page and add it
+7. **Product philosophy** — Your "stronger relationships build stronger communities" block, condensed
+8. **Why I built this** — Your personal section, lightly edited for flow
+9. **Core capabilities** — Context injection, conversation flow, script co-creation, scenario entry points, topic playbooks, response design, privacy — each 2-3 lines, no sub-bullets, no emojis
+10. **System design** — The "understand, reflect, steer, execute" pipeline, merged with architecture
+11. **Tech stack** — Clean markdown table (same data)
+12. **Architecture highlights** — Server-side AI, RLS, RBAC, safety, caching — bullet list
+13. **Project structure** — Same tree
+14. **Getting started** — Clean code block, no inline comments
+15. **Environment and security** — One paragraph
+16. **License** — One line
 
-### Risk level
-Zero — documentation-only changes, no code logic affected.
+### Demo screenshot
+
+I'll take a screenshot of the live landing page and save it as `docs/demo.png` in the repo, then reference it in the README.
+
+### Formatting rules
+- No emojis anywhere
+- Section headers use plain text (e.g., "Core Capabilities" not "Core Capabilities")
+- Clean, minimal markdown — no decorative characters
+
+### Files changed
+- `README.md` — full rewrite
+- `docs/demo.png` — new screenshot of the landing page
+
+### Risk
+Zero — documentation only.
 
