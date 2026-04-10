@@ -643,80 +643,8 @@ const LandingPage = ({
           </div>}
       </section>
 
-      {/* How It Works Section - Playful 4-Step Flow */}
-      <section id="how-it-works" className="pt-6 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
-
-        <div className="container mx-auto px-4 sm:px-6">
-          <ScrollReveal>
-            <div className="text-center mb-3 md:mb-8">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap" style={{
-                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
-              }}>how it works</h2>
-              
-            </div>
-          </ScrollReveal>
-          
-          {/* 4-Step Cards */}
-          <div className="relative max-w-6xl mx-auto">
-            <ScrollReveal delay={150}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-                {[{
-                  step: "01",
-                  title: "build your profile",
-                  description: "no fake bios, come as you are",
-                  icon: <UserPlus className="w-5 h-5" />,
-                  iconName: "user-plus"
-                }, {
-                  step: "02",
-                  title: "add your person",
-                  description: "every story has two (+) main characters",
-                  icon: <Heart className="w-5 h-5" />,
-                  iconName: "heart"
-                }, {
-                  step: "03",
-                  title: "chat with kai",
-                  description: "less textbook therapy, more real talk",
-                  icon: <MessageCircleHeart className="w-5 h-5" />,
-                  iconName: "message-heart"
-                }, {
-                  step: "04",
-                  title: "try it irl",
-                  description: "because the magic happens offline",
-                  icon: <Sparkles className="w-5 h-5" />,
-                  iconName: "sparkles"
-                }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
-              </div>
-            </ScrollReveal>
-
-            {/* Get Started CTA */}
-            <ScrollReveal delay={300}>
-              <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
-                <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                  <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
-                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                  }}>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 animate-shimmer" style={{
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                        backgroundSize: '200% 100%'
-                      }} />
-                    </div>
-                    <span className="relative z-10 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
-                      get started
-                    </span>
-                  </Button>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-
-        </div>
-      </section>
-
       {/* Meet Kai Section */}
-      <section className="py-10 md:py-16 relative overflow-hidden">
+      <section className="pt-6 pb-8 md:pt-8 md:pb-12 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -825,6 +753,78 @@ const LandingPage = ({
               </ScrollReveal>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* How It Works Section - Playful 4-Step Flow */}
+      <section id="how-it-works" className="pt-6 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
+
+        <div className="container mx-auto px-4 sm:px-6">
+          <ScrollReveal>
+            <div className="text-center mb-3 md:mb-8">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap" style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              }}>how it works</h2>
+              
+            </div>
+          </ScrollReveal>
+          
+          {/* 4-Step Cards */}
+          <div className="relative max-w-6xl mx-auto">
+            <ScrollReveal delay={150}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+                {[{
+                  step: "01",
+                  title: "build your profile",
+                  description: "no fake bios, come as you are",
+                  icon: <UserPlus className="w-5 h-5" />,
+                  iconName: "user-plus"
+                }, {
+                  step: "02",
+                  title: "add your person",
+                  description: "every story has two (+) main characters",
+                  icon: <Heart className="w-5 h-5" />,
+                  iconName: "heart"
+                }, {
+                  step: "03",
+                  title: "chat with kai",
+                  description: "less textbook therapy, more real talk",
+                  icon: <MessageCircleHeart className="w-5 h-5" />,
+                  iconName: "message-heart"
+                }, {
+                  step: "04",
+                  title: "try it irl",
+                  description: "because the magic happens offline",
+                  icon: <Sparkles className="w-5 h-5" />,
+                  iconName: "sparkles"
+                }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
+              </div>
+            </ScrollReveal>
+
+            {/* Get Started CTA */}
+            <ScrollReveal delay={300}>
+              <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
+                <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                  <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
+                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  }}>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 animate-shimmer" style={{
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                        backgroundSize: '200% 100%'
+                      }} />
+                    </div>
+                    <span className="relative z-10 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
+                      get started
+                    </span>
+                  </Button>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
         </div>
       </section>
 
