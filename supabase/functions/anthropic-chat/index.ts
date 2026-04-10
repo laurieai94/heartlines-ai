@@ -274,17 +274,13 @@ serve(async (req) => {
               'Content-Type': 'application/json',
               'x-api-key': anthropicApiKey,
               'anthropic-version': '2023-06-01',
-              'anthropic-beta': 'prompt-caching-2024-07-31,extended-thinking-2025-01-24',
+              'anthropic-beta': 'prompt-caching-2024-07-31',
               'Accept': 'application/json'
             },
             body: JSON.stringify({
               model: modelConfig.model,
-              max_tokens: modelConfig.max_tokens + 1024, // extra budget for thinking tokens
+              max_tokens: modelConfig.max_tokens,
               temperature: 0.75,
-              thinking: {
-                type: 'enabled',
-                budget_tokens: 1024
-              },
               messages: messages,
               system: systemBlocks
             }),
