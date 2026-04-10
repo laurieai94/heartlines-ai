@@ -459,7 +459,7 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
 
       if (error) {
         // Only log error message, not full object
-        safeLog.error(`Database sync failed for ${profileType}:`, error.message);
+        console.error(`Database sync failed for ${profileType}:`, error.message, error);
         
         // Restore pending updates on failure
         Object.assign(pendingUpdates.current, updates);
@@ -562,7 +562,7 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
       }
     } catch (error: any) {
       // Safe error logging without object serialization
-      safeLog.error(`Database sync error for ${profileType}:`, error?.message || 'Unknown error');
+      console.error(`Database sync error for ${profileType}:`, error?.message || 'Unknown error', error);
       
       // Restore pending updates on failure
       Object.assign(pendingUpdates.current, updates);

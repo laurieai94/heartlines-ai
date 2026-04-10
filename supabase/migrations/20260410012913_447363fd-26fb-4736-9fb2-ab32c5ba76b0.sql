@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS public.upsert_user_profile_patch(text, jsonb);

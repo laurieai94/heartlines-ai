@@ -939,16 +939,14 @@ export type Database = {
         Args: { p_delta?: number; p_usage_month?: string; p_user_id: string }
         Returns: undefined
       }
-      upsert_user_profile_patch:
-        | { Args: { p_patch: Json; p_profile_type: string }; Returns: Json }
-        | {
-            Args: {
-              p_partner_profile_id?: string
-              p_patch: Json
-              p_profile_type: string
-            }
-            Returns: Json
-          }
+      upsert_user_profile_patch: {
+        Args: {
+          p_partner_profile_id?: string
+          p_patch: Json
+          p_profile_type: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       app_role: "admin" | "user"
