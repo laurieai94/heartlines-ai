@@ -12,7 +12,9 @@
 
 ## Product
 
-![kai — AI relationship coach](docs/kai-chat-screenshot.png)
+<p align="center">
+  <img src="docs/kai-chat-screenshot.png" alt="kai — AI relationship coach" width="500" />
+</p>
 
 ---
 
