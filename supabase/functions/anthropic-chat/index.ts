@@ -243,8 +243,8 @@ serve(async (req) => {
     // Inject opener instruction into userContext if using new format
     let enhancedUserContext = userContext;
     if (userContext && isFirstResponse) {
-      // Suggest a question but allow adaptation - NO validation allowed
-      enhancedUserContext = `${userContext}\n\n**FIRST MESSAGE RULE**: Start DIRECTLY with a question. Suggested: "${selectedOpener}" — but adapt it to what they just told you. NO validation phrases ("that's brutal", "that cuts deep", "glad you said it plainly"). NO preamble. Just ask your question.`;
+      // Brief ack + question - NO full validation sentences
+      enhancedUserContext = `${userContext}\n\n**FIRST MESSAGE RULE**: Start with a brief 1-2 word ack ("mm.", "yeah.", "ugh.", "god.") then a question. Suggested question: "${selectedOpener}" — but adapt it to what they just told you. NO full validation sentences ("that's brutal", "that cuts deep", "glad you said it plainly"). Just brief ack + question.`;
     }
 
     // Sonnet-only model configuration (no fallback - quality is non-negotiable)
@@ -274,12 +274,17 @@ serve(async (req) => {
               'Content-Type': 'application/json',
               'x-api-key': anthropicApiKey,
               'anthropic-version': '2023-06-01',
-              'anthropic-beta': 'prompt-caching-2024-07-31',
+              'anthropic-beta': 'prompt-caching-2024-07-31,extended-thinking-2025-01-24',
               'Accept': 'application/json'
             },
             body: JSON.stringify({
               model: modelConfig.model,
-              max_tokens: modelConfig.max_tokens,
+              max_tokens: modelConfig.max_tokens + 1024, // extra budget for thinking tokens
+              temperature: 0.75,
+              thinking: {
+                type: 'enabled',
+                budget_tokens: 1024
+              },
               messages: messages,
               system: systemBlocks
             }),
