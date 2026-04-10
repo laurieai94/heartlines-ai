@@ -4,17 +4,6 @@ import { PersonContext } from "@/types/AIInsights";
 import { ConversationalPromptBuilder } from "./conversationalPrompt";
 
 export class AIResponseCoordinator {
-  static initializeSupabase(): boolean {
-    const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
-    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
-    
-    if (!supabaseUrl || !supabaseAnonKey) {
-      console.warn('Supabase configuration missing');
-      return false;
-    }
-    
-    return true;
-  }
 
   static async getAIResponse(
     userMessage: string, 
@@ -75,24 +64,19 @@ export class AIResponseCoordinator {
   }
 
   private static enforceResponseBrevity(response: string): string {
-    // Count words (simple split by spaces)
     const words = response.trim().split(/\s+/);
     const wordCount = words.length;
     
-    // If under 60 words, return as-is
     if (wordCount <= 60) {
       return response;
     }
     
-    // If over 60 words, try to find natural break points
     const sentences = response.split(/[.!?]+/).filter(s => s.trim());
     
     if (sentences.length === 1) {
-      // Single sentence that's too long - truncate at 60 words
       return words.slice(0, 60).join(' ') + '...';
     }
     
-    // Keep adding sentences until we approach 60 words
     let truncated = '';
     let currentWordCount = 0;
     
