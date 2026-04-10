@@ -1,46 +1,52 @@
 
 
-## Fix: "Finish Profile" Nudge Showing Despite Complete Profile
+## Kai Prompt Refinement: Consolidated Changes
 
-### Problem
+Based on our section-by-section review, here are all the agreed changes:
 
-The "finish profile to unlock kai" banner appears mid-conversation even though profiles are complete. Console logs show `profileCompletion: 0` and `accessLevel: "profile-required"` — the profile data isn't loading into the `useProgressiveAccess` hook's instance of `useProfileStoreV2`.
+### 1. CONFIRMATION PHRASE LIBRARY
+- **Merge** "Simple checks" and "Invitations to correct" into one **"Quick Checks"** tier with ~5 best phrases
+- Keep Shape-checking, Precision probes, and Deeper dives as-is
+- Keep ROTATE instruction
 
-**Root cause**: Each call to `usePersonalProfileData()` creates an independent `useProfileStoreV2('personal')` state instance. The instance inside `useProgressiveAccess` may fail to load data from localStorage (e.g., in a fresh session or different browser tab) while the DB async load either fails silently or completes but doesn't trigger a re-render in the parent. Meanwhile, the chat is fully functional because Kai's edge function works independently of client-side profile state.
+### 2. SESSION CLOSURE PHRASE LIBRARY
+- **Remove "you got this"** from lines 300 and 310 (banned phrase)
+- Keep all 10 categories and remaining phrases as-is
 
-### Fix (two layers of defense)
+### 3. OPENING PHRASE LIBRARY
+- **Remove** "that took guts to say" and "thank you for trusting me with that" (conflict with banned formal appreciation phrases)
+- **Rework texture lines** from example phrases into a principle: *"reference something specific they shared — a time, a detail, a feeling — not a generic statement"* with 1-2 examples as vibes
+- Keep remaining categories as-is
 
-**1. Never show the nudge mid-conversation**
-In `src/components/AIChat.tsx`, add a guard: if `chatHistory` already has user messages, suppress the nudge regardless of `accessLevel`. A user who is actively chatting has clearly passed the profile gate at some point — showing the nudge mid-conversation is always wrong.
+### 4. REFLECTION PHRASE LIBRARY
+- Keep as-is (body/feeling anchors serve a different moment than Grounding)
 
-```ts
-// Line ~289 in AIChat.tsx
-const hasUserMessages = chatHistory.some(msg => msg.role === 'user');
-const shouldShowNudge = accessLevel === 'profile-required' 
-  && !!user 
-  && profileCompletion < 100 
-  && !hasUserMessages;  // NEW: never nudge mid-convo
-```
+### 5. GROUNDING & SOMATIC PHRASE LIBRARY
+- **Trim** each of the 6 categories from 5 phrases to 3-4 best phrases (~20 total)
 
-**2. Add a timeout fallback for stale loading state**
-In `src/hooks/useProgressiveAccess.tsx`, if `personalStorage.isReady` is still false after 5 seconds and the user is authenticated, force a re-check by falling through to `full-access` rather than returning the stale `lastAccessLevelRef`. This prevents permanent lockout from a stuck loading state.
+### 6. DISCOVERY QUESTIONS BY TOPIC
+- Keep as-is (all 40 questions across 8 topics)
 
-```ts
-// In the accessLevel useMemo
-if (!personalStorage.isReady || personalStorage.isLoading) {
-  // If stuck loading for too long, assume full access 
-  // rather than blocking an active user
-  return lastAccessLevelRef.current === 'profile-required' 
-    && chatHistory length > 0 
-    ? 'full-access' 
-    : lastAccessLevelRef.current;
-}
-```
+### 7. First Message Rule — Resolve Contradiction
+- **New unified rule**: Brief 1-2 word acknowledgment + question (e.g., "mm.", "yeah.", "ugh." then the question)
+- **Remove** the "question only, no validation" rule (lines 89-103)
+- **Remove** the "Opening Move Examples" section (lines 965-1020) which shows full validation + question
+- **Remove** the "OPENING RULE (validation first)" from user context (lines 1676-1684)
+- **Replace** with one consistent rule allowing brief ack + question
 
-**3. Hide nudge when `OnboardingStepNudge` receives completion ≥ 100**
-Already handled — `OnboardingStepNudge` returns `null` when `completion >= 100`. The issue is upstream: `profileCompletion` is `0` because the data never loaded. Fixes 1 and 2 address this.
+### 8. API Configuration (Edge Function)
+- Add **`temperature: 0.75`** to reduce randomness
+- Enable **extended thinking** with `budget_tokens: 1024` — adds 1-3s latency but lets Claude reason about emotional context before responding
 
 ### Files Changed
-- `src/components/AIChat.tsx` — add `hasUserMessages` guard to nudge logic
-- `src/hooks/useProgressiveAccess.tsx` — add timeout/fallback for stuck loading state
+- `src/utils/prompt/promptTemplate.ts` — All 7 prompt changes above
+- `supabase/functions/anthropic-chat/index.ts` — Add temperature + thinking parameters
+
+### What's NOT Changing
+- Voice rules (lowercase, no therapy-speak, banned phrases list)
+- Phase tracking system
+- Safety protocols and crisis handoff
+- Profile integration and cross-session memory
+- Prompt caching split (static/dynamic)
+- ROTATE instruction style
 
