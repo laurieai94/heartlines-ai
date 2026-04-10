@@ -17,26 +17,10 @@ export const useInputStateTracking = (settleDelayMs: number = 500) => {
 
   const trackActivity = useCallback((activityType: 'selection' | 'typing' | 'scrolling') => {
     const now = Date.now();
-    
-    // Clear existing timeout
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    // Mark as active
-    setInputState({
-      isUserActive: true,
-      lastActivityTime: now,
-      activeInputType: activityType
-    });
-
-    // Set timeout to mark as inactive
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setInputState({ isUserActive: true, lastActivityTime: now, activeInputType: activityType });
     timeoutRef.current = setTimeout(() => {
-      setInputState(prev => ({
-        ...prev,
-        isUserActive: false,
-        activeInputType: null
-      }));
+      setInputState(prev => ({ ...prev, isUserActive: false, activeInputType: null }));
     }, settleDelayMs);
   }, [settleDelayMs]);
 
@@ -48,11 +32,5 @@ export const useInputStateTracking = (settleDelayMs: number = 500) => {
     return !inputState.isUserActive;
   }, [inputState.isUserActive]);
 
-  return {
-    inputState,
-    trackSelection,
-    trackTyping, 
-    trackScrolling,
-    isNavigationSafe
-  };
+  return { inputState, trackSelection, trackTyping, trackScrolling, isNavigationSafe };
 };

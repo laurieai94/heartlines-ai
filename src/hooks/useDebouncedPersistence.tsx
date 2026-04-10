@@ -7,26 +7,20 @@ interface DebouncedPersistenceOptions {
 
 export const useDebouncedPersistence = <T,>(
   persistFunction: (data: T) => void | Promise<void>,
-  options: DebouncedPersistenceOptions = { delay: 2000 }  // Increased from 1000ms for performance
+  options: DebouncedPersistenceOptions = { delay: 2000 }
 ) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pendingDataRef = useRef<T | null>(null);
 
   const debouncedPersist = useCallback((data: T) => {
     pendingDataRef.current = data;
-
-    // Clear existing timeout
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    // Set new timeout
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(async () => {
       if (pendingDataRef.current !== null) {
         try {
           await persistFunction(pendingDataRef.current);
         } catch (error) {
-          // Silence persistence errors for performance
+          // Silence persistence errors
         } finally {
           pendingDataRef.current = null;
           timeoutRef.current = null;
@@ -36,18 +30,15 @@ export const useDebouncedPersistence = <T,>(
   }, [persistFunction, options.delay]);
 
   const persistImmediately = useCallback(async () => {
-    // Clear any pending timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-
-    // Persist current data if any
     if (pendingDataRef.current !== null) {
       try {
         await persistFunction(pendingDataRef.current);
       } catch (error) {
-        // Silence immediate persistence errors for performance
+        // Silence errors
       } finally {
         pendingDataRef.current = null;
       }

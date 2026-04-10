@@ -19,7 +19,7 @@ import { useGlobalResize } from '@/hooks/useGlobalResize';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
-import FrostedHeartShowcase from "./FrostedHeartShowcase";
+
 import HeroCarousel from "./HeroCarousel";
 import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon, CommunityIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
