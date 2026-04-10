@@ -16,11 +16,23 @@
 
 ---
 
-## Why heartlines
+## Why I Built This
 
-I kept seeing the same moment happen, to me and to people around me. You're staring at a text, rewriting it over and over, trying to figure out if you're overreacting or if something actually feels off. Most support doesn't exist in that moment.
+I kept seeing the same moment happen, to me and to people around me.
 
-I've seen firsthand how quickly these systems become careless when applied to something this personal. heartlines is my answer to that: help people slow down, make sense of what they're feeling, and show up in a way they feel good about later.
+You're staring at a text, rewriting it over and over, trying to figure out if you're overreacting or if something actually feels off. It's happening in real time, and most support just isn't there when you need it.
+
+You either spiral on your own or wait for clarity that comes too late.
+
+At the same time, I've seen how quickly AI becomes careless when it touches something this personal.
+
+heartlines is my answer to that.
+
+It's built for the messy middle, the texts, the silence, the moments that feel small but aren't. To help you slow down, make sense of what you're feeling, and find words you can actually use.
+
+So you can show up in a way you feel good about later.
+
+Stronger relationships build stronger communities.
 
 ## Core Capabilities
 
