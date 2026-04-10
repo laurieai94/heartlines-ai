@@ -1,71 +1,26 @@
 
 
-## Safe Codebase Cleanup — Phase 3
+## Make Your GitHub Repo Job-Application Ready
 
-This phase has two parts: more dead file deletions (same zero-risk approach), plus one targeted code fix for the hardcoded credentials.
+### 1. Rewrite README.md
+Replace the Lovable boilerplate with a professional project README:
+- **Hero section**: Project name, one-line description, link to live site (heartlines-ai.lovable.app)
+- **Screenshot/demo**: Add a screenshot of the landing page or dashboard
+- **Features list**: AI relationship coach, voice-to-text, real-time insights, Supabase backend
+- **Tech stack section**: React 18, TypeScript, Vite, Tailwind CSS, Supabase (Auth, Edge Functions, Database), Radix UI
+- **Architecture highlights**: Server-side AI processing via Edge Functions, RLS-secured database, PWA support
+- **Getting started**: Keep the setup instructions but with actual repo name
 
-### Part A: Delete more dead files (confirmed zero imports)
+### 2. Fix package.json name
+Change `"name": "vite_react_shadcn_ts"` to `"name": "heartlines-ai"`
 
-**Components (5 files):**
-- `src/components/APIKeyInput.tsx` — never imported
-- `src/components/MemoizedChatContainer.tsx` — never imported
-- `src/components/Company.tsx` — never imported
-- `src/components/FrostedHeartShowcase.tsx` — never imported
-- `src/components/MobileErrorBoundary.tsx` — never imported (only referenced in main.tsx import, need to verify)
-- `src/components/ProfileCompletionOptions.tsx` — never imported
+### 3. Add .env.example, sanitize .env
+- Create `.env.example` with placeholder values (no real keys)
+- Add `.env` to `.gitignore` (it may already be there — but the file is already committed, so we need to note that the keys are public/anon-only in the README or remove the file from git tracking)
 
-**Hooks (5 files):**
-- `src/hooks/usePerformanceSafeguards.tsx` — never imported
-- `src/hooks/useResourceLoader.ts` — never imported
-- `src/hooks/useDataMigration.tsx` — never imported
-- `src/hooks/useInputStateTracking.tsx` — never imported
-- `src/hooks/useDebouncedPersistence.tsx` — never imported
-- `src/hooks/usePullToReveal.tsx` — only imported by itself (self-referencing, never used)
-
-**Folder:**
-- `src/components/Brand/` — empty directory left from Phase 1
-
-Wait -- `MobileErrorBoundary` showed up in `main.tsx`. Let me re-confirm before listing it.
-
-Actually, re-checking: the search for `from "@/components/MobileErrorBoundary"` returned no results, but the `useProductionOptimizations` search showed main.tsx line 11 imports it. Let me drop MobileErrorBoundary from the delete list since it IS imported in main.tsx.
-
-**Revised dead file list (10 files):**
-
-Components:
-- `src/components/APIKeyInput.tsx`
-- `src/components/MemoizedChatContainer.tsx`
-- `src/components/Company.tsx`
-- `src/components/FrostedHeartShowcase.tsx`
-- `src/components/ProfileCompletionOptions.tsx`
-
-Hooks:
-- `src/hooks/usePerformanceSafeguards.tsx`
-- `src/hooks/useResourceLoader.ts`
-- `src/hooks/useDataMigration.tsx`
-- `src/hooks/useInputStateTracking.tsx`
-- `src/hooks/useDebouncedPersistence.tsx`
-- `src/hooks/usePullToReveal.tsx`
-
-### Part B: Remove dead `initializeSupabase` method
-
-The `AIResponseCoordinator.initializeSupabase()` method contains hardcoded Supabase credentials but does nothing useful -- it just checks if two hardcoded strings are truthy (they always are) and returns `true`. The credentials aren't even used; `aiService.ts` already imports the shared Supabase client.
-
-**Changes:**
-1. Delete the `initializeSupabase` method from `src/utils/aiResponseCoordinator.ts`
-2. Delete the passthrough `initializeSupabase` method from `src/components/AICoachEngine.tsx`
-3. In `src/components/AIInsights.tsx`, remove the `useEffect` that calls `initializeSupabase()` and just set `isConfigured = true` directly (or remove the `isConfigured` state if it only gates rendering)
-
-This removes hardcoded credentials from the codebase and eliminates dead code in one step.
-
-### What we still won't touch
-- No folder reorganization of the 60+ remaining loose components
-- No hook consolidation (used hooks stay put)
-- No import path rewiring
+### 4. Add LICENSE file
+MIT license with your name, unless you prefer keeping it proprietary (in which case, add a note in the README saying "All rights reserved")
 
 ### Risk level
-- Part A: Zero (confirmed no imports)
-- Part B: Very low (removing a no-op method that always returns true)
-
-### Technical detail
-11 dead files deleted. One vestigial initialization flow removed along with its hardcoded credentials. Total of ~14 files touched.
+Zero — documentation-only changes, no code logic affected.
 
