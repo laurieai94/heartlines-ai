@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo, useMemo } from 'react';
 import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -13,6 +13,48 @@ import mayaAvatar from '@/assets/millennial-african-american-woman.png';
 import alexAvatar from '@/assets/gay-man-avatar.png';
 import jordanAvatar from '@/assets/moving-in-avatar.png';
 import marcusAvatar from '@/assets/new-dad-avatar.png';
+
+const avatarMap: Record<string, string> = {
+  'Sarah': sarahAvatar,
+  'Maya': mayaAvatar,
+  'Alex': alexAvatar,
+  'Jordan': jordanAvatar,
+  'Marcus': marcusAvatar,
+};
+
+// Memoized chat row to prevent avatar flicker on sibling re-renders
+const ChatRow = memo(({ message, userAvatar, userName }: {
+  message: typeof demoConversations[0]['messages'][0];
+  userAvatar: string;
+  userName: string;
+}) => (
+  <div className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+    {message.type === 'assistant' && (
+      <FlameIconHalo intensity="subtle" size="sm" animated={false}>
+        <img
+          src={BRAND.coach.avatarSrc}
+          alt={BRAND.coach.name}
+          className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full object-cover flex-shrink-0"
+        />
+      </FlameIconHalo>
+    )}
+    <ChatBubble
+      isUser={message.type === 'user'}
+      variant={message.type === 'user' ? 'maya' : 'kai'}
+      className="animate-fade-in max-w-[86%]"
+    >
+      {message.content}
+    </ChatBubble>
+    {message.type === 'user' && (
+      <img
+        src={userAvatar}
+        alt={userName}
+        className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full object-cover flex-shrink-0 ring-2 ring-coral-400/40"
+      />
+    )}
+  </div>
+));
+ChatRow.displayName = 'ChatRow';
 
 interface HeroPhoneScrollProps {
   className?: string;
@@ -31,20 +73,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentConversation = demoConversations[currentConversationIndex];
-  
-  // Avatar mapping - static imports for instant loading
-  const avatarMap: Record<string, string> = {
-    'Sarah': sarahAvatar,
-    'Maya': mayaAvatar,
-    'Alex': alexAvatar,
-    'Jordan': jordanAvatar,
-    'Marcus': marcusAvatar,
-  };
 
-  // Get the appropriate avatar based on userName
-  const getUserAvatar = () => {
-    return avatarMap[currentConversation.userName];
-  };
+  // Compute user avatar once per conversation
+  const userAvatar = useMemo(() => avatarMap[currentConversation.userName], [currentConversation.userName]);
 
   // Preload ALL critical images on mount for instant loading
   useEffect(() => {
@@ -81,7 +112,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         });
       },
       {
-        threshold: 0.3, // Start when 30% of component is visible
+        threshold: 0.3,
         rootMargin: '0px'
       }
     );
@@ -109,7 +140,6 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= currentConversation.messages.length) {
-        // Reset and cycle to next conversation after 6 seconds
         timeoutId = setTimeout(() => {
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
@@ -183,9 +213,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       {/* Floating Chat CTA Button */}
       <Link to="/signup" className="absolute top-0 right-0 z-30 transform translate-x-2 -translate-y-2 sm:translate-x-4 sm:-translate-y-4">
         <div className="relative group inline-block">
-          {/* Glow effect */}
           <div className="absolute -inset-0.5 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-md group-hover:opacity-100 transition-opacity duration-300" />
-          
           <Button 
             size="sm"
             className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-2 sm:p-2.5 md:p-3.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200 font-medium"
@@ -193,7 +221,6 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               boxShadow: '0 0 30px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.5), 0 2px 8px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
             }}
           >
-            {/* Shimmer overlay */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div 
                 className="absolute inset-0 animate-shimmer"
@@ -203,7 +230,6 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 }}
               />
             </div>
-            
             <MessageSquare className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </Button>
         </div>
@@ -212,11 +238,10 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-0 sm:p-2 lg:p-4">
         <div className="relative animate-fade-in">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
-          
           <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
           
-      <div 
-        className="relative bg-gradient-to-br from-burgundy-900/25 to-burgundy-800/30 backdrop-blur-xl border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+          <div 
+            className="relative bg-gradient-to-br from-burgundy-900/25 to-burgundy-800/30 backdrop-blur-xl border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
               width: 'clamp(280px, 22vw, 310px)',
               aspectRatio: '9/16'
@@ -232,7 +257,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               </div>
             </div>
 
-            {/* Chat header */}
+            {/* Chat header — keep Radix Avatar here (doesn't re-render with messages) */}
             <div className="bg-gradient-to-r from-burgundy-700/15 to-burgundy-600/10 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
                 <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
@@ -261,61 +286,22 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               aria-live="polite"
             >
               {visibleMessages.map((message) => (
-                <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                   {message.type === 'assistant' && (
-                   <FlameIconHalo intensity="subtle" size="sm" animated={false}>
-                     <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0">
-                       <AvatarImage 
-                         src={BRAND.coach.avatarSrc} 
-                         alt={BRAND.coach.name} 
-                         loading="eager" 
-                         fetchPriority="high"
-                         decoding="async" 
-                       />
-                       <AvatarFallback delayMs={Infinity} className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
-                         <Heart className="w-3 h-3" />
-                       </AvatarFallback>
-                     </Avatar>
-                   </FlameIconHalo>
-                  )}
-                   <ChatBubble 
-                     isUser={message.type === 'user'} 
-                     variant={message.type === 'user' ? 'maya' : 'kai'} 
-                     className="animate-fade-in max-w-[86%]"
-                   >
-                     {message.content}
-                   </ChatBubble>
-                   {message.type === 'user' && (
-                     <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0 ring-2 ring-coral-400/40">
-                       <AvatarImage 
-                         src={getUserAvatar()} 
-                         alt={currentConversation.userName || 'You'} 
-                         loading={visibleMessages.indexOf(message) === 0 ? "eager" : "lazy"}
-                         fetchPriority={visibleMessages.indexOf(message) === 0 ? "high" : "auto"}
-                       />
-                       <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                         {currentConversation.userName?.[0] || 'Y'}
-                       </AvatarFallback>
-                     </Avatar>
-                   )}
-                </div>
+                <ChatRow
+                  key={message.id}
+                  message={message}
+                  userAvatar={userAvatar}
+                  userName={currentConversation.userName || 'You'}
+                />
               ))}
 
-              {/* Typing indicators */}
+              {/* Typing indicator — assistant */}
               {isTyping && typingSide === 'assistant' && (
                 <div className="flex gap-2 items-end justify-start animate-fade-in" aria-live="polite">
-                  <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0">
-                     <AvatarImage 
-                       src={BRAND.coach.avatarSrc} 
-                       alt={BRAND.coach.name} 
-                       loading="eager" 
-                       fetchPriority="high"
-                       decoding="async" 
-                     />
-                     <AvatarFallback delayMs={Infinity} className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
-                       <Heart className="w-3 h-3" />
-                     </AvatarFallback>
-                   </Avatar>
+                  <img
+                    src={BRAND.coach.avatarSrc}
+                    alt={BRAND.coach.name}
+                    className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full object-cover flex-shrink-0"
+                  />
                   <div className="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 max-w-[86%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
@@ -327,6 +313,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 </div>
               )}
 
+              {/* Typing indicator — user */}
               {isTyping && typingSide === 'user' && (
                 <div className="flex gap-2 items-end justify-end animate-fade-in" aria-live="polite">
                   <div className="bg-gradient-to-r from-coral-400 to-pink-500 text-white shadow-lg shadow-black/30 max-w-[86%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
@@ -336,18 +323,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                   <Avatar className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 flex-shrink-0 ring-2 ring-coral-400/40">
-                     <AvatarImage 
-                       src={getUserAvatar()} 
-                       alt={currentConversation.userName || 'You'} 
-                       loading="eager"
-                       fetchPriority="high"
-                       decoding="async"
-                     />
-                     <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                       {currentConversation.userName?.[0] || 'Y'}
-                     </AvatarFallback>
-                   </Avatar>
+                  <img
+                    src={userAvatar}
+                    alt={currentConversation.userName || 'You'}
+                    className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full object-cover flex-shrink-0 ring-2 ring-coral-400/40"
+                  />
                   <span className="sr-only">{currentConversation.userName || 'You'} is typing...</span>
                 </div>
               )}
@@ -376,7 +356,6 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       {/* Progress bar indicator */}
       <div className="w-full max-w-[340px] sm:max-w-[400px] mx-auto mt-6 mb-16 sm:mb-20 md:mb-24 px-4">
         <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
-          {/* Text labels above */}
           <div className="relative h-4">
             {demoConversations.map((conv, index) => {
               const segmentWidth = 100 / demoConversations.length;
@@ -402,7 +381,6 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             })}
           </div>
           
-          {/* Five distinct segments with gaps */}
           <div className="flex gap-1.5">
             {demoConversations.map((conv, index) => (
               <button
