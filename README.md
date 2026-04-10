@@ -10,6 +10,10 @@
 
 **Live app** · [heartlines.ai](https://heartlines.ai)
 
+## Product
+
+![kai — AI relationship coach](docs/kai-chat-screenshot.png)
+
 ---
 
 ## Why I Built heartlines
