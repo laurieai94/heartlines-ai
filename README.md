@@ -1,14 +1,10 @@
 # heartlines ai
 
-**An AI relationship coach for messy, modern love. Helping you make sense of your feelings so you can show up as someone you're proud of, no matter what you're in.**
+**An AI relationship coach for messy, modern love.**
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
-
-The text you rewrite ten times before hitting send.
-The version of "we're good" that doesn't feel true.
-The screenshot you take just to ask, "am I crazy?"
 
 **For engineers:** heartlines combines profile-based context injection, structured conversation flows, and server-side AI orchestration to turn open-ended chat into deterministic, real-world actions.
 
@@ -24,7 +20,7 @@ The screenshot you take just to ask, "am I crazy?"
 
 I kept seeing the same moment happen, to me and to people around me. You're staring at a text, rewriting it over and over, trying to figure out if you're overreacting or if something actually feels off. Most support doesn't exist in that moment.
 
-I've spent my career in AI and data, and I've seen how quickly these systems become careless when applied to something this personal. heartlines is my answer to that: help people slow down, make sense of what they're feeling, and show up in a way they feel good about later.
+I've seen firsthand how quickly these systems become careless when applied to something this personal. heartlines is my answer to that: help people slow down, make sense of what they're feeling, and show up in a way they feel good about later.
 
 ## Core Capabilities
 
