@@ -9,9 +9,6 @@ export class AICoachEngine {
     return PersonContextBuilder.buildPersonContext(profiles, demographicsData);
   }
 
-  static initializeSupabase(): boolean {
-    return AIResponseCoordinator.initializeSupabase();
-  }
 
   static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
     return ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);

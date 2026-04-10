@@ -94,11 +94,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   }, [personalProfileData, partnerProfileData, personalDataReady, partnerDataLoading, 
       temporaryProfiles.your, temporaryDemographics.your, activePartnerProfileId]);
 
-  // Initialize Supabase immediately for faster startup
-  useEffect(() => {
-    const configured = AICoachEngine.initializeSupabase();
-    setIsConfigured(configured);
-  }, []);
+  // Supabase is always configured via the shared client
+  // No initialization needed
 
   // Handle new conversation
   const handleNewConversation = async () => {
