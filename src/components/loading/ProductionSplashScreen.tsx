@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import PhoneLockup from '@/components/Brand/PhoneLockup';
+import PhoneLockup from '@/components/brand/PhoneLockup';
 import LoadingSpinner from './LoadingSpinner';
 
 interface ProductionSplashScreenProps {

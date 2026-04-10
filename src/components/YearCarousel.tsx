@@ -15,7 +15,7 @@ import elderlyManPortraitImage from '@/assets/elderly-man-portrait.webp';
 import elderlyFriendsCatsImage from '@/assets/elderly-friends-cats-city-apartment.webp';
 import elderlyWomenPeaceRetroImage from '@/assets/elderly-women-peace-retro-living-room.webp';
 import elderlyCoupleWarmVintageImage from '@/assets/elderly-couple-warm-vintage-living-room.webp';
-import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
+import HeartlinesWordmark from '@/components/brand/HeartlinesWordmark';
 
 interface CarouselSlide {
   year: string;

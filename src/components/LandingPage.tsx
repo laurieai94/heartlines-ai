@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
-import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
+import HeartlinesWordmark from "./brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
