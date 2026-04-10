@@ -10,9 +10,6 @@ The text you rewrite ten times before hitting send.
 The version of "we're good" that doesn't feel true.
 The screenshot you take just to ask, "am I crazy?"
 
-Most tools help you find relationships or process them later.
-heartlines exists in the moment where you actually need help.
-
 **For engineers:** heartlines combines profile-based context injection, structured conversation flows, and server-side AI orchestration to turn open-ended chat into deterministic, real-world actions.
 
 **Live app** · [heartlines.ai](https://heartlines.ai)
@@ -23,23 +20,19 @@ heartlines exists in the moment where you actually need help.
 
 ---
 
-## Product Philosophy
+## Why heartlines
 
-heartlines is built on a simple belief: stronger relationships build stronger communities.
+I kept seeing the same moment happen, to me and to people around me. You're staring at a text, rewriting it over and over, trying to figure out if you're overreacting or if something actually feels off. Most support doesn't exist in that moment.
 
-Most people don't need more advice. They need help in the moment everything feels loud. heartlines is built for that moment. To help you slow down, make sense of what you're feeling, and choose how you show up.
-
-## Why I Built This
-
-I built heartlines because I kept seeing the same moment happen, to me and to people around me. You're staring at a text, rewriting it over and over, trying to figure out if you're overreacting or if something actually feels off. Most support doesn't exist in that moment.
-
-I've spent my career in AI and data, and I've seen how quickly these systems become careless when applied to something this personal. heartlines is my answer to that. Built to help you make sense of what you're feeling and show up in a way you feel good about later.
+I've spent my career in AI and data, and I've seen how quickly these systems become careless when applied to something this personal. heartlines is my answer to that: help people slow down, make sense of what they're feeling, and show up in a way they feel good about later.
 
 ## Core Capabilities
 
-- **Context injection** Starts with your patterns, attachment style, relationship history, and partner profiles. Kai uses this in the background to ask sharper questions without you having to re-explain.
+The system moves from "what just happened?" to "what do I say?" to "what do I do next?"
 
-- **Conversation flow** Structured phases: understand what's happening, reflect back patterns, steer toward clarity, execute with language you can actually use.
+- **Context injection** Starts with your patterns, attachment style, relationship history, and partner profiles. Kai uses this to ask sharper questions without you having to re-explain.
+
+- **Conversation flow** Structured phases: understand, reflect, steer, execute.
 
 - **Script co-creation** Draft the text, shape the conversation, pressure-test tone and boundaries. Not just advice, something you can actually say.
 
@@ -50,18 +43,6 @@ I've spent my career in AI and data, and I've seen how quickly these systems bec
 - **Response design** Concise and usable. Built for texts, calls, or in-person. You leave with something to use, not more to process.
 
 - **Private by architecture** Encrypted at rest. No selling or training on emotional data. Server-side execution only.
-
-## System Design
-
-heartlines is a structured coaching system built for how relationship moments actually unfold.
-
-- Scenario-based entry points aligned to real-world moments
-- Guided conversation phases: understand, reflect, steer, execute
-- Script co-creation for real-world communication
-- Profile-based context injection across sessions
-- Domain-specific playbooks ensuring consistency and depth
-
-This system moves from "what just happened?" to "what do I say?" to "what do I do next?"
 
 ## Tech Stack
 
