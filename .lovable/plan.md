@@ -1,40 +1,26 @@
 
 
-## Fix em-dashes and condense Core Capabilities
+## Remove repetition from README.md
 
-### Changes to `README.md`
+The problem: "Core Capabilities" (lines 38-52) and "System Design" (lines 54-64) repeat the same five concepts (context injection, conversation flow, script co-creation, scenario entry points, playbooks). The tagline, product philosophy, and "Why I Built This" also echo similar phrases about "the moment" and "make sense of what you're feeling."
 
-**1. Remove all em-dashes (`—`)**
+### Changes
 
-Replace every `—` with either a period, comma, or line break depending on context. Roughly 20 instances throughout the file.
+**1. Merge System Design into Core Capabilities**
 
-**2. Condense Core Capabilities into a single section**
+Delete the System Design section entirely. Its content is already covered in Core Capabilities. Move the one unique line ("what just happened?" to "what do I say?" to "what do I do next?") into the intro sentence for the section.
 
-Instead of 7 separate `###` subsections each with a full paragraph, collapse them into a compact list format. Each capability gets a bold title and one sentence. Example:
+**2. Tighten Product Philosophy + Why I Built This**
 
-```
-## Core Capabilities
+Combine into a single "Why heartlines" section. Cut repeated phrases about "the moment" and "make sense of what you're feeling" down to one occurrence each. Target: ~4 lines total instead of 8.
 
-- **Context injection** Starts with your patterns, attachment style, relationship history, and partner profiles. Kai uses this in the background to ask sharper questions without you having to re-explain.
+**3. Trim the hook**
 
-- **Conversation flow** Structured phases: understand what's happening, reflect back patterns, steer toward clarity, execute with language you can actually use.
+Lines 13-14 ("Most tools help you find relationships...heartlines exists in the moment") repeat the same idea as the tagline and philosophy. Remove those two lines since the hook (lines 9-11) already sets the tone.
 
-- **Script co-creation** Draft the text, shape the conversation, pressure-test tone and boundaries. Not just advice, something you can actually say.
+### Result
 
-- **Scenario-based entry points** Kai starts with the moment you're in. The same fight again, the silence, the spiral, the message that feels off.
-
-- **Topic-specific playbooks** Guided by structured domains: conflict and repair, intimacy, trust, family, identity, and transitions.
-
-- **Response design** Concise and usable. Built for texts, calls, or in-person. You leave with something to use, not more to process.
-
-- **Private by architecture** Encrypted at rest. No selling or training on emotional data. Server-side execution only.
-```
-
-This cuts the section from ~28 lines to ~14 lines while keeping all the substance.
-
-**3. Clean up em-dashes in other sections too**
-
-Architecture highlights, product philosophy, "Why I Built This", and system design all have em-dashes that will be replaced with cleaner punctuation.
+README drops from 120 lines to ~100, with zero repeated ideas. Same substance, tighter read.
 
 ### Files changed
 - `README.md` only
