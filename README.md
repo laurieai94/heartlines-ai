@@ -19,7 +19,7 @@ heartlines exists in the moment where you actually need help.
 
 ---
 
-![heartlines AI](./docs/demo.png)
+![heartlines ai](./docs/demo.png)
 
 ---
 
