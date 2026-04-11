@@ -1,43 +1,45 @@
 
 
-## Regenerate all 12 hero carousel images
+## Regenerate all 12 hero carousel images — wider framing
 
-### Style rules (applied to every prompt)
-All prompts will include:
+All 12 images will be regenerated with significantly wider compositions showing more of the room environment.
+
+### Updated style rules (every prompt)
 - "Both subjects looking straight ahead directly into the camera lens"
 - "Seated side by side on a couch, perfectly centered in the frame"
-- "Symmetrical composition, medium-wide shot showing the full living room"
+- "Symmetrical composition, wide shot showing the FULL living room from wall to wall"
 - "Photorealistic editorial portrait photography, shot on 35mm film"
 - "Cinematic warm color grading"
+- **NEW**: "Wide-angle lens, pulled back far enough to see floor, ceiling, and both walls"
+- **NEW**: "Subjects occupy no more than 40-50% of the frame height"
+- **NEW**: "Show furniture, decor, and architectural details of the full room"
+- **NEW**: "Two clearly different people — different facial structure, hairstyle, clothing, not twins or mirrored"
+- **NEW**: "Leave clean negative space in the lower-left for text overlay"
 
-### The 12 scenes
+### The 12 scenes (unchanged)
 
-| # | Scene | Unique details |
-|---|-------|---------------|
-| 1 | Native American women | Southwestern art, woven blankets, golden hour light |
-| 2 | Heritage couple | African cultural art, kente cloth accents, warm lamplight |
-| 3 | Cowboys southwestern | Cowboy hats, desert landscape art, leather furniture |
-| 4 | Diverse gathering | Four diverse elderly friends, cultural art, unity symbols |
-| 5 | Latino couple (manos unidas) | Warm terracotta tones, religious art, hand-painted tiles |
-| 6 | Pride couple | Two elderly men, Progress Pride flag, vintage furniture |
-| 7 | Vintage couple | Wood-paneled room, family photos, warm amber light |
-| 8 | Asian couple | Modern minimalist apartment, indoor plants, large windows |
-| 9 | Man with framed memory | Single elderly man holding photo frame, cozy den |
-| 10 | Friends with cats | Two elderly women, cats on laps, city apartment, big window |
-| 11 | Retro peace women | Two elderly women, peace symbols, colorful retro decor |
-| 12 | Warm vintage couple | Floral wallpaper, crocheted blankets, soft lamplight |
+| # | File | Scene |
+|---|------|-------|
+| 1 | elderly-native-american-women | Two Native American women, southwestern art, woven blankets, golden hour |
+| 2 | joyful-heritage-living-room | African heritage couple, kente cloth accents, warm lamplight |
+| 3 | cowboys-with-wheelchair | Two cowboys, desert landscape art, leather furniture |
+| 4 | warm-gathering-diverse-souls | Four diverse elderly friends, cultural art, unity symbols |
+| 5 | manos-unidas | Latino couple, terracotta tones, religious art, hand-painted tiles |
+| 6 | warm-embrace-pride | Two elderly men, Progress Pride flag, vintage furniture |
+| 7 | couple-on-couch | Vintage couple, wood-paneled room, family photos, amber light |
+| 8 | asian-couple-serene-moment | Asian couple, modern minimalist apartment, plants, large windows |
+| 9 | man-with-treasured-memory | Single elderly man holding photo frame, cozy den |
+| 10 | friends-cats-city-view | Two elderly women with cats, city apartment, big window |
+| 11 | retro-peace-living-room | Two elderly women, peace symbols, colorful retro decor |
+| 12 | warm-smiles-vintage-home | Couple, floral wallpaper, crocheted blankets, soft lamplight |
 
 ### Execution
 1. Copy `lovable_ai.py` to `/tmp/`
-2. Generate all 12 images using `google/gemini-3-pro-image-preview` with delays between calls to avoid rate limits
-3. Save as PNGs to `/mnt/documents/` for review before converting to WebP and replacing assets
-4. Generate in batches of 3 with pauses between batches
+2. Generate all 12 images at 1920x1080 using `google/gemini-3-pro-image-preview`
+3. Save as PNGs to `/mnt/documents/` for review
+4. Generate in batches of 3 with delays between batches
 
-### After review
-Once you approve the generated images, I will:
-- Convert all to WebP format
-- Replace the 12 files in `src/assets/hero-carousel/`
-- Update the corresponding files in `src/assets/` (used by YearCarousel)
-
-No code changes until images are approved.
+### After generation
+- Convert to WebP and replace all files in `src/assets/hero-carousel/` and `src/assets/`
+- No code changes needed — same filenames
 
