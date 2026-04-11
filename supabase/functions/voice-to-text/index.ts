@@ -165,6 +165,7 @@ serve(async (req) => {
       )
     }
 
+
     const result = await response.json()
     console.log(`Transcription successful with model ${model}: "${result.text}"`)
 
