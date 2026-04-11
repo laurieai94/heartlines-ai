@@ -1,41 +1,36 @@
 
 
-## Landing page visual refresh + hero carousel tweaks
+## Landing page refresh: visual diversity, smaller year text, image edits
 
-### Problem
-1. The year text on the hero carousel is too large and distracting
-2. The "man with framed memory" image needs the picture frame to show a 20-something girl at a music festival
-3. "How It Works" and "Why We're Different" both use identical burgundy glassmorphism cards -- feels repetitive and flat
+### 1. Shrink year text on hero carousel
+Reduce from `text-4xl md:text-6xl` to `text-2xl md:text-4xl` so the year is subtle, not dominating.
 
----
+**File:** `src/components/HeroCarousel.tsx`
 
-### Plan
+### 2. Edit the framed memory image
+Use the AI image editing API to modify `man-with-treasured-memory.webp` — change the photo inside the picture frame to a **color photo of a 20-something woman at an outdoor music festival**. Keep the man, room, and everything else identical.
 
-#### 1. Shrink year text on hero carousel
-- Reduce from `text-6xl md:text-8xl` to `text-4xl md:text-6xl` so the year is present but not dominating the image
+**File:** `src/assets/hero-carousel/man-with-treasured-memory.webp`
 
-#### 2. Edit the framed memory image
-- Use the Gemini image editing API to modify `man-with-treasured-memory.webp`
-- Prompt: edit the photo inside the picture frame to show a 20-something woman at an outdoor music festival, keep everything else the same
-- Replace the file in `src/assets/hero-carousel/`
+### 3. Make some couples interracial
+Use AI image editing on 2-3 carousel images to make the couples interracial (e.g. `couple-on-couch.webp`, `warm-smiles-vintage-home.webp`, `asian-couple-serene-moment.webp`). Keep poses, room, lighting, and composition identical — only adjust the subjects' appearances to reflect interracial pairings.
 
-#### 3. Redesign "How It Works" -- horizontal step flow (no cards)
-Replace the 4 identical burgundy cards with a clean **numbered horizontal flow**:
-- Large step numbers (01-04) with gradient text, connected by a thin horizontal line
-- Title and description below each number
-- No card backgrounds -- just typography on the page background
-- On mobile, stacks vertically with a vertical connecting line
-- This creates strong visual contrast against the bento grid below
+**Files:** select hero-carousel images
 
-#### 4. Refresh "Why We're Different" -- varied bento with accent cards
-Keep the bento grid but break the visual monotony:
-- Alternate between **dark burgundy cards** and **accent cards** (coral/rose gradient backgrounds) for key items like "private, always" and "built to give back"
-- Give the full-width bottom card ("built to give back") a distinct treatment -- larger text, subtle background pattern
-- Vary icon container styles (some with colored backgrounds, some outlined)
+### 4. Redesign "How It Works" — horizontal step flow (already done, keep as-is)
+The horizontal numbered flow (01-04) is already implemented and visually distinct from the bento grid. No changes needed here.
 
-### Files changed
-- `src/components/HeroCarousel.tsx` -- smaller year text
-- `src/assets/hero-carousel/man-with-treasured-memory.webp` -- regenerated via AI image edit
-- `src/components/LandingPage.tsx` -- new "How It Works" layout (inline, replaces StepCard usage)
-- `src/components/ui/timeline.tsx` -- accent card variations in bento grid
+### 5. Refresh "Why We're Different" — break bento monotony
+The bento grid already has accent card variations (coral/rose gradients at indices 2, 4, 6). To push visual diversity further:
+- Give the full-width bottom card ("built to give back") a **larger title size** and a **subtle repeating pattern overlay**
+- Add **outlined icon containers** on dark cards vs filled containers on accent cards
+- Increase size contrast between large (span-2) and small (span-1) cards
+
+**File:** `src/components/ui/timeline.tsx`
+
+### Technical summary
+- `HeroCarousel.tsx` — reduce year font size
+- `man-with-treasured-memory.webp` — AI edit: color festival photo in frame
+- 2-3 couple images — AI edit: make interracial
+- `timeline.tsx` — stronger visual differentiation between card types
 
