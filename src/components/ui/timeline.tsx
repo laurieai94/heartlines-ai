@@ -123,15 +123,15 @@ const gridPlacements = [
   'md:col-span-3',
 ];
 
-// Per-card gradient variations
+// Per-card gradient variations — accent cards at indices 2, 4, 6
 const cardGradients = [
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-pink-900/70',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-coral-600/10',
-  'bg-gradient-to-r from-burgundy-800/90 via-burgundy-700/80 to-orange-900/30',
+  'bg-gradient-to-r from-coral-600/30 via-pink-600/25 to-rose-700/35 border-coral-400/50',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70',
-  'bg-gradient-to-br from-burgundy-800/95 via-burgundy-700/85 to-pink-900/75',
+  'bg-gradient-to-br from-rose-700/35 via-pink-600/30 to-coral-600/25 border-pink-400/50',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-coral-600/15',
-  'bg-gradient-to-r from-burgundy-800/95 via-burgundy-700/85 to-pink-900/60',
+  'bg-gradient-to-r from-coral-600/25 via-burgundy-700/80 to-pink-600/30 border-coral-400/45',
 ];
 
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
