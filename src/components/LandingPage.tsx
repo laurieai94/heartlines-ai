@@ -28,78 +28,8 @@ import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
 import PremiumBackground from "./PremiumBackground";
 import ScrollReveal from "./ScrollReveal";
 
-// Clean StepCard Component - Mobile Style
-const StepCard = ({
-  step,
-  title,
-  description,
-  secondaryText,
-  icon,
-  iconName,
-  index
-}: {
-  step: string;
-  title: string;
-  description: string;
-  secondaryText?: string;
-  icon: React.ReactNode;
-  iconName: string;
-  index: number;
-}) => {
-  return <article className="relative group h-full animate-fade-in" style={{
-    animationDelay: `${index * 0.15}s`
-  }} tabIndex={0} role="article" aria-label={title}>
-      {/* Clean Card with Enhanced Glassmorphism */}
-      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-6 md:p-7 h-full flex flex-col justify-between 
-        bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70
-        border border-pink-400/30
-        hover:-translate-y-2 hover:scale-105 hover:rotate-1
-        hover:bg-gradient-to-br hover:from-burgundy-800/95 hover:via-burgundy-700/85 hover:to-pink-900/75
-        hover:shadow-2xl hover:shadow-pink-500/20
-        transition-all duration-500 ease-out
-      ">
-        
-        {/* Simple Step Indicator */}
-        <div className="absolute top-4 right-4">
-          <div className="flex items-center justify-center w-8 h-8 rounded-full 
-            bg-gradient-to-br from-pink-500 via-coral-500 to-rose-600
-            shadow-lg shadow-pink-500/40
-            group-hover:scale-110 group-hover:rotate-12
-            transition-all duration-300
-          ">
-            <span className="text-white text-sm font-medium">{step}</span>
-          </div>
-        </div>
-        
-        {/* Content */}
-        <div className="relative z-10 space-y-4">
-          {/* Simple Icon */}
-          <div className="inline-flex h-8 group-hover:scale-110 transition-all duration-300">
-            <div className="w-8 h-8 flex items-center justify-center text-transparent bg-clip-text bg-gradient-to-br from-pink-300 via-orange-300 to-pink-400">
-              {icon}
-            </div>
-          </div>
-          
-          {/* Clean Title */}
-          <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light tracking-wide
-            min-h-[3.5rem] md:min-h-[4rem] flex items-end
-            drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]
-            group-hover:text-pink-100 transition-colors duration-300">
-            {title}
-          </h3>
-        </div>
-        
-        {/* Description */}
-        <div className="relative z-10 flex flex-col flex-1">
-          <p className="text-pink-50/95 text-base md:text-lg leading-relaxed mt-4 font-light tracking-wide flex-1
-            drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
-            group-hover:text-white transition-colors duration-300">
-            {description}
-          </p>
-        </div>
-      </div>
-    </article>;
-};
+
+
 const LandingPage = ({
   showMarketingTopBar = true
 }: {
