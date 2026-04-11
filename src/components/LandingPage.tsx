@@ -1,7 +1,5 @@
 import { Helmet } from "react-helmet";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock, LogOut } from "lucide-react";
@@ -28,78 +26,8 @@ import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
 import PremiumBackground from "./PremiumBackground";
 import ScrollReveal from "./ScrollReveal";
 
-// Clean StepCard Component - Mobile Style
-const StepCard = ({
-  step,
-  title,
-  description,
-  secondaryText,
-  icon,
-  iconName,
-  index
-}: {
-  step: string;
-  title: string;
-  description: string;
-  secondaryText?: string;
-  icon: React.ReactNode;
-  iconName: string;
-  index: number;
-}) => {
-  return <article className="relative group h-full animate-fade-in" style={{
-    animationDelay: `${index * 0.15}s`
-  }} tabIndex={0} role="article" aria-label={title}>
-      {/* Clean Card with Enhanced Glassmorphism */}
-      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-6 md:p-7 h-full flex flex-col justify-between 
-        bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70
-        border border-pink-400/30
-        hover:-translate-y-2 hover:scale-105 hover:rotate-1
-        hover:bg-gradient-to-br hover:from-burgundy-800/95 hover:via-burgundy-700/85 hover:to-pink-900/75
-        hover:shadow-2xl hover:shadow-pink-500/20
-        transition-all duration-500 ease-out
-      ">
-        
-        {/* Simple Step Indicator */}
-        <div className="absolute top-4 right-4">
-          <div className="flex items-center justify-center w-8 h-8 rounded-full 
-            bg-gradient-to-br from-pink-500 via-coral-500 to-rose-600
-            shadow-lg shadow-pink-500/40
-            group-hover:scale-110 group-hover:rotate-12
-            transition-all duration-300
-          ">
-            <span className="text-white text-sm font-medium">{step}</span>
-          </div>
-        </div>
-        
-        {/* Content */}
-        <div className="relative z-10 space-y-4">
-          {/* Simple Icon */}
-          <div className="inline-flex h-8 group-hover:scale-110 transition-all duration-300">
-            <div className="w-8 h-8 flex items-center justify-center text-transparent bg-clip-text bg-gradient-to-br from-pink-300 via-orange-300 to-pink-400">
-              {icon}
-            </div>
-          </div>
-          
-          {/* Clean Title */}
-          <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light tracking-wide
-            min-h-[3.5rem] md:min-h-[4rem] flex items-end
-            drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]
-            group-hover:text-pink-100 transition-colors duration-300">
-            {title}
-          </h3>
-        </div>
-        
-        {/* Description */}
-        <div className="relative z-10 flex flex-col flex-1">
-          <p className="text-pink-50/95 text-base md:text-lg leading-relaxed mt-4 font-light tracking-wide flex-1
-            drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
-            group-hover:text-white transition-colors duration-300">
-            {description}
-          </p>
-        </div>
-      </div>
-    </article>;
-};
+
+
 const LandingPage = ({
   showMarketingTopBar = true
 }: {
@@ -756,75 +684,73 @@ const LandingPage = ({
         </div>
       </section>
 
-      {/* How It Works Section - Playful 4-Step Flow */}
+      {/* How It Works Section - Horizontal Step Flow */}
       <section id="how-it-works" className="pt-6 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
-
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="text-center mb-3 md:mb-8">
+            <div className="text-center mb-6 md:mb-12">
               <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap" style={{
                 textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
               }}>how it works</h2>
-              
             </div>
           </ScrollReveal>
-          
-          {/* 4-Step Cards */}
-          <div className="relative max-w-6xl mx-auto">
-            <ScrollReveal delay={150}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-                {[{
-                  step: "01",
-                  title: "build your profile",
-                  description: "no fake bios, come as you are",
-                  icon: <UserPlus className="w-5 h-5" />,
-                  iconName: "user-plus"
-                }, {
-                  step: "02",
-                  title: "add your person",
-                  description: "every story has two (+) main characters",
-                  icon: <Heart className="w-5 h-5" />,
-                  iconName: "heart"
-                }, {
-                  step: "03",
-                  title: "chat with kai",
-                  description: "less textbook therapy, more real talk",
-                  icon: <MessageCircleHeart className="w-5 h-5" />,
-                  iconName: "message-heart"
-                }, {
-                  step: "04",
-                  title: "try it irl",
-                  description: "because the magic happens offline",
-                  icon: <Sparkles className="w-5 h-5" />,
-                  iconName: "sparkles"
-                }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
-              </div>
-            </ScrollReveal>
 
-            {/* Get Started CTA */}
-            <ScrollReveal delay={300}>
-              <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
-                <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
-                  <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
-                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                  }}>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 animate-shimmer" style={{
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                        backgroundSize: '200% 100%'
-                      }} />
+          <ScrollReveal delay={150}>
+            <div className="relative max-w-5xl mx-auto">
+              {/* Connecting line - horizontal on desktop, vertical on mobile */}
+              <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent" />
+              <div className="md:hidden absolute top-0 bottom-0 left-6 w-px bg-gradient-to-b from-transparent via-coral-400/40 to-transparent" />
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
+                {[
+                  { step: "01", title: "build your profile", desc: "no fake bios, come as you are", icon: <UserPlus className="w-5 h-5" /> },
+                  { step: "02", title: "add your person", desc: "every story has two (+) main characters", icon: <Heart className="w-5 h-5" /> },
+                  { step: "03", title: "chat with kai", desc: "less textbook therapy, more real talk", icon: <MessageCircleHeart className="w-5 h-5" /> },
+                  { step: "04", title: "try it irl", desc: "because the magic happens offline", icon: <Sparkles className="w-5 h-5" /> },
+                ].map((item, index) => (
+                  <div key={index} className="relative flex md:flex-col items-start md:items-center text-left md:text-center pl-14 md:pl-0" style={{ animationDelay: `${index * 0.15}s` }}>
+                    {/* Step number dot */}
+                    <div className="absolute left-3 md:relative md:left-auto flex-shrink-0 w-7 h-7 md:w-16 md:h-16 rounded-full flex items-center justify-center md:mb-5 z-10
+                      bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg shadow-pink-500/30">
+                      <span className="text-white text-xs md:text-xl font-medium font-brand">{item.step}</span>
                     </div>
-                    <span className="relative z-10 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
-                      get started
-                    </span>
-                  </Button>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
 
+                    <div>
+                      <h3 className="text-lg md:text-xl font-playfair text-white font-light tracking-wide mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                        {item.title}
+                      </h3>
+                      <p className="text-pink-50/90 text-sm md:text-base font-light tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Get Started CTA */}
+          <ScrollReveal delay={300}>
+            <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
+              <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
+                <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
+                  boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                }}>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 animate-shimmer" style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                      backgroundSize: '200% 100%'
+                    }} />
+                  </div>
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
+                    get started
+                  </span>
+                </Button>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
