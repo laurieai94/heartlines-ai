@@ -114,6 +114,14 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <div className="relative h-screen w-full overflow-hidden -mt-20">
+      {/* SVG filter for film grain noise */}
+      <svg className="hidden">
+        <filter id="film-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+      </svg>
+
       {slides.map((slide, index) => (
         <div
           key={slide.year}
@@ -121,13 +129,32 @@ export const HeroCarousel: React.FC = () => {
             index === currentSlide ? "opacity-100 z-[2]" : "opacity-0 z-[1]"
           }`}
         >
-          {/* Background Image */}
+          {/* Background Image with vintage color grading */}
           <img
             src={slide.image}
             alt={`Year ${slide.year}`}
             className="absolute inset-0 w-full h-full object-cover object-[center_70%] md:object-cover md:object-center bg-burgundy-800"
+            style={{ filter: 'sepia(0.15) saturate(0.85) contrast(1.05) brightness(0.95)' }}
             loading={index < 8 ? "eager" : "lazy"}
             fetchPriority={index < 4 ? "high" : undefined}
+          />
+
+          {/* Film grain overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              filter: 'url(#film-grain)',
+              mixBlendMode: 'overlay',
+              opacity: 0.18,
+            }}
+          />
+
+          {/* Vignette overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.45) 100%)',
+            }}
           />
 
           {/* Year Number - Bottom Left */}
