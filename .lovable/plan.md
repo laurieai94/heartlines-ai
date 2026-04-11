@@ -1,21 +1,12 @@
 
 
-## Add grain/worn-in texture to hero carousel images
-
-The screenshot shows the images look too clean and digital. Adding a film grain and vintage texture effect will give them an authentic, editorial feel that matches the Heartlines brand aesthetic.
-
-### Approach
-Apply CSS-based grain and vintage effects directly in the HeroCarousel component — no need to regenerate images. This is faster, more controllable, and reversible.
+## Move text overlay down and increase grain intensity
 
 ### Changes to `src/components/HeroCarousel.tsx`
-1. Add a pseudo-overlay layer on each slide with a CSS noise/grain texture using an SVG filter (`feTurbulence`)
-2. Add a subtle vignette overlay (dark edges) for a worn-in look
-3. Slightly desaturate and warm the images with CSS filters (`sepia`, `saturate`, `contrast`)
 
-### Technical details
-- SVG `feTurbulence` filter defined inline for film grain noise
-- Overlay div with `mix-blend-mode: overlay` and low opacity for the grain layer
-- Radial gradient vignette overlay (transparent center, dark edges)
-- Image CSS filter: `sepia(0.15) saturate(0.9) contrast(1.05)` for a subtle vintage color shift
-- All CSS-only — no image regeneration needed
+1. **Move year + tagline lower**: Shift the text container from `bottom-20 md:bottom-32` down to `bottom-6 md:bottom-10` so it sits at the very bottom of the viewport and doesn't overlap the couple on the couch.
+
+2. **Increase grain opacity**: Bump the film grain overlay opacity from `0.18` to `0.35` for a more pronounced worn-in texture.
+
+3. **Increase grain frequency**: Adjust `feTurbulence baseFrequency` from `0.65` to `0.8` for finer, denser grain.
 
