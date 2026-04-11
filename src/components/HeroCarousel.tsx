@@ -134,7 +134,7 @@ export const HeroCarousel: React.FC = () => {
             src={slide.image}
             alt={`Year ${slide.year}`}
             className="absolute inset-0 w-full h-full object-cover object-[center_70%] md:object-cover md:object-center bg-burgundy-800"
-            style={{ filter: 'sepia(0.15) saturate(0.85) contrast(1.05) brightness(0.95)' }}
+            style={{ filter: 'sepia(0.2) saturate(0.85) contrast(1.05) brightness(0.95)' }}
             loading={index < 8 ? "eager" : "lazy"}
             fetchPriority={index < 4 ? "high" : undefined}
           />
@@ -144,8 +144,18 @@ export const HeroCarousel: React.FC = () => {
             className="absolute inset-0 pointer-events-none"
             style={{
               filter: 'url(#film-grain)',
-              mixBlendMode: 'overlay',
-              opacity: 0.35,
+              mixBlendMode: 'soft-light',
+              opacity: 0.55,
+            }}
+          />
+
+          {/* Secondary grain layer for dust/scratches in shadows */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              filter: 'url(#film-grain)',
+              mixBlendMode: 'multiply',
+              opacity: 0.12,
             }}
           />
 
@@ -153,7 +163,7 @@ export const HeroCarousel: React.FC = () => {
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.45) 100%)',
+              background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)',
             }}
           />
 
