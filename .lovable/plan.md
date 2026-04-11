@@ -1,36 +1,47 @@
 
 
-## Regenerate all 12 hero carousel images — intimate couples, joyful, full-room framing
+## Regenerate all 12 hero carousel images — extreme wide-angle, mixed emotions
 
-The user clarified: these are ALL intimate couples. The solo man (image 9) is holding a framed photo of his late wife — that's still a couple scene, just a poignant one. No need to add a second living person to that image.
+### Core problems from screenshot
+- Images are still cropped tight on the subjects — the room is barely visible
+- Every person is smiling the same way — feels fake and repetitive
+- The couch and room need to be the dominant visual, with people as part of the scene
 
-### Global prompt rules (all 12)
-- "Ultra wide-angle lens, camera 12 feet back, entire room visible wall-to-wall, floor to ceiling"
-- "Subjects occupy no more than 25-30% of frame height — the room is the co-star"
-- "Photorealistic editorial portrait photography, shot on 35mm film"
-- "Cinematic warm color grading"
+### Updated global prompt rules (all 12)
+- **"Extreme wide-angle architectural photograph, 14mm lens, camera placed 15 feet back from the couch"**
+- **"Full room visible: floor, ceiling, all four walls, furniture, decor — the room fills the entire frame"**
+- **"Couple seated on a couch perfectly centered in the middle of the frame"**
+- **"Subjects occupy no more than 20-25% of the frame height — the room is the star, not the people"**
+- "Photorealistic editorial photography, shot on 35mm film, cinematic warm color grading"
 - "Leave clean negative space in lower-left for text overlay"
-- "Genuine warm smiles, joyful, intimate, loving"
+- **No universal emotion directive** — each scene gets its own authentic mood (some joyful, some stoic, some tender, some contemplative)
 
-### The 12 scenes
+### The 12 scenes — with varied, authentic emotions
 
-| # | File | Scene |
-|---|------|-------|
-| 1 | elderly-native-american-women | Two women ~65-70, intimate couple laughing together on a couch. Long silver braids + turquoise jewelry; short black hair + red woven shawl. Adobe room, southwestern rugs, golden hour |
-| 2 | joyful-heritage-living-room | Intimate couple: man ~75 tall, gray beard, kufi cap, earth-tone tunic; woman ~70 petite, gray afro, kente blouse. Beaming, leaning into each other. African masks, warm lamplight |
-| 3 | cowboys-with-wheelchair | Intimate couple: man ~80 stocky, white mustache, brown cowboy hat; man ~70 slim, black cowboy hat, wheelchair beside couch. Grinning proudly, arms around each other. Rustic ranch room |
-| 4 | warm-gathering-diverse-souls | Intimate couple: Asian woman ~68 silver bun; Latino man ~72 glasses, gray mustache. Warm embrace, foreheads close, joyful. Eclectic living room, cultural art |
-| 5 | manos-unidas | Intimate couple: woman ~75 curvy, silver bun, embroidered Mexican blouse; man ~78 thin, bald, guayabera. Holding hands lovingly, warm smiles. Terracotta walls, santos |
-| 6 | warm-embrace-pride | Intimate couple: man ~70 heavyset, bald, thick glasses, cardigan; man ~68 slim, gray hair, turtleneck. Happy, relaxed, holding hands. Mid-century room, Progress Pride flag |
-| 7 | couple-on-couch | Intimate couple: woman ~80, permed white hair, floral dress; man ~82 large build, suspenders. Arm around her, content smiles. Wood-paneled den, family photos |
-| 8 | asian-couple-serene-moment | Intimate couple: man ~72 Japanese, salt-and-pepper hair, linen shirt; woman ~68 Korean, short bob, simple blouse. Peaceful happy smiles, her head on his shoulder. Minimalist apartment, bonsai |
-| 9 | man-with-treasured-memory | Single man ~85, wire-frame glasses, wool cardigan, sitting on couch holding ornate framed photo of his late wife close to his chest. Warm nostalgic smile, eyes bright with love. Cozy den, bookshelves, warm reading lamp |
-| 10 | friends-cats-city-view | Intimate couple: woman ~75 white, curly red-gray hair, blue sweater, tabby cat in lap; woman ~72 Black, short gray hair, glasses, floral top, calico cat. Laughing together. City apartment, skyline window |
-| 11 | retro-peace-living-room | Intimate couple: woman ~68 thin, long straight gray hair, headband, tie-dye; woman ~72 curvy, short curly auburn hair, peace earrings. Big grins, playful energy. Retro room, vintage posters, macrame |
-| 12 | warm-smiles-vintage-home | Intimate couple: man ~76 neatly combed gray hair, vest; woman ~74 plump, wavy silver hair, hand-knit shawl. Radiating warmth, her hand on his knee. Floral wallpaper, crocheted blankets |
+| # | File | Couple | Mood | Room |
+|---|------|--------|------|------|
+| 1 | elderly-native-american-women | Two women ~65-70. Silver braids + turquoise; short black hair + red shawl | Quiet contentment, gentle smiles | Adobe room, southwestern rugs, golden hour |
+| 2 | joyful-heritage-living-room | Man ~75, gray beard, kufi cap; woman ~70, gray afro, kente blouse | Laughing together, animated joy | Rich wood, African masks, warm lamplight |
+| 3 | cowboys-with-wheelchair | Man ~80, white mustache, cowboy hat; man ~70, slim, black cowboy hat, wheelchair nearby | Stoic pride, slight grins | Rustic ranch, leather furniture, desert art |
+| 4 | warm-gathering-diverse-souls | Asian woman ~68, silver bun; Latino man ~72, glasses, gray mustache | Tender embrace, foreheads close | Eclectic room, cultural art, mixed textiles |
+| 5 | manos-unidas | Woman ~75, silver bun, embroidered blouse; man ~78, bald, guayabera | Warm but serious, holding hands | Terracotta walls, santos, hand-painted tiles |
+| 6 | warm-embrace-pride | Man ~70, heavyset, bald, thick glasses; man ~68, slim, gray hair, turtleneck | Relaxed happiness, easy smiles | Mid-century modern, Progress Pride flag |
+| 7 | couple-on-couch | Woman ~80, permed white hair, floral dress; man ~82, large build, suspenders | Deep contentment, stoic warmth | Wood-paneled den, family photos, amber lamp |
+| 8 | asian-couple-serene-moment | Man ~72, salt-and-pepper hair, linen shirt; woman ~68, short bob, simple blouse | Serene, peaceful, her head on his shoulder | Minimalist apartment, bonsai, natural light |
+| 9 | man-with-treasured-memory | Man ~85, wire-frame glasses, wool cardigan, holding framed photo of late wife | Nostalgic, bittersweet smile, eyes bright | Cozy den, bookshelves, reading lamp |
+| 10 | friends-cats-city-view | Woman ~75, curly red-gray hair, tabby cat; woman ~72 Black, glasses, calico cat | Laughing, playful energy | City apartment, big skyline window |
+| 11 | retro-peace-living-room | Woman ~68, long gray hair, headband, tie-dye; woman ~72, curly auburn hair, peace earrings | Big grins, mischievous joy | Retro room, vintage posters, macrame |
+| 12 | warm-smiles-vintage-home | Man ~76, combed gray hair, vest; woman ~74, wavy silver hair, knit shawl | Quiet dignity, soft warmth | Floral wallpaper, crocheted blankets, lamp |
+
+### Key prompt changes from previous attempts
+1. Switched from "ultra wide-angle" to **"extreme wide-angle architectural photograph, 14mm lens, 15 feet back"** — more aggressive framing language
+2. Reduced subject size target from 30-35% to **20-25%** of frame height
+3. Added **"full room visible: floor, ceiling, all four walls"** explicitly
+4. Removed blanket "joyful smiling" — replaced with **per-scene authentic emotions** (stoic, tender, laughing, contemplative, bittersweet)
+5. Added **"couple centered on couch in the middle of the frame"** for consistent composition
 
 ### Execution
-1. Generate all 12 at 1920x1080 using `google/gemini-3-pro-image-preview` in batches of 3
+1. Generate all 12 at 1920x1080 using `google/gemini-3-pro-image-preview` in batches of 3 with delays
 2. Convert to WebP
 3. Replace all files in `src/assets/hero-carousel/` and sync to `src/assets/`
 4. No code changes — filenames stay the same
