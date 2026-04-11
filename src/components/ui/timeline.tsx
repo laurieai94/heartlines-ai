@@ -166,6 +166,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
           const isVisible = visibleItems.has(index);
           const isAccent = index === stops.length - 1;
           const isLarge = index === 1 || index === 2 || index === 5;
+          const isAccentCard = index === 2 || index === 4 || index === 6;
 
           return (
             <div
@@ -181,7 +182,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 group hover:-translate-y-1
                 transition-all duration-700 ease-out
                 hover:shadow-[0_8px_32px_rgba(255,132,80,0.2),0_0_60px_rgba(236,72,153,0.15)]
-                ${isAccent ? 'p-4 md:p-5' : isLarge ? 'p-5 md:p-6' : 'p-4 md:p-5'}
+                ${isAccent ? 'p-5 md:p-7' : isLarge ? 'p-5 md:p-6' : 'p-4 md:p-5'}
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
                 ${isVisible ? 'md:animate-float' : ''}
                 relative overflow-hidden
@@ -194,14 +195,26 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
               {/* Inner glow / light sweep */}
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(255,132,80,0.15)_0%,_transparent_60%)] rounded-2xl pointer-events-none" />
 
+              {/* Subtle pattern overlay for the full-width bottom card */}
+              {isAccent && (
+                <div 
+                  className="absolute inset-0 pointer-events-none opacity-[0.06] rounded-2xl"
+                  style={{
+                    backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,132,80,0.5) 1px, transparent 0)',
+                    backgroundSize: '20px 20px',
+                  }}
+                />
+              )}
+
               {/* Content layer */}
               <div className="relative z-10">
                 {/* Icon */}
                 <div className={`flex ${isAccent ? 'justify-start' : 'justify-center'} mb-3 group-hover:scale-105 transition-transform duration-300`}>
                   <div className={`
                     ${isLarge ? 'p-3.5 scale-125' : 'p-2.5'}
-                    bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25
-                    rounded-2xl backdrop-blur-sm
+                    ${isAccentCard 
+                      ? 'border border-coral-400/40 bg-transparent rounded-2xl' 
+                      : 'bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm'}
                     group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300
                   `}>
                     {stop.icon}
@@ -214,14 +227,14 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 {/* Title */}
                 <h3 className={`
                   text-white font-light tracking-wide leading-tight mb-1.5 font-playfair drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]
-                  ${isAccent ? 'text-lg md:text-xl text-left' : isLarge ? 'text-xl md:text-2xl text-center' : 'text-lg md:text-xl text-center'}
+                  ${isAccent ? 'text-xl md:text-2xl text-left' : isLarge ? 'text-xl md:text-2xl text-center' : 'text-lg md:text-xl text-center'}
                 `}>
                   {stop.title}
                 </h3>
 
                 {/* Subtitle */}
                 <div className={isAccent ? 'text-left' : 'text-center'}>
-                  <p className="text-pink-50/95 text-sm md:text-base font-light tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] group-hover:text-white transition-colors duration-300">
+                  <p className={`text-pink-50/95 font-light tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] group-hover:text-white transition-colors duration-300 ${isAccent ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>
                     {stop.subtitle}
                   </p>
                 </div>
