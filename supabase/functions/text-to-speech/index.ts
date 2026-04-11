@@ -80,6 +80,7 @@ serve(async (req) => {
       throw new Error('Unable to generate audio. Please try again.')
     }
 
+
     // Convert audio buffer to base64
     const arrayBuffer = await response.arrayBuffer()
     const base64Audio = btoa(
