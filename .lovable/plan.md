@@ -1,10 +1,14 @@
 
-## Zoom out on the retro-peace slide (2088)
 
-The subjects in the "2088" slide (retro-peace-living-room) are getting cropped. To zoom out on just this image, I'll add an optional `style` override to the slide data and apply a CSS `transform: scale(0.85)` on that specific image so more of the scene is visible.
+## Zoom out on the Asian couple hero slide
 
-### Changes in `src/components/HeroCarousel.tsx`
+**File**: `src/components/HeroCarousel.tsx`
 
-1. **Add optional `imageStyle` to the `Slide` interface** -- e.g. `imageStyle?: React.CSSProperties`
-2. **Set `imageStyle: { transform: 'scale(0.85)' }` on the 2088 slide** to pull the camera back
-3. **Apply `slide.imageStyle` to the `<img>` tag's style prop**, merged with the existing filter styles
+**What changes**: Add per-slide optional styling support so the `imageAsianCouple` slide renders at a slightly zoomed-out scale, showing more of the scene. 
+
+1. Add an optional `imageStyle` property to the `Slide` interface
+2. On the Asian couple slide (index 3, year "2071"), set `transform: 'scale(0.85)'` so the image pulls back, revealing more of the couple and room
+3. Apply `slide.imageStyle` to the `<img>` tag's inline `style` prop, merged with the existing sepia/contrast filter
+
+This only affects the one slide — all others remain unchanged.
+
