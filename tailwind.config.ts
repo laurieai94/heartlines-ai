@@ -354,7 +354,8 @@ export default {
 				'float': 'float 3s ease-in-out infinite',
 				'breathe': 'breathe 18s ease-in-out infinite',
 				'breathe-glow': 'breathe-glow 18s ease-in-out infinite',
-				'dot-pulse': 'dotPulse 1.4s ease-in-out infinite'
+				'dot-pulse': 'dotPulse 1.4s ease-in-out infinite',
+				'text-shimmer': 'text-shimmer 8s ease-in-out infinite'
 			}
 		}
 	},
