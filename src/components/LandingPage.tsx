@@ -699,20 +699,19 @@ const LandingPage = ({
             <div className="relative max-w-5xl mx-auto">
               {/* Connecting line - horizontal on desktop, vertical on mobile */}
               <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent" />
-              <div className="md:hidden absolute top-0 bottom-0 left-6 w-px bg-gradient-to-b from-transparent via-coral-400/40 to-transparent" />
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {[
                   { step: "01", title: "build your profile", icon: <UserPlus className="w-5 h-5" /> },
                   { step: "02", title: "add your person", icon: <Heart className="w-5 h-5" /> },
                   { step: "03", title: "chat with kai", icon: <MessageCircleHeart className="w-5 h-5" /> },
                   { step: "04", title: "try it irl", icon: <Sparkles className="w-5 h-5" /> },
                 ].map((item, index) => (
-                  <div key={index} className="relative flex md:flex-col items-start md:items-center text-left md:text-center pl-14 md:pl-0" style={{ animationDelay: `${index * 0.15}s` }}>
+                  <div key={index} className="relative flex flex-col items-center text-center" style={{ animationDelay: `${index * 0.15}s` }}>
                     {/* Step number dot */}
-                    <div className="absolute left-3 md:relative md:left-auto flex-shrink-0 w-7 h-7 md:w-16 md:h-16 rounded-full flex items-center justify-center md:mb-5 z-10
+                    <div className="flex-shrink-0 w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-3 md:mb-5 z-10
                       bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg shadow-pink-500/30">
-                      <span className="text-white text-xs md:text-xl font-medium font-brand">{item.step}</span>
+                      <span className="text-white text-sm md:text-xl font-medium font-brand">{item.step}</span>
                     </div>
 
                     <div>
@@ -785,10 +784,6 @@ const LandingPage = ({
               title: "made for right now",
               subtitle: "your relationship won't wait for your calendar to clear.",
               icon: <ClockIcon />
-            }, {
-              title: "no fake positivity",
-              subtitle: "\"good vibes only\" never fixed a fight.",
-              icon: <HeartSupportIcon />
             }, {
               title: "context-aware",
               subtitle: "advice that knows the lore, no recaps needed.",
