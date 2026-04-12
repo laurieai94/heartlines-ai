@@ -1,14 +1,14 @@
 
 
-## Zoom out on the Asian couple hero slide
+## Reduce gaps between hero and Meet Kai sections only
 
-**File**: `src/components/HeroCarousel.tsx`
+The extra spacing lives in two places — everything else is already tight:
 
-**What changes**: Add per-slide optional styling support so the `imageAsianCouple` slide renders at a slightly zoomed-out scale, showing more of the scene. 
+### Changes in `src/components/LandingPage.tsx`
 
-1. Add an optional `imageStyle` property to the `Slide` interface
-2. On the Asian couple slide (index 3, year "2071"), set `transform: 'scale(0.85)'` so the image pulls back, revealing more of the couple and room
-3. Apply `slide.imageStyle` to the `<img>` tag's inline `style` prop, merged with the existing sepia/contrast filter
+1. **Carousel-to-hero spacer** (line 440): Reduce `h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28` → `h-6 sm:h-8 md:h-12 lg:h-16 xl:h-20`
 
-This only affects the one slide — all others remain unchanged.
+2. **Meet Kai section top padding** (line 575): Reduce `pt-6 pb-8 md:pt-8 md:pb-12` → `pt-2 pb-8 md:pt-4 md:pb-12`
+
+These two changes close the gaps between the carousel → hero → Meet Kai without touching anything else.
 
