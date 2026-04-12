@@ -120,17 +120,15 @@ const gridPlacements = [
   'md:col-span-1',
   'md:col-span-1',
   'md:col-span-2',
-  'md:col-span-3',
 ];
 
-// Per-card gradient variations — accent cards at indices 2, 4, 6
+// Per-card gradient variations — accent cards at indices 2, 4
 const cardGradients = [
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-pink-900/70',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-coral-600/10',
   'bg-gradient-to-r from-coral-600/30 via-pink-600/25 to-rose-700/35 border-coral-400/50',
   'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/80 to-pink-900/70',
   'bg-gradient-to-br from-rose-700/35 via-pink-600/30 to-coral-600/25 border-pink-400/50',
-  'bg-gradient-to-br from-burgundy-800/90 via-burgundy-700/85 to-coral-600/15',
   'bg-gradient-to-r from-coral-600/25 via-burgundy-700/80 to-pink-600/30 border-coral-400/45',
 ];
 
@@ -209,7 +207,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
               {/* Content layer */}
               <div className="relative z-10">
                 {/* Icon */}
-                <div className={`flex ${isAccent ? 'justify-start' : 'justify-center'} mb-3 group-hover:scale-105 transition-transform duration-300`}>
+                <div className="flex justify-center mb-3 group-hover:scale-105 transition-transform duration-300">
                   <div className={`
                     ${isLarge ? 'p-3.5 scale-125' : 'p-2.5'}
                     ${isAccentCard 
@@ -222,18 +220,18 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 </div>
 
                 {/* Accent line */}
-                <div className={`${isAccent ? '' : 'mx-auto'} w-10 h-0.5 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full mb-3 opacity-60 group-hover:opacity-100 group-hover:w-14 transition-all duration-300`} />
+                <div className="mx-auto w-10 h-0.5 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full mb-3 opacity-60 group-hover:opacity-100 group-hover:w-14 transition-all duration-300" />
 
                 {/* Title */}
                 <h3 className={`
-                  text-white font-light tracking-wide leading-tight mb-1.5 font-playfair drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]
-                  ${isAccent ? 'text-xl md:text-2xl text-left' : isLarge ? 'text-xl md:text-2xl text-center' : 'text-lg md:text-xl text-center'}
+                  text-white font-light tracking-wide leading-tight mb-1.5 font-playfair drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] text-center
+                  ${isAccent || isLarge ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}
                 `}>
                   {stop.title}
                 </h3>
 
                 {/* Subtitle */}
-                <div className={isAccent ? 'text-left' : 'text-center'}>
+                <div className="text-center">
                   <p className={`text-pink-50/95 font-light tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] group-hover:text-white transition-colors duration-300 ${isAccent ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>
                     {stop.subtitle}
                   </p>
