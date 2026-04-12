@@ -1,15 +1,14 @@
 
 
-## Remove images and enlarge year text
+## Increase film grain intensity on hero carousel
 
 ### Changes to `src/components/HeroCarousel.tsx`
 
-1. **Remove two carousel images** shown in the screenshots:
-   - `manos-unidas.webp` (image2024 — the couple with religious statues)
-   - `warm-smiles-vintage-home.webp` (imageVintageHome — the AI-edited interracial couple)
-   - Remove their imports and corresponding slide entries from the `slides` array
+1. **Boost primary grain opacity** from `0.55` to `0.75`
+2. **Increase secondary grain layer opacity** from `0.12` to `0.25`
+3. **Add a third grain layer** using `screen` blend mode at `0.15` opacity to wash out digital sharpness
+4. **Increase sepia** from `0.2` to `0.3` and reduce saturation from `0.85` to `0.75` on the image filter to further degrade the digital clarity
+5. **Strengthen vignette** from `rgba(0,0,0,0.55)` to `rgba(0,0,0,0.65)`
 
-2. **Increase year text size** from `text-2xl md:text-4xl` back up to `text-3xl md:text-5xl`
-
-Single file change: `src/components/HeroCarousel.tsx`
+Single file change, all CSS-only.
 
