@@ -437,7 +437,7 @@ const LandingPage = ({
       <HeroCarousel />
 
       {/* Spacer between carousel and hero section - proportional across all screens */}
-      <div className="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28" aria-hidden="true" />
+      <div className="h-6 sm:h-8 md:h-12 lg:h-16 xl:h-20" aria-hidden="true" />
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
@@ -572,7 +572,7 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="pt-6 pb-8 md:pt-8 md:pb-12 relative overflow-hidden">
+      <section className="pt-2 pb-8 md:pt-4 md:pb-12 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
