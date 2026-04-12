@@ -130,7 +130,7 @@ export const HeroCarousel: React.FC = () => {
           {/* Year Number - Bottom Left */}
           <div className="absolute bottom-6 md:bottom-10 left-8 md:left-16 right-8 md:right-16 z-10">
             <h2 
-                className="text-3xl md:text-5xl font-brand leading-none mb-2"
+                className="text-4xl md:text-6xl font-brand leading-none mb-2"
               style={{
                 background: 'linear-gradient(135deg, #ff8a50 0%, #ff7a70 50%, #ff6b9d 100%)',
                 WebkitBackgroundClip: 'text',
