@@ -46,11 +46,13 @@ const ChatRow = memo(({ message, userAvatar, userName }: {
       {message.content}
     </ChatBubble>
     {message.type === 'user' && (
-      <img
-        src={userAvatar}
-        alt={userName}
-        className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full object-cover flex-shrink-0 ring-2 ring-coral-400/40"
-      />
+      <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full overflow-hidden ring-2 ring-coral-400/40 flex-shrink-0">
+        <img
+          src={userAvatar}
+          alt={userName}
+          className="w-full h-full object-cover"
+        />
+      </div>
     )}
   </div>
 ));
