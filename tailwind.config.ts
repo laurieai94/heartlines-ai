@@ -320,6 +320,14 @@ export default {
 				'50%': {
 					filter: 'drop-shadow(0 0 15px rgba(251,146,140,0.4)) drop-shadow(0 0 25px rgba(255,182,193,0.25)) drop-shadow(0 0 40px rgba(255,255,255,0.1))'
 				}
+				},
+				'text-shimmer': {
+					'0%': {
+						backgroundPosition: '200% center'
+					},
+					'100%': {
+						backgroundPosition: '-200% center'
+					}
 				}
 			},
 			animation: {
@@ -346,7 +354,8 @@ export default {
 				'float': 'float 3s ease-in-out infinite',
 				'breathe': 'breathe 18s ease-in-out infinite',
 				'breathe-glow': 'breathe-glow 18s ease-in-out infinite',
-				'dot-pulse': 'dotPulse 1.4s ease-in-out infinite'
+				'dot-pulse': 'dotPulse 1.4s ease-in-out infinite',
+				'text-shimmer': 'text-shimmer 8s ease-in-out infinite'
 			}
 		}
 	},
