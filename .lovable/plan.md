@@ -1,37 +1,21 @@
 
-Goal: use your exact 2077 line and fix the remaining square avatar, which is Kai’s inline message avatar.
 
-What I found
-- `src/components/HeroCarousel.tsx` already overrides the 2077 slide, but it currently says `isn't this what it's all for?`
-- `src/components/HeroPhoneScroll.tsx` already fixed the user avatars.
-- The avatar still showing square in your screenshot is Kai’s assistant avatar on the left side of the chat. Those spots still use plain `<img>` tags instead of the same clipped circular wrapper.
+## Changes
 
-Implementation
-1. Update the 2077 tagline
-- In `src/components/HeroCarousel.tsx`, change the 2077 copy to the exact text:
-  `this is what it's all for`
+### 1. All carousel slides use the new tagline
+In `src/components/HeroCarousel.tsx`, change every slide's `tagline` to `"this is what it's all for"`.
 
-2. Make Kai’s inline avatars truly circular
-- In `src/components/HeroPhoneScroll.tsx`, update both assistant-avatar locations:
-  - the `ChatRow` assistant avatar
-  - the assistant typing indicator avatar
-- Keep the current look and halo, but put Kai’s image inside a fixed-size circular wrapper with:
-  - `aspect-square`
-  - `rounded-full`
-  - `overflow-hidden`
-  - `flex-shrink-0`
-- Make the inner image fill the wrapper with `w-full h-full object-cover block rounded-full`
-- Keep `FlameIconHalo`, but wrap the clipped circle inside it so the halo stays outside while the avatar itself is actually round.
-- If the asset still feels boxy, slightly tighten the crop so Kai fills the circle more like the header avatar.
+### 2. Center "How It Works" steps on mobile
+In `src/components/LandingPage.tsx` line 711, the mobile layout uses `items-start text-left pl-14`. Change to `items-center text-center pl-0` on mobile so the step dots and titles are centered. Move the dot from `absolute left-3` to a centered flow position on mobile.
 
-Files to update
-- `src/components/HeroCarousel.tsx`
-- `src/components/HeroPhoneScroll.tsx`
+### 3. Remove "no fake positivity" card
+In `src/components/LandingPage.tsx`, remove the "no fake positivity" entry from the Timeline stops array (lines 788-791). Update the bento grid layout in `src/components/ui/timeline.tsx` to work with 6 cards instead of 7 (adjust `gridPlacements` and `cardGradients` arrays).
 
-QA after implementation
-- Check the homepage at the same mobile-sized viewport as your screenshot.
-- Verify Kai is circular in:
-  - assistant message rows
-  - assistant typing state
-- Verify the 2077 slide reads exactly:
-  `this is what it's all for`
+### 4. Center the globe icon on "built to give back"
+In `src/components/ui/timeline.tsx` line 212, the last card (accent) uses `justify-start` for its icon. Since "built to give back" will now be the last card, change the accent card's icon alignment and text alignment to centered (remove the `isAccent` left-alignment logic, or adjust so it centers).
+
+### Files to edit
+- `src/components/HeroCarousel.tsx` — all taglines to `"this is what it's all for"`
+- `src/components/LandingPage.tsx` — remove "no fake positivity" stop, center steps on mobile
+- `src/components/ui/timeline.tsx` — update grid placements for 6 cards, center accent card icon/text
+
