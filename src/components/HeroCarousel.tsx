@@ -4,14 +4,14 @@ import image2016 from "@/assets/hero-carousel/elderly-native-american-women.webp
 import image2018 from "@/assets/hero-carousel/joyful-heritage-living-room.webp";
 import image2020 from "@/assets/hero-carousel/cowboys-with-wheelchair.webp";
 import image2022 from "@/assets/hero-carousel/warm-gathering-diverse-souls.webp";
-import image2024 from "@/assets/hero-carousel/manos-unidas.webp";
+
 import image2025 from "@/assets/hero-carousel/warm-embrace-pride.webp";
 import image2027 from "@/assets/hero-carousel/couple-on-couch.webp";
 import imageAsianCouple from "@/assets/hero-carousel/asian-couple-serene-moment.webp";
 import imageFramedMemory from "@/assets/hero-carousel/man-with-treasured-memory.webp";
 import imageFriendsCats from "@/assets/hero-carousel/friends-cats-city-view.webp";
 import imageRetroPeace from "@/assets/hero-carousel/retro-peace-living-room.webp";
-import imageVintageHome from "@/assets/hero-carousel/warm-smiles-vintage-home.webp";
+
 
 interface Slide {
   year: string;
@@ -51,11 +51,6 @@ const slides: Slide[] = [
     tagline: "stronger relationships start here"
   },
   {
-    year: "2079",
-    image: image2024,
-    tagline: "stronger relationships start here"
-  },
-  {
     year: "2083",
     image: imageFriendsCats,
     tagline: "stronger relationships start here"
@@ -75,11 +70,6 @@ const slides: Slide[] = [
     image: image2027,
     tagline: "stronger relationships start here"
   },
-  {
-    year: "2094",
-    image: imageVintageHome,
-    tagline: "stronger relationships start here"
-  }
 ];
 
 export const HeroCarousel: React.FC = () => {
@@ -170,7 +160,7 @@ export const HeroCarousel: React.FC = () => {
           {/* Year Number - Bottom Left */}
           <div className="absolute bottom-6 md:bottom-10 left-8 md:left-16 right-8 md:right-16 z-10">
             <h2 
-                className="text-2xl md:text-4xl font-brand leading-none mb-2"
+                className="text-3xl md:text-5xl font-brand leading-none mb-2"
               style={{
                 background: 'linear-gradient(135deg, #ff8a50 0%, #ff7a70 50%, #ff6b9d 100%)',
                 WebkitBackgroundClip: 'text',
