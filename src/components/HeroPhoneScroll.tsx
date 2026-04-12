@@ -31,11 +31,13 @@ const ChatRow = memo(({ message, userAvatar, userName }: {
   <div className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
     {message.type === 'assistant' && (
       <FlameIconHalo intensity="subtle" size="sm" animated={false}>
-        <img
-          src={BRAND.coach.avatarSrc}
-          alt={BRAND.coach.name}
-          className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full object-cover flex-shrink-0"
-        />
+        <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 aspect-square rounded-full overflow-hidden flex-shrink-0">
+          <img
+            src={BRAND.coach.avatarSrc}
+            alt={BRAND.coach.name}
+            className="w-full h-full object-cover block rounded-full"
+          />
+        </div>
       </FlameIconHalo>
     )}
     <ChatBubble
@@ -299,11 +301,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               {/* Typing indicator — assistant */}
               {isTyping && typingSide === 'assistant' && (
                 <div className="flex gap-2 items-end justify-start animate-fade-in" aria-live="polite">
-                  <img
-                    src={BRAND.coach.avatarSrc}
-                    alt={BRAND.coach.name}
-                    className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full object-cover flex-shrink-0"
-                  />
+                  <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 aspect-square rounded-full overflow-hidden flex-shrink-0">
+                    <img
+                      src={BRAND.coach.avatarSrc}
+                      alt={BRAND.coach.name}
+                      className="w-full h-full object-cover block rounded-full"
+                    />
+                  </div>
                   <div className="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 max-w-[86%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
