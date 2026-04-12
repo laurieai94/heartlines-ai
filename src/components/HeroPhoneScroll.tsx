@@ -46,11 +46,11 @@ const ChatRow = memo(({ message, userAvatar, userName }: {
       {message.content}
     </ChatBubble>
     {message.type === 'user' && (
-      <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full overflow-hidden ring-2 ring-coral-400/40 flex-shrink-0">
+      <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 aspect-square rounded-full overflow-hidden ring-2 ring-coral-400/40 flex-shrink-0">
         <img
           src={userAvatar}
           alt={userName}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-full"
         />
       </div>
     )}
@@ -325,11 +325,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                  <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full overflow-hidden ring-2 ring-coral-400/40 flex-shrink-0">
+                  <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 aspect-square rounded-full overflow-hidden ring-2 ring-coral-400/40 flex-shrink-0">
                     <img
                       src={userAvatar}
                       alt={currentConversation.userName || 'You'}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-full"
                     />
                   </div>
                   <span className="sr-only">{currentConversation.userName || 'You'} is typing...</span>

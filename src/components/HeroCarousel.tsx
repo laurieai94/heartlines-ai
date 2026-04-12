@@ -48,7 +48,7 @@ const slides: Slide[] = [
   {
     year: "2077",
     image: imageFramedMemory,
-    tagline: "stronger relationships start here"
+    tagline: "isn't this what it's all for?"
   },
   {
     year: "2083",
