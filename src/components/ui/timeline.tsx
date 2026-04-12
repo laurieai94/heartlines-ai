@@ -186,7 +186,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 relative overflow-hidden
               `}
               style={{
-                transitionDelay: `${index * 100}ms`,
+                transitionDelay: `${index * 150}ms`,
                 animationDelay: isVisible ? `${index * 1.2}s` : undefined,
               }}
             >
