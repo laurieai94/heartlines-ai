@@ -450,8 +450,8 @@ const LandingPage = ({
             {/* Primary hero section with locked two-column layout */}
             <div className="px-4 sm:px-6 xl:px-8 py-6 sm:py-4 xl:py-6">
               {/* Static accent decoration */}
-              <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl backdrop-blur-sm"></div>
-              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm"></div>
+              <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl backdrop-blur-sm animate-float" style={{ animationDelay: '0s' }}></div>
+              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm animate-float" style={{ animationDelay: '1.5s' }}></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 xl:gap-16 items-center min-h-[50vh] md:min-h-[90vh]">
@@ -478,7 +478,7 @@ const LandingPage = ({
                       <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer">
                         <div className="relative group inline-block">
                           {/* Glow effect */}
-                          <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
+                         <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300 animate-soft-pulse-glow" />
                           
                           <Button size="lg" className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base lg:text-lg xl:text-xl rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" style={{
                           boxShadow: '0 0 50px rgba(255, 107, 157, 0.5), 0 8px 28px rgba(255, 107, 157, 0.55), 0 4px 14px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
@@ -504,7 +504,7 @@ const LandingPage = ({
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-center self-center">
                     <div className="relative z-10 max-w-[320px] md:ml-auto md:mr-8 lg:mr-16 xl:mr-24 2xl:mr-32">
-                      <HeroPhoneScroll className="animate-fade-in" />
+                      <HeroPhoneScroll className="animate-fade-in animate-float" />
                     </div>
                   </div>
                 </div>
@@ -580,8 +580,9 @@ const LandingPage = ({
               
               <ScrollReveal>
                 <div className="relative flex flex-col items-center justify-start order-1">
-                  <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider text-center" style={{
-                    textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+                  <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 md:mb-6 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider text-center animate-text-shimmer" style={{
+                    textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)',
+                    backgroundSize: '200% auto'
                   }}>
                     meet kai
                   </h2>
@@ -651,21 +652,19 @@ const LandingPage = ({
                   </div>
                   
                   <div className="flex flex-wrap justify-center md:justify-start gap-2.5 md:gap-3 mb-8">
-                    <div className="px-5 py-2.5 rounded-full bg-orange-400/20 border-2 border-orange-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                      <span className="text-sm font-medium tracking-wide text-white">🌈 inclusive for all</span>
-                    </div>
-                    <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                      <span className="text-sm font-medium tracking-wide text-white">🧠 evidence-based care</span>
-                    </div>
-                    <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                      <span className="text-sm font-medium tracking-wide text-white">🔒 private, always</span>
-                    </div>
-                    <div className="px-5 py-2.5 rounded-full bg-pink-400/20 border-2 border-pink-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-pink-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                      <span className="text-sm font-medium tracking-wide text-white">💗 trauma-aware</span>
-                    </div>
-                    <div className="px-5 py-2.5 rounded-full bg-coral-400/20 border-2 border-coral-400/30 backdrop-blur-sm transition-all duration-300 hover:bg-coral-400/30 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                      <span className="text-sm font-medium tracking-wide text-white">⏱ instant support</span>
-                    </div>
+                    {[
+                      { emoji: '🌈', label: 'inclusive for all', bg: 'bg-orange-400/20 border-orange-400/30 hover:bg-orange-400/30' },
+                      { emoji: '🧠', label: 'evidence-based care', bg: 'bg-coral-400/20 border-coral-400/30 hover:bg-coral-400/30' },
+                      { emoji: '🔒', label: 'private, always', bg: 'bg-pink-400/20 border-pink-400/30 hover:bg-pink-400/30' },
+                      { emoji: '💗', label: 'trauma-aware', bg: 'bg-pink-400/20 border-pink-400/30 hover:bg-pink-400/30' },
+                      { emoji: '⏱', label: 'instant support', bg: 'bg-coral-400/20 border-coral-400/30 hover:bg-coral-400/30' },
+                    ].map((tag, i) => (
+                      <ScrollReveal key={i} delay={i * 80} className="inline-block">
+                        <div className={`px-5 py-2.5 rounded-full ${tag.bg} border-2 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]`}>
+                          <span className="text-sm font-medium tracking-wide text-white">{tag.emoji} {tag.label}</span>
+                        </div>
+                      </ScrollReveal>
+                    ))}
                   </div>
                   
                   <div className="flex md:hidden justify-center">
@@ -689,25 +688,26 @@ const LandingPage = ({
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center mb-6 md:mb-12">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap" style={{
-                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider md:whitespace-nowrap animate-text-shimmer" style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)',
+                backgroundSize: '200% auto'
               }}>how it works</h2>
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={150}>
-            <div className="relative max-w-5xl mx-auto">
-              {/* Connecting line - horizontal on desktop, vertical on mobile */}
-              <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent" />
+          <div className="relative max-w-5xl mx-auto">
+            {/* Connecting line - horizontal on desktop, vertical on mobile */}
+            <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent" />
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {[
-                  { step: "01", title: "build your profile", icon: <UserPlus className="w-5 h-5" /> },
-                  { step: "02", title: "add your person", icon: <Heart className="w-5 h-5" /> },
-                  { step: "03", title: "chat with kai", icon: <MessageCircleHeart className="w-5 h-5" /> },
-                  { step: "04", title: "try it irl", icon: <Sparkles className="w-5 h-5" /> },
-                ].map((item, index) => (
-                  <div key={index} className="relative flex flex-col items-center text-center" style={{ animationDelay: `${index * 0.15}s` }}>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {[
+                { step: "01", title: "build your profile", icon: <UserPlus className="w-5 h-5" /> },
+                { step: "02", title: "add your person", icon: <Heart className="w-5 h-5" /> },
+                { step: "03", title: "chat with kai", icon: <MessageCircleHeart className="w-5 h-5" /> },
+                { step: "04", title: "try it irl", icon: <Sparkles className="w-5 h-5" /> },
+              ].map((item, index) => (
+                <ScrollReveal key={index} delay={index * 150}>
+                  <div className="relative flex flex-col items-center text-center">
                     {/* Step number dot */}
                     <div className="flex-shrink-0 w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-3 md:mb-5 z-10
                       bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg shadow-pink-500/30">
@@ -720,16 +720,16 @@ const LandingPage = ({
                       </h3>
                     </div>
                   </div>
-                ))}
-              </div>
+                </ScrollReveal>
+              ))}
             </div>
-          </ScrollReveal>
+          </div>
 
           {/* Get Started CTA */}
           <ScrollReveal delay={300}>
             <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
               <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300 animate-soft-pulse-glow" />
                 <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
                   boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
                 }}>
@@ -756,8 +756,9 @@ const LandingPage = ({
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <ScrollReveal>
             <div className="text-center mb-4 md:mb-6">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider" style={{
-                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)'
+              <h2 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-brand mb-4 bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent tracking-wider animate-text-shimmer" style={{
+                textShadow: '0 2px 10px rgba(236, 72, 153, 0.4), 0 4px 16px rgba(251, 146, 60, 0.3)',
+                backgroundSize: '200% auto'
               }}>
                 why we're different
               </h2>
