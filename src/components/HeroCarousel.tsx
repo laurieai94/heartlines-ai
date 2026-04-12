@@ -29,7 +29,7 @@ const slides: Slide[] = [
   { year: "2077", image: imageFramedMemory, tagline: "this is what it's all for" },
   { year: "2083", image: imageFriendsCats, tagline: "this is what it's all for" },
   { year: "2085", image: image2025, tagline: "this is what it's all for" },
-  { year: "2088", image: imageRetroPeace, tagline: "this is what it's all for", imageStyle: { transform: 'scale(0.85)' } },
+  { year: "2088", image: imageRetroPeace, tagline: "this is what it's all for", imageStyle: { transform: 'scale(0.95)' } },
   { year: "2091", image: image2027, tagline: "this is what it's all for" },
 ];
 
