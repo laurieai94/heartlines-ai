@@ -17,6 +17,7 @@ interface Slide {
   year: string;
   image: string;
   tagline: string;
+  imageStyle?: React.CSSProperties;
 }
 
 const slides: Slide[] = [
