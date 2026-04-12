@@ -1,21 +1,37 @@
 
+Goal: use your exact 2077 line and fix the remaining square avatar, which is Kai’s inline message avatar.
 
-## Fix square avatars and update 2077 slide tagline
+What I found
+- `src/components/HeroCarousel.tsx` already overrides the 2077 slide, but it currently says `isn't this what it's all for?`
+- `src/components/HeroPhoneScroll.tsx` already fixed the user avatars.
+- The avatar still showing square in your screenshot is Kai’s assistant avatar on the left side of the chat. Those spots still use plain `<img>` tags instead of the same clipped circular wrapper.
 
-### 1. Fix user avatars to be circular
-The wrapper div already has `rounded-full overflow-hidden` but avatars still render as squares. The fix: add `rounded-full` directly to the `<img>` element as well, and ensure `aspect-square` is set on the wrapper to guarantee a perfect circle. Apply this in **3 locations** in `HeroPhoneScroll.tsx`:
+Implementation
+1. Update the 2077 tagline
+- In `src/components/HeroCarousel.tsx`, change the 2077 copy to the exact text:
+  `this is what it's all for`
 
-- **Line 49** (ChatRow user avatar wrapper): Add `aspect-square` to the div
-- **Line 51** (ChatRow user avatar img): Add `rounded-full` to the img class
-- **Typing indicator user avatar** (~line 320+): Same fixes
+2. Make Kai’s inline avatars truly circular
+- In `src/components/HeroPhoneScroll.tsx`, update both assistant-avatar locations:
+  - the `ChatRow` assistant avatar
+  - the assistant typing indicator avatar
+- Keep the current look and halo, but put Kai’s image inside a fixed-size circular wrapper with:
+  - `aspect-square`
+  - `rounded-full`
+  - `overflow-hidden`
+  - `flex-shrink-0`
+- Make the inner image fill the wrapper with `w-full h-full object-cover block rounded-full`
+- Keep `FlameIconHalo`, but wrap the clipped circle inside it so the halo stays outside while the avatar itself is actually round.
+- If the asset still feels boxy, slightly tighten the crop so Kai fills the circle more like the header avatar.
 
-### 2. Update 2077 slide tagline
-In `HeroCarousel.tsx`, change line 51:
-```
-"stronger relationships start here" → "isn't this what it's all for?"
-```
+Files to update
+- `src/components/HeroCarousel.tsx`
+- `src/components/HeroPhoneScroll.tsx`
 
-### Files changed
-- `src/components/HeroPhoneScroll.tsx` — force circular avatars with `aspect-square` on wrapper + `rounded-full` on img
-- `src/components/HeroCarousel.tsx` — update 2077 tagline
-
+QA after implementation
+- Check the homepage at the same mobile-sized viewport as your screenshot.
+- Verify Kai is circular in:
+  - assistant message rows
+  - assistant typing state
+- Verify the 2077 slide reads exactly:
+  `this is what it's all for`
