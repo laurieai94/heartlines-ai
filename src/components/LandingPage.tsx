@@ -669,7 +669,7 @@ const LandingPage = ({
                   
                   <div className="flex md:hidden justify-center">
                     <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
-                      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300 animate-soft-pulse-glow" />
                       <Button className="relative bg-gradient-to-r from-pink-500 via-coral-500 to-orange-500 hover:from-pink-400 hover:via-coral-400 hover:to-orange-400 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm font-light text-base">
                         <MessageCircle className="w-5 h-5 mr-2" />
                         chat now
