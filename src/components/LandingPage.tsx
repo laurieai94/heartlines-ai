@@ -703,10 +703,10 @@ const LandingPage = ({
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
                 {[
-                  { step: "01", title: "build your profile", desc: "no fake bios, come as you are", icon: <UserPlus className="w-5 h-5" /> },
-                  { step: "02", title: "add your person", desc: "every story has two (+) main characters", icon: <Heart className="w-5 h-5" /> },
-                  { step: "03", title: "chat with kai", desc: "less textbook therapy, more real talk", icon: <MessageCircleHeart className="w-5 h-5" /> },
-                  { step: "04", title: "try it irl", desc: "because the magic happens offline", icon: <Sparkles className="w-5 h-5" /> },
+                  { step: "01", title: "build your profile", icon: <UserPlus className="w-5 h-5" /> },
+                  { step: "02", title: "add your person", icon: <Heart className="w-5 h-5" /> },
+                  { step: "03", title: "chat with kai", icon: <MessageCircleHeart className="w-5 h-5" /> },
+                  { step: "04", title: "try it irl", icon: <Sparkles className="w-5 h-5" /> },
                 ].map((item, index) => (
                   <div key={index} className="relative flex md:flex-col items-start md:items-center text-left md:text-center pl-14 md:pl-0" style={{ animationDelay: `${index * 0.15}s` }}>
                     {/* Step number dot */}
@@ -719,9 +719,6 @@ const LandingPage = ({
                       <h3 className="text-lg md:text-xl font-playfair text-white font-light tracking-wide mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
                         {item.title}
                       </h3>
-                      <p className="text-pink-50/90 text-sm md:text-base font-light tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
-                        {item.desc}
-                      </p>
                     </div>
                   </div>
                 ))}
