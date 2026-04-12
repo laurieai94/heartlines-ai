@@ -181,7 +181,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 transition-all duration-700 ease-out
                 hover:shadow-[0_8px_32px_rgba(255,132,80,0.2),0_0_60px_rgba(236,72,153,0.15)]
                 ${isAccent ? 'p-5 md:p-7' : isLarge ? 'p-5 md:p-6' : 'p-4 md:p-5'}
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+                ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}
                 ${isVisible ? 'md:animate-float' : ''}
                 relative overflow-hidden
               `}
