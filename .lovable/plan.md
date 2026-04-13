@@ -1,20 +1,16 @@
 
 
-## Zoom in on the Asian couple slide
+## Add flip phone icon to the GitHub README
 
-The slide currently has `transform: 'scale(0.85)'` which shrinks the image — that's why it doesn't fill the hero. Remove the scale entirely so it behaves like every other slide and covers the full viewport.
+The flip phone SVG exists at `src/assets/flip-phone.svg`. To show it in the GitHub README next to the heading, we need to:
 
-### Change in `src/components/HeroCarousel.tsx`
+1. **Copy the SVG to `docs/`** so it's accessible in the repo: copy `src/assets/flip-phone.svg` → `docs/flip-phone.svg`
 
-**Line 27**: Remove the `imageStyle` property from the Asian couple slide:
+2. **Update `README.md` line 1** — replace the plain text heading with an inline image + text using HTML:
 
-```
-// Before
-{ year: "2071", image: imageAsianCouple, tagline: "what it's all for", imageStyle: { transform: 'scale(0.85)' } }
-
-// After
-{ year: "2071", image: imageAsianCouple, tagline: "what it's all for" }
+```html
+<h1><img src="docs/flip-phone.svg" alt="flip phone icon" width="32" height="32" style="vertical-align: middle;" /> heartlines ai</h1>
 ```
 
-This lets `object-cover` do its job and fill the hero area completely, matching all other slides.
+This places the flip phone icon right next to the title, matching the style in your screenshot. The icon will render directly on GitHub since SVGs in the repo are supported via relative paths in `<img>` tags.
 
