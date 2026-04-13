@@ -572,7 +572,7 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="pt-2 pb-8 md:pt-4 md:pb-12 relative overflow-hidden">
+      <section className="pt-2 pb-6 md:pt-4 md:pb-10 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -684,7 +684,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Horizontal Step Flow */}
-      <section id="how-it-works" className="pt-6 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
+      <section id="how-it-works" className="pt-4 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center mb-6 md:mb-12">
@@ -727,7 +727,7 @@ const LandingPage = ({
 
           {/* Get Started CTA */}
           <ScrollReveal delay={300}>
-            <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
+            <div className="mt-8 md:mt-10 mb-4 md:mb-6 text-center">
               <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                 <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300 animate-soft-pulse-glow" />
                 <Button className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl" style={{
@@ -751,7 +751,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-3 md:py-5 relative overflow-hidden">
+      <section className="pt-4 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <ScrollReveal>
@@ -797,7 +797,7 @@ const LandingPage = ({
           </ScrollReveal>
 
           {/* Closer Starts Here CTA */}
-          <div className="mt-12 md:mt-16 text-center">
+          <div className="mt-8 md:mt-10 text-center">
             <Link to="/signup">
               <div className="relative group inline-block">
                 {/* Glow effect */}
@@ -826,7 +826,7 @@ const LandingPage = ({
       </section>
 
       {/* HowItWorksSwipe Section - Standalone */}
-      <section className="pt-4 pb-3 md:pt-8 md:pb-6 relative overflow-hidden">
+      <section className="pt-4 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <HowItWorksSwipe />
