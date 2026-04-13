@@ -24,7 +24,7 @@ const slides: Slide[] = [
   { year: "2057", image: image2016, tagline: "what it's all for" },
   { year: "2063", image: image2018, tagline: "what it's all for" },
   { year: "2067", image: image2020, tagline: "what it's all for" },
-  { year: "2071", image: imageAsianCouple, tagline: "what it's all for", imageStyle: { transform: 'scale(0.85)' } },
+  { year: "2071", image: imageAsianCouple, tagline: "what it's all for" },
   { year: "2073", image: image2022, tagline: "what it's all for" },
   { year: "2077", image: imageFramedMemory, tagline: "what it's all for" },
   { year: "2083", image: imageFriendsCats, tagline: "what it's all for" },
