@@ -21,16 +21,16 @@ interface Slide {
 }
 
 const slides: Slide[] = [
-  { year: "2057", image: image2016, tagline: "this is what it's all for" },
-  { year: "2063", image: image2018, tagline: "this is what it's all for" },
-  { year: "2067", image: image2020, tagline: "this is what it's all for" },
-  { year: "2071", image: imageAsianCouple, tagline: "this is what it's all for", imageStyle: { transform: 'scale(0.85)' } },
-  { year: "2073", image: image2022, tagline: "this is what it's all for" },
-  { year: "2077", image: imageFramedMemory, tagline: "this is what it's all for" },
-  { year: "2083", image: imageFriendsCats, tagline: "this is what it's all for" },
-  { year: "2085", image: image2025, tagline: "this is what it's all for" },
-  { year: "2088", image: imageRetroPeace, tagline: "this is what it's all for" },
-  { year: "2091", image: image2027, tagline: "this is what it's all for" },
+  { year: "2057", image: image2016, tagline: "what it's all for" },
+  { year: "2063", image: image2018, tagline: "what it's all for" },
+  { year: "2067", image: image2020, tagline: "what it's all for" },
+  { year: "2071", image: imageAsianCouple, tagline: "what it's all for", imageStyle: { transform: 'scale(0.85)' } },
+  { year: "2073", image: image2022, tagline: "what it's all for" },
+  { year: "2077", image: imageFramedMemory, tagline: "what it's all for" },
+  { year: "2083", image: imageFriendsCats, tagline: "what it's all for" },
+  { year: "2085", image: image2025, tagline: "what it's all for" },
+  { year: "2088", image: imageRetroPeace, tagline: "what it's all for" },
+  { year: "2091", image: image2027, tagline: "what it's all for" },
 ];
 
 export const HeroCarousel: React.FC = () => {
