@@ -1,4 +1,4 @@
-<h1><img src="docs/flip-phone.svg" alt="flip phone icon" width="32" height="32" style="vertical-align: middle;" /> heartlines ai</h1>
+<h1><img src="docs/flip-phone.svg" alt="flip phone icon" width="42" height="42" style="vertical-align: middle;" /> heartlines </h1>
 
 **an ai relationship coach for messy, modern love.**
 
