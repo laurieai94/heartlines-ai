@@ -1,9 +1,6 @@
 
 
-## Add flip phone icon to the footer brand name
+## Make the flip phone icon larger in the footer
 
-**File**: `src/components/SiteFooter.tsx`
-
-1. Import `FlipPhoneIcon` from `@/components/icons/FlipPhoneIcon`
-2. In both the mobile (line 63) and desktop (line 103) brand sections, wrap the `<h3>` content with `inline-flex items-center gap-2` and add `<FlipPhoneIcon size={20} />` next to `{BRAND.name}`
+Increase `FlipPhoneIcon size` from `20` to `28` on both mobile (line 64) and desktop (line 104) in `src/components/SiteFooter.tsx`.
 
