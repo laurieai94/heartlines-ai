@@ -40,19 +40,17 @@ stronger relationships build stronger communities.
 
 the system moves from "what just happened?" to "what do i say?" to "what do i do next?"
 
-- **context injection** starts with your patterns, attachment style, relationship history, and partner profiles. kai uses this to ask sharper questions without you having to re-explain.
+- **context injection** — profiles capture attachment style, love language, conflict patterns, family background, and partner data. kai uses this as a pre-loaded knowledge base so users never re-explain themselves. context is injected server-side into every prompt via structured person-context objects.
 
-- **conversation flow** structured phases: understand, reflect, steer, execute.
+- **conversation flow** — four structured phases per session: understand (3–4 discovery questions to map context, pattern, and stakes), reflect (1–2 sentence mirror naming the core tension), steer (options, logistics, channel/timing), execute (co-created scripts with iteration and contingency). phase transitions are governed by internal checkpoints, not vibes.
 
-- **script co-creation** draft the text, shape the conversation, pressure-test tone and boundaries. not just advice, something you can actually say.
+- **script co-creation** — kai drafts the actual text, conversation opener, or boundary statement. users choose tone, channel, and length. every script includes a reality check ("will they actually honor this?") and a contingency ("if they shut down, try this").
 
-- **scenario-based entry points** kai starts with the moment you're in. the same fight again, the silence, the spiral, the message that feels off.
+- **scenario playbooks** — 13 structured playbooks run silently as a compass: conflict loops, intimacy mismatch, trust spirals, betrayal, third-party hostility, ambiguous proposals, boundaries, attachment spirals, safety risk, mental load, money conflict, breakup ambivalence, and trust-pattern combos. kai detects the scenario from user input and routes discovery accordingly.
 
-- **topic-specific playbooks** guided by structured domains: conflict and repair, intimacy, trust, family, identity, and transitions.
+- **response design** — hard-capped at 60 words with sentence-aware truncation. built for texts, calls, or in-person. every response ends with a single question or actionable next step — never two questions, never a wall of text.
 
-- **response design** concise and usable. built for texts, calls, or in-person. you leave with something to use, not more to process.
-
-- **private by architecture** encrypted at rest. no selling or training on emotional data. server-side execution only.
+- **private by architecture** — all llm interactions execute server-side through supabase edge functions. row-level security enforces per-user data isolation at the database layer. no client-side api key exposure. no training on user data. role-based access uses security definer functions in a dedicated table to prevent privilege escalation.
 
 ## tech stack
 
