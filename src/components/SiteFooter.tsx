@@ -64,7 +64,7 @@ const SiteFooter = () => {
             <h3 className="text-xl font-semibold text-white mb-1 font-brand inline-flex items-center gap-2 justify-center"><FlipPhoneIcon size={28} />{BRAND.name}</h3>
             <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
             <p className="text-white/70 text-sm leading-relaxed font-semibold mb-1">
-              stronger relationships start here
+              what it's all for
             </p>
             <p className="text-white/60 text-sm leading-relaxed">
               the ai relationship coach for messy, modern love.
@@ -104,7 +104,7 @@ const SiteFooter = () => {
             <h3 className="text-xl font-semibold text-white mb-1 font-brand inline-flex items-center gap-2"><FlipPhoneIcon size={28} />{BRAND.name}</h3>
             <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
             <p className="text-white/70 text-sm leading-relaxed font-semibold">
-              stronger relationships start here
+              what it's all for
             </p>
             <p className="text-white/60 text-sm leading-relaxed">
               the ai relationship coach for messy, modern love.
