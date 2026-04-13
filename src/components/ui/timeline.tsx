@@ -158,7 +158,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   }, [stops.length]);
 
   return (
-    <div ref={containerRef} className="w-full max-w-5xl mx-auto px-4 py-4">
+    <div ref={containerRef} className="w-full max-w-5xl mx-auto px-4 py-1">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {stops.map((stop, index) => {
           const isVisible = visibleItems.has(index);
