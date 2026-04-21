@@ -572,7 +572,7 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="pt-2 pb-6 md:pt-4 md:pb-10 relative overflow-hidden">
+      <section className="pt-12 pb-12 md:pt-20 md:pb-20 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -684,7 +684,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Horizontal Step Flow */}
-      <section id="how-it-works" className="pt-4 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
+      <section id="how-it-works" className="pt-12 pb-12 md:pt-20 md:pb-20 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center mb-6 md:mb-12">
@@ -751,7 +751,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="pt-4 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
+      <section className="pt-12 pb-12 md:pt-20 md:pb-20 relative overflow-hidden">
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <ScrollReveal>
@@ -826,7 +826,7 @@ const LandingPage = ({
       </section>
 
       {/* HowItWorksSwipe Section - Standalone */}
-      <section className="pt-4 pb-4 md:pt-6 md:pb-8 relative overflow-hidden">
+      <section className="pt-12 pb-12 md:pt-20 md:pb-20 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <HowItWorksSwipe />
