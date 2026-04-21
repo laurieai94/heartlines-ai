@@ -572,7 +572,7 @@ const LandingPage = ({
       </section>
 
       {/* Meet Kai Section */}
-      <section className="pt-2 pb-6 md:pt-4 md:pb-10 relative overflow-hidden">
+      <section className="pt-12 pb-12 md:pt-20 md:pb-20 relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
