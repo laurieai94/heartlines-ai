@@ -3,8 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { BRAND } from "@/branding";
 import { Mail, MessageSquare, Send, Sparkles } from "lucide-react";
-import SimpleHeader from "@/components/SimpleHeader";
-import SiteFooter from "@/components/SiteFooter";
+import SimpleHeader from "@/components/layout/SimpleHeader";
+import SiteFooter from "@/components/layout/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { contactSchema } from "@/utils/contactValidation";
-import PremiumBackground from "@/components/PremiumBackground";
+import PremiumBackground from "@/components/brand/PremiumBackground";
 const Contact = () => {
   const {
     user

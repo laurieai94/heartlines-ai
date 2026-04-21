@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import SiteFooter from '@/components/SiteFooter';
+import SiteFooter from '@/components/layout/SiteFooter';
 import { SecurityDeepDive } from '@/components/privacy/SecurityDeepDive';
 import { DataFlowCards } from '@/components/privacy/DataFlowCards';
-import PremiumBackground from '@/components/PremiumBackground';
-import SimpleHeader from '@/components/SimpleHeader';
+import PremiumBackground from '@/components/brand/PremiumBackground';
+import SimpleHeader from '@/components/layout/SimpleHeader';
 import { useAuth } from '@/contexts/AuthContext';
 const PrivacySecurity = () => {
   const navigate = useNavigate();

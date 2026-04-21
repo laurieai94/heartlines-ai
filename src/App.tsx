@@ -7,12 +7,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Dashboard from "@/pages/Dashboard"; // Synchronous import for faster shell
 // Removed disabled performance imports
-import SplashScreen from "@/components/SplashScreen";
-import ErrorBoundary from "@/components/ErrorBoundary";
-import { ScrollToTop } from "@/components/ScrollToTop";
+import SplashScreen from "@/components/layout/SplashScreen";
+import ErrorBoundary from "@/components/system/ErrorBoundary";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 // Import FirstVisitSplash for session-based splash screen
-import FirstVisitSplash from "@/components/FirstVisitSplash";
+import FirstVisitSplash from "@/components/layout/FirstVisitSplash";
 
 // All pages loaded synchronously for instant navigation
 import NotFound from "@/pages/NotFound";

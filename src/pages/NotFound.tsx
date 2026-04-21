@@ -1,6 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import PremiumBackground from "@/components/PremiumBackground";
+import PremiumBackground from "@/components/brand/PremiumBackground";
 
 const NotFound = () => {
   const location = useLocation();

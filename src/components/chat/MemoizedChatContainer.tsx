@@ -1,5 +1,5 @@
 import React from "react";
-import ChatContainer, { ChatContainerRef } from "../ChatContainer";
+import ChatContainer, { ChatContainerRef } from './ChatContainer';
 import { ChatMessage } from "@/types/AIInsights";
 
 interface MemoizedChatContainerProps {

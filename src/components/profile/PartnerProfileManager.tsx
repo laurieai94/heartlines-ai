@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Users, Plus, Check, Crown, Loader2, Pencil, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import CardAvatar from '@/components/ProfileBuilder/CardAvatar';
+import CardAvatar from '@/components/profile-builder/CardAvatar';
 
 interface PartnerProfileManagerProps {
   onEditProfile: (partnerProfileId: string) => void;

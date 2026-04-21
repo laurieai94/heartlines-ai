@@ -2,13 +2,13 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/component
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/branding";
 import { Heart, MessageSquare, Globe, ChevronDown } from "lucide-react";
-import SimpleHeader from "@/components/SimpleHeader";
+import SimpleHeader from "@/components/layout/SimpleHeader";
 import DuckIcon from "@/components/icons/DuckIcon";
-import SiteFooter from "@/components/SiteFooter";
+import SiteFooter from "@/components/layout/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import PremiumBackground from "@/components/PremiumBackground";
+import PremiumBackground from "@/components/brand/PremiumBackground";
 
 
 const Mission = () => {

@@ -2,8 +2,8 @@ import { useCallback, useMemo } from 'react';
 import { usePersonalProfileData } from './usePersonalProfileData';
 import { usePartnerProfileData } from './usePartnerProfileData';
 import { profileCompletionCache } from '@/utils/calculationCache';
-import { calculateProgress } from '@/components/NewPersonalQuestionnaire/utils/validation';
-import { calculatePartnerProgress } from '@/components/NewPartnerProfile/utils/partnerValidation';
+import { calculateProgress } from '@/components/new-personal-questionnaire/utils/validation';
+import { calculatePartnerProgress } from '@/components/new-partner-profile/utils/partnerValidation';
 
 // Round progress to milestone percentages for cleaner, more premium UX
 const roundToMilestone = (progress: number): number => {

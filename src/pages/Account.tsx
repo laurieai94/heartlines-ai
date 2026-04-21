@@ -2,11 +2,11 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { NavigationProvider } from '@/contexts/NavigationContext';
 import { MobileHeaderVisibilityProvider } from '@/contexts/MobileHeaderVisibilityContext';
-import DashboardHeader from '@/components/DashboardHeader';
-import DashboardModals from '@/components/DashboardModals';
+import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import DashboardModals from '@/components/dashboard/DashboardModals';
 import AccountLayout from '@/components/account/AccountLayout';
 import { useDashboardModals } from '@/hooks/useDashboardModals';
-import PremiumBackground from '@/components/PremiumBackground';
+import PremiumBackground from '@/components/brand/PremiumBackground';
 
 const Account = () => {
   const { user, loading } = useAuth();

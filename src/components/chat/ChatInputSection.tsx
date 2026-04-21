@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, lazy, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import AIChatInput from '../AIChatInput';
-import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
-import ConversationStarters from '../ConversationStarters';
-import OnboardingStepNudge from '../OnboardingStepNudge';
+import AIChatInput from './AIChatInput';
+import ProgressiveAccessWrapper from '../auth/ProgressiveAccessWrapper';
+import ConversationStarters from './ConversationStarters';
+import OnboardingStepNudge from '../profile/OnboardingStepNudge';
 import { ChatMessage } from '@/types/AIInsights';
 import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
 import { useNavigation } from '@/contexts/NavigationContext';
-import SignUpModal from '@/components/SignUpModal';
+import SignUpModal from '@/components/landing/SignUpModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { logEvent } from '@/utils/analytics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
@@ -22,7 +22,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 
 // Prefetch the profile questionnaire for faster loading
-const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
+const NewPersonalQuestionnaire = lazy(() => import('@/components/new-personal-questionnaire'));
 
 interface ChatInputSectionProps {
   onSendMessage: (message: string) => void;
@@ -123,7 +123,7 @@ export const ChatInputSection = ({
   useEffect(() => {
     if (accessLevel === 'profile-required' && user) {
       // Actually preload the module chunk
-      import('@/components/NewPersonalQuestionnaire').catch(() => {});
+      import('@/components/new-personal-questionnaire').catch(() => {});
     }
   }, [accessLevel, user]);
 

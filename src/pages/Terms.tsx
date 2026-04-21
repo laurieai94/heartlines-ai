@@ -1,10 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { BRAND } from "@/branding";
-import SimpleHeader from "@/components/SimpleHeader";
-import SiteFooter from "@/components/SiteFooter";
+import SimpleHeader from "@/components/layout/SimpleHeader";
+import SiteFooter from "@/components/layout/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { Helmet } from "react-helmet";
-import PremiumBackground from "@/components/PremiumBackground";
+import PremiumBackground from "@/components/brand/PremiumBackground";
 
 const Terms = () => {
   const { user } = useAuth();

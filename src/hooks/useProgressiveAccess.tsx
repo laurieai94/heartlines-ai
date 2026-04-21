@@ -3,10 +3,10 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "./usePersonalProfileData";
 import { usePartnerProfileData } from "./usePartnerProfileData";
-import { calculateProgressOptimized, validateSectionOptimized } from "@/components/NewPersonalQuestionnaire/utils/optimizedValidation";
-import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from "@/components/NewPersonalQuestionnaire/utils/requirements";
-import { getTotalPartnerRequiredFieldsCount, getCompletedPartnerRequiredFieldsCount, isPartnerProfileComplete } from "@/components/NewPartnerProfile/utils/partnerRequirements";
-import type { ProfileData } from "@/components/NewPersonalQuestionnaire/types";
+import { calculateProgressOptimized, validateSectionOptimized } from "@/components/new-personal-questionnaire/utils/optimizedValidation";
+import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from "@/components/new-personal-questionnaire/utils/requirements";
+import { getTotalPartnerRequiredFieldsCount, getCompletedPartnerRequiredFieldsCount, isPartnerProfileComplete } from "@/components/new-partner-profile/utils/partnerRequirements";
+import type { ProfileData } from "@/components/new-personal-questionnaire/types";
 import { batchedStorage } from "@/utils/batchedStorage";
 
 export type AccessLevel = 'preview' | 'profile-required' | 'signup-required' | 'full-access';
