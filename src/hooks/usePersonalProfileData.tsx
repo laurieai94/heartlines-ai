@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useProfileStoreV2 } from './useProfileStoreV2';
-import { ProfileData } from '../components/NewPersonalQuestionnaire/types';
+import { ProfileData } from '../components/new-personal-questionnaire/types';
 
 // Extended interface to support both old and new field names
 interface ExtendedProfileData extends ProfileData {
