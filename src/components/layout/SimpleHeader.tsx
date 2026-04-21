@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Home, User as UserIcon, MessageSquare, CreditCard, Settings, LogOut, X } from "lucide-react";
-import FlipPhoneIcon from "./icons/FlipPhoneIcon";
+import FlipPhoneIcon from '../icons/FlipPhoneIcon';
 import { useNavigate } from "react-router-dom";
 import SignInButton from '../landing/SignInButton';
 import type { User } from '@supabase/supabase-js';

@@ -10,7 +10,7 @@ import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityCont
 // Import AIInsights directly to avoid dynamic loading issues
 import AIInsights from "@/components/system/AIInsights";
 // Temporarily import ProfileBuilder directly to fix loading issue
-import ProfileBuilder from "@/components/profile-builder";
+import ProfileBuilder from "@/components/profile/ProfileBuilder";
 import AIChat from "@/components/chat/AIChat";
 
 // Lazy load other heavy components to improve initial render

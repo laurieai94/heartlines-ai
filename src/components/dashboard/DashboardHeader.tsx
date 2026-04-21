@@ -1,6 +1,6 @@
 import BrandMark from '../brand/BrandMark';
 import SignInButton from '../landing/SignInButton';
-import HeartlinesWordmark from "./brand/HeartlinesWordmark";
+import HeartlinesWordmark from '../brand/HeartlinesWordmark';
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -13,7 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings, X, LogOut } from "lucide-react";
-import FlipPhoneIcon from "./icons/FlipPhoneIcon";
+import FlipPhoneIcon from '../icons/FlipPhoneIcon';
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";

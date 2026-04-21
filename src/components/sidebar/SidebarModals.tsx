@@ -2,8 +2,8 @@
 import { ProfileData, DemographicsData } from '@/types/AIInsights';
 import { useTemporaryProfile } from '@/hooks/useTemporaryProfile';
 import ProfileViewer from '../profile/ProfileViewer';
-import Demographics from '../demographics';
-import ProfileForm from '../profile-form';
+import Demographics from '../profile/Demographics';
+import ProfileForm from '../profile/ProfileForm';
 
 interface SidebarModalsProps {
   profiles: ProfileData;

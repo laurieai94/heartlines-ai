@@ -1,4 +1,4 @@
-import FlipPhoneIcon from './icons/FlipPhoneIcon';
+import FlipPhoneIcon from '../icons/FlipPhoneIcon';
 import { useLocation } from 'react-router-dom';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';

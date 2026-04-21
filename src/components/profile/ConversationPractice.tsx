@@ -1,9 +1,9 @@
 
 import { useState } from "react";
 import { DollarSign, Home, Users, Target, RotateCcw, Heart, Lightbulb } from "lucide-react";
-import ScenarioCard from './ConversationPractice/ScenarioCard';
-import PartnerProfileSelector from './ConversationPractice/PartnerProfileSelector';
-import CustomScenarioForm from './ConversationPractice/CustomScenarioForm';
+import ScenarioCard from '../conversation-practice/ScenarioCard';
+import PartnerProfileSelector from '../conversation-practice/PartnerProfileSelector';
+import CustomScenarioForm from '../conversation-practice/CustomScenarioForm';
 import ProgressiveAccessWrapper from '../auth/ProgressiveAccessWrapper';
 
 interface ProfileData {

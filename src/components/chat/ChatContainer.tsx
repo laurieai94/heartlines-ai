@@ -8,7 +8,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Heart } from 'lucide-react';
 import { BRAND } from '@/branding';
 
-import DateSeparator from './chat/DateSeparator';
+import DateSeparator from './DateSeparator';
 import { isSameDay } from 'date-fns';
 
 export interface ChatContainerRef {

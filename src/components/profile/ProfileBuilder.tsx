@@ -6,8 +6,8 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { BRAND } from "@/branding";
 // Direct imports for instant loading - no lazy loading
-import ProfileForm from "@/components/profile-form";
-import Demographics from "@/components/demographics";
+import ProfileForm from "@/components/profile/ProfileForm";
+import Demographics from "@/components/profile/Demographics";
 import MemoizedProfileCard from "@/components/profile-builder/MemoizedProfileCard";
 import PartnerProfileManager from "@/components/profile/PartnerProfileManager";
 import { UpgradeModal } from "@/components/modals/UpgradeModal";

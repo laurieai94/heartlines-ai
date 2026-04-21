@@ -6,8 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Check, X } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import DemographicsPage1 from './Demographics/DemographicsPage1';
-import DemographicsPage2 from './Demographics/DemographicsPage2';
+import DemographicsPage1 from '../demographics/DemographicsPage1';
+import DemographicsPage2 from '../demographics/DemographicsPage2';
 
 interface DemographicsProps {
   profileType: 'your' | 'partner';

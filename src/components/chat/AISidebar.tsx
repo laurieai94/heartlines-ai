@@ -1,8 +1,8 @@
 
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useSidebarModals } from "@/hooks/useSidebarModals";
-import SidebarContent from "./sidebar/SidebarContent";
-import SidebarModals from "./sidebar/SidebarModals";
+import SidebarContent from '../sidebar/SidebarContent';
+import SidebarModals from '../sidebar/SidebarModals';
 
 interface AISidebarProps {
   profiles: ProfileData;
