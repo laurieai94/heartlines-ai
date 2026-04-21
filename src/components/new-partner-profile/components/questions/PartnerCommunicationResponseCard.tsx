@@ -1,10 +1,10 @@
-import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
-import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
+import QuestionCard from "@/components/new-personal-questionnaire/components/shared/QuestionCard";
+import MultiSelect from "@/components/new-personal-questionnaire/components/shared/MultiSelect";
 import { Label } from "@/components/ui/label";
 import { MessageSquare } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_COMMUNICATION_RESPONSE_OPTIONS } from "../../constants";
-import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { useAutoScroll } from "@/components/new-personal-questionnaire/hooks/useAutoScroll";
 interface PartnerCommunicationResponseCardProps {
   profileData: PartnerProfileData;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;

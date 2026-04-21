@@ -1,7 +1,7 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import SplashScreen from '@/components/SplashScreen';
+import SplashScreen from '@/components/layout/SplashScreen';
 import LoadingState from '@/components/loading/LoadingState';
 import { Button } from '@/components/ui/button';
 

@@ -1,10 +1,10 @@
-import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
-import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
+import QuestionCard from "@/components/new-personal-questionnaire/components/shared/QuestionCard";
+import SingleSelect from "@/components/new-personal-questionnaire/components/shared/SingleSelect";
 import { Label } from "@/components/ui/label";
 import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_ATTACHMENT_OPTIONS } from "../../constants";
-import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { useAutoScroll } from "@/components/new-personal-questionnaire/hooks/useAutoScroll";
 
 interface PartnerAttachmentCardProps {
   profileData: PartnerProfileData;

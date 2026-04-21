@@ -7,8 +7,8 @@ import './styles/performance-mobile.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
 import { useProductionOptimizations } from "@/hooks/useProductionOptimizations"
-import ErrorBoundary from '@/components/ErrorBoundary'
-import MobileErrorBoundary from '@/components/MobileErrorBoundary'
+import ErrorBoundary from '@/components/system/ErrorBoundary'
+import MobileErrorBoundary from '@/components/system/MobileErrorBoundary'
 
 // React Profiler callback for development only
 const onRenderCallback = (

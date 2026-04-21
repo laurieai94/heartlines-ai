@@ -6,9 +6,9 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { BRAND } from "@/branding";
 // Direct imports for instant loading - no lazy loading
-import ProfileForm from "@/components/ProfileForm";
-import Demographics from "@/components/Demographics";
-import MemoizedProfileCard from "@/components/ProfileBuilder/MemoizedProfileCard";
+import ProfileForm from "@/components/profile-form";
+import Demographics from "@/components/demographics";
+import MemoizedProfileCard from "@/components/profile-builder/MemoizedProfileCard";
 import PartnerProfileManager from "@/components/profile/PartnerProfileManager";
 import { UpgradeModal } from "@/components/modals/UpgradeModal";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
@@ -19,13 +19,13 @@ import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { usePartnerProfiles } from '@/hooks/usePartnerProfiles';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
-import OnboardingStepNudge from "@/components/OnboardingStepNudge";
-import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
+import OnboardingStepNudge from "@/components/profile/OnboardingStepNudge";
+import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/new-personal-questionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import ProfileTips from "@/components/ProfileBuilder/ProfileTips";
-import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
+import ProfileTips from "@/components/profile-builder/ProfileTips";
+import { UnlockCoachingButton } from '@/components/landing/UnlockCoachingButton';
 import { batchedStorage } from '@/utils/batchedStorage';
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;

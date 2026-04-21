@@ -1,10 +1,10 @@
-import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
-import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
+import QuestionCard from "@/components/new-personal-questionnaire/components/shared/QuestionCard";
+import MultiSelect from "@/components/new-personal-questionnaire/components/shared/MultiSelect";
 import { Label } from "@/components/ui/label";
 import { Shield } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_HEARTBREAK_BETRAYAL_OPTIONS } from "../../constants";
-import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { useAutoScroll } from "@/components/new-personal-questionnaire/hooks/useAutoScroll";
 
 interface PartnerHeartbreakBetrayalCardProps {
   profileData: PartnerProfileData;

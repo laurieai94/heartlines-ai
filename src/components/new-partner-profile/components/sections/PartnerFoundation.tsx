@@ -3,7 +3,7 @@ import { PartnerProfileData } from "../../types";
 import PartnerHeartbreakBetrayalCard from "../questions/PartnerHeartbreakBetrayalCard";
 import PartnerFamilyDynamicCard from "../questions/PartnerFamilyDynamicCard";
 import PartnerAttachmentCard from "../questions/PartnerAttachmentCard";
-import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
+import OptionalGroup from "@/components/new-personal-questionnaire/components/shared/OptionalGroup";
 
 interface PartnerFoundationProps {
   profileData: PartnerProfileData;

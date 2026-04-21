@@ -539,8 +539,8 @@ export const useProfileStoreV2 = (profileType: ProfileType, partnerProfileId?: s
         
         // Warm the completion cache with the merged profile (not raw DB data)
         // This ensures deletions are properly reflected in the cache
-        const { calculateProgress } = await import('@/components/NewPersonalQuestionnaire/utils/validation');
-        const { calculatePartnerProgress } = await import('@/components/NewPartnerProfile/utils/partnerValidation');
+        const { calculateProgress } = await import('@/components/new-personal-questionnaire/utils/validation');
+        const { calculatePartnerProgress } = await import('@/components/new-partner-profile/utils/partnerValidation');
         
         // Get current profile state which has correct merged values including deletions
         const currentState = await new Promise<typeof defaultProfile>(resolve => {

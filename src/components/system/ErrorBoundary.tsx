@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import BrandMark from '@/components/BrandMark';
+import BrandMark from '@/components/brand/BrandMark';
 import { RefreshCw, Home } from 'lucide-react';
 
 interface ErrorBoundaryState {

@@ -65,7 +65,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       import('@/pages/Pricing').catch(() => {});
     } else if (tabValue === 'insights') {
       // Prefetch AIInsights and related chat components
-      import('@/components/AIInsights').catch(() => {});
+      import('@/components/system/AIInsights').catch(() => {});
       import('@/components/chat/ChatHistorySidebar').catch(() => {});
       import('@/components/chat/ChatInputSection').catch(() => {});
     }

@@ -5,7 +5,7 @@ import PartnerSectionNavigation from "./PartnerSectionNavigation";
 import PartnerQuestionnaireHeader from "./PartnerQuestionnaireHeader";
 import PartnerQuestionnaireContent from "./PartnerQuestionnaireContent";
 import CleanPartnerFooter from "./CleanPartnerFooter";
-import MobileProfileBoundary from "@/components/MobileProfileBoundary";
+import MobileProfileBoundary from "@/components/system/MobileProfileBoundary";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
 interface PartnerQuestionnaireLayoutProps {

@@ -1,10 +1,10 @@
 
 import React, { Suspense, Component, ReactNode } from "react";
-import SignUpModal from "@/components/SignUpModal";
-import SplashScreen from "@/components/SplashScreen";
-import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
-import BrandLoadingText from "@/components/BrandLoadingText";
-import WelcomeToKaiDialog from "@/components/WelcomeToKaiDialog";
+import SignUpModal from "@/components/landing/SignUpModal";
+import SplashScreen from "@/components/layout/SplashScreen";
+import NewPersonalQuestionnaire from "@/components/new-personal-questionnaire";
+import BrandLoadingText from "@/components/brand/BrandLoadingText";
+import WelcomeToKaiDialog from "@/components/chat/WelcomeToKaiDialog";
 
 // Simple error boundary for chunk loading failures
 class ChunkErrorBoundary extends Component<
@@ -45,8 +45,8 @@ class ChunkErrorBoundary extends Component<
 }
 
 // Lazy load heavy modal components (except NewPartnerProfile for faster loading)
-import NewPartnerProfile from "@/components/NewPartnerProfile";
-const ProfileCompletionOptions = React.lazy(() => import("@/components/ProfileCompletionOptions"));
+import NewPartnerProfile from "@/components/new-partner-profile";
+const ProfileCompletionOptions = React.lazy(() => import("@/components/profile/ProfileCompletionOptions"));
 
 interface DashboardModalsProps {
   shouldShowSignUpModal: boolean;

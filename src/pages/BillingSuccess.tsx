@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import PremiumBackground from "@/components/PremiumBackground";
+import PremiumBackground from "@/components/brand/PremiumBackground";
 
 const BillingSuccess = () => {
   const navigate = useNavigate();

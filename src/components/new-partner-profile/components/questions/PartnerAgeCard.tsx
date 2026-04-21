@@ -1,12 +1,12 @@
 import { useState } from "react";
-import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
-import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
+import QuestionCard from "@/components/new-personal-questionnaire/components/shared/QuestionCard";
+import SingleSelect from "@/components/new-personal-questionnaire/components/shared/SingleSelect";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_AGE_OPTIONS } from "../../constants";
 import { usePartnerFlow } from "../../context/FlowContext";
-import UnderageModal from "@/components/PersonalProfileQuestionnaire/UnderageModal";
+import UnderageModal from "@/components/personal-profile-questionnaire/UnderageModal";
 
 interface PartnerAgeCardProps {
   profileData: PartnerProfileData;

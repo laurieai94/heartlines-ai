@@ -1,21 +1,21 @@
 
 import React, { Suspense, useEffect, useState, useCallback, useMemo } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import DashboardHome from "@/components/DashboardHome";
-import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
-import SplashScreen from "@/components/SplashScreen";
+import DashboardHome from "@/components/dashboard/DashboardHome";
+import ProgressiveAccessWrapper from "@/components/auth/ProgressiveAccessWrapper";
+import SplashScreen from "@/components/layout/SplashScreen";
 import { performanceMonitor } from "@/utils/performanceMonitor";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 
 // Import AIInsights directly to avoid dynamic loading issues
-import AIInsights from "@/components/AIInsights";
+import AIInsights from "@/components/system/AIInsights";
 // Temporarily import ProfileBuilder directly to fix loading issue
-import ProfileBuilder from "@/components/ProfileBuilder";
-import AIChat from "@/components/AIChat";
+import ProfileBuilder from "@/components/profile-builder";
+import AIChat from "@/components/chat/AIChat";
 
 // Lazy load other heavy components to improve initial render
-const PrivacySettings = React.lazy(() => import("@/components/PrivacySettings").then(m => ({ default: m.PrivacySettings })));
-const Company = React.lazy(() => import("@/components/Company"));
+const PrivacySettings = React.lazy(() => import("@/components/privacy/PrivacySettings").then(m => ({ default: m.PrivacySettings })));
+const Company = React.lazy(() => import("@/components/landing/Company"));
 
 interface DashboardContentProps {
   activeTab: string;

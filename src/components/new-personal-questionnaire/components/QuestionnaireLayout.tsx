@@ -6,7 +6,7 @@ import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
 import WelcomeBanner from "./WelcomeBanner";
-import MobileProfileBoundary from "@/components/MobileProfileBoundary";
+import MobileProfileBoundary from "@/components/system/MobileProfileBoundary";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
 interface QuestionnaireLayoutProps {

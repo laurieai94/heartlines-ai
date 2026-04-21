@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
 import { refreshAllAppData } from '@/utils/globalRefresh';
 import AccountUsageAnalytics from './AccountUsageAnalytics';
-import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
+import { UnlockCoachingButton } from '@/components/landing/UnlockCoachingButton';
 
 const AccountOverview = () => {
   const { user } = useAuth();

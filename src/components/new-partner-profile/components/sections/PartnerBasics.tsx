@@ -4,7 +4,7 @@ import PartnerNamePronounsCard from "../questions/PartnerNamePronounsCard";
 import PartnerAgeCard from "../questions/PartnerAgeCard";
 import PartnerOrientationCard from "../questions/PartnerOrientationCard";
 import PartnerGenderCard from "../questions/PartnerGenderCard";
-import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
+import OptionalGroup from "@/components/new-personal-questionnaire/components/shared/OptionalGroup";
 
 interface PartnerBasicsProps {
   profileData: PartnerProfileData;

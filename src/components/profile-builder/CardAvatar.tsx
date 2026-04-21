@@ -1,5 +1,5 @@
 import React, { useId } from 'react';
-import FlameIconHalo from '@/components/FlameIconHalo';
+import FlameIconHalo from '@/components/brand/FlameIconHalo';
 
 interface CardAvatarProps {
   children: React.ReactNode;

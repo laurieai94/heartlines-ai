@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
-import FlameIconHalo from "@/components/FlameIconHalo";
+import FlameIconHalo from "@/components/brand/FlameIconHalo";
 
 interface NavAvatarProps {
   children?: React.ReactNode;

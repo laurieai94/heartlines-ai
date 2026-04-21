@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import SplashScreen from '@/components/SplashScreen';
-import LandingPage from '@/components/LandingPage';
+import SplashScreen from '@/components/layout/SplashScreen';
+import LandingPage from '@/components/landing/LandingPage';
 import { useResourceLoader } from '@/hooks/useResourceLoader';
 import { CRITICAL_IMAGES } from '@/config/criticalResources';
 

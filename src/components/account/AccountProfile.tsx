@@ -10,7 +10,7 @@ import { useUserProfile } from '@/hooks/useUserProfile';
 import { useAuth } from '@/contexts/AuthContext';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { toast } from 'sonner';
-import AvatarUpload from '@/components/AvatarUpload';
+import AvatarUpload from '@/components/profile/AvatarUpload';
 const AccountProfile = () => {
   const {
     user,

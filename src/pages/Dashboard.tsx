@@ -1,15 +1,15 @@
 
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
-import DashboardHeader from "@/components/DashboardHeader";
-import DashboardContent from "@/components/DashboardContent";
-import DashboardModals from "@/components/DashboardModals";
-import AuthGuard from "@/components/AuthGuard";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import DashboardContent from "@/components/dashboard/DashboardContent";
+import DashboardModals from "@/components/dashboard/DashboardModals";
+import AuthGuard from "@/components/auth/AuthGuard";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import PremiumBackground from "@/components/PremiumBackground";
+import PremiumBackground from "@/components/brand/PremiumBackground";
 import { useCheckoutSuccess } from "@/hooks/useCheckoutSuccess";
 // Performance optimization removed
 
@@ -65,7 +65,7 @@ const Dashboard = () => {
   // Preload questionnaire chunk for gated users
   useEffect(() => {
     if (accessLevel === 'profile-required' && user) {
-      import('@/components/NewPersonalQuestionnaire').catch(() => {});
+      import('@/components/new-personal-questionnaire').catch(() => {});
     }
   }, [accessLevel, user]);
 

@@ -4,7 +4,7 @@ import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
 import PartnerConflictCard from "../questions/PartnerConflictCard";
 import PartnerSelfAwarenessCard from "../questions/PartnerSelfAwarenessCard";
 import PartnerCommunicationResponseCard from "../questions/PartnerCommunicationResponseCard";
-import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
+import OptionalGroup from "@/components/new-personal-questionnaire/components/shared/OptionalGroup";
 
 interface PartnerOperationsProps {
   profileData: PartnerProfileData;
