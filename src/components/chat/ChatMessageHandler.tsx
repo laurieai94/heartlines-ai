@@ -2,7 +2,7 @@
 import { useState, useRef, useCallback, useMemo } from 'react';
 import { ChatMessage, ProfileData, DemographicsData } from '@/types/AIInsights';
 import { UseProfileGoalsReturn } from '@/hooks/useProfileGoals';
-import { AICoachEngine } from '../AICoachEngine';
+import { AICoachEngine } from './AICoachEngine';
 import { useConversationTopics } from '@/hooks/useConversationTopics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useRelationshipPatterns } from '@/hooks/useRelationshipPatterns';

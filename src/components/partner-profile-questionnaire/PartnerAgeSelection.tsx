@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "lucide-react";
-import UnderageModal from "../PersonalProfileQuestionnaire/UnderageModal";
+import UnderageModal from '../personal-profile-questionnaire/UnderageModal';
 
 interface PartnerAgeSelectionProps {
   selectedAge: string;

@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { ChatMessage, AIInsightsProps } from '@/types/AIInsights';
-import { AICoachEngine } from './AICoachEngine';
+import { AICoachEngine } from '../chat/AICoachEngine';
 import { useChatHistory } from '@/hooks/useChatHistory';
 import { useTemporaryProfile } from '@/hooks/useTemporaryProfile';
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import { usePartnerProfiles } from '@/hooks/usePartnerProfiles';
 import { useProfileGoals } from '@/hooks/useProfileGoals';
-import AIChat from './AIChat';
-import ProgressiveAccessWrapper from './ProgressiveAccessWrapper';
+import AIChat from '../chat/AIChat';
+import ProgressiveAccessWrapper from '../auth/ProgressiveAccessWrapper';
 import { performanceMonitor } from '@/utils/performanceMonitor';
 
 // Lazy load non-critical modals
-const ProfileForm = lazy(() => import('./ProfileForm'));
-const Demographics = lazy(() => import('./Demographics'));
+const ProfileForm = lazy(() => import('../profile/ProfileForm'));
+const Demographics = lazy(() => import('../profile/Demographics'));
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);

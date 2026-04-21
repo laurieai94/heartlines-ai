@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
-import { useAutoScroll } from "../NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { useAutoScroll } from '../new-personal-questionnaire/hooks/useAutoScroll';
 import FamilyConflictQuestion from "./FamilyConflictQuestion";
 import FamilyLoveQuestion from "./FamilyLoveQuestion";
 import FamilySituationQuestion from "./FamilySituationQuestion";

@@ -8,7 +8,7 @@ import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
-import BrandLoadingText from "../BrandLoadingText";
+import BrandLoadingText from '../brand/BrandLoadingText';
 
 interface DemographicsPage1Props {
   profileType: 'your' | 'partner';

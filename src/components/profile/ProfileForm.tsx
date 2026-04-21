@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Check, X, Sparkles, Heart, User } from "lucide-react";
 import { toast } from "sonner";
-import ProfileFormPage1 from "./ProfileForm/ProfileFormPage1";
-import ProfileFormPage2 from "./ProfileForm/ProfileFormPage2";
-import ProfileFormPage3 from "./ProfileForm/ProfileFormPage3";
+import ProfileFormPage1 from './ProfileForm/ProfileFormPage1';
+import ProfileFormPage2 from './ProfileForm/ProfileFormPage2';
+import ProfileFormPage3 from './ProfileForm/ProfileFormPage3';
 
 interface ProfileFormProps {
   profileType: 'your' | 'partner';

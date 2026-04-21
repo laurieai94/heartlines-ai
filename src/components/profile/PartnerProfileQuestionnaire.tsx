@@ -1,5 +1,5 @@
 
-import NewPartnerProfile from "./NewPartnerProfile";
+import NewPartnerProfile from '../new-partner-profile';
 
 interface PartnerProfileQuestionnaireProps {
   onComplete: (profileData: any) => void;

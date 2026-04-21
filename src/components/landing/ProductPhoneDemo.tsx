@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, Info, Heart, ChevronLeft, ChevronRight } from "lucide-react";
-import ChatBubble from './ChatBubble';
+import ChatBubble from '../chat/ChatBubble';
 import { BRAND } from '@/branding';
-import FlameBackground from './FlameBackground';
-import FlameIconHalo from './FlameIconHalo';
+import FlameBackground from '../brand/FlameBackground';
+import FlameIconHalo from '../brand/FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
 
 interface ProductPhoneDemoProps {

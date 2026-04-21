@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import NewPersonalQuestionnaire from "./NewPersonalQuestionnaire";
+import NewPersonalQuestionnaire from '../new-personal-questionnaire';
 
 interface PersonalProfileQuestionnaireProps {
   onComplete: (profileData: any) => void;

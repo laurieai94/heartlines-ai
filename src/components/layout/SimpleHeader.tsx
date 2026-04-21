@@ -12,7 +12,7 @@ import {
 import { Home, User as UserIcon, MessageSquare, CreditCard, Settings, LogOut, X } from "lucide-react";
 import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
-import SignInButton from "./SignInButton";
+import SignInButton from '../landing/SignInButton';
 import type { User } from '@supabase/supabase-js';
 import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";

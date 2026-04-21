@@ -3,7 +3,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
-import OnboardingStepNudge from './OnboardingStepNudge';
+import OnboardingStepNudge from '../profile/OnboardingStepNudge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Heart } from 'lucide-react';
 import { BRAND } from '@/branding';

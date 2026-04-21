@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, memo, useMemo } from 'react';
-import ChatBubble from './ChatBubble';
+import ChatBubble from '../chat/ChatBubble';
 import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Heart, MessageSquare } from "lucide-react";
 import { Link } from 'react-router-dom';
-import FlameIconHalo from './FlameIconHalo';
+import FlameIconHalo from '../brand/FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
 import { preloadCriticalImages } from '@/utils/imageOptimizer';
 import sarahAvatar from '@/assets/money-woman-avatar.png';

@@ -2,10 +2,10 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import AvatarUpload from "../AvatarUpload";
+import AvatarUpload from '../profile/AvatarUpload';
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
-import BrandLoadingText from "../BrandLoadingText";
+import BrandLoadingText from '../brand/BrandLoadingText';
 import { useEffect } from "react";
 
 interface PersonalIdentityProps {

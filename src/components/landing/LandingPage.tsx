@@ -8,23 +8,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { BRAND } from "@/branding";
-import BrandMark from "./BrandMark";
+import BrandMark from '../brand/BrandMark';
 import HeartlinesWordmark from "./brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
-import FlameDivider from "./FlameDivider";
+import FlameDivider from '../brand/FlameDivider';
 import { useGlobalResize } from '@/hooks/useGlobalResize';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
-import SiteFooter from "./SiteFooter";
+import SiteFooter from '../layout/SiteFooter';
 import HowItWorksSwipe from "./HowItWorksSwipe";
 
 import HeroCarousel from "./HeroCarousel";
 import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon, CommunityIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
-import SimpleHeader from "./SimpleHeader";
+import SimpleHeader from '../layout/SimpleHeader';
 import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
-import PremiumBackground from "./PremiumBackground";
-import ScrollReveal from "./ScrollReveal";
+import PremiumBackground from '../brand/PremiumBackground';
+import ScrollReveal from '../layout/ScrollReveal';
 
 
 

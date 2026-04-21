@@ -1,5 +1,5 @@
-import BrandMark from "./BrandMark";
-import SignInButton from "./SignInButton";
+import BrandMark from '../brand/BrandMark';
+import SignInButton from '../landing/SignInButton';
 import HeartlinesWordmark from "./brand/HeartlinesWordmark";
 import { Button } from "@/components/ui/button";
 import {

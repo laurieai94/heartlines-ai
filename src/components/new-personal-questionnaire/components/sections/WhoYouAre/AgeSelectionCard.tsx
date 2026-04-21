@@ -6,7 +6,7 @@ import { ProfileData } from "../../../types";
 import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
-import UnderageModal from "../../../../PersonalProfileQuestionnaire/UnderageModal";
+import UnderageModal from '../../../../personal-profile-questionnaire/UnderageModal';
 
 interface AgeSelectionCardProps {
   profileData: ProfileData;

@@ -3,11 +3,11 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, Lightbulb, Calendar, MessageSquare, Gift, Coffee, Phone, Star } from "lucide-react";
-import QuickActions from "./ThoughtfulActions/QuickActions";
-import SuggestionsList from "./ThoughtfulActions/SuggestionsList";
-import ActionForm from "./ThoughtfulActions/ActionForm";
-import RelationshipAlerts from "./ThoughtfulActions/RelationshipAlerts";
-import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
+import QuickActions from './ThoughtfulActions/QuickActions';
+import SuggestionsList from './ThoughtfulActions/SuggestionsList';
+import ActionForm from './ThoughtfulActions/ActionForm';
+import RelationshipAlerts from './ThoughtfulActions/RelationshipAlerts';
+import ProgressiveAccessWrapper from '../auth/ProgressiveAccessWrapper';
 
 interface ProfileData {
   your: any[];
