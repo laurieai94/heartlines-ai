@@ -262,7 +262,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header — keep Radix Avatar here (doesn't re-render with messages) */}
-            <div className="bg-gradient-to-r from-burgundy-700/15 to-burgundy-600/10 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/15 to-burgundy-600/10 backdrop-blur-md px-2 py-1.5 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
                 <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
                   <AvatarImage 
