@@ -440,7 +440,7 @@ const LandingPage = ({
       <div className="h-6 sm:h-8 md:h-12 lg:h-16 xl:h-20" aria-hidden="true" />
 
       {/* Hero Section - Locked layout with flame background */}
-      <section className="relative overflow-hidden" style={{
+      <section className="relative overflow-visible" style={{
         minHeight: 'clamp(40vh, 50vh, 65vh)'
       }}>
         {/* Static background preserved */}
