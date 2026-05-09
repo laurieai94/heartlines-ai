@@ -215,7 +215,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   return (
     <div ref={containerRef} className={`relative ${className}`} style={style}>
       {/* Floating Chat CTA Button */}
-      <Link to="/signup" className="absolute top-0 right-0 z-30 transform translate-x-2 -translate-y-2 sm:translate-x-4 sm:-translate-y-4">
+      <Link to="/signup" className="absolute top-0 right-0 z-30 transform translate-x-0 -translate-y-0 sm:translate-x-2 sm:-translate-y-2">
         <div className="relative group inline-block">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-md group-hover:opacity-100 transition-opacity duration-300" />
           <Button 
@@ -239,7 +239,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         </div>
       </Link>
 
-      <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-0 sm:p-2 lg:p-4">
+      <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-2 sm:p-2 lg:p-4">
         <div className="relative animate-fade-in">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
@@ -262,7 +262,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header — keep Radix Avatar here (doesn't re-render with messages) */}
-            <div className="bg-gradient-to-r from-burgundy-700/15 to-burgundy-600/10 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/15 to-burgundy-600/10 backdrop-blur-md px-2 py-1.5 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
                 <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
                   <AvatarImage 
