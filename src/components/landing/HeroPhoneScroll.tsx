@@ -342,7 +342,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area */}
-            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1 sm:p-1.5 md:p-2">
+            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1 sm:p-1.5 md:p-2 rounded-b-[2.5rem]">
               <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2 py-0.5 sm:px-3 sm:py-1 md:px-4 md:py-1.5 flex items-center">
                 <input 
                   type="text" 
