@@ -3,4 +3,4 @@ name: Homepage Spacing Standardization
 description: Standard vertical padding rhythm for landing page sections
 type: design
 ---
-Landing page sections use `pt-12 pb-12 md:pt-20 md:pb-20` (48px mobile / 80px desktop) for clear breathing room between sections like "meet kai", "how it works", "why we're different", and HowItWorksSwipe. The previous tighter `pt-4 pb-4 md:pt-6 md:pb-8` standard caused sections to stack on top of each other and is deprecated. Internal section padding is unchanged.
+Landing page sections use `pt-10 pb-10 md:pt-20 md:pb-20` (40px mobile / 80px desktop) for clear breathing room between sections like "meet kai", "how it works", "why we're different", and HowItWorksSwipe. Mobile was tightened from 48px to 40px so single-column stacked content doesn't feel stretched. Desktop remains 80px. Internal section padding is unchanged.
