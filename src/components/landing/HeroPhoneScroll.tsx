@@ -215,7 +215,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   return (
     <div ref={containerRef} className={`relative ${className}`} style={style}>
       {/* Floating Chat CTA Button */}
-      <Link to="/signup" className="absolute top-0 right-0 z-30 transform translate-x-2 -translate-y-2 sm:translate-x-4 sm:-translate-y-4">
+      <Link to="/signup" className="absolute top-0 right-0 z-30 transform translate-x-0 -translate-y-0 sm:translate-x-2 sm:-translate-y-2">
         <div className="relative group inline-block">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-md group-hover:opacity-100 transition-opacity duration-300" />
           <Button 

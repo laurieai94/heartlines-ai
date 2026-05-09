@@ -1,32 +1,26 @@
-## Mobile section spacing — small tighten
+## Fix the two visual glitches on the hero phone mock
 
-### What I observed on a 390×844 mobile viewport
+Two issues visible in the screenshot on `/`:
 
-All four landing sections (`meet kai`, `how it works`, `why we're different`, `HowItWorksSwipe`) currently use:
+### 1. Mystery line above the first chat bubble
 
-```
-pt-12 pb-12 md:pt-20 md:pb-20
-```
+The chat header (`src/components/landing/HeroPhoneScroll.tsx` line 265) has `border-b border-white/10`. Because the messages area uses `flex-1` and bubbles flow from the top, there's a clear horizontal divider line followed by empty space before the first bubble — making the line look orphaned.
 
-That's **48px top + 48px bottom = 96px between sections on mobile**. On a narrow phone screen, content rows are tall (stacked single-column) so 96px of empty space between sections reads as a noticeable gap — particularly between the swipe carousel and the footer, and between the timeline CTA and the swipe carousel. Desktop (80+80=160px) is fine because the content is wider and visually denser.
+**Fix:** Remove the `border-b border-white/10` from the chat header. The header already has its own translucent gradient background which gives enough visual separation from the messages area. No divider line needed.
 
-### Proposed change
+### 2. Bottom-right corner cut off / phone clipped on the right
 
-Reduce mobile padding by one step, leave desktop alone:
+The floating CTA button (line 218) is positioned `absolute top-0 right-0` with `translate-x-2 sm:translate-x-4` — pushing it past the right edge of its container. When the hero column is narrow (around the current ~895px viewport before `sm`/`md` kicks in fully), the button + its blur halo + the phone's rounded corner sit flush against (or past) the section's right edge, creating the clipped look.
 
-```
-pt-10 pb-10 md:pt-20 md:pb-20
-```
-
-That's **40px + 40px = 80px between sections on mobile**, still clearly separated but no longer feeling stretched. Desktop rhythm unchanged.
+**Fix:** 
+- Reduce the outward translate on the CTA button so it stays inside the container: change `translate-x-2 sm:translate-x-4 -translate-y-2 sm:-translate-y-4` → `translate-x-0 sm:translate-x-2 -translate-y-0 sm:-translate-y-2`. The button still floats over the phone's top-right corner but no longer pokes past the parent's right edge.
+- Add a small right-side safety pad on the phone wrapper (line 242): change `pt-4 pb-0 px-0 sm:p-2 lg:p-4` → `pt-4 pb-0 px-2 sm:p-2 lg:p-4` so the phone itself never touches the section's right edge on small/medium viewports.
 
 ### Files
 
-- `src/components/landing/LandingPage.tsx` — update the four `<section>` tags at lines 575, 687, 754, 829
-- `.lovable/memory/design/homepage-spacing-standardization.md` — update standard to `pt-10 pb-10 md:pt-20 md:pb-20` (40px mobile / 80px desktop)
+- `src/components/landing/HeroPhoneScroll.tsx` — three small className edits (header divider, CTA translate, wrapper padding)
 
-### Not changing
+### Out of scope
 
-- Hero section padding (uses its own layout)
-- Internal section padding, headings, container widths
-- Footer spacing
+- No changes to the phone size, aspect ratio, conversation content, or section spacing.
+- No changes to the CTA button's color or shape — only its position.
