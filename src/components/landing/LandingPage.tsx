@@ -573,6 +573,9 @@ const LandingPage = ({
           </div>}
       </section>
 
+      {/* Six narrative sections below the hero */}
+      <HomeNarrativeSections />
+
       {/* Meet Kai Section */}
       <section className="pt-10 pb-10 md:pt-20 md:pb-20 relative overflow-hidden">
 
