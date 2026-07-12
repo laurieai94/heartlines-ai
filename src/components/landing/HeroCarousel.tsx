@@ -76,19 +76,20 @@ export const HeroCarousel: React.FC = () => {
       {slides.map((slide, index) => (
         <div
           key={slide.year}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+          className={`absolute inset-0 transition-opacity duration-[1400ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
             index === currentSlide ? "opacity-100 z-[2]" : "opacity-0 z-[1]"
           }`}
         >
-          {/* Background Image with vintage color grading */}
+          {/* Background Image with vintage color grading — uniform crop + grade across every slide */}
           <img
             src={slide.image}
             alt={`Year ${slide.year}`}
-            className="absolute inset-0 w-full h-full object-cover object-[center_70%] md:object-cover md:object-center bg-burgundy-800"
+            className="absolute inset-0 w-full h-full object-cover object-[center_60%] bg-burgundy-800"
             style={{ filter: 'sepia(0.3) saturate(0.75) contrast(1.05) brightness(0.95)', ...slide.imageStyle }}
             loading={index < 8 ? "eager" : "lazy"}
             fetchPriority={index < 4 ? "high" : undefined}
           />
+
 
           {/* Film grain overlay */}
           <div
