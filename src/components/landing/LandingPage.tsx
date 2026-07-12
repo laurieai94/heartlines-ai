@@ -17,6 +17,7 @@ import { useGlobalResize } from '@/hooks/useGlobalResize';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import SiteFooter from '../layout/SiteFooter';
 import HowItWorksSwipe from "./HowItWorksSwipe";
+import HomeNarrativeSections from "./HomeNarrativeSections";
 
 import HeroCarousel from "./HeroCarousel";
 import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon, CommunityIcon } from '../ui/timeline';
