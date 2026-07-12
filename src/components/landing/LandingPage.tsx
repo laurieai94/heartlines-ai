@@ -328,24 +328,24 @@ const LandingPage = ({
             </div>
             
             {/* Desktop Navigation CTAs */}
-            <div className="hidden md:flex items-center gap-3 mr-6">
+            <div className="hidden md:flex items-center gap-3">
               {user ? <>
                   <Link to="/profile">
-                    <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
+                    <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 hover:scale-110 active:scale-95 transition-all duration-300 ease-out">
                       <User className="h-5 w-5" style={{
                   color: '#ffc0cb'
                 }} />
                     </Button>
                   </Link>
-                  <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer">
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" style={{
+                  <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-[0.98]">
+                    {/* Glow effect — tightened for crisp read */}
+                    <div className="absolute -inset-0.5 rounded-full opacity-80 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-300" style={{
                       background: 'linear-gradient(to right, #FF8A50, #EC4899)'
                     }} />
                     
                     <Button className="relative text-white px-4 md:px-5 lg:px-6 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300" style={{
                       background: 'linear-gradient(to right, #FF8A50, #EC4899)',
-                      boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+                      boxShadow: '0 0 24px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.45), 0 2px 6px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
                     }}>
                       {/* Shimmer overlay */}
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -360,21 +360,21 @@ const LandingPage = ({
                   </div>
                 </> : <>
                   <Link to="/signin">
-                    <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
+                    <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 hover:scale-110 active:scale-95 transition-all duration-300 ease-out">
                       <User className="h-5 w-5" style={{
                   color: '#ffc0cb'
                 }} />
                     </Button>
                   </Link>
-                  <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer">
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" style={{
+                  <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-[0.98]">
+                    {/* Glow effect — tightened for crisp read */}
+                    <div className="absolute -inset-0.5 rounded-full opacity-80 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-300" style={{
                       background: 'linear-gradient(to right, #FF8A50, #EC4899)'
                     }} />
                     
                     <Button className="relative text-white px-4 md:px-5 lg:px-6 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300" style={{
                       background: 'linear-gradient(to right, #FF8A50, #EC4899)',
-                      boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+                      boxShadow: '0 0 24px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.45), 0 2px 6px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
                     }}>
                       {/* Shimmer overlay */}
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -389,26 +389,27 @@ const LandingPage = ({
                   </div>
                 </>}
             </div>
+
             
             {/* Mobile CTA */}
-            <div className="md:hidden mr-2">
+            <div className="md:hidden">
               <div className="flex items-center gap-2">
                 <Link to="/signin">
-                  <Button variant="ghost" className="h-9 w-9 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
+                  <Button variant="ghost" className="h-9 w-9 rounded-full p-0 hover:bg-burgundy-400/10 hover:scale-110 active:scale-95 transition-all duration-300 ease-out">
                     <User className="h-5 w-5" style={{
                   color: '#ffc0cb'
                 }} />
                   </Button>
                 </Link>
-            <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer">
-              {/* Glow effect */}
-              <div className="absolute -inset-0.5 rounded-full opacity-90 blur-md md:group-hover:opacity-100 transition-opacity duration-300" style={{
+            <div onClick={handleTalkToKai} className="relative group inline-block cursor-pointer transition-transform duration-300 ease-out active:scale-[0.96]">
+              {/* Glow effect — tightened */}
+              <div className="absolute -inset-0.5 rounded-full opacity-75 blur-sm md:group-hover:opacity-100 transition-opacity duration-300" style={{
                 background: 'linear-gradient(to right, #FF8A50, #EC4899)'
               }} />
               
               <Button className="relative text-white font-medium text-xs px-3 py-1.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200" style={{
                 background: 'linear-gradient(to right, #FF8A50, #EC4899)',
-                boxShadow: '0 0 30px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.5), 0 2px 8px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+                boxShadow: '0 0 18px rgba(255, 107, 157, 0.35), 0 3px 10px rgba(255, 107, 157, 0.4), 0 1px 4px rgba(255, 138, 80, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
               }}>
                 {/* Shimmer overlay */}
                 <div className="absolute inset-0 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
