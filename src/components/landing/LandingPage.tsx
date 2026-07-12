@@ -17,7 +17,6 @@ import { useGlobalResize } from '@/hooks/useGlobalResize';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import SiteFooter from '../layout/SiteFooter';
 import HowItWorksSwipe from "./HowItWorksSwipe";
-import HomeNarrativeSections from "./HomeNarrativeSections";
 
 import HeroCarousel from "./HeroCarousel";
 import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon, CommunityIcon } from '../ui/timeline';
@@ -572,9 +571,6 @@ const LandingPage = ({
             </div>
           </div>}
       </section>
-
-      {/* Six narrative sections below the hero */}
-      <HomeNarrativeSections />
 
       {/* Meet Kai Section */}
       <section className="pt-10 pb-10 md:pt-20 md:pb-20 relative overflow-hidden">
