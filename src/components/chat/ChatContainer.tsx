@@ -248,7 +248,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
                     alt={BRAND.coach.name} 
                     className="object-cover"
                     loading="eager" 
-                    fetchPriority="high"
+                    {...({ fetchpriority: "high" } as any)}
                     decoding="async" 
                   />
                   <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-sm md:text-xs font-medium">

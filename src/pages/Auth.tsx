@@ -378,7 +378,7 @@ const Auth = () => {
                 alt="heartlines logo"
                 className="w-44 sm:w-48 md:w-56 lg:w-60 mx-auto max-w-full h-auto"
                 loading="eager"
-                fetchPriority="high"
+                {...({ fetchpriority: "high" } as any)}
               />
             </div>
             
