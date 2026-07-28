@@ -269,7 +269,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                     src={BRAND.coach.avatarSrc} 
                     alt={BRAND.coach.name} 
                     loading="eager" 
-                    fetchPriority="high"
+                    {...({ fetchpriority: "high" } as any)}
                     decoding="async" 
                   />
                   <AvatarFallback delayMs={Infinity} className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">

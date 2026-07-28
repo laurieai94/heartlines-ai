@@ -208,7 +208,7 @@ const LandingPage = ({
               alt="heartlines" 
               className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg pointer-events-none"
               loading="eager"
-              fetchPriority="high"
+              {...({ fetchpriority: "high" } as any)}
             />
           </div>
         </div>
@@ -596,7 +596,7 @@ const LandingPage = ({
                     <div className="absolute -inset-8 bg-gradient-to-r from-pink-500/25 via-coral-400/15 to-orange-400/25 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '3s' }}></div>
                     <div className="absolute -inset-4 bg-gradient-to-br from-pink-400/40 to-coral-500/40 rounded-full blur-2xl"></div>
                     <div className="relative w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full overflow-hidden ring-4 ring-white/20">
-                      <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover scale-125 object-[center_20%]" loading="eager" fetchPriority="high" decoding="async" />
+                      <img src={BRAND.coach.avatarSrc} alt="Kai, your AI relationship coach" className="w-full h-full object-cover scale-125 object-[center_20%]" loading="eager" {...({ fetchpriority: "high" } as any)} decoding="async" />
                     </div>
                     
                     <div className="hidden md:flex md:justify-center md:mt-6">

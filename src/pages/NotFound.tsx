@@ -15,12 +15,18 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-burgundy-800 relative overflow-hidden">
       <PremiumBackground />
-      <div className="text-center relative z-10">
-        <h1 className="text-4xl font-bold mb-4 text-white">404</h1>
-        <p className="text-xl text-white/70 mb-4">Oops! Page not found</p>
-        <Link to="/" className="text-coral-400 hover:text-coral-300 underline">
-          Return to Home
-        </Link>
+      <div className="text-center relative z-10 px-6">
+        <h1 className="text-5xl font-bold mb-3 text-white lowercase tracking-tight">404</h1>
+        <p className="text-lg text-white/70 mb-6 lowercase">this page wandered off.</p>
+        <div className="flex items-center justify-center gap-6 text-sm">
+          <Link to="/" className="text-coral-400 hover:text-coral-300 underline lowercase">
+            back to home
+          </Link>
+          <span className="text-white/30">·</span>
+          <Link to="/coach" className="text-coral-400 hover:text-coral-300 underline lowercase">
+            chat with kai
+          </Link>
+        </div>
       </div>
     </div>
   );

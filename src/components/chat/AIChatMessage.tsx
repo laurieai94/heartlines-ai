@@ -123,7 +123,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
             !isUser && isLoading ? 'ring-4 ring-pink-400/40 animate-pulse' : ''
           }`}>
             {isUser && userAvatarUrl ? (
-              <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" loading="eager" fetchPriority="high" />
+              <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" loading="eager" {...({ fetchpriority: "high" } as any)} />
             ) : isUser ? (
               <AvatarFallback 
                 className="bg-gradient-to-br from-coral-400 to-orange-400 text-white text-base md:text-lg font-medium uppercase"
@@ -145,7 +145,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
                   className="object-cover"
                   loading="eager" 
                   decoding="async"
-                  fetchPriority="high"
+                  {...({ fetchpriority: "high" } as any)}
                 />
                 <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-coral-400 to-burgundy-500 text-white text-sm md:text-xs font-medium">
                   <Heart className="w-4 h-4 md:w-4 md:h-4" />

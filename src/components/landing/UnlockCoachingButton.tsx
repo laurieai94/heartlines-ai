@@ -48,7 +48,7 @@ export const UnlockCoachingButton = ({ size = 'default', className = '', profile
           alt={BRAND.coach.name}
           className="object-cover"
           loading="eager"
-          fetchPriority="high"
+          {...({ fetchpriority: "high" } as any)}
         />
         <AvatarFallback delayMs={Infinity} className="bg-gradient-to-br from-coral-400 to-pink-500 text-white font-bold text-sm">
           {BRAND.coach.name.charAt(0)}
