@@ -51,6 +51,8 @@ const AppContent = () => {
         <Route path="/insights" element={<Navigate to="/coach" replace />} />
         <Route path="/dashboard" element={<Navigate to="/profile" replace />} />
         <Route path="/privacy" element={<Navigate to="/privacy-and-security" replace />} />
+        <Route path="/privacy-security" element={<Navigate to="/privacy-and-security" replace />} />
+        <Route path="/pricing" element={<Navigate to="/plans" replace />} />
         
         {/* All routes load instantly without skeleton screens */}
         <Route path="/mission" element={<Mission />} />
