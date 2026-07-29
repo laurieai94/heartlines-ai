@@ -107,10 +107,10 @@ const Showcase = () => {
                 href="https://heartlines.ai"
                 target="_blank"
                 rel="noreferrer"
-                className="group relative inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] px-7 py-3.5 text-[15px] lowercase font-medium text-white shadow-[0_0_40px_hsl(24_95%_55%/0.55)] transition hover:shadow-[0_0_60px_hsl(24_95%_55%/0.75)]"
+                className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] px-6 py-2.5 text-sm lowercase font-medium text-white shadow-[0_0_36px_hsl(24_95%_55%/0.5)] transition hover:shadow-[0_0_52px_hsl(24_95%_55%/0.7)]"
               >
                 let's get real
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
               </a>
             </div>
           </div>
