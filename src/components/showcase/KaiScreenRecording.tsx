@@ -69,27 +69,25 @@ export const KaiScreenRecording = () => {
       });
 
     const run = async () => {
-      let i = 0;
-      while (!cancelled) {
-        const convo = CONVERSATIONS[i % CONVERSATIONS.length];
-        setConvoIndex(i % CONVERSATIONS.length);
-        setMessages([]);
+      const convo = CONVERSATIONS[convoIndex];
+      setMessages([]);
+      setTyping(null);
+      idRef.current = 0;
+      await wait(500);
+      for (const turn of convo.turns) {
+        if (cancelled) return;
+        setTyping(turn.kind);
+        await wait(turn.typingMs);
+        if (cancelled) return;
         setTyping(null);
-        idRef.current = 0;
-        await wait(500);
-        for (const turn of convo.turns) {
-          if (cancelled) return;
-          setTyping(turn.kind);
-          await wait(turn.typingMs);
-          if (cancelled) return;
-          setTyping(null);
-          idRef.current += 1;
-          setMessages((prev) => [...prev, { ...turn, id: idRef.current }]);
-          await wait(turn.holdMs);
-        }
-        // linger on the finished convo before moving on
-        await wait(LOOP_PAUSE_MS);
-        i += 1;
+        idRef.current += 1;
+        setMessages((prev) => [...prev, { ...turn, id: idRef.current }]);
+        await wait(turn.holdMs);
+      }
+      // linger on the finished convo before moving on
+      await wait(LOOP_PAUSE_MS);
+      if (!cancelled) {
+        setConvoIndex((prev) => (prev + 1) % CONVERSATIONS.length);
       }
     };
 
@@ -98,7 +96,7 @@ export const KaiScreenRecording = () => {
       cancelled = true;
       timers.forEach((t) => window.clearTimeout(t));
     };
-  }, [paused]);
+  }, [paused, convoIndex]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
