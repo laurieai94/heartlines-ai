@@ -124,12 +124,12 @@ export const KaiScreenRecording = () => {
         }}
       />
 
-      {/* glassmorphic phone — height-first so it never clips */}
+      {/* glassmorphic phone — height-first so it never clips, leaves room for caption */}
       <div
-        className="relative h-[min(52svh,560px)] md:h-[min(82svh,720px)] rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
+        className="relative min-h-0 flex-1 rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
         style={{
           aspectRatio: "9 / 18",
-          maxHeight: "100%",
+          maxHeight: "min(72svh, 680px)",
           maxWidth: "100%",
           width: "auto",
         }}
