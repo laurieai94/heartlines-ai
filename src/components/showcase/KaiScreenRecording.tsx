@@ -124,12 +124,12 @@ export const KaiScreenRecording = () => {
         }}
       />
 
-      {/* glassmorphic phone — height-first so it never clips */}
+      {/* glassmorphic phone — height-first so it never clips, leaves room for caption */}
       <div
-        className="relative h-[min(52svh,560px)] md:h-[min(82svh,720px)] rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
+        className="relative min-h-0 flex-1 rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
         style={{
           aspectRatio: "9 / 18",
-          maxHeight: "100%",
+          maxHeight: "min(72svh, 680px)",
           maxWidth: "100%",
           width: "auto",
         }}
@@ -219,7 +219,7 @@ export const KaiScreenRecording = () => {
       </div>
 
       {/* category caption + progress */}
-      <div className="relative z-10 mt-3 flex shrink-0 flex-col items-center gap-2 sm:mt-5 sm:gap-2.5">
+      <div className="relative z-10 mt-3 flex shrink-0 flex-col items-center gap-2">
         <span key={CONVERSATIONS[convoIndex].title} className="text-sm font-semibold lowercase text-white/90 animate-in fade-in duration-500">
           {CONVERSATIONS[convoIndex].title}
         </span>
@@ -227,7 +227,7 @@ export const KaiScreenRecording = () => {
           {CONVERSATIONS.map((_, i) => (
             <span
               key={i}
-              className={`h-1 w-10 rounded-full transition-all duration-500 ${
+              className={`h-1 w-8 rounded-full transition-all duration-500 ${
                 i === convoIndex
                   ? "bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] shadow-[0_0_10px_hsl(24_95%_60%/0.7)]"
                   : "bg-white/15"
