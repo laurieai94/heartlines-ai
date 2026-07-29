@@ -238,7 +238,7 @@ export const KaiScreenRecording = () => {
             >
               <span
                 className={`block h-1 w-8 rounded-full transition-all duration-500 ${
-                  i === convvoIndex
+                  i === convoIndex
                     ? "bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] shadow-[0_0_10px_hsl(24_95%_60%/0.7)]"
                     : "bg-white/15 group-hover:bg-white/30 group-hover:scale-105"
                 }`}
