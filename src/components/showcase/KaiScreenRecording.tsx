@@ -6,13 +6,12 @@ import {
   LOOP_PAUSE_MS,
   type TextingAnxietyTurn,
 } from "@/data/showcaseTextingAnxiety";
+import millennialWoman from "@/assets/millennial-woman-portrait.jpg";
 
 type Rendered = TextingAnxietyTurn & { id: number };
 
-const KAI_AVATAR =
-  "https://api.dicebear.com/7.x/personas/svg?seed=kai&backgroundColor=b45f3c&hair=long&mood=happy";
-const USER_AVATAR =
-  "https://api.dicebear.com/7.x/personas/svg?seed=maya-user&backgroundColor=4b1f22&hair=short&mood=happy";
+const KAI_AVATAR = "/lovable-uploads/kai-avatar-new.png";
+const USER_AVATAR = millennialWoman;
 
 const TypingDots = () => (
   <div className="flex items-center gap-1 px-1 py-1">
