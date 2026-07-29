@@ -1,60 +1,41 @@
-## Change
-
-Replace the current styled chat mockup on `/showcase` with a "GIF-style" scripted screen recording that plays automatically on loop: rapid flip through 3 partner profiles → fast Kai chat about a tough Thanksgiving dinner (user brought new boyfriend, family reacted badly).
+## Goal
+Replace the scripted `KaiScreenRecording` in `/showcase` with the **actual app interface** running inside the phone frame — driven by mock data so it works offline without auth.
 
 ## Approach
+Build a dedicated demo route `/showcase/demo` that mounts the real production components (People grid → Chat) with a mock data provider, then embed that route as an `<iframe>` inside the phone frame on `/showcase`.
 
-Build it as a self-contained React component that mimics a screen recording — no actual GIF file, no Remotion render. Faster to iterate, stays crisp at any size, and matches the real product 1:1 because it reuses the same design tokens and layout.
+This gives pixel-identical fidelity to the live product (same components, styles, animations) without needing auth or a seeded backend.
 
-The component runs a scripted timeline (`useCurrentFrame`-style with `setTimeout`) inside the phone frame:
+## Steps
 
-**Act 1 — profile flip-through (~2s)**
-- Show a "People" screen with a stack of 3 partner cards (Marcus, Priya, Jordan)
-- Card swaps every ~500ms with a quick slide/fade — feels like scrolling fast through profiles
-- User "taps" Jordan → card zooms
+1. **Mock data layer** — `src/data/showcaseMockData.ts`
+   - 3 partners: Priya, Sam, Marcus (with avatars, relationship types)
+   - Scripted Thanksgiving conversation with Marcus (user + Kai turns)
+   - Timing script for autoplay
 
-**Act 2 — transition (~0.4s)**
-- Screen wipes/fades to the chat view (Jordan's avatar + name in the header)
+2. **Demo route** — `src/pages/ShowcaseDemo.tsx` + register in `src/App.tsx`
+   - Renders the real `PeopleGrid` / partner cards component with mock partners
+   - After ~3s, programmatically "navigates" to the real `ChatInterface` component pre-loaded with Marcus
+   - Feeds scripted messages into the chat UI with realistic typing delays (no backend calls — intercept `useConversationalKai` via a mock provider prop or wrapper)
+   - Loops back to the people grid after the conversation ends
+   - No nav, no auth guard, no analytics — clean chrome-free surface sized for the phone frame (390×844)
 
-**Act 3 — Thanksgiving conversation (~9s)**
-- Messages appear rapidly (typing indicator ~600ms, message ~800ms, next after ~700ms)
-- Scripted 6-turn convo about the Thanksgiving dinner scenario
-- Auto-scrolls as it fills
-- Ends holding on the last Kai reply for ~2s
-- Loops back to Act 1
+3. **Iframe embed** — update `src/components/showcase/KaiScreenRecording.tsx`
+   - Replace scripted internals with `<iframe src="/showcase/demo" />` sized to the phone frame
+   - Keep the phone frame chrome (bezel, notch, glow)
+   - `loading="eager"`, `sandbox` scoped for safety, `title` for a11y
+   - Pause-on-hover: reload iframe or postMessage a pause signal
 
-**Loop:** total ~12s, restarts cleanly.
+4. **Route hygiene**
+   - `/showcase/demo` gets `noindex, nofollow` via helmet
+   - Skip auth redirects for this route in any auth guard
+   - Not linked from main nav
 
-## Scripted conversation (Thanksgiving)
+## Technical Notes
+- The real chat component (`ChatInterface` or equivalent) needs to accept an optional `messagesOverride` + `disableBackend` prop, or we wrap it in a `MockKaiProvider` that short-circuits `useConversationalKai` to yield scripted replies with typing delays.
+- Iframe approach isolates the demo's routing/state from the parent `/showcase` page, so autoplay loops and re-renders don't leak.
+- Fixed viewport inside iframe (e.g., 390×844) matches the phone frame exactly — no responsive reflow surprises.
 
-1. **user:** thanksgiving was a disaster. brought marcus home and my mom barely looked at him.
-2. **kai:** (typing…) that's a specific kind of pain — being unseen while the person you love watches it happen. what part is sitting with you the most right now?
-3. **user:** that i didn't say anything. i just let it happen.
-4. **kai:** you froze to keep the peace. that's a survival move, not a failure. but marcus was in that room too — what do you think he needed from you?
-5. **user:** for me to have his back.
-6. **kai:** yeah. so the repair isn't with your mom yet — it's with marcus. one sentence, tonight: "i saw what happened. i should have said something. i'm sorry."
-
-Names/tone match the existing kai voice memory (lowercase, direct, no therapy-speak, partner name used).
-
-## Visual details
-
-- Phone frame stays the same (already looks good).
-- Profile cards use existing brand palette — cream card on burgundy, avatar circle, name, "partner · 2y" style meta line, one small emotional-tag chip.
-- Fast micro-motion: cards translate 40px + fade in 200ms; taps show a brief scale-down.
-- Chat bubbles reuse the current bubble styling.
-- A subtle "REC" style dot + timer in the top corner of the phone (optional, adds "screen recording" feel) — or leave off for cleanness. Will include off by default; easy toggle.
-
-## Files touched
-
-- **New:** `src/components/showcase/KaiScreenRecording.tsx` — the whole scripted recording
-- **New:** `src/data/showcaseThanksgiving.ts` — profile list + convo script
-- **Edit:** `src/pages/Showcase.tsx` — swap `<KaiChatDemo />` for `<KaiScreenRecording />`
-- **Delete:** `src/components/showcase/KaiChatDemo.tsx` and `src/data/showcaseConversation.ts` (replaced)
-
-Copy under the phone changes to: "autoplays a scripted flow · hover to pause".
-
-## Out of scope
-
-- No actual `.gif` or `.mp4` file (adds weight, harder to update, worse on retina).
-- No changes to real product routes or chat logic.
-- No changes to the rest of the showcase page (hero, anatomy, engineering stats, footer stay as-is).
+## Out of Scope
+- No changes to the actual production People/Chat components beyond adding an optional mock-mode prop.
+- No new backend, no seeded accounts, no real Kai calls.
