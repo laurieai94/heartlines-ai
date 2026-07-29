@@ -1690,9 +1690,9 @@ your safety and your choice matter here. what does leaving actually look like fo
     
     const profileDataDump = InsightBuilders.buildProfileDataDump(context);
     
-    return `## WHO YOU'RE COACHING: ${yourName}${partnerName ? ` + ${partnerName} (ALWAYS use "${partnerName}", never "they" or "your partner")` : ''}
+    return `## WHO YOU'RE COACHING: ${yourName}${partnerName ? ` + ${partnerName}` : ''}
 
-${profileDataDump}
+${partnerName ? `**PARTNER'S NAME: ${partnerName}** — use "${partnerName}" on first mention in every reply. Never open a reference with "they", "them", "your partner", "he", or "she" when a name is known. Pronouns are only okay on second mention within the same reply.\n\n` : ''}${profileDataDump}
 
 ${relationshipPortrait ? relationshipPortrait : `${dynamics}`}
 
