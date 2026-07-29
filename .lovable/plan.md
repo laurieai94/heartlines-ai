@@ -1,36 +1,40 @@
 ## Goal
-Bring `/showcase` into brand lockstep with the live app — same logo, same fonts, same voice as the landing page, footer, and `HeartlinesWordmark`.
 
-## What's off today
-- **Logo**: uses generic lucide `Heart` icon + "font-serif" wordmark. The app uses `FlipPhoneIcon` + `font-brand` (Shrikhand) everywhere (nav header, footer, wordmark).
-- **Fonts**: showcase uses `font-serif` (Crimson Text) for every headline. The app uses `font-brand` (Shrikhand) for the wordmark and section H2s, and `font-playfair` for hero display text.
-- **Copy**: showcase says "relational intelligence, in your pocket" — not language the app uses. Product tagline is `powered by laurie ai`; landing hero uses "heartlines helps you connect"; product voice is lowercase, warm, direct.
+Turn `/showcase` from a "case study" page into a clean product showcase, keep the phone constrained with breathing room on every screen, and scrub em dashes / off-brand copy.
 
-## Changes to `src/pages/Showcase.tsx` only
+## Changes
 
-1. **Nav header**
-   - Replace `<Heart />` + `font-serif` wordmark with `<FlipPhoneIcon size={28} />` + `<span className="font-brand">heartlines</span>` (matches `SiteFooter`).
-   - Add small `powered by laurie ai` line under wordmark using `font-glacial` (matches `HeartlinesWordmark`).
+### 1. Phone always has padding (no matter screen size)
 
-2. **Hero**
-   - Replace `font-serif` H1 with `font-playfair` (landing hero convention).
-   - Rewrite copy to match app voice:
-     - Chips: `case study`, `2026`, `react · supabase · claude sonnet`
-     - H1: `heartlines helps you connect.` (mirrors landing) with italic second line `a case study.`
-     - Subhead in lowercase app voice — no "professional friend" invented phrase; use language already on the site (kai as ai relationship coach, remembers partners, lowercase voice, evidence-based).
-     - Primary CTA: `try heartlines` → keep. Secondary: `read the mission` → keep.
+In `src/components/showcase/KaiScreenRecording.tsx`:
+- Replace the `max-w-[300px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-[420px]` sizing with a cap of `max-w-[300px]` (or `320px`) plus explicit horizontal padding on the wrapper so the phone never touches the viewport or column edge.
+- Wrap the phone in a container with `px-6 sm:px-8` and a smaller absolute max width so the frame stays comfortably inside its column on mobile, tablet, and desktop.
+- Also cap the height with `max-h-[80vh]` fallback so it never overflows short viewports.
 
-3. **Section headings**
-   - `anatomy of a kai reply` and `behind the scenes` H2s: swap `font-serif` → `font-brand` with the same pink-to-orange shimmer gradient the landing page uses on section headers, so they read as "heartlines" section titles.
-   - Callout titles + body: keep lowercase, already aligned.
+In `src/pages/Showcase.tsx`:
+- The hero column that hosts the phone gets its own `px-4 sm:px-6` and center alignment so the phone sits inside a padded card, not flush to the grid edge.
 
-4. **Stats numerals**
-   - Keep large numerals in `font-playfair` (matches landing display treatment) instead of `font-serif`.
+### 2. Reframe as a showcase, not a case study
 
-5. **Footer**
-   - Replace `<Heart />` + `font-serif` with `<FlipPhoneIcon />` + `font-brand` lockup, matching `SiteFooter` exactly.
+In `src/pages/Showcase.tsx`:
+- Remove all "case study" language: `<title>`, meta description, the `case study` chip, the italic `a case study.` subhead, and the footer `· a case study` tag.
+- New `<title>`: `heartlines · showcase`. Meta description reuses the app tagline.
+- Hero headline reduces to the brand line only: `heartlines helps you connect.` (no italic subhead).
+- Delete the "anatomy of a kai reply" 6-card section and the "behind the scenes" stats section entirely. A showcase does not need engineering breakdowns or eval numbers.
+- Keep only: nav, hero (copy + phone), footer.
+
+### 3. Use app copy and branding
+
+- Sub-copy under the hero headline becomes the actual product voice used on the live site, e.g.: `kai is your ai friend for the relationships that matter. she remembers the people in your life, notices your patterns, and meets you where you are.`
+- Chips reduce to brand-consistent ones: `powered by laurie ai`, `2026`. Drop the tech-stack chip (`react · supabase · claude sonnet`) since this is a showcase, not a case study.
+- Primary CTA stays `try heartlines`. Secondary link `read the mission` stays (it points to a real app route).
+- Footer keeps the `FlipPhoneIcon` + `heartlines` lockup with the `powered by laurie ai` tagline underneath, matching `SiteFooter`.
+
+### 4. No em dashes anywhere on the page
+
+Replace every `—` in `Showcase.tsx` with either a period, a comma, or "and", whichever reads best. Sweep hero copy, section copy, and any remaining strings. Same sweep in `src/data/showcaseThanksgiving.ts` conversation lines and in `KaiScreenRecording.tsx` caption.
 
 ## Out of scope
-- No changes to `/showcase/demo` (already uses real `ChatBubble`, real avatar, real burgundy tokens).
-- No changes to layout, section structure, or animation.
-- No new assets — reuses existing `FlipPhoneIcon`, `font-brand`, `font-playfair`, `font-glacial`.
+
+- No changes to `/showcase/demo` behavior beyond removing em dashes from the scripted Kai lines.
+- No changes to the live app, landing page, or shared components.

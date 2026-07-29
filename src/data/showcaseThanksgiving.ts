@@ -50,7 +50,7 @@ export const THANKSGIVING_CONVO: ChatTurn[] = [
   {
     role: "kai",
     content:
-      "that's a specific kind of pain — being unseen while the person you love watches it happen. what part is sitting with you the most?",
+      "that's a specific kind of pain. being unseen while the person you love watches it happen. what part is sitting with you the most?",
     typingMs: 1600,
     holdMs: 2200,
   },
@@ -62,7 +62,7 @@ export const THANKSGIVING_CONVO: ChatTurn[] = [
   {
     role: "kai",
     content:
-      "you froze to keep the peace. survival move, not a failure. but marcus was in that room too — what do you think he needed from you?",
+      "you froze to keep the peace. survival move, not a failure. but marcus was in that room too. what do you think he needed from you?",
     typingMs: 1700,
     holdMs: 2200,
   },
@@ -74,8 +74,9 @@ export const THANKSGIVING_CONVO: ChatTurn[] = [
   {
     role: "kai",
     content:
-      "yeah. so the repair isn't with your mom yet — it's with marcus. one sentence tonight: \"i saw what happened. i should've said something. i'm sorry.\"",
+      "yeah. so the repair isn't with your mom yet, it's with marcus. one sentence tonight: \"i saw what happened. i should've said something. i'm sorry.\"",
     typingMs: 1800,
     holdMs: 4000,
   },
 ];
+
