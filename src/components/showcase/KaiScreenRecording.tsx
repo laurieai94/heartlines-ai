@@ -128,7 +128,7 @@ export const KaiScreenRecording = () => {
       <div
         className="relative min-h-0 flex-1 rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
         style={{
-          aspectRatio: "9 / 18",
+          aspectRatio: "10 / 18",
           maxHeight: "min(80svh, 760px)",
           maxWidth: "100%",
           width: "auto",
