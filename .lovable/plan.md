@@ -1,41 +1,36 @@
 ## Goal
-Replace the scripted `KaiScreenRecording` in `/showcase` with the **actual app interface** running inside the phone frame — driven by mock data so it works offline without auth.
+Bring `/showcase` into brand lockstep with the live app — same logo, same fonts, same voice as the landing page, footer, and `HeartlinesWordmark`.
 
-## Approach
-Build a dedicated demo route `/showcase/demo` that mounts the real production components (People grid → Chat) with a mock data provider, then embed that route as an `<iframe>` inside the phone frame on `/showcase`.
+## What's off today
+- **Logo**: uses generic lucide `Heart` icon + "font-serif" wordmark. The app uses `FlipPhoneIcon` + `font-brand` (Shrikhand) everywhere (nav header, footer, wordmark).
+- **Fonts**: showcase uses `font-serif` (Crimson Text) for every headline. The app uses `font-brand` (Shrikhand) for the wordmark and section H2s, and `font-playfair` for hero display text.
+- **Copy**: showcase says "relational intelligence, in your pocket" — not language the app uses. Product tagline is `powered by laurie ai`; landing hero uses "heartlines helps you connect"; product voice is lowercase, warm, direct.
 
-This gives pixel-identical fidelity to the live product (same components, styles, animations) without needing auth or a seeded backend.
+## Changes to `src/pages/Showcase.tsx` only
 
-## Steps
+1. **Nav header**
+   - Replace `<Heart />` + `font-serif` wordmark with `<FlipPhoneIcon size={28} />` + `<span className="font-brand">heartlines</span>` (matches `SiteFooter`).
+   - Add small `powered by laurie ai` line under wordmark using `font-glacial` (matches `HeartlinesWordmark`).
 
-1. **Mock data layer** — `src/data/showcaseMockData.ts`
-   - 3 partners: Priya, Sam, Marcus (with avatars, relationship types)
-   - Scripted Thanksgiving conversation with Marcus (user + Kai turns)
-   - Timing script for autoplay
+2. **Hero**
+   - Replace `font-serif` H1 with `font-playfair` (landing hero convention).
+   - Rewrite copy to match app voice:
+     - Chips: `case study`, `2026`, `react · supabase · claude sonnet`
+     - H1: `heartlines helps you connect.` (mirrors landing) with italic second line `a case study.`
+     - Subhead in lowercase app voice — no "professional friend" invented phrase; use language already on the site (kai as ai relationship coach, remembers partners, lowercase voice, evidence-based).
+     - Primary CTA: `try heartlines` → keep. Secondary: `read the mission` → keep.
 
-2. **Demo route** — `src/pages/ShowcaseDemo.tsx` + register in `src/App.tsx`
-   - Renders the real `PeopleGrid` / partner cards component with mock partners
-   - After ~3s, programmatically "navigates" to the real `ChatInterface` component pre-loaded with Marcus
-   - Feeds scripted messages into the chat UI with realistic typing delays (no backend calls — intercept `useConversationalKai` via a mock provider prop or wrapper)
-   - Loops back to the people grid after the conversation ends
-   - No nav, no auth guard, no analytics — clean chrome-free surface sized for the phone frame (390×844)
+3. **Section headings**
+   - `anatomy of a kai reply` and `behind the scenes` H2s: swap `font-serif` → `font-brand` with the same pink-to-orange shimmer gradient the landing page uses on section headers, so they read as "heartlines" section titles.
+   - Callout titles + body: keep lowercase, already aligned.
 
-3. **Iframe embed** — update `src/components/showcase/KaiScreenRecording.tsx`
-   - Replace scripted internals with `<iframe src="/showcase/demo" />` sized to the phone frame
-   - Keep the phone frame chrome (bezel, notch, glow)
-   - `loading="eager"`, `sandbox` scoped for safety, `title` for a11y
-   - Pause-on-hover: reload iframe or postMessage a pause signal
+4. **Stats numerals**
+   - Keep large numerals in `font-playfair` (matches landing display treatment) instead of `font-serif`.
 
-4. **Route hygiene**
-   - `/showcase/demo` gets `noindex, nofollow` via helmet
-   - Skip auth redirects for this route in any auth guard
-   - Not linked from main nav
+5. **Footer**
+   - Replace `<Heart />` + `font-serif` with `<FlipPhoneIcon />` + `font-brand` lockup, matching `SiteFooter` exactly.
 
-## Technical Notes
-- The real chat component (`ChatInterface` or equivalent) needs to accept an optional `messagesOverride` + `disableBackend` prop, or we wrap it in a `MockKaiProvider` that short-circuits `useConversationalKai` to yield scripted replies with typing delays.
-- Iframe approach isolates the demo's routing/state from the parent `/showcase` page, so autoplay loops and re-renders don't leak.
-- Fixed viewport inside iframe (e.g., 390×844) matches the phone frame exactly — no responsive reflow surprises.
-
-## Out of Scope
-- No changes to the actual production People/Chat components beyond adding an optional mock-mode prop.
-- No new backend, no seeded accounts, no real Kai calls.
+## Out of scope
+- No changes to `/showcase/demo` (already uses real `ChatBubble`, real avatar, real burgundy tokens).
+- No changes to layout, section structure, or animation.
+- No new assets — reuses existing `FlipPhoneIcon`, `font-brand`, `font-playfair`, `font-glacial`.
