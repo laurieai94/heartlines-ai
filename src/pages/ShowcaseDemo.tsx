@@ -19,7 +19,7 @@ import {
 type Phase = "profiles" | "tap" | "chat";
 type RenderedTurn = ChatTurn & { id: number };
 
-const PROFILE_STEP_MS = 550;
+const PROFILE_STEP_MS = 1100;
 
 const TypingDots = () => (
   <div className="flex items-center gap-1 px-1 py-1.5">
