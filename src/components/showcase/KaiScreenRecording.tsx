@@ -69,27 +69,25 @@ export const KaiScreenRecording = () => {
       });
 
     const run = async () => {
-      let i = 0;
-      while (!cancelled) {
-        const convo = CONVERSATIONS[i % CONVERSATIONS.length];
-        setConvoIndex(i % CONVERSATIONS.length);
-        setMessages([]);
+      const convo = CONVERSATIONS[convoIndex];
+      setMessages([]);
+      setTyping(null);
+      idRef.current = 0;
+      await wait(500);
+      for (const turn of convo.turns) {
+        if (cancelled) return;
+        setTyping(turn.kind);
+        await wait(turn.typingMs);
+        if (cancelled) return;
         setTyping(null);
-        idRef.current = 0;
-        await wait(500);
-        for (const turn of convo.turns) {
-          if (cancelled) return;
-          setTyping(turn.kind);
-          await wait(turn.typingMs);
-          if (cancelled) return;
-          setTyping(null);
-          idRef.current += 1;
-          setMessages((prev) => [...prev, { ...turn, id: idRef.current }]);
-          await wait(turn.holdMs);
-        }
-        // linger on the finished convo before moving on
-        await wait(LOOP_PAUSE_MS);
-        i += 1;
+        idRef.current += 1;
+        setMessages((prev) => [...prev, { ...turn, id: idRef.current }]);
+        await wait(turn.holdMs);
+      }
+      // linger on the finished convo before moving on
+      await wait(LOOP_PAUSE_MS);
+      if (!cancelled) {
+        setConvoIndex((prev) => (prev + 1) % CONVERSATIONS.length);
       }
     };
 
@@ -98,7 +96,7 @@ export const KaiScreenRecording = () => {
       cancelled = true;
       timers.forEach((t) => window.clearTimeout(t));
     };
-  }, [paused]);
+  }, [paused, convoIndex]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -223,16 +221,29 @@ export const KaiScreenRecording = () => {
         <span key={CONVERSATIONS[convoIndex].title} className="text-sm font-semibold lowercase text-white/90 animate-in fade-in duration-500">
           {CONVERSATIONS[convoIndex].title}
         </span>
-        <div className="flex items-center gap-1.5" aria-hidden>
-          {CONVERSATIONS.map((_, i) => (
-            <span
+        <div
+          className="flex items-center gap-1.5"
+          role="tablist"
+          aria-label="demo conversations"
+        >
+          {CONVERSATIONS.map((c, i) => (
+            <button
               key={i}
-              className={`h-1 w-8 rounded-full transition-all duration-500 ${
-                i === convoIndex
-                  ? "bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] shadow-[0_0_10px_hsl(24_95%_60%/0.7)]"
-                  : "bg-white/15"
-              }`}
-            />
+              type="button"
+              role="tab"
+              aria-selected={i === convoIndex}
+              aria-label={`show ${c.title}`}
+              onClick={() => setConvoIndex(i)}
+              className="group relative p-2 -m-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded-full"
+            >
+              <span
+                className={`block h-1 w-8 rounded-full transition-all duration-500 ${
+                  i === convoIndex
+                    ? "bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] shadow-[0_0_10px_hsl(24_95%_60%/0.7)]"
+                    : "bg-white/15 group-hover:bg-white/30 group-hover:scale-105"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>
