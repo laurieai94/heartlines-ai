@@ -235,28 +235,28 @@ const HeroPhase = () => (
       </div>
     </div>
 
-    {/* wordmark bottom-right of image */}
-    <div className="relative z-10 mt-auto flex flex-col items-end px-4 pb-1">
-      <span className="font-brand text-[38px] leading-none lowercase text-white">
+    {/* wordmark just under nav, right-aligned */}
+    <div className="relative z-10 mt-4 flex flex-col items-end px-4">
+      <span className="font-brand text-[32px] leading-none lowercase text-white">
         heartlines
       </span>
-      <span className="mt-1 text-[9px] tracking-wide text-white/70 lowercase">
+      <span className="mt-1 text-[10px] tracking-wide text-white/80 lowercase">
         powered laurie ai
       </span>
     </div>
 
     {/* year lockup bottom-left */}
-    <div className="relative z-10 px-5 pb-6">
+    <div className="relative z-10 mt-auto px-5 pb-6">
       <div
-        className="font-playfair italic text-[52px] leading-none"
+        className="font-playfair italic text-[44px] leading-none"
         style={{
-          color: "hsl(24 95% 60%)",
-          textShadow: "0 2px 24px hsl(24 95% 40% / 0.6)",
+          color: "hsl(24 95% 62%)",
+          textShadow: "0 2px 24px hsl(24 95% 40% / 0.55)",
         }}
       >
         2063
       </div>
-      <div className="mt-2 text-[13px] lowercase text-white/85">
+      <div className="mt-2 text-[12px] lowercase text-white/85">
         what it's all for
       </div>
     </div>
