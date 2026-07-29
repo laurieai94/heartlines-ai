@@ -19,14 +19,14 @@ export const KaiScreenRecording = () => {
 
   return (
     <div
-      className="w-full px-6 sm:px-8 flex justify-center"
+      className="w-full flex justify-center items-start px-6 sm:px-8 md:px-10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div
-        className="relative w-full max-w-[260px] sm:max-w-[280px]"
-        style={{ maxHeight: "80vh" }}
+        className="relative mx-auto w-full max-w-[240px] sm:max-w-[260px] md:max-w-[280px]"
       >
+
         {/* ambient glow */}
         <div
           aria-hidden
