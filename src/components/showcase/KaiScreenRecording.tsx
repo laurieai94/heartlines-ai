@@ -13,7 +13,7 @@ export const KaiScreenRecording = () => {
     if (paused) return;
     const t = window.setInterval(() => {
       setReloadKey((k) => k + 1);
-    }, 42000);
+    }, 65000);
     return () => window.clearInterval(t);
   }, [paused]);
 
