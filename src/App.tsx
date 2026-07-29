@@ -28,6 +28,7 @@ import Contact from "@/pages/Contact";
 import AdminDashboard from "@/pages/AdminDashboard";
 import BrandGuidelines from "@/pages/BrandGuidelines";
 import Showcase from "@/pages/Showcase";
+import ShowcaseDemo from "@/pages/ShowcaseDemo";
 
 const AppContent = () => {
   // Removed disabled performance functions to eliminate unnecessary calls
@@ -69,6 +70,7 @@ const AppContent = () => {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/brand-guidelines" element={<BrandGuidelines />} />
         <Route path="/showcase" element={<Showcase />} />
+        <Route path="/showcase/demo" element={<ShowcaseDemo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
