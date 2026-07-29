@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Heart, Sparkles, Shield, Brain, Layers } from "lucide-react";
-import KaiChatDemo from "@/components/showcase/KaiChatDemo";
+import KaiScreenRecording from "@/components/showcase/KaiScreenRecording";
 
 const Chip = ({ children }: { children: React.ReactNode }) => (
   <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] lowercase tracking-wide text-white/70 backdrop-blur">
@@ -128,7 +128,7 @@ const Showcase = () => {
           </div>
 
           <div className="md:pl-4">
-            <KaiChatDemo />
+            <KaiScreenRecording />
           </div>
         </div>
       </section>

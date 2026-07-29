@@ -1,57 +1,60 @@
-## Goal
+## Change
 
-Create a beautiful, portfolio-ready showcase of heartlines that leads with the Kai chat interface — something you can drop into a Lovable portfolio site or share as a standalone link.
+Replace the current styled chat mockup on `/showcase` with a "GIF-style" scripted screen recording that plays automatically on loop: rapid flip through 3 partner profiles → fast Kai chat about a tough Thanksgiving dinner (user brought new boyfriend, family reacted badly).
 
-## Recommended approach: a dedicated `/showcase` case-study page
+## Approach
 
-A single scrollable page inside this project, unlisted (not in nav, `noindex`), that presents heartlines the way a design portfolio would. This is better than a screenshot because it's live, responsive, and stays in sync with the real product.
+Build it as a self-contained React component that mimics a screen recording — no actual GIF file, no Remotion render. Faster to iterate, stays crisp at any size, and matches the real product 1:1 because it reuses the same design tokens and layout.
 
-### Page structure
+The component runs a scripted timeline (`useCurrentFrame`-style with `setTimeout`) inside the phone frame:
 
-1. **Hero** — heartlines wordmark, one-line positioning ("relational intelligence, in your pocket"), role/timeline/stack chips (Designer + AI engineer · 2025 · React, Supabase, Claude), and a muted "view live site" link to `heartlines.ai`.
+**Act 1 — profile flip-through (~2s)**
+- Show a "People" screen with a stack of 3 partner cards (Marcus, Priya, Jordan)
+- Card swaps every ~500ms with a quick slide/fade — feels like scrolling fast through profiles
+- User "taps" Jordan → card zooms
 
-2. **The Kai chat centerpiece** — the hero moment. A polished mock of the chat interface running an on-rails scripted conversation (Kai's real voice, real bubble styling, real typing indicator, autoplay + pause on hover). Rendered inside a device frame (phone on mobile, floating phone + soft burgundy gradient on desktop). No backend calls — a pre-scripted transcript replays so it always looks perfect and costs nothing.
+**Act 2 — transition (~0.4s)**
+- Screen wipes/fades to the chat view (Jordan's avatar + name in the header)
 
-3. **Anatomy of a Kai reply** — one annotated screenshot pulling out the craft details: lowercase voice, partner-name specificity, no therapy-speak, crisis handoff rule, prompt-caching architecture. This is where the AI engineering shows.
+**Act 3 — Thanksgiving conversation (~9s)**
+- Messages appear rapidly (typing indicator ~600ms, message ~800ms, next after ~700ms)
+- Scripted 6-turn convo about the Thanksgiving dinner scenario
+- Auto-scrolls as it fills
+- Ends holding on the last Kai reply for ~2s
+- Loops back to Act 1
 
-4. **Product surfaces** — 3–4 product-shot images (chat, partner profile, weekly reflection, account) in a bento grid, each with a one-line caption. Generated via the product-shot skill on burgundy/cream gradients so they feel cohesive.
+**Loop:** total ~12s, restarts cleanly.
 
-5. **Behind the scenes** — short prose + small stat row: tiered memory system, Anthropic prompt caching hit-rate, static/dynamic prompt split, 100-scenario eval harness (42% → target). Positions you as someone who ships and measures, not just designs.
+## Scripted conversation (Thanksgiving)
 
-6. **Footer** — quiet links: live site, contact, back to portfolio.
+1. **user:** thanksgiving was a disaster. brought marcus home and my mom barely looked at him.
+2. **kai:** (typing…) that's a specific kind of pain — being unseen while the person you love watches it happen. what part is sitting with you the most right now?
+3. **user:** that i didn't say anything. i just let it happen.
+4. **kai:** you froze to keep the peace. that's a survival move, not a failure. but marcus was in that room too — what do you think he needed from you?
+5. **user:** for me to have his back.
+6. **kai:** yeah. so the repair isn't with your mom yet — it's with marcus. one sentence, tonight: "i saw what happened. i should have said something. i'm sorry."
 
-### Style
+Names/tone match the existing kai voice memory (lowercase, direct, no therapy-speak, partner name used).
 
-Reuses the existing heartlines design system (Deep Burgundy, Cream, Warm Gold, serif display) so the case study feels like the product. No new palette. Generous whitespace, editorial rhythm — closer to a Linear/Vercel case study than a marketing landing.
+## Visual details
 
-### Routing & privacy
+- Phone frame stays the same (already looks good).
+- Profile cards use existing brand palette — cream card on burgundy, avatar circle, name, "partner · 2y" style meta line, one small emotional-tag chip.
+- Fast micro-motion: cards translate 40px + fade in 200ms; taps show a brief scale-down.
+- Chat bubbles reuse the current bubble styling.
+- A subtle "REC" style dot + timer in the top corner of the phone (optional, adds "screen recording" feel) — or leave off for cleanness. Will include off by default; easy toggle.
 
-- New route `/showcase` — not linked from the main site nav.
-- `<meta name="robots" content="noindex">` on this route via `react-helmet-async` so it stays off search.
-- Share by direct link only.
+## Files touched
 
-## Technical notes
+- **New:** `src/components/showcase/KaiScreenRecording.tsx` — the whole scripted recording
+- **New:** `src/data/showcaseThanksgiving.ts` — profile list + convo script
+- **Edit:** `src/pages/Showcase.tsx` — swap `<KaiChatDemo />` for `<KaiScreenRecording />`
+- **Delete:** `src/components/showcase/KaiChatDemo.tsx` and `src/data/showcaseConversation.ts` (replaced)
 
-- New files: `src/pages/Showcase.tsx`, `src/components/showcase/KaiChatDemo.tsx` (scripted replay, no LLM call), `src/components/showcase/AnatomyCallouts.tsx`, `src/components/showcase/ProductBento.tsx`.
-- Scripted conversation lives in `src/data/showcaseConversation.ts` — reuses existing `ChatMessage` bubble components so styling stays 1:1 with production.
-- Product-shot images generated with the product-shot skill (burgundy preset), saved under `src/assets/showcase/`.
-- Route added to `src/App.tsx` inside the existing router, wrapped so it bypasses `AuthGuard`.
-- Helmet added for `<title>heartlines — case study</title>`, description, and `noindex`.
-
-## Alternatives (say which you prefer)
-
-- **A. Live case-study page inside this app** (recommended above) — best fidelity, always current, one link to share.
-- **B. Standalone Lovable portfolio project** — a separate small Lovable site that embeds screenshots, a video, and links back here. Better if you want multiple projects on one portfolio domain.
-- **C. Static assets only** — I generate polished product shots + a 10-second scripted screen recording of Kai; you drop them into whatever portfolio you already have.
+Copy under the phone changes to: "autoplays a scripted flow · hover to pause".
 
 ## Out of scope
 
-- No changes to production chat, auth, or the marketing landing.
-- No new backend, no LLM calls from the showcase page.
-- No SEO / indexing of the showcase route.
-
-## Questions before I build
-
-1. **A, B, or C?** (Recommend A.)
-2. Should the Kai demo autoplay a scripted convo, or stay static with 3–4 pre-rendered message screenshots?
-3. Include the "behind the scenes" engineering section, or keep it purely visual/product-focused?
+- No actual `.gif` or `.mp4` file (adds weight, harder to update, worse on retina).
+- No changes to real product routes or chat logic.
+- No changes to the rest of the showcase page (hero, anatomy, engineering stats, footer stay as-is).
