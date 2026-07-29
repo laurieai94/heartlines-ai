@@ -68,6 +68,7 @@ const AppContent = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/brand-guidelines" element={<BrandGuidelines />} />
+        <Route path="/showcase" element={<Showcase />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
