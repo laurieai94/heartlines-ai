@@ -219,7 +219,7 @@ export const KaiScreenRecording = () => {
       </div>
 
       {/* category caption + progress */}
-      <div className="relative z-10 mt-3 flex shrink-0 flex-col items-center gap-2">
+      <div className="relative z-10 mt-2 flex shrink-0 flex-col items-center gap-2">
         <span key={CONVERSATIONS[convoIndex].title} className="text-sm font-semibold lowercase text-white/90 animate-in fade-in duration-500">
           {CONVERSATIONS[convoIndex].title}
         </span>
