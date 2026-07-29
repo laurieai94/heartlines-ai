@@ -28,6 +28,7 @@ import Contact from "@/pages/Contact";
 import AdminDashboard from "@/pages/AdminDashboard";
 import BrandGuidelines from "@/pages/BrandGuidelines";
 import Showcase from "@/pages/Showcase";
+import ShowcaseDemo from "@/pages/ShowcaseDemo";
 
 const AppContent = () => {
   // Removed disabled performance functions to eliminate unnecessary calls
