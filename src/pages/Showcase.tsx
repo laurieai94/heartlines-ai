@@ -128,7 +128,7 @@ const Showcase = () => {
           </div>
 
           <div className="md:pl-4">
-            <KaiChatDemo />
+            <KaiScreenRecording />
           </div>
         </div>
       </section>
