@@ -219,7 +219,7 @@ export const KaiScreenRecording = () => {
       </div>
 
       {/* category caption + progress */}
-      <div className="relative z-10 mt-3 flex shrink-0 flex-col items-center gap-2 sm:mt-5 sm:gap-2.5">
+      <div className="relative z-10 mt-3 flex shrink-0 flex-col items-center gap-2">
         <span key={CONVERSATIONS[convoIndex].title} className="text-sm font-semibold lowercase text-white/90 animate-in fade-in duration-500">
           {CONVERSATIONS[convoIndex].title}
         </span>
@@ -227,7 +227,7 @@ export const KaiScreenRecording = () => {
           {CONVERSATIONS.map((_, i) => (
             <span
               key={i}
-              className={`h-1 w-10 rounded-full transition-all duration-500 ${
+              className={`h-1 w-8 rounded-full transition-all duration-500 ${
                 i === convoIndex
                   ? "bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] shadow-[0_0_10px_hsl(24_95%_60%/0.7)]"
                   : "bg-white/15"
