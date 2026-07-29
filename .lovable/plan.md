@@ -1,54 +1,78 @@
 ## Goal
 
-Replace the current Thanksgiving demo inside the `/showcase` phone frame with an auto-playing product tour that walks through the four real screens from the screenshots, using production components wherever they can render standalone.
+Replace the current `/showcase` design with the layout in the reference: a two-column hero with a bold split headline on the left and a glassy, floating phone on the right playing a scripted kai chat. Keep brand voice, tokens, and lowercase copy.
 
-## Flow (loops end to end, ~55s)
+## Layout (desktop, `≥md`)
 
-1. **Landing hero** (~7s): full-bleed year image (`2063 what's it all for`) with the top nav lockup. Auto-tap `get started`.
-2. **Situationship setup** (~10s): neon "let's get to know your situationship" heading, `unlock coaching with kai` pill, your-profile + partner-profiles cards. Auto-tap `cam`'s edit or the `partner profiles` card.
-3. **Sam's profile form** (~14s): profile modal at 100%, tabs, name field pre-typed as `sam`, pronoun chip `she/her` highlighted. Auto-tap `next` a couple times then close.
-4. **Kai chat empty state** (~4s): kai header, `what's on your mind?`, six topic buttons. Auto-tap `Hard-to-Say Feelings`.
-5. **Scripted convo** (~20s): reuse the existing Thanksgiving script rendered with real `ChatBubble` and kai avatar.
+```text
+┌───────────────────────────────────────────────────────────┐
+│  heartlines · powered by laurie ai              view site │
+│                                                           │
+│                                            ╭───────────╮  │
+│                                            │ 9:41  💬  │  │
+│  relationships                             │ kai       │  │
+│  aren't rom-coms.                          │ communi…  │  │
+│                                            │           │  │
+│  heartlines helps you connect.             │ [user]    │  │
+│                                            │ [kai]     │  │
+│  ( let's get real → )                      │ [typing…] │  │
+│                                            │           │  │
+│                                            │ chat…  ▲  │  │
+│                                            ╰───────────╯  │
+│                                            texting anxiety│
+│                                            ▂▁▁▁▁          │
+└───────────────────────────────────────────────────────────┘
+```
 
-Then reload the iframe to loop.
+Mobile stacks: hero copy first, phone below.
 
-## Implementation
+## Left column (hero)
 
-### `src/pages/ShowcaseDemo.tsx` (rewrite)
+- Headline in two color-graded lines using existing brand gradient tokens (rose→coral→gold):
+  - line 1: `relationships`
+  - line 2: `aren't rom-coms.`
+- Serif display (`font-playfair`), oversized, tight tracking.
+- Sub-headline underneath in white: `heartlines helps you connect.` with `heartlines` in `font-brand`.
+- Primary CTA pill with the brand rose→coral gradient + soft glow: `let's get real →`, links to `https://heartlines.ai`.
+- Drop the two chips (`powered by laurie ai`, `2026`) and the secondary `read the mission` link to match the reference's cleaner composition.
 
-Turn the file into a phase state machine: `hero → situationship → profile-form → chat-empty → chat-convo`. Each phase is a self-contained view that fills the 9:19.5 frame. Advance on timers; add subtle simulated taps (scale + ring flash) at each transition.
+## Right column (phone mockup)
 
-Reuse presentational components directly, driven by props/mock data (no auth, no supabase, no network):
+Rework `KaiScreenRecording` from a dark iframe device into a **glassmorphic floating frame** that matches the reference:
 
-- **Hero phase:** import `YearCarousel` from `@/components/landing/YearCarousel` if it can render standalone with a fixed year; otherwise render a static `<img>` of the 2063 frame with `heartlines` wordmark (`FlipPhoneIcon` + `font-brand`), `get started` pill, and a small user icon. Match the burgundy top-nav strip in the screenshot.
-- **Situationship phase:** rebuild with `ProfileCard` from `@/components/profile-builder/ProfileCard` for the your-profile card if it accepts plain props; otherwise use lightweight local cards that mirror the exact styling (heart-avatar chip, progress bar, gradient CTA `keep it real`, partner card with `cam` + edit pencil, `upgrade for more` footer). Use the exact copy from the screenshot.
-- **Profile-form phase:** import `NewPartnerProfileModal` from `@/components/new-partner-profile` only if it can mount without side effects. If it pulls context (auth/supabase), fall back to a scripted static replica: header `sam's profile · 100%`, four tab chips (`the basics`, `your situationship`, `how you operate`, `your foundation` all checked), name input with `sam`, pronoun chips with `she/her` active, `optional +better insights` accordion, footer nav (`previous`, dots, `your person`, `unlock coaching`, `next`).
-- **Chat-empty phase:** reuse `ConversationStarters` from `@/components/chat/ConversationStarters` if props-driven; use `ChatHeader` in mobile variant with kai info. Otherwise mirror the empty-state layout with the six category buttons.
-- **Chat-convo phase:** keep the current `ChatBubble` + kai avatar rendering using `THANKSGIVING_CONVO`.
+- No black phone bezel; instead a translucent rounded rectangle (`rounded-[2.25rem]`, `border border-white/15`, `bg-white/[0.04]`, backdrop-blur), with a soft ambient rose/gold outer glow.
+- Small `9:41` status text + a subtle chat glyph badge in the top-right corner (glowing pill, decorative).
+- Header row inside: circular kai avatar, `kai` bold, `communication` muted label underneath.
+- Message stream using the real `ChatBubble` component so styling stays production-accurate.
+- Composer at bottom: pill input reading `chat with kai…` with a circular gradient send button (decorative).
+- Under the phone, centered: category label `texting anxiety` + a 5-segment progress bar (first segment lit in coral, rest dim) — purely decorative, hints at "category 1 of 5".
 
-Explore each candidate production component first. If it depends on router/context/supabase, replace with a screenshot-accurate scripted replica in the same file and note the reason inline. Do not add mock providers.
+## Scripted conversation
 
-### `src/components/showcase/KaiScreenRecording.tsx`
+Replace the Thanksgiving multi-phase tour with a single, short, looping "texting anxiety" scene that matches the reference beats:
 
-Bump the reload interval from 42s to ~60s to fit the full tour. No other structural changes; the iframe already renders `/showcase/demo`.
+1. user: `kai, he hasn't texted me all day.`
+2. kai: `that feels rough. what's the first thought that hit you?`
+3. typing dots (kai)
+4. user: `that he's losing interest.`
+5. kai: `okay. is that a familiar thought, or new with him?`
+6. hold ~2s, fade, loop.
 
-### Data
+- Lowercase throughout, no em dashes, tight cadence (~800ms typing per bubble, ~1.6s read hold).
+- Reuse existing `ChatBubble` for exact production fidelity (avatars, bubble colors).
+- Auto-loops in place — no more 5-phase iframe tour, no more `/showcase/demo` iframe.
 
-Extend `src/data/showcaseThanksgiving.ts` (or add a sibling `showcaseTour.ts`) with:
-- The four phase timing constants.
-- Mock partner list already present.
-- Kai's opening reply after the user "taps" `Hard-to-Say Feelings` bridges into the existing convo.
+## Files
 
-## Constraints
+- `src/pages/Showcase.tsx` — new two-column layout, updated copy, single CTA.
+- `src/components/showcase/KaiScreenRecording.tsx` — rewrite as an in-page glass phone (no iframe) that renders header, scripted messages via `ChatBubble`, composer, and the `texting anxiety` progress caption.
+- `src/data/showcaseThanksgiving.ts` → rename intent by adding a new `src/data/showcaseTextingAnxiety.ts` with the 5-turn script; leave the old file untouched for now (safe to remove later if unused).
+- `src/pages/ShowcaseDemo.tsx` and its route: no longer used by the new mockup. Keep the file and route in place this pass to avoid unrelated churn; we can prune in a follow-up.
 
-- Everything renders inside the phone frame (390x844 area, 9:19.5 aspect). No horizontal scroll.
-- No em dashes in any new copy; match the app's lowercase voice.
-- No network, no auth, no supabase, no writes to localStorage.
-- Loop cleanly; pause when the user hovers the phone (already implemented in `KaiScreenRecording`).
-- No changes to `/showcase` layout, copy, or nav.
+## Technical notes
 
-## Out of scope
-
-- Real product data or live gateway calls.
-- Voice/rehearsal/weekly-reflection surfaces.
-- Any new routes beyond the existing `/showcase/demo`.
+- All colors via existing brand tokens / rose+coral+gold gradients already used in the app. No hardcoded hex.
+- Glow: layered `radial-gradient` behind the phone container plus `blur-3xl` opacity ~0.5.
+- Progress bar: 5 × `h-1 w-10 rounded-full`, first uses coral gradient, rest `bg-white/15`.
+- Accessibility: real headings, decorative chrome marked `aria-hidden`, chat messages remain readable text.
+- Keep `noindex` meta and route unchanged.

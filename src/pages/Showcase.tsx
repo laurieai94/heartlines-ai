@@ -1,14 +1,8 @@
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import KaiScreenRecording from "@/components/showcase/KaiScreenRecording";
 import FlipPhoneIcon from "@/components/icons/FlipPhoneIcon";
-
-const Chip = ({ children }: { children: React.ReactNode }) => (
-  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] lowercase tracking-wide text-white/70 backdrop-blur">
-    {children}
-  </span>
-);
 
 const Showcase = () => {
   return (
@@ -62,42 +56,50 @@ const Showcase = () => {
         </a>
       </header>
 
-      {/* hero + phone centerpiece */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-8 md:pt-16">
-        <div className="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-8">
-          <div className="px-2 sm:px-0">
-            <div className="mb-6 flex flex-wrap gap-2">
-              <Chip>powered by laurie ai</Chip>
-              <Chip>2026</Chip>
-            </div>
-            <h1 className="font-playfair text-4xl font-normal leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl">
-              <span className="font-brand">heartlines</span> helps you connect.
+      {/* hero */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-4 md:pt-10">
+        <div className="grid gap-16 md:grid-cols-[1.15fr_1fr] md:items-center md:gap-10">
+          <div className="px-1 sm:px-0 order-2 md:order-1">
+            <h1 className="font-playfair text-[44px] font-normal leading-[1.02] tracking-tight sm:text-6xl md:text-[76px]">
+              <span
+                className="block bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(105deg, hsl(30 40% 82%) 0%, hsl(350 70% 78%) 55%, hsl(24 90% 68%) 100%)",
+                }}
+              >
+                relationships
+              </span>
+              <span
+                className="block bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(105deg, hsl(350 75% 80%) 0%, hsl(24 90% 65%) 100%)",
+                }}
+              >
+                aren't rom-coms.
+              </span>
             </h1>
-            <p className="mt-6 max-w-lg text-[15px] lowercase leading-relaxed text-white/65">
-              kai is your ai friend for the relationships that matter. she
-              remembers the people in your life, notices your patterns, and
-              meets you where you are.
+
+            <p className="mt-8 max-w-lg text-[18px] lowercase leading-relaxed text-white/85 sm:text-[20px]">
+              <span className="font-brand italic text-white">heartlines</span>{" "}
+              helps you connect.
             </p>
-            <div className="mt-8 flex items-center gap-4">
+
+            <div className="mt-10">
               <a
                 href="https://heartlines.ai"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm lowercase font-medium text-[hsl(345_60%_15%)] transition hover:bg-white/90"
+                className="group relative inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] px-7 py-3.5 text-[15px] lowercase font-medium text-white shadow-[0_0_40px_hsl(24_95%_55%/0.55)] transition hover:shadow-[0_0_60px_hsl(24_95%_55%/0.75)]"
               >
-                try heartlines
-                <ArrowUpRight className="h-4 w-4" />
+                let's get real
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
               </a>
-              <Link
-                to="/mission"
-                className="text-sm lowercase text-white/60 underline-offset-4 transition hover:text-white hover:underline"
-              >
-                read the mission
-              </Link>
             </div>
           </div>
 
-          <div className="flex justify-center">
+          <div className="order-1 flex justify-center md:order-2">
             <KaiScreenRecording />
           </div>
         </div>
