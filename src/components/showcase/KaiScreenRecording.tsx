@@ -11,18 +11,18 @@ export const KaiScreenRecording = () => {
   const [reloadKey, setReloadKey] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Reload the demo every ~22s to loop the scripted flow cleanly.
+  // Reload the demo to loop the scripted flow cleanly.
   useEffect(() => {
     if (paused) return;
     const t = window.setInterval(() => {
       setReloadKey((k) => k + 1);
-    }, 22000);
+    }, 42000);
     return () => window.clearInterval(t);
   }, [paused]);
 
   return (
     <div
-      className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px]"
+      className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-[420px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -36,11 +36,11 @@ export const KaiScreenRecording = () => {
         }}
       />
 
-      {/* phone frame */}
-      <div className="relative rounded-[2.75rem] bg-neutral-900 p-3 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.55)] ring-1 ring-white/10">
+      {/* phone frame — fluid, keeps iPhone aspect */}
+      <div className="relative rounded-[2.75rem] bg-neutral-900 p-[3%] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.55)] ring-1 ring-white/10">
         <div
-          className="relative overflow-hidden rounded-[2.25rem] h-[640px]"
-          style={{ background: "hsl(345 60% 13%)" }}
+          className="relative overflow-hidden rounded-[2.25rem] w-full"
+          style={{ background: "hsl(345 60% 13%)", aspectRatio: "9 / 19.5" }}
         >
           {/* notch overlay */}
           <div className="absolute left-1/2 top-2 z-30 h-5 w-24 -translate-x-1/2 rounded-full bg-black pointer-events-none" />
