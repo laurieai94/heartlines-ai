@@ -1,46 +1,57 @@
 ## Goal
 
-Fix Kai's partner-name specificity failure (Kai defaults to "they/them" instead of using the partner's actual name from profile context), then run a fresh 100-scenario evaluation through the production pipeline so results reflect the real runtime behavior.
+Create a beautiful, portfolio-ready showcase of heartlines that leads with the Kai chat interface — something you can drop into a Lovable portfolio site or share as a standalone link.
 
-## Part 1 — Fix partner name enforcement
+## Recommended approach: a dedicated `/showcase` case-study page
 
-**Prompt-level fix** in `src/utils/prompt/promptTemplate.ts` (static system prompt):
+A single scrollable page inside this project, unlisted (not in nav, `noindex`), that presents heartlines the way a design portfolio would. This is better than a screenshot because it's live, responsive, and stays in sync with the real product.
 
-Add a short, high-priority "NAME USAGE" hard rule near the top of the behavioral rules (alongside the bias/crisis hard rules), stating:
-- When a partner name is present in user context, refer to them by name on first mention in every response.
-- Never default to "they/them/your partner" when a name is known.
-- Pronouns are fine on subsequent mentions in the same reply.
-- Applies to all categories including bias, crisis, advice, and everyday.
+### Page structure
 
-Keep it under ~10 lines to protect cache hit rate (per the static/dynamic split memory).
+1. **Hero** — heartlines wordmark, one-line positioning ("relational intelligence, in your pocket"), role/timeline/stack chips (Designer + AI engineer · 2025 · React, Supabase, Claude), and a muted "view live site" link to `heartlines.ai`.
 
-**Runtime reinforcement** in `src/utils/prompt/promptTemplate.ts` `buildUserContext`:
+2. **The Kai chat centerpiece** — the hero moment. A polished mock of the chat interface running an on-rails scripted conversation (Kai's real voice, real bubble styling, real typing indicator, autoplay + pause on hover). Rendered inside a device frame (phone on mobile, floating phone + soft burgundy gradient on desktop). No backend calls — a pre-scripted transcript replays so it always looks perfect and costs nothing.
 
-At the top of the user-context block (dynamic portion), when `partnerName` is present, prepend one explicit line:
-`PARTNER'S NAME: {partnerName}. Use this name — do not say "they" or "your partner" on first mention.`
+3. **Anatomy of a Kai reply** — one annotated screenshot pulling out the craft details: lowercase voice, partner-name specificity, no therapy-speak, crisis handoff rule, prompt-caching architecture. This is where the AI engineering shows.
 
-This puts the name in both the cached rule and the per-request context so the model can't miss it.
+4. **Product surfaces** — 3–4 product-shot images (chat, partner profile, weekly reflection, account) in a bento grid, each with a one-line caption. Generated via the product-shot skill on burgundy/cream gradients so they feel cohesive.
 
-## Part 2 — Fix the eval harness to reflect production
+5. **Behind the scenes** — short prose + small stat row: tiered memory system, Anthropic prompt caching hit-rate, static/dynamic prompt split, 100-scenario eval harness (42% → target). Positions you as someone who ships and measures, not just designs.
 
-The prior v2 sweep called Claude directly with only the static prompt, so partner-name context was never actually injected — that's why specificity looked worse than reality. Update `/tmp/kai_eval/run.py` (and `run_flagged.py`) to:
+6. **Footer** — quiet links: live site, contact, back to portfolio.
 
-1. Build a minimal `PersonContext` per scenario with `yourTraits.name = "Alex"` and `partnerTraits.name = "Jordan"` (matching the scenarios' assumed names).
-2. Call `PromptTemplate.buildUserContext(...)` via a small Bun helper (extend `scripts/dump_prompt.ts` to accept names and emit the combined `static + user-context` prompt as JSON per scenario), OR shell out per-scenario to produce the exact system prompt the app would send.
-3. Send that combined system prompt to Claude so the eval measures the actual production prompt.
+### Style
 
-## Part 3 — Run fresh 100-scenario sweep
+Reuses the existing heartlines design system (Deep Burgundy, Cream, Warm Gold, serif display) so the case study feels like the product. No new palette. Generous whitespace, editorial rhythm — closer to a Linear/Vercel case study than a marketing landing.
 
-- Run all 100 scenarios with the updated prompt + updated harness.
-- Judge with the same Gemini rubric.
-- Produce `/mnt/documents/kai-eval/REPORT_v3.md` with:
-  - Overall pass/warn/fail
-  - Per-category deltas vs v1 and v2
-  - Specificity dimension score (partner name usage) as the headline metric
-  - Any regressions in bias/crisis/adversarial
+### Routing & privacy
+
+- New route `/showcase` — not linked from the main site nav.
+- `<meta name="robots" content="noindex">` on this route via `react-helmet-async` so it stays off search.
+- Share by direct link only.
+
+## Technical notes
+
+- New files: `src/pages/Showcase.tsx`, `src/components/showcase/KaiChatDemo.tsx` (scripted replay, no LLM call), `src/components/showcase/AnatomyCallouts.tsx`, `src/components/showcase/ProductBento.tsx`.
+- Scripted conversation lives in `src/data/showcaseConversation.ts` — reuses existing `ChatMessage` bubble components so styling stays 1:1 with production.
+- Product-shot images generated with the product-shot skill (burgundy preset), saved under `src/assets/showcase/`.
+- Route added to `src/App.tsx` inside the existing router, wrapped so it bypasses `AuthGuard`.
+- Helmet added for `<title>heartlines — case study</title>`, description, and `noindex`.
+
+## Alternatives (say which you prefer)
+
+- **A. Live case-study page inside this app** (recommended above) — best fidelity, always current, one link to share.
+- **B. Standalone Lovable portfolio project** — a separate small Lovable site that embeds screenshots, a video, and links back here. Better if you want multiple projects on one portfolio domain.
+- **C. Static assets only** — I generate polished product shots + a 10-second scripted screen recording of Kai; you drop them into whatever portfolio you already have.
 
 ## Out of scope
 
-- No changes to `useConversationalKai`, `AIResponseCoordinator`, or client chat flow.
-- No new tests beyond the eval harness.
-- No changes to bias/crisis rules already shipped in v2.
+- No changes to production chat, auth, or the marketing landing.
+- No new backend, no LLM calls from the showcase page.
+- No SEO / indexing of the showcase route.
+
+## Questions before I build
+
+1. **A, B, or C?** (Recommend A.)
+2. Should the Kai demo autoplay a scripted convo, or stay static with 3–4 pre-rendered message screenshots?
+3. Include the "behind the scenes" engineering section, or keep it purely visual/product-focused?
