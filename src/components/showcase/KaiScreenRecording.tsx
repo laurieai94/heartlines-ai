@@ -54,6 +54,7 @@ export const KaiScreenRecording = () => {
   const [messages, setMessages] = useState<Rendered[]>([]);
   const [typing, setTyping] = useState<"user" | "kai" | null>(null);
   const [paused, setPaused] = useState(false);
+  const [convoIndex, setConvoIndex] = useState(0);
   const idRef = useRef(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -68,12 +69,15 @@ export const KaiScreenRecording = () => {
       });
 
     const run = async () => {
+      let i = 0;
       while (!cancelled) {
+        const convo = CONVERSATIONS[i % CONVERSATIONS.length];
+        setConvoIndex(i % CONVERSATIONS.length);
         setMessages([]);
         setTyping(null);
         idRef.current = 0;
-        await wait(600);
-        for (const turn of TEXTING_ANXIETY_SCRIPT) {
+        await wait(500);
+        for (const turn of convo.turns) {
           if (cancelled) return;
           setTyping(turn.kind);
           await wait(turn.typingMs);
@@ -83,11 +87,9 @@ export const KaiScreenRecording = () => {
           setMessages((prev) => [...prev, { ...turn, id: idRef.current }]);
           await wait(turn.holdMs);
         }
-        // trailing typing shimmer before loop
-        setTyping("kai");
-        await wait(1200);
-        setTyping(null);
+        // linger on the finished convo before moving on
         await wait(LOOP_PAUSE_MS);
+        i += 1;
       }
     };
 
