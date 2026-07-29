@@ -57,12 +57,19 @@ const Showcase = () => {
       </header>
 
       {/* hero */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-4 md:pt-10">
-        <div className="grid gap-16 md:grid-cols-[1.15fr_1fr] md:items-center md:gap-10">
-          <div className="px-1 sm:px-0 order-2 md:order-1">
+      <section
+        className="relative mx-auto flex w-full max-w-6xl flex-col px-6"
+        style={{
+          minHeight: "calc(100svh - 96px)",
+          paddingTop: "clamp(0.5rem, 2vh, 2.5rem)",
+          paddingBottom: "clamp(1rem, 4vh, 4rem)",
+        }}
+      >
+        <div className="grid flex-1 min-h-0 gap-6 md:grid-cols-[1.15fr_1fr] md:items-stretch md:gap-10">
+          <div className="order-2 flex min-h-0 flex-col justify-center px-1 sm:px-0 md:order-1">
             <h1
               className="font-playfair font-normal leading-[1.02] tracking-tight"
-              style={{ fontSize: "clamp(2.25rem, 9vw, 4.75rem)" }}
+              style={{ fontSize: "clamp(2rem, min(8.5vw, 9vh), 4.75rem)" }}
             >
               <span
                 className="block whitespace-nowrap bg-clip-text text-transparent"
@@ -84,12 +91,18 @@ const Showcase = () => {
               </span>
             </h1>
 
-            <p className="mt-8 max-w-lg text-[18px] lowercase leading-relaxed text-white/85 sm:text-[20px]">
+            <p
+              className="max-w-lg lowercase leading-relaxed text-white/85"
+              style={{
+                marginTop: "clamp(1rem, 3vh, 2rem)",
+                fontSize: "clamp(1rem, 1.6vh, 1.25rem)",
+              }}
+            >
               <span className="font-brand italic text-white">heartlines</span>{" "}
               helps you connect.
             </p>
 
-            <div className="mt-10">
+            <div style={{ marginTop: "clamp(1rem, 3vh, 2.5rem)" }}>
               <a
                 href="https://heartlines.ai"
                 target="_blank"
@@ -102,7 +115,7 @@ const Showcase = () => {
             </div>
           </div>
 
-          <div className="order-1 flex justify-center md:order-2">
+          <div className="order-1 flex min-h-0 items-center justify-center md:order-2">
             <KaiScreenRecording />
           </div>
         </div>
