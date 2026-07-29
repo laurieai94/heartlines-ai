@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Heart, Sparkles, Shield, Brain, Layers } from "lucide-react";
 import KaiScreenRecording from "@/components/showcase/KaiScreenRecording";
+import FlipPhoneIcon from "@/components/icons/FlipPhoneIcon";
 
 const Chip = ({ children }: { children: React.ReactNode }) => (
   <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] lowercase tracking-wide text-white/70 backdrop-blur">
@@ -36,9 +37,17 @@ const Callout = ({
 
 const Stat = ({ value, label }: { value: string; label: string }) => (
   <div>
-    <div className="font-serif text-3xl text-white/95 md:text-4xl">{value}</div>
+    <div className="font-playfair text-3xl text-white/95 md:text-4xl">{value}</div>
     <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/45">{label}</div>
   </div>
+);
+
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
+  <h2
+    className="mb-3 max-w-2xl font-brand text-4xl leading-tight tracking-wider bg-gradient-to-r from-pink-100 via-orange-200 to-pink-100 bg-clip-text text-transparent md:text-5xl"
+  >
+    {children}
+  </h2>
 );
 
 const Showcase = () => {
@@ -51,10 +60,10 @@ const Showcase = () => {
       }}
     >
       <Helmet>
-        <title>heartlines — case study</title>
+        <title>heartlines — a case study</title>
         <meta
           name="description"
-          content="A case study on heartlines: relational intelligence, in your pocket. Featuring kai — an AI companion for the messy parts of love."
+          content="a case study on heartlines: kai, your ai relationship coach — lowercase, evidence-based, and designed for real life."
         />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
@@ -71,12 +80,17 @@ const Showcase = () => {
 
       {/* nav */}
       <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <div className="flex items-center gap-2">
-          <Heart className="h-4 w-4 text-white/80" fill="currentColor" />
-          <span className="font-serif text-lg lowercase tracking-tight text-white/95">
-            heartlines
-          </span>
-        </div>
+        <Link to="/" className="group flex items-center gap-2.5">
+          <FlipPhoneIcon size={28} />
+          <div className="flex flex-col leading-none">
+            <span className="font-brand text-2xl lowercase text-white/95">
+              heartlines
+            </span>
+            <span className="font-glacial mt-0.5 text-[10px] font-semibold tracking-wide text-white/60">
+              powered by laurie ai
+            </span>
+          </div>
+        </Link>
         <a
           href="https://heartlines.ai"
           target="_blank"
@@ -93,27 +107,27 @@ const Showcase = () => {
         <div className="grid gap-16 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-12">
           <div>
             <div className="mb-6 flex flex-wrap gap-2">
-              <Chip>design + ai engineering</Chip>
-              <Chip>2025</Chip>
-              <Chip>react · supabase · claude</Chip>
+              <Chip>case study</Chip>
+              <Chip>2026</Chip>
+              <Chip>react · supabase · claude sonnet</Chip>
             </div>
-            <h1 className="font-serif text-4xl leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
-              relational intelligence,
+            <h1 className="font-playfair text-4xl font-normal leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl">
+              <span className="font-brand">heartlines</span> helps you connect.
               <br />
-              <span className="italic text-white/80">in your pocket.</span>
+              <span className="italic text-white/70">a case study.</span>
             </h1>
-            <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-white/65">
-              heartlines is an ai companion for the messy parts of love. not a
-              therapist, not a chatbot — a professional friend who remembers
-              your partner's name, notices your patterns, and speaks in
-              lowercase.
+            <p className="mt-6 max-w-lg text-[15px] lowercase leading-relaxed text-white/65">
+              kai is your ai relationship coach — trained in phd-level psychology,
+              grounded in evidence-based and trauma-informed practices. lowercase,
+              lgbtq+ inclusive, and designed for real life. she remembers your
+              partner's name, notices your patterns, and meets you where you are.
             </p>
             <div className="mt-8 flex items-center gap-4">
               <a
                 href="https://heartlines.ai"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[hsl(345_60%_15%)] transition hover:bg-white/90"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm lowercase font-medium text-[hsl(345_60%_15%)] transition hover:bg-white/90"
               >
                 try heartlines
                 <ArrowUpRight className="h-4 w-4" />
@@ -136,13 +150,10 @@ const Showcase = () => {
       {/* anatomy of a kai reply */}
       <section className="relative mx-auto max-w-6xl px-6 py-24">
         <SectionLabel>anatomy of a kai reply</SectionLabel>
-        <h2 className="mb-3 max-w-2xl font-serif text-3xl leading-tight text-white/95 md:text-4xl">
-          every sentence is a design decision.
-        </h2>
-        <p className="mb-12 max-w-2xl text-[15px] leading-relaxed text-white/60">
-          kai's voice was engineered turn by turn. below are the five rules that
-          make her feel like a person you actually want to talk to — not another
-          therapy chatbot.
+        <SectionHeading>every sentence is a design decision.</SectionHeading>
+        <p className="mb-12 max-w-2xl text-[15px] lowercase leading-relaxed text-white/60">
+          kai's voice was engineered turn by turn. six rules that make her feel
+          like a person you actually want to talk to — not another therapy chatbot.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -164,7 +175,7 @@ const Showcase = () => {
           <Callout
             icon={Shield}
             title="crisis handoff"
-            body="mental health risk triggers a scripted response with real hotlines (988, DV, SA) in the first sentence — before any discovery questions."
+            body="mental health risk triggers a scripted response with real hotlines (988, dv, sa) in the first sentence — before any discovery questions."
           />
           <Callout
             icon={Layers}
@@ -184,16 +195,14 @@ const Showcase = () => {
         <div className="grid gap-16 md:grid-cols-2 md:gap-24">
           <div>
             <SectionLabel>behind the scenes</SectionLabel>
-            <h2 className="mb-6 font-serif text-3xl leading-tight text-white/95 md:text-4xl">
-              built to be measured, not just felt.
-            </h2>
-            <p className="mb-4 text-[15px] leading-relaxed text-white/60">
+            <SectionHeading>built to be measured, not just felt.</SectionHeading>
+            <p className="mb-4 text-[15px] lowercase leading-relaxed text-white/60">
               kai is a tiered-memory system running on claude sonnet with
-              anthropic prompt caching. the prompt is split into a static
-              (cached) layer for character and rules, and a dynamic layer for
-              partner context and cross-session memory.
+              anthropic prompt caching. the prompt splits into a static (cached)
+              layer for character and rules, and a dynamic layer for partner
+              context and cross-session memory.
             </p>
-            <p className="text-[15px] leading-relaxed text-white/60">
+            <p className="text-[15px] lowercase leading-relaxed text-white/60">
               behavior is measured with a 100-scenario evaluation harness —
               bias, crisis, adversarial, and everyday categories — judged by
               gemini and iterated on until pass rate lifts.
@@ -213,9 +222,12 @@ const Showcase = () => {
       <footer className="mx-auto max-w-6xl px-6 pb-16 pt-8">
         <div className="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center">
           <div className="flex items-center gap-2">
-            <Heart className="h-3.5 w-3.5 text-white/60" fill="currentColor" />
-            <span className="font-serif text-sm lowercase text-white/60">
-              heartlines · a case study
+            <FlipPhoneIcon size={22} />
+            <span className="font-brand text-base lowercase text-white/80">
+              heartlines
+            </span>
+            <span className="font-glacial text-[11px] text-white/40">
+              · a case study
             </span>
           </div>
           <div className="flex items-center gap-6 text-xs lowercase text-white/50">
