@@ -149,8 +149,8 @@ export const KaiScreenRecording = () => {
             <span className="text-[13px] font-semibold lowercase text-white">
               kai
             </span>
-            <span className="text-[11px] lowercase text-white/55">
-              communication
+            <span key={CONVERSATIONS[convoIndex].theme} className="text-[11px] lowercase text-white/55 animate-in fade-in duration-500">
+              {CONVERSATIONS[convoIndex].theme}
             </span>
           </div>
         </div>
