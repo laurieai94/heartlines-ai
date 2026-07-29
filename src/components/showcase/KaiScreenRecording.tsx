@@ -1,17 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageSquare, Send } from "lucide-react";
 import ChatBubble from "@/components/chat/ChatBubble";
-import {
-  TEXTING_ANXIETY_SCRIPT,
-  LOOP_PAUSE_MS,
-  type TextingAnxietyTurn,
-} from "@/data/showcaseTextingAnxiety";
+import { demoConversations } from "@/data/demoConversations";
 import millennialWoman from "@/assets/millennial-woman-portrait.jpg";
 
-type Rendered = TextingAnxietyTurn & { id: number };
+type Turn = { kind: "user" | "kai"; text: string; typingMs: number; holdMs: number };
+type Rendered = Turn & { id: number };
 
 const KAI_AVATAR = "/lovable-uploads/kai-avatar-new.png";
 const USER_AVATAR = millennialWoman;
+const LOOP_PAUSE_MS = 1600;
+
+// Cycle through several real conversations from the app
+const CONVERSATIONS = demoConversations.slice(0, 5).map((c) => ({
+  title: c.title.toLowerCase(),
+  theme: c.theme.toLowerCase(),
+  turns: c.messages.map<Turn>((m) => {
+    const text = m.content.toLowerCase();
+    const len = text.length;
+    return {
+      kind: m.type === "user" ? "user" : "kai",
+      text,
+      typingMs: Math.min(1600, 500 + Math.round(len * 18)),
+      holdMs: Math.min(2200, 800 + Math.round(len * 12)),
+    };
+  }),
+}));
 
 const TypingDots = () => (
   <div className="flex items-center gap-1 px-1 py-1">
@@ -40,6 +54,7 @@ export const KaiScreenRecording = () => {
   const [messages, setMessages] = useState<Rendered[]>([]);
   const [typing, setTyping] = useState<"user" | "kai" | null>(null);
   const [paused, setPaused] = useState(false);
+  const [convoIndex, setConvoIndex] = useState(0);
   const idRef = useRef(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -54,12 +69,15 @@ export const KaiScreenRecording = () => {
       });
 
     const run = async () => {
+      let i = 0;
       while (!cancelled) {
+        const convo = CONVERSATIONS[i % CONVERSATIONS.length];
+        setConvoIndex(i % CONVERSATIONS.length);
         setMessages([]);
         setTyping(null);
         idRef.current = 0;
-        await wait(600);
-        for (const turn of TEXTING_ANXIETY_SCRIPT) {
+        await wait(500);
+        for (const turn of convo.turns) {
           if (cancelled) return;
           setTyping(turn.kind);
           await wait(turn.typingMs);
@@ -69,11 +87,9 @@ export const KaiScreenRecording = () => {
           setMessages((prev) => [...prev, { ...turn, id: idRef.current }]);
           await wait(turn.holdMs);
         }
-        // trailing typing shimmer before loop
-        setTyping("kai");
-        await wait(1200);
-        setTyping(null);
+        // linger on the finished convo before moving on
         await wait(LOOP_PAUSE_MS);
+        i += 1;
       }
     };
 
@@ -133,8 +149,8 @@ export const KaiScreenRecording = () => {
             <span className="text-[13px] font-semibold lowercase text-white">
               kai
             </span>
-            <span className="text-[11px] lowercase text-white/55">
-              communication
+            <span key={CONVERSATIONS[convoIndex].theme} className="text-[11px] lowercase text-white/55 animate-in fade-in duration-500">
+              {CONVERSATIONS[convoIndex].theme}
             </span>
           </div>
         </div>
@@ -199,15 +215,15 @@ export const KaiScreenRecording = () => {
 
       {/* category caption + progress */}
       <div className="relative z-10 mt-6 flex flex-col items-center gap-2.5">
-        <span className="text-sm font-semibold lowercase text-white/90">
-          texting anxiety
+        <span key={CONVERSATIONS[convoIndex].title} className="text-sm font-semibold lowercase text-white/90 animate-in fade-in duration-500">
+          {CONVERSATIONS[convoIndex].title}
         </span>
         <div className="flex items-center gap-1.5" aria-hidden>
-          {[0, 1, 2, 3, 4].map((i) => (
+          {CONVERSATIONS.map((_, i) => (
             <span
               key={i}
-              className={`h-1 w-10 rounded-full ${
-                i === 0
+              className={`h-1 w-10 rounded-full transition-all duration-500 ${
+                i === convoIndex
                   ? "bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] shadow-[0_0_10px_hsl(24_95%_60%/0.7)]"
                   : "bg-white/15"
               }`}
