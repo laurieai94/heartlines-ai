@@ -1,17 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageSquare, Send } from "lucide-react";
 import ChatBubble from "@/components/chat/ChatBubble";
-import {
-  TEXTING_ANXIETY_SCRIPT,
-  LOOP_PAUSE_MS,
-  type TextingAnxietyTurn,
-} from "@/data/showcaseTextingAnxiety";
+import { demoConversations } from "@/data/demoConversations";
 import millennialWoman from "@/assets/millennial-woman-portrait.jpg";
 
-type Rendered = TextingAnxietyTurn & { id: number };
+type Turn = { kind: "user" | "kai"; text: string; typingMs: number; holdMs: number };
+type Rendered = Turn & { id: number };
 
 const KAI_AVATAR = "/lovable-uploads/kai-avatar-new.png";
 const USER_AVATAR = millennialWoman;
+const LOOP_PAUSE_MS = 1600;
+
+// Cycle through several real conversations from the app
+const CONVERSATIONS = demoConversations.slice(0, 5).map((c) => ({
+  title: c.title.toLowerCase(),
+  theme: c.theme.toLowerCase(),
+  turns: c.messages.map<Turn>((m) => {
+    const text = m.content.toLowerCase();
+    const len = text.length;
+    return {
+      kind: m.type === "user" ? "user" : "kai",
+      text,
+      typingMs: Math.min(1600, 500 + Math.round(len * 18)),
+      holdMs: Math.min(2200, 800 + Math.round(len * 12)),
+    };
+  }),
+}));
 
 const TypingDots = () => (
   <div className="flex items-center gap-1 px-1 py-1">
