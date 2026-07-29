@@ -215,15 +215,15 @@ export const KaiScreenRecording = () => {
 
       {/* category caption + progress */}
       <div className="relative z-10 mt-6 flex flex-col items-center gap-2.5">
-        <span className="text-sm font-semibold lowercase text-white/90">
-          texting anxiety
+        <span key={CONVERSATIONS[convoIndex].title} className="text-sm font-semibold lowercase text-white/90 animate-in fade-in duration-500">
+          {CONVERSATIONS[convoIndex].title}
         </span>
         <div className="flex items-center gap-1.5" aria-hidden>
-          {[0, 1, 2, 3, 4].map((i) => (
+          {CONVERSATIONS.map((_, i) => (
             <span
               key={i}
-              className={`h-1 w-10 rounded-full ${
-                i === 0
+              className={`h-1 w-10 rounded-full transition-all duration-500 ${
+                i === convoIndex
                   ? "bg-gradient-to-r from-[hsl(350_100%_70%)] to-[hsl(24_95%_53%)] shadow-[0_0_10px_hsl(24_95%_60%/0.7)]"
                   : "bg-white/15"
               }`}
