@@ -60,9 +60,12 @@ const Showcase = () => {
       <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-4 md:pt-10">
         <div className="grid gap-16 md:grid-cols-[1.15fr_1fr] md:items-center md:gap-10">
           <div className="px-1 sm:px-0 order-2 md:order-1">
-            <h1 className="font-playfair text-[44px] font-normal leading-[1.02] tracking-tight sm:text-6xl md:text-[76px]">
+            <h1
+              className="font-playfair font-normal leading-[1.02] tracking-tight"
+              style={{ fontSize: "clamp(2.25rem, 9vw, 4.75rem)" }}
+            >
               <span
-                className="block bg-clip-text text-transparent"
+                className="block whitespace-nowrap bg-clip-text text-transparent"
                 style={{
                   backgroundImage:
                     "linear-gradient(105deg, hsl(30 40% 82%) 0%, hsl(350 70% 78%) 55%, hsl(24 90% 68%) 100%)",
@@ -71,7 +74,7 @@ const Showcase = () => {
                 relationships
               </span>
               <span
-                className="block bg-clip-text text-transparent"
+                className="block whitespace-nowrap bg-clip-text text-transparent"
                 style={{
                   backgroundImage:
                     "linear-gradient(105deg, hsl(350 75% 80%) 0%, hsl(24 90% 65%) 100%)",
