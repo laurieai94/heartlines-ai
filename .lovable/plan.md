@@ -1,40 +1,54 @@
 ## Goal
 
-Turn `/showcase` from a "case study" page into a clean product showcase, keep the phone constrained with breathing room on every screen, and scrub em dashes / off-brand copy.
+Replace the current Thanksgiving demo inside the `/showcase` phone frame with an auto-playing product tour that walks through the four real screens from the screenshots, using production components wherever they can render standalone.
 
-## Changes
+## Flow (loops end to end, ~55s)
 
-### 1. Phone always has padding (no matter screen size)
+1. **Landing hero** (~7s): full-bleed year image (`2063 what's it all for`) with the top nav lockup. Auto-tap `get started`.
+2. **Situationship setup** (~10s): neon "let's get to know your situationship" heading, `unlock coaching with kai` pill, your-profile + partner-profiles cards. Auto-tap `cam`'s edit or the `partner profiles` card.
+3. **Sam's profile form** (~14s): profile modal at 100%, tabs, name field pre-typed as `sam`, pronoun chip `she/her` highlighted. Auto-tap `next` a couple times then close.
+4. **Kai chat empty state** (~4s): kai header, `what's on your mind?`, six topic buttons. Auto-tap `Hard-to-Say Feelings`.
+5. **Scripted convo** (~20s): reuse the existing Thanksgiving script rendered with real `ChatBubble` and kai avatar.
 
-In `src/components/showcase/KaiScreenRecording.tsx`:
-- Replace the `max-w-[300px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-[420px]` sizing with a cap of `max-w-[300px]` (or `320px`) plus explicit horizontal padding on the wrapper so the phone never touches the viewport or column edge.
-- Wrap the phone in a container with `px-6 sm:px-8` and a smaller absolute max width so the frame stays comfortably inside its column on mobile, tablet, and desktop.
-- Also cap the height with `max-h-[80vh]` fallback so it never overflows short viewports.
+Then reload the iframe to loop.
 
-In `src/pages/Showcase.tsx`:
-- The hero column that hosts the phone gets its own `px-4 sm:px-6` and center alignment so the phone sits inside a padded card, not flush to the grid edge.
+## Implementation
 
-### 2. Reframe as a showcase, not a case study
+### `src/pages/ShowcaseDemo.tsx` (rewrite)
 
-In `src/pages/Showcase.tsx`:
-- Remove all "case study" language: `<title>`, meta description, the `case study` chip, the italic `a case study.` subhead, and the footer `· a case study` tag.
-- New `<title>`: `heartlines · showcase`. Meta description reuses the app tagline.
-- Hero headline reduces to the brand line only: `heartlines helps you connect.` (no italic subhead).
-- Delete the "anatomy of a kai reply" 6-card section and the "behind the scenes" stats section entirely. A showcase does not need engineering breakdowns or eval numbers.
-- Keep only: nav, hero (copy + phone), footer.
+Turn the file into a phase state machine: `hero → situationship → profile-form → chat-empty → chat-convo`. Each phase is a self-contained view that fills the 9:19.5 frame. Advance on timers; add subtle simulated taps (scale + ring flash) at each transition.
 
-### 3. Use app copy and branding
+Reuse presentational components directly, driven by props/mock data (no auth, no supabase, no network):
 
-- Sub-copy under the hero headline becomes the actual product voice used on the live site, e.g.: `kai is your ai friend for the relationships that matter. she remembers the people in your life, notices your patterns, and meets you where you are.`
-- Chips reduce to brand-consistent ones: `powered by laurie ai`, `2026`. Drop the tech-stack chip (`react · supabase · claude sonnet`) since this is a showcase, not a case study.
-- Primary CTA stays `try heartlines`. Secondary link `read the mission` stays (it points to a real app route).
-- Footer keeps the `FlipPhoneIcon` + `heartlines` lockup with the `powered by laurie ai` tagline underneath, matching `SiteFooter`.
+- **Hero phase:** import `YearCarousel` from `@/components/landing/YearCarousel` if it can render standalone with a fixed year; otherwise render a static `<img>` of the 2063 frame with `heartlines` wordmark (`FlipPhoneIcon` + `font-brand`), `get started` pill, and a small user icon. Match the burgundy top-nav strip in the screenshot.
+- **Situationship phase:** rebuild with `ProfileCard` from `@/components/profile-builder/ProfileCard` for the your-profile card if it accepts plain props; otherwise use lightweight local cards that mirror the exact styling (heart-avatar chip, progress bar, gradient CTA `keep it real`, partner card with `cam` + edit pencil, `upgrade for more` footer). Use the exact copy from the screenshot.
+- **Profile-form phase:** import `NewPartnerProfileModal` from `@/components/new-partner-profile` only if it can mount without side effects. If it pulls context (auth/supabase), fall back to a scripted static replica: header `sam's profile · 100%`, four tab chips (`the basics`, `your situationship`, `how you operate`, `your foundation` all checked), name input with `sam`, pronoun chips with `she/her` active, `optional +better insights` accordion, footer nav (`previous`, dots, `your person`, `unlock coaching`, `next`).
+- **Chat-empty phase:** reuse `ConversationStarters` from `@/components/chat/ConversationStarters` if props-driven; use `ChatHeader` in mobile variant with kai info. Otherwise mirror the empty-state layout with the six category buttons.
+- **Chat-convo phase:** keep the current `ChatBubble` + kai avatar rendering using `THANKSGIVING_CONVO`.
 
-### 4. No em dashes anywhere on the page
+Explore each candidate production component first. If it depends on router/context/supabase, replace with a screenshot-accurate scripted replica in the same file and note the reason inline. Do not add mock providers.
 
-Replace every `—` in `Showcase.tsx` with either a period, a comma, or "and", whichever reads best. Sweep hero copy, section copy, and any remaining strings. Same sweep in `src/data/showcaseThanksgiving.ts` conversation lines and in `KaiScreenRecording.tsx` caption.
+### `src/components/showcase/KaiScreenRecording.tsx`
+
+Bump the reload interval from 42s to ~60s to fit the full tour. No other structural changes; the iframe already renders `/showcase/demo`.
+
+### Data
+
+Extend `src/data/showcaseThanksgiving.ts` (or add a sibling `showcaseTour.ts`) with:
+- The four phase timing constants.
+- Mock partner list already present.
+- Kai's opening reply after the user "taps" `Hard-to-Say Feelings` bridges into the existing convo.
+
+## Constraints
+
+- Everything renders inside the phone frame (390x844 area, 9:19.5 aspect). No horizontal scroll.
+- No em dashes in any new copy; match the app's lowercase voice.
+- No network, no auth, no supabase, no writes to localStorage.
+- Loop cleanly; pause when the user hovers the phone (already implemented in `KaiScreenRecording`).
+- No changes to `/showcase` layout, copy, or nav.
 
 ## Out of scope
 
-- No changes to `/showcase/demo` behavior beyond removing em dashes from the scripted Kai lines.
-- No changes to the live app, landing page, or shared components.
+- Real product data or live gateway calls.
+- Voice/rehearsal/weekly-reflection surfaces.
+- Any new routes beyond the existing `/showcase/demo`.
