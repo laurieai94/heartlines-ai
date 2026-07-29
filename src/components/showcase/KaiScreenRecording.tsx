@@ -93,7 +93,7 @@ export const KaiScreenRecording = () => {
 
   return (
     <div
-      className="relative w-full flex flex-col items-center"
+      className="relative w-full flex flex-col items-center py-10 sm:py-14 lg:py-16"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -109,8 +109,9 @@ export const KaiScreenRecording = () => {
 
       {/* glassmorphic phone */}
       <div
-        className="relative w-full max-w-[340px] rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
-        style={{ aspectRatio: "9 / 18" }}
+        className="relative w-full max-w-[320px] rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
+        style={{ aspectRatio: "9 / 18", maxHeight: "min(78vh, 720px)" }}
+      /* keep phone within viewport with breathing room top+bottom */
       >
         {/* top status */}
         <div className="flex items-center justify-between px-5 pt-4 pb-3">
