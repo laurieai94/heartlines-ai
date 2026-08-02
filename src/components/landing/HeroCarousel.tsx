@@ -80,14 +80,14 @@ export const HeroCarousel: React.FC = () => {
             index === currentSlide ? "opacity-100 z-[2]" : "opacity-0 z-[1]"
           }`}
         >
-          {/* Background Image with vintage color grading — uniform crop + grade across every slide */}
+          {/* Background Image with light vintage grade — uniform crop + grade across every slide */}
           <img
             src={slide.image}
             alt={`Year ${slide.year}`}
-            className="absolute inset-0 w-full h-full object-cover object-center bg-burgundy-800"
-            style={{ filter: 'sepia(0.3) saturate(0.75) contrast(1.05) brightness(0.95)', ...slide.imageStyle }}
+            className="absolute inset-0 w-full h-full object-cover bg-burgundy-800"
+            style={{ objectPosition: '50% 45%', filter: 'sepia(0.12) saturate(0.9) contrast(1.02) brightness(0.98)', ...slide.imageStyle }}
             loading={index < 8 ? "eager" : "lazy"}
-            {...({ fetchpriority: index < 4 ? "high" : undefined } as any)}
+            {...({ fetchPriority: index < 4 ? "high" : undefined } as any)}
           />
 
 
@@ -97,7 +97,7 @@ export const HeroCarousel: React.FC = () => {
             style={{
               filter: 'url(#film-grain)',
               mixBlendMode: 'soft-light',
-              opacity: 0.75,
+              opacity: 0.3,
             }}
           />
 
@@ -107,17 +107,7 @@ export const HeroCarousel: React.FC = () => {
             style={{
               filter: 'url(#film-grain)',
               mixBlendMode: 'multiply',
-              opacity: 0.25,
-            }}
-          />
-
-          {/* Third grain layer - screen blend to wash out digital sharpness */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              filter: 'url(#film-grain)',
-              mixBlendMode: 'screen',
-              opacity: 0.15,
+              opacity: 0.1,
             }}
           />
 
@@ -125,9 +115,10 @@ export const HeroCarousel: React.FC = () => {
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.65) 100%)',
+              background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.45) 100%)',
             }}
           />
+
 
           {/* Year Number - Bottom Left */}
           <div className="absolute bottom-6 md:bottom-10 left-8 md:left-16 right-8 md:right-16 z-10">
