@@ -1,45 +1,51 @@
-# make kai less formulaic
+# hero carousel: two people per photo, varied lives
 
-Yes. Kai's sameness is structural, not a model problem. Four things in the current setup force every reply into the same shape.
+Every slide becomes exactly two people, except the one kept as-is. Rooms get pulled apart so no two slides feel like the same house.
 
-## What's causing it (confirmed in code)
+## Slide assignments
 
-1. **Every turn has one legal shape.** The prompt enforces `ONE QUESTION ONLY`, `PHASE 1 DEFAULT: QUESTION ONLY`, and a first-message rule of "1-2 word ack, then a question" (`promptTemplate.ts` lines 108-126, 181, 587; injected again in `anthropic-chat/index.ts` line ~247). Kai literally cannot vary its move.
-2. **The opener pool is 10 lines wide.** `openerLibrary` in `anthropic-chat/index.ts` has a single `direct` category, and every scenario (spiral, betrayal, jealousy, intimacy, family, default) maps to it. Ten questions serve every user and every situation.
-3. **Phrase libraries teach recitation.** Six "PHRASE LIBRARY (ROTATE)" blocks (confirmation, closure, opening, reflection, grounding, discovery) give Kai fixed lines to draw from. Rotation still sounds like a deck of cards, just shuffled.
-4. **Bans without replacements flatten the voice.** Long HARD-BANNED lists plus a 60-word client truncation (`aiResponseCoordinator.ts` `enforceResponseBrevity`) leave a narrow safe zone, and the model parks in the middle of it.
+Same 10 filenames, same order, so no component changes.
 
-## The fix: give Kai more moves, not more rules
+| file | who |
+| --- | --- |
+| `man-with-framed-memory.jpg` | keep exactly as it is, one man holding up the framed photo |
+| `couple-on-couch.jpg` | heterosexual couple |
+| `joyful-heritage-living-room.jpg` | heterosexual couple |
+| `pride-couple.jpg` | two men |
+| `cowboys-with-wheelchair.jpg` | two men (one using a wheelchair, keep the western character) |
+| `native-american-women.jpg` | two women |
+| `retro-peace.jpg` | two women |
+| `asian-couple.jpg` | heterosexual couple |
+| `friends-with-cats.jpg` | two men with their cats |
+| `warm-gathering.jpg` | two women |
 
-### 1. Replace "always ask a question" with a move set
-Kai picks one move per turn based on what the user said, instead of always questioning:
-- ask (the current default)
-- name it (state the pattern plainly, no question)
-- stay (a single short line, let it sit)
-- offer (concrete suggestion when they asked for one)
-- push back (challenge a story that doesn't hold)
-- remember (connect to something from an earlier session)
+That lands 3 heterosexual couples, 3 male couples, 3 female couples, plus the solo framed-photo slide.
 
-Rule: never the same move twice in a row unless the user's message demands it. This alone breaks the ack-then-question rhythm.
+## Room variety
 
-### 2. Retire phrase libraries as scripts, keep them as range
-Convert the six ROTATE blocks from "pick a line" to "here is the range of registers, write your own line." Keep 2-3 examples per register as tone anchors instead of 8-12 as a menu. Add an explicit rule: never reuse a library line verbatim.
+Each slide gets a distinct interior so the set reads as ten different lives, not one set redressed:
 
-### 3. Widen and re-map the opener pool
-Expand `openerLibrary` from one `direct` bucket to per-scenario buckets (spiral, betrayal, jealousy, intimacy, family, conflict, default) with 8-10 openers each, and map `scenarioCategoryMapping` to the matching bucket. Keep the existing `kai_opener_history` dedup so a user does not see a repeat within 10 sessions.
+- 70s wood-panel den with orange shag and a console TV
+- pale blue floral wallpaper parlor with lace doilies and plastic-covered sofa
+- southwestern adobe room with saddle blankets and cow skull
+- dense photo-wall apartment with houseplants everywhere and a fire escape window
+- mint-green kitchen-adjacent sitting room with formica and hanging spoons
+- dark green study with bookcases, brass lamps, taxidermy trout
+- sunroom with wicker furniture, jalousie windows, terracotta pots
+- red-brick city apartment with a radiator, cats, and a record collection
+- yellow-wallpaper living room with a crocheted afghan and church fan collection
+- rec room with wood-grain paneling, bowling trophies, and a bar cart
 
-### 4. Let length vary
-Replace the flat 60-word truncation with a range tied to the move: a "stay" move is under 15 words, an "offer" can run to 90. Truncation only trips as a hard safety cap, not as the normal shaping tool.
+## What stays the same
 
-### 5. Turn up variance
-Raise sampling temperature from 0.75 to 0.9 for the main chat call. With the anti-AI-language rules and `sanitizeVoice` already in place, the guardrails hold while the phrasing loosens.
+- Cheesy posed 90s studio-portrait stiffness, both people facing camera.
+- Velour tracksuits, matching sets, loud florals, oversized glasses, suspenders. Distinct faces, distinct outfits, no twinning.
+- Wide full-room framing with generous headroom above every head so the nav bar and the carousel crop never clip a face.
+- Warm faded film grade. Grain, vignette, and overlay treatment in `HeroCarousel.tsx` untouched.
 
-## Technical notes
+## Technical
 
-- Files: `src/utils/prompt/promptTemplate.ts` (move set, library rewrite, phase rules), `supabase/functions/anthropic-chat/index.ts` (opener buckets, temperature, first-message injection), `src/utils/aiResponseCoordinator.ts` (length range).
-- No schema change. `kai_opener_history` and the prompt cache static/dynamic split are unchanged; edits stay inside the static block so cache hit rate holds.
-- The em-dash ban, `sanitizeVoice`, lowercase enforcement, crisis protocol, and partner-name rule are untouched.
-
-## Verification
-
-Run a 20-message sweep across four scenarios and check: no two consecutive turns use the same move, no verbatim library lines, reply length varies by more than 3x across the set, and zero dashes or banned phrases.
+- Overwrite the nine files in place at `src/assets/hero-carousel/cheesy/`; `man-with-framed-memory.jpg` is not regenerated.
+- No edits to `HeroCarousel.tsx` (imports, slide order, year labels, taglines all unchanged).
+- Review each result and reshoot any where a head sits near an edge or a third person creeps in.
+- Verify with a build and a hero screenshot at desktop and mobile widths.
