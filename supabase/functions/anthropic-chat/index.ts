@@ -541,6 +541,10 @@ serve(async (req) => {
       
       // Enforce lowercase (existing behavior preserved)
       responseText = responseText.toLowerCase();
+
+      // Strip em dashes and flag AI-sounding phrasing
+      responseText = sanitizeVoice(responseText);
+
       
       return new Response(
         JSON.stringify({ response: responseText }),
