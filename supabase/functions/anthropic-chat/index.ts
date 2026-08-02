@@ -204,7 +204,7 @@ serve(async (req) => {
         "what did you do next?",
         "how did they respond when you called it out?",
         "did it feel intentional or careless?",
-        "when they said that—did it feel like deflection or taking responsibility?",
+        "when they said that, did it feel like deflection or taking responsibility?",
         "did they say this in front of others or just to you?",
       ],
     };
@@ -244,7 +244,7 @@ serve(async (req) => {
     let enhancedUserContext = userContext;
     if (userContext && isFirstResponse) {
       // Brief ack + question - NO full validation sentences
-      enhancedUserContext = `${userContext}\n\n**FIRST MESSAGE RULE**: Start with a brief 1-2 word ack ("mm.", "yeah.", "ugh.", "god.") then a question. Suggested question: "${selectedOpener}" — but adapt it to what they just told you. NO full validation sentences ("that's brutal", "that cuts deep", "glad you said it plainly"). Just brief ack + question.`;
+      enhancedUserContext = `${userContext}\n\n**FIRST MESSAGE RULE**: Start with a brief 1-2 word ack ("mm.", "yeah.", "ugh.", "god.") then a question. Suggested question: "${selectedOpener}", but adapt it to what they just told you. NO full validation sentences ("that's brutal", "that cuts deep", "glad you said it plainly"). Just brief ack + question.`;
     }
 
     // Sonnet-only model configuration (no fallback - quality is non-negotiable)
@@ -634,20 +634,20 @@ serve(async (req) => {
     let statusCode = 500;
     
     if (error.message === 'RATE_LIMIT') {
-      sanitizedError = 'kai is busy right now—try again in a few seconds';
+      sanitizedError = 'kai is busy right now, try again in a few seconds';
       statusCode = 429;
     } else if (error.message === 'SERVICE_OVERLOAD' || error.message === 'API_ERROR_529') {
       // Gen Z fun message for Anthropic 529 overload
       sanitizedError = "ok so claude's servers are having a moment rn 😅 literally everyone is trying to talk to AI at once and they can't keep up. try again in like 30 secs, it usually clears up fast! no cap, this is on their end not ours 💅";
       statusCode = 503;
     } else if (error.message === 'REQUEST_TIMEOUT') {
-      sanitizedError = 'request took too long—please try again';
+      sanitizedError = 'request took too long, please try again';
       statusCode = 504;
     } else if (error.message?.includes('Authentication') || error.message?.includes('Invalid authentication')) {
       sanitizedError = 'Authentication failed';
       statusCode = 401;
     } else {
-      sanitizedError = 'kai is temporarily unavailable—please try again in a moment';
+      sanitizedError = 'kai is temporarily unavailable, please try again in a moment';
     }
     
     return new Response(
