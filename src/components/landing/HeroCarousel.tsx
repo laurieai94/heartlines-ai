@@ -68,7 +68,7 @@ export const HeroCarousel: React.FC = () => {
       {/* SVG filter for film grain noise */}
       <svg className="hidden">
         <filter id="film-grain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="4" stitchTiles="stitch" />
           <feColorMatrix type="saturate" values="0" />
         </filter>
       </svg>
@@ -85,7 +85,7 @@ export const HeroCarousel: React.FC = () => {
             src={slide.image}
             alt={`Year ${slide.year}`}
             className="absolute inset-0 w-full h-full object-cover bg-burgundy-800"
-            style={{ objectPosition: '50% 30%', filter: 'sepia(0.12) saturate(0.9) contrast(1.02) brightness(0.98)', ...slide.imageStyle }}
+            style={{ objectPosition: '50% 18%', filter: 'sepia(0.12) saturate(0.9) contrast(1.02) brightness(0.98)', ...slide.imageStyle }}
             loading={index < 8 ? "eager" : "lazy"}
             {...({ fetchPriority: index < 4 ? "high" : undefined } as any)}
           />
@@ -97,7 +97,7 @@ export const HeroCarousel: React.FC = () => {
             style={{
               filter: 'url(#film-grain)',
               mixBlendMode: 'soft-light',
-              opacity: 0.3,
+              opacity: 0.62,
             }}
           />
 
@@ -107,7 +107,7 @@ export const HeroCarousel: React.FC = () => {
             style={{
               filter: 'url(#film-grain)',
               mixBlendMode: 'multiply',
-              opacity: 0.1,
+              opacity: 0.2,
             }}
           />
 
