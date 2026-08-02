@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { preloadCriticalImages } from '@/utils/imageOptimizer';
-import image2016 from "@/assets/hero-carousel/elderly-native-american-women.webp";
-import image2018 from "@/assets/hero-carousel/joyful-heritage-living-room.webp";
-import image2020 from "@/assets/hero-carousel/cowboys-with-wheelchair.webp";
-import image2022 from "@/assets/hero-carousel/warm-gathering-diverse-souls.webp";
+import image2016 from "@/assets/hero-carousel/cheesy/native-american-women.jpg";
+import image2018 from "@/assets/hero-carousel/cheesy/joyful-heritage-living-room.jpg";
+import image2020 from "@/assets/hero-carousel/cheesy/cowboys-with-wheelchair.jpg";
+import image2022 from "@/assets/hero-carousel/cheesy/warm-gathering.jpg";
 
-import image2025 from "@/assets/hero-carousel/warm-embrace-pride.webp";
-import image2027 from "@/assets/hero-carousel/couple-on-couch.webp";
-import imageAsianCouple from "@/assets/hero-carousel/asian-couple-serene-moment.webp";
-import imageFramedMemory from "@/assets/hero-carousel/man-with-treasured-memory.webp";
-import imageFriendsCats from "@/assets/hero-carousel/friends-cats-city-view.webp";
-import imageRetroPeace from "@/assets/hero-carousel/retro-peace-living-room.webp";
+import image2025 from "@/assets/hero-carousel/cheesy/pride-couple.jpg";
+import image2027 from "@/assets/hero-carousel/cheesy/couple-on-couch.jpg";
+import imageAsianCouple from "@/assets/hero-carousel/cheesy/asian-couple.jpg";
+import imageFramedMemory from "@/assets/hero-carousel/cheesy/man-with-framed-memory.jpg";
+import imageFriendsCats from "@/assets/hero-carousel/cheesy/friends-with-cats.jpg";
+import imageRetroPeace from "@/assets/hero-carousel/cheesy/retro-peace.jpg";
 
 
 interface Slide {
