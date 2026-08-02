@@ -84,7 +84,7 @@ export const HeroCarousel: React.FC = () => {
           <img
             src={slide.image}
             alt={`Year ${slide.year}`}
-            className="absolute inset-0 w-full h-full object-cover object-[center_60%] bg-burgundy-800"
+            className="absolute inset-0 w-full h-full object-cover object-[center_18%] bg-burgundy-800"
             style={{ filter: 'sepia(0.3) saturate(0.75) contrast(1.05) brightness(0.95)', ...slide.imageStyle }}
             loading={index < 8 ? "eager" : "lazy"}
             {...({ fetchpriority: index < 4 ? "high" : undefined } as any)}
