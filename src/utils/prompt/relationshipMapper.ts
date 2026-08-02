@@ -182,7 +182,7 @@ export class RelationshipMapper {
       if (fb.emotions?.length > 0) {
         const emotionDesc = fb.emotions[0].toLowerCase();
         if (emotionDesc.includes("weren't talked about") || emotionDesc.includes('suppressed')) {
-          parts.push(`they grew up in a house where emotions weren't talked about—so big feelings feel dangerous`);
+          parts.push(`they grew up in a house where emotions weren't talked about, so big feelings feel dangerous`);
         }
       }
     }
@@ -221,7 +221,7 @@ export class RelationshipMapper {
       const orientation = Array.isArray(traits.sexualOrientation) ? traits.sexualOrientation : (Array.isArray(traits.orientation) ? traits.orientation : []);
       if (orientation.length > 0) {
         if (orientation.some(o => o.toLowerCase().includes('bi'))) {
-          parts.push(`they're bi—which ${name === 'their partner' ? 'their partner' : 'the user'} sometimes worries about`);
+          parts.push(`they're bi, which ${name === 'their partner' ? 'their partner' : 'the user'} sometimes worries about`);
         } else {
           parts.push(`${orientation.join(', ')}`);
         }
@@ -445,6 +445,6 @@ export class RelationshipMapper {
     
     if (frictions.length === 0) return '';
     
-    return `**likely friction points for ${userName} + ${partnerName}:**\n${frictions.map((f, i) => `${i + 1}. ${f}`).join('\n')}\n\n**use these to connect dots in conversation—without citing them directly.**`;
+    return `**likely friction points for ${userName} + ${partnerName}:**\n${frictions.map((f, i) => `${i + 1}. ${f}`).join('\n')}\n\n**use these to connect dots in conversation, without citing them directly.**`;
   }
 }
