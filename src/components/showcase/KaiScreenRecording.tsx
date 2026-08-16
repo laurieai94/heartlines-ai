@@ -122,16 +122,21 @@ export const KaiScreenRecording = () => {
         }}
       />
 
-      {/* glassmorphic phone — scaled to fit comfortably with caption + cta */}
+      {/* phone sizing wrapper — takes whatever height the column leaves */}
       <div
-        className="relative min-h-0 flex-1 rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
-        style={{
-          aspectRatio: "11 / 18",
-          maxHeight: "min(72svh, 640px)",
-          maxWidth: "100%",
-          width: "auto",
-        }}
+        className="relative w-full min-h-0 flex-1"
+        style={{ minHeight: "clamp(300px, 52svh, 620px)" }}
       >
+        {/* glassmorphic phone — height driven by wrapper, width follows aspect ratio */}
+        <div
+          className="absolute inset-y-0 left-1/2 -translate-x-1/2 rounded-[2.25rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
+          style={{
+            aspectRatio: "11 / 18",
+            maxWidth: "100%",
+            width: "auto",
+          }}
+        >
+
         {/* top status */}
         <div className="flex items-center justify-between px-5 pt-4 pb-3">
           <span className="text-[11px] font-medium text-white/80 tabular-nums">
@@ -211,7 +216,9 @@ export const KaiScreenRecording = () => {
             </button>
           </div>
         </div>
+        </div>
       </div>
+
 
       {/* category caption + progress */}
       <div className="relative z-10 mt-2 flex shrink-0 flex-col items-center gap-2">
