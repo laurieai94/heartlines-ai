@@ -216,7 +216,9 @@ export const KaiScreenRecording = () => {
             </button>
           </div>
         </div>
+        </div>
       </div>
+
 
       {/* category caption + progress */}
       <div className="relative z-10 mt-2 flex shrink-0 flex-col items-center gap-2">
